@@ -445,9 +445,13 @@
     if (layer.dataset.phase === "features") {
       if (event.target.closest("[data-feature-start], [data-feature-close]")) {
         const resumeMap = activeId === "map";
-        close();
+        close({ restoreFocus: !resumeMap });
         // Both welcome exits enter the map with autoplay on, even during loading.
-        if (resumeMap) globalThis.GaiaMapPlayback?.start({ waitForReady: true });
+        if (resumeMap) {
+          globalThis.GaiaMapPicker?.close();
+          document.querySelector('#japan-close')?.focus({ preventScroll: true });
+          globalThis.GaiaMapPlayback?.start({ waitForReady: true });
+        }
       }
       else if (event.target.closest("[data-feature-guide]")) void beginGuide();
       return;

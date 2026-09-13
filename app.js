@@ -9961,7 +9961,7 @@ for (const country of countryValues) {
       if (path === "map") {
         runSceneTransition(() => {
           closeIntro({ restoreFocus: false });
-          openJapan({ respectUrlMode: false, focusModeBank: true, entryExhibit: 1 });
+          openJapan({ respectUrlMode: false, focusModeBank: false, entryExhibit: 1 });
         }, path, event);
         return;
       }

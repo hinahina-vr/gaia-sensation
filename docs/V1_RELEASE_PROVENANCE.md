@@ -1,6 +1,8 @@
 # v1.0 release provenance
 
-Source development commit: `4b43fed` (v1.0 submission content), with owner-requested README edits.
+Source development commit: `f6bed3c9412a8aef1116ad8a32debb04a70510f8` (v1.0 submission content), with retained owner-requested README edits.
+
+The added `assets/guide-previews/story.jpg` is the owner's application screenshot, resized without cropping or redrawing. Its original development timestamp and adoption record are retained in the material ledger. Scope maintenance adds only that screenshot; previous asset records, data, dependencies and permission decisions are unchanged.
 
 This is a history-free publication copy. Original media dates and content hashes are preserved in `media-origin-snapshot.json`; no development history is represented as new production history.
 

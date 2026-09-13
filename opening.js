@@ -329,10 +329,14 @@
   const routeGuideSteps = [
     {
       target: finalStoryButton,
+      preview: './assets/guide-previews/story.jpg?v=opening-preview-20260914',
+      previewAlt: '海辺の展示ブースで、みずはとあまねが地図を紹介するストーリー画面',
       copy: ["ビジュアルノベル風の", "ストーリーを読みながら、", "インタラクティブに", "展示の世界を楽しめます。"],
     },
     {
       target: finalOtherButton,
+      preview: './assets/guide-previews/map.jpg?v=current-guide-20260906-previews-20260913',
+      previewAlt: '風速と展示移動ボタンを表示した世界観測マップの画面',
       copy: ["気候変動や観測ポイントを、", "インタラクティブな地図上で", "探索・分析できます。"],
     },
   ].filter((step) => step.target instanceof HTMLButtonElement);
@@ -360,6 +364,7 @@
     <article class="gaia-opening-route-guide-bubble" aria-live="polite" aria-atomic="true">
       <div class="gaia-opening-route-guide-surface">
         <h2 data-route-guide-title hidden></h2>
+        <img class="gaia-opening-route-guide-preview" data-route-guide-preview width="960" height="540" alt="" />
         <p id="gaia-opening-route-guide-copy" data-route-guide-copy></p>
       </div>
     </article>`;
@@ -468,6 +473,9 @@
     const title = routeGuideLayer.querySelector("[data-route-guide-title]");
     title.textContent = step.title || "";
     title.hidden = !step.title;
+    const preview = routeGuideLayer.querySelector('[data-route-guide-preview]');
+    preview.src = step.preview;
+    preview.alt = step.previewAlt;
     const guideCopy = routeGuideLayer.querySelector("[data-route-guide-copy]");
     // Bind the complete sentence before layout; translating individual Japanese
     // wrapping fragments cannot preserve English or Chinese sentence order.

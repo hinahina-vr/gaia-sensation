@@ -34,6 +34,7 @@ for (const line of history.split(/\r?\n/u)) {
 }
 
 const ledgerFor = (relative) => {
+  if (relative === 'assets/guide-previews/story.jpg') return 'docs/QA_OPENING_ROUTE_PREVIEWS_20260914.md';
   if (relative === 'assets/concept/myth-machine-circulation-v4.png') return 'docs/QA_CONCEPT_DIAGRAM_V4_20260913.md';
   if (relative === 'assets/visuals-07/sound-archive-bg-v3.png') return 'docs/QA_SOUND_BACKGROUND_ADOPTION_20260913.md';
   if (relative === 'assets/architecture/gaia-field-sensor-whiteboard-20260912.png') return 'docs/QA_WHITEBOARD_ADOPTION_2026-09-12.md';
@@ -59,6 +60,7 @@ const ledgerFor = (relative) => {
 };
 
 const serviceFor = (relative) => {
+  if (relative === 'assets/guide-previews/story.jpg') return 'GAIA SENSEWARE application screenshot supplied by owner';
   if (relative === 'assets/architecture/gaia-field-sensor-whiteboard-20260912.png') return 'OpenAI Imagegen';
   if (/^assets\/opening-(?:candidates-20260911|selected-20260912)\//u.test(relative)) return "OpenAI Imagegen";
   if (/^assets\/(?:title|ending)-candidates-20260909\//u.test(relative)) return "OpenAI Imagegen";
@@ -105,8 +107,9 @@ const assets = media.map((file) => {
     path: relative,
     sha256,
     generationService: service,
-    firstRepositoryEvidenceAt: originalDate(relative, sha256, evidenceDates.get(relative), origins),
-    processing: processingFor(relative),
+    // This newly exported screenshot first appeared in development commit f6bed3c.
+    firstRepositoryEvidenceAt: relative === 'assets/guide-previews/story.jpg' ? '2026-09-14T03:37:54+09:00' : originalDate(relative, sha256, evidenceDates.get(relative), origins),
+    processing: relative === 'assets/guide-previews/story.jpg' ? 'Owner-supplied application screenshot resized to 960x540 JPEG, without cropping or redrawing; source development commit f6bed3c. See sourceLedger for adoption evidence.' : processingFor(relative),
     sourceLedger: ledgerFor(relative),
     officialTermsUrl: termsFor(service),
     publicationStatus: /^assets\/opening-(?:candidates-20260911|selected-20260912)\//u.test(relative) ? "local-only" : "public",

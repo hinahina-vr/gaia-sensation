@@ -102,6 +102,15 @@ try {
           return !layer.hidden && layer.classList.contains('is-presented') && layer.dataset.step === String(step);
         }, index + 1);
         await page.waitForTimeout(variant.touch ? 850 : 220);
+        await page.waitForFunction(() => {
+          const image = document.querySelector('[data-route-guide-preview]');
+          return image?.complete && image.naturalWidth > 0;
+        });
+        const preview = await page.locator('[data-route-guide-preview]').evaluate(image => ({
+          src: image.getAttribute('src'), width: image.clientWidth, height: image.clientHeight,
+        }));
+        assert.match(preview.src, index === 0 ? /story\.jpg/ : /map\.jpg/);
+        assert(preview.width > 100 && preview.height > 50, `${variant.name}: missing screenshot preview`);
         const state = await detail();
         assert(state.surfaceOpacity > 0.99 && state.copyOpacity > 0.99, `${variant.name}: hint has not become readable`);
         assert.equal(state.role, variant.touch ? 'dialog' : 'tooltip');

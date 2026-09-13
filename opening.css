@@ -5130,7 +5130,7 @@ body.gaia-opening-active .gaia-audio-dock.is-visible.is-expanded {
   position: fixed;
   z-index: 40;
   box-sizing: border-box;
-  width: min(360px, calc(100vw - 24px));
+  width: min(480px, calc(100vw - 24px));
   margin: 0;
   opacity: 0;
   pointer-events: auto;
@@ -5185,6 +5185,19 @@ body.gaia-opening-active .gaia-audio-dock.is-visible.is-expanded {
   background: #0a3977;
   transform: translateX(-50%) rotate(45deg);
   pointer-events: none;
+}
+
+.gaia-opening-route-guide-preview {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 27vh;
+  object-fit: contain;
+  margin: 0 0 14px;
+  border: 1px solid rgba(140, 236, 255, 0.3);
+  border-radius: 4px;
+  background: #06131e;
+  box-sizing: border-box;
 }
 
 .gaia-opening-route-guide-bubble[data-placement="below"] .gaia-opening-route-guide-surface::before {

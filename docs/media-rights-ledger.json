@@ -1024,6 +1024,16 @@
       "publicationStatus": "public"
     },
     {
+      "path": "assets/guide-previews/story.jpg",
+      "sha256": "41d1f1dd1984426f0c2dd00ebada31a82bb99e3714aa293fe367fc20079d214e",
+      "generationService": "GAIA SENSEWARE application screenshot supplied by owner",
+      "firstRepositoryEvidenceAt": "2026-09-14T03:37:54+09:00",
+      "processing": "Owner-supplied application screenshot resized to 960x540 JPEG, without cropping or redrawing; source development commit f6bed3c. See sourceLedger for adoption evidence.",
+      "sourceLedger": "docs/QA_OPENING_ROUTE_PREVIEWS_20260914.md",
+      "officialTermsUrl": null,
+      "publicationStatus": "public"
+    },
+    {
       "path": "assets/maps/nasa-blue-marble-clouds-2048.jpg",
       "sha256": "daddaad84d7a33bbbc86cdda3f591099f57cee8607b7bcf3b67eb7e4f7a1c793",
       "generationService": "NASA Goddard Space Flight Center / Reto Stöckli",

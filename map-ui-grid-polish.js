@@ -275,6 +275,7 @@
       finally { restoringPickerFocus = false; }
     };
     const setBankOpen = (open, { restoreFocus = false, focusCurrent = true } = {}) => {
+      if (open) clearTimeout(pickerLeaveTimer);
       const shouldOpen = Boolean(open && innerWidth >= DESKTOP_MIN);
       if (shouldOpen === panels.bank.classList.contains('is-dock-bank-expanded')) return;
       if (shouldOpen) guide.open = false;
@@ -288,7 +289,14 @@
       else if (restoreFocus) restorePickerFocus(bankTrigger);
     };
 
-    bankTrigger.addEventListener("click", () => setBankOpen(bankTrigger.getAttribute("aria-expanded") !== "true"));
+    bankTrigger.addEventListener("click", event => {
+      // Direct dock clicks must replace an earlier top-navigation opener.
+      // Synthetic clicks from replacement readouts retain their own title anchor.
+      const moved = menuOpener !== bankTrigger;
+      if (event.isTrusted || !menuOpener) menuOpener = bankTrigger;
+      setBankOpen(moved || bankTrigger.getAttribute("aria-expanded") !== "true");
+      syncPicker();
+    });
     // Every replacement dock opens the same real 30-button category picker.
     const mobileBankTrigger = japanLayer.querySelector("#map-mobile-bank-toggle");
     const pickerTitle = () => [...japanLayer.querySelectorAll("[data-map-bank-toggle]")]
@@ -358,8 +366,10 @@
     japanLayer.addEventListener("click", (event) => {
       const title = event.target.closest?.("[data-map-bank-toggle]");
       if (!title) return;
+      const moved = menuOpener !== title;
       menuOpener = title;
-      pickerTrigger()?.click();
+      if (innerWidth >= DESKTOP_MIN) setBankOpen(moved || !pickerIsOpen());
+      else pickerTrigger()?.click();
       syncPicker();
       if (!pickerIsOpen()) title.focus({ preventScroll: true });
     });
