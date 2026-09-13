@@ -54,6 +54,9 @@ export function mountMapCruise() {
       : n <= 20 ? g.GaiaLiveExhibits : n <= 30 ? g.GaiaEstatExhibits : n <= 69 ? g.GaiaMarineCod : g.GaiaFoodExhibits;
     const ready = n >= 2 && n <= 5 ? provider?.getState().pointCount > 0 : provider?.getPlaybackState?.().ready;
     if (!ready) return {number:n, ready:false};
+    if (n === 1 && provider.seekCruise) {
+      return {number:n, ready:true, kind:'slider', duration:provider.getCruiseDuration(), seek:provider.seekCruise};
+    }
     const selector = n === 1 ? '[data-firms-progress]' : n <= 5 ? null : n <= 14 ? '.signal-console-map [data-signal-time]'
       : n <= 20 ? '#gaia-live-time' : n <= 30 ? '[data-estat-month]' : n <= 69 ? '[data-cod-year]' : '[data-food-year]';
     const slider = selector && layer.querySelector(selector);

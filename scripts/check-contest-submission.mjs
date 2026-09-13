@@ -76,7 +76,10 @@ assert.doesNotMatch(index, /SIGNAL \/ LIVE/u);
 assert.doesNotMatch(index, /(?:審査中は外部APIへ接続しない|表示中に外部APIへ接続しません|リアルタイム連携は次の開発段階)/u, "設計説明にライブAPI実装前の断定が残っています");
 assert.match(index, /aria-label="[^"]*保存JSONと外部API/u);
 assert.match(index, /id="architecture-data-policy"/u);
-for (const [name, document] of [["画面内説明", index], ["README", readme], ["設計文書", architecture], ["提出ガイド", guide]]) {
+// README stays concise; the detailed data-state explanation remains in the linked guide and app.
+assert.match(readme, /#world-01/u);
+assert.doesNotMatch(readme, /#world-08|### 値と演出を区別する/u);
+for (const [name, document] of [["画面内説明", index], ["設計文書", architecture], ["提出ガイド", guide]]) {
   for (const required of ["LIVE CACHE", "SAVED SNAPSHOT", "SAVED VALUES", "演出用サンプル", "5分", "15分"]) {
     assert(document.includes(required), `${name}に取得状態の説明がありません: ${required}`);
   }

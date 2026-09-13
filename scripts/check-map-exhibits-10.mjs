@@ -404,7 +404,7 @@ assert.doesNotMatch(appSource, /lastJapanOverlayRenderAt/u);
 assert.match(appSource, /float grainBlend = smoothstep\(0\.0, 1\.0, fract\(grainTime\)\)/u);
 assert.match(particlesSource, /const installationIsOpen = \(\) => Boolean\(document\.querySelector\("\.experience\.japan-open"\)\)/u);
 assert.match(particlesSource, /&& !installationIsOpen\(\)/u);
-assert.match(modeLoaderSource, /src\/exploration\/index\.js\?v=gaia-poi-manual-1/u);
+assert.match(modeLoaderSource, /src\/exploration\/index\.js\?v=gaia-firms-cruise-animation-20260914/u);
 assert.match(modeLoaderSource, /map-observation-typography\.css\?v=gaia-lodging-color-1/u);
 assert.match(modeLoaderSource, /live-observation-ui\.css\?v=gaia-action-corner-1/u);
 assert.match(modeLoaderSource, /observation-place-picker\.css\?v=gaia-place-inline-1/u);

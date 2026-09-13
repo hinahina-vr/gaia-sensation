@@ -62,7 +62,7 @@
         "./map-responsive-layout.js?v=mobile-credit-disclosure-top-20260913",
       ],
       modules: [
-        "./src/exploration/index.js?v=gaia-poi-manual-1-map-polish-1-live-red-1-footer-credit-1-credit-clearance-1-marine-cod-1-status-place-20260909-cod-ui-20260909-japan-sensor-open-1-pollution-1-title-poi-20260909-perf-high-20260909-prtr-biology-1-fao-food-1-food-country-fill-20260910-hourly-20260912-prefecture-fill-20260912-theme-background-20260912-unified-playback-20260912-exhibit-links-20260912-i18n-20260913-wind-strength-color-20260913-status-right-20260913",
+        "./src/exploration/index.js?v=gaia-firms-cruise-animation-20260914",
       ],
     },
     statistics: {

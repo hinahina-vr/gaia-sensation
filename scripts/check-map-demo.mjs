@@ -133,7 +133,7 @@ const root = new URL("../", import.meta.url);
   assert.deepEqual(f.visits, [2, 3]);
 }
 const read = name => fs.readFileSync(new URL(name, root), "utf8");
-assert.match(read("src/exploration/index.js"), /map-demo\.js\?v=gaia-poi-manual-1/u);
+assert.match(read("src/exploration/index.js"), /map-demo\.js\?v=gaia-firms-cruise-animation-20260914/u);
 assert.match(read("gaia-mode-loader.js"), /map-demo\.css\?v=gaia-demo-aurora-1/u);
 assert.match(read("src/exploration/map-demo.js"), /map-demo-controller\.js\?v=gaia-map-demo-1/u);
 assert.match(read("app.js"), /version: "v5"/u);

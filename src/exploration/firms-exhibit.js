@@ -387,6 +387,13 @@ const playbackState = (timestamp) => {
     return { progress: playbackEnabled ? 1 : manualProgress, extinguish: -1, phase: playbackEnabled ? "complete" : "scrub" };
   }
   const elapsed = Math.max(0, timestamp - cycleStartedAt);
+  const state = playbackAtElapsed(elapsed);
+  if (elapsed >= REVEAL_DELAY_MS + REVEAL_MS + HOLD_MS + EXTINGUISH_MS) cycleStartedAt = timestamp;
+  return state;
+};
+
+// Both automatic playback and cruising use the same animation, not manual scrubbing.
+const playbackAtElapsed = (elapsed) => {
   if (elapsed < REVEAL_DELAY_MS) return { progress: 0, extinguish: -1, phase: "waiting" };
   const afterDelay = elapsed - REVEAL_DELAY_MS;
   if (afterDelay < REVEAL_MS) return { progress: ease(afterDelay / REVEAL_MS), extinguish: -1, phase: "igniting" };
@@ -394,7 +401,6 @@ const playbackState = (timestamp) => {
   if (afterDelay < REVEAL_MS + HOLD_MS + EXTINGUISH_MS) {
     return { progress: 1, extinguish: ease((afterDelay - REVEAL_MS - HOLD_MS) / EXTINGUISH_MS), phase: "extinguishing" };
   }
-  cycleStartedAt = timestamp;
   return { progress: 0, extinguish: -1, phase: "waiting" };
 };
 
@@ -438,9 +444,9 @@ const drawFireColumns = (timestamp, projection, state, renderScale) => {
   const limit = projection.rect.width < 720 ? FIRE_COLUMN_MOBILE_LIMIT : FIRE_COLUMN_LIMIT;
   canvas.dataset.firmsColumnLimit = String(limit);
   canvas.dataset.firmsActiveColumns = "0";
-  if (!playbackEnabled || matchMedia("(prefers-reduced-motion: reduce)").matches
+  if ((!playbackEnabled && !Number.isFinite(state.animationElapsed)) || matchMedia("(prefers-reduced-motion: reduce)").matches
     || !["igniting", "holding"].includes(state.phase)) return;
-  const clock = Math.max(0, (timestamp - cycleStartedAt - REVEAL_DELAY_MS) / 1000);
+  const clock = Math.max(0, ((state.animationElapsed ?? (timestamp - cycleStartedAt)) - REVEAL_DELAY_MS) / 1000);
   const scale = markerScale(projection);
   const cellSize = 54 * scale;
   const occupied = new Set();
@@ -542,7 +548,8 @@ const draw = (timestamp = performance.now()) => {
   gl.clearColor(0, 0, 0, 0);
   gl.clear(gl.COLOR_BUFFER_BIT);
   const state = playbackState(timestamp);
-  const motionTime = playbackEnabled && !matchMedia("(prefers-reduced-motion: reduce)").matches ? timestamp - cycleStartedAt : heldPlayback ? pausedCycleElapsedMs : 0;
+  const motionTime = matchMedia("(prefers-reduced-motion: reduce)").matches ? 0
+    : state.animationElapsed ?? (playbackEnabled ? timestamp - cycleStartedAt : heldPlayback ? pausedCycleElapsedMs : 0);
   drawBackground(motionTime, canvas.width, canvas.height);
   drawFires(motionTime, projection, state, renderScale);
   drawFireColumns(timestamp, projection, state, renderScale);
@@ -831,6 +838,16 @@ globalThis.GaiaFirmsExhibit = Object.freeze({
   } : null,
   findPoiAt,
   pausePlayback,
+  getCruiseDuration: () => REVEAL_DELAY_MS + REVEAL_MS + HOLD_MS + EXTINGUISH_MS,
+  seekCruise: progress => {
+    playbackEnabled = false;
+    pausedCycleElapsedMs = clamp01(progress) * (REVEAL_DELAY_MS + REVEAL_MS + HOLD_MS + EXTINGUISH_MS);
+    heldPlayback = { ...playbackAtElapsed(pausedCycleElapsedMs), animationElapsed: pausedCycleElapsedMs };
+    manualProgress = heldPlayback.progress;
+    updateTimeline(heldPlayback);
+    const range = readout?.querySelector('[data-firms-progress]');
+    if (range) range.value = String(Math.round(manualProgress * 1000));
+  },
   setPlayback: value => { explicitPlayback = Boolean(value); if (value) resumePlayback(); else pausePlayback({ transport: true }); },
   getPlaybackState: () => ({ ready: active && Boolean(snapshot), supported: pointCount > 1, playing: active && playbackEnabled,
     detail: '保存された火災検知の時刻を順に表示します。' }),
