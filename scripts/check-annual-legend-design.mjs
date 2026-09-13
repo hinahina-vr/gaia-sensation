@@ -1,0 +1,54 @@
+import {chromium} from 'playwright-core';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+const dir='artifacts/annual-legend-design-20260913';fs.mkdirSync(dir,{recursive:true});
+const browser=await chromium.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true});
+try {
+ const page=await browser.newPage({viewport:{width:1440,height:1000},reducedMotion:'reduce'});
+ const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.route('https://**',r=>r.abort());
+ await page.goto('http://127.0.0.1:4492/#world-24');
+ await page.locator('#gaia-boot').waitFor({state:'hidden',timeout:60000});
+ await page.evaluate(()=>{GaiaModeEntryGuide?.close('map',{restoreFocus:false});GaiaEstatExhibits.pausePlayback();});
+ const metrics=n=>{const s=getComputedStyle(n);return {width:n.getBoundingClientRect().width,height:n.getBoundingClientRect().height,padding:s.padding,gap:s.gap,radius:s.borderRadius,background:s.backgroundColor,fonts:[...n.querySelectorAll('[data-metric-scope],[data-metric-title],[data-metric-current],[data-metric-period],.gaia-metric-legend-range')].map(x=>({size:getComputedStyle(x).fontSize,family:getComputedStyle(x).fontFamily}))};};
+ const reference=await page.locator('.gaia-estat-heat-legend:visible').evaluate(metrics);
+ await page.locator('.gaia-estat-heat-legend:visible').screenshot({path:`dir`.replace('dir',`${dir}/reference-24.png`)});
+ const checks=[];
+ for(const id of await page.evaluate(()=>GaiaMarineCod.definitions.map(d=>d.id))) {
+  await page.evaluate(id=>GaiaMarineCod.select(id),id);
+  const legend=page.locator('.gaia-annual-metric-legend:visible');await legend.waitFor();
+  const actual=await legend.evaluate(metrics);
+  assert.equal(actual.width,reference.width,`${id}: width`);
+  assert.equal(actual.height,reference.height,`${id}: height`);
+  assert.equal(actual.padding,reference.padding,`${id}: padding`);
+  assert.equal(actual.radius,reference.radius,`${id}: radius`);
+  assert.deepEqual(actual.fonts,reference.fonts,`${id}: fonts`);
+  assert.equal(await legend.locator('summary,a').count(),0);
+  assert(!(await legend.textContent()).includes('ESP32'));
+  await page.waitForTimeout(80);
+  const credits=await page.locator('.japan-credits:visible').first().boundingBox();
+  const annotations=await page.locator('.gaia-cod-annotations:visible').boundingBox();
+  assert(credits.y+credits.height<=annotations.y-4,`${id}: credits overlap annotations`);
+  checks.push({id,...actual});
+  if(['japan-weather-temperature','japan-marine-cod','japan-prtr-transfer'].includes(id))await legend.screenshot({path:`${dir}/${id}.png`});
+ }
+ await page.evaluate(()=>GaiaMarineCod.select('japan-weather-temperature'));
+ await page.locator('[data-cod-prefecture]').selectOption('01');
+ const station=await page.locator('[data-cod-station] option').evaluateAll(nodes=>nodes.find(n=>n.value&&!n.disabled)?.value);
+ await page.locator('[data-cod-station]').selectOption(station);
+ assert.notEqual(await page.locator('.gaia-annual-metric-legend [data-metric-current]').textContent(),'—');
+ const legend=page.locator('.gaia-annual-metric-legend:visible');
+ const before=await legend.boundingBox();
+ await page.mouse.move(before.x+40,before.y+20);await page.mouse.down();await page.mouse.move(before.x-60,before.y+60,{steps:8});await page.mouse.up();
+ assert(Math.abs((await legend.boundingBox()).x-before.x+100)<3);
+ await page.locator('.gaia-map-action--source:visible').first().click();
+ await page.locator('#japan-data-panel').waitFor({state:'visible'});
+ assert.match(await page.locator('#data-ledger-sources').textContent(),/気象庁/);
+ assert(!(await page.locator('#data-ledger-sources').textContent()).includes('ESP32'));
+ assert.equal(await page.locator('.source-purpose-heading p').count(),0);
+ await page.locator('#japan-data-panel').screenshot({path:`${dir}/source.png`});
+ await page.locator('#japan-data-close').click();
+ assert.deepEqual(errors,[]);
+ fs.writeFileSync(`${dir}/verification.json`,JSON.stringify({reference,checks,status:'PASS'},null,2));
+ console.log(`PASS ${checks.length} annual legends; shared typography/width, no details or ESP32, selection, drag, source`);
+} finally {await browser.close();}

@@ -1,0 +1,296 @@
+#gaia-marine-cod-canvas { position: absolute; inset: 0; z-index: 5; width: 100%; height: 100%; pointer-events: none; }
+/* No old or newly loaded points may show through the chapter separator. */
+#japan-layer.is-map-title-transitioning #gaia-marine-cod-canvas { visibility: hidden; }
+/* Native focus must not scroll the scene wrapper to an offscreen drawer. The
+   map camera owns panning; overflow:hidden still permits focus-driven scroll. */
+.experience.japan-open:has(#japan-layer.is-marine-cod-exhibit) { overflow: clip; }
+#gaia-marine-cod-canvas[hidden], .gaia-marine-cod-readout[hidden], .gaia-marine-cod-legend[hidden] { display: none !important; }
+#japan-layer.is-marine-cod-exhibit :is(.japan-observation, .map-reading-guide, .signal-console-map, .signal-encoding-legend-dock, .japan-layer-switch, .map-command-dock) { visibility: hidden !important; pointer-events: none !important; }
+#japan-layer.is-marine-cod-exhibit .japan-map > #gaia-canvas { opacity: 0 !important; }
+.gaia-marine-cod-readout { position: absolute; z-index: 105; left: 18px; bottom: 32px; width: 320px; max-height: calc(100% - 160px); overflow: auto; padding: 16px; box-sizing: border-box; border: 1px solid #83dfd54a; border-radius: 6px 22px 6px 6px; color: #d9f5ef; background: linear-gradient(145deg, #132a34cc, #051620cc); backdrop-filter: blur(12px); font: 12px/1.55 var(--font-ja); }
+.gaia-marine-cod-readout p { margin: 0; }
+.gaia-marine-cod-chapter > p { font: 10px/1.4 var(--font-ja); color: #8ed4c9; letter-spacing: .1em; }
+.gaia-marine-cod-chapter > div { display: grid; grid-template-columns: 24px minmax(0, 1fr) 24px; align-items: center; gap: 5px; margin: 6px 0 12px; }
+.gaia-marine-cod-readout button { font: inherit; cursor: pointer; color: #d9f5ef; border: 1px solid #85d6ce50; border-radius: 5px; background: #0b2637a0; min-height: 34px; }
+.gaia-marine-cod-chapter .gaia-featured-selector-toggle { display: flex; gap: 8px; align-items: center; text-align: left; padding: 6px; }
+.gaia-marine-cod-chapter b { font: 24px/1.2 var(--font-console); color: #a5ecdb; }
+.gaia-marine-cod-chapter strong { font-size: 14px; line-height: 1.4; }
+.gaia-cod-annotations { display: contents; }
+.gaia-marine-cod-readout .gaia-cod-status { color: #a2bebd; font-size: 10px; margin-bottom: 10px; }
+/* Keep the saved-data notice legible over coastlines and animated light. */
+#japan-layer .gaia-marine-cod-readout .gaia-cod-status {
+  color: #e2eff0;
+  text-shadow: 0 1px 2px #000, 0 0 5px #000, 0 0 10px #001019 !important;
+  background: rgb(3 17 25 / 88%);
+  box-shadow: 0 0 8px 3px rgb(3 17 25 / 55%);
+  border-radius: 3px;
+  padding: 3px 7px;
+  max-width: calc(100% - 28px);
+  box-sizing: border-box;
+}
+.gaia-marine-cod-readout fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
+.gaia-cod-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.gaia-cod-pickers { display: grid; gap: 6px; }
+.gaia-cod-pickers label { display: grid; grid-template-columns: 56px minmax(0, 1fr); align-items: center; font-size: 11px; color: #a5c6c4; }
+.gaia-cod-pickers select { width: 100%; min-width: 0; min-height: 34px; color: #e3f8f4; background: #102c37; border: 1px solid #94d8ce45; border-radius: 4px; padding: 5px; font: 12px var(--font-ja); }
+.gaia-cod-primary { margin: 13px 0 10px; }
+.gaia-cod-primary p { color: #d2efdf; overflow-wrap: anywhere; line-height: 1.5; }
+.gaia-cod-primary strong { display: block; margin-top: 4px; font: 30px/1.25 Consolas, var(--font-ja); color: #edffd5; }
+.gaia-cod-primary small { display: block; color: #a4c0bf; font-size: 10px; }
+.gaia-cod-timeline { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.gaia-cod-timeline label { grid-column: 1 / -1; display: grid; grid-template-columns: 70px minmax(0, 1fr); align-items: center; }
+.gaia-cod-timeline input { width: 100%; min-width: 0; accent-color: #94e4cf; }
+.gaia-cod-timeline button { font-size: 11px; }
+.gaia-cod-history { display: grid; grid-template-columns: repeat(auto-fit, minmax(72px, 1fr)); max-height: 240px; overflow-y: auto; margin: 8px 0; gap: 6px; }
+.gaia-cod-history:empty { display: none; }
+.gaia-cod-history span { flex: 1; min-width: 0; text-align: center; border-top: 1px solid #72bcb341; padding-top: 4px; }
+.gaia-cod-history span.is-current { border-color: #d6e7a3; color: #efffc6; }
+.gaia-cod-history small, .gaia-cod-history b { display: block; font-size: 10px; }
+.gaia-cod-history b { font-size: 13px; font-weight: 500; }
+.gaia-cod-count { color: #9cbdba; font-size: 10px; margin: 8px 0 !important; }
+.gaia-cod-actions.gaia-map-actions { display: flex; gap: 6px; position: static; padding: 0; }
+.gaia-cod-actions .gaia-map-action { flex: 1; }
+.gaia-marine-cod-readout button:disabled { opacity: .45; cursor: default; }
+.gaia-marine-cod-readout :is(button, select, input):focus-visible { outline: 2px solid #e7f4b1; outline-offset: 2px; }
+.gaia-marine-cod-legend { position: absolute; z-index: 110; top: 108px; left: 18px; width: 320px; color: #d5efe8; }
+.gaia-marine-cod-legend summary { cursor: pointer; font: 12px/1.5 var(--font-ja); padding: 10px 12px; }
+.gaia-cod-guide { max-height: min(45vh, 420px); overflow: auto; padding: 12px; font: 12px/1.75 var(--font-ja); }
+.gaia-cod-guide h3 { font-size: 13px; }
+.gaia-cod-guide a { color: #a9e6e9; }
+.gaia-cod-scale { height: 9px; border-radius: 5px; margin: 8px 24px 3px 0; }
+.gaia-cod-scale-labels { position: relative; height: 18px; margin-right: 24px; }
+.gaia-cod-scale-labels span { position: absolute; transform: translateX(-50%); white-space: nowrap; font: 10px/1.6 var(--font-console); }
+.gaia-cod-scale-labels span:first-child, .gaia-cod-scale-labels span:last-child { transform: none; }
+.is-pollution-legend :is(.gaia-cod-scale, .gaia-cod-scale-labels) { margin-right: 44px; }
+.map-mode-button[data-marine-cod-exhibit] { color: #b9f3dc; border-color: #9de1c873; }
+@media (max-width: 900px) {
+  #japan-layer.is-mobile-map-shell .gaia-marine-cod-readout:not([hidden]) { position: fixed; left: var(--mobile-side); right: var(--mobile-side); bottom: var(--mobile-dock-bottom); width: auto; padding: 10px 12px; max-height: min(250px, 43dvh); border-radius: 10px; }
+  #japan-layer.is-mobile-map-shell .gaia-marine-cod-chapter,
+  #japan-layer.is-mobile-map-shell .gaia-cod-actions,
+  #japan-layer.is-mobile-map-shell .gaia-cod-count { display: none !important; }
+  #japan-layer.is-mobile-map-shell .gaia-cod-status { margin-bottom: 4px; font-size: 10px; }
+  #japan-layer.is-mobile-map-shell .gaia-cod-pickers { grid-template-columns: 1fr 1.5fr; gap: 6px; }
+  #japan-layer.is-mobile-map-shell .gaia-cod-pickers label { display: block; font-size: 11px; }
+  #japan-layer.is-mobile-map-shell .gaia-cod-pickers select { min-height: 34px; font-size: 14px; }
+  #japan-layer.is-mobile-map-shell .gaia-cod-primary { margin: 5px 0; display: grid; grid-template-columns: 1fr auto; column-gap: 6px; align-items: center; }
+  #japan-layer.is-mobile-map-shell .gaia-cod-primary p { font-size: 11px; max-height: 33px; overflow: auto; }
+  #japan-layer.is-mobile-map-shell .gaia-cod-primary strong { font-size: 23px; margin: 0; }
+  #japan-layer.is-mobile-map-shell .gaia-cod-primary small { grid-column: 1 / -1; font-size: 10px; }
+  #japan-layer.is-mobile-map-shell .gaia-cod-timeline { gap: 0 6px; }
+  #japan-layer.is-mobile-map-shell .gaia-cod-timeline button { min-height: 34px; }
+  #japan-layer.is-mobile-map-shell.is-marine-cod-exhibit .japan-credits { bottom: calc(var(--mobile-dock-bottom) + 253px); }
+}
+/* MAP 31 shares the chapter/actions slots and the lower instrument strip.
+   Fieldset remains the native disabled boundary even with display:contents. */
+.gaia-cod-primary strong { transition: color 150ms; }
+@media (prefers-reduced-motion: reduce) {
+  .gaia-cod-primary strong { transition: none; }
+}
+#japan-layer .gaia-marine-cod-chapter > div { margin: 0; gap: 0; }
+#japan-layer .gaia-marine-cod-chapter .gaia-featured-selector-toggle { padding: 0; gap: 10px; }
+.gaia-cod-value-label { display: block; color: #a4c0bf; font-size: 10px; }
+#japan-layer .gaia-cod-actions.gaia-map-actions { display: grid; gap: 0; }
+#japan-layer .gaia-marine-cod-legend { left: auto; right: 22px; width: 300px; font: 11px/1.6 var(--font-ja); }
+.gaia-cod-legend-key { padding: 12px 14px; border: 1px solid #83dfd54a; border-radius: 8px; background: linear-gradient(145deg, #132a34cc, #051620cc); backdrop-filter: blur(12px); }
+.gaia-cod-legend-key h3 { font-size: 12px; margin: 0 0 3px; color: #e4f6f0; }
+.gaia-cod-legend-key p { margin: 0 0 6px; color: #b1cbc7; }
+.gaia-cod-legend-key small { display: block; color: #aec3c5; font-size: 10px; }
+.gaia-cod-scale-ends { display: flex; justify-content: space-between; margin-bottom: 3px; }
+.gaia-cod-scale-ends span:first-child { color: #65beff; }
+.gaia-cod-scale-ends span:last-child { color: #ff8790; }
+.gaia-marine-cod-legend details { margin-top: 6px; border: 1px solid #83dfd52b; border-radius: 7px; }
+.gaia-marine-cod-legend summary { font-size: 11px; padding: 9px 10px; }
+.gaia-cod-guide h3 { margin-top: 0; }
+#map-mobile-sheet .gaia-cod-guide { max-height: none; overflow: visible; padding: 0; }
+#map-mobile-sheet .gaia-cod-guide .gaia-cod-history small { font-size: 10px; line-height: 1.6; white-space: nowrap; }
+@media (min-width: 901px) {
+  body.map-grid-desktop #japan-layer.is-marine-cod-exhibit {
+    --map-command-dock-height: clamp(104px, 5.6vw, 124px);
+    --map-chapter-height: calc(var(--map-command-dock-height) - 21px);
+    --annual-label-size: clamp(11px, .6vw, 15px);
+    --annual-control-size: clamp(14px, .8vw, 18px);
+  }
+  body.map-grid-desktop #japan-layer .gaia-marine-cod-readout { display: grid; grid-template-columns: minmax(var(--map-chapter-width), max-content) minmax(0, 1.15fr) minmax(0, 1fr) minmax(0, 1.2fr) var(--map-exhibit-actions-width); grid-template-rows: minmax(0, 1fr); align-items: stretch; left: calc(var(--map-chapter-inset) - 1px); right: calc(var(--map-chapter-inset) - 1px); bottom: 0; width: auto; height: var(--map-command-dock-height); max-height: none; overflow: visible; padding: 9px 0 11px; border-bottom: 0; border-radius: 0; }
+  .gaia-marine-cod-readout fieldset { display: contents; }
+  .gaia-marine-cod-readout :is(.gaia-cod-pickers, .gaia-cod-primary, .gaia-cod-timeline) { min-width: 0; min-height: 0; margin: 0; padding: 0 12px; border-left: 1px solid #83dfd526; align-content: center; }
+  .gaia-cod-pickers { grid-column: 2; grid-row: 1; gap: 4px; }
+  .gaia-cod-pickers label { grid-template-columns: 4em minmax(0, 1fr); column-gap: 8px; font-size: var(--annual-label-size); }
+  .gaia-cod-pickers select { min-height: 32px; height: 32px; padding: 3px 6px; font-size: var(--annual-control-size); }
+  .gaia-cod-primary { grid-column: 3; grid-row: 1; display: grid; grid-template-columns: minmax(0, 1fr); gap: 4px; align-items: start; }
+  .gaia-cod-primary :is(.gaia-cod-value-label, small) { grid-column: 1; font-size: var(--annual-label-size); line-height: 1.4; }
+  /* Place stays in the adjacent station selector; the instrument reads
+     measurement label, value, then its source qualifier like the other maps. */
+  .gaia-cod-primary p { display: none; }
+  .gaia-cod-primary strong { font-size: clamp(24px, 1.4vw, 34px); line-height: 1.25; margin: 0; white-space: nowrap; }
+  .gaia-cod-timeline { grid-column: 4; grid-row: 1; gap: 4px; }
+  .gaia-cod-timeline label { grid-template-columns: max-content minmax(0, 1fr); column-gap: 8px; font-size: clamp(14px, .8vw, 18px); }
+  .gaia-cod-timeline button { font-size: clamp(12px, .7vw, 16px); padding: 3px; }
+  .gaia-cod-actions { grid-column: 5; grid-row: 1; }
+  .gaia-marine-cod-readout .gaia-cod-annotations { position: absolute; bottom: calc(100% + 6px); right: 14px; display: flex; flex-direction: column; align-items: flex-end; gap: 4px; max-width: calc(100% - 28px); text-align: right; }
+  #japan-layer .gaia-marine-cod-readout .gaia-cod-status { position: static; max-width: 100%; margin: 0; color: #aac2c7; font-size: clamp(11px, .55vw, 14px); text-shadow: 0 1px 3px #00131f; }
+  .gaia-marine-cod-readout .gaia-cod-count { position: static; margin: 0 !important; font-size: clamp(11px, .55vw, 14px); }
+  #japan-layer.is-marine-cod-exhibit .japan-credits { display: none; }
+}
+@media (min-width: 901px) and (max-width: 1399px) {
+  /* Reserve the whole title before sharing the remaining space. Two rows on
+     small desktops keep the measurement and year controls readable as well. */
+  body.map-grid-desktop #japan-layer .gaia-marine-cod-readout { grid-template-columns: minmax(var(--map-chapter-width), max-content) minmax(0, 1fr) minmax(0, 1fr) var(--map-exhibit-actions-width); height: auto; min-height: calc(var(--map-command-dock-height) + 76px); grid-template-rows: 66px minmax(var(--map-chapter-height), auto); row-gap: 10px; }
+  .gaia-marine-cod-readout .gaia-marine-cod-chapter { grid-column: 1; grid-row: 2; }
+  .gaia-cod-pickers { grid-column: 1 / 3; grid-row: 1; grid-template-columns: 1fr 1.6fr; }
+  .gaia-cod-primary { grid-column: 2 / 4; grid-row: 2; }
+  .gaia-cod-timeline { grid-column: 3 / 5; grid-row: 1; }
+  .gaia-cod-actions { grid-column: 4; grid-row: 2; }
+}
+@media (max-width: 900px) {
+  #japan-layer.is-mobile-map-shell .gaia-marine-cod-readout:not([hidden]) { padding: 8px 10px; }
+  #japan-layer.is-mobile-map-shell .gaia-cod-value-label { grid-column: 1 / -1; font-size: 9px; }
+  #japan-layer.is-mobile-map-shell .gaia-marine-cod-legend { position: fixed; top: 100px; right: var(--mobile-side); width: min(250px, calc(100vw - 24px)); }
+  #japan-layer.is-mobile-map-shell .gaia-cod-legend-key { padding: 7px 10px; }
+  #japan-layer.is-mobile-map-shell .gaia-cod-legend-key h3 { font-size: 11px; }
+  #japan-layer.is-mobile-map-shell .gaia-cod-legend-key p { font-size: 9px; margin-bottom: 2px; }
+  #japan-layer.is-mobile-map-shell .gaia-cod-legend-key small { font-size: 9px; }
+  #japan-layer.is-mobile-map-shell .gaia-marine-cod-legend details { display: none; }
+  #japan-layer.is-mobile-map-shell.is-marine-cod-exhibit .japan-credits { display: none; }
+}
+@media (min-width: 721px) and (max-width: 900px) and (min-height: 501px) {
+  #japan-layer.is-mobile-map-shell .gaia-marine-cod-legend { top: 196px; }
+}
+@media (max-width: 900px) and (max-height: 600px) {
+  #japan-layer.is-mobile-map-shell .gaia-marine-cod-legend { top: var(--mobile-heading-bottom, 104px); width: 215px; }
+  #japan-layer.is-mobile-map-shell .gaia-cod-legend-key { font-size: 9px; }
+  #japan-layer.is-mobile-map-shell .gaia-cod-legend-key small { font-size: 8px; }
+  #japan-layer.is-mobile-map-shell .gaia-cod-scale { margin-block: 3px; height: 6px; }
+}
+@media (max-width: 900px) {
+  #japan-layer.is-mobile-map-shell .gaia-marine-cod-legend { top: var(--mobile-heading-bottom, 104px); }
+  #japan-layer.is-mobile-map-shell .gaia-cod-legend-key { position: relative; line-height: 1.3; }
+  #japan-layer.is-mobile-map-shell .gaia-cod-legend-key h3 { font-size: 10px; }
+  #japan-layer.is-mobile-map-shell .gaia-cod-legend-key .gaia-cod-missing { position: absolute; bottom: 19px; left: 50%; transform: translateX(-50%); white-space: nowrap; }
+  #japan-layer.is-mobile-map-shell .gaia-marine-cod-legend.is-sensor-open-legend .gaia-cod-missing { position: static; transform: none; margin: 3px 0; }
+  #japan-layer.is-mobile-map-shell .gaia-cod-scale { height: 6px; margin-top: 3px; }
+  #japan-layer.is-mobile-map-shell .gaia-cod-scale-labels { height: 14px; }
+  #japan-layer.is-mobile-map-shell .gaia-cod-scale-ends { font-size: 10px; }
+  #japan-layer.is-mobile-map-shell .gaia-cod-legend-key small { font-size: 8px; }
+  #japan-layer.is-mobile-map-shell .gaia-cod-value-label { display: none; }
+  #japan-layer.is-mobile-map-shell .gaia-cod-status { line-height: 1.3; }
+  #japan-layer.is-mobile-map-shell .gaia-cod-timeline { grid-template-columns: minmax(0, 1fr) 54px 54px; gap: 4px; }
+  #japan-layer.is-mobile-map-shell .gaia-cod-timeline label { grid-column: auto; grid-template-columns: 62px minmax(0, 1fr); font-size: 12px; }
+  #japan-layer.is-mobile-map-shell .gaia-cod-timeline button { min-height: 44px; padding: 2px; font-size: 11px; line-height: 1.4; }
+}
+@media (max-height: 620px) and (min-width: 901px) {
+  .gaia-marine-cod-readout { max-height: calc(100% - 125px); bottom: 15px; }
+  .gaia-marine-cod-legend { left: auto; right: 18px; top: 108px; }
+}
+@media (max-width: 900px) and (max-height: 500px) {
+  #japan-layer.is-mobile-map-shell .gaia-marine-cod-legend { top: 12px; right: 80px; width: 285px; }
+  #japan-layer.is-mobile-map-shell .gaia-marine-cod-readout fieldset { display: grid; grid-template-columns: 1.25fr 1fr; column-gap: 14px; }
+  #japan-layer.is-mobile-map-shell .gaia-cod-pickers { grid-column: 1; grid-row: 1; }
+  #japan-layer.is-mobile-map-shell .gaia-cod-primary { grid-column: 1; grid-row: 2; }
+  #japan-layer.is-mobile-map-shell .gaia-cod-timeline { grid-column: 2; grid-row: 1 / 3; align-content: center; }
+}
+.gaia-marine-cod-readout.is-record-exhibit [data-cod-records] { grid-column: 1 / -1; justify-self: start; padding: 3px 8px; border: 1px solid #9cd6d055; border-radius: 5px; background: #162a38; color: #cce7e5; font: inherit; font-size: 12px; cursor: pointer; }
+.gaia-marine-cod-readout.is-record-exhibit [data-cod-records]:disabled { opacity: .5; cursor: default; }
+@media (min-width: 901px) {
+  body.map-grid-desktop #japan-layer:has(.is-record-exhibit) { --map-command-dock-height: 138px; }
+  .gaia-marine-cod-readout.is-record-exhibit .gaia-cod-primary { align-content: center; gap: 3px; }
+  .gaia-marine-cod-readout.is-record-exhibit .gaia-cod-primary strong { font-size: clamp(16px, 1.3vw, 24px); white-space: normal; overflow-wrap: anywhere; line-height: 1.15; }
+  .gaia-marine-cod-readout.is-record-exhibit .gaia-cod-primary small { max-height: 28px; overflow: auto; font-size: 10px; }
+  .gaia-marine-cod-readout.is-record-exhibit [data-cod-records] { min-height: 28px; padding: 2px 6px; }
+}
+.gaia-marine-cod-readout.is-single-period [data-cod-year], .gaia-marine-cod-readout.is-single-period [data-cod-play] { display: none; }
+#gaia-record-detail { box-sizing: border-box; width: min(720px, calc(100vw - 28px)); max-height: calc(100dvh - 32px); padding: 20px; border: 1px solid #92ccc966; border-radius: 14px; background: #0e202bed; color: #e1eeeb; box-shadow: 0 16px 80px #0009; overflow: auto; font: 14px/1.7 var(--font-ja); }
+#gaia-record-detail::backdrop { background: #02101ac9; backdrop-filter: blur(5px); }
+#gaia-record-detail header { display: flex; align-items: start; justify-content: space-between; gap: 16px; }
+#gaia-record-detail h2 { font-size: 20px; margin: 3px 0 12px; overflow-wrap: anywhere; }
+#gaia-record-detail button { flex: 0 0 auto; min-height: 44px; padding: 8px 12px; border: 1px solid #b2dacf66; background: #28444c; border-radius: 6px; color: inherit; cursor: pointer; }
+#gaia-record-detail small { color: #a7c7cc; display: block; }
+#gaia-record-detail input { display: block; width: 100%; box-sizing: border-box; padding: 12px; margin-top: 5px; background: #071721; color: inherit; border: 1px solid #9ecac966; border-radius: 7px; font-size: 16px; }
+#gaia-record-detail ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+#gaia-record-detail li { padding: 10px 12px; background: #a6dddf0a; border: 1px solid #a6dddf22; border-radius: 7px; overflow-wrap: anywhere; }
+#gaia-record-detail li p { margin: 6px 0 0; }
+#gaia-record-detail footer { color: #afc6c9; font-size: 12px; }
+#gaia-record-detail a { color: #b4e8ee; }
+@media (max-width: 900px) {
+  #japan-layer.is-mobile-map-shell .gaia-marine-cod-readout.is-record-exhibit .gaia-cod-primary { grid-template-columns: 1fr auto; }
+  #japan-layer.is-mobile-map-shell .gaia-marine-cod-readout.is-record-exhibit .gaia-cod-primary strong { grid-column: 1; }
+  #japan-layer.is-mobile-map-shell .gaia-marine-cod-readout.is-record-exhibit [data-cod-records] { grid-column: 2; grid-row: 1 / 3; min-height: 44px; max-width: 120px; font-size: 11px; }
+  #japan-layer.is-mobile-map-shell .gaia-marine-cod-readout.is-single-period .gaia-cod-timeline { grid-template-columns: 1fr auto; }
+  #gaia-record-detail { padding: 16px; }
+  #gaia-record-detail h2 { font-size: 16px; }
+  #gaia-record-detail ol { grid-template-columns: 1fr; }
+}
+@media (max-width: 900px) and (max-height: 500px) {
+  #japan-layer.is-mobile-map-shell .gaia-marine-cod-readout.is-record-exhibit .gaia-cod-primary :is(p, small) { display: none; }
+  #japan-layer.is-mobile-map-shell .gaia-marine-cod-readout.is-record-exhibit [data-cod-records] { grid-row: 1; }
+  #japan-layer.is-mobile-map-shell .gaia-marine-cod-readout.is-record-exhibit .gaia-cod-primary strong { font-size: 20px; }
+}
+
+/* Recorded observations: two compact information rows. Let the title track
+   grow to its complete single-line width before distributing the remainder. */
+#japan-layer.is-marine-cod-exhibit.japan-data-open:has(.is-record-exhibit) :is(.gaia-marine-cod-readout, .gaia-marine-cod-legend),
+body.gaia-statistics-open #japan-layer.is-marine-cod-exhibit:has(.is-record-exhibit) :is(.gaia-marine-cod-readout, .gaia-marine-cod-legend) { visibility: hidden !important; pointer-events: none !important; }
+@media (min-width: 901px) {
+  body.map-grid-desktop #japan-layer.is-marine-cod-exhibit:has(.gaia-marine-cod-readout.is-record-exhibit) {
+    --map-command-dock-height: 108px;
+    --map-chapter-width: clamp(360px, 15.5vw, 480px);
+  }
+  body.map-grid-desktop #japan-layer .gaia-marine-cod-readout.is-record-exhibit {
+    grid-template-columns: minmax(var(--map-chapter-width), max-content) minmax(180px, 1fr) minmax(300px, 1.6fr) minmax(180px, 1fr) var(--map-exhibit-actions-width);
+    padding-block: 6px;
+  }
+  body.map-grid-desktop #japan-layer .gaia-marine-cod-readout.is-record-exhibit.is-single-period {
+    grid-template-columns: minmax(var(--map-chapter-width), max-content) minmax(180px, 1fr) minmax(300px, 1.6fr) minmax(120px, .6fr) var(--map-exhibit-actions-width);
+  }
+  body.map-grid-desktop #japan-layer .is-record-exhibit .gaia-marine-cod-chapter {
+    display: flex; flex-direction: column; justify-content: center; align-self: stretch;
+    height: auto; gap: 3px; padding: 0 46px;
+  }
+  body.map-grid-desktop #japan-layer .is-record-exhibit .gaia-marine-cod-chapter > .map-category-eyebrow { position: static; margin: 0; }
+  body.map-grid-desktop #japan-layer .is-record-exhibit .gaia-marine-cod-chapter > div { height: auto; padding: 0; }
+  body.map-grid-desktop #japan-layer .is-record-exhibit .gaia-marine-cod-chapter .gaia-featured-selector-toggle { align-items: center; padding: 0; gap: 8px; }
+  body.map-grid-desktop #japan-layer .is-record-exhibit .gaia-marine-cod-chapter strong {
+    min-width: max-content; white-space: nowrap; text-wrap: nowrap; overflow-wrap: normal; line-height: 1.18;
+  }
+  body.map-grid-desktop #japan-layer .is-record-exhibit .gaia-cod-primary {
+    grid-template-columns: minmax(0, 1fr) max-content; grid-template-rows: auto auto;
+    align-items: center; align-content: center; gap: 4px 10px;
+  }
+  body.map-grid-desktop #japan-layer .is-record-exhibit .gaia-cod-value-label { grid-column: 1; grid-row: 1; }
+  body.map-grid-desktop #japan-layer .is-record-exhibit .gaia-cod-primary strong {
+    grid-column: 2; grid-row: 1; font-size: clamp(18px, 1.2vw, 26px); white-space: nowrap;
+  }
+  body.map-grid-desktop #japan-layer .is-record-exhibit .gaia-cod-primary small {
+    grid-column: 1; grid-row: 2; max-height: 2.8em; line-height: 1.4;
+  }
+  body.map-grid-desktop #japan-layer .is-record-exhibit [data-cod-records] {
+    grid-column: 2; grid-row: 2; justify-self: end; min-height: 32px; margin: 0;
+    font-size: clamp(11px, .6vw, 14px); white-space: nowrap;
+  }
+  body.map-grid-desktop #japan-layer .is-record-exhibit .gaia-cod-timeline { grid-template-columns: max-content minmax(0, 1fr); }
+  body.map-grid-desktop #japan-layer .is-record-exhibit .gaia-cod-timeline button { white-space: nowrap; }
+  body.map-grid-desktop #japan-layer .is-record-exhibit.is-single-period .gaia-cod-timeline { grid-template-columns: minmax(0, 1fr); }
+  body.map-grid-desktop #japan-layer .is-record-exhibit.is-single-period .gaia-cod-timeline label { grid-column: 1; }
+}
+@media (min-width: 901px) and (max-width: 1399px) {
+  body.map-grid-desktop #japan-layer.is-marine-cod-exhibit:has(.gaia-marine-cod-readout.is-record-exhibit) { --map-chapter-width: 360px; }
+  body.map-grid-desktop #japan-layer .gaia-marine-cod-readout.is-record-exhibit,
+  body.map-grid-desktop #japan-layer .gaia-marine-cod-readout.is-record-exhibit.is-single-period {
+    grid-template-columns: minmax(var(--map-chapter-width), max-content) minmax(0, 1fr) var(--map-exhibit-actions-width);
+    grid-template-rows: 64px 76px; height: auto; min-height: 0; row-gap: 6px;
+  }
+  body.map-grid-desktop #japan-layer .gaia-marine-cod-readout.is-record-exhibit.is-single-period { grid-template-rows: 40px 76px; }
+  body.map-grid-desktop #japan-layer .is-record-exhibit .gaia-cod-primary { grid-column: 2; grid-row: 2; }
+  body.map-grid-desktop #japan-layer .is-record-exhibit .gaia-cod-timeline { grid-column: 3; grid-row: 1; }
+  body.map-grid-desktop #japan-layer .is-record-exhibit .gaia-cod-actions { grid-column: 3; grid-row: 2; }
+  body.map-grid-desktop #japan-layer .is-record-exhibit.is-single-period .gaia-cod-timeline { grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 8px; }
+}
+.gaia-cod-pickers { position: relative; }
+#gaia-cod-selection-help:not([hidden]) {
+  position: fixed; z-index: 1500; bottom: auto; left: 12px; top: 12px;
+  box-sizing: border-box; width: min(360px, calc(100vw - 32px)); margin: 0; padding: 10px 12px;
+  border: 1px solid #d2c0ed; border-radius: 8px; background: #172438; color: #f0e9ff;
+  font: 500 13px/1.6 var(--font-ja); letter-spacing: 0;
+}
+.gaia-cod-pickers select[aria-describedby="gaia-cod-selection-help"]:focus {
+  outline: 2px solid #d2c0ed; outline-offset: 3px;
+}

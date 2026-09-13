@@ -1,0 +1,733 @@
+.map-mode-group-estat {
+  padding-top: 8px;
+  border-top: 1px solid rgba(101, 245, 223, 0.16);
+}
+
+.map-mode-group-estat .map-mode-list {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.map-mode-button[data-estat-exhibit] {
+  color: rgba(192, 255, 232, 0.82);
+  border-color: rgba(101, 245, 223, 0.32);
+  background:
+    linear-gradient(135deg, rgba(101, 245, 223, 0.12), rgba(255, 138, 199, 0.08)),
+    rgba(0, 12, 18, 0.76);
+}
+
+.map-mode-button[data-estat-exhibit]:is(:hover, :focus-visible, [aria-current="true"]) {
+  color: #fff;
+  border-color: rgba(140, 255, 224, 0.78);
+  background: linear-gradient(135deg, rgba(101, 245, 223, 0.28), rgba(104, 142, 255, 0.2));
+  box-shadow: 0 0 24px rgba(101, 245, 223, 0.25), inset 0 0 18px rgba(173, 255, 236, 0.08);
+}
+
+.gaia-estat-canvas {
+  position: absolute;
+  z-index: 4;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  mix-blend-mode: normal;
+}
+
+/* A sunlit, sage-toned context for the statistical maps, not a night map.
+   Data colors stay on their own layer, and navigation geometry is untouched. */
+.japan-layer.is-estat-exhibit .japan-map {
+  background:
+    radial-gradient(ellipse at 68% 26%, rgba(209, 181, 114, .17), transparent 66%),
+    linear-gradient(145deg, #21494c, #285454 58%, #1e4147);
+}
+.japan-layer.is-estat-exhibit .japan-map::before { opacity: .12; }
+.japan-layer.is-estat-exhibit .japan-map-shade { opacity: .12; }
+
+.gaia-estat-webgl {
+  position: absolute;
+  z-index: 5;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 0.88;
+  filter: saturate(1.12) contrast(1.04);
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.gaia-estat-canvas[hidden],
+.gaia-estat-webgl[hidden],
+.gaia-estat-markers[hidden],
+.gaia-estat-prefecture-regions[hidden],
+.gaia-estat-prefecture-tooltip[hidden],
+.gaia-estat-heat-legend[hidden],
+.gaia-estat-readout[hidden] {
+  display: none !important;
+}
+
+.gaia-estat-heat-legend {
+  --estat-heat-gradient: linear-gradient(90deg, #2a4ab2, #2aafce, #65daad, #f8d564, #cd365b);
+  position: absolute;
+  z-index: 7;
+  top: max(118px, calc(env(safe-area-inset-top) + 82px));
+  left: 18px;
+  display: grid;
+  width: min(246px, calc(100vw - 36px));
+  gap: 7px;
+  padding: 11px 13px 10px;
+  border: 1px solid color-mix(in srgb, var(--estat-accent, #65f5df) 35%, transparent);
+  border-radius: 5px 15px 5px 5px;
+  color: rgba(235, 255, 250, 0.86);
+  background: rgba(0, 14, 23, 0.82);
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.32), inset 0 1px rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px) saturate(1.2);
+  pointer-events: none;
+}
+
+.gaia-estat-heat-legend strong {
+  font: 750 9px/1.2 Consolas, var(--font-ja);
+  letter-spacing: 0.08em;
+}
+
+.gaia-estat-heat-legend > i {
+  display: block;
+  height: 8px;
+  border: 1px solid rgba(230, 255, 249, 0.38);
+  border-radius: 999px;
+  background: var(--estat-heat-gradient);
+  box-shadow: 0 0 16px color-mix(in srgb, var(--estat-accent, #65f5df) 24%, transparent);
+}
+
+.gaia-estat-heat-legend > span {
+  display: flex;
+  justify-content: space-between;
+  color: rgba(225, 247, 243, 0.68);
+}
+
+.gaia-estat-heat-legend small {
+  font: 700 9px/1 Consolas, var(--font-ja);
+}
+
+.gaia-estat-markers {
+  position: absolute;
+  z-index: 6;
+  inset: 0;
+  pointer-events: none;
+}
+
+.gaia-estat-marker {
+  --estat-strength: 0.25;
+  position: absolute;
+  display: grid;
+  width: var(--estat-marker-size, 18px);
+  height: var(--estat-marker-size, 18px);
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  color: #eafffb;
+  background: transparent;
+  place-items: center;
+  pointer-events: auto;
+  cursor: pointer;
+  opacity: calc(0.5 + var(--estat-strength) * 0.46);
+  transform: translate(-50%, -50%);
+  transition: opacity 240ms ease, filter 240ms ease;
+}
+
+.gaia-estat-marker > i {
+  display: block;
+  width: var(--estat-core-size, 7px);
+  height: var(--estat-core-size, 7px);
+  border: 1px solid color-mix(in srgb, var(--estat-accent, #65f5df) 78%, white);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--estat-accent, #65f5df) 72%, transparent);
+  box-shadow:
+    0 0 var(--estat-glow-size, 14px) color-mix(in srgb, var(--estat-accent, #65f5df) 68%, transparent),
+    inset 0 0 4px rgba(255, 255, 255, 0.68);
+  transition: transform 460ms cubic-bezier(0.18, 0.82, 0.18, 1), box-shadow 420ms ease;
+}
+
+.gaia-estat-marker > span {
+  position: absolute;
+  top: calc(100% + 7px);
+  left: 50%;
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 1px 7px;
+  min-width: max-content;
+  padding: 7px 9px 6px;
+  border: 1px solid color-mix(in srgb, var(--estat-accent, #65f5df) 48%, transparent);
+  border-radius: 3px;
+  color: rgba(235, 255, 250, 0.82);
+  background: rgba(0, 14, 22, 0.94);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.34), 0 0 22px color-mix(in srgb, var(--estat-accent, #65f5df) 12%, transparent);
+  font: 650 10px/1.2 var(--font-ja);
+  letter-spacing: 0.04em;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -5px);
+  transition: opacity 220ms ease, transform 320ms cubic-bezier(0.18, 0.82, 0.18, 1);
+}
+
+.gaia-estat-marker > span small {
+  color: var(--estat-accent, #65f5df);
+  font: 800 8px/1 var(--font-console);
+}
+
+.gaia-estat-marker > span b {
+  grid-column: 1 / -1;
+  color: #fff;
+  font: 700 11px/1.2 Consolas, var(--font-ja);
+}
+
+.gaia-estat-marker:is(:hover, :focus-visible, [aria-current="true"]) {
+  z-index: 4;
+  opacity: 1;
+  filter: brightness(1.18);
+  outline: none;
+}
+
+.gaia-estat-marker:is(:hover, :focus-visible, [aria-current="true"]) > i {
+  transform: scale(1.5);
+  box-shadow:
+    0 0 0 8px color-mix(in srgb, var(--estat-accent, #65f5df) 13%, transparent),
+    0 0 30px color-mix(in srgb, var(--estat-accent, #65f5df) 86%, transparent);
+}
+
+.gaia-estat-marker:is(:hover, :focus-visible, [aria-current="true"]) > span {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.gaia-estat-marker.is-missing {
+  opacity: 0.3;
+  filter: saturate(0.25);
+}
+
+.gaia-estat-marker.is-missing > i {
+  background: rgba(164, 184, 190, 0.22);
+  box-shadow: none;
+}
+
+.gaia-estat-marker.is-departing {
+  animation: estat-poi-depart 520ms cubic-bezier(0.5, 0, 0.75, 0.3) both;
+}
+
+.gaia-estat-marker.is-arriving {
+  z-index: 5;
+  animation: estat-poi-arrive 900ms cubic-bezier(0.16, 0.82, 0.18, 1) both;
+}
+
+.japan-layer[data-estat-exhibit="lodging"] .gaia-estat-marker.is-arriving {
+  animation: estat-lodging-poi-arrive 1100ms cubic-bezier(0.18, 0.76, 0.2, 1) both;
+}
+
+.japan-layer[data-estat-exhibit="lodging"] .gaia-estat-marker[aria-current="true"] > i {
+  transform: scale(1.24);
+  box-shadow:
+    0 0 0 5px color-mix(in srgb, var(--estat-accent, #ffd36e) 9%, transparent),
+    0 0 18px color-mix(in srgb, var(--estat-accent, #ffd36e) 54%, transparent);
+}
+
+.gaia-estat-prefecture-regions {
+  position: absolute;
+  z-index: 6;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.gaia-estat-prefecture-region {
+  fill: rgba(255, 255, 255, 0.001);
+  stroke: transparent;
+  stroke-width: 1.4px;
+  vector-effect: non-scaling-stroke;
+  pointer-events: all;
+  cursor: pointer;
+  outline: none;
+  transition: fill 260ms ease, stroke 220ms ease, filter 260ms ease;
+}
+
+.gaia-estat-prefecture-region:is(:hover, :focus-visible) {
+  fill: color-mix(in srgb, var(--estat-accent, #65f5df) 24%, transparent);
+  stroke: color-mix(in srgb, var(--estat-accent, #65f5df) 88%, white);
+  stroke-width: 2.2px;
+  filter: drop-shadow(0 0 7px color-mix(in srgb, var(--estat-accent, #65f5df) 86%, transparent));
+}
+
+.gaia-estat-prefecture-region[aria-current="true"] {
+  fill: color-mix(in srgb, var(--estat-secondary, #ffdf82) 16%, transparent);
+  stroke: rgba(255, 255, 238, 0.98);
+  stroke-width: 2.4px;
+  filter: drop-shadow(0 0 8px color-mix(in srgb, var(--estat-accent, #65f5df) 72%, transparent));
+}
+
+.gaia-estat-prefecture-tooltip {
+  position: absolute;
+  z-index: 8;
+  display: grid;
+  min-width: 132px;
+  gap: 6px;
+  padding: 10px 13px 9px;
+  border: 1px solid color-mix(in srgb, var(--estat-accent, #65f5df) 62%, transparent);
+  border-radius: 5px 15px 15px 15px;
+  color: #f4fffc;
+  background: rgba(0, 13, 22, 0.94);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.38), 0 0 20px color-mix(in srgb, var(--estat-accent, #65f5df) 18%, transparent);
+  backdrop-filter: blur(12px) saturate(1.25);
+  pointer-events: none;
+  transform: translate(14px, calc(-100% - 14px));
+  animation: estat-region-tooltip-in 260ms cubic-bezier(0.18, 0.82, 0.18, 1) both;
+}
+
+.gaia-estat-prefecture-tooltip::before {
+  position: absolute;
+  bottom: -7px;
+  left: 13px;
+  width: 12px;
+  height: 12px;
+  border-right: 1px solid color-mix(in srgb, var(--estat-accent, #65f5df) 62%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--estat-accent, #65f5df) 62%, transparent);
+  background: rgba(0, 13, 22, 0.94);
+  content: "";
+  transform: rotate(45deg);
+}
+
+.gaia-estat-prefecture-tooltip > span {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+}
+
+.gaia-estat-prefecture-tooltip small {
+  color: var(--estat-accent, #65f5df);
+  font: 800 9px/1 var(--font-console);
+}
+
+.gaia-estat-prefecture-tooltip strong {
+  font: 750 13px/1.15 var(--font-ja);
+}
+
+.gaia-estat-prefecture-tooltip > b {
+  color: #fff;
+  font: 750 15px/1.1 Consolas, var(--font-ja);
+}
+
+/* Migration uses the prefecture itself as its POI. Keep its selected readout
+   at the previous point-label size, without a dot or a looping reveal. */
+#japan-layer[data-estat-exhibit="migration"] .gaia-estat-prefecture-tooltip {
+  min-width: min(360px, calc(100vw - 24px));
+  max-width: min(440px, calc(100vw - 24px));
+  padding: 20px 22px 16px;
+  gap: 10px;
+  transform: translate(-50%, 20px);
+  animation: none;
+}
+#japan-layer[data-estat-exhibit="migration"] .gaia-estat-prefecture-tooltip > span { display: contents; }
+#japan-layer[data-estat-exhibit="migration"] .gaia-estat-prefecture-tooltip strong { order: 0; font-size: 23px; line-height: 1.5; }
+#japan-layer[data-estat-exhibit="migration"] .gaia-estat-prefecture-tooltip > b { order: 1; font-size: 17px; line-height: 1.6; }
+#japan-layer[data-estat-exhibit="migration"] .gaia-estat-prefecture-tooltip small { order: 2; color: #a0b9b0; font-size: 12px; line-height: 1.6; }
+@media (max-width: 600px) {
+  #japan-layer[data-estat-exhibit="migration"] .gaia-estat-prefecture-tooltip { min-width: 270px; padding: 16px; gap: 5px; }
+  #japan-layer[data-estat-exhibit="migration"] .gaia-estat-prefecture-tooltip strong { font-size: 19px; }
+  #japan-layer[data-estat-exhibit="migration"] .gaia-estat-prefecture-tooltip > b { font-size: 14px; }
+  #japan-layer[data-estat-exhibit="migration"] .gaia-estat-prefecture-tooltip small { font-size: 11px; }
+}
+
+@keyframes estat-region-tooltip-in {
+  from { opacity: 0; filter: blur(4px); transform: translate(14px, calc(-100% - 6px)) scale(0.94); }
+  to { opacity: 1; filter: none; transform: translate(14px, calc(-100% - 14px)) scale(1); }
+}
+
+@keyframes estat-poi-depart {
+  to { opacity: 0.28; filter: blur(2px); transform: translate(-50%, -50%) scale(0.55); }
+}
+
+@keyframes estat-poi-arrive {
+  0% { opacity: 0; filter: brightness(2) blur(5px); transform: translate(-50%, -50%) scale(0.35); }
+  42% { opacity: 1; filter: brightness(1.65) blur(0); transform: translate(-50%, -50%) scale(1.7); }
+  100% { opacity: 1; filter: none; transform: translate(-50%, -50%) scale(1); }
+}
+
+@keyframes estat-lodging-poi-arrive {
+  0% { opacity: 0.42; transform: translate(-50%, -50%) scale(0.76); }
+  55% { opacity: 0.9; transform: translate(-50%, -50%) scale(1.08); }
+  100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+.gaia-estat-readout {
+  --estat-accent: #65f5df;
+  --estat-secondary: #ff8278;
+  position: absolute;
+  z-index: 32;
+  right: 12px;
+  bottom: 10px;
+  left: 12px;
+  display: grid;
+  grid-template-columns: minmax(230px, 1.1fr) minmax(140px, 0.8fr) minmax(180px, 0.9fr) minmax(250px, 1.45fr) minmax(max-content, 0.7fr) minmax(190px, 1fr) minmax(250px, 1.35fr);
+  min-height: 116px;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--estat-accent) 32%, transparent);
+  border-radius: 18px 18px 3px 3px;
+  color: #e9fffb;
+  background:
+    linear-gradient(105deg, color-mix(in srgb, var(--estat-accent) 8%, transparent), transparent 38%, color-mix(in srgb, var(--estat-secondary) 7%, transparent)),
+    rgba(0, 14, 22, 0.94);
+  box-shadow: 0 -20px 65px rgba(0, 9, 14, 0.42), inset 0 1px rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(18px) saturate(1.25);
+}
+
+.gaia-estat-readout > * {
+  min-width: 0;
+  padding: 17px 16px;
+  border-left: 1px solid rgba(137, 247, 226, 0.11);
+}
+
+.gaia-estat-readout > :first-child { border-left: 0; }
+
+.gaia-estat-place > p,
+.gaia-estat-primary > p,
+.gaia-estat-timeline header,
+  .gaia-estat-comparison span,
+  .gaia-estat-action small {
+  margin: 0;
+  color: color-mix(in srgb, var(--estat-accent) 75%, #a9c2c6);
+  font: 750 clamp(10px, 0.58vw, 14px)/1.2 var(--font-console);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.gaia-estat-chapter,
+.gaia-estat-place,
+.gaia-estat-primary,
+.gaia-estat-timeline,
+.gaia-estat-comparison,
+.gaia-estat-copy {
+  display: grid;
+  align-content: center;
+  gap: 8px;
+}
+
+.gaia-estat-chapter > div {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr) 28px;
+  align-items: center;
+  gap: 9px;
+}
+
+.gaia-estat-chapter [data-estat-step] {
+  width: 28px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 18px;
+  color: color-mix(in srgb, var(--estat-accent) 76%, white);
+  background: color-mix(in srgb, var(--estat-accent) 9%, transparent);
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.gaia-estat-selector-toggle {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  min-width: 0;
+  min-height: 44px;
+  padding: 6px 0;
+  border: 0;
+  border-radius: 6px;
+  color: inherit;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+.gaia-estat-selector-toggle b { flex-shrink: 0; }
+.gaia-estat-selector-toggle:is(:hover, [aria-expanded="true"]) strong {
+  color: #fff;
+  text-shadow: 0 0 16px color-mix(in srgb, var(--estat-accent) 40%, transparent);
+}
+.gaia-estat-selector-toggle:focus-visible {
+  outline: 1px solid var(--estat-accent);
+  outline-offset: 4px;
+}
+.gaia-estat-chapter b { color: var(--estat-accent); font: 800 clamp(26px, 1.3vw, 32px)/1 var(--font-console); }
+.gaia-estat-chapter strong { overflow: hidden; font: 650 clamp(21px, 1.1vw, 28px)/1.2 var(--font-ja); text-overflow: ellipsis; white-space: nowrap; }
+.gaia-estat-readout:is([data-estat-exhibit="summerHigh"], [data-estat-exhibit="winterLow"]) .gaia-estat-chapter strong {
+  white-space: normal;
+  overflow: visible;
+  font-size: clamp(16px, 1.05vw, 26px);
+  line-height: 1.15;
+  text-wrap: balance;
+}
+.gaia-estat-place strong {
+  font: 650 clamp(14px, .7vw, 22px)/1.3 var(--font-ja);
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+
+.gaia-estat-primary {
+  grid-template-columns: auto min-content;
+  align-items: baseline;
+  overflow: hidden;
+}
+
+.gaia-estat-primary > p { grid-column: 1 / -1; }
+.gaia-estat-primary > strong {
+  min-width: 3.2ch;
+  color: #fff;
+  font: 500 clamp(28px, 2.2vw, 46px)/0.94 Consolas, var(--font-ja);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  text-shadow: 0 0 25px color-mix(in srgb, var(--estat-accent) 36%, transparent);
+  white-space: nowrap;
+  transform: none;
+  filter: none;
+  opacity: 1;
+}
+
+.gaia-estat-primary > strong.is-counting {
+  color: color-mix(in srgb, var(--estat-accent) 76%, white);
+}
+.gaia-estat-primary > span {
+  align-self: baseline;
+  padding-bottom: 0;
+  white-space: nowrap;
+  color: rgba(225, 250, 245, 0.76);
+  font: 650 clamp(15px, 0.85vw, 20px)/1 var(--font-ja);
+}
+.gaia-estat-timeline header { display: flex; justify-content: space-between; gap: 8px; }
+.gaia-estat-timeline header b { color: #fff; }
+@media (min-width: 1101px) {
+  .gaia-estat-primary > span { white-space: nowrap; }
+}
+
+.gaia-estat-timeline input {
+  width: 100%;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--estat-accent);
+  cursor: pointer;
+}
+
+.gaia-estat-timeline > div {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 5px;
+}
+
+.gaia-estat-timeline > div.is-long-term {
+  grid-template-columns: repeat(var(--estat-period-count, 71), minmax(0, 1fr));
+  gap: 1px;
+}
+
+.gaia-estat-timeline i {
+  position: relative;
+  display: block;
+  height: 3px;
+  border-radius: 3px;
+  background: rgba(197, 233, 231, 0.14);
+  transition: background 340ms ease, box-shadow 340ms ease, transform 340ms ease;
+}
+
+.gaia-estat-timeline i.is-current {
+  background: var(--estat-accent);
+  box-shadow: 0 0 13px var(--estat-accent);
+  transform: scaleY(1.65);
+}
+
+.gaia-estat-timeline i span { position: absolute; top: 7px; left: 50%; color: rgba(219, 242, 240, 0.5); font: 700 9px/1 var(--font-console); transform: translateX(-50%); }
+.gaia-estat-comparison { grid-template-columns: max-content max-content; column-gap: 16px; align-items: start; }
+.gaia-estat-comparison span {
+  display: grid;
+  gap: 8px;
+  font-size: clamp(12px, 0.68vw, 16px);
+  line-height: 1.2;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+.gaia-estat-comparison strong {
+  color: #fff;
+  font: 700 clamp(18px, 1vw, 23px)/1.15 Consolas, var(--font-ja);
+  letter-spacing: 0;
+  text-transform: none;
+  white-space: nowrap;
+}
+.gaia-estat-copy { gap: 5px; }
+.gaia-estat-copy p { margin: 0; color: rgba(235, 255, 250, 0.82); font: 600 12px/1.55 var(--font-ja); }
+.gaia-estat-copy small { color: rgba(211, 238, 235, 0.54); font: 500 9px/1.5 var(--font-ja); }
+.gaia-estat-history-note { display: block; margin-top: 9px; color: rgba(222, 240, 233, 0.8); font: 400 11px/1.55 var(--font-ja); overflow-wrap: anywhere; }
+[data-estat-mobile-history-note] { display: none; }
+
+.gaia-estat-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 7px !important;
+}
+
+.gaia-estat-action {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  margin: 0;
+  padding: 10px 11px;
+  border: 1px solid transparent;
+  color: #e9fffb;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  transition: filter 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.gaia-estat-action > span { display: grid; gap: 6px; min-width: 0; }
+.gaia-estat-action small { color: currentColor; }
+.gaia-estat-action strong {
+  overflow: hidden;
+  color: rgba(242, 255, 252, 0.94);
+  font: 650 clamp(10px, 0.66vw, 14px)/1.25 var(--font-ja);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.gaia-estat-action > i {
+  display: grid;
+  width: clamp(28px, 1.9vw, 38px);
+  height: clamp(28px, 1.9vw, 38px);
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  place-items: center;
+  font: 400 15px/1 sans-serif;
+  font-style: normal;
+}
+.gaia-estat-action--source {
+  color: #79f4d4;
+  background: linear-gradient(115deg, rgba(21, 126, 101, 0.31), rgba(4, 48, 48, 0.5));
+  box-shadow: inset 3px 0 #73efd0;
+}
+.gaia-estat-action--analysis {
+  color: #db91ff;
+  background: linear-gradient(115deg, rgba(105, 55, 154, 0.42), rgba(46, 26, 84, 0.56));
+  box-shadow: inset 3px 0 #db91ff;
+}
+.gaia-estat-action:is(:hover, :focus-visible) { z-index: 1; outline: none; filter: brightness(1.16); transform: translateY(-1px); }
+
+.japan-layer.is-estat-exhibit :is(
+  .japan-observation,
+  .map-reading-guide,
+  .signal-console-map,
+  .signal-encoding-legend-dock,
+  .japan-layer-switch,
+  .map-command-dock
+) {
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+.japan-layer.is-estat-exhibit .japan-map { padding-bottom: 128px; }
+
+.japan-layer.is-estat-exhibit.has-integrated-map-light .japan-map > #gaia-canvas {
+  opacity: 0.025 !important;
+  filter: saturate(0.25) brightness(0.52) contrast(0.72);
+}
+@media (max-width: 1500px) {
+  .gaia-estat-readout {
+    grid-template-columns: 0.95fr 0.85fr 0.9fr 1.45fr max-content 1.35fr;
+  }
+  .gaia-estat-copy { display: none; }
+}
+
+@media (max-width: 1100px) {
+  .gaia-estat-readout {
+    grid-template-columns: 1fr 0.9fr 1.1fr 1.5fr 1.45fr;
+  }
+  .gaia-estat-comparison { display: none; }
+}
+
+@media (max-width: 720px) {
+  .map-mode-group-estat { padding-top: 5px; }
+  .gaia-estat-readout {
+    right: 8px;
+    bottom: max(7px, env(safe-area-inset-bottom));
+    left: 8px;
+    grid-template-columns: 1fr 1fr;
+    min-height: 218px;
+    border-radius: 15px 15px 4px 4px;
+  }
+  .gaia-estat-readout > * { padding: 12px; }
+  .gaia-estat-place,
+  .gaia-estat-copy,
+  .gaia-estat-comparison { display: none; }
+  .gaia-estat-chapter { grid-column: 1; grid-row: 1; }
+  .gaia-estat-primary { grid-column: 2; grid-row: 1; }
+  .gaia-estat-timeline { grid-column: 1 / -1; grid-row: 2; }
+  .gaia-estat-actions { grid-column: 1 / -1; grid-row: 3; min-height: 64px; padding: 5px !important; }
+  .gaia-estat-action { padding: 8px 10px; }
+  .gaia-estat-action strong { font-size: 11px; }
+  .gaia-estat-chapter b { font-size: 23px; }
+  .gaia-estat-chapter strong { font-size: 16px; }
+  .gaia-estat-primary > strong { font-size: clamp(26px, 9vw, 38px); }
+  .gaia-estat-marker > span { font-size: 9px; }
+  .gaia-estat-heat-legend {
+    top: max(132px, calc(env(safe-area-inset-top) + 106px));
+    left: 8px;
+    width: min(192px, calc(100vw - 16px));
+    padding: 9px 10px 8px;
+  }
+  .japan-layer.is-estat-exhibit .japan-map { padding-bottom: 230px; }
+}
+
+@media (max-width: 900px) {
+  /* Annual metric names need a full-width row, not the old narrow poetic-title slot. */
+  #japan-layer:is([data-estat-exhibit="summerHigh"], [data-estat-exhibit="winterLow"]) #japan-title {
+    font-size: clamp(20px, 3vw, 26px);
+  }
+  #japan-layer .gaia-estat-readout:is([data-estat-exhibit="summerHigh"], [data-estat-exhibit="winterLow"]) {
+    grid-template-columns: 1fr 1fr;
+    min-height: 0;
+  }
+  #japan-layer .gaia-estat-readout:is([data-estat-exhibit="summerHigh"], [data-estat-exhibit="winterLow"]) .gaia-estat-chapter {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    padding: 8px 12px 0;
+  }
+  #japan-layer .gaia-estat-readout:is([data-estat-exhibit="summerHigh"], [data-estat-exhibit="winterLow"]) .gaia-estat-primary {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    align-items: center;
+    column-gap: 6px;
+    padding: 4px 12px;
+  }
+  #japan-layer .gaia-estat-readout:is([data-estat-exhibit="summerHigh"], [data-estat-exhibit="winterLow"]) .gaia-estat-primary > p {
+    grid-column: auto;
+    margin: 0;
+  }
+  #japan-layer .gaia-estat-readout:is([data-estat-exhibit="summerHigh"], [data-estat-exhibit="winterLow"]) .gaia-estat-timeline {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    padding: 8px 12px;
+  }
+  #japan-layer .gaia-estat-readout:is([data-estat-exhibit="summerHigh"], [data-estat-exhibit="winterLow"]) .gaia-estat-actions {
+    grid-column: 1 / -1;
+    grid-row: 4;
+  }
+  #japan-layer .gaia-estat-readout:is([data-estat-exhibit="summerHigh"], [data-estat-exhibit="winterLow"]) :is(.gaia-estat-place, .gaia-estat-comparison, .gaia-estat-copy) {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gaia-estat-marker,
+  .gaia-estat-marker > i,
+    .gaia-estat-marker > span,
+    .gaia-estat-canvas,
+    .gaia-estat-webgl,
+  .gaia-estat-primary > strong.is-counting {
+    animation: none !important;
+    transition-duration: 1ms !important;
+  }
+}

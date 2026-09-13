@@ -1,0 +1,1047 @@
+{
+  "sources": [
+    {
+      "file": "water-y02-1984.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=ic54tcl2.3nf",
+      "bytes": 337665,
+      "sha256": "8ba6dbf3934edc67ea2ba501a57fc8079934ca387551004f6cb459755df3a967",
+      "retrievedAt": "2026-09-11T17:13:14.968713+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y02",
+        "whereClause": "nendo=1984",
+        "extension": "csv"
+      },
+      "year": 1984
+    },
+    {
+      "file": "water-y02-1985.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=qefrxgny.kve",
+      "bytes": 423407,
+      "sha256": "b1af75ba048c6e432b17468c3cb1147071b8bfbd7533ec89f9a1f74e53903802",
+      "retrievedAt": "2026-09-11T17:13:23.329956+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y02",
+        "whereClause": "nendo=1985",
+        "extension": "csv"
+      },
+      "year": 1985
+    },
+    {
+      "file": "water-y03-1985.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=1c1ey2gl.o0n",
+      "bytes": 2512,
+      "sha256": "98daf5e3a353d051cf6a37873809bf236de627ef3c85dfdcaa2d118b65c2e77b",
+      "retrievedAt": "2026-09-11T17:13:28.306851+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y03",
+        "whereClause": "nendo=1985",
+        "extension": "csv"
+      },
+      "year": 1985
+    },
+    {
+      "file": "water-y02-1986.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=jcluhurq.qed",
+      "bytes": 421617,
+      "sha256": "e1cc6911f73aa713d81ad77f33de776fff978d84098468edf4ec4577efe86a2f",
+      "retrievedAt": "2026-09-11T17:13:36.438094+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y02",
+        "whereClause": "nendo=1986",
+        "extension": "csv"
+      },
+      "year": 1986
+    },
+    {
+      "file": "water-y03-1986.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=bc1njemo.n0j",
+      "bytes": 5008,
+      "sha256": "fd47f3eb199577adea2f75e9ecdd062f5f890071ac4b49acf338d421373295b9",
+      "retrievedAt": "2026-09-11T17:13:43.059391+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y03",
+        "whereClause": "nendo=1986",
+        "extension": "csv"
+      },
+      "year": 1986
+    },
+    {
+      "file": "water-y02-1987.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=u4qeny0f.4aa",
+      "bytes": 422408,
+      "sha256": "731fb2052e0297892b1d3ea2f2b3c3129935e0e3552b1f14f9653e61dc907586",
+      "retrievedAt": "2026-09-11T17:13:52.808396+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y02",
+        "whereClause": "nendo=1987",
+        "extension": "csv"
+      },
+      "year": 1987
+    },
+    {
+      "file": "water-y03-1987.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=d1uocubj.uex",
+      "bytes": 7049,
+      "sha256": "586cce70aa50127c906fad6f51d1b198ae71c379fd8f5553db597549544b1dc4",
+      "retrievedAt": "2026-09-11T17:13:59.327545+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y03",
+        "whereClause": "nendo=1987",
+        "extension": "csv"
+      },
+      "year": 1987
+    },
+    {
+      "file": "water-y02-1988.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=dz0z1wzg.rbo",
+      "bytes": 425944,
+      "sha256": "beff56766ae639de2dcef1719fedbfb2d82a10a2d6329a5423ede942cd971e18",
+      "retrievedAt": "2026-09-11T17:14:07.634730+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y02",
+        "whereClause": "nendo=1988",
+        "extension": "csv"
+      },
+      "year": 1988
+    },
+    {
+      "file": "water-y03-1988.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=htd3isss.z3d",
+      "bytes": 7943,
+      "sha256": "c4ea028307ede8519e9711f19d168f6ec398f82cdc179d95f82bbd8a1d279d92",
+      "retrievedAt": "2026-09-11T17:14:12.601337+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y03",
+        "whereClause": "nendo=1988",
+        "extension": "csv"
+      },
+      "year": 1988
+    },
+    {
+      "file": "water-y02-1989.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=tpervv0k.jyf",
+      "bytes": 426135,
+      "sha256": "d7b091fa3467e258a75a0801ae22aa7be847fd45c34742d3cb209a28c289c10f",
+      "retrievedAt": "2026-09-11T17:14:20.899763+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y02",
+        "whereClause": "nendo=1989",
+        "extension": "csv"
+      },
+      "year": 1989
+    },
+    {
+      "file": "water-y03-1989.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=24f3emgo.01m",
+      "bytes": 8050,
+      "sha256": "3706a35380b1e98871d7c15ad49f0e3a109830aedbbf24fefab0ef12742b40ca",
+      "retrievedAt": "2026-09-11T17:14:25.921079+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y03",
+        "whereClause": "nendo=1989",
+        "extension": "csv"
+      },
+      "year": 1989
+    },
+    {
+      "file": "water-y02-1990.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=eqmerfsb.pyz",
+      "bytes": 423229,
+      "sha256": "3e06f98bcc511e4a73221b145422a8ed19f6fd29863ade1946c535e671960d14",
+      "retrievedAt": "2026-09-11T17:14:34.097629+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y02",
+        "whereClause": "nendo=1990",
+        "extension": "csv"
+      },
+      "year": 1990
+    },
+    {
+      "file": "water-y03-1990.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=1ajkjxqx.btn",
+      "bytes": 8308,
+      "sha256": "bb3633e1ccf0ce146f5349e5a7ed61647fa6d3fa80241f99247ec06c66140adc",
+      "retrievedAt": "2026-09-11T17:14:39.046192+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y03",
+        "whereClause": "nendo=1990",
+        "extension": "csv"
+      },
+      "year": 1990
+    },
+    {
+      "file": "water-y02-1991.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=bjqxm3gu.pxh",
+      "bytes": 430457,
+      "sha256": "9590648ede3f290ee1fc17c762fc3a35c02b2d4d06828378bb92b456121ccc6d",
+      "retrievedAt": "2026-09-11T17:14:50.340116+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y02",
+        "whereClause": "nendo=1991",
+        "extension": "csv"
+      },
+      "year": 1991
+    },
+    {
+      "file": "water-y03-1991.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=lwyjr3to.xyo",
+      "bytes": 8790,
+      "sha256": "c832aa4dfc23db33d79a92b0d7d540fc5e6296ea08abeef70cc7cf25e220e839",
+      "retrievedAt": "2026-09-11T17:14:56.948566+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y03",
+        "whereClause": "nendo=1991",
+        "extension": "csv"
+      },
+      "year": 1991
+    },
+    {
+      "file": "water-y02-1992.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=n3qxsxsz.vnc",
+      "bytes": 427714,
+      "sha256": "1379110bc3c9f21a9d5a3b94c357329fc4ecda6f802ac9c3705cc5425ea5638b",
+      "retrievedAt": "2026-09-11T17:15:05.269509+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y02",
+        "whereClause": "nendo=1992",
+        "extension": "csv"
+      },
+      "year": 1992
+    },
+    {
+      "file": "water-y03-1992.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=s4qjv1i3.abk",
+      "bytes": 8512,
+      "sha256": "21179d83b52dd1d5232e3e60d644c0efd61b06d3936ff2f057e1ab51c80b8dd5",
+      "retrievedAt": "2026-09-11T17:15:10.379429+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y03",
+        "whereClause": "nendo=1992",
+        "extension": "csv"
+      },
+      "year": 1992
+    },
+    {
+      "file": "water-y02-1993.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=ynkgnuek.apx",
+      "bytes": 431382,
+      "sha256": "f408713047c93fa74533cb58d2cd93139c83041e5e64856f716535cb33583ca9",
+      "retrievedAt": "2026-09-11T17:15:18.860087+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y02",
+        "whereClause": "nendo=1993",
+        "extension": "csv"
+      },
+      "year": 1993
+    },
+    {
+      "file": "water-y03-1993.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=j1qlb3yg.e3e",
+      "bytes": 8560,
+      "sha256": "d8295396f89c837ce6995901f04941e66bfb482c51c718f4a16f122695a0d475",
+      "retrievedAt": "2026-09-11T17:15:23.957537+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y03",
+        "whereClause": "nendo=1993",
+        "extension": "csv"
+      },
+      "year": 1993
+    },
+    {
+      "file": "water-y02-1994.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=iom4r0bs.wqd",
+      "bytes": 444762,
+      "sha256": "eed2df87a23b5611e1634d8d5ed986bad169d057f084fc51298f80e06e460e48",
+      "retrievedAt": "2026-09-11T17:15:32.154754+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y02",
+        "whereClause": "nendo=1994",
+        "extension": "csv"
+      },
+      "year": 1994
+    },
+    {
+      "file": "water-y03-1994.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=jyfjqyba.ozd",
+      "bytes": 8683,
+      "sha256": "8bdee52e22495c613280da4f218d5f38f99e1d8b68b2546300a4d08c0c59df18",
+      "retrievedAt": "2026-09-11T17:15:37.133866+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y03",
+        "whereClause": "nendo=1994",
+        "extension": "csv"
+      },
+      "year": 1994
+    },
+    {
+      "file": "water-y02-1995.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=sipu2nsv.0zw",
+      "bytes": 446733,
+      "sha256": "14c617df04360dab29f0dc24b52477ac69aceea7993115d015babdc842f78a3d",
+      "retrievedAt": "2026-09-11T17:15:49.966214+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y02",
+        "whereClause": "nendo=1995",
+        "extension": "csv"
+      },
+      "year": 1995
+    },
+    {
+      "file": "water-y03-1995.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=odnenzpf.ni0",
+      "bytes": 13808,
+      "sha256": "5b4a2e17d465448dd9054b48d79d38050efbeae509cecf6e8de30b847adc6892",
+      "retrievedAt": "2026-09-11T17:15:56.648664+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y03",
+        "whereClause": "nendo=1995",
+        "extension": "csv"
+      },
+      "year": 1995
+    },
+    {
+      "file": "water-y02-1996.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=2h2auvv3.zve",
+      "bytes": 449010,
+      "sha256": "8487b950fa838d3dbb631b711cac2750b1d93f431a666230e4cfff59c8f5acc2",
+      "retrievedAt": "2026-09-11T17:16:06.353756+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y02",
+        "whereClause": "nendo=1996",
+        "extension": "csv"
+      },
+      "year": 1996
+    },
+    {
+      "file": "water-y03-1996.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=i3tjzsc3.dit",
+      "bytes": 17824,
+      "sha256": "619a12fb84c0ebf44b8a010115adf22fed4d9b5d7758d7e9819aa5eb6990ed59",
+      "retrievedAt": "2026-09-11T17:16:11.308793+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y03",
+        "whereClause": "nendo=1996",
+        "extension": "csv"
+      },
+      "year": 1996
+    },
+    {
+      "file": "water-y02-1997.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=zzlptysn.df1",
+      "bytes": 449933,
+      "sha256": "ad111b921c33a63509a63d53cd6d2e320f0e35e236e6480f0c61c648cc100201",
+      "retrievedAt": "2026-09-11T17:16:19.560233+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y02",
+        "whereClause": "nendo=1997",
+        "extension": "csv"
+      },
+      "year": 1997
+    },
+    {
+      "file": "water-y03-1997.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=k1211duo.0fd",
+      "bytes": 24501,
+      "sha256": "3018601bd4d53d336b82a46327ff2477f1b0ee6cc34c48468dfedab566060d41",
+      "retrievedAt": "2026-09-11T17:16:24.523423+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y03",
+        "whereClause": "nendo=1997",
+        "extension": "csv"
+      },
+      "year": 1997
+    },
+    {
+      "file": "water-y02-1998.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=fayr34xz.c5o",
+      "bytes": 453017,
+      "sha256": "274d2a18775148ab8e5b420aaac9db2c0ad336b4e213daa070c8c8a80261d80a",
+      "retrievedAt": "2026-09-11T17:16:32.654053+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y02",
+        "whereClause": "nendo=1998",
+        "extension": "csv"
+      },
+      "year": 1998
+    },
+    {
+      "file": "water-y03-1998.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=vju2mkig.jfm",
+      "bytes": 38013,
+      "sha256": "eac8558409270c7ba4e5ba6e7b3ba9e8412e3c6cd1e14cd4fcf96363e6da530a",
+      "retrievedAt": "2026-09-11T17:16:37.676258+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y03",
+        "whereClause": "nendo=1998",
+        "extension": "csv"
+      },
+      "year": 1998
+    },
+    {
+      "file": "water-y02-1999.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=0ovfjgmv.m4e",
+      "bytes": 453656,
+      "sha256": "2418e2c6aa9a7da9a921049d751482ec7c9ca6edc613a4781f8122e654bee6fe",
+      "retrievedAt": "2026-09-11T17:16:49.143652+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y02",
+        "whereClause": "nendo=1999",
+        "extension": "csv"
+      },
+      "year": 1999
+    },
+    {
+      "file": "water-y03-1999.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=hc3pnjo1.q1s",
+      "bytes": 68366,
+      "sha256": "d51310df956e865628a338a506af8b38388013a046d74ca04dcaf3a82d1aaed7",
+      "retrievedAt": "2026-09-11T17:16:55.869452+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y03",
+        "whereClause": "nendo=1999",
+        "extension": "csv"
+      },
+      "year": 1999
+    },
+    {
+      "file": "water-y02-2000.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=fbb51vii.vj4",
+      "bytes": 452690,
+      "sha256": "4833b6112f95a765105f3fffc609948c09e993e54e67e8aa6b224a77abb9b076",
+      "retrievedAt": "2026-09-11T17:17:04.141163+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y02",
+        "whereClause": "nendo=2000",
+        "extension": "csv"
+      },
+      "year": 2000
+    },
+    {
+      "file": "water-y03-2000.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=tijnbnwb.r1w",
+      "bytes": 67657,
+      "sha256": "931d439261bd341bbc9b8f01d41d0f4df28f37fdb05e8a00c2b4585b4c8ea7ba",
+      "retrievedAt": "2026-09-11T17:17:09.226709+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y03",
+        "whereClause": "nendo=2000",
+        "extension": "csv"
+      },
+      "year": 2000
+    },
+    {
+      "file": "water-y02-2001.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=arl1vytm.pwq",
+      "bytes": 453474,
+      "sha256": "c16b3b3a83cbad17c6e994efc6b4ceeda685aa61ad2efac3477e8f909ef2b56f",
+      "retrievedAt": "2026-09-11T17:17:17.554205+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y02",
+        "whereClause": "nendo=2001",
+        "extension": "csv"
+      },
+      "year": 2001
+    },
+    {
+      "file": "water-y03-2001.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=zy5gmwzk.jd2",
+      "bytes": 71256,
+      "sha256": "b92b257367b5e21cb1f21c618f93bb407733795218548c72b19824a3de374fe2",
+      "retrievedAt": "2026-09-11T17:17:22.698225+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y03",
+        "whereClause": "nendo=2001",
+        "extension": "csv"
+      },
+      "year": 2001
+    },
+    {
+      "file": "water-y02-2002.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=mioquxub.rwp",
+      "bytes": 451394,
+      "sha256": "78a13a81199cff230e45a9835d3bd7ee87c642053b5322a8bcbe3f6660f71d58",
+      "retrievedAt": "2026-09-11T17:17:29.421685+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y02",
+        "whereClause": "nendo=2002",
+        "extension": "csv"
+      },
+      "year": 2002
+    },
+    {
+      "file": "water-y03-2002.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=32twf0ce.dxh",
+      "bytes": 70377,
+      "sha256": "a530723786663e2095b1536ceb92ae8bd47620cb71a6b354e312c37c67ca40ad",
+      "retrievedAt": "2026-09-11T17:17:34.533404+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y03",
+        "whereClause": "nendo=2002",
+        "extension": "csv"
+      },
+      "year": 2002
+    },
+    {
+      "file": "water-y02-2003.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=lqfdoioc.gvp",
+      "bytes": 449290,
+      "sha256": "91a2516af3518b72275adeca98fe6df984a9bcf286844baa6b8bbc5859091f1c",
+      "retrievedAt": "2026-09-11T17:17:44.525723+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y02",
+        "whereClause": "nendo=2003",
+        "extension": "csv"
+      },
+      "year": 2003
+    },
+    {
+      "file": "water-y03-2003.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=bhijmxkf.r1q",
+      "bytes": 71743,
+      "sha256": "d7d7d8b713da03ded86aa5400a56e73473241b810721b72bc1ca657164029afd",
+      "retrievedAt": "2026-09-11T17:17:51.384002+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y03",
+        "whereClause": "nendo=2003",
+        "extension": "csv"
+      },
+      "year": 2003
+    },
+    {
+      "file": "water-y02-2004.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=qjg0cyi4.p3m",
+      "bytes": 449608,
+      "sha256": "76565e60e99db36c67e9e935d49776881db8b8daa8b0d55a45a80cd0dba4c07e",
+      "retrievedAt": "2026-09-11T17:18:01.288754+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y02",
+        "whereClause": "nendo=2004",
+        "extension": "csv"
+      },
+      "year": 2004
+    },
+    {
+      "file": "water-y03-2004.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=ngswu32y.xyz",
+      "bytes": 72259,
+      "sha256": "29c6df373fa08ef0b9d2eaf2a91fdbc37471efd17d1e3a8885b1c4401aff62e0",
+      "retrievedAt": "2026-09-11T17:18:06.439364+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y03",
+        "whereClause": "nendo=2004",
+        "extension": "csv"
+      },
+      "year": 2004
+    },
+    {
+      "file": "water-y02-2005.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=hyoxxvjp.wg3",
+      "bytes": 450387,
+      "sha256": "22e021f2bc4d9f8e346f138a74febdff13fd4ef5231e0fd244225f8af7574f15",
+      "retrievedAt": "2026-09-11T17:18:15.210190+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y02",
+        "whereClause": "nendo=2005",
+        "extension": "csv"
+      },
+      "year": 2005
+    },
+    {
+      "file": "water-y03-2005.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=daibed5w.zzs",
+      "bytes": 71333,
+      "sha256": "44d58743cfdf55c4dfb46f1965fac363b2e68d1b516b024b548fb7e1aeeee207",
+      "retrievedAt": "2026-09-11T17:18:20.518200+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y03",
+        "whereClause": "nendo=2005",
+        "extension": "csv"
+      },
+      "year": 2005
+    },
+    {
+      "file": "water-y02-2006.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=zadmnl0t.trx",
+      "bytes": 443418,
+      "sha256": "6ba0ca7ee077d80683da388bd34ca9ea4512807980a3156f6b57cf95f164933b",
+      "retrievedAt": "2026-09-11T17:18:29.217603+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y02",
+        "whereClause": "nendo=2006",
+        "extension": "csv"
+      },
+      "year": 2006
+    },
+    {
+      "file": "water-y03-2006.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=nlny2m41.yh3",
+      "bytes": 68439,
+      "sha256": "831eb123774f0a887adc39cece82f88eb04d753a5bd243eba844ae05302ce07d",
+      "retrievedAt": "2026-09-11T17:18:34.552894+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y03",
+        "whereClause": "nendo=2006",
+        "extension": "csv"
+      },
+      "year": 2006
+    },
+    {
+      "file": "water-y02-2007.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=l5avys3m.x1v",
+      "bytes": 461615,
+      "sha256": "4f3afb3787e3def49e07782ff60cbe93f7eb9ec5678ac9a0e82d4c9182ca5df3",
+      "retrievedAt": "2026-09-11T17:18:44.707222+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y02",
+        "whereClause": "nendo=2007",
+        "extension": "csv"
+      },
+      "year": 2007
+    },
+    {
+      "file": "water-y03-2007.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=prld4njf.ntg",
+      "bytes": 67154,
+      "sha256": "2f49fb32d107dcce21af3309adb8c0228b64237bcbdb3fc178091daad909a7ba",
+      "retrievedAt": "2026-09-11T17:18:51.703520+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y03",
+        "whereClause": "nendo=2007",
+        "extension": "csv"
+      },
+      "year": 2007
+    },
+    {
+      "file": "water-y02-2008.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=4zjejj2j.eva",
+      "bytes": 461354,
+      "sha256": "e51f49c928da4f4271b7a2f6428b8542fa47cfbf4d8b724a8b9ac9ac1f4a549e",
+      "retrievedAt": "2026-09-11T17:19:01.707002+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y02",
+        "whereClause": "nendo=2008",
+        "extension": "csv"
+      },
+      "year": 2008
+    },
+    {
+      "file": "water-y03-2008.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=0kmcquop.dlz",
+      "bytes": 64932,
+      "sha256": "8e6b132afe5bd27448d5409fd4e92504e21d3399a224f125561d518dceab4312",
+      "retrievedAt": "2026-09-11T17:19:06.821416+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y03",
+        "whereClause": "nendo=2008",
+        "extension": "csv"
+      },
+      "year": 2008
+    },
+    {
+      "file": "water-y02-2009.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=eonwul4x.ec3",
+      "bytes": 481993,
+      "sha256": "2657519a77e53f852414cded3010be7ac50116a96b62aab215d6f1d393bd4731",
+      "retrievedAt": "2026-09-11T17:19:15.235308+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y02",
+        "whereClause": "nendo=2009",
+        "extension": "csv"
+      },
+      "year": 2009
+    },
+    {
+      "file": "water-y03-2009.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=w211ygfe.fto",
+      "bytes": 224784,
+      "sha256": "153400f037647477e3efe3c933b3871607ea8c06d7230a7068f9783525654a82",
+      "retrievedAt": "2026-09-11T17:19:20.415423+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y03",
+        "whereClause": "nendo=2009",
+        "extension": "csv"
+      },
+      "year": 2009
+    },
+    {
+      "file": "water-y02-2010.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=bwnqir3j.ae2",
+      "bytes": 485759,
+      "sha256": "9cbba5915cd9e5bf1ce1ae932bb5179ed167f7e8228558914f89d43e6e1a8462",
+      "retrievedAt": "2026-09-11T17:19:27.120357+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y02",
+        "whereClause": "nendo=2010",
+        "extension": "csv"
+      },
+      "year": 2010
+    },
+    {
+      "file": "water-y03-2010.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=ycbetbn1.q1r",
+      "bytes": 227926,
+      "sha256": "e7dc7de08514907794c7967f47c4e1fa369ad4a6033283b80a1b1fe30f8955c9",
+      "retrievedAt": "2026-09-11T17:19:33.746910+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y03",
+        "whereClause": "nendo=2010",
+        "extension": "csv"
+      },
+      "year": 2010
+    },
+    {
+      "file": "water-y02-2011.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=w12vlilv.kis",
+      "bytes": 493067,
+      "sha256": "ea860ba00ca225655a21cc8239d1fc588d6ec2c7479b18fefa199f28256c1001",
+      "retrievedAt": "2026-09-11T17:19:42.299671+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y02",
+        "whereClause": "nendo=2011",
+        "extension": "csv"
+      },
+      "year": 2011
+    },
+    {
+      "file": "water-y03-2011.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=0izp2nsi.fpv",
+      "bytes": 226824,
+      "sha256": "741e727d0daff095eeb25d24123587e2840cbfd405ac45c74d4a0e03c4bd886c",
+      "retrievedAt": "2026-09-11T17:19:50.562618+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y03",
+        "whereClause": "nendo=2011",
+        "extension": "csv"
+      },
+      "year": 2011
+    },
+    {
+      "file": "water-y02-2012.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=aofribxg.2v5",
+      "bytes": 489227,
+      "sha256": "4c0b9ddd416759a194bd9039846df57bb6bc5bd186c3699606f13d0b98db39a9",
+      "retrievedAt": "2026-09-11T17:20:00.557783+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y02",
+        "whereClause": "nendo=2012",
+        "extension": "csv"
+      },
+      "year": 2012
+    },
+    {
+      "file": "water-y03-2012.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=0tk24hcu.wgj",
+      "bytes": 217000,
+      "sha256": "9569656b7af89968fc2c003c79e4f4e4d637f2f25e362261793ef0ddefa123cd",
+      "retrievedAt": "2026-09-11T17:20:07.324313+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y03",
+        "whereClause": "nendo=2012",
+        "extension": "csv"
+      },
+      "year": 2012
+    },
+    {
+      "file": "water-y02-2013.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=lsxokn40.hol",
+      "bytes": 497247,
+      "sha256": "9d75b8f5e8347a58ed807f67decdad878ba81c48ce03da0c14c3912df2adadc0",
+      "retrievedAt": "2026-09-11T17:20:14.111420+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y02",
+        "whereClause": "nendo=2013",
+        "extension": "csv"
+      },
+      "year": 2013
+    },
+    {
+      "file": "water-y03-2013.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=i3hsr5ia.mbd",
+      "bytes": 220033,
+      "sha256": "70f91636410aaaf8337414d2eff59c6911272564513d48dd300438584e33efd0",
+      "retrievedAt": "2026-09-11T17:20:19.363503+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y03",
+        "whereClause": "nendo=2013",
+        "extension": "csv"
+      },
+      "year": 2013
+    },
+    {
+      "file": "water-y02-2014.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=jlfoyjmx.x2f",
+      "bytes": 507520,
+      "sha256": "38f1fe99ce6c5950e632f09a86426e1444a7634e024963c77241342fee7e85f4",
+      "retrievedAt": "2026-09-11T17:20:27.735487+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y02",
+        "whereClause": "nendo=2014",
+        "extension": "csv"
+      },
+      "year": 2014
+    },
+    {
+      "file": "water-y03-2014.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=uhd20tbe.4rr",
+      "bytes": 224219,
+      "sha256": "b1f195142e527debd2436f7ed215c4e8cc0e1b2f02147522a24dffdcc5dfa195",
+      "retrievedAt": "2026-09-11T17:20:32.912158+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y03",
+        "whereClause": "nendo=2014",
+        "extension": "csv"
+      },
+      "year": 2014
+    },
+    {
+      "file": "water-y02-2015.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=5t32l4qc.iwn",
+      "bytes": 504274,
+      "sha256": "8ae155263167868d2e0a6b2cad9ca8557fe278029eaca0732227ad0fcff6da96",
+      "retrievedAt": "2026-09-11T17:20:42.882858+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y02",
+        "whereClause": "nendo=2015",
+        "extension": "csv"
+      },
+      "year": 2015
+    },
+    {
+      "file": "water-y03-2015.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=izdnifv0.jzm",
+      "bytes": 223375,
+      "sha256": "2a7e78f40217ad01e0aef6200f0ef66c0e534bc840b0cdbfd610883dbcddf2cd",
+      "retrievedAt": "2026-09-11T17:20:49.817811+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y03",
+        "whereClause": "nendo=2015",
+        "extension": "csv"
+      },
+      "year": 2015
+    },
+    {
+      "file": "water-y02-2016.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=10s3f0ow.dnp",
+      "bytes": 503743,
+      "sha256": "b3271c1611ebf3c14aef8d07c38df2274a91b95cc4532cf9fb06d0ec1368a002",
+      "retrievedAt": "2026-09-11T17:20:59.981244+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y02",
+        "whereClause": "nendo=2016",
+        "extension": "csv"
+      },
+      "year": 2016
+    },
+    {
+      "file": "water-y03-2016.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=trdxgp0r.uk1",
+      "bytes": 223258,
+      "sha256": "fca07e12df611aa5ccf353c93b12fdfe0a0de88a542e6c92e852dd55ed429ecf",
+      "retrievedAt": "2026-09-11T17:21:07.163612+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y03",
+        "whereClause": "nendo=2016",
+        "extension": "csv"
+      },
+      "year": 2016
+    },
+    {
+      "file": "water-y02-2017.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=4nzi40sf.wbu",
+      "bytes": 505467,
+      "sha256": "1b2d80a65c75a13b7e23149359aacdb36776dddeb77c8a7c7f16d73636e790a1",
+      "retrievedAt": "2026-09-11T17:21:14.298872+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y02",
+        "whereClause": "nendo=2017",
+        "extension": "csv"
+      },
+      "year": 2017
+    },
+    {
+      "file": "water-y03-2017.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=2usjr24r.yzl",
+      "bytes": 221266,
+      "sha256": "d4ca059590abdebebbb847aef918898aca3940251d13a318b425ba0d0f7d9061",
+      "retrievedAt": "2026-09-11T17:21:19.573913+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y03",
+        "whereClause": "nendo=2017",
+        "extension": "csv"
+      },
+      "year": 2017
+    },
+    {
+      "file": "water-y02-2018.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=fqmek3lg.zv0",
+      "bytes": 510332,
+      "sha256": "b4585bfe12b9f52017e88c039b8e91c13aa561151c5b79b7e010442ebd516bdc",
+      "retrievedAt": "2026-09-11T17:21:26.383987+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y02",
+        "whereClause": "nendo=2018",
+        "extension": "csv"
+      },
+      "year": 2018
+    },
+    {
+      "file": "water-y03-2018.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=yxum4sk4.dtz",
+      "bytes": 222984,
+      "sha256": "f56ccb34aea151a89eee249c270ad51e94be0e2fdedf34c021d2d501f852fe1b",
+      "retrievedAt": "2026-09-11T17:21:31.903992+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y03",
+        "whereClause": "nendo=2018",
+        "extension": "csv"
+      },
+      "year": 2018
+    },
+    {
+      "file": "water-y02-2019.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=uhcdqq2k.fmf",
+      "bytes": 493021,
+      "sha256": "bcd85f79032065e5fbbb708685b899aa7f6b207683acefc38ce90aa91d3dcbc1",
+      "retrievedAt": "2026-09-11T17:21:40.743871+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y02",
+        "whereClause": "nendo=2019",
+        "extension": "csv"
+      },
+      "year": 2019
+    },
+    {
+      "file": "water-y03-2019.zip",
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/download.aspx?id=ta0g4xvw.ib1",
+      "bytes": 216448,
+      "sha256": "0f0afbc091b8533f0b5ffe8b46e19150c7cb0eb58fae873a40684d1d9828eac5",
+      "retrievedAt": "2026-09-11T17:21:49.504128+00:00",
+      "exportUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation",
+      "query": {
+        "featureClassName": "p_kosui_y03",
+        "whereClause": "nendo=2019",
+        "extension": "csv"
+      },
+      "year": 2019
+    }
+  ],
+  "unavailable": [
+    {
+      "year": 1984,
+      "query": {
+        "featureClassName": "p_kosui_y03",
+        "whereClause": "nendo=1984",
+        "extension": "csv"
+      },
+      "response": "RecordNotFound"
+    }
+  ],
+  "queryYears": [
+    1984,
+    1985,
+    1986,
+    1987,
+    1988,
+    1989,
+    1990,
+    1991,
+    1992,
+    1993,
+    1994,
+    1995,
+    1996,
+    1997,
+    1998,
+    1999,
+    2000,
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019
+  ]
+}

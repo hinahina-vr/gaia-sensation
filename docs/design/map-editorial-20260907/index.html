@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MAP 30展示 — 見出し・説明の確認</title>
+  <style>
+    :root { color-scheme: light; font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", sans-serif; color: #193e3a; background: #f5f4ed; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    main { max-width: 1080px; margin: auto; padding: 64px 30px; }
+    header { max-width: 760px; margin-bottom: 50px; }
+    .eyebrow, .number { font: 600 12px/1.5 sans-serif; letter-spacing: .13em; color: #50736c; }
+    h1, h2, .subtitle { font-family: "Yu Mincho", "Hiragino Mincho ProN", serif; }
+    h1 { margin: 14px 0 20px; font-size: clamp(30px, 5vw, 48px); font-weight: 500; }
+    header p { line-height: 1.9; font-size: 15px; }
+    a { color: #216954; text-underline-offset: 4px; }
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
+    article { padding: 28px; border: 1px solid #d4dcd2; background: #fffef9; border-radius: 4px; }
+    h2 { margin: 10px 0 14px; font-size: 26px; font-weight: 500; line-height: 1.6; }
+    .subtitle { margin: 0 0 24px; font-size: 17px; line-height: 1.9; }
+    .body { margin: 0; font-size: 14px; line-height: 1.95; color: #4f605a; overflow-wrap: anywhere; }
+    .label { margin: 0 0 7px; font-size: 11px; letter-spacing: .06em; color: #738178; }
+    details { margin-top: 22px; border-top: 1px solid #e3e7dc; padding-top: 15px; }
+    summary { cursor: pointer; font-size: 12px; color: #50736c; }
+    details p { font-size: 13px; line-height: 1.9; color: #4f605a; }
+    a:focus-visible, summary:focus-visible { outline: 2px solid #216954; outline-offset: 5px; }
+    .error { color: #943b35; }
+    footer { margin-top: 36px; font-size: 12px; color: #738178; line-height: 1.8; }
+    @media (max-width: 650px) { main { padding: 34px 20px; } .grid { grid-template-columns: 1fr; gap: 16px; } article { padding: 24px; } h2 { font-size: 24px; } }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div class="eyebrow">GAIA SENSEWARE / MAP EDITORIAL / 2026.09.07</div>
+      <h1>この星を見る、30の入口。</h1>
+      <p>タイトルで惹きつけ、サブタイトルで暮らしや生態系との関係を伝え、本文でデータと限界を説明する。危機・循環・自然の働き、それぞれの違いを残して整えました。</p>
+      <p><a href="../../../#world">実際のMAP展示を開く</a></p>
+    </header>
+    <section class="grid" aria-label="30展示の見出しと説明" aria-busy="true"></section>
+    <footer>実装文言の確認用一覧です。展示内のデータ出典・単位・読み方・観測状態の注記は引き続き表示します。都市別展示の本文中の「東京」は、選択した都市名に切り替わります。</footer>
+  </main>
+  <script type="module">
+    const grid = document.querySelector(".grid");
+    const element = (tag, text, className) => {
+      const node = document.createElement(tag);
+      node.textContent = text;
+      if (className) node.className = className;
+      return node;
+    };
+    try {
+      const response = await fetch("./copy.json");
+      if (!response.ok) throw new Error(String(response.status));
+      const { exhibits } = await response.json();
+      for (const exhibit of exhibits) {
+        const card = document.createElement("article");
+        card.id = `map-${exhibit.number}`;
+        card.append(element("div", `MAP ${exhibit.number}`, "number"), element("h2", exhibit.title),
+          element("p", exhibit.subtitle, "subtitle"), element("div", "本文 / データと限界", "label"), element("p", exhibit.body, "body"));
+        const details = document.createElement("details");
+        details.append(element("summary", "展示一覧に出る説明を読む"), element("p", exhibit.picker));
+        if (exhibit.question) details.append(element("p", `展示内の問い：${exhibit.question}`));
+        card.append(details);
+        grid.append(card);
+      }
+    } catch {
+      grid.append(element("p", "確認文言を読み込めませんでした。ローカルプレビュー経由でこのページを開いてください。", "error"));
+    } finally { grid.setAttribute("aria-busy", "false"); }
+  </script>
+</body>
+</html>

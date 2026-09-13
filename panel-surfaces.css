@@ -1,0 +1,33 @@
+/* Shared popup surfaces: only the background is 80% opaque. Do not fade
+   containers (which also fades their text, icons and controls). */
+@layer gaia-panel-surfaces {
+  :is(.gaia-mode-entry-guide-card, .gaia-opening-route-guide-surface, .intro-entry-guide-surface,
+      .gaia-opening-sound-dialog, .gaia-opening-sound-hint,
+      .sensor-participation-dialog, .sensor-public-profile-dialog, .sensor-map-card,
+      .sensor-onboarding-dialog, .sensor-popover, .sensor-sync-tooltip,
+      #japan-data-panel, #japan-poi-card, .japan-poi-preview,
+      .map-dock-bank-popover, .map-reading-guide-body, .gaia-metric-legend-details,
+      #map-mobile-sheet, .map-mobile-ecology-summary, #map-analysis-unavailable-tooltip,
+      .gaia-live-deck-popover, .gaia-estat-picker, .gaia-planet-picker,
+      .gaia-observation-place-popover, .character-book-cg-viewer-panel) {
+    background: linear-gradient(145deg, rgba(var(--panel-light-rgb, 19, 42, 52), .8), rgba(var(--panel-dark-rgb, 5, 22, 32), .8)) !important;
+  }
+  #japan-layer :is(.signal-console-map, .gaia-live-exhibit-readout, .gaia-estat-readout,
+      .gaia-firms-readout, .gaia-planet-signals-readout, .gaia-marine-cod-readout, .gaia-metric-legend,
+      .signal-encoding-legend-dock, .map-command-dock, .japan-heading):not(.map-mobile-reading-copy),
+  #japan-layer .gaia-estat-readout::before {
+    background: linear-gradient(145deg, rgba(19, 42, 52, .8), rgba(5, 22, 32, .8)) !important;
+  }
+  /* The wide statistics caption sits directly on the map. Its lower control
+     row keeps the shared 80% surface through its own backdrop pseudo-element. */
+  @media (min-width: 1501px) {
+    body.map-grid-desktop #japan-layer .gaia-estat-readout { background: none !important; }
+  }
+  /* Nested readouts in the desktop command dock share its one surface. */
+  #japan-layer .map-command-dock > .signal-console-map { background: none !important; }
+  #japan-layer.is-mobile-map-shell .japan-heading { background: none !important; }
+  #japan-layer.is-mobile-map-shell .signal-console-map { background: linear-gradient(145deg, rgba(19, 42, 52, .8), rgba(5, 22, 32, .8)) !important; }
+  .sensor-participation-dialog, .sensor-map-card, .sensor-onboarding-dialog {
+    --panel-light-rgb: 16, 35, 34; --panel-dark-rgb: 7, 21, 25;
+  }
+}

@@ -1,0 +1,303 @@
+/* Map instruments only. The audio dock deliberately has no rules here. */
+#map-signal-encoding-legend-dock {
+  border: 1px solid rgba(171, 205, 216, .22);
+  border-radius: 12px;
+  background: linear-gradient(145deg, rgba(19, 40, 53, .97), rgba(6, 21, 32, .97));
+  box-shadow: 0 8px 24px rgba(0, 8, 17, .18), inset 0 1px rgba(226, 246, 249, .035);
+  backdrop-filter: none;
+}
+
+#map-signal-encoding-legend-dock .signal-encoding-legend-title {
+  align-items: center;
+  min-height: 48px;
+  margin: 0;
+  padding: 13px 16px 10px;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+}
+
+#map-signal-encoding-legend-dock .signal-encoding-legend-title strong {
+  color: #e3eeef;
+  font: 600 13px/1.3 var(--font-ui-ja);
+  letter-spacing: .08em;
+}
+
+#map-signal-encoding-legend-dock .signal-encoding-legend-title span {
+  color: #7d9aa5;
+  font: 500 8px/1.3 Arial, sans-serif;
+  letter-spacing: .12em;
+}
+
+#map-signal-encoding-legend-dock .signal-encoding-legend {
+  gap: 12px 16px;
+  margin: 0 16px;
+  padding: 2px 0 15px !important;
+  border: 0;
+  border-radius: 0;
+  background: none;
+}
+
+#map-signal-encoding-legend-dock .signal-encoding-legend dt {
+  align-items: flex-start;
+  gap: 9px;
+  color: #bccdd3;
+  font: 500 11px/1.6 var(--font-ui-ja);
+  letter-spacing: .01em;
+}
+
+#map-signal-encoding-legend-dock .signal-encoding-legend i { margin-top: 3px; }
+
+/* These are the actual marks used by the current/transport chapter. */
+#map-signal-encoding-legend-dock [data-mode="transport"] i {
+  width: 24px !important;
+  height: 14px;
+  border: 0;
+  box-shadow: none;
+}
+#map-signal-encoding-legend-dock [data-mode="transport"] [data-encoding-mark="heatmap"] {
+  height: 5px;
+  margin-top: 6px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #1c4b81, #25ced6, #7dffd0, #ffe164, #ff8246);
+}
+#map-signal-encoding-legend-dock [data-mode="transport"] [data-encoding-mark="nodata"] {
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 14' fill='none' stroke='%237badbc' stroke-width='1.2'%3E%3Cpath d='M1 5c6-7 14 7 22 0M1 10c6-7 14 7 22 0'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+#map-signal-encoding-legend-dock [data-mode="transport"] [data-encoding-mark="estimate"] {
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 14' fill='none' stroke='%23e7b479' stroke-width='1.3'%3E%3Ccircle cx='3' cy='10' r='2'/%3E%3Cpath d='M6 10c6 0 6-6 15-6m-3-2 3 2-3 2'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+#map-signal-encoding-legend-dock [data-mode="transport"] [data-encoding-mark="resolution"] {
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 14' fill='none' stroke='%23cedde1' stroke-width='1.2'%3E%3Cpath d='M2 7h19m-5-4 5 4-5 4M2 11h7'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+@media (min-width: 901px) {
+  body.map-grid-desktop #map-signal-encoding-legend-dock {
+    width: clamp(360px, 18vw, 440px) !important;
+    transition: none;
+  }
+  body.map-grid-desktop [data-gaia-mode-guide-replay="map"] {
+    top: max(21px, calc(env(safe-area-inset-top) + 3px));
+    right: max(82px, calc(env(safe-area-inset-right) + 72px));
+    min-height: 42px;
+    padding: 6px 12px;
+    gap: 6px;
+    border: 0;
+    border-radius: 8px;
+    color: #a4bdc6;
+    background: transparent;
+    box-shadow: none;
+  }
+  body.map-grid-desktop [data-gaia-mode-guide-replay="map"] > span {
+    width: 18px;
+    height: 18px;
+    border-color: rgba(153, 198, 213, .35);
+    font: 500 11px/1 Arial, sans-serif;
+  }
+  body.map-grid-desktop [data-gaia-mode-guide-replay="map"] > strong {
+    font: 500 10px/1 var(--font-ui-ja);
+    letter-spacing: .03em;
+  }
+  body.map-grid-desktop:has(.gaia-audio-dock.is-expanded) [data-gaia-mode-guide-replay="map"] {
+    right: calc(max(18px, env(safe-area-inset-right)) + min(362px, calc(100vw - 24px)) + 6px);
+  }
+}
+
+#gaia-map-zoom-controls {
+  gap: 0;
+  padding: 4px;
+  border: 1px solid rgba(169, 205, 217, .26);
+  border-radius: 13px;
+  background: linear-gradient(110deg, rgba(17, 39, 51, .97), rgba(5, 22, 33, .97));
+  box-shadow: 0 6px 22px rgba(0, 8, 17, .2);
+}
+
+#gaia-map-zoom-controls button {
+  width: 44px;
+  min-height: 44px;
+  border: 0;
+  border-radius: 8px;
+  color: #bfd5dd;
+  background: none;
+  box-shadow: none;
+  backdrop-filter: none;
+  transform: none;
+  transition: color 140ms ease, background-color 140ms ease;
+}
+#gaia-map-zoom-controls svg { width: 21px; height: 21px; }
+#gaia-map-zoom-controls #gaia-map-zoom-reset {
+  margin-top: 3px;
+  border-top: 1px solid rgba(155, 192, 207, .17);
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+#gaia-map-zoom-controls button:is(:hover, :focus-visible):not(:disabled),
+body.map-grid-desktop [data-gaia-mode-guide-replay="map"]:is(:hover, :focus-visible) {
+  color: #f1ffff;
+  background: rgba(157, 220, 224, .09);
+  box-shadow: none;
+  transform: none;
+}
+#gaia-map-zoom-controls button:disabled { opacity: .3; }
+#gaia-map-zoom-controls button:focus-visible,
+#japan-poi-card :is(button, a):focus-visible,
+[data-gaia-mode-guide-replay="map"]:focus-visible {
+  outline: 1px solid #a7dbde;
+  outline-offset: -3px;
+}
+
+#japan-poi-card {
+  width: min(430px, calc(100vw - 32px));
+  max-height: calc(100dvh - 40px);
+  padding: 18px 22px 12px;
+  border: 1px solid rgba(163, 205, 216, .27);
+  border-radius: 13px;
+  color: #dce9ed;
+  background: linear-gradient(140deg, rgba(19, 42, 52, .98), rgba(5, 22, 32, .98));
+  box-shadow: 0 12px 36px rgba(0, 7, 14, .28), inset 0 1px rgba(232, 255, 255, .045);
+  backdrop-filter: none;
+  scrollbar-width: thin;
+}
+#japan-poi-card #japan-poi-close {
+  top: 10px;
+  right: 10px;
+  width: 44px;
+  height: 44px;
+  padding: 12px;
+  border: 0;
+  border-radius: 8px;
+  color: #96b2bd;
+  background: none;
+  box-shadow: none;
+  transform: none;
+}
+#japan-poi-card #japan-poi-close::before,
+#japan-poi-card #japan-poi-close::after { display: none; }
+#japan-poi-close svg { display: block; width: 20px; height: 20px; }
+#japan-poi-card #japan-poi-close:hover { color: #eaffff; background: rgba(170, 220, 230, .08); }
+#japan-poi-card .japan-poi-type {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin: 0 30px 12px 0;
+  text-transform: none;
+  letter-spacing: .025em;
+}
+.japan-poi-name { order: 1; color: #e2edf0; font: 600 21px/1.5 var(--font-ja); }
+.japan-poi-category { order: 0; color: #93b7bf; font: 500 10px/1.5 var(--font-ui-ja); letter-spacing: .12em; }
+.japan-poi-category::before {
+  display: inline-block;
+  width: 12px;
+  height: 14px;
+  margin-right: 7px;
+  vertical-align: -2px;
+  content: "";
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 14' fill='none' stroke='%2393b7bf' stroke-width='1'%3E%3Cpath d='M10 5c0 3-4 7-4 7S2 8 2 5a4 4 0 0 1 8 0Z'/%3E%3Ccircle cx='6' cy='5' r='1.2'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+#japan-poi-card .japan-poi-meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 20px;
+  margin: 0;
+  padding: 0;
+  color: #bfced4;
+  font: 500 13px/1.7 var(--font-ui-ja);
+  font-variant-numeric: tabular-nums;
+  text-transform: none;
+  letter-spacing: .015em;
+}
+.japan-poi-fact { min-width: 0; padding: 6px 0; border-top: 1px solid rgba(169, 205, 217, .13); overflow-wrap: anywhere; }
+.japan-poi-fact.is-time { grid-column: 1 / -1; color: #8da7b2; font-size: 11px; letter-spacing: .03em; }
+.japan-poi-fact.is-wide { grid-column: 1 / -1; }
+.japan-poi-separator { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+#japan-poi-card .japan-poi-source {
+  min-height: 44px;
+  margin-top: 10px;
+  padding: 6px 0 0;
+  border: 0;
+  border-top: 1px solid rgba(169, 205, 217, .23);
+  border-radius: 0;
+  color: #add9dc;
+  background: none;
+  font: 500 12px/1.5 var(--font-ui-ja);
+  letter-spacing: .035em;
+}
+#japan-poi-card .japan-poi-source:hover { color: #e2ffff; background: none; }
+.japan-poi-source-icon { display: grid; width: 28px; height: 28px; font-size: 0; place-items: center; }
+.japan-poi-source-icon svg { width: 18px; height: 18px; }
+
+/* Country history is lazy-loaded inside the existing POI, never a second popup. */
+#japan-poi-card.has-country-history { z-index: 40; width: min(540px, calc(100vw - 40px)); }
+#japan-poi-card.has-country-history #japan-poi-close { position: sticky; float: right; top: 0; z-index: 2; margin: -8px -12px 0 0; background: #112833; }
+#japan-poi-card.has-country-history .japan-poi-fact:last-child { grid-column: 1 / -1; }
+.country-emissions-history { margin-top: 12px; color: #bdced5; font: 400 12px/1.6 var(--font-ui-ja); }
+.country-emissions-history[hidden] { display: none; }
+.country-emissions-status { display: grid; min-height: 230px; margin: 0; place-content: center; color: #a5bec8; }
+.country-emissions-figure { margin: 0; }
+.country-emissions-caption { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2px 14px; margin-bottom: 6px; }
+.country-emissions-caption strong { color: #e2ecef; font-weight: 500; }
+.country-emissions-caption span { color: #9fb8c3; font-size: 11px; }
+.country-emissions-chart { display: block; width: 100%; height: auto; overflow: visible; }
+.country-emissions-chart text { fill: #a7bdc7; font: 12px var(--font-ui-ja); }
+.country-emissions-grid { stroke: rgba(168, 203, 215, .19); stroke-width: 1; }
+.country-emissions-line { fill: none; stroke: #edbb87; stroke-width: 2.2; stroke-linejoin: round; stroke-linecap: round; }
+.country-emissions-point { fill: #edbb87; }
+.country-emissions-selected-guide { stroke: #b5ced6; stroke-width: 1; stroke-dasharray: 3 4; }
+.country-emissions-selected { fill: #fff1d6; stroke: #142b35; stroke-width: 2; }
+.country-emissions-selected-note { margin: 3px 0 5px; color: #f0c794; font-variant-numeric: tabular-nums; }
+.country-emissions-note { margin: 0; color: #92adb8; font-size: 10px; line-height: 1.7; }
+.country-emissions-values { margin-top: 5px; color: #b5d4dc; }
+.country-emissions-values summary { display: list-item; width: fit-content; min-height: 44px; padding-block: 12px; cursor: pointer; font-size: 11px; }
+.country-emissions-values :is(summary, .country-emissions-table-scroll):focus-visible { outline: 1px solid #b5d4dc; outline-offset: 2px; }
+.country-emissions-table-scroll { max-height: 180px; overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; }
+.country-emissions-values table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.country-emissions-values caption { text-align: left; color: #95aeb9; font-size: 10px; }
+.country-emissions-values :is(th, td) { padding: 4px 8px; border-bottom: 1px solid rgba(168, 203, 215, .13); text-align: right; font-weight: 400; }
+.country-emissions-values th:first-child { text-align: left; }
+.country-emissions-values .is-selected { color: #f0c794; background: rgba(237, 187, 135, .06); }
+
+/* Observation values, freshness and provenance have distinct compact groups.
+   Retain overflow:auto as an accessibility fallback, not a clipped panel. */
+#japan-poi-card.has-observation-summary .japan-poi-meta { display: block; }
+.japan-poi-location { display: grid; gap: 3px; margin-bottom: 12px; }
+.japan-poi-place { color: #dce9ed; font-size: 13px; line-height: 1.4; overflow-wrap: anywhere; }
+.japan-poi-coordinates { color: #99b4bf; font-size: 11px; line-height: 1.5; }
+.japan-poi-metrics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 20px; }
+.japan-poi-metrics .japan-poi-fact { display: flex; flex-direction: column; gap: 2px; padding: 8px 0; }
+.japan-poi-metric-label { color: #91acb7; font-size: 10px; line-height: 1.4; }
+.japan-poi-metrics strong { color: #e3f0f2; font: 500 18px/1.3 var(--font-ui-ja); letter-spacing: 0; }
+.japan-poi-observation-note { display: flex; align-items: baseline; flex-wrap: wrap; gap: 3px 12px; margin-top: 8px; padding-top: 10px; border-top: 1px solid rgba(169, 205, 217, .13); font-size: 10px; line-height: 1.5; }
+.japan-poi-observed-time { color: #a8c1ca; }
+.japan-poi-data-state { color: #95b7b4; }
+.japan-poi-provenance { display: block; margin-top: 4px; color: #839ca8; font-size: 10px; line-height: 1.5; overflow-wrap: anywhere; }
+
+@media (max-width: 900px) {
+  #gaia-map-zoom-controls { right: max(10px, env(safe-area-inset-right)); }
+  #map-signal-encoding-legend-dock .signal-encoding-legend { grid-template-columns: 1fr; }
+  #japan-poi-card.has-country-history { top: auto !important; right: 12px; bottom: max(84px, calc(env(safe-area-inset-bottom) + 70px)); left: 12px !important; width: auto; }
+}
+@media (max-width: 720px) {
+  #japan-poi-card {
+    right: max(12px, env(safe-area-inset-right));
+    left: max(12px, env(safe-area-inset-left)) !important;
+    bottom: max(84px, calc(env(safe-area-inset-bottom) + 70px));
+    width: auto;
+    max-height: calc(100dvh - 110px);
+    padding: 16px 18px 10px;
+  }
+  .japan-poi-name { font-size: 19px; }
+  #japan-poi-card.has-country-history { width: auto; }
+  .country-emissions-chart text { font-size: 17px; }
+}
+
+@media (max-height: 540px) and (min-width: 721px) {
+  #japan-poi-card.has-observation-summary { width: min(570px, calc(100vw - 40px)); padding: 12px 18px 8px; }
+  #japan-poi-card.has-observation-summary .japan-poi-type { margin-bottom: 6px; gap: 0; }
+  #japan-poi-card.has-observation-summary .japan-poi-name { font-size: 18px; }
+  .japan-poi-location { margin-bottom: 6px; }
+  .japan-poi-metrics { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 12px; }
+  .japan-poi-metrics strong { font-size: 16px; }
+  .japan-poi-observation-note { margin-top: 4px; padding-top: 6px; }
+  #japan-poi-card.has-observation-summary .japan-poi-source { margin-top: 6px; }
+}

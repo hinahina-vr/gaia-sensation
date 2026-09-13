@@ -1,0 +1,55 @@
+import {chromium} from 'playwright-core';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+const dir=`artifacts/map-followups-20260913/${Number(process.argv[2])||1440}${process.argv.includes('--reproduce')?'-before':''}`;fs.mkdirSync(dir,{recursive:true});
+const browser=await chromium.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true});
+const results=[];
+try {
+ const page=await browser.newPage({viewport:{width:Number(process.argv[2])||1440,height:1000},reducedMotion:'reduce'});
+ await page.route('https://**',r=>r.abort());
+ if(process.argv.includes('--reproduce'))await page.route('**/map-responsive-layout.js*',route=>route.fulfill({contentType:'text/javascript',body:fs.readFileSync('map-responsive-layout.js','utf8').replace("    if(node.id==='map-signal-encoding-legend-dock')return; // Owned by map-legend-drag.js; never bind a second drag handler.",'')}));
+ await page.goto('http://127.0.0.1:4492/#world-12');
+ await page.locator('#gaia-boot').waitFor({state:'hidden',timeout:60000});
+ await page.evaluate(()=>GaiaModeEntryGuide?.close('map',{restoreFocus:false}));
+ const legend=page.locator('#map-signal-encoding-legend-dock');
+ await page.evaluate(()=>GaiaMapPlayback.stop());
+ await page.locator('.ecologies-exhibit').waitFor({state:'visible'});
+ await page.waitForTimeout(300);
+ const before=await legend.boundingBox();const ecology=await page.locator('.ecologies-exhibit').boundingBox();
+ console.log({before,ecology,state:await page.locator('#japan-layer').evaluate(n=>({classes:n.className,right:n.style.getPropertyValue('--ecology-legend-right')}))});
+ assert(before.x+before.width<=ecology.x-8,'ecology and legend overlap');
+ await page.screenshot({path:`${dir}/ecology.png`});
+ const x=before.x+35,y=before.y+25;
+ await page.mouse.move(x,y);await page.mouse.down();await page.mouse.move(x-120,y+80,{steps:12});await page.mouse.up();
+ const after=await legend.boundingBox();
+ if(process.argv.includes('--reproduce')) {
+  assert(Math.abs(after.x-before.x+120)>20,'original duplicate drag should deviate');
+  fs.writeFileSync(`${dir}/verification.json`,JSON.stringify({before,after,pointerDelta:{x:-120,y:80},reproduced:true},null,2));
+  console.log('PASS: original duplicate-handler symptom reproduced');
+  await browser.close();process.exit(0);
+ }
+ assert(Math.abs(after.x-before.x+120)<2,`drag X: ${after.x-before.x}`);
+ assert(Math.abs(after.y-before.y-80)<2,`drag Y: ${after.y-before.y}`);
+ results.push({drag:{before,after}});
+ assert.equal(await page.locator('[title="全展示を自動的にめぐる旅に出ます"]').count(),1);
+ await page.goto('http://127.0.0.1:4492/#world-38');
+ await page.locator('#gaia-boot').waitFor({state:'hidden',timeout:60000});
+ await page.evaluate(()=>GaiaModeEntryGuide?.close('map',{restoreFocus:false}));
+ await page.waitForTimeout(1200);
+ const opener=page.locator('[data-map-bank-toggle]:visible').first();
+ await opener.click();await page.waitForTimeout(900);
+ const popup=page.locator('#map-dock-bank-popover');const box=await popup.boundingBox(),ob=await opener.boundingBox();
+ assert.equal(await popup.getAttribute('data-anchor'),'bottom');
+ assert(box.y+box.height<=ob.y+2,'menu above bottom opener');
+ await page.mouse.move(box.x+box.width/2,box.y+box.height-20,{steps:4});
+ await page.waitForTimeout(250);assert.equal(await popup.evaluate(n=>getComputedStyle(n).visibility),'visible');
+ await page.screenshot({path:`${dir}/bottom-menu.png`});
+ await page.evaluate(()=>GaiaMapPicker.close());
+ const credits=await page.locator('.japan-credits:visible').first().boundingBox();
+ const notes=await page.locator('.gaia-cod-annotations:visible').boundingBox();
+ console.log({credits,notes});
+ assert(credits.y+credits.height<=notes.y-4,'credits overlap annotations');
+ results.push({menu:box,opener:ob,credits,notes});
+ await page.screenshot({path:`${dir}/annotations.png`});
+ fs.writeFileSync(`${dir}/verification.json`,JSON.stringify(results,null,2));console.log('PASS: drag 1:1, ecology separation, bottom menu, annotations, cruise tooltip');
+}finally{await browser.close();}

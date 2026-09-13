@@ -1,0 +1,13 @@
+/* Shared by the main exhibition and SENSOR, including their early loading UI. */
+:root {
+  --font-ja: "Yu Mincho", YuMincho, "Hiragino Mincho ProN", "Hiragino Mincho Pro", "HGS明朝E", "Noto Serif CJK JP", "Noto Serif JP", "Source Han Serif JP", serif;
+  --font-ui-ja: var(--font-ja);
+  --font-ui: var(--font-ja);
+  --font-sans-jp: var(--font-ja);
+  --font-console: Consolas, "Courier New", var(--font-ja), monospace;
+  --font-mono: var(--font-console);
+  font-family: var(--font-ja);
+  font-synthesis: none;
+}
+
+button, input, select, textarea { font-family: inherit; }

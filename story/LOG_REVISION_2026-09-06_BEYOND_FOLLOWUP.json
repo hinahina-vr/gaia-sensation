@@ -1,0 +1,84 @@
+{
+  "previousCommit": "ab15ae2b4e57dc1f333c56c9dafc9a0343fe1508",
+  "previousApprovedSha256": "40f0e713e7794bcb4b2e92a3cd6022550c3085ef94b9629b0a30cfaed67fe2b0",
+  "sourceScenesSha256": "e0eee7fb9ad594c4fa1d71fd20e362d6e349858d88cee568814777f38ffbc188",
+  "runtimeScenesSha256": "66927a461f72b2c8baf7dafd8d56b9b082a59b3ed69a80affb9806170c991040",
+  "historySha256": {
+    "LOG_COMMENTS_2026-09-06.md": "9fa84781480727c2cad5197ec14d44ee5d891ab72103d22a665c8dc1f6f72b37",
+    "LOG_REVISION_2026-09-06.json": "97496f333760d63f5d60407caea534aa5af1bb0ac7657f8cbab4e7be270b3ca1",
+    "LOG_COMMENTS_2026-09-06_BEYOND.md": "6407da7ec00ba9a54c74c4b3b1a395c936bd6b8c864757b9f2288e16c616abac",
+    "LOG_REVISION_2026-09-06_BEYOND.json": "b1e8f6ca35f452079c0e9ffddda6f8fed17fae8203079b5368d073d31bbd8188"
+  },
+  "edits": [
+    {
+      "sourceId": "beyond_03_010",
+      "runtimeId": "beyond_03_043",
+      "beforeSource": {
+        "id": "beyond_03_010",
+        "kind": "APEIRONCENE",
+        "speakerLabel": "みず",
+        "text": "うん。この頃のやり方で、一緒に作ってみたい。",
+        "metadata": {
+          "runtimeStepId": "beyond_03_043"
+        }
+      },
+      "beforeRuntime": {
+        "id": "beyond_03_043",
+        "speaker": "mizuha",
+        "text": "うん。この頃のやり方で、一緒に作ってみたい。",
+        "sceneId": "after-school-stars",
+        "sceneTitle": "星々の放課後",
+        "type": "beyond",
+        "recordType": "BEYOND"
+      },
+      "reason": "古い宇宙を訪れているルウの台詞。本文を変えず、話者だけをみずからルウへ変更。",
+      "sourcePatch": {
+        "speakerLabel": "ルウ"
+      },
+      "runtimePatch": {
+        "speaker": "lou"
+      }
+    },
+    {
+      "sourceId": "beyond_01_013",
+      "runtimeId": "beyond_01_028",
+      "beforeSource": {
+        "id": "beyond_01_013",
+        "kind": "APEIRONCENE",
+        "speakerLabel": "—",
+        "text": "ルウが虚空を指で払うと、鉱物化しかけた緑色のガラスエポキシ基板が、土壌のホログラムから静かに浮かび上がってきた。",
+        "metadata": {
+          "runtimeStepId": "beyond_01_028",
+          "pages": [
+            "ルウが虚空を指で払うと、鉱物化しかけた緑色のガラスエポキ",
+            "シ基板が、土壌のホログラムから静かに浮かび上がってきた。"
+          ]
+        }
+      },
+      "beforeRuntime": {
+        "id": "beyond_01_028",
+        "text": "ルウが虚空を指で払うと、鉱物化しかけた緑色のガラスエポキシ基板が、土壌のホログラムから静かに浮かび上がってきた。",
+        "pages": [
+          "ルウが虚空を指で払うと、鉱物化しかけた緑色のガラスエポキ",
+          "シ基板が、土壌のホログラムから静かに浮かび上がってきた。"
+        ],
+        "sceneId": "after-ending",
+        "sceneTitle": "こどもと魔法",
+        "type": "beyond",
+        "recordType": "BEYOND"
+      },
+      "reason": "人の形を持たない設定に合わせ、「虚空を指で払う」を除去。本文を更新し、語の途中で分断する旧2ページ指定を解除して1ページで表示。",
+      "sourcePatch": {
+        "text": "ルウが応じると、鉱物化しかけた緑色のガラスエポキシ基板が、土壌のホログラムから静かに浮かび上がってきた。",
+        "metadata": {
+          "runtimeStepId": "beyond_01_028"
+        }
+      },
+      "runtimePatch": {
+        "text": "ルウが応じると、鉱物化しかけた緑色のガラスエポキシ基板が、土壌のホログラムから静かに浮かび上がってきた。"
+      },
+      "runtimeOmit": ["pages"]
+    }
+  ],
+  "description": "現行統合台本の再確認による追修正2件。過去109件・59件の修正ログは履歴として保持する。対象以外の本文・話者・演出・順序・安定IDを維持。"
+}

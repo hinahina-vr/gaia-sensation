@@ -1,0 +1,73 @@
+/* A stable viewport-sized workspace: tabs change content, never the outer frame. */
+#gaia-statistics-lab { padding:12px; }
+#gaia-statistics-lab .gaia-statistics-view-tabs { grid-template-columns:repeat(6,minmax(0,1fr)); }
+#gaia-statistics-ai-dialog :is(.gaia-statistics-ai-result output,.gaia-statistics-ai-result-head > span,.gaia-statistics-ai-remember small,summary span) { color:#416075; }
+#gaia-statistics-lab .gaia-statistics-visual, #gaia-statistics-lab .gaia-statistics-visual canvas { background:#dce9ed; }
+#gaia-statistics-lab .gaia-statistics-shell { width:calc(100vw - 24px); height:calc(100dvh - 24px); max-height:calc(100dvh - 24px); overflow:hidden; }
+#gaia-statistics-lab .gaia-statistics-body { min-height:0; overflow:hidden; }
+#gaia-statistics-lab .gaia-statistics-stage[data-result-view="findings"] { height:100%; min-height:0; overflow:hidden; }
+#gaia-statistics-lab #stat-panel-findings[open] { min-height:0; overflow:auto; }
+#gaia-statistics-lab .gaia-statistics-insight > p:first-child { color:#386678; }
+#gaia-statistics-lab .gaia-statistics-prefecture {
+  display:grid; gap:0; flex:0 0 auto; box-sizing:border-box;
+  width:clamp(180px,16vw,280px); min-height:64px; padding:6px 14px;
+  color:#a9bfcb; font:500 12px/1.3 var(--font-ui-ja);
+  border:1px solid #aecde13d; border-radius:10px;
+  background:radial-gradient(ellipse at 25% 0,#cfebff18,transparent 75%),linear-gradient(150deg,#243f51b3,#172e416e);
+  box-shadow:var(--observatory-light);
+}
+#gaia-statistics-lab .gaia-statistics-prefecture[hidden] { display:none; }
+#gaia-statistics-lab .gaia-statistics-prefecture select {
+  width:100%; min-width:0; min-height:36px; padding:0 2px;
+  color:#dfedf2; background:transparent; border:0; border-radius:4px;
+  font:600 clamp(18px,1.25vw,24px)/1.4 var(--font-ui-ja); cursor:pointer;
+}
+#gaia-statistics-lab .gaia-statistics-prefecture:focus-within { border-color:#a7d9df; outline:2px solid #a7d9df; outline-offset:2px; }
+#gaia-statistics-lab .gaia-statistics-prefecture option { color:#dfedf2; background:#173443; }
+#gaia-statistics-lab .gaia-statistics-stage[data-result-view="ai"] { grid-template-columns:minmax(0,1fr); grid-template-rows:auto minmax(0,1fr); height:100%; overflow:hidden; }
+#gaia-statistics-lab [data-result-view="ai"] > :is(.gaia-statistics-stage-header,.gaia-statistics-takeaway,.gaia-statistics-visual) { display:none; }
+#gaia-statistics-lab [data-result-view="ai"] .gaia-statistics-view-tabs { grid-row:1; }
+#gaia-statistics-lab #gaia-statistics-ai-dialog[hidden] { display:none; }
+#gaia-statistics-lab #gaia-statistics-ai-dialog { position:relative; inset:auto; grid-column:1/-1; grid-row:2; display:grid; grid-template-rows:auto auto minmax(0,1fr); gap:8px; width:100%; height:100%; max-width:none; max-height:none; min-height:0; margin:0; padding:12px; overflow:hidden; border:1px solid #9ab5cb; border-radius:12px; background:#f0f7ff; color:#294e65; color-scheme:light; }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-head { position:static; min-height:0; margin:0; padding:0; background:none; }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-head h2 { margin:0; font-size:20px; line-height:1.3; letter-spacing:.03em; }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-head :is(div > p,.gaia-statistics-ai-intro) { display:none; }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-target { margin:0; padding:4px 8px; gap:8px; }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-target p { font-size:12px; }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-layout { min-height:0; gap:12px; align-items:stretch; grid-template-columns:minmax(0,2fr) minmax(0,1fr); }
+#gaia-statistics-ai-dialog form { min-height:0; gap:10px; grid-template-columns:1fr 1fr; grid-template-rows:minmax(0,1fr) auto; }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-question-section, #gaia-statistics-ai-dialog .gaia-statistics-ai-connection { min-height:0; overflow:auto; align-content:start; }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-connection { padding:0; border:0; gap:6px; }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-section-title { margin:0 0 6px; font-size:13px; color:#345b73; }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-prompts { gap:5px; margin-bottom:8px; grid-template-columns:repeat(2,minmax(0,1fr)); }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-prompts button { min-height:44px; padding:6px; box-shadow:none; }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-prompts :is(svg,small) { display:none; }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-prompts strong { font-size:12px; }
+#gaia-statistics-ai-dialog :is(label,.gaia-statistics-ai-note,.gaia-statistics-ai-privacy p,.gaia-statistics-ai-remember small) { font-size:11px; line-height:1.45; color:#3c5b70; }
+#gaia-statistics-ai-dialog :is(input:not([type="checkbox"]),select,textarea) { font-size:14px; min-height:36px; padding:5px 8px; }
+#gaia-statistics-ai-dialog textarea { height:110px; min-height:80px; resize:vertical; }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-question-label > span { display:none; }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-provider { gap:6px; }
+#gaia-statistics-ai-dialog summary { padding:5px 0; min-height:32px; font-size:11px; }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-clear { margin:0; padding:4px 0; min-height:28px; font-size:10px; }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-send { grid-column:1/-1; gap:4px; padding:0; }
+#gaia-statistics-ai-dialog button[type="submit"] { min-height:44px; padding:8px 12px; font-size:14px; }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-result { position:static; display:flex; flex-direction:column; min-height:0; max-height:none; padding:12px; overflow:auto; }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-result-head { padding-bottom:8px; }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-companions { width:auto; max-width:100%; height:110px; object-fit:contain; }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-empty-title { font-size:20px; margin:8px 0; }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-empty ol { display:none; }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-result output { font-size:14px; line-height:1.65; margin-top:8px; }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-result-caution { margin-top:auto; padding-top:8px; font-size:11px; }
+@media(max-width:800px), (max-height:600px) {
+  #gaia-statistics-lab .gaia-statistics-prefecture { width:140px; max-width:42vw; padding:5px 10px; }
+  #gaia-statistics-ai-dialog .gaia-statistics-ai-layout { display:block; overflow:auto; }
+  #gaia-statistics-ai-dialog form { display:flex; flex-direction:column; height:auto; gap:12px; }
+  #gaia-statistics-ai-dialog form > * { flex:none; }
+  #gaia-statistics-ai-dialog .gaia-statistics-ai-question-section, #gaia-statistics-ai-dialog .gaia-statistics-ai-connection { overflow:visible; }
+  #gaia-statistics-ai-dialog .gaia-statistics-ai-result { margin-top:12px; min-height:240px; }
+  #gaia-statistics-ai-dialog .gaia-statistics-ai-head h2 { font-size:18px; }
+  #gaia-statistics-ai-dialog .gaia-statistics-ai-head h2 span { font-size:inherit; display:inline; }
+  #gaia-statistics-ai-dialog .gaia-statistics-ai-target { display:none; }
+  #gaia-statistics-ai-dialog :is(input:not([type="checkbox"]),select,textarea) { font-size:16px; min-height:44px; }
+}

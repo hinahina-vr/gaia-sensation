@@ -1,0 +1,239 @@
+{
+  "created": "2026-09-13",
+  "generator": "OpenAI built-in imagegen",
+  "purpose": "Promotional illustrations, not screenshots",
+  "export": {
+    "library": "sharp",
+    "version": "0.35.2",
+    "format": "JPEG",
+    "quality": 85,
+    "chromaSubsampling": "4:4:4",
+    "resize": false,
+    "crop": false,
+    "originals": "Byte-identical to selected imagegen output"
+  },
+  "assets": [
+    {
+      "file": "readme-cover",
+      "selectedVersion": "readme-cover-v1",
+      "width": 1672,
+      "height": 941,
+      "original": {
+        "path": "originals/readme-cover.png",
+        "bytes": 2565450,
+        "sha256": "16baf779644ad814659df76f2176dc6528d77c07e48d87b686e6e3a6cd5ffdfb"
+      },
+      "jpeg": {
+        "path": "readme-cover.jpg",
+        "bytes": 423847,
+        "sha256": "9db22d581505ee6d6623328d984325ae42d482a8384539abe7842cc4bb35ee66"
+      },
+      "references": [
+        {
+          "path": "assets/visuals-08/opening-final-observatory-keyvisual-v4.webp",
+          "sha256": "7a9b9c651aac96a270d4d3c4efe9748b02ad02224fda5df1771df2171eb40855"
+        },
+        {
+          "path": "assets/visuals-07/novel-title-keyvisual-v3.png",
+          "sha256": "71507ae2e29026d5dbcd07a7cbc413886e1de1a3ca2459c6c1e5a1ccea1462dd"
+        }
+      ]
+    },
+    {
+      "file": "contest-wide",
+      "selectedVersion": "contest-wide-v2",
+      "width": 1672,
+      "height": 941,
+      "original": {
+        "path": "originals/contest-wide.png",
+        "bytes": 2689179,
+        "sha256": "375631a7bbea6928038bc938233c71e316bf2f4fadef3993d48c657c347c0080"
+      },
+      "jpeg": {
+        "path": "contest-wide.jpg",
+        "bytes": 514410,
+        "sha256": "3fcb5502f2371b6637f49d316bfc5734aad51724cae0b9cc52a4bd0c22e551dd"
+      },
+      "references": [
+        {
+          "path": "assets/visuals-07/novel-title-keyvisual-v3.png",
+          "sha256": "71507ae2e29026d5dbcd07a7cbc413886e1de1a3ca2459c6c1e5a1ccea1462dd"
+        },
+        {
+          "path": "assets/visuals-08/opening-final-observatory-keyvisual-v4.webp",
+          "sha256": "7a9b9c651aac96a270d4d3c4efe9748b02ad02224fda5df1771df2171eb40855"
+        }
+      ]
+    },
+    {
+      "file": "contest-square",
+      "selectedVersion": "contest-square-v2",
+      "width": 1254,
+      "height": 1254,
+      "original": {
+        "path": "originals/contest-square.png",
+        "bytes": 2547254,
+        "sha256": "ecc331fb442f89896efa8c45a396127e5bc25c8b3542c63a606f3c77ee61a537"
+      },
+      "jpeg": {
+        "path": "contest-square.jpg",
+        "bytes": 501875,
+        "sha256": "bc2d8f3792a4206a8aa0595811a864a76a75e7cdca42cfd7be2ff877dcd13cf7"
+      },
+      "references": [
+        {
+          "path": "assets/visuals-07/novel-title-keyvisual-v3.png",
+          "sha256": "71507ae2e29026d5dbcd07a7cbc413886e1de1a3ca2459c6c1e5a1ccea1462dd"
+        },
+        {
+          "path": "assets/modes/guide-map-discovery-mizu-ame-v2.webp",
+          "sha256": "e460b5de3a8a6ab376e10caf4df4937fe706cbdd7f51f681d5e0ca34423b3d37"
+        }
+      ]
+    },
+    {
+      "file": "readme-map",
+      "selectedVersion": "readme-map-v1",
+      "width": 1672,
+      "height": 941,
+      "original": {
+        "path": "originals/readme-map.png",
+        "bytes": 2654471,
+        "sha256": "d61d21203e1e59a5e9d087fee6e2f93afd1a1140f5af8fb03321da55124a77e9"
+      },
+      "jpeg": {
+        "path": "readme-map.jpg",
+        "bytes": 527205,
+        "sha256": "3cad0e98e06374c996b5bf92ea9fa01acb9adfb93c02aeaf0704b8d6d4d09024"
+      },
+      "references": [
+        {
+          "path": "assets/modes/guide-map-discovery-mizu-ame-v2.webp",
+          "sha256": "e460b5de3a8a6ab376e10caf4df4937fe706cbdd7f51f681d5e0ca34423b3d37"
+        }
+      ]
+    },
+    {
+      "file": "readme-story",
+      "selectedVersion": "readme-story-v1",
+      "width": 1672,
+      "height": 941,
+      "original": {
+        "path": "originals/readme-story.png",
+        "bytes": 2341245,
+        "sha256": "2c76529abb9b74aecf1b96321525a5940056ff8348c67fb036e5008a37d44d32"
+      },
+      "jpeg": {
+        "path": "readme-story.jpg",
+        "bytes": 372314,
+        "sha256": "79d26bbf83eaca8a9262c28af4d824a835a3aea5c6a2854b18c8be28cec8192a"
+      },
+      "references": [
+        {
+          "path": "assets/visuals-07/novel-title-keyvisual-v3.png",
+          "sha256": "71507ae2e29026d5dbcd07a7cbc413886e1de1a3ca2459c6c1e5a1ccea1462dd"
+        }
+      ]
+    },
+    {
+      "file": "readme-analysis",
+      "selectedVersion": "readme-analysis-v2",
+      "width": 1672,
+      "height": 941,
+      "original": {
+        "path": "originals/readme-analysis.png",
+        "bytes": 2400891,
+        "sha256": "fd32d0d3e5dc204a144e23c68392ef45597c62189641751a0367ce3c43a2d9dd"
+      },
+      "jpeg": {
+        "path": "readme-analysis.jpg",
+        "bytes": 441694,
+        "sha256": "bedaea50710714ff612124563dee679db056c3e2d2cb350cbf50200cc9d06077"
+      },
+      "references": [
+        {
+          "path": "assets/modes/guide-map-discovery-mizu-ame-v2.webp",
+          "sha256": "e460b5de3a8a6ab376e10caf4df4937fe706cbdd7f51f681d5e0ca34423b3d37"
+        }
+      ]
+    },
+    {
+      "file": "readme-sensor",
+      "selectedVersion": "readme-sensor-v1",
+      "width": 1672,
+      "height": 941,
+      "original": {
+        "path": "originals/readme-sensor.png",
+        "bytes": 2431694,
+        "sha256": "b8d9054d5b02f555259655455269416b7579882c71438310e2ea967d802ea96d"
+      },
+      "jpeg": {
+        "path": "readme-sensor.jpg",
+        "bytes": 450766,
+        "sha256": "5ec0fb71b6085d81e78069d2909959b493acc40203114b3f3cc49947a40e9c79"
+      },
+      "references": [
+        {
+          "path": "assets/modes/guide-sensor-connect-mizu-ame-v1.webp",
+          "sha256": "3fe46848227b1af636215e3c8982e29dad9b9590d81b225b0346b1211a87b9ed"
+        }
+      ]
+    },
+    {
+      "file": "readme-character",
+      "selectedVersion": "readme-character-v1",
+      "width": 1672,
+      "height": 941,
+      "original": {
+        "path": "originals/readme-character.png",
+        "bytes": 2487089,
+        "sha256": "db7f8a5b31d787e9e9ca1a28138da6b4f4f6152135cc8d0d310f77b3b91294d9"
+      },
+      "jpeg": {
+        "path": "readme-character.jpg",
+        "bytes": 383108,
+        "sha256": "e10b637dec316bff62d94971881de4caa9f17b29a489bc0391f61fc10f5ee8fa"
+      },
+      "references": [
+        {
+          "path": "assets/visuals-07/novel-title-keyvisual-v3.png",
+          "sha256": "71507ae2e29026d5dbcd07a7cbc413886e1de1a3ca2459c6c1e5a1ccea1462dd"
+        },
+        {
+          "path": "assets/characters/sakuya-calm-07-v1.png",
+          "sha256": "56a7cd4a8d53f5db6e67e85aadd939609d3ee0de3cf55350dee5ba183641f887"
+        },
+        {
+          "path": "assets/characters/aoneko-silhouette-imagegen-v4.png",
+          "sha256": "2c95edb345045d4b12c41b9b2d239364f51ec4abda5d092bb09cca62ff44ce50"
+        }
+      ]
+    },
+    {
+      "file": "readme-sound",
+      "selectedVersion": "readme-sound-v1",
+      "width": 1672,
+      "height": 941,
+      "original": {
+        "path": "originals/readme-sound.png",
+        "bytes": 2416834,
+        "sha256": "2394fe7b686cc529f93d149c43de40f2825fa5951b2ef16bab3f2b1c9369ed09"
+      },
+      "jpeg": {
+        "path": "readme-sound.jpg",
+        "bytes": 361234,
+        "sha256": "920f9462fdc7edfb255ecc97b9d9ab1b9868c9d7ff650b958c13509856e120f3"
+      },
+      "references": [
+        {
+          "path": "assets/guide-previews/sound.jpg",
+          "sha256": "68ca462b612128548f9418981ea38b7b4845d78418c095d7a427f1de257266e2"
+        },
+        {
+          "path": "assets/visuals-08/opening-final-observatory-keyvisual-v4.webp",
+          "sha256": "7a9b9c651aac96a270d4d3c4efe9748b02ad02224fda5df1771df2171eb40855"
+        }
+      ]
+    }
+  ]
+}

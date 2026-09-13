@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">青りんご</title>
+  <desc id="desc">青い果実と一枚の葉で表した、あなたの学内チャット記号</desc>
+  <defs>
+    <linearGradient id="fruit" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#9cecff"/>
+      <stop offset="0.55" stop-color="#3189c5"/>
+      <stop offset="1" stop-color="#165a96"/>
+    </linearGradient>
+    <linearGradient id="leaf" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#67d7bd"/>
+      <stop offset="1" stop-color="#c9f4d6"/>
+    </linearGradient>
+  </defs>
+  <circle cx="32" cy="32" r="30" fill="#e9f8ff"/>
+  <path d="M33 19c-3-5-1-10 3-13" fill="none" stroke="#244f69" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M37 11c7-5 13-3 16 1-5 5-11 7-16 3z" fill="url(#leaf)" stroke="#276e75" stroke-width="2"/>
+  <path d="M32 18c-5 0-8-4-14-1C9 21 9 35 14 45c4 8 11 13 18 13s14-5 18-13c5-10 5-24-4-28-6-3-9 1-14 1z" fill="url(#fruit)" stroke="#174e7b" stroke-width="2.4"/>
+  <path d="M20 25c3-3 7-4 10-3" fill="none" stroke="#e8fbff" stroke-width="3" stroke-linecap="round" opacity=".78"/>
+</svg>

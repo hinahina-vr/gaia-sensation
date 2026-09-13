@@ -1,0 +1,77 @@
+/* Sensor header geometry belongs to one flow, including the guide and BGM.
+   Use the shared navigation layer to override its legacy fixed corners only
+   inside this header; other modes keep their existing navigation layout. */
+@layer gaia-navigation {
+  html body .sensor-topbar { column-gap: 24px !important; }
+  html body .sensor-topbar .sensor-map-brand {
+    display: flex !important;
+    align-items: center;
+    min-height: 44px;
+    align-self: start;
+    margin-block: 0;
+  }
+  html body .sensor-topbar-actions { gap: 18px !important; padding-right: 0 !important; }
+  html body .sensor-topbar nav { min-width: 0; }
+  .sensor-topbar-tools { display: flex; flex: 0 0 auto; align-items: start; gap: 10px; }
+  .sensor-header-guide { flex: 0 0 auto; }
+  html body .sensor-topbar .gaia-mode-entry-guide-replay,
+  html body .sensor-topbar .gaia-audio-dock {
+    position: relative !important;
+    inset: auto !important;
+    margin: 0 !important;
+  }
+  html body .sensor-topbar .gaia-mode-entry-guide-replay {
+    white-space: nowrap;
+    padding-block: 4px;
+  }
+
+  /* A second nav row leaves the controls their own space at tablet widths
+     and desktop zoom. The map's field/telemetry offset follows the same rows. */
+  @media (max-width: 1400px) {
+    html body .sensor-topbar {
+      display: grid !important;
+      grid-template-columns: auto minmax(0, 1fr) auto !important;
+      grid-template-rows: 44px auto !important;
+      gap: 8px 10px !important;
+    }
+    html body .sensor-topbar .sensor-home-back { grid-column: 1; grid-row: 1; }
+    html body .sensor-topbar .sensor-map-brand { display: none !important; }
+    html body .sensor-topbar-actions,
+    html body .sensor-topbar-tools { display: contents !important; }
+    html body .sensor-topbar .sensor-header-guide { grid-column: 2; grid-row: 1; justify-self: end; }
+    html body .sensor-topbar .gaia-audio-dock { grid-column: 3; grid-row: 1; justify-self: end; }
+    html body .sensor-topbar nav {
+      grid-column: 1 / -1;
+      grid-row: 2;
+      width: 100%;
+      justify-content: space-between !important;
+    }
+    html[data-sensor-view="map"] { --sensor-header-height: calc(var(--navigation-top) + 108px) !important; }
+  }
+
+  /* The open volume strip gets a full row on phones, instead of passing over
+     the guide, Back, or the nav. Closing it returns the original header size. */
+  @media (max-width: 760px) {
+    html body .sensor-topbar:has(.gaia-audio-dock.is-expanded) { grid-template-rows: 44px auto 44px !important; }
+    html body .sensor-topbar .gaia-audio-dock.is-expanded {
+      grid-column: 1 / -1;
+      grid-row: 3;
+      width: min(350px, 100%) !important;
+    }
+    html body .sensor-topbar:has(.gaia-audio-dock.is-expanded) .sensor-header-guide { grid-column: 2 / -1; }
+    html[data-sensor-view="map"]:has(.gaia-audio-dock.is-expanded) { --sensor-header-height: calc(var(--navigation-top) + 160px) !important; }
+  }
+
+  /* Keep the map tools on screen in short tablet/phone landscape windows.
+     The public map has only four nav links, so its compact controls fit. */
+  @media (min-width: 761px) and (max-width: 1400px) and (max-height: 430px) {
+    html[data-sensor-view="map"]:not(:has(.gaia-audio-dock.is-expanded)) { --sensor-header-height: 76px !important; }
+    html[data-sensor-view="map"] body .sensor-topbar:not(:has(.gaia-audio-dock.is-expanded)) {
+      grid-template-columns: auto minmax(0, 1fr) auto auto !important;
+      grid-template-rows: 44px !important;
+    }
+    html[data-sensor-view="map"] body .sensor-topbar:not(:has(.gaia-audio-dock.is-expanded)) nav { grid-column: 2; grid-row: 1; }
+    html[data-sensor-view="map"] body .sensor-topbar:not(:has(.gaia-audio-dock.is-expanded)) .sensor-header-guide { grid-column: 3; }
+    html[data-sensor-view="map"] body .sensor-topbar:not(:has(.gaia-audio-dock.is-expanded)) .gaia-audio-dock { grid-column: 4; }
+  }
+}

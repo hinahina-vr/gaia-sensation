@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="390" height="844" viewBox="0 0 390 844" role="img" aria-labelledby="title desc">
+  <title id="title">ESP32からGAIA SENSEWAREへの接続メモ・モバイル版</title>
+  <desc id="desc">温度・湿度・PM2.5などのセンサーからESP32、Wi-Fi、HTTPS、GAIA SENSEWARE、由来の保持、世界地図へ進む縦長の手書き接続図。</desc>
+  <defs>
+    <pattern id="grid" width="18" height="18" patternUnits="userSpaceOnUse"><path d="M18 0H0V18" fill="none" stroke="#4b82a0" stroke-opacity=".14"/></pattern>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="none" stroke="#173b54" stroke-width="1.8" stroke-linecap="round"/></marker>
+    <style>
+      .hand{font-family:"Segoe Print","Yu Gothic","Hiragino Kaku Gothic ProN",sans-serif;fill:#173b54}
+      .sans{font-family:"Yu Gothic UI","Hiragino Kaku Gothic ProN",sans-serif;fill:#173b54}
+      .node{fill:#f8f2df;fill-opacity:.95;stroke:#173b54;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+      .line{fill:none;stroke:#173b54;stroke-width:2.8;stroke-linecap:round;stroke-linejoin:round}
+      .tiny{font-size:10px}.label{font-size:13px;font-weight:700}
+    </style>
+  </defs>
+  <rect width="390" height="844" fill="#e5dfce"/>
+  <rect y="94" width="390" height="750" fill="url(#grid)"/>
+  <path d="M0 0H390V96C283 92 188 101 0 96Z" fill="#183447"/>
+  <text class="hand" x="18" y="49" fill="#fff7e5" font-size="17" font-weight="700">ESP32 → GAIA 接続メモ</text>
+  <text class="sans" x="20" y="72" fill="#bfe4dc" font-size="9">測った条件と由来まで、一緒に残す</text>
+  <path d="M0 96Q190 102 390 96" fill="none" stroke="#bd5d54" stroke-width="2"/>
+
+  <g transform="translate(11 116) rotate(-1 92 39)">
+    <path class="node" d="M4 7Q5 2 13 3L176 0Q184 2 183 10L186 69Q183 77 174 75L10 79Q2 76 3 68Z"/>
+    <text class="hand label" x="15" y="25">① センサー</text>
+    <text class="sans" x="15" y="46" font-size="11">温度・湿度・PM2.5</text>
+    <text class="sans tiny" x="15" y="64">気圧 / 照度 / 音 など</text>
+  </g>
+  <path class="line" d="M103 197Q96 207 101 218" marker-end="url(#arrow)"/>
+
+  <g transform="translate(18 222) rotate(.8 85 38)">
+    <path class="node" d="M4 7Q6 2 13 3L160 0Q170 3 168 11L172 66Q169 75 160 73L11 77Q2 74 4 65Z"/>
+    <rect x="15" y="18" width="49" height="39" rx="4" fill="#d9e5dc" stroke="#173b54" stroke-width="1.8"/>
+    <rect x="24" y="27" width="31" height="20" rx="2" fill="#183447"/>
+    <text class="sans" x="39.5" y="41" fill="#fff7e5" font-size="8" text-anchor="middle">ESP32</text>
+    <text class="hand label" x="76" y="30">② ESP32</text>
+    <text class="sans tiny" x="76" y="50">読み取り + 送信準備</text>
+  </g>
+  <path class="line" d="M103 303Q96 313 101 325" marker-end="url(#arrow)"/>
+
+  <g transform="translate(12 329) rotate(-.5 89 38)">
+    <path class="node" d="M4 7Q6 2 13 3L169 0Q179 3 177 11L181 66Q178 75 169 73L11 77Q2 74 4 65Z"/>
+    <path class="line" d="M20 35Q37 19 55 35M27 43Q37 34 48 43M35 50Q38 47 41 50" stroke="#c35b4d"/>
+    <text class="hand label" x="69" y="28">③ Wi-Fi</text>
+    <text class="sans" x="69" y="49" font-size="11" font-weight="700">HTTPS 送信</text>
+    <text class="sans tiny" x="69" y="64">JSON / TLS</text>
+  </g>
+  <path class="line" d="M103 409Q97 420 102 432" marker-end="url(#arrow)"/>
+
+  <g transform="translate(17 437) rotate(.6 91 42)">
+    <path class="node" d="M4 7Q6 2 14 3L173 0Q184 3 182 11L186 75Q182 84 173 82L11 86Q2 82 4 73Z"/>
+    <path class="line" d="M19 45c2-13 13-22 27-20 7-12 27-10 32 5 15-2 24 18 12 28H21c-13-2-15-18-2-24" stroke="#1a827d"/>
+    <text class="hand label" x="100" y="31">④ GAIA</text>
+    <text class="sans" x="100" y="49" font-size="10" font-weight="700">SENSEWARE</text>
+    <text class="sans tiny" x="100" y="66">受信 / 整理</text>
+  </g>
+  <path class="line" d="M108 526Q102 536 107 548" marker-end="url(#arrow)"/>
+
+  <g transform="translate(13 553) rotate(-.8 96 39)">
+    <path class="node" d="M4 7Q6 2 14 3L183 0Q194 3 192 11L196 68Q193 78 183 75L11 80Q2 77 4 67Z"/>
+    <path class="line" d="M18 35l10 10 20-27" stroke="#c35b4d"/>
+    <text class="hand label" x="62" y="27">⑤ 検証 / 由来を保持</text>
+    <text class="sans tiny" x="62" y="46">時刻・場所・機器・設置条件</text>
+    <text class="sans tiny" x="62" y="63">あとで確かめられる形に</text>
+  </g>
+  <path class="line" d="M109 634Q103 644 108 656" marker-end="url(#arrow)"/>
+
+  <g transform="translate(19 661) rotate(.7 90 42)">
+    <path class="node" d="M4 7Q6 2 14 3L169 0Q180 3 178 11L183 75Q180 84 170 82L11 86Q2 82 4 73Z"/>
+    <path class="line" d="M18 24L50 19L77 27L96 21V62L70 67L45 61L18 68ZM50 19V61M77 27V67" stroke="#b77a24"/>
+    <circle cx="58" cy="42" r="4" fill="#1a827d"/><circle cx="81" cy="52" r="3" fill="#1a827d"/>
+    <text class="hand label" x="105" y="31">⑥ 世界地図</text>
+    <text class="sans" x="105" y="52" font-size="11">観測データ</text>
+    <text class="sans tiny" x="105" y="68">MAP / LOG</text>
+  </g>
+
+  <g transform="translate(224 129) rotate(1.5 72 74)">
+    <path d="M4 8Q6 2 14 3L140 0Q149 4 147 13L152 132Q148 143 138 140L11 146Q2 142 4 130Z" fill="#f6edbc" fill-opacity=".9" stroke="#b77a24" stroke-width="2.2"/>
+    <text class="hand" x="16" y="29" font-size="12" font-weight="700">値だけ送らない</text>
+    <text class="sans tiny" x="16" y="52">✓ 時刻</text><text class="sans tiny" x="78" y="52">✓ 場所</text>
+    <text class="sans tiny" x="16" y="75">✓ 機器</text><text class="sans tiny" x="78" y="75">✓ 条件</text>
+    <path d="M16 94Q77 100 135 93" fill="none" stroke="#b77a24" stroke-width="1.7" stroke-linecap="round"/>
+    <text class="hand" x="16" y="117" font-size="10">まずは一台で PoC</text>
+    <text class="hand" x="16" y="134" font-size="10">失敗しても直せる！</text>
+  </g>
+
+  <g transform="translate(232 310) rotate(-1.4 69 67)">
+    <path d="M4 8Q6 2 14 3L133 0Q143 4 141 13L146 120Q143 132 132 129L11 135Q2 131 4 119Z" fill="#d9ebe2" fill-opacity=".9" stroke="#1a827d" stroke-width="2.2"/>
+    <text class="hand" x="16" y="29" font-size="12" font-weight="700">通信が切れたら</text>
+    <text class="sans tiny" x="16" y="53">通信断 → この層だけ</text>
+    <text class="sans tiny" x="16" y="70">「未接続」にする</text>
+    <text class="sans tiny" x="16" y="96">再接続 → 条件を保って</text>
+    <text class="sans tiny" x="16" y="113">自動で再開</text>
+  </g>
+
+  <path d="M219 500Q294 485 369 499" fill="none" stroke="#bd5d54" stroke-width="2" stroke-linecap="round"/>
+  <text class="hand" x="221" y="524" font-size="10">公開データとは別の層へ</text>
+  <text class="sans" x="21" y="791" font-size="8.5" letter-spacing=".07em">SENSOR → ESP32 → WI-FI → HTTPS → GAIA → MAP</text>
+</svg>

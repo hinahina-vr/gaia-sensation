@@ -1,0 +1,89 @@
+/* The CO2 instrument is the reference: 102px, 12px corners, 21px reading,
+   6px spectrum, and a pale yellow pin. Keep the DOM exhibits on this grid. */
+#japan-layer .gaia-metric-legend {
+  position: relative;
+  display: block;
+  box-sizing: border-box;
+  width: 330px;
+  height: 102px;
+  min-height: 102px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid rgba(171, 205, 216, .22);
+  border-radius: 12px;
+  background: linear-gradient(145deg, rgba(19, 40, 53, .97), rgba(6, 21, 32, .97));
+  box-shadow: none;
+  color: #e3eef0;
+  font-family: var(--font-ja);
+  backdrop-filter: none;
+  pointer-events: none;
+}
+#japan-layer .gaia-metric-legend [hidden], #japan-layer .gaia-metric-legend[hidden] { display: none !important; }
+#japan-layer .gaia-metric-legend-heading {
+  position: absolute; top: 11px; left: 17px; right: 17px;
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  margin: 0; padding: 0; border: 0;
+  font: 500 11px/1.2 var(--font-ja);
+  letter-spacing: 0; text-transform: none;
+}
+#japan-layer .gaia-metric-legend-heading strong {
+  min-width: 0; margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  color: #a7bec8; font: inherit; letter-spacing: 0;
+}
+#japan-layer .gaia-metric-legend-heading > span { flex: 0 0 auto; color: #829eaa; font: 500 10px/1.2 var(--font-ja); white-space: nowrap; }
+#japan-layer .gaia-metric-legend-current {
+  position: absolute; top: 28px; left: 17px; right: 17px;
+  display: flex; gap: 16px; align-items: baseline;
+  color: #e3eef0; font: 500 var(--metric-current-size, 21px)/1.35 var(--font-ja);
+  white-space: nowrap; font-variant-numeric: tabular-nums;
+}
+#japan-layer .gaia-metric-legend-current > * { flex: 0 0 auto; color: inherit; font: inherit; letter-spacing: 0; }
+#japan-layer .gaia-metric-legend-current > span:empty { display: none; }
+#japan-layer .gaia-metric-legend-track {
+  position: absolute; top: 64px; left: 17px; right: 17px; height: 6px;
+  border: 0; border-radius: 3px; background: var(--metric-gradient, linear-gradient(90deg, #163950, #d9edf0));
+}
+#japan-layer [data-metric-marker] {
+  position: absolute; top: -4px; width: 1.5px; height: 14px; margin-left: -.75px;
+  background: rgba(255, 240, 152, .98); box-shadow: 0 0 0 1px rgba(5, 20, 30, .7);
+}
+#japan-layer [data-metric-marker]::before { content: ""; position: absolute; top: -2px; left: -1.5px; width: 4.4px; height: 4.4px; border-radius: 50%; background: inherit; }
+#japan-layer .gaia-metric-legend-range {
+  position: absolute; top: 80px; left: 17px; right: 17px;
+  display: flex; justify-content: space-between; gap: 12px;
+  color: #93afbb; font: 400 9px/1.2 var(--font-ja); white-space: nowrap;
+}
+#japan-layer :is(.gaia-estat-heat-legend, .gaia-annual-metric-legend).gaia-metric-legend { position: absolute; top: max(118px, calc(env(safe-area-inset-top) + 82px)); left: 18px; }
+#japan-layer .gaia-planet-signals-legend {
+  display: grid; width: 330px; gap: 6px; padding: 0; border: 0; border-radius: 0;
+  background: none; box-shadow: none;
+}
+#japan-layer .gaia-planet-signals-legend > .gaia-metric-legend { width: 100%; }
+#japan-layer .gaia-metric-legend-details {
+  min-width: 0; border: 1px solid rgba(171, 205, 216, .16); border-radius: 9px;
+  background: rgba(6, 21, 32, .94); color: #adc4ce;
+  font: 400 10px/1.6 var(--font-ja);
+  pointer-events: auto;
+}
+#japan-layer .gaia-metric-legend-details summary { min-height: 36px; padding: 9px 12px; cursor: pointer; }
+#japan-layer .gaia-metric-legend-details [hidden] { display: none !important; }
+#japan-layer .gaia-metric-legend-details summary > span { margin-left: 7px; color: #b8cbd2; }
+#japan-layer .gaia-metric-legend-details summary:focus-visible { outline: 2px solid #fff098; outline-offset: 3px; }
+#japan-layer .gaia-metric-legend-details-body { max-height: 360px; overflow-y: auto; padding: 0 12px 12px; scrollbar-width: thin; }
+#japan-layer .gaia-metric-legend-details-body .gaia-planet-data-time { margin: 0 0 10px; }
+#japan-layer .gaia-metric-legend-details-body p { display: block; margin: 8px 0; font: inherit; line-height: 1.6; }
+#japan-layer .gaia-metric-legend-details-body .gaia-planet-cloud-credit { min-height: 44px; padding-top: 10px; font-family: inherit; }
+#japan-layer .gaia-metric-legend-details-body .gaia-planet-data-time time { font-family: inherit; font-weight: 500; }
+@media (min-width: 901px) {
+  #japan-layer :is(.gaia-estat-heat-legend, .gaia-annual-metric-legend).gaia-metric-legend,
+  #japan-layer .gaia-planet-signals-legend { width: clamp(360px, 18vw, 440px); }
+}
+@media (max-width: 679px) {
+  #japan-layer :is(.gaia-estat-heat-legend, .gaia-annual-metric-legend).gaia-metric-legend,
+  #japan-layer .gaia-planet-signals-legend { width: min(216px, calc(100vw - 28px)); top: max(132px, calc(env(safe-area-inset-top) + 106px)); left: 8px; }
+  #japan-layer .gaia-metric-legend-details summary { min-height: 44px; }
+  #japan-layer .gaia-metric-legend-details summary > [data-planet-reference-notice] { display: block; margin-left: 12px; }
+  #japan-layer .gaia-metric-legend-details-body .gaia-planet-data-time { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+  #japan-layer .gaia-metric-legend-details-body .gaia-planet-data-time :is(time, small) { text-align: left; }
+  #japan-layer .gaia-metric-legend-details-body { max-height: max(120px, calc(100dvh - 540px)); }
+}

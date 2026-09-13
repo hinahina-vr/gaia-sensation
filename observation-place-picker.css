@@ -1,0 +1,76 @@
+.gaia-place-picker {
+  position: fixed;
+  inset: auto;
+  box-sizing: border-box;
+  width: min(680px, calc(100vw - 24px));
+  height: min(640px, calc(100dvh - 24px));
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid rgba(167, 214, 216, .23);
+  border-radius: 12px;
+  color: #dcefeb;
+  background: linear-gradient(150deg, #102d35, #071b25 58%);
+  box-shadow: 0 22px 70px #0008;
+  font: 400 14px/1.5 var(--font-ui-ja, sans-serif);
+  color-scheme: dark;
+}
+.gaia-place-picker[open] { display: flex; flex-direction: column; }
+.gaia-place-picker::backdrop { background: rgba(1, 10, 16, .52); }
+.gaia-place-picker button { cursor: pointer; font: inherit; color: inherit; }
+.gaia-place-picker [hidden] { display: none !important; }
+.gaia-place-picker-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 23px 24px 18px; }
+.gaia-place-picker-heading p { margin: 0 0 5px; color: #79aaa9; font: 500 10px/1.4 var(--font-ui-ja, sans-serif); letter-spacing: .18em; }
+.gaia-place-picker-heading h2 { margin: 0; font: 500 25px/1.4 var(--font-ja, serif); letter-spacing: .035em; }
+.gaia-place-picker-heading > button { flex: 0 0 auto; min-height: 44px; padding: 4px 0 4px 12px; border: 0; border-radius: 0; background: none; color: #a6c2c4; font-size: 12px; }
+.gaia-place-picker-heading > button span { margin-left: 9px; font: 300 24px/1 sans-serif; vertical-align: -2px; }
+.gaia-place-picker-search { flex: 0 0 auto; display: flex; align-items: center; gap: 10px; min-height: 46px; margin: 0 24px 12px; padding: 0 13px; border: 1px solid #9ac4c52e; border-radius: 5px; background: #020f195e; }
+.gaia-place-picker-search:focus-within { border-color: #8bd2c8; }
+.gaia-place-picker-search svg { flex: 0 0 18px; width: 18px; height: 18px; fill: none; stroke: #90b2b6; stroke-width: 1.5; }
+.gaia-place-picker-search input { appearance: none; width: 100%; min-width: 0; height: 44px; padding: 0; border: 0; outline: 0; color: #edfffb; background: transparent; font: 400 16px/1.5 var(--font-ui-ja, sans-serif); }
+.gaia-place-picker-search input::placeholder { color: #8da8ad; font-size: 13px; }
+.gaia-place-picker-search input::-webkit-search-cancel-button { appearance: none; }
+.gaia-place-picker-search button { flex: 0 0 auto; min-height: 44px; padding: 0; border: 0; border-radius: 0; background: none; font-size: 12px; color: #a1c2c4; }
+.gaia-place-picker-regions { display: flex; flex-wrap: wrap; flex: 0 0 auto; gap: 0 17px; margin: 0 24px; border-bottom: 1px solid #a5cbd421; }
+.gaia-place-picker-regions button { position: relative; min-height: 40px; padding: 8px 0; border: 0; border-bottom: 2px solid transparent; border-radius: 0; background: none; color: #98b2b8; font-size: 12px; white-space: nowrap; }
+.gaia-place-picker-regions button[aria-pressed="true"] { border-bottom-color: #9fdfd3; color: #d6fff3; }
+.gaia-place-picker-results { flex: 1; min-height: 0; overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #688f9466 transparent; padding: 5px 24px 24px; scroll-padding-block: 10px; }
+.gaia-place-picker-region { margin-top: 17px; }
+.gaia-place-picker-region h3 { display: flex; align-items: baseline; gap: 9px; margin: 0 0 8px; color: #b0d0d0; font: 500 12px/1.5 var(--font-ui-ja, sans-serif); letter-spacing: .05em; }
+.gaia-place-picker-region h3 span { color: #73959e; font-size: 10px; letter-spacing: 0; }
+.gaia-place-picker-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 10px; }
+.gaia-place-picker-grid > button { position: relative; display: grid; grid-template-columns: 21px minmax(0, 1fr); align-items: start; gap: 9px; min-width: 0; min-height: 65px; padding: 10px 9px; border: 1px solid transparent; border-bottom-color: #88adb01a; border-radius: 3px; background: transparent; text-align: left; transition: background-color 120ms ease, border-color 120ms ease; }
+.gaia-place-picker-code { padding-top: 3px; color: #7fa2a9; font: 400 11px/1.5 var(--font-console); }
+.gaia-place-picker-name { display: grid; min-width: 0; gap: 3px; }
+.gaia-place-picker-name strong { font: 500 18px/1.4 var(--font-ja, serif); white-space: nowrap; }
+.gaia-place-picker-grid > button[aria-current="true"] { background: #62bead12; border-color: #88d4c753; }
+.gaia-place-picker-grid > button[aria-current="true"] .gaia-place-picker-code { color: #c2efdf; }
+.gaia-place-picker-grid [data-place-selected] { position: absolute; right: 8px; bottom: 10px; color: #98d8c6; font-size: 9px; }
+.gaia-place-picker-grid > button:hover { background: #a1d0ca10; border-color: #a1d0ca38; }
+.gaia-place-picker button:focus-visible { outline: 1px solid #b5e9df; outline-offset: -2px; }
+.gaia-place-picker-heading > button:hover, .gaia-place-picker-regions button:hover { color: #effffc; }
+.gaia-place-picker-empty { padding: 40px 0; color: #c3dcdd; text-align: center; font-family: var(--font-ja, serif); font-size: 18px; }
+.gaia-place-picker-empty small { display: block; margin-top: 10px; font: 400 12px/1.6 var(--font-ui-ja, sans-serif); color: #8fadb3; }
+.gaia-place-picker-footer { display: flex; flex: 0 0 auto; justify-content: space-between; align-items: center; gap: 12px; min-height: 46px; padding: 0 24px; border-top: 1px solid #a5cbd421; background: #05141a52; color: #93b3b7; font-size: 11px; }
+.gaia-place-picker-footer > :last-child { flex: 0 0 auto; color: #c2ddd9; }
+@media (max-width: 720px) {
+  .gaia-place-picker { height: min(680px, calc(100dvh - 24px)); }
+  .gaia-place-picker-heading { padding: 19px 17px 14px; }
+  .gaia-place-picker-heading h2 { font-size: 23px; }
+  .gaia-place-picker-search { margin-inline: 17px; }
+  .gaia-place-picker-regions { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 6px; margin-inline: 17px; }
+  .gaia-place-picker-regions button { min-width: 0; min-height: 44px; font-size: 11px; text-align: center; }
+  .gaia-place-picker-results { padding-inline: 17px; }
+  .gaia-place-picker-grid { grid-template-columns: minmax(0, 1fr); gap: 4px 8px; }
+  .gaia-place-picker-grid > button { gap: 6px; padding-inline: 6px; }
+  .gaia-place-picker-name strong { font-size: 17px; }
+  .gaia-place-picker-grid [data-place-selected] { right: 6px; bottom: 10px; font-size: 8px; }
+  .gaia-place-picker-footer { padding-inline: 17px; font-size: 10px; }
+}
+@media (max-width: 359px) {
+  .gaia-place-picker-regions button { font-size: 10.5px; }
+  .gaia-place-picker-grid > button { grid-template-columns: 17px minmax(0, 1fr); gap: 4px; }
+  .gaia-place-picker-name strong { font-size: 16px; }
+  .gaia-place-picker-grid [data-place-selected] { bottom: 6px; }
+}

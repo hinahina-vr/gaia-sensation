@@ -1,0 +1,57 @@
+import assert from "node:assert/strict";
+import { buildStatisticalReading as buildDataInsight, DATA_INSIGHT_METHODS } from "../statistics-data-insights.js";
+import { METHOD_LOOKUP } from "../statistics-methods.js";
+import { analyzeSummary, analyzeCorrelation, analyzeDistribution, analyzeLogistic, analyzeBayes, analyzeInterval, notApplicable } from "../statistics-lab-core.js";
+
+assert.deepEqual([...DATA_INSIGHT_METHODS].sort(), [...METHOD_LOOKUP.keys()].sort());
+const rows = [390, 400, 405, 417].map((value, i) => ({ label: `${2010 + i * 3}-01`, x: 2010 + i * 3, value, y: value, provenance: "SOURCE" }));
+const dataset = { id: "test-co2", title: "CO₂観測", unit: "ppm", xLabel: "観測月", xKind: "month", yLabel: "CO₂", rows };
+const summary = sample => analyzeSummary({ values: sample.map(row => row.value), label: "CO₂", unit: "ppm" });
+const build = (methodId = "summary", source = dataset, sample = rows, result = summary(sample), extra = {}) => buildDataInsight({ result, dataset: source, rows: sample, methodId, ...extra });
+let insight = build();
+assert.match(insight.headline, /約9年間.*27ppm増え/);
+assert.match(insight.summary, /2010-01.*2019-01/);
+assert.equal(insight.evidence[2][1], 27);
+assert.equal(build("summary", dataset, [...rows].reverse()).headline, insight.headline, "Time order must be chronological");
+const falling = rows.map(row => ({ ...row, value: 850 - row.value }));
+assert.match(build("summary", dataset, falling).headline, /27ppm減って/);
+const flat = rows.map(row => ({ ...row, value: 0 }));
+assert.match(build("summary", dataset, flat).headline, /同じ値/);
+assert.match(build("summary", dataset, rows.slice(1), summary(rows.slice(1)), { recordQuery: "2013 2016 2019" }).headline, /約6年間.*17ppm/);
+assert.match(build("summary", dataset, rows.slice(1), summary(rows.slice(1)), { recordQuery: "2013" }).scope, /絞り込み「2013」/);
+const crossSection = { ...dataset, xKind: undefined, xLabel: "経度", valueLabel: "森林率", yLabel: "都市化率", unit: "%" };
+assert.doesNotMatch(build("summary", crossSection).headline, /年間|増え|減って|都市化率/);
+assert.match(build("summary", crossSection).headline, /森林率/);
+const percent = build("summary", { ...dataset, unit: "%", yLabel: "割合" }, rows, analyzeSummary({ values: rows.map(row => row.value), unit: "%" }));
+assert.match(percent.headline, /27ポイント/);
+assert.match(build("summary", dataset, [], notApplicable("対象がありません")).summary, /対象がありません/);
+const statsResult = summary(rows);
+assert.equal(build("unbiased", dataset, rows, { ...statsResult, chart: { unit: "ppm²" } }).evidence[0][2], "ppm", "SD must not inherit variance's squared unit");
+const intervals = analyzeInterval({ values: rows.map(row => row.value), unit: "ppm" });
+assert.match(build("interval", dataset, rows, intervals).summary, /95%信頼区間/);
+const distribution = analyzeDistribution({ values: [1, 2, 10, 90], family: "exponential", label: "地震発生間隔", unit: "日" });
+insight = build("continuous", dataset, rows, distribution);
+assert.match(insight.headline, /中央値6日/); assert.match(insight.scope, /派生/); assert.equal(insight.evidence[0][2], "日");
+const correlation = analyzeCorrelation({ x: [1, 2, 3, 4], y: [4, 3, 2, 1], xLabel: "森林率", yLabel: "都市化率", yUnit: "%" });
+insight = build("scatter", crossSection, rows, correlation);
+assert.match(insight.headline, /都市化率も低い/); assert.doesNotMatch(insight.headline, /年間/);
+const split = { kind: "test", chart: { left: [1, 3], right: [2, 4], leftLabel: "前半", rightLabel: "後半", unit: "%", interval: [-4, 2] } };
+insight = build("welch", crossSection, rows, split);
+assert.match(insight.headline, /保存順で二分/); assert.match(insight.summary, /0を含み/); assert.match(insight.headline, /1ポイント低い/);
+const categorical = { kind: "categorical", chart: { table: [[9, 1], [50, 50]], categoryLevels: ["A", "B"], groupLevels: ["小群", "大群"] } };
+insight = build("categorical", { ...dataset, id: "culture" }, rows, categorical);
+assert.match(insight.headline, /40ポイント/); assert.equal(insight.evidence[0][1], 90); // Normalize each group's denominator.
+const bayes = analyzeBayes({ successes: 2, trials: 4, successLabel: "中央値超" });
+assert.match(build("bayes", dataset, rows, bayes).summary, /半数になる構造/);
+assert.match(build("mcmc", dataset, rows, { ...bayes, metrics: [["R-hat", 1.2]] }).headline, /結論は保留/);
+const logistic = analyzeLogistic({ x: [1, 2, 3, 4, 5, 6, 7, 8], y: [0, 1, 0, 1, 0, 0, 1, 1], xLabel: "気温", outcomeLabel: "風速が中央値超" });
+assert.match(build("logistic", crossSection, rows, { ...logistic, model: { ...logistic.model, converged: false } }).headline, /まだ読めません/);
+const prediction = { kind: "regression", metrics: [["平均条件での予測", 40], ["95%予測下限", -5], ["95%予測上限", 85]], chart: { unit: "%" } };
+insight = build("prediction", { ...dataset, id: "renewables" }, rows, prediction);
+assert.match(insight.headline, /日射・風速・降水/); assert.match(insight.headline, /-5〜85%/); assert.match(insight.caveat, /現実の値域/);
+for (const methodId of DATA_INSIGHT_METHODS) {
+  const unavailable = build(methodId, dataset, [], notApplicable("条件不足"));
+  assert.match(unavailable.headline, /答えは出せません/);
+  assert.doesNotMatch(JSON.stringify(unavailable), /NaN|undefined|Infinity/);
+}
+console.log("PASS data insights: 25-method coverage, actual time/filtered endpoints, cross-sectional labels, percentage points, SD units, category denominators, uncertainty and convergence guards");

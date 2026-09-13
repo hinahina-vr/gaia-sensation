@@ -1,0 +1,1992 @@
+{
+  "source": "気象庁 震度データベース検索",
+  "sourceUrl": "https://www.data.jma.go.jp/eqdb/data/shindo/",
+  "retrievedAt": "2026-07-31T12:18:41.674Z",
+  "selection": "最大震度6弱以上を観測した代表6地震。各イベントの観測点は震度6弱・6強・7を全件収録。",
+  "caveat": "震度データベースは後日更新される場合があります。防災判断には最新の気象庁・自治体情報を利用してください。",
+  "events": [
+    {
+      "id": "20110311144618",
+      "occurredAt": "2011-03-11T14:46:18.1+09:00",
+      "name": "三陸沖",
+      "latitude": 38.1033,
+      "longitude": 142.86,
+      "depthKm": 24,
+      "magnitude": 9,
+      "maximumIntensity": "7",
+      "observations": [
+        {
+          "name": "栗原市築館（旧）＊",
+          "latitude": 38.73,
+          "longitude": 141.02,
+          "intensity": "7",
+          "intensityCode": "7"
+        },
+        {
+          "name": "涌谷町新町裏",
+          "latitude": 38.54,
+          "longitude": 141.13,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "栗原市若柳（旧）＊",
+          "latitude": 38.77,
+          "longitude": 141.12,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "栗原市高清水（旧）＊",
+          "latitude": 38.66,
+          "longitude": 141.01,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "栗原市一迫（旧３）＊",
+          "latitude": 38.74,
+          "longitude": 140.955,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "登米市米山町（旧）＊",
+          "latitude": 38.63,
+          "longitude": 141.19,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "登米市南方町＊",
+          "latitude": 38.66,
+          "longitude": 141.16,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "宮城美里町木間塚＊",
+          "latitude": 38.49,
+          "longitude": 141.14,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "大崎市古川三日町",
+          "latitude": 38.57,
+          "longitude": 140.96,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "大崎市古川北町＊",
+          "latitude": 38.58,
+          "longitude": 140.97,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "大崎市鹿島台＊",
+          "latitude": 38.48,
+          "longitude": 141.1,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "大崎市田尻（旧）＊",
+          "latitude": 38.6,
+          "longitude": 141.06,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "名取市増田＊",
+          "latitude": 38.17,
+          "longitude": 140.89,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "蔵王町円田＊",
+          "latitude": 38.1,
+          "longitude": 140.66,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "宮城川崎町前川＊",
+          "latitude": 38.18,
+          "longitude": 140.64,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "山元町浅生原（旧）＊",
+          "latitude": 37.96,
+          "longitude": 140.88,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "仙台宮城野区苦竹＊",
+          "latitude": 38.27,
+          "longitude": 140.93,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "石巻市桃生町＊",
+          "latitude": 38.56,
+          "longitude": 141.24,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "塩竈市旭町＊",
+          "latitude": 38.33,
+          "longitude": 141.01,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "東松島市矢本（旧）＊",
+          "latitude": 38.43,
+          "longitude": 141.21,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "大衡村大衡＊",
+          "latitude": 38.47,
+          "longitude": 140.885,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "白河市新白河＊",
+          "latitude": 37.12,
+          "longitude": 140.19,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "須賀川市八幡町（旧２）＊",
+          "latitude": 37.29,
+          "longitude": 140.375,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "国見町藤田（旧２）＊",
+          "latitude": 37.88,
+          "longitude": 140.555,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "鏡石町不時沼＊",
+          "latitude": 37.25,
+          "longitude": 140.34,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "天栄村下松本＊",
+          "latitude": 37.26,
+          "longitude": 140.255,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "楢葉町北田＊",
+          "latitude": 37.28,
+          "longitude": 140.99,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "富岡町本岡＊",
+          "latitude": 37.34,
+          "longitude": 141.01,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "大熊町下野上＊",
+          "latitude": 37.4,
+          "longitude": 140.98,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "双葉町新山＊",
+          "latitude": 37.45,
+          "longitude": 141.015,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "浪江町幾世橋",
+          "latitude": 37.49,
+          "longitude": 141,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "新地町谷地小屋＊",
+          "latitude": 37.885,
+          "longitude": 140.925,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "日立市助川小学校＊",
+          "latitude": 36.59,
+          "longitude": 140.65,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "日立市十王町友部（旧）＊",
+          "latitude": 36.68,
+          "longitude": 140.68,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "高萩市本町（旧）＊",
+          "latitude": 36.71,
+          "longitude": 140.715,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "笠間市中央＊",
+          "latitude": 36.35,
+          "longitude": 140.3,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "常陸大宮市北町＊",
+          "latitude": 36.55,
+          "longitude": 140.415,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "那珂市瓜連＊",
+          "latitude": 36.5,
+          "longitude": 140.44,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "小美玉市上玉里（旧）＊",
+          "latitude": 36.16,
+          "longitude": 140.34,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "筑西市舟生",
+          "latitude": 36.25,
+          "longitude": 139.93,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "鉾田市当間＊",
+          "latitude": 36.16,
+          "longitude": 140.49,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "大田原市湯津上（旧）＊",
+          "latitude": 36.82,
+          "longitude": 140.1,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "宇都宮市白沢町＊",
+          "latitude": 36.63,
+          "longitude": 139.94,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "真岡市石島（旧）＊",
+          "latitude": 36.39,
+          "longitude": 139.97,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "市貝町市塙＊",
+          "latitude": 36.54,
+          "longitude": 140.1,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "高根沢町石末＊",
+          "latitude": 36.63,
+          "longitude": 139.99,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "大船渡市大船渡町",
+          "latitude": 39.07,
+          "longitude": 141.71,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "大船渡市猪川町",
+          "latitude": 39.08,
+          "longitude": 141.66,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "釜石市中妻町＊",
+          "latitude": 39.27,
+          "longitude": 141.86,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "矢巾町南矢幅（旧）＊",
+          "latitude": 39.61,
+          "longitude": 141.14,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "滝沢市鵜飼＊",
+          "latitude": 39.73,
+          "longitude": 141.08,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "花巻市大迫町",
+          "latitude": 39.48,
+          "longitude": 141.29,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "一関市山目＊",
+          "latitude": 38.93,
+          "longitude": 141.12,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "一関市花泉町（旧）＊",
+          "latitude": 38.83,
+          "longitude": 141.18,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "一関市千厩町（旧）＊",
+          "latitude": 38.92,
+          "longitude": 141.33,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "一関市室根町（旧）＊",
+          "latitude": 38.94,
+          "longitude": 141.45,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "一関市藤沢町＊",
+          "latitude": 38.86,
+          "longitude": 141.35,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "奥州市前沢＊",
+          "latitude": 39.05,
+          "longitude": 141.12,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "奥州市衣川区（旧３）＊",
+          "latitude": 39.04,
+          "longitude": 141.075,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "気仙沼市赤岩",
+          "latitude": 38.88,
+          "longitude": 141.57,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "気仙沼市唐桑町＊",
+          "latitude": 38.9,
+          "longitude": 141.65,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "栗原市栗駒",
+          "latitude": 38.83,
+          "longitude": 140.99,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "栗原市瀬峰（旧）＊",
+          "latitude": 38.66,
+          "longitude": 141.07,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "栗原市金成（旧）＊",
+          "latitude": 38.8,
+          "longitude": 141.07,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "登米市中田町",
+          "latitude": 38.71,
+          "longitude": 141.24,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "登米市東和町＊",
+          "latitude": 38.73,
+          "longitude": 141.31,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "登米市豊里町＊",
+          "latitude": 38.59,
+          "longitude": 141.255,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "登米市登米町＊",
+          "latitude": 38.66,
+          "longitude": 141.28,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "登米市迫町＊",
+          "latitude": 38.69,
+          "longitude": 141.195,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "南三陸町志津川（旧）",
+          "latitude": 38.68,
+          "longitude": 141.45,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "南三陸町歌津（旧）＊",
+          "latitude": 38.73,
+          "longitude": 141.515,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "宮城美里町北浦＊",
+          "latitude": 38.54,
+          "longitude": 141.06,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "大崎市松山＊",
+          "latitude": 38.51,
+          "longitude": 141.06,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "白石市亘理町＊",
+          "latitude": 38.01,
+          "longitude": 140.62,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "仙台空港",
+          "latitude": 38.14,
+          "longitude": 140.93,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "角田市角田＊",
+          "latitude": 37.98,
+          "longitude": 140.78,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "岩沼市桜＊",
+          "latitude": 38.1,
+          "longitude": 140.87,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "大河原町新南＊",
+          "latitude": 38.05,
+          "longitude": 140.735,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "亘理町下小路＊",
+          "latitude": 38.04,
+          "longitude": 140.85,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "仙台青葉区大倉",
+          "latitude": 38.37,
+          "longitude": 140.66,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "仙台青葉区作並＊",
+          "latitude": 38.32,
+          "longitude": 140.64,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "仙台青葉区雨宮＊",
+          "latitude": 38.28,
+          "longitude": 140.87,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "仙台青葉区落合＊",
+          "latitude": 38.27,
+          "longitude": 140.79,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "仙台宮城野区五輪",
+          "latitude": 38.26,
+          "longitude": 140.9,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "仙台若林区遠見塚＊",
+          "latitude": 38.24,
+          "longitude": 140.91,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "仙台泉区将監＊",
+          "latitude": 38.34,
+          "longitude": 140.89,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "石巻市泉町",
+          "latitude": 38.43,
+          "longitude": 141.3,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "石巻市門脇＊",
+          "latitude": 38.43,
+          "longitude": 141.28,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "石巻市北上町（旧）＊",
+          "latitude": 38.58,
+          "longitude": 141.45,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "石巻市鮎川浜＊",
+          "latitude": 38.3,
+          "longitude": 141.51,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "石巻市相野谷＊",
+          "latitude": 38.52,
+          "longitude": 141.32,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "石巻市前谷地＊",
+          "latitude": 38.51,
+          "longitude": 141.19,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "東松島市小野＊",
+          "latitude": 38.4,
+          "longitude": 141.16,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "松島町高城",
+          "latitude": 38.39,
+          "longitude": 141.07,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "利府町利府＊",
+          "latitude": 38.33,
+          "longitude": 140.98,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "大和町吉岡＊",
+          "latitude": 38.45,
+          "longitude": 140.89,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "大郷町粕川＊",
+          "latitude": 38.42,
+          "longitude": 141,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "富谷市富谷＊",
+          "latitude": 38.4,
+          "longitude": 140.9,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "福島市五老内町＊",
+          "latitude": 37.76,
+          "longitude": 140.485,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "郡山市朝日",
+          "latitude": 37.4,
+          "longitude": 140.36,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "郡山市開成＊",
+          "latitude": 37.4,
+          "longitude": 140.365,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "郡山市湖南町＊",
+          "latitude": 37.4,
+          "longitude": 140.13,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "白河市表郷＊",
+          "latitude": 37.05,
+          "longitude": 140.315,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "須賀川市八幡山＊",
+          "latitude": 37.28,
+          "longitude": 140.37,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "須賀川市長沼支所＊",
+          "latitude": 37.29,
+          "longitude": 140.21,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "二本松市金色＊",
+          "latitude": 37.59,
+          "longitude": 140.43,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "二本松市油井＊",
+          "latitude": 37.61,
+          "longitude": 140.46,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "桑折町東大隅＊",
+          "latitude": 37.85,
+          "longitude": 140.52,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "川俣町五百田（旧）＊",
+          "latitude": 37.66,
+          "longitude": 140.6,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "西郷村熊倉（旧）＊",
+          "latitude": 37.14,
+          "longitude": 140.16,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "中島村滑津（旧）＊",
+          "latitude": 37.15,
+          "longitude": 140.35,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "矢吹町一本木＊",
+          "latitude": 37.2,
+          "longitude": 140.34,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "棚倉町棚倉中居野",
+          "latitude": 37.03,
+          "longitude": 140.38,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "玉川村小高＊",
+          "latitude": 37.21,
+          "longitude": 140.41,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "浅川町浅川＊",
+          "latitude": 37.08,
+          "longitude": 140.41,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "小野町中通＊",
+          "latitude": 37.28,
+          "longitude": 140.63,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "小野町小野新町＊",
+          "latitude": 37.29,
+          "longitude": 140.63,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "田村市大越町＊",
+          "latitude": 37.38,
+          "longitude": 140.64,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "田村市常葉町＊",
+          "latitude": 37.44,
+          "longitude": 140.64,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "田村市都路町＊",
+          "latitude": 37.44,
+          "longitude": 140.795,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "田村市滝根町＊",
+          "latitude": 37.32,
+          "longitude": 140.665,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "福島伊達市前川原（旧）＊",
+          "latitude": 37.82,
+          "longitude": 140.51,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "福島伊達市梁川町＊",
+          "latitude": 37.85,
+          "longitude": 140.6,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "本宮市白岩＊",
+          "latitude": 37.51,
+          "longitude": 140.45,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "いわき市小名浜",
+          "latitude": 36.95,
+          "longitude": 140.9,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "いわき市三和町",
+          "latitude": 37.1,
+          "longitude": 140.8,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "いわき市錦町＊",
+          "latitude": 36.91,
+          "longitude": 140.79,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "相馬市中村（旧２）＊",
+          "latitude": 37.8,
+          "longitude": 140.925,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "福島広野町下北迫大谷地原＊",
+          "latitude": 37.23,
+          "longitude": 141,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "川内村上川内小山平＊",
+          "latitude": 37.34,
+          "longitude": 140.81,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "川内村上川内早渡＊",
+          "latitude": 37.34,
+          "longitude": 140.815,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "大熊町野上＊",
+          "latitude": 37.41,
+          "longitude": 140.96,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "飯舘村伊丹沢＊",
+          "latitude": 37.68,
+          "longitude": 140.74,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "南相馬市原町区高見町＊",
+          "latitude": 37.64,
+          "longitude": 140.99,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "南相馬市鹿島区西町＊",
+          "latitude": 37.7,
+          "longitude": 140.975,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "猪苗代町千代田＊",
+          "latitude": 37.55,
+          "longitude": 140.11,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "水戸市金町",
+          "latitude": 36.38,
+          "longitude": 140.475,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "水戸市千波町（旧）＊",
+          "latitude": 36.37,
+          "longitude": 140.45,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "水戸市中央＊",
+          "latitude": 36.37,
+          "longitude": 140.47,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "水戸市内原町（旧）＊",
+          "latitude": 36.36,
+          "longitude": 140.36,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "日立市役所（旧）＊",
+          "latitude": 36.6,
+          "longitude": 140.65,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "常陸太田市高柿町（旧）＊",
+          "latitude": 36.56,
+          "longitude": 140.46,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "高萩市安良川＊",
+          "latitude": 36.71,
+          "longitude": 140.71,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "北茨城市磯原町＊",
+          "latitude": 36.8,
+          "longitude": 140.75,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "笠間市石井（旧）＊",
+          "latitude": 36.39,
+          "longitude": 140.245,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "笠間市下郷＊",
+          "latitude": 36.3,
+          "longitude": 140.29,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "ひたちなか市南神敷台＊",
+          "latitude": 36.35,
+          "longitude": 140.6,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "ひたちなか市東石川＊",
+          "latitude": 36.4,
+          "longitude": 140.54,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "茨城町小堤（旧）＊",
+          "latitude": 36.29,
+          "longitude": 140.42,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "東海村東海（旧）＊",
+          "latitude": 36.47,
+          "longitude": 140.575,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "常陸大宮市中富町",
+          "latitude": 36.54,
+          "longitude": 140.41,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "常陸大宮市野口（旧）＊",
+          "latitude": 36.56,
+          "longitude": 140.31,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "常陸大宮市山方（旧）＊",
+          "latitude": 36.63,
+          "longitude": 140.4,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "那珂市福田＊",
+          "latitude": 36.46,
+          "longitude": 140.49,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "城里町石塚（旧）＊",
+          "latitude": 36.48,
+          "longitude": 140.38,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "城里町阿波山（旧）＊",
+          "latitude": 36.52,
+          "longitude": 140.37,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "小美玉市小川（旧）＊",
+          "latitude": 36.18,
+          "longitude": 140.37,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "小美玉市堅倉（旧）＊",
+          "latitude": 36.24,
+          "longitude": 140.35,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "土浦市常名",
+          "latitude": 36.1,
+          "longitude": 140.19,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "土浦市下高津＊",
+          "latitude": 36.07,
+          "longitude": 140.2,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "石岡市柿岡",
+          "latitude": 36.23,
+          "longitude": 140.19,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "石岡市石岡（旧）＊",
+          "latitude": 36.19,
+          "longitude": 140.29,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "取手市井野＊",
+          "latitude": 35.91,
+          "longitude": 140.07,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "つくば市天王台＊",
+          "latitude": 36.13,
+          "longitude": 140.09,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "つくば市研究学園＊",
+          "latitude": 36.08,
+          "longitude": 140.08,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "茨城鹿嶋市鉢形（旧）",
+          "latitude": 35.97,
+          "longitude": 140.65,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "茨城鹿嶋市宮中＊",
+          "latitude": 35.98,
+          "longitude": 140.63,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "潮来市辻（旧）＊",
+          "latitude": 35.95,
+          "longitude": 140.56,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "美浦村受領＊",
+          "latitude": 36,
+          "longitude": 140.3,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "坂東市山（旧）＊",
+          "latitude": 36.12,
+          "longitude": 139.89,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "稲敷市役所（旧）＊",
+          "latitude": 35.96,
+          "longitude": 140.32,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "稲敷市結佐（旧）＊",
+          "latitude": 35.93,
+          "longitude": 140.46,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "筑西市門井（旧）＊",
+          "latitude": 36.33,
+          "longitude": 140.03,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "かすみがうら市上土田（旧）＊",
+          "latitude": 36.15,
+          "longitude": 140.24,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "行方市麻生（旧）＊",
+          "latitude": 35.99,
+          "longitude": 140.49,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "行方市山田（旧）＊",
+          "latitude": 36.08,
+          "longitude": 140.53,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "行方市玉造＊",
+          "latitude": 36.1,
+          "longitude": 140.42,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "桜川市岩瀬（旧）＊",
+          "latitude": 36.36,
+          "longitude": 140.11,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "桜川市真壁（旧）＊",
+          "latitude": 36.28,
+          "longitude": 140.09,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "鉾田市鉾田",
+          "latitude": 36.16,
+          "longitude": 140.52,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "鉾田市造谷（旧）＊",
+          "latitude": 36.23,
+          "longitude": 140.54,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "鉾田市汲上（旧）＊",
+          "latitude": 36.1,
+          "longitude": 140.57,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "常総市新石下＊",
+          "latitude": 36.12,
+          "longitude": 139.98,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "つくばみらい市加藤＊",
+          "latitude": 35.99,
+          "longitude": 140.01,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "大田原市本町（旧）＊",
+          "latitude": 36.87,
+          "longitude": 140.02,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "那須町寺子＊",
+          "latitude": 37.02,
+          "longitude": 140.12,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "那須塩原市鍋掛＊",
+          "latitude": 36.94,
+          "longitude": 140.08,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "那須塩原市あたご町＊",
+          "latitude": 36.88,
+          "longitude": 139.98,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "真岡市田町＊",
+          "latitude": 36.44,
+          "longitude": 140.02,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "真岡市荒町（旧）＊",
+          "latitude": 36.44,
+          "longitude": 140.01,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "芳賀町祖母井＊",
+          "latitude": 36.55,
+          "longitude": 140.065,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "那須烏山市中央",
+          "latitude": 36.66,
+          "longitude": 140.15,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "那須烏山市大金＊",
+          "latitude": 36.66,
+          "longitude": 140.09,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "栃木那珂川町馬頭（旧）＊",
+          "latitude": 36.74,
+          "longitude": 140.17,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "栃木那珂川町小川（旧）＊",
+          "latitude": 36.76,
+          "longitude": 140.13,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "桐生市元宿町＊",
+          "latitude": 36.415,
+          "longitude": 139.335,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "宮代町笠原＊",
+          "latitude": 36.02,
+          "longitude": 139.725,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "成田市花崎町",
+          "latitude": 35.78,
+          "longitude": 140.32,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "印西市大森＊",
+          "latitude": 35.83,
+          "longitude": 140.15,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "印西市笠神＊",
+          "latitude": 35.82,
+          "longitude": 140.2,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        }
+      ]
+    },
+    {
+      "id": "20160416012505",
+      "occurredAt": "2016-04-16T01:25:05.4+09:00",
+      "name": "熊本県熊本地方",
+      "latitude": 32.7533,
+      "longitude": 130.762,
+      "depthKm": 12,
+      "magnitude": 7.3,
+      "maximumIntensity": "7",
+      "observations": [
+        {
+          "name": "西原村小森＊",
+          "latitude": 32.83,
+          "longitude": 130.9,
+          "intensity": "7",
+          "intensityCode": "7"
+        },
+        {
+          "name": "益城町宮園（旧２）＊",
+          "latitude": 32.795,
+          "longitude": 130.825,
+          "intensity": "7",
+          "intensityCode": "7"
+        },
+        {
+          "name": "南阿蘇村河陽（旧）＊",
+          "latitude": 32.86,
+          "longitude": 131,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "菊池市旭志（旧２）＊",
+          "latitude": 32.95,
+          "longitude": 130.865,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "宇土市浦田町（旧）＊",
+          "latitude": 32.695,
+          "longitude": 130.665,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "大津町大津（旧）＊",
+          "latitude": 32.88,
+          "longitude": 130.87,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "嘉島町上島＊",
+          "latitude": 32.74,
+          "longitude": 130.76,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "宇城市松橋町",
+          "latitude": 32.65,
+          "longitude": 130.68,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "宇城市小川町（旧２）＊",
+          "latitude": 32.59,
+          "longitude": 130.705,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "宇城市豊野町＊",
+          "latitude": 32.645,
+          "longitude": 130.755,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "合志市竹迫＊",
+          "latitude": 32.89,
+          "longitude": 130.79,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "熊本中央区大江＊",
+          "latitude": 32.8,
+          "longitude": 130.72,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "熊本東区佐土原＊",
+          "latitude": 32.79,
+          "longitude": 130.78,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "熊本西区春日",
+          "latitude": 32.79,
+          "longitude": 130.69,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "阿蘇市一の宮町＊",
+          "latitude": 32.93,
+          "longitude": 131.12,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "阿蘇市内牧＊",
+          "latitude": 32.97,
+          "longitude": 131.045,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "南阿蘇村中松",
+          "latitude": 32.88,
+          "longitude": 131.07,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "南阿蘇村河陰＊",
+          "latitude": 32.82,
+          "longitude": 131.03,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "八代市鏡町＊",
+          "latitude": 32.56,
+          "longitude": 130.65,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "玉名市横島町＊",
+          "latitude": 32.88,
+          "longitude": 130.56,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "玉名市天水町（旧２）＊",
+          "latitude": 32.86,
+          "longitude": 130.595,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "菊池市隈府＊",
+          "latitude": 32.98,
+          "longitude": 130.815,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "菊池市泗水町＊",
+          "latitude": 32.92,
+          "longitude": 130.785,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "大津町引水＊",
+          "latitude": 32.88,
+          "longitude": 130.88,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "菊陽町久保田＊",
+          "latitude": 32.86,
+          "longitude": 130.83,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "御船町御船＊",
+          "latitude": 32.71,
+          "longitude": 130.805,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "熊本美里町永富＊",
+          "latitude": 32.62,
+          "longitude": 130.86,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "熊本美里町馬場＊",
+          "latitude": 32.64,
+          "longitude": 130.795,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "宇城市不知火町＊",
+          "latitude": 32.65,
+          "longitude": 130.67,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "山都町下馬尾＊",
+          "latitude": 32.69,
+          "longitude": 130.995,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "氷川町島地＊",
+          "latitude": 32.58,
+          "longitude": 130.67,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "合志市御代志＊",
+          "latitude": 32.89,
+          "longitude": 130.74,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "和水町江田＊",
+          "latitude": 32.98,
+          "longitude": 130.615,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "熊本南区城南町（旧）＊",
+          "latitude": 32.71,
+          "longitude": 130.73,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "熊本南区富合町＊",
+          "latitude": 32.72,
+          "longitude": 130.68,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "熊本北区植木町＊",
+          "latitude": 32.9,
+          "longitude": 130.69,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "上天草市大矢野町",
+          "latitude": 32.59,
+          "longitude": 130.43,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "天草市五和町＊",
+          "latitude": 32.51,
+          "longitude": 130.195,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "別府市鶴見",
+          "latitude": 33.31,
+          "longitude": 131.47,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "由布市湯布院町川上（旧２）＊",
+          "latitude": 33.26,
+          "longitude": 131.365,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        }
+      ]
+    },
+    {
+      "id": "20180906030759",
+      "occurredAt": "2018-09-06T03:07:59.3+09:00",
+      "name": "胆振地方中東部",
+      "latitude": 42.69,
+      "longitude": 142.007,
+      "depthKm": 37,
+      "magnitude": 6.7,
+      "maximumIntensity": "7",
+      "observations": [
+        {
+          "name": "厚真町鹿沼",
+          "latitude": 42.62,
+          "longitude": 141.92,
+          "intensity": "7",
+          "intensityCode": "7"
+        },
+        {
+          "name": "厚真町京町＊",
+          "latitude": 42.72,
+          "longitude": 141.885,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "安平町早来北進＊",
+          "latitude": 42.77,
+          "longitude": 141.82,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "安平町追分柏が丘＊",
+          "latitude": 42.87,
+          "longitude": 141.82,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "むかわ町松風＊",
+          "latitude": 42.57,
+          "longitude": 141.93,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "むかわ町穂別＊",
+          "latitude": 42.76,
+          "longitude": 142.13,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "札幌東区元町＊",
+          "latitude": 43.09,
+          "longitude": 141.375,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "新千歳空港",
+          "latitude": 42.78,
+          "longitude": 141.68,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "日高地方日高町門別＊",
+          "latitude": 42.48,
+          "longitude": 142.05,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "平取町振内＊",
+          "latitude": 42.73,
+          "longitude": 142.3,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        }
+      ]
+    },
+    {
+      "id": "20240101161022",
+      "occurredAt": "2024-01-01T16:10:22.5+09:00",
+      "name": "石川県能登地方",
+      "latitude": 37.495,
+      "longitude": 137.27,
+      "depthKm": 16,
+      "magnitude": 7.6,
+      "maximumIntensity": "7",
+      "observations": [
+        {
+          "name": "輪島市門前町走出＊",
+          "latitude": 37.295,
+          "longitude": 136.775,
+          "intensity": "7",
+          "intensityCode": "7"
+        },
+        {
+          "name": "志賀町香能＊",
+          "latitude": 37.16,
+          "longitude": 136.69,
+          "intensity": "7",
+          "intensityCode": "7"
+        },
+        {
+          "name": "七尾市垣吉町＊",
+          "latitude": 37.06,
+          "longitude": 136.9,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "七尾市能登島向田町＊",
+          "latitude": 37.13,
+          "longitude": 137,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "輪島市鳳至町",
+          "latitude": 37.39,
+          "longitude": 136.905,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "輪島市河井町＊",
+          "latitude": 37.39,
+          "longitude": 136.91,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "珠洲市三崎町",
+          "latitude": 37.45,
+          "longitude": 137.36,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "珠洲市正院町＊",
+          "latitude": 37.45,
+          "longitude": 137.29,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "珠洲市大谷町＊",
+          "latitude": 37.5,
+          "longitude": 137.18,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "穴水町大町＊",
+          "latitude": 37.23,
+          "longitude": 136.91,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "能登町松波＊",
+          "latitude": 37.355,
+          "longitude": 137.245,
+          "intensity": "6強",
+          "intensityCode": "D"
+        },
+        {
+          "name": "長岡市中之島＊",
+          "latitude": 37.55,
+          "longitude": 138.885,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "七尾市本府中町",
+          "latitude": 37.03,
+          "longitude": 136.97,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "七尾市袖ヶ江町＊",
+          "latitude": 37.04,
+          "longitude": 136.97,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "志賀町富来領家町",
+          "latitude": 37.14,
+          "longitude": 136.73,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "志賀町末吉千古＊",
+          "latitude": 37.01,
+          "longitude": 136.785,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "中能登町末坂＊",
+          "latitude": 36.99,
+          "longitude": 136.905,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "中能登町能登部下（旧２）＊",
+          "latitude": 36.96,
+          "longitude": 136.865,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "能登町宇出津",
+          "latitude": 37.31,
+          "longitude": 137.155,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "能登町柳田＊",
+          "latitude": 37.375,
+          "longitude": 137.105,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        }
+      ]
+    },
+    {
+      "id": "20240417231448",
+      "occurredAt": "2024-04-17T23:14:48.7+09:00",
+      "name": "豊後水道",
+      "latitude": 33.2,
+      "longitude": 132.408,
+      "depthKm": 39,
+      "magnitude": 6.6,
+      "maximumIntensity": "6弱",
+      "observations": [
+        {
+          "name": "愛南町柏＊",
+          "latitude": 33.02,
+          "longitude": 132.5,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        },
+        {
+          "name": "宿毛市桜町＊",
+          "latitude": 32.94,
+          "longitude": 132.73,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        }
+      ]
+    },
+    {
+      "id": "20240808164255",
+      "occurredAt": "2024-08-08T16:42:55.5+09:00",
+      "name": "日向灘",
+      "latitude": 31.7367,
+      "longitude": 131.722,
+      "depthKm": 31,
+      "magnitude": 7.1,
+      "maximumIntensity": "6弱",
+      "observations": [
+        {
+          "name": "日南市南郷町南町（旧３）＊",
+          "latitude": 31.535,
+          "longitude": 131.375,
+          "intensity": "6弱",
+          "intensityCode": "C"
+        }
+      ]
+    }
+  ]
+}

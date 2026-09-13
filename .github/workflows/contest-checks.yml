@@ -1,0 +1,68 @@
+name: Contest checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  web-page:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Contest contract
+        env:
+          # Owner-accepted v1.0 size exception, not a waiver of other checks.
+          GAIA_ACCEPT_ENTRY_BUDGET: '1'
+        run: npm run check:contest
+      - name: Full static and data checks
+        run: npm run check
+      - name: Locate installed Google Chrome
+        id: chrome
+        shell: bash
+        run: echo "path=$(command -v google-chrome || command -v google-chrome-stable)" >> "$GITHUB_OUTPUT"
+      - name: Real Chrome contest experience
+        # GitHub's virtual display caps headless Chrome near 30fps. Release runs
+        # omit this override and retain the script's 55fps physical-device gate.
+        run: node scripts/check-contest-experience-browser.mjs --browser "${{ steps.chrome.outputs.path }}" --output artifacts/contest-experience-browser --min-fps 24
+      - name: Upload Chrome evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: contest-experience-browser
+          path: artifacts/contest-experience-browser
+          retention-days: 14
+
+  sensor-extension:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: sensor-platform
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: sensor-platform/package-lock.json
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run check:pages-worker
+      - run: npm run test:pages
+      - name: Isolated D1 authentication, authorization and deletion regressions
+        run: node test/run-api-tests.mjs
+      - name: Local Worker maintenance and recovery drill
+        run: node ../scripts/check-sensor-operation-mode.mjs

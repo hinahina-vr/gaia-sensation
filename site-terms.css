@@ -1,0 +1,13 @@
+.intro-exploration-heading .intro-utility-actions { display:flex; align-items:center; justify-content:flex-end; gap:12px; margin-left:auto; grid-column:2; grid-row:1; }
+.intro-utility-actions > .intro-entry-guide-replay { margin-left:0; white-space:nowrap; }
+#site-terms button { padding:12px 18px; color:#dcece9; background:#0b2535; border:1px solid #477486; border-radius:24px; font:inherit; cursor:pointer; white-space:nowrap; }
+#site-terms :focus-visible { outline:2px solid #a2eeee; outline-offset:4px; }
+#site-terms { width:min(760px,calc(100vw - 32px)); max-height:85dvh; box-sizing:border-box; padding:0; border:1px solid #41626d; border-radius:18px; color:#dcece9; background:#07171f; }
+#site-terms::backdrop { background:rgba(0,8,14,.8); }
+#site-terms header { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:20px 24px; position:sticky; top:0; background:#07171f; }
+#site-terms h2 { margin:6px 0 0; font-size:26px; }
+#site-terms small { color:#9bbdbd; }
+.site-terms-body { padding:0 24px 28px; font-size:16px; line-height:1.9; overflow-wrap:anywhere; }
+.site-terms-body h3 { font-size:18px; margin:28px 0 8px; }
+.site-terms-body a { color:#9ce0e3; text-decoration:underline; }
+@media(max-width:600px) { .intro-exploration-heading .intro-utility-actions { grid-column:1 / -1; grid-row:auto; flex-wrap:wrap; width:100%; gap:8px; } #site-terms header { padding:16px; } .site-terms-body { padding:0 16px 24px; } }

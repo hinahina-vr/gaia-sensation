@@ -1,0 +1,115 @@
+.ecologies-exhibit {
+  --eco-green: #91e5b1;
+  --eco-blue: #83d5f5;
+  position: absolute;
+  z-index: 48;
+  right: 28px;
+  top: 82px;
+  width: clamp(380px, 29vw, 610px);
+  max-height: calc(100% - 196px);
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: clamp(20px, 1.2vw, 38px);
+  box-sizing: border-box;
+  border: 1px solid #98cbb53b;
+  border-radius: 18px;
+  background: linear-gradient(145deg, #10262bf5, #07151ef5);
+  box-shadow: 0 16px 70px #0005;
+  color: #d9e8e5;
+  font: 400 clamp(12px, .64vw, 19px)/1.6 var(--font-ja);
+  scrollbar-width: thin;
+  scrollbar-color: #46666b transparent;
+  animation: eco-panel-arrive .65s ease-out both;
+}
+.ecologies-exhibit[hidden], .ecologies-exhibit [hidden] { display: none !important; }
+.ecologies-exhibit * { box-sizing: border-box; }
+.ecologies-exhibit :is(button, select, a, summary):focus-visible { outline: 2px solid #fff0a4; outline-offset: 3px; }
+.eco-eyebrow { display: flex; justify-content: space-between; gap: 10px; margin: 0 0 13px; color: #98bea8; letter-spacing: .1em; font-size: .8em; }
+.eco-eyebrow span { color: #91a7af; letter-spacing: .08em; }
+.eco-question { margin: 0 0 25px; color: #eff8e9; font-size: clamp(23px, 1.25vw, 38px); line-height: 1.55; font-weight: 500; letter-spacing: .02em; }
+.eco-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; padding: 4px; margin: 0 0 22px; background: #020d1480; border-radius: 10px; }
+.eco-tabs button { min-height: 42px; padding: 8px 3px; border: 1px solid transparent; border-radius: 7px; color: #9caeb4; background: transparent; font: inherit; font-size: .85em; cursor: pointer; }
+.eco-tabs [aria-selected="true"] { color: #e7ffe5; border-color: #92cba654; background: #294536; }
+.eco-tabs button:hover { color: #fff; }
+.eco-controls { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 20px; }
+.eco-controls label { display: flex; align-items: center; gap: 12px; min-width: 0; color: #abbcbd; white-space: nowrap; font-size: .9em; }
+.ecologies-exhibit select { min-height: 40px; max-width: 100%; min-width: 0; padding: 7px 25px 7px 10px; color: #e4f3ea; background: #142c34; border: 1px solid #49646a; border-radius: 6px; font: inherit; }
+.eco-country { width: 145px; }
+.eco-play { flex: 0 0 auto; min-height: 40px; border: 1px solid #83b8a844; border-radius: 6px; padding: 6px 12px; color: #c5ded4; background: #132b30; font: inherit; font-size: .8em; cursor: pointer; }
+.eco-play:disabled { opacity: .45; cursor: default; }
+.eco-prompt { margin: 0 0 14px; font-size: 1.06em; color: #dceee7; }
+.eco-country-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.eco-country-card { min-width: 0; padding: 15px 13px; border: 1px solid #7eab9d38; background: #071b2280; border-radius: 10px; }
+.eco-country-card:first-child { border-color: #dccb765e; }
+.eco-country-card small { display: block; min-height: 1.6em; color: #a5b6b8; font-size: .72em; }
+.eco-country-card h3 { margin: 8px 0 17px; color: #f0f5e9; font-size: 1.3em; font-weight: 500; overflow-wrap: anywhere; }
+.eco-metric + .eco-metric { margin-top: 17px; }
+.eco-metric > div:first-child { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 5px; margin-bottom: 6px; font-size: .8em; }
+.eco-metric strong { font-size: 1.45em; font-variant-numeric: tabular-nums; font-weight: 500; }
+.eco-forest { color: var(--eco-green); }
+.eco-urban { color: var(--eco-blue); }
+.eco-rail { height: 7px; background: #adbfbb20; border-radius: 2px; overflow: hidden; }
+.eco-rail i { display: block; height: 100%; background: currentColor; }
+.eco-insight { margin: 18px 0 10px; padding-left: 13px; border-left: 2px solid #cddb95; color: #e2eac8; line-height: 1.7; }
+.eco-definition, .eco-chart-caption, .eco-culture-reading { color: #b0c2c4; line-height: 1.8; }
+.eco-definition { margin-bottom: 0; font-size: .88em; }
+.eco-definition strong { color: #e3ece8; font-weight: 500; }
+.eco-scope { margin: 22px 0 0; border-top: 1px solid #98b8b626; padding-top: 13px; color: #97adb4; font-size: .8em; }
+.eco-source-links { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 10px; }
+.ecologies-exhibit a { color: #b0ceca; font-size: .78em; text-underline-offset: 4px; }
+.eco-chart svg { display: block; width: 100%; overflow: visible; }
+.eco-grid { stroke: #7eabad2a; stroke-width: 1; }
+.eco-tick { fill: #9bb6bb; font-size: 11px; }
+.eco-axis { fill: currentColor; font-size: 12px; }
+.eco-regression { stroke: #cad09e; stroke-width: 1.5; stroke-dasharray: 5 5; }
+.eco-scatter-point { cursor: pointer; outline: none; }
+.eco-point-hit { fill: transparent; }
+.eco-point-dot { fill: #91c9b6; stroke: #0a2128; stroke-width: 1; }
+.eco-scatter-point:is(:focus, :hover) .eco-point-dot { stroke: #fff; stroke-width: 2; fill: #e7edaf; }
+.eco-scatter-point.is-selected .eco-point-dot { fill: #ffea9b; stroke: #fff8dc; stroke-width: 1.5; }
+.eco-point-name { fill: #fff0ac; font-size: 12px; font-weight: 600; paint-order: stroke; stroke: #10262b; stroke-width: 4px; }
+.eco-pattern-reading { color: #cee0d6; margin: 0 0 5px; }
+.eco-chart-caption { font-size: .88em; margin: 10px 0; }
+.eco-method { padding: 11px 0 0; border-top: 1px solid #a3c2bf26; font-size: .85em; color: #b4c8c8; }
+.eco-method summary { cursor: pointer; min-height: 32px; }
+.eco-method p { margin: 8px 0 0; }
+.eco-site-label { display: grid; gap: 8px; margin: 20px 0; color: #c5b6da; }
+.eco-site-card { padding: 20px; border: 1px solid #bf9dd44d; border-radius: 9px; background: #b589cf0c; }
+.eco-site-card span { font-size: .7em; color: #bba5cc; letter-spacing: .1em; }
+.eco-site-card h3 { color: #edddfa; font-size: 1.5em; font-weight: 500; margin: 10px 0; }
+.eco-site-card p { color: #bfaecc; margin: 0; }
+/* Keep the shared country readout and timeline when the comparison panel mounts. */
+.is-ecologies-exhibit .japan-heading { pointer-events: none; }
+.is-ecologies-exhibit #japan-map { transition: filter .6s; }
+.is-ecologies-exhibit.is-map-title-transitioning .ecologies-exhibit { visibility: hidden; }
+@keyframes eco-panel-arrive { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@media (min-width: 2400px) { .ecologies-exhibit { right: 44px; top: 110px; } .eco-tabs button { min-height: 58px; } .ecologies-exhibit select, .eco-play { min-height: 49px; } .eco-country { width: 190px; } }
+@media (max-width: 1000px) {
+  .ecologies-exhibit { width: 360px; right: 16px; padding: 19px; font-size: 12px; }
+}
+@media (max-width: 680px) {
+  .is-ecologies-exhibit :is(.japan-heading, #map-reading-guide) { display: none !important; }
+  .ecologies-exhibit { left: 12px; right: 12px; top: auto; bottom: 94px; width: auto; max-height: 60%; padding: 16px; border-radius: 15px; font-size: 12px; }
+  .eco-eyebrow { display: none; }
+  .eco-question { font-size: 19px; line-height: 1.45; margin-bottom: 10px; }
+  .eco-tabs { margin-bottom: 9px; }
+  .eco-tabs button { min-height: 42px; font-size: 10px; }
+  .eco-controls { margin-bottom: 9px; gap: 7px; }
+  .eco-country { width: 122px; }
+  .eco-controls label { gap: 6px; font-size: 10px; }
+  .eco-play { padding: 6px 9px; font-size: 10px; }
+  .eco-country-pair { gap: 7px; }
+  .eco-country-card { padding: 9px; }
+  .eco-country-card small { min-height: 23px; font-size: 9px; line-height: 1.3; }
+  .eco-country-card h3 { margin: 2px 0 8px; font-size: 15px; }
+  .eco-metric strong { font-size: 16px; }
+  .eco-metric > div:first-child { font-size: 10px; }
+  .eco-metric + .eco-metric { margin-top: 8px; }
+  .eco-prompt { margin-bottom: 9px; font-size: 12px; }
+  .eco-insight { margin-top: 13px; }
+  .eco-scope { margin-top: 14px; }
+  .ecologies-exhibit.eco-has-more::after { content: "↓ 続きを読む"; position: sticky; display: block; bottom: -12px; margin: 6px 0 -12px; padding: 12px 10px 4px; text-align: center; color: #acbcb9; font-size: 10px; background: linear-gradient(transparent, #0b2029 45%); pointer-events: none; }
+}
+@media (max-width: 360px) { .ecologies-exhibit { padding: 12px; } .eco-question { font-size: 18px; } .eco-country { width: 104px; } .eco-play { padding-inline: 6px; } }
+@media (max-height: 540px) and (min-width: 681px) { .ecologies-exhibit { top: 65px; bottom: 80px; max-height: none; width: 340px; } }
+@media (prefers-reduced-motion: reduce) { .ecologies-exhibit { animation: none; } .is-ecologies-exhibit #japan-map { transition: none; } }

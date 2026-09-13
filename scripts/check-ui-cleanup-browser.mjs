@@ -1,0 +1,104 @@
+import assert from "node:assert/strict";
+import fs from "node:fs";
+import path from "node:path";
+import { chromium } from "playwright-core";
+const base = process.argv[2] || "http://127.0.0.1:4447";
+const output = path.resolve("artifacts/ui-cleanup");
+fs.mkdirSync(output, { recursive: true });
+const report = { checks: [], errors: [], api: "Local QA fixture, not real sensors or external production services" };
+const browser = await chromium.launch({ executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe", headless: true });
+try {
+  for (const [width,height] of [[390,844],[320,568],[1440,900]]) {
+    const context = await browser.newContext({ viewport: { width,height }, isMobile: width < 900, hasTouch: width < 900, reducedMotion: "no-preference" });
+    await context.addInitScript(() => {
+      sessionStorage.setItem("gaia:mode-entry-guide:sensor:v3", "seen");
+      sessionStorage.setItem("gaia:mode-entry-guide:character:v1", "seen");
+      sessionStorage.setItem("gaia:opening-route-guide:v1", "seen");
+    });
+    const page = await context.newPage();
+    page.on("pageerror", e => report.errors.push(e.message));
+    await page.goto(base, { waitUntil: "domcontentloaded" });
+    await page.locator("#gaia-opening-sound-off").click();
+    const waitTime = time => page.waitForFunction(ms => document.querySelector(".gaia-vn-panel-montage").getAnimations().find(a => a.animationName === "opening-panel-calm")?.currentTime >= ms, time);
+    await waitTime(9000);
+    const caption = await page.locator(".gaia-vn-panel-sora .gaia-vn-character-reply").evaluate(el => {
+      const range = document.createRange(); range.selectNodeContents(el);
+      return { rect: range.getBoundingClientRect().toJSON(), box: el.getBoundingClientRect().toJSON(), font: getComputedStyle(el).fontSize, text: el.textContent, whiteSpace: getComputedStyle(el).whiteSpace };
+    });
+    report.checks.push({ width, label: "caption", ...caption });
+    assert.equal(caption.whiteSpace, "nowrap");
+    assert(caption.rect.right <= width && caption.rect.left >= 0, "Full caption fits one line inside viewport");
+    await page.screenshot({ path: path.join(output, `${width}-caption.png`) });
+    await waitTime(12400);
+    assert.equal(await page.locator(".gaia-vn-panel-real-earth").evaluate(el => getComputedStyle(el,"::after").backgroundImage), "none");
+    await page.screenshot({ path: path.join(output, `${width}-earth.png`) });
+    await page.locator("#gaia-opening-route-other").waitFor();
+    await page.waitForTimeout(3300);
+    const guide = page.locator("#gaia-opening-route-guide");
+    if (await guide.isVisible()) await page.keyboard.press("Escape");
+    await page.locator("#gaia-opening-final-menu").focus();
+    assert.equal(await page.locator("#gaia-opening-final-menu").evaluate(el => getComputedStyle(el).outlineStyle), "none");
+    await page.screenshot({ path: path.join(output, `${width}-gateway.png`) });
+    await page.locator("#gaia-opening-route-other").click();
+    await page.locator("#intro-title-return").waitFor();
+    await page.waitForTimeout(3300);
+    if (await page.locator("#intro-entry-guide").isVisible()) await page.keyboard.press("Escape");
+    await page.locator("#intro-architecture-jump").evaluate(el => el.click());
+    await page.locator(".data-journey-index").scrollIntoViewIfNeeded();
+    await page.locator('.data-journey-index a[href="#data-chapter-air"]').click();
+    await page.waitForTimeout(900);
+    await page.locator("#data-chapter-air .data-source-card").first().scrollIntoViewIfNeeded();
+    await page.waitForTimeout(400);
+    const reading = await page.evaluate(() => {
+      const layer = document.querySelector("#intro-layer"), style = getComputedStyle(layer,"::after");
+      const nav = document.querySelector(".data-journey-index").getBoundingClientRect();
+      const back = document.querySelector("#intro-title-return").getBoundingClientRect();
+      const readout = document.querySelector("#data-chapter-air .data-scene-readout");
+      const scene = document.querySelector("#data-chapter-air .data-chapter-scene");
+      return { mask: { background: style.backgroundColor, opacity: style.opacity, blend: style.mixBlendMode, height: parseFloat(style.height) }, nav: nav.toJSON(), back: back.toJSON(), readoutVisible: readout.checkVisibility(), scenePosition: getComputedStyle(scene).position };
+    });
+    report.checks.push({ width, label: "reading", ...reading });
+    assert.equal(reading.mask.opacity,"1"); assert.equal(reading.mask.blend,"normal");
+    assert(reading.nav.top >= reading.mask.height - 1);
+    if (width < 900) { assert.equal(reading.readoutVisible,false); assert.equal(reading.scenePosition,"relative"); }
+    await page.screenshot({ path: path.join(output, `${width}-reading.png`) });
+    await page.goto(`${base}/#sound`, { waitUntil: "domcontentloaded" });
+    await page.locator("#sound-close").waitFor();
+    assert.doesNotMatch(await page.locator(".sound-header").innerText(), /SOUND ARCHIVE/u);
+    const navFont = await page.locator("#sound-close").evaluate(el => getComputedStyle(el).fontFamily);
+    assert.match(navFont,/Mincho|明朝|Serif/u);
+    await page.screenshot({ path: path.join(output, `${width}-sound.png`) });
+    await page.goto(`${base}/#character`, { waitUntil: "domcontentloaded" });
+    await page.locator("[data-character-select]").first().waitFor();
+    await page.waitForTimeout(1500);
+    assert.equal(await page.locator("#character-book-master").count(),0);
+    const quote = await page.locator(".character-book-hero-quote").evaluate(el => ({ background: getComputedStyle(el).backgroundColor, color: getComputedStyle(el).color, before: getComputedStyle(el,"::before").content }));
+    report.checks.push({ width, label: "quote", ...quote });
+    assert.equal(quote.color,"rgb(23, 55, 71)");
+    assert(!quote.before.includes("KEY LINE"));
+    await page.screenshot({ path: path.join(output, `${width}-character.png`) });
+    await page.goto(`${base}/sensors/?authenticated=1#map/sensor=sensor_browserqa`, { waitUntil: "domcontentloaded" });
+    await page.locator(".sensor-owner-profile-trigger").waitFor();
+    await page.waitForTimeout(700);
+    const controls = await page.locator('.sensor-home-back, .gaia-mode-entry-guide-replay, .gaia-audio-dock').evaluateAll(els => els.filter(el => el.checkVisibility()).map(el => ({ name: el.className, ...el.getBoundingClientRect().toJSON() })));
+    report.checks.push({ width, label: "sensor-header", controls });
+    assert.equal(controls.length,3);
+    assert(Math.max(...controls.map(c=>c.y))-Math.min(...controls.map(c=>c.y)) <= 1);
+    assert(controls.every(c => Math.abs(c.height-44)<=1));
+    await page.screenshot({ path: path.join(output, `${width}-sensor-header.png`) });
+    await page.locator(".sensor-owner-profile-trigger").click();
+    await page.locator("#public-owner-profile").waitFor();
+    await page.waitForFunction(() => getComputedStyle(document.querySelector("#public-owner-profile")).opacity === "1");
+    const profile = await page.locator("#public-owner-profile").evaluate(el => ({ background: getComputedStyle(el).backgroundImage, opacity: getComputedStyle(el).opacity, titleOpacity: getComputedStyle(el.querySelector("h2")).opacity }));
+    report.checks.push({ width, label: "profile", ...profile });
+    assert(profile.background.includes("0.8")); assert.equal(profile.opacity,"1"); assert.equal(profile.titleOpacity,"1");
+    await page.screenshot({ path: path.join(output, `${width}-profile.png`) });
+    await page.locator(".sensor-public-profile-back").click();
+    await page.locator("#public-owner-profile").waitFor({state:"hidden"});
+    assert.equal(await page.locator("#public-owner-profile").isVisible(),false);
+    await context.close();
+    console.log(`PASS ${width}: opening, reading, sound, character, sensor panels`);
+  }
+  assert.deepEqual(report.errors,[]); report.status="passed";
+} catch(e) { report.status="failed"; report.failure=e.stack; throw e; }
+finally { fs.writeFileSync(path.join(output,"report.json"),JSON.stringify(report,null,2)); await browser.close(); }

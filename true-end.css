@@ -1,0 +1,798 @@
+.novel-layer.is-true-end > .novel-topbar,
+.novel-layer.is-true-end > .novel-progress,
+.novel-layer.is-true-end > .novel-script-debug,
+.novel-layer.is-true-end > .novel-particles,
+.novel-layer.is-true-end > .novel-veil,
+.novel-layer.is-true-end > .novel-scanlines,
+.novel-layer.is-true-end .novel-runtime::before,
+.novel-layer.is-true-end .novel-cast,
+.novel-layer.is-true-end .novel-avatar,
+.novel-layer.is-true-end .novel-dialogue,
+.novel-layer.is-true-end .novel-choices,
+.novel-layer.is-true-end .novel-footer {
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.novel-layer.is-true-end .novel-result-surface {
+  position: absolute;
+  z-index: 44;
+  inset: 0 !important;
+  display: block;
+  padding: 0 !important;
+  overflow: hidden !important;
+  background: #020611 !important;
+  color: #f5fbff;
+}
+
+.novel-layer.is-true-end > .novel-log-panel {
+  z-index: 60;
+}
+
+.true-end-shell {
+  --te-accent: #9af7e4;
+  --te-blue: #8bdcff;
+  --te-ink: #f5fbff;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #020611;
+  color: var(--te-ink);
+  font-family: "Yu Mincho", "Hiragino Mincho ProN", serif;
+  outline: none;
+  isolation: isolate;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.true-end-shell::before {
+  position: absolute;
+  z-index: -7;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(1, 4, 15, 0.04) 0%, rgba(1, 5, 18, 0.14) 48%, rgba(1, 7, 16, 0.5) 100%),
+    url("./assets/visuals-08/true-end-future-cosmic-shore-v1.png") center / cover no-repeat;
+  content: "";
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(1.025);
+  transition: opacity 460ms ease, transform 9s ease-out;
+}
+
+.true-end-shell[data-scene="after-school-stars"][data-shore-image="visible"]::before {
+  opacity: 0.94;
+  transform: scale(1);
+}
+
+.true-end-shell[data-scene="after-school-stars"][data-shore-image="visible"] .true-end-universe {
+  opacity: 0.84;
+  mix-blend-mode: screen;
+}
+
+.true-end-universe {
+  position: absolute;
+  z-index: -6;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: #020611;
+  pointer-events: none;
+  transition: opacity 460ms ease;
+}
+
+.true-end-universe.is-fallback {
+  background:
+    linear-gradient(168deg, transparent 8%, rgba(48, 118, 164, 0.18) 38%, transparent 68%),
+    linear-gradient(24deg, rgba(46, 176, 161, 0.12), transparent 42%, rgba(110, 130, 236, 0.1)),
+    #020611;
+}
+
+.true-end-interface {
+  position: absolute;
+  z-index: 5;
+  inset: 0;
+  opacity: 1;
+}
+
+/* The staff-roll handoff reveals the future field by itself first. The
+   interface is released only after the black veil has completely cleared. */
+.true-end-shell[data-entry-phase] :is(.true-end-interface, .true-end-skip-button, .true-end-log-button) {
+  transition: opacity 560ms ease, filter 560ms ease;
+}
+
+.true-end-shell[data-entry-phase="background"] :is(.true-end-interface, .true-end-skip-button, .true-end-log-button) {
+  visibility: hidden;
+  opacity: 0;
+  filter: blur(5px);
+  pointer-events: none;
+}
+
+.true-end-shell[data-entry-phase="interface"] :is(.true-end-interface, .true-end-skip-button, .true-end-log-button),
+.true-end-shell[data-entry-phase="ready"] :is(.true-end-interface, .true-end-skip-button, .true-end-log-button) {
+  visibility: visible;
+  opacity: 1;
+  filter: none;
+}
+
+.true-end-header {
+  position: absolute;
+  z-index: 6;
+  top: max(25px, env(safe-area-inset-top));
+  right: clamp(88px, 7vw, 122px);
+  left: clamp(164px, 13vw, 210px);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 28px;
+  pointer-events: none;
+}
+
+.true-end-brand,
+.true-end-scene-heading {
+  display: grid;
+  gap: 6px;
+}
+
+.true-end-brand span,
+.true-end-scene-heading span,
+.true-end-speaker-code,
+.true-end-footer,
+.true-end-finale > span,
+.true-end-finale code {
+  font-family: var(--font-console);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+}
+
+.true-end-brand span,
+.true-end-scene-heading span {
+  color: rgba(170, 235, 235, 0.72);
+}
+
+.true-end-brand strong {
+  color: rgba(243, 253, 255, 0.9);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+}
+
+.true-end-scene-heading {
+  justify-items: end;
+  text-align: right;
+}
+
+.true-end-scene-heading strong {
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+}
+
+.true-end-progress {
+  position: absolute;
+  z-index: 7;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 2px;
+  background: rgba(141, 217, 222, 0.08);
+}
+
+.true-end-progress i {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: linear-gradient(90deg, #72e0dc, #a6f5de, #8bcfff);
+  box-shadow: 0 0 16px rgba(129, 237, 228, 0.72);
+  transition: width 520ms ease;
+}
+
+.true-end-dialogue {
+  --te-dialogue-padding-top: 62px;
+  position: absolute;
+  z-index: 9;
+  right: auto;
+  bottom: var(--novel-say-bottom, clamp(64px, 7.2vh, 76px));
+  left: 50%;
+  display: block;
+  box-sizing: border-box;
+  width: var(--novel-say-width, min(1040px, calc(100% - 72px)));
+  height: var(--novel-say-height, clamp(194px, 23vh, 252px));
+  min-height: 0;
+  max-height: none;
+  padding: var(--te-dialogue-padding-top) var(--novel-dialogue-right, clamp(30px, 4vw, 64px)) clamp(28px, 3.6vh, 42px);
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  appearance: none;
+  background: transparent;
+  box-shadow: none;
+  color: inherit;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  cursor: pointer;
+  font: inherit;
+  isolation: isolate;
+  text-align: left;
+  transform: translateX(-50%);
+}
+
+.true-end-dialogue::before {
+  position: absolute;
+  z-index: 2;
+  top: -8px;
+  right: clamp(-72px, -5vw, -34px);
+  left: clamp(-72px, -5vw, -34px);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(141, 208, 244, 0.34) 18%, rgba(192, 231, 251, 0.52) 50%, rgba(141, 208, 244, 0.34) 82%, transparent);
+  box-shadow: 0 1px 14px rgba(72, 154, 214, 0.14);
+  content: "";
+  pointer-events: none;
+}
+
+.true-end-dialogue::after {
+  position: absolute;
+  z-index: 0;
+  inset: -8px clamp(-72px, -5vw, -34px) calc(-1 * var(--novel-say-bottom, clamp(64px, 7.2vh, 76px)));
+  background: linear-gradient(
+    180deg,
+    rgba(54, 109, 176, 0.08) 0%,
+    rgba(40, 91, 161, 0.26) 24%,
+    rgba(27, 70, 139, 0.46) 58%,
+    rgba(17, 49, 111, 0.58) 100%
+  );
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.82) 6%, #000 12%, #000 88%, rgba(0, 0, 0, 0.82) 94%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.82) 6%, #000 12%, #000 88%, rgba(0, 0, 0, 0.82) 94%, transparent 100%);
+  -webkit-backdrop-filter: blur(2px) saturate(1.04) brightness(0.92);
+  backdrop-filter: blur(2px) saturate(1.04) brightness(0.92);
+  content: "";
+  pointer-events: none;
+}
+
+.true-end-dialogue > * {
+  position: relative;
+  z-index: 1;
+}
+
+.true-end-dialogue > :is(.true-end-speaker, .true-end-speaker-code, .true-end-next) {
+  position: absolute;
+}
+
+.true-end-dialogue:hover::after,
+.true-end-dialogue:focus-visible::after {
+  filter: brightness(1.12);
+}
+
+.true-end-dialogue:focus-visible {
+  outline: none;
+}
+
+.true-end-shell.is-scene-separating :is(.true-end-interface, .true-end-skip-button, .true-end-log-button) {
+  pointer-events: none;
+}
+
+.true-end-shell.is-scene-separating .true-end-dialogue {
+  visibility: hidden;
+}
+
+.true-end-shell[data-section-transition-phase]:not([data-section-transition-phase="idle"]):not([data-section-transition-phase="interface"]) :is(.true-end-interface, .true-end-skip-button, .true-end-log-button),
+body:has(.true-end-shell[data-section-transition-phase]:not([data-section-transition-phase="idle"]):not([data-section-transition-phase="interface"])) .gaia-audio-dock {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transition: none !important;
+}
+
+body.true-end-section-transition:not(:has(.true-end-shell[data-section-transition-phase="interface"])) .gaia-audio-dock {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transition: none !important;
+}
+
+.true-end-shell[data-section-transition-phase="interface"] :is(.true-end-interface, .true-end-skip-button, .true-end-log-button),
+body:has(.true-end-shell[data-section-transition-phase="interface"]) .gaia-audio-dock {
+  animation: true-end-section-content-in 1100ms ease-in-out both;
+  transition: none !important;
+}
+
+@keyframes true-end-section-content-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .true-end-shell[data-section-transition-phase="interface"] :is(.true-end-interface, .true-end-skip-button, .true-end-log-button),
+  body:has(.true-end-shell[data-section-transition-phase="interface"]) .gaia-audio-dock {
+    animation: none;
+  }
+}
+
+.true-end-speaker {
+  top: clamp(18px, 3vh, 28px);
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: min(520px, 52%);
+  min-width: 0;
+  min-height: 36px;
+  padding: 0 clamp(18px, 3vw, 42px);
+  background: linear-gradient(90deg, transparent 0%, rgba(43, 104, 168, 0.18) 14%, rgba(54, 119, 184, 0.34) 50%, rgba(43, 104, 168, 0.18) 86%, transparent 100%);
+  color: rgba(244, 251, 255, 0.98);
+  font-size: clamp(17px, 1.2vw, 20px);
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  text-align: center;
+  text-shadow: 0 2px 9px rgba(0, 13, 38, 0.72);
+}
+
+.true-end-speaker[hidden] {
+  display: block;
+  visibility: hidden;
+}
+
+.true-end-speaker-code {
+  top: 18px;
+  right: var(--novel-dialogue-right, clamp(30px, 4vw, 64px));
+  color: rgba(158, 226, 230, 0.46);
+}
+
+.true-end-message {
+  position: absolute;
+  top: var(--te-dialogue-padding-top);
+  right: var(--novel-dialogue-right, clamp(30px, 4vw, 64px));
+  left: var(--novel-dialogue-right, clamp(30px, 4vw, 64px));
+  display: block;
+  width: auto;
+  max-height: 4.74em;
+  margin: 0;
+  overflow: hidden;
+  color: #f7fbff;
+  font-size: clamp(22px, 1.75vw, 31px);
+  font-weight: 500;
+  line-height: 1.58;
+  letter-spacing: 0.02em;
+  line-break: strict;
+  overflow-wrap: normal;
+  word-break: normal;
+  text-shadow:
+    0 2px 5px rgba(0, 5, 22, 0.98),
+    0 5px 18px rgba(0, 3, 14, 0.88);
+}
+
+.true-end-shell.is-emphasis .true-end-message {
+  color: #f5fff9;
+  text-shadow: 0 0 25px rgba(138, 240, 221, 0.16), 0 2px 12px rgba(0, 5, 15, 0.72);
+}
+
+.true-end-next {
+  right: 26px;
+  bottom: 18px;
+  color: var(--te-accent);
+  font-family: sans-serif;
+  font-size: 17px;
+  font-style: normal;
+  animation: true-end-next 900ms ease-in-out infinite alternate;
+}
+
+.true-end-next[hidden] {
+  visibility: hidden;
+}
+
+.true-end-dialogue[hidden],
+.true-end-header[hidden],
+.true-end-progress[hidden],
+.true-end-footer[hidden] {
+  display: none !important;
+}
+
+.true-end-footer {
+  position: absolute;
+  z-index: 8;
+  right: clamp(26px, 4vw, 76px);
+  bottom: max(18px, env(safe-area-inset-bottom));
+  left: clamp(26px, 4vw, 76px);
+  display: flex;
+  justify-content: flex-end;
+  color: rgba(167, 224, 230, 0.48);
+}
+
+.true-end-log-button {
+  position: absolute;
+  z-index: 35;
+  bottom: max(12px, env(safe-area-inset-bottom));
+  left: 50%;
+  min-width: 66px;
+  min-height: 30px;
+  padding: 0 18px;
+  transform: translateX(-50%);
+  border: 1px solid rgba(151, 235, 228, 0.28);
+  border-radius: 999px;
+  background: rgba(5, 24, 36, 0.76);
+  color: rgba(199, 246, 241, 0.82);
+  cursor: pointer;
+  font: 700 9px/1 var(--font-console);
+  letter-spacing: 0.2em;
+  text-indent: 0.2em;
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+.true-end-log-button:hover,
+.true-end-log-button:focus-visible {
+  border-color: rgba(161, 255, 236, 0.72);
+  background: rgba(13, 53, 65, 0.88);
+  outline: 2px solid rgba(149, 240, 226, 0.18);
+  outline-offset: 3px;
+}
+
+.true-end-skip-button {
+  position: absolute;
+  z-index: 35;
+  top: max(18px, env(safe-area-inset-top));
+  left: max(20px, env(safe-area-inset-left));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+  min-width: 108px;
+  min-height: 44px;
+  padding: 0 17px 0 19px;
+  border: 1px solid rgba(151, 235, 228, 0.34);
+  border-radius: 999px;
+  background: rgba(5, 24, 36, 0.76);
+  color: rgba(225, 252, 248, 0.92);
+  cursor: pointer;
+  font: 600 12px/1 "Yu Mincho", "Hiragino Mincho ProN", serif;
+  letter-spacing: 0.12em;
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+.true-end-skip-button i {
+  color: var(--te-accent);
+  font-family: sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  letter-spacing: 0;
+}
+
+.true-end-skip-button:hover,
+.true-end-skip-button:focus-visible {
+  border-color: rgba(161, 255, 236, 0.76);
+  background: rgba(13, 53, 65, 0.9);
+  outline: 2px solid rgba(149, 240, 226, 0.18);
+  outline-offset: 3px;
+}
+
+.true-end-skip-button[hidden] {
+  display: none;
+}
+
+.true-end-scene-card {
+  position: absolute;
+  z-index: 45;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: #000;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.true-end-scene-card-content {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  opacity: 0;
+  text-align: center;
+}
+
+.true-end-scene-card-content span {
+  color: var(--te-accent);
+  font: 700 10px/1.5 var(--font-console);
+  letter-spacing: 0.28em;
+}
+
+.true-end-scene-card-content strong {
+  font-size: clamp(28px, 4vw, 54px);
+  font-weight: 400;
+  letter-spacing: 0.16em;
+}
+
+.true-end-finale {
+  position: absolute;
+  z-index: 30;
+  inset: 0;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: clamp(14px, 2.4vh, 28px);
+  padding: max(30px, env(safe-area-inset-top)) max(24px, env(safe-area-inset-right)) max(30px, env(safe-area-inset-bottom)) max(24px, env(safe-area-inset-left));
+  background:
+    radial-gradient(circle at 50% 43%, rgba(102, 225, 205, 0.12), transparent 38%),
+    linear-gradient(145deg, rgba(1, 5, 13, 0.74), rgba(4, 22, 34, 0.7));
+  text-align: center;
+  animation: true-end-finale 1.8s ease both;
+}
+
+.true-end-shell.is-finale .true-end-universe {
+  opacity: 0.96;
+  filter: saturate(1.22) contrast(1.08);
+  mix-blend-mode: normal;
+}
+
+.true-end-finale[hidden] {
+  display: none;
+}
+
+.true-end-finale > span {
+  color: var(--te-accent);
+  font-family: var(--font-ja);
+  font-size: 11px;
+  letter-spacing: 0.42em;
+}
+
+.true-end-finale h2 {
+  margin: 0;
+  color: #f6fffb;
+  font-size: clamp(42px, 7vw, 98px);
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-indent: 0.18em;
+  text-shadow: 0 0 45px rgba(142, 247, 225, 0.18);
+}
+
+.true-end-finale div {
+  display: grid;
+  gap: 8px;
+  width: min(620px, 90vw);
+  padding: 24px 0;
+  border-top: 1px solid rgba(147, 235, 226, 0.18);
+  border-bottom: 1px solid rgba(147, 235, 226, 0.18);
+}
+
+.true-end-finale code {
+  color: rgba(199, 242, 241, 0.68);
+  line-height: 1.6;
+}
+
+.true-end-finale p {
+  margin: 0;
+  color: rgba(239, 252, 250, 0.76);
+  font-size: clamp(15px, 1.5vw, 20px);
+  letter-spacing: 0.13em;
+}
+
+.true-end-finale button {
+  min-width: 190px;
+  min-height: 48px;
+  margin-top: 8px;
+  padding: 0 26px;
+  border: 1px solid rgba(151, 239, 226, 0.4);
+  background: rgba(11, 43, 54, 0.72);
+  color: #effffc;
+  cursor: pointer;
+  font: 700 12px/1 "Yu Mincho", "Hiragino Mincho ProN", serif;
+  letter-spacing: 0.16em;
+}
+
+.true-end-finale button:hover,
+.true-end-finale button:focus-visible {
+  border-color: rgba(161, 255, 236, 0.82);
+  background: rgba(17, 65, 76, 0.82);
+  outline: 2px solid rgba(149, 240, 226, 0.2);
+  outline-offset: 4px;
+}
+
+.true-end-exit-veil {
+  position: fixed;
+  z-index: 100000;
+  inset: 0;
+  overflow: hidden;
+  background: #fffefa;
+  opacity: 0;
+  pointer-events: auto;
+  isolation: isolate;
+}
+
+.true-end-exit-veil[data-phase="covering"] {
+  animation: true-end-exit-cover var(--true-end-exit-cover-duration, 2400ms) cubic-bezier(0.42, 0, 0.23, 1) both;
+}
+
+.true-end-message .novel-token-layout {
+  white-space: pre-line;
+}
+
+.true-end-shell.is-revealing .true-end-reveal-glyph:not(.is-visible) {
+  visibility: hidden;
+}
+
+.true-end-exit-veil[data-phase="white"] {
+  opacity: 1;
+}
+
+.true-end-exit-veil[data-phase="revealing"] {
+  opacity: 1;
+  animation: true-end-exit-reveal var(--true-end-exit-reveal-duration, 1850ms) cubic-bezier(0.42, 0, 0.2, 1) both;
+}
+
+@keyframes true-end-exit-cover {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes true-end-exit-reveal {
+  0%, 14% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes true-end-star {
+  from { opacity: 0.18; transform: scale(0.72); }
+  to { opacity: 0.96; transform: scale(1.25); }
+}
+
+@keyframes true-end-next {
+  from { opacity: 0.4; transform: translateY(-2px); }
+  to { opacity: 1; transform: translateY(4px); }
+}
+
+@keyframes true-end-finale {
+  from { opacity: 0; filter: blur(10px); }
+  to { opacity: 1; filter: blur(0); }
+}
+
+@media (max-width: 720px) {
+  .novel-layer.is-true-end .novel-signal-caption {
+    display: none !important;
+  }
+
+  .true-end-header {
+    top: max(15px, env(safe-area-inset-top));
+    right: 70px;
+    left: 16px;
+    justify-content: flex-end;
+  }
+
+  .true-end-skip-button {
+    top: max(12px, env(safe-area-inset-top));
+    left: max(12px, env(safe-area-inset-left));
+    box-sizing: border-box;
+    width: 46px;
+    min-width: 46px;
+    max-width: 46px;
+    height: 46px;
+    min-height: 46px;
+    gap: 0;
+    padding: 0;
+    font-size: 7.5px;
+    letter-spacing: 0;
+  }
+
+  .true-end-brand {
+    display: none;
+  }
+
+  .true-end-scene-heading strong {
+    max-width: calc(100vw - 102px);
+    font-size: clamp(12px, 3.5vw, 15px);
+    line-height: 1.45;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+    word-break: keep-all;
+  }
+
+  .true-end-scene-heading span {
+    font-size: 7px;
+  }
+
+  .true-end-scene-card-content strong {
+    max-width: calc(100vw - 32px);
+    font-size: clamp(22px, 7vw, 30px);
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+    word-break: keep-all;
+  }
+
+  .true-end-dialogue {
+    --te-dialogue-padding-top: 52px;
+    --novel-dialogue-right: 20px;
+    right: auto;
+    bottom: var(--novel-say-bottom, max(64px, calc(env(safe-area-inset-bottom) + 56px)));
+    left: 50%;
+    width: var(--novel-say-width, calc(100vw - 24px));
+    height: max(var(--novel-say-height, 0px), clamp(202px, calc(31vh - 36px), 234px));
+    min-height: 0;
+    max-height: none;
+    padding: 52px 20px 30px;
+    transform: translateX(-50%);
+  }
+
+  .true-end-dialogue::before {
+    top: -6px;
+    right: -12px;
+    left: -12px;
+  }
+
+  .true-end-dialogue::after {
+    inset: -6px -12px calc(-1 * var(--novel-say-bottom, max(64px, calc(env(safe-area-inset-bottom) + 56px))));
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 5%, #000 95%, transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0%, #000 5%, #000 95%, transparent 100%);
+  }
+
+  .true-end-speaker {
+    top: 16px;
+    left: 0;
+    width: min(220px, 58%);
+    min-height: 32px;
+    padding-inline: 16px;
+    font-size: 15px;
+  }
+
+  .true-end-speaker-code {
+    top: 20px;
+    right: 20px;
+    left: auto;
+    max-width: 52%;
+    overflow: hidden;
+    font-size: 6px;
+    text-align: right;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .true-end-message {
+    max-height: 6.48em;
+    font-size: clamp(18px, 4.9vw, 22px);
+    line-height: 1.62;
+  }
+
+  .true-end-shell.is-emphasis .true-end-message {
+    font-size: clamp(18px, 4.9vw, 22px);
+  }
+
+  .true-end-next {
+    right: 20px;
+    bottom: 16px;
+  }
+
+  .true-end-footer {
+    right: 15px;
+    bottom: max(12px, env(safe-area-inset-bottom));
+    left: 15px;
+    font-size: 6px;
+    letter-spacing: 0.12em;
+  }
+
+  .true-end-finale h2 {
+    max-width: calc(100vw - 48px);
+    font-size: clamp(30px, 9vw, 42px);
+    letter-spacing: 0.06em;
+    text-indent: 0.06em;
+    white-space: nowrap;
+  }
+
+  .true-end-finale code {
+    font-size: 7px;
+    letter-spacing: 0.1em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .true-end-progress i,
+  .true-end-interface,
+  .true-end-log-button,
+  .true-end-skip-button,
+  .true-end-scene-card,
+  .true-end-scene-card-content,
+  .true-end-finale {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .true-end-next {
+    animation: none !important;
+  }
+}

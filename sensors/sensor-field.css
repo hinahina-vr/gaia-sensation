@@ -1,0 +1,19 @@
+.sensor-sense-field[hidden] { display: none !important; }
+
+.sensor-sense-field {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: .92;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  transform: translate3d(var(--sensor-map-drag-x, 0), var(--sensor-map-drag-y, 0), 0);
+}
+
+.sensor-world-map.is-dragging .sensor-sense-field { will-change: transform; }
+
+@media (max-width: 760px) {
+  .sensor-sense-field { opacity: .82; }
+}

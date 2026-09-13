@@ -1,0 +1,422 @@
+/* All eight eras share this reading hierarchy in standalone and story GX.
+   gx-mode.css retains the canvas, transitions and outer modal. This file owns
+   the reading pane, time, gesture HUD and skip control. */
+#gx-layer {
+  container: gx-stage / size;
+  --gx-reading-pad: clamp(20px, 3.6cqw, 58px);
+}
+
+/* Underlying story chrome must not intercept the mobile modal's skip button.
+   Audio keeps playing; its dock returns as soon as GX closes. */
+@media (max-width: 620px) {
+  body.gx-open #gaia-audio-dock {
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+}
+
+@media (max-height: 559px) and (min-width: 561px) {
+  body.gx-story-open #gx-layer[data-return-to="novel"] {
+    top: 50% !important;
+    left: 50% !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: calc(100vw - 32px) !important;
+    max-width: calc(100vw - 32px) !important;
+    height: calc(100dvh - 24px) !important;
+    max-height: calc(100dvh - 24px) !important;
+    transform: translate(-50%, -50%);
+  }
+}
+
+#gx-layer #gx-modal-skip {
+  top: max(18px, env(safe-area-inset-top));
+  right: var(--gx-reading-pad);
+  left: auto;
+  min-width: 112px;
+  min-height: 44px;
+  padding: 12px 18px;
+  gap: 6px;
+  font-size: 13px;
+}
+
+#gx-layer #gx-reading {
+  position: absolute;
+  z-index: 4;
+  top: 18%;
+  left: var(--gx-reading-pad);
+  width: 41%;
+  max-height: calc(82% - var(--gx-reading-pad));
+  padding: 0 10px 4px 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(156, 224, 217, 0.5) transparent;
+  overscroll-behavior: contain;
+  pointer-events: none;
+}
+
+#gx-layer #gx-reading .gx-header {
+  position: static;
+  width: auto;
+  max-width: none;
+  margin: 0 0 clamp(24px, 3cqh, 38px);
+  padding: 0;
+  transform: none;
+}
+
+#gx-layer #gx-reading .gx-kicker {
+  display: block;
+  margin: 0 0 12px;
+  font-size: clamp(8px, 0.9cqw, 11px);
+  line-height: 1.5;
+  letter-spacing: 0.14em;
+  color: rgba(164, 219, 213, 0.76);
+}
+
+#gx-layer #gx-title {
+  width: auto;
+  max-width: 100%;
+  overflow: visible;
+  margin: 0;
+  color: rgba(223, 244, 241, 0.74);
+  font: 400 clamp(27px, 3.5cqw, 52px)/1.12 var(--font-ja);
+  letter-spacing: 0.015em;
+  white-space: normal;
+  text-wrap: balance;
+  text-shadow: none;
+}
+
+#gx-layer #gx-reading #gx-story-card {
+  position: static;
+  width: auto !important;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  pointer-events: none;
+  touch-action: auto;
+}
+
+#gx-layer #gx-story-card::before { display: none; }
+#gx-layer #gx-story-card .gx-phase-meta {
+  gap: 12px;
+  margin: 0 0 14px;
+  font-size: 10px;
+  line-height: 1.4;
+  color: rgba(191, 222, 219, 0.72);
+}
+
+#gx-layer #gx-kind {
+  padding: 3px 6px;
+  color: var(--gx-mint);
+  border: 1px solid rgba(153, 226, 210, 0.3);
+  background: transparent;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+}
+
+#gx-layer #gx-kind[data-kind="SCENARIO"] {
+  color: #d5deff;
+  border-color: rgba(180, 193, 241, 0.45);
+}
+
+#gx-layer #gx-phase-title {
+  max-width: none;
+  margin: 0 0 18px;
+  font: 500 clamp(25px, 3.1cqw, 46px)/1.5 var(--font-ja);
+  letter-spacing: 0.025em;
+  color: #eefcf7;
+  white-space: normal;
+  text-wrap: balance;
+  word-break: auto-phrase;
+}
+
+#gx-layer #gx-phase-summary {
+  margin: 0;
+  font: 400 clamp(14px, 1.4cqw, 18px)/1.95 var(--font-ja);
+  color: rgba(228, 244, 240, 0.85);
+  letter-spacing: 0.025em;
+  overflow-wrap: anywhere;
+}
+
+#gx-layer #gx-mobile-info-toggle {
+  position: static;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  min-width: 0;
+  min-height: 44px;
+  margin: 20px 0 0;
+  padding: 8px 0;
+  color: #a9dbce;
+  font: 500 13px/1.5 var(--font-ja);
+  letter-spacing: 0.04em;
+  border: 0;
+  border-bottom: 1px solid rgba(164, 226, 210, 0.3);
+  border-radius: 0;
+  background: transparent;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+#gx-layer #gx-mobile-info-toggle b { font: 400 18px/1 var(--font-ja); }
+#gx-layer #gx-mobile-info-toggle:hover { color: #f0fff9; }
+#gx-layer #gx-mobile-info-toggle:focus-visible {
+  outline: 2px solid var(--gx-mint);
+  outline-offset: 4px;
+}
+
+#gx-layer #gx-mobile-info[hidden] { display: none !important; }
+#gx-layer #gx-mobile-info:not([hidden]) {
+  display: block;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(170, 224, 211, 0.2);
+}
+
+#gx-layer[data-info-open="true"] #gx-reading {
+  padding: 20px;
+  border: 1px solid rgba(150, 219, 205, 0.2);
+  border-radius: 12px;
+  background: rgba(4, 19, 28, 0.96);
+  pointer-events: auto;
+  touch-action: pan-y;
+}
+
+#gx-layer #gx-mobile-info .gx-copy,
+#gx-layer #gx-mobile-info .gx-strata-marker strong,
+#gx-layer #gx-mobile-info .gx-guide b {
+  margin: 0;
+  font: 400 14px/1.85 var(--font-ja);
+  white-space: normal;
+  color: rgba(228, 244, 240, 0.86);
+}
+
+#gx-layer #gx-mobile-info .gx-strata-marker,
+#gx-layer #gx-mobile-info .gx-guide {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(170, 224, 211, 0.15);
+}
+
+#gx-layer #gx-mobile-info .gx-strata-marker span,
+#gx-layer #gx-mobile-info .gx-guide span {
+  color: #a2d8c8;
+  font: 500 12px/1.5 var(--font-ja);
+  letter-spacing: 0.06em;
+}
+
+#gx-layer #gx-mobile-info .gx-secondary-controls {
+  display: flex;
+  justify-content: flex-start;
+  gap: 16px;
+  margin-top: 20px;
+  pointer-events: auto;
+}
+
+#gx-layer #gx-mobile-info .gx-secondary-controls button {
+  width: auto;
+  min-height: 44px;
+  padding: 10px 12px;
+  font: 500 12px/1.5 var(--font-ja);
+  white-space: normal;
+}
+
+#gx-layer #gx-mobile-info .gx-secondary-controls button::before { content: none; }
+
+/* The source drawer stays below the persistent skip control. */
+#gx-layer #gx-data-panel {
+  top: 78px;
+  right: 16px;
+  bottom: 16px;
+  width: min(580px, calc(100% - 32px));
+  padding: 72px 24px 28px;
+  border: 1px solid rgba(145, 242, 207, 0.28);
+  border-radius: 12px;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+#gx-layer #gx-data-panel.is-open { visibility: visible; pointer-events: auto; }
+#gx-layer #gx-data-close { top: 16px; right: 16px; }
+#gx-layer #gx-data-panel h3 { font-size: clamp(25px, 3cqw, 36px); }
+
+#gx-layer #gx-time {
+  top: 13%;
+  right: var(--gx-reading-pad);
+  left: auto;
+  width: 48%;
+  max-width: none;
+}
+
+#gx-layer #gx-time .gx-time-kicker {
+  display: block;
+  font: 500 11px/1.5 var(--font-ja);
+  color: rgba(168, 222, 213, 0.8);
+  letter-spacing: 0.08em;
+}
+
+#gx-layer #gx-time .gx-time-number {
+  font-size: clamp(32px, 6cqw, 90px);
+  line-height: 1.05;
+}
+
+#gx-layer #gx-time .gx-time-context {
+  display: block;
+  max-width: 100%;
+  margin-top: 10px;
+  font: 400 clamp(11px, 1.1cqw, 14px)/1.6 var(--font-ja);
+  letter-spacing: 0.04em;
+  color: rgba(196, 226, 219, 0.75);
+}
+
+#gx-layer #gx-controls {
+  right: var(--gx-reading-pad);
+  bottom: var(--gx-reading-pad);
+  left: auto;
+  width: min(43%, 480px);
+  gap: 14px;
+  align-items: stretch;
+  pointer-events: none;
+}
+
+#gx-layer #gx-era-progress {
+  order: 1;
+  width: auto;
+  padding: 18px 22px;
+  border: 1px solid rgba(164, 222, 212, 0.22);
+  border-radius: 12px;
+  background: rgba(5, 24, 31, 0.72);
+  box-shadow: none;
+  backdrop-filter: blur(12px);
+}
+
+#gx-layer #gx-phase-guide {
+  display: block;
+  margin: 0 0 14px;
+  font: 500 clamp(13px, 1.25cqw, 16px)/1.75 var(--font-ja);
+  color: #e2f8ef;
+  letter-spacing: 0.025em;
+}
+
+#gx-layer #gx-era-progress-label {
+  font: 400 12px/1.5 var(--font-ja);
+  letter-spacing: 0.04em;
+  white-space: normal;
+  color: #addacc;
+}
+
+#gx-layer #gx-era-progress-value { font: 400 22px/1.3 var(--gx-time-font); }
+#gx-layer #gx-era-progress .gx-era-progress__track { margin-top: 8px; height: 3px; }
+#gx-layer #gx-era-progress-copy { margin: 10px 0 0; font: 400 12px/1.6 var(--font-ja); }
+#gx-layer #gx-era-progress-copy[hidden] { display: none !important; }
+#gx-layer #gx-phase-nav {
+  order: 2;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 8px;
+  padding: 0 4px;
+}
+#gx-layer #gx-phase-nav button { width: 100%; height: 3px; min-height: 0; }
+
+/* Portrait: time above the planet, concise copy and one gesture HUD below. */
+@container gx-stage (max-width: 620px) {
+  #gx-layer #gx-reading { display: contents; }
+  #gx-layer #gx-reading .gx-header {
+    position: absolute;
+    top: 24px;
+    left: 18px;
+    width: calc(100% - 152px);
+    margin: 0;
+  }
+  #gx-layer #gx-reading .gx-kicker { display: none; }
+  #gx-layer #gx-title { font-size: 20px; line-height: 1.2; }
+  #gx-layer #gx-modal-skip { top: 14px; right: 14px; min-width: 106px; font-size: 12px; }
+  #gx-layer #gx-time { top: 84px; left: 18px; right: 18px; width: auto; }
+  #gx-layer #gx-time .gx-time-number { font-size: clamp(30px, 9cqw, 48px); }
+  #gx-layer #gx-time .gx-time-context { margin-top: 3px; font-size: 11px; }
+  #gx-layer #gx-reading #gx-story-card {
+    position: absolute;
+    left: 18px !important;
+    right: 18px !important;
+    bottom: 146px;
+    padding: 14px 16px;
+    border: 1px solid rgba(160, 221, 207, 0.16);
+    border-radius: 12px;
+    background: rgba(3, 18, 26, 0.82);
+    backdrop-filter: blur(10px);
+  }
+  #gx-layer #gx-story-card .gx-phase-meta { margin-bottom: 8px; font-size: 9px; }
+  #gx-layer #gx-phase-title { margin-bottom: 10px; font-size: 21px; line-height: 1.45; }
+  #gx-layer #gx-phase-summary { font-size: 13px; line-height: 1.8; }
+  #gx-layer #gx-mobile-info-toggle { margin-top: 6px; font-size: 12px; }
+  #gx-layer[data-info-open="true"] #gx-reading #gx-story-card {
+    top: 78px;
+    bottom: 146px;
+    overflow-y: auto;
+    pointer-events: auto;
+    touch-action: pan-y;
+    background: rgba(3, 18, 26, 0.97);
+  }
+  #gx-layer #gx-controls { left: 18px; right: 18px; bottom: 16px; width: auto; gap: 10px; }
+  #gx-layer #gx-era-progress { padding: 12px 16px; }
+  #gx-layer #gx-phase-guide { margin-bottom: 6px; font-size: 13px; line-height: 1.6; }
+  #gx-layer #gx-era-progress-label { font-size: 11px; }
+  #gx-layer #gx-era-progress-value { font-size: 18px; }
+}
+
+/* Compact landscape retains two columns and keeps the skip control fixed. */
+@container gx-stage (max-height: 559px) and (min-width: 621px) {
+  #gx-layer #gx-reading { top: 20px; width: 44%; max-height: calc(100% - 40px); }
+  #gx-layer #gx-reading .gx-header { margin-bottom: 16px; }
+  #gx-layer #gx-reading .gx-kicker { display: none; }
+  #gx-layer #gx-title { font-size: 24px; }
+  #gx-layer #gx-phase-title { font-size: 23px; line-height: 1.35; margin-bottom: 10px; }
+  #gx-layer #gx-phase-summary { font-size: 13px; line-height: 1.75; }
+  #gx-layer #gx-story-card .gx-phase-meta { margin-bottom: 8px; }
+  #gx-layer #gx-mobile-info-toggle { margin-top: 8px; }
+  #gx-layer #gx-time { top: 82px; width: 44%; }
+  #gx-layer #gx-time .gx-time-number { font-size: clamp(28px, 5.1cqw, 56px); }
+  #gx-layer #gx-time .gx-time-kicker { font-size: 10px; }
+  #gx-layer #gx-time .gx-time-context { margin-top: 2px; font-size: 10px; }
+  #gx-layer #gx-controls { bottom: 20px; width: 43%; gap: 8px; }
+  #gx-layer #gx-era-progress { padding: 10px 14px; }
+  #gx-layer #gx-phase-guide { margin-bottom: 6px; font-size: 12px; }
+  #gx-layer #gx-era-progress-value { font-size: 18px; }
+}
+
+/* Small portrait phones retain the same hierarchy without two narrow columns. */
+@container gx-stage (max-width: 620px) and (max-height: 650px) {
+  #gx-layer #gx-reading .gx-header { top: 22px; left: 14px; }
+  #gx-layer #gx-title { font-size: 17px; }
+  #gx-layer #gx-time { top: 70px; left: 14px; right: 14px; }
+  #gx-layer #gx-time .gx-time-kicker { display: none; }
+  #gx-layer #gx-time .gx-time-number { font-size: 28px; }
+  #gx-layer #gx-time .gx-time-context { font-size: 10px; }
+  #gx-layer #gx-reading #gx-story-card {
+    left: 14px !important;
+    right: 14px !important;
+    bottom: 122px;
+    padding: 10px 12px;
+  }
+  #gx-layer #gx-story-card .gx-phase-meta { margin-bottom: 5px; }
+  #gx-layer #gx-phase-title { margin-bottom: 6px; font-size: 18px; line-height: 1.4; }
+  #gx-layer #gx-phase-summary { font-size: 12px; line-height: 1.7; }
+  #gx-layer #gx-mobile-info-toggle { margin-top: 0; }
+  #gx-layer[data-info-open="true"] #gx-reading #gx-story-card { top: 70px; bottom: 122px; }
+  #gx-layer #gx-controls { left: 14px; right: 14px; bottom: 12px; gap: 8px; }
+  #gx-layer #gx-era-progress { padding: 10px 12px; }
+  #gx-layer #gx-phase-guide { font-size: 12px; line-height: 1.55; }
+}

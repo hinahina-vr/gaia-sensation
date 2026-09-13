@@ -1,0 +1,110 @@
+/* Keep the title's real DOM node/live announcement. Only its frame and the
+   two explicit controls change; story detours retain their own layout. */
+.map-heading-step { display: none; }
+@layer gaia-navigation {
+  #japan-layer.has-map-heading-navigation .japan-heading {
+    position: fixed !important;
+    inset: var(--navigation-top) auto auto var(--map-heading-left, calc(var(--navigation-left) + 208px)) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 4px !important;
+    width: max-content !important;
+    max-width: calc(100vw - var(--map-heading-left, calc(var(--navigation-left) + 208px)) - var(--navigation-right) - 160px) !important;
+    min-height: 44px !important;
+    max-height: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    background: none !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    transform: none !important;
+    pointer-events: none !important;
+    z-index: 110 !important;
+  }
+  #japan-layer.has-map-heading-navigation #japan-title {
+    flex: 0 1 auto !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    text-align: left !important;
+    white-space: normal !important;
+    word-break: normal !important;
+    overflow-wrap: anywhere !important;
+    text-wrap: wrap !important;
+  }
+  #japan-layer.has-map-heading-navigation .map-heading-step {
+    display: inline-flex !important;
+    flex: 0 0 44px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+    width: 44px !important;
+    min-width: 44px !important;
+    height: 44px !important;
+    min-height: 44px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: 0 !important;
+    border-radius: 4px !important;
+    color: #c6e3e0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    font: 400 20px/1 sans-serif !important;
+    cursor: pointer !important;
+    pointer-events: auto !important;
+    touch-action: manipulation;
+    transition: color 150ms ease, background-color 150ms ease;
+  }
+  #japan-layer.has-map-heading-navigation .map-heading-chevron {
+    display: block;
+    flex: none;
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.25;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    pointer-events: none;
+  }
+  #japan-layer.has-map-heading-navigation .map-heading-step:is(:hover, :focus-visible) {
+    color: #eff5f5 !important;
+    background: rgba(181, 203, 211, .09) !important;
+  }
+  #japan-layer.has-map-heading-navigation .map-heading-step:focus-visible {
+    outline: 2px solid #a7bec6 !important;
+    outline-offset: -2px !important;
+  }
+  #japan-layer.has-map-heading-navigation .map-heading-step:disabled { opacity: .4; cursor: default !important; }
+  @media (prefers-reduced-motion: reduce) {
+    #japan-layer.has-map-heading-navigation .map-heading-step { transition: none; }
+  }
+  @media (max-width: 900px) {
+    #japan-layer.has-map-heading-navigation.is-mobile-map-shell::after {
+      height: var(--mobile-heading-bottom, 124px) !important;
+      background: linear-gradient(#03131ce8, #03131cb3 80%, #03131c00) !important;
+    }
+    /* A separate title row frees the left edge without shrinking Back or
+       placing a 44px previous button on top of it. */
+    #japan-layer.has-map-heading-navigation .japan-heading {
+      inset: calc(var(--navigation-top) + 52px) auto auto var(--navigation-left) !important;
+      max-width: calc(100vw - var(--navigation-left) - var(--navigation-right)) !important;
+    }
+    @media (max-height: 500px) and (orientation: landscape) {
+      /* Short screens already use a right-hand observation column. Give the
+         title the left column and keep credits with their observation panel. */
+      #japan-layer.has-map-heading-navigation .japan-heading {
+        max-width: calc(100vw - min(330px, 52vw) - var(--navigation-left) - var(--navigation-right) - 10px) !important;
+      }
+      #japan-layer.has-map-heading-navigation .japan-credits {
+        left: auto !important;
+        right: var(--mobile-side, 12px) !important;
+        width: min(330px, 52vw) !important;
+      }
+    }
+  }
+}

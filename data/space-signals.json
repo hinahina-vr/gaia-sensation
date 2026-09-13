@@ -1,0 +1,4674 @@
+{
+  "title": "GAIA ORBITAL SENSEWARE",
+  "subtitle": "宇宙を読む、10の観測窓",
+  "generatedAt": "2026-08-02T09:55:06.588Z",
+  "snapshotPolicy": "The runtime reads this bundled file only. Source APIs are used by the build script, not by visitors.",
+  "dateNote": "太陽活動は2024年5月、小惑星接近は2024年、その他は各データセット記載の期間を保存しています。現在値ではありません。",
+  "legend": {
+    "SOURCE": "公開機関から取得して保存した値",
+    "DERIVED": "単位換算・並べ替え・抽出をした値",
+    "SCENARIO": "観客の操作で生まれる仮想の線や配置"
+  },
+  "sources": [
+    {
+      "id": "nasa-donki-flr",
+      "kind": "SOURCE",
+      "organisation": "NASA GSFC / DONKI",
+      "title": "Solar Flare notifications",
+      "url": "https://api.nasa.gov/",
+      "retrievedAt": "2026-08-02T09:55:06.588Z",
+      "period": "2024-05-01–2024-05-31",
+      "unit": "GOES X-ray class",
+      "resolution": "event notifications",
+      "transformation": "開始・極大時刻とフレア等級を抜き出しました。",
+      "caveat": "通知は観測・解析をまとめたイベント情報で、太陽表面の連続画像ではありません。",
+      "status": "SNAPSHOT_SAVED",
+      "error": null,
+      "preview": [
+        {
+          "id": "2024-05-01T05:53:00-FLR-001",
+          "beginTime": "2024-05-01T05:53Z",
+          "peakTime": "2024-05-01T06:57Z",
+          "classType": "C5.3",
+          "sourceLocation": "S15W76",
+          "activeRegion": 13657
+        },
+        {
+          "id": "2024-05-01T14:17:00-FLR-001",
+          "beginTime": "2024-05-01T14:17Z",
+          "peakTime": "2024-05-01T14:32Z",
+          "classType": "M1.8",
+          "sourceLocation": "S07W71",
+          "activeRegion": 13654
+        },
+        {
+          "id": "2024-05-01T14:37:00-FLR-001",
+          "beginTime": "2024-05-01T14:37Z",
+          "peakTime": "2024-05-01T14:44Z",
+          "classType": "M1.9",
+          "sourceLocation": "S04W82",
+          "activeRegion": 13654
+        },
+        {
+          "id": "2024-05-01T22:26:00-FLR-001",
+          "beginTime": "2024-05-01T22:26Z",
+          "peakTime": "2024-05-01T22:31Z",
+          "classType": "M1.8",
+          "sourceLocation": "N25E22",
+          "activeRegion": 13663
+        },
+        {
+          "id": "2024-05-02T02:07:00-FLR-001",
+          "beginTime": "2024-05-02T02:07Z",
+          "peakTime": "2024-05-02T02:17Z",
+          "classType": "M1.0",
+          "sourceLocation": "N25E21",
+          "activeRegion": 13663
+        },
+        {
+          "id": "2024-05-02T20:52:00-FLR-001",
+          "beginTime": "2024-05-02T20:52Z",
+          "peakTime": "2024-05-02T20:57Z",
+          "classType": "M2.7",
+          "sourceLocation": "S21E58",
+          "activeRegion": 13664
+        },
+        {
+          "id": "2024-05-03T00:08:00-FLR-001",
+          "beginTime": "2024-05-03T00:08Z",
+          "peakTime": "2024-05-03T00:15Z",
+          "classType": "M2.7",
+          "sourceLocation": "S21E57",
+          "activeRegion": 13664
+        },
+        {
+          "id": "2024-05-03T02:11:00-FLR-001",
+          "beginTime": "2024-05-03T02:11Z",
+          "peakTime": "2024-05-03T02:22Z",
+          "classType": "X1.6",
+          "sourceLocation": "N26E05",
+          "activeRegion": 13663
+        },
+        {
+          "id": "2024-05-03T08:05:00-FLR-001",
+          "beginTime": "2024-05-03T08:05Z",
+          "peakTime": "2024-05-03T08:11Z",
+          "classType": "M4.4",
+          "sourceLocation": "N26E05",
+          "activeRegion": 13663
+        },
+        {
+          "id": "2024-05-03T22:25:00-FLR-001",
+          "beginTime": "2024-05-03T22:25Z",
+          "peakTime": "2024-05-03T22:47Z",
+          "classType": "M1.2",
+          "sourceLocation": "S08W100",
+          "activeRegion": 13654
+        }
+      ]
+    },
+    {
+      "id": "nasa-donki-cme",
+      "kind": "SOURCE",
+      "organisation": "NASA GSFC / DONKI",
+      "title": "Coronal Mass Ejection analyses",
+      "url": "https://api.nasa.gov/",
+      "retrievedAt": "2026-08-02T09:55:06.588Z",
+      "period": "2024-05-01–2024-05-31",
+      "unit": "km/s, degree",
+      "resolution": "event analyses",
+      "transformation": "最も確からしい解析値から速度と広がりを抜き出しました。",
+      "caveat": "CMEの形を単純な円錐として扱う解析値で、粒子一つずつの実測軌跡ではありません。",
+      "status": "SNAPSHOT_SAVED",
+      "error": null,
+      "preview": [
+        {
+          "id": "2024-05-01T00:48:00-CME-001",
+          "startTime": "2024-05-01T00:48Z",
+          "sourceLocation": "",
+          "speedKmS": 643,
+          "halfAngleDeg": 21,
+          "latitudeDeg": -53,
+          "longitudeDeg": 0
+        },
+        {
+          "id": "2024-05-01T06:36:00-CME-001",
+          "startTime": "2024-05-01T06:36Z",
+          "sourceLocation": "S20W65",
+          "speedKmS": 794,
+          "halfAngleDeg": 42,
+          "latitudeDeg": -22,
+          "longitudeDeg": 65
+        },
+        {
+          "id": "2024-05-01T11:36:00-CME-001",
+          "startTime": "2024-05-01T11:36Z",
+          "sourceLocation": "N25E28",
+          "speedKmS": 569,
+          "halfAngleDeg": 20,
+          "latitudeDeg": 59,
+          "longitudeDeg": -25
+        },
+        {
+          "id": "2024-05-01T12:36:00-CME-001",
+          "startTime": "2024-05-01T12:36Z",
+          "sourceLocation": "",
+          "speedKmS": 524,
+          "halfAngleDeg": 28,
+          "latitudeDeg": -19,
+          "longitudeDeg": 0
+        },
+        {
+          "id": "2024-05-01T17:36:00-CME-001",
+          "startTime": "2024-05-01T17:36Z",
+          "sourceLocation": "N25E25",
+          "speedKmS": 464,
+          "halfAngleDeg": 21,
+          "latitudeDeg": 66,
+          "longitudeDeg": -25
+        },
+        {
+          "id": "2024-05-01T23:16:00-CME-001",
+          "startTime": "2024-05-01T23:16Z",
+          "sourceLocation": "N25E22",
+          "speedKmS": 353,
+          "halfAngleDeg": 16,
+          "latitudeDeg": 58,
+          "longitudeDeg": -22
+        },
+        {
+          "id": "2024-05-02T03:12:00-CME-001",
+          "startTime": "2024-05-02T03:12Z",
+          "sourceLocation": "N25E21",
+          "speedKmS": 716,
+          "halfAngleDeg": 14,
+          "latitudeDeg": 52,
+          "longitudeDeg": -21
+        },
+        {
+          "id": "2024-05-02T05:12:00-CME-001",
+          "startTime": "2024-05-02T05:12Z",
+          "sourceLocation": "",
+          "speedKmS": 325,
+          "halfAngleDeg": 17,
+          "latitudeDeg": -2,
+          "longitudeDeg": 0
+        },
+        {
+          "id": "2024-05-02T10:36:00-CME-001",
+          "startTime": "2024-05-02T10:36Z",
+          "sourceLocation": "",
+          "speedKmS": 474,
+          "halfAngleDeg": 33,
+          "latitudeDeg": 5,
+          "longitudeDeg": 90
+        },
+        {
+          "id": "2024-05-03T02:48:00-CME-001",
+          "startTime": "2024-05-03T02:48Z",
+          "sourceLocation": "N26E05",
+          "speedKmS": 841,
+          "halfAngleDeg": 43,
+          "latitudeDeg": 29,
+          "longitudeDeg": -14
+        }
+      ]
+    },
+    {
+      "id": "nasa-donki-gst",
+      "kind": "SOURCE",
+      "organisation": "NASA GSFC / DONKI",
+      "title": "Geomagnetic Storm notifications",
+      "url": "https://api.nasa.gov/",
+      "retrievedAt": "2026-08-02T09:55:06.588Z",
+      "period": "2024-05-01–2024-05-31",
+      "unit": "Kp index",
+      "resolution": "3-hour geomagnetic index linked to events",
+      "transformation": "イベントごとの最大Kpを表示用に集計しました。",
+      "caveat": "Kpは地球規模の磁気活動を示す指数で、特定地点のオーロラを保証する値ではありません。",
+      "status": "SNAPSHOT_SAVED",
+      "error": null,
+      "preview": [
+        {
+          "id": "2024-05-02T15:00:00-GST-001",
+          "startTime": "2024-05-02T15:00Z",
+          "kp": 6.67,
+          "observations": [
+            {
+              "time": "2024-05-02T18:00Z",
+              "kp": 6.67,
+              "source": "NOAA"
+            },
+            {
+              "time": "2024-05-02T21:00Z",
+              "kp": 6.67,
+              "source": "NOAA"
+            }
+          ]
+        },
+        {
+          "id": "2024-05-10T15:00:00-GST-001",
+          "startTime": "2024-05-10T15:00Z",
+          "kp": 9,
+          "observations": [
+            {
+              "time": "2024-05-10T18:00Z",
+              "kp": 7.67,
+              "source": "NOAA"
+            },
+            {
+              "time": "2024-05-10T21:00Z",
+              "kp": 8.67,
+              "source": "NOAA"
+            },
+            {
+              "time": "2024-05-11T00:00Z",
+              "kp": 9,
+              "source": "NOAA"
+            },
+            {
+              "time": "2024-05-11T03:00Z",
+              "kp": 9,
+              "source": "NOAA"
+            },
+            {
+              "time": "2024-05-11T06:00Z",
+              "kp": 8.33,
+              "source": "NOAA"
+            },
+            {
+              "time": "2024-05-11T09:00Z",
+              "kp": 8.67,
+              "source": "NOAA"
+            },
+            {
+              "time": "2024-05-11T12:00Z",
+              "kp": 9,
+              "source": "NOAA"
+            },
+            {
+              "time": "2024-05-11T15:00Z",
+              "kp": 8.67,
+              "source": "NOAA"
+            }
+          ]
+        },
+        {
+          "id": "2024-05-12T21:00:00-GST-001",
+          "startTime": "2024-05-12T21:00Z",
+          "kp": 6.33,
+          "observations": [
+            {
+              "time": "2024-05-13T00:00Z",
+              "kp": 6.33,
+              "source": "NOAA"
+            },
+            {
+              "time": "2024-05-13T03:00Z",
+              "kp": 5.67,
+              "source": "NOAA"
+            },
+            {
+              "time": "2024-05-13T06:00Z",
+              "kp": 6,
+              "source": "NOAA"
+            }
+          ]
+        },
+        {
+          "id": "2024-05-16T06:00:00-GST-001",
+          "startTime": "2024-05-16T06:00Z",
+          "kp": 6,
+          "observations": [
+            {
+              "time": "2024-05-16T09:00Z",
+              "kp": 6,
+              "source": "NOAA"
+            }
+          ]
+        },
+        {
+          "id": "2024-05-17T18:00:00-GST-001",
+          "startTime": "2024-05-17T18:00Z",
+          "kp": 6,
+          "observations": [
+            {
+              "time": "2024-05-17T21:00Z",
+              "kp": 6,
+              "source": "NOAA"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nasa-donki-sep",
+      "kind": "SOURCE",
+      "organisation": "NASA GSFC / DONKI",
+      "title": "Solar Energetic Particle notifications",
+      "url": "https://api.nasa.gov/",
+      "retrievedAt": "2026-08-02T09:55:06.588Z",
+      "period": "2024-05-01–2024-05-31",
+      "unit": "event",
+      "resolution": "instrument-linked event notifications",
+      "transformation": "時刻、観測機器、関連イベントを保存しました。",
+      "caveat": "粒子フラックスの連続値ではなく、現象が確認されたという通知です。",
+      "status": "SNAPSHOT_SAVED",
+      "error": null,
+      "preview": [
+        {
+          "id": "2024-05-09T13:59:00-SEP-001",
+          "eventTime": "2024-05-09T13:59Z",
+          "instruments": [
+            "MODEL: REleASE:ACE/EPAM 15.8-39.8 MeV"
+          ],
+          "linkedEvents": [
+            "2024-05-09T08:45:00-FLR-001"
+          ]
+        },
+        {
+          "id": "2024-05-09T14:25:00-SEP-001",
+          "eventTime": "2024-05-09T14:25Z",
+          "instruments": [
+            "MODEL: REleASE:SOHO/EPHIN 15.8-39.8 MeV"
+          ],
+          "linkedEvents": [
+            "2024-05-09T08:45:00-FLR-001"
+          ]
+        },
+        {
+          "id": "2024-05-10T12:59:00-SEP-001",
+          "eventTime": "2024-05-10T12:59Z",
+          "instruments": [
+            "SOHO: COSTEP 15.8-39.8 MeV"
+          ],
+          "linkedEvents": [
+            "2024-05-09T08:45:00-FLR-001",
+            "2024-05-09T17:23:00-FLR-001",
+            "2024-05-10T06:27:00-FLR-001"
+          ]
+        },
+        {
+          "id": "2024-05-10T13:02:00-SEP-001",
+          "eventTime": "2024-05-10T13:02Z",
+          "instruments": [
+            "SOHO: COSTEP 28.2-50.1 MeV"
+          ],
+          "linkedEvents": [
+            "2024-05-09T08:45:00-FLR-001",
+            "2024-05-09T17:23:00-FLR-001",
+            "2024-05-10T06:27:00-FLR-001"
+          ]
+        },
+        {
+          "id": "2024-05-10T13:35:00-SEP-001",
+          "eventTime": "2024-05-10T13:35Z",
+          "instruments": [
+            "GOES-P: SEISS >10 MeV"
+          ],
+          "linkedEvents": [
+            "2024-05-08T04:20:00-FLR-001",
+            "2024-05-08T04:37:00-FLR-001",
+            "2024-05-08T05:36:00-CME-001",
+            "2024-05-08T11:26:00-FLR-001",
+            "2024-05-08T12:24:00-CME-001",
+            "2024-05-08T21:08:00-FLR-001",
+            "2024-05-08T22:05:00-FLR-001",
+            "2024-05-08T22:24:00-CME-001",
+            "2024-05-09T08:45:00-FLR-001",
+            "2024-05-09T09:24:00-CME-001",
+            "2024-05-09T17:23:00-FLR-001",
+            "2024-05-09T18:23:00-CME-001",
+            "2024-05-10T06:27:00-FLR-001",
+            "2024-05-10T07:12:00-CME-001"
+          ]
+        },
+        {
+          "id": "2024-05-10T14:50:00-SEP-001",
+          "eventTime": "2024-05-10T14:50Z",
+          "instruments": [
+            "STEREO A: IMPACT 13-100 MeV"
+          ],
+          "linkedEvents": [
+            "2024-05-08T04:20:00-FLR-001",
+            "2024-05-08T04:37:00-FLR-001",
+            "2024-05-08T11:26:00-FLR-001",
+            "2024-05-08T12:24:00-CME-001",
+            "2024-05-08T21:08:00-FLR-001",
+            "2024-05-08T22:05:00-FLR-001",
+            "2024-05-08T22:24:00-CME-001",
+            "2024-05-09T08:45:00-FLR-001",
+            "2024-05-09T09:24:00-CME-001",
+            "2024-05-09T17:23:00-FLR-001",
+            "2024-05-09T18:23:00-CME-001",
+            "2024-05-10T06:27:00-FLR-001",
+            "2024-05-10T07:12:00-CME-001",
+            "2024-05-10T13:58:00-FLR-001",
+            "2024-05-10T14:00:00-IPS-001"
+          ]
+        },
+        {
+          "id": "2024-05-11T02:10:00-SEP-001",
+          "eventTime": "2024-05-11T02:10Z",
+          "instruments": [
+            "GOES-P: SEISS >100 MeV"
+          ],
+          "linkedEvents": [
+            "2024-05-11T01:10:00-FLR-001",
+            "2024-05-11T01:36:00-CME-001"
+          ]
+        },
+        {
+          "id": "2024-05-11T04:07:00-SEP-001",
+          "eventTime": "2024-05-11T04:07Z",
+          "instruments": [
+            "STEREO A: IMPACT 13-100 MeV"
+          ],
+          "linkedEvents": [
+            "2024-05-11T01:10:00-FLR-001",
+            "2024-05-11T01:36:00-CME-001"
+          ]
+        },
+        {
+          "id": "2024-05-13T12:44:00-SEP-001",
+          "eventTime": "2024-05-13T12:44Z",
+          "instruments": [
+            "STEREO A: IMPACT 13-100 MeV"
+          ],
+          "linkedEvents": [
+            "2024-05-13T08:06:00-FLR-001",
+            "2024-05-13T08:23:00-FLR-001",
+            "2024-05-13T08:47:00-FLR-001",
+            "2024-05-13T09:12:00-CME-001",
+            "2024-05-13T09:36:00-FLR-001"
+          ]
+        },
+        {
+          "id": "2024-05-13T13:10:00-SEP-001",
+          "eventTime": "2024-05-13T13:10Z",
+          "instruments": [
+            "MODEL: REleASE:SOHO/EPHIN 15.8-39.8 MeV"
+          ],
+          "linkedEvents": [
+            "2024-05-13T08:06:00-FLR-001",
+            "2024-05-13T08:23:00-FLR-001",
+            "2024-05-13T08:47:00-FLR-001",
+            "2024-05-13T09:12:00-CME-001",
+            "2024-05-13T09:36:00-FLR-001"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "jpl-cneos-cad",
+      "kind": "SOURCE",
+      "organisation": "NASA/JPL CNEOS",
+      "title": "Small-Body Close-Approach Data",
+      "url": "https://ssd-api.jpl.nasa.gov/doc/cad.html",
+      "retrievedAt": "2026-08-02T09:55:06.588Z",
+      "period": "2024-01-01–2024-12-31",
+      "unit": "au, lunar distance, km/s",
+      "resolution": "Earth approaches within 10 lunar distances",
+      "transformation": "距離を月までの平均距離でも読めるよう換算しました。",
+      "caveat": "軌道には不確かさがあります。この表示は衝突予報ではありません。",
+      "status": "SNAPSHOT_SAVED",
+      "error": null,
+      "preview": [
+        {
+          "designation": "2024 XA",
+          "date": "2024-Dec-01 09:46",
+          "distanceAu": 0.0000516452821681997,
+          "distanceLunar": 0.02009900104252695,
+          "velocityKmS": 13.5659763677388,
+          "absoluteMagnitude": 31.64
+        },
+        {
+          "designation": "2024 LH1",
+          "date": "2024-Jun-06 14:02",
+          "distanceAu": 0.0000541335085929206,
+          "distanceLunar": 0.02106735407314128,
+          "velocityKmS": 17.4040731251933,
+          "absoluteMagnitude": 30.79
+        },
+        {
+          "designation": "2024 UG9",
+          "date": "2024-Oct-30 12:42",
+          "distanceAu": 0.0000591577148660634,
+          "distanceLunar": 0.02302264452528536,
+          "velocityKmS": 20.3046810076548,
+          "absoluteMagnitude": 32.61
+        },
+        {
+          "designation": "2024 HA",
+          "date": "2024-Apr-16 17:42",
+          "distanceAu": 0.000103979596079937,
+          "distanceLunar": 0.0404661553248134,
+          "velocityKmS": 19.4617853048327,
+          "absoluteMagnitude": 31.77
+        },
+        {
+          "designation": "2024 UZ6",
+          "date": "2024-Oct-27 07:24",
+          "distanceAu": 0.000117148172761056,
+          "distanceLunar": 0.04559102298611121,
+          "velocityKmS": 8.13799991322131,
+          "absoluteMagnitude": 31.16
+        },
+        {
+          "designation": "2024 GJ2",
+          "date": "2024-Apr-11 18:30",
+          "distanceAu": 0.00012482612234936,
+          "distanceLunar": 0.048579081339189825,
+          "velocityKmS": 14.3791945143696,
+          "absoluteMagnitude": 30.37
+        },
+        {
+          "designation": "2024 RC42",
+          "date": "2024-Sep-12 19:32",
+          "distanceAu": 0.000144686935168409,
+          "distanceLunar": 0.056308393307230406,
+          "velocityKmS": 9.586046079277,
+          "absoluteMagnitude": 32.38
+        },
+        {
+          "designation": "2024 JN16",
+          "date": "2024-May-14 09:49",
+          "distanceAu": 0.000166961984280547,
+          "distanceLunar": 0.06497726327039759,
+          "velocityKmS": 9.26326852948483,
+          "absoluteMagnitude": 29.59
+        },
+        {
+          "designation": "2024 JT3",
+          "date": "2024-May-09 09:36",
+          "distanceAu": 0.000172146723681254,
+          "distanceLunar": 0.06699502904192835,
+          "velocityKmS": 10.8776047679118,
+          "absoluteMagnitude": 29.13
+        },
+        {
+          "designation": "2024 EJ4",
+          "date": "2024-Mar-13 17:22",
+          "distanceAu": 0.000175441198325068,
+          "distanceLunar": 0.06827715291696,
+          "velocityKmS": 8.6849356831964,
+          "absoluteMagnitude": 29.38
+        }
+      ]
+    },
+    {
+      "id": "jpl-cneos-fireball",
+      "kind": "SOURCE",
+      "organisation": "NASA/JPL CNEOS",
+      "title": "Fireball atmospheric impact records",
+      "url": "https://ssd-api.jpl.nasa.gov/doc/fireball.html",
+      "retrievedAt": "2026-08-02T09:55:06.588Z",
+      "period": "API取得時点の直近60件（位置あり）",
+      "unit": "10^10 J, kt, km",
+      "resolution": "peak-brightness events",
+      "transformation": "緯度経度の方向を符号へ変換し、速度成分が揃う場合は合成速度を計算しました。",
+      "caveat": "米国政府センサーから報告された火球記録で、すべての流星を網羅するものではありません。",
+      "status": "SNAPSHOT_SAVED",
+      "error": null,
+      "preview": [
+        {
+          "date": "2026-07-21 01:14:45",
+          "latitude": 9.4,
+          "longitude": -57.4,
+          "altitudeKm": 31.5,
+          "energyTenBillionJ": 3.2,
+          "impactKilotons": 0.11,
+          "velocityKmS": null
+        },
+        {
+          "date": "2026-06-11 02:00:58",
+          "latitude": -18.7,
+          "longitude": 16.1,
+          "altitudeKm": 33,
+          "energyTenBillionJ": 3.2,
+          "impactKilotons": 0.11,
+          "velocityKmS": null
+        },
+        {
+          "date": "2026-05-30 18:06:23",
+          "latitude": 42,
+          "longitude": -70.5,
+          "altitudeKm": 32,
+          "energyTenBillionJ": 42.1,
+          "impactKilotons": 1.1,
+          "velocityKmS": null
+        },
+        {
+          "date": "2026-05-21 02:15:51",
+          "latitude": 46.6,
+          "longitude": 133.1,
+          "altitudeKm": 31.5,
+          "energyTenBillionJ": 3.5,
+          "impactKilotons": 0.12,
+          "velocityKmS": null
+        },
+        {
+          "date": "2026-05-10 16:57:37",
+          "latitude": -45.6,
+          "longitude": -109.8,
+          "altitudeKm": 32.7,
+          "energyTenBillionJ": 6,
+          "impactKilotons": 0.19,
+          "velocityKmS": null
+        },
+        {
+          "date": "2026-05-07 05:52:03",
+          "latitude": 32.5,
+          "longitude": -36.8,
+          "altitudeKm": 36,
+          "energyTenBillionJ": 6.4,
+          "impactKilotons": 0.2,
+          "velocityKmS": null
+        },
+        {
+          "date": "2026-04-29 14:00:39",
+          "latitude": -81,
+          "longitude": 133.9,
+          "altitudeKm": 28.7,
+          "energyTenBillionJ": 4.8,
+          "impactKilotons": 0.16,
+          "velocityKmS": null
+        },
+        {
+          "date": "2026-04-08 01:58:47",
+          "latitude": 13.4,
+          "longitude": -170.2,
+          "altitudeKm": 62,
+          "energyTenBillionJ": 2.9,
+          "impactKilotons": 0.1,
+          "velocityKmS": null
+        },
+        {
+          "date": "2026-04-01 23:59:35",
+          "latitude": 57.9,
+          "longitude": -158.6,
+          "altitudeKm": 37,
+          "energyTenBillionJ": 2.2,
+          "impactKilotons": 0.079,
+          "velocityKmS": null
+        },
+        {
+          "date": "2026-04-01 02:13:14",
+          "latitude": -41.9,
+          "longitude": -54.7,
+          "altitudeKm": 90.5,
+          "energyTenBillionJ": 2.4,
+          "impactKilotons": 0.086,
+          "velocityKmS": null
+        }
+      ]
+    },
+    {
+      "id": "nasa-exoplanet-archive",
+      "kind": "SOURCE",
+      "organisation": "NASA Exoplanet Science Institute",
+      "title": "Planetary Systems Composite Parameters",
+      "url": "https://exoplanetarchive.ipac.caltech.edu/docs/TAP/usingTAP.html",
+      "retrievedAt": "2026-08-02T09:55:06.588Z",
+      "period": "取得時点までの確認済み系外惑星から近傍1000件",
+      "unit": "pc, Earth radius, Earth mass, K, day",
+      "resolution": "published composite parameters",
+      "transformation": "近い順に取得し、地球サイズ候補は半径0.5〜2.0地球、平衡温度180〜330Kで抽出しました。",
+      "caveat": "平衡温度は大気を直接測った表面温度ではありません。抽出条件も生命の存在を意味しません。",
+      "status": "SNAPSHOT_SAVED",
+      "error": null,
+      "preview": [
+        {
+          "planet": "Proxima Cen d",
+          "star": "Proxima Cen",
+          "discovered": 2025,
+          "method": "Radial Velocity",
+          "orbitalDays": 5.12338,
+          "radiusEarth": 0.692,
+          "massEarth": 0.26,
+          "equilibriumK": 282,
+          "distancePc": 1.30119
+        },
+        {
+          "planet": "Barnard b",
+          "star": "Barnard's star",
+          "discovered": 2024,
+          "method": "Radial Velocity",
+          "orbitalDays": 3.1542,
+          "radiusEarth": 0.72,
+          "massEarth": 0.299,
+          "equilibriumK": 438,
+          "distancePc": 1.82655
+        },
+        {
+          "planet": "Barnard c",
+          "star": "Barnard's star",
+          "discovered": 2025,
+          "method": "Radial Velocity",
+          "orbitalDays": 4.1244,
+          "radiusEarth": 0.743,
+          "massEarth": 0.335,
+          "equilibriumK": 400,
+          "distancePc": 1.82655
+        },
+        {
+          "planet": "GJ 887 b",
+          "star": "GJ 887",
+          "discovered": 2020,
+          "method": "Radial Velocity",
+          "orbitalDays": 9.2619,
+          "radiusEarth": 1.8,
+          "massEarth": 3.9,
+          "equilibriumK": 426,
+          "distancePc": 3.28679
+        },
+        {
+          "planet": "GJ 1061 d",
+          "star": "GJ 1061",
+          "discovered": 2020,
+          "method": "Radial Velocity",
+          "orbitalDays": 13.066,
+          "radiusEarth": 1.16,
+          "massEarth": 1.67,
+          "equilibriumK": 242.03,
+          "distancePc": 3.67278
+        },
+        {
+          "planet": "YZ Cet c",
+          "star": "YZ Cet",
+          "discovered": 2017,
+          "method": "Radial Velocity",
+          "orbitalDays": 3.05989,
+          "radiusEarth": 1.05,
+          "massEarth": 1.14,
+          "equilibriumK": 410.3,
+          "distancePc": 3.71207
+        },
+        {
+          "planet": "GJ 876 e",
+          "star": "GJ 876",
+          "discovered": 2010,
+          "method": "Radial Velocity",
+          "orbitalDays": 124.26,
+          "radiusEarth": 3.92,
+          "massEarth": 14.6,
+          "equilibriumK": 150.46,
+          "distancePc": 4.67517
+        },
+        {
+          "planet": "GJ 1002 b",
+          "star": "GJ 1002",
+          "discovered": 2022,
+          "method": "Radial Velocity",
+          "orbitalDays": 10.3465,
+          "radiusEarth": 1.03,
+          "massEarth": 1.08,
+          "equilibriumK": 230.9,
+          "distancePc": 4.84867
+        },
+        {
+          "planet": "GJ 832 b",
+          "star": "GJ 832",
+          "discovered": 2008,
+          "method": "Radial Velocity",
+          "orbitalDays": 3853,
+          "radiusEarth": 13.8,
+          "massEarth": 314.65012293,
+          "equilibriumK": 57.84,
+          "distancePc": 4.96435
+        },
+        {
+          "planet": "GJ 682 b",
+          "star": "GJ 682",
+          "discovered": 2014,
+          "method": "Radial Velocity",
+          "orbitalDays": 17.478,
+          "radiusEarth": 1.93,
+          "massEarth": 4.4,
+          "equilibriumK": 281.93,
+          "distancePc": 5.00671
+        }
+      ]
+    },
+    {
+      "id": "jaxa-darts-ryugu-lidar",
+      "kind": "SOURCE",
+      "organisation": "ISAS/JAXA DARTS",
+      "title": "Hayabusa2 LIDAR Level 2 Ryugu topography time series",
+      "url": "https://data.darts.isas.jaxa.jp/pub/hayabusa2/lidar_bundle/browse/",
+      "retrievedAt": "2026-08-02T09:55:06.588Z",
+      "period": "2018-07-01",
+      "unit": "archive CSV fields",
+      "resolution": "Hayabusa2 LIDAR time series",
+      "transformation": "公式CSVの列名と先頭80行をそのまま保存しました。",
+      "caveat": "一日の時系列の一部であり、リュウグウ全面の完成地形図ではありません。",
+      "status": "SNAPSHOT_SAVED",
+      "error": null,
+      "preview": [
+        {
+          "shotTime": "2018-07-01T22:50:11.217091",
+          "rangeM": 19388.2,
+          "topoLongitudeDeg": 344.301,
+          "topoLatitudeDeg": 5.751,
+          "topoHeightM": 499.313,
+          "topoXM": 478.268,
+          "topoYM": -134.426,
+          "topoZM": 50.031,
+          "spacecraftXM": 19274.359,
+          "spacecraftYM": -4697.748,
+          "spacecraftZM": -1286.138
+        },
+        {
+          "shotTime": "2018-07-01T22:51:15.216281",
+          "rangeM": 19388.7,
+          "topoLongitudeDeg": 343.585,
+          "topoLatitudeDeg": 5.621,
+          "topoHeightM": 497.646,
+          "topoXM": 475.067,
+          "topoYM": -139.952,
+          "topoZM": 48.745,
+          "spacecraftXM": 19202.635,
+          "spacecraftYM": -4979.215,
+          "spacecraftZM": -1285.942
+        },
+        {
+          "shotTime": "2018-07-01T22:52:19.215472",
+          "rangeM": 19388.2,
+          "topoLongitudeDeg": 342.768,
+          "topoLatitudeDeg": 5.825,
+          "topoHeightM": 497.516,
+          "topoXM": 472.73,
+          "topoYM": -146.628,
+          "topoZM": 50.492,
+          "spacecraftXM": 19126.801,
+          "spacecraftYM": -5259.589,
+          "spacecraftZM": -1285.746
+        },
+        {
+          "shotTime": "2018-07-01T22:53:23.214663",
+          "rangeM": 19388.2,
+          "topoLongitudeDeg": 341.801,
+          "topoLatitudeDeg": 5.717,
+          "topoHeightM": 496.462,
+          "topoXM": 469.282,
+          "topoYM": -154.283,
+          "topoZM": 49.456,
+          "spacecraftXM": 19046.874,
+          "spacecraftYM": -5538.81,
+          "spacecraftZM": -1285.55
+        },
+        {
+          "shotTime": "2018-07-01T22:54:27.213856",
+          "rangeM": 19390.7,
+          "topoLongitudeDeg": 341.002,
+          "topoLatitudeDeg": 5.822,
+          "topoHeightM": 493.133,
+          "topoXM": 463.867,
+          "topoYM": -159.704,
+          "topoZM": 50.021,
+          "spacecraftXM": 18962.87,
+          "spacecraftYM": -5816.817,
+          "spacecraftZM": -1285.353
+        },
+        {
+          "shotTime": "2018-07-01T22:56:03.212648",
+          "rangeM": 19396.2,
+          "topoLongitudeDeg": 339.635,
+          "topoLatitudeDeg": 6.04,
+          "topoHeightM": 486.504,
+          "topoXM": 453.563,
+          "topoYM": -168.362,
+          "topoZM": 51.194,
+          "spacecraftXM": 18829.26,
+          "spacecraftYM": -6231.426,
+          "spacecraftZM": -1285.058
+        },
+        {
+          "shotTime": "2018-07-01T22:56:35.212243",
+          "rangeM": 19396.6,
+          "topoLongitudeDeg": 339.205,
+          "topoLatitudeDeg": 6.104,
+          "topoHeightM": 485.728,
+          "topoXM": 451.513,
+          "topoYM": -171.465,
+          "topoZM": 51.649,
+          "spacecraftXM": 18782.706,
+          "spacecraftYM": -6368.958,
+          "spacecraftZM": -1284.96
+        },
+        {
+          "shotTime": "2018-07-01T22:57:07.211840",
+          "rangeM": 19395.4,
+          "topoLongitudeDeg": 338.798,
+          "topoLatitudeDeg": 5.959,
+          "topoHeightM": 486.26,
+          "topoXM": 450.896,
+          "topoYM": -174.908,
+          "topoZM": 50.485,
+          "spacecraftXM": 18735.148,
+          "spacecraftYM": -6506.142,
+          "spacecraftZM": -1284.862
+        },
+        {
+          "shotTime": "2018-07-01T22:57:39.211437",
+          "rangeM": 19394.8,
+          "topoLongitudeDeg": 338.384,
+          "topoLatitudeDeg": 6.112,
+          "topoHeightM": 486.629,
+          "topoXM": 449.835,
+          "topoYM": -178.246,
+          "topoZM": 51.816,
+          "spacecraftXM": 18686.588,
+          "spacecraftYM": -6642.97,
+          "spacecraftZM": -1284.763
+        },
+        {
+          "shotTime": "2018-07-01T22:58:11.211034",
+          "rangeM": 19395.1,
+          "topoLongitudeDeg": 338.052,
+          "topoLatitudeDeg": 6.07,
+          "topoHeightM": 485.766,
+          "topoXM": 448.034,
+          "topoYM": -180.541,
+          "topoZM": 51.37,
+          "spacecraftXM": 18637.027,
+          "spacecraftYM": -6779.438,
+          "spacecraftZM": -1284.665
+        }
+      ]
+    }
+  ],
+  "modes": [
+    {
+      "id": "solar-flare",
+      "number": 1,
+      "code": "FLARE",
+      "title": "太陽の閃光",
+      "titleEn": "Solar Flare",
+      "accent": "255, 178, 92",
+      "sourceIds": [
+        "nasa-donki-flr"
+      ],
+      "metric": {
+        "label": "収録した観測記録",
+        "value": 40,
+        "unit": "件",
+        "detail": "最大等級 X4.5"
+      },
+      "narrative": "太陽フレアは、太陽の表面付近で起きる爆発的なエネルギー放出です。NASAが2024年5月に記録したフレアを再生し、観測されたX線が強いほど光を大きく開きます。",
+      "interaction": "画面を押すと、次のフレア記録がその場所から開きます。過去の観測を見比べる作品であり、未来の発生予測ではありません。",
+      "records": [
+        {
+          "id": "2024-05-01T05:53:00-FLR-001",
+          "beginTime": "2024-05-01T05:53Z",
+          "peakTime": "2024-05-01T06:57Z",
+          "classType": "C5.3",
+          "sourceLocation": "S15W76",
+          "activeRegion": 13657
+        },
+        {
+          "id": "2024-05-01T14:17:00-FLR-001",
+          "beginTime": "2024-05-01T14:17Z",
+          "peakTime": "2024-05-01T14:32Z",
+          "classType": "M1.8",
+          "sourceLocation": "S07W71",
+          "activeRegion": 13654
+        },
+        {
+          "id": "2024-05-01T14:37:00-FLR-001",
+          "beginTime": "2024-05-01T14:37Z",
+          "peakTime": "2024-05-01T14:44Z",
+          "classType": "M1.9",
+          "sourceLocation": "S04W82",
+          "activeRegion": 13654
+        },
+        {
+          "id": "2024-05-01T22:26:00-FLR-001",
+          "beginTime": "2024-05-01T22:26Z",
+          "peakTime": "2024-05-01T22:31Z",
+          "classType": "M1.8",
+          "sourceLocation": "N25E22",
+          "activeRegion": 13663
+        },
+        {
+          "id": "2024-05-02T02:07:00-FLR-001",
+          "beginTime": "2024-05-02T02:07Z",
+          "peakTime": "2024-05-02T02:17Z",
+          "classType": "M1.0",
+          "sourceLocation": "N25E21",
+          "activeRegion": 13663
+        },
+        {
+          "id": "2024-05-02T20:52:00-FLR-001",
+          "beginTime": "2024-05-02T20:52Z",
+          "peakTime": "2024-05-02T20:57Z",
+          "classType": "M2.7",
+          "sourceLocation": "S21E58",
+          "activeRegion": 13664
+        },
+        {
+          "id": "2024-05-03T00:08:00-FLR-001",
+          "beginTime": "2024-05-03T00:08Z",
+          "peakTime": "2024-05-03T00:15Z",
+          "classType": "M2.7",
+          "sourceLocation": "S21E57",
+          "activeRegion": 13664
+        },
+        {
+          "id": "2024-05-03T02:11:00-FLR-001",
+          "beginTime": "2024-05-03T02:11Z",
+          "peakTime": "2024-05-03T02:22Z",
+          "classType": "X1.6",
+          "sourceLocation": "N26E05",
+          "activeRegion": 13663
+        },
+        {
+          "id": "2024-05-03T08:05:00-FLR-001",
+          "beginTime": "2024-05-03T08:05Z",
+          "peakTime": "2024-05-03T08:11Z",
+          "classType": "M4.4",
+          "sourceLocation": "N26E05",
+          "activeRegion": 13663
+        },
+        {
+          "id": "2024-05-03T22:25:00-FLR-001",
+          "beginTime": "2024-05-03T22:25Z",
+          "peakTime": "2024-05-03T22:47Z",
+          "classType": "M1.2",
+          "sourceLocation": "S08W100",
+          "activeRegion": 13654
+        },
+        {
+          "id": "2024-05-03T23:11:00-FLR-001",
+          "beginTime": "2024-05-03T23:11Z",
+          "peakTime": "2024-05-03T23:16Z",
+          "classType": "M1.0",
+          "sourceLocation": "N25W04",
+          "activeRegion": 13663
+        },
+        {
+          "id": "2024-05-03T23:24:00-FLR-001",
+          "beginTime": "2024-05-03T23:24Z",
+          "peakTime": "2024-05-03T23:30Z",
+          "classType": "M2.4",
+          "sourceLocation": "N26W06",
+          "activeRegion": 13663
+        },
+        {
+          "id": "2024-05-04T00:26:00-FLR-001",
+          "beginTime": "2024-05-04T00:26Z",
+          "peakTime": "2024-05-04T00:36Z",
+          "classType": "M1.6",
+          "sourceLocation": "N26W05",
+          "activeRegion": 13663
+        },
+        {
+          "id": "2024-05-04T06:02:00-FLR-001",
+          "beginTime": "2024-05-04T06:02Z",
+          "peakTime": "2024-05-04T06:19Z",
+          "classType": "M9.1",
+          "sourceLocation": "N26W09",
+          "activeRegion": 13663
+        },
+        {
+          "id": "2024-05-04T07:04:00-FLR-001",
+          "beginTime": "2024-05-04T07:04Z",
+          "peakTime": "2024-05-04T07:07Z",
+          "classType": "M1.5",
+          "sourceLocation": "N27W08",
+          "activeRegion": 13663
+        },
+        {
+          "id": "2024-05-04T18:10:00-FLR-001",
+          "beginTime": "2024-05-04T18:10Z",
+          "peakTime": "2024-05-04T18:20Z",
+          "classType": "M1.3",
+          "sourceLocation": "N26W15",
+          "activeRegion": 13663
+        },
+        {
+          "id": "2024-05-04T22:23:00-FLR-001",
+          "beginTime": "2024-05-04T22:23Z",
+          "peakTime": "2024-05-04T22:37Z",
+          "classType": "M3.2",
+          "sourceLocation": "N26W15",
+          "activeRegion": 13663
+        },
+        {
+          "id": "2024-05-04T23:28:00-FLR-001",
+          "beginTime": "2024-05-04T23:28Z",
+          "peakTime": "2024-05-04T23:48Z",
+          "classType": "M9.0",
+          "sourceLocation": "N26W17",
+          "activeRegion": 13663
+        },
+        {
+          "id": "2024-05-05T01:15:00-FLR-001",
+          "beginTime": "2024-05-05T01:15Z",
+          "peakTime": "2024-05-05T01:27Z",
+          "classType": "M8.4",
+          "sourceLocation": "N26W20",
+          "activeRegion": 13663
+        },
+        {
+          "id": "2024-05-05T03:01:00-FLR-001",
+          "beginTime": "2024-05-05T03:01Z",
+          "peakTime": "2024-05-05T03:17Z",
+          "classType": "C8.8",
+          "sourceLocation": "N24W21",
+          "activeRegion": 13663
+        },
+        {
+          "id": "2024-05-05T05:47:00-FLR-001",
+          "beginTime": "2024-05-05T05:47Z",
+          "peakTime": "2024-05-05T06:01Z",
+          "classType": "X1.3",
+          "sourceLocation": "N26W20",
+          "activeRegion": 13663
+        },
+        {
+          "id": "2024-05-05T08:07:00-FLR-001",
+          "beginTime": "2024-05-05T08:07Z",
+          "peakTime": "2024-05-05T08:19Z",
+          "classType": "M1.3",
+          "sourceLocation": "N26W22",
+          "activeRegion": 13663
+        },
+        {
+          "id": "2024-05-05T09:23:00-FLR-001",
+          "beginTime": "2024-05-05T09:23Z",
+          "peakTime": "2024-05-05T09:38Z",
+          "classType": "M2.3",
+          "sourceLocation": "S21E22",
+          "activeRegion": 13664
+        },
+        {
+          "id": "2024-05-05T09:53:00-FLR-001",
+          "beginTime": "2024-05-05T09:53Z",
+          "peakTime": "2024-05-05T10:00Z",
+          "classType": "M7.4",
+          "sourceLocation": "N26W22",
+          "activeRegion": 13663
+        },
+        {
+          "id": "2024-05-05T11:41:00-FLR-001",
+          "beginTime": "2024-05-05T11:41Z",
+          "peakTime": "2024-05-05T11:54Z",
+          "classType": "X1.2",
+          "sourceLocation": "N26W23",
+          "activeRegion": 13663
+        },
+        {
+          "id": "2024-05-05T14:33:00-FLR-001",
+          "beginTime": "2024-05-05T14:33Z",
+          "peakTime": "2024-05-05T14:47Z",
+          "classType": "M1.3",
+          "sourceLocation": "N26W24",
+          "activeRegion": 13663
+        },
+        {
+          "id": "2024-05-05T15:28:00-FLR-001",
+          "beginTime": "2024-05-05T15:28Z",
+          "peakTime": "2024-05-05T15:38Z",
+          "classType": "M2.2",
+          "sourceLocation": "N26W25",
+          "activeRegion": 13663
+        },
+        {
+          "id": "2024-05-05T16:55:00-FLR-001",
+          "beginTime": "2024-05-05T16:55Z",
+          "peakTime": "2024-05-05T17:01Z",
+          "classType": "M1.3",
+          "sourceLocation": "S18E24",
+          "activeRegion": 13664
+        },
+        {
+          "id": "2024-05-05T18:34:00-FLR-001",
+          "beginTime": "2024-05-05T18:34Z",
+          "peakTime": "2024-05-05T18:40Z",
+          "classType": "M1.0",
+          "sourceLocation": "S19E18",
+          "activeRegion": 13664
+        },
+        {
+          "id": "2024-05-05T19:44:00-FLR-001",
+          "beginTime": "2024-05-05T19:44Z",
+          "peakTime": "2024-05-05T19:52Z",
+          "classType": "M1.3",
+          "sourceLocation": "N26W28",
+          "activeRegion": 13663
+        },
+        {
+          "id": "2024-05-06T00:47:00-FLR-001",
+          "beginTime": "2024-05-06T00:47Z",
+          "peakTime": "2024-05-06T01:06Z",
+          "classType": "M1.6",
+          "sourceLocation": "N26W30",
+          "activeRegion": 13663
+        },
+        {
+          "id": "2024-05-06T05:09:00-FLR-001",
+          "beginTime": "2024-05-06T05:09Z",
+          "peakTime": "2024-05-06T05:28Z",
+          "classType": "M1.3",
+          "sourceLocation": "N26W37",
+          "activeRegion": 13663
+        },
+        {
+          "id": "2024-05-06T05:38:00-FLR-001",
+          "beginTime": "2024-05-06T05:38Z",
+          "peakTime": "2024-05-06T06:35Z",
+          "classType": "X4.5",
+          "sourceLocation": "N26W35",
+          "activeRegion": 13663
+        },
+        {
+          "id": "2024-05-06T09:49:00-FLR-001",
+          "beginTime": "2024-05-06T09:49Z",
+          "peakTime": "2024-05-06T09:59Z",
+          "classType": "M1.5",
+          "sourceLocation": "N26W38",
+          "activeRegion": 13663
+        },
+        {
+          "id": "2024-05-06T21:37:00-FLR-001",
+          "beginTime": "2024-05-06T21:37Z",
+          "peakTime": "2024-05-06T21:48Z",
+          "classType": "M1.2",
+          "sourceLocation": "N27W41",
+          "activeRegion": 13663
+        },
+        {
+          "id": "2024-05-06T21:58:00-FLR-001",
+          "beginTime": "2024-05-06T21:58Z",
+          "peakTime": "2024-05-06T22:27Z",
+          "classType": "M4.3",
+          "sourceLocation": "N27W42",
+          "activeRegion": 13663
+        },
+        {
+          "id": "2024-05-07T00:41:00-FLR-001",
+          "beginTime": "2024-05-07T00:41Z",
+          "peakTime": "2024-05-07T00:58Z",
+          "classType": "M2.6",
+          "sourceLocation": "N25W45",
+          "activeRegion": 13663
+        },
+        {
+          "id": "2024-05-07T05:58:00-FLR-001",
+          "beginTime": "2024-05-07T05:58Z",
+          "peakTime": "2024-05-07T06:16Z",
+          "classType": "M5.1",
+          "sourceLocation": "N27W47",
+          "activeRegion": 13663
+        },
+        {
+          "id": "2024-05-07T08:18:00-FLR-001",
+          "beginTime": "2024-05-07T08:18Z",
+          "peakTime": "2024-05-07T08:23Z",
+          "classType": "M1.3",
+          "sourceLocation": "N25W52",
+          "activeRegion": 13663
+        },
+        {
+          "id": "2024-05-07T08:28:00-FLR-001",
+          "beginTime": "2024-05-07T08:28Z",
+          "peakTime": "2024-05-07T08:31Z",
+          "classType": "M1.4",
+          "sourceLocation": "S18E05",
+          "activeRegion": 13668
+        }
+      ]
+    },
+    {
+      "id": "coronal-mass-ejection",
+      "number": 2,
+      "code": "CME",
+      "title": "太陽風の波",
+      "titleEn": "Coronal Mass Ejection",
+      "accent": "255, 118, 94",
+      "sourceIds": [
+        "nasa-donki-cme"
+      ],
+      "metric": {
+        "label": "記録中の最高速度",
+        "value": 1330,
+        "unit": "km/s",
+        "detail": "40件 / 円錐モデル"
+      },
+      "narrative": "太陽では、ときどき電気を帯びたガスの巨大な塊が宇宙へ噴き出します。この画面ではNASAの解析速度を波の速さへ、噴き出す範囲を扇形の広がりへ変えています。",
+      "interaction": "画面をドラッグすると、波を見る方向を変えられます。宇宙空間を実寸で再現したものではなく、記録同士を見比べるために距離と時間を縮めています。",
+      "records": [
+        {
+          "id": "2024-05-01T00:48:00-CME-001",
+          "startTime": "2024-05-01T00:48Z",
+          "sourceLocation": "",
+          "speedKmS": 643,
+          "halfAngleDeg": 21,
+          "latitudeDeg": -53,
+          "longitudeDeg": 0
+        },
+        {
+          "id": "2024-05-01T06:36:00-CME-001",
+          "startTime": "2024-05-01T06:36Z",
+          "sourceLocation": "S20W65",
+          "speedKmS": 794,
+          "halfAngleDeg": 42,
+          "latitudeDeg": -22,
+          "longitudeDeg": 65
+        },
+        {
+          "id": "2024-05-01T11:36:00-CME-001",
+          "startTime": "2024-05-01T11:36Z",
+          "sourceLocation": "N25E28",
+          "speedKmS": 569,
+          "halfAngleDeg": 20,
+          "latitudeDeg": 59,
+          "longitudeDeg": -25
+        },
+        {
+          "id": "2024-05-01T12:36:00-CME-001",
+          "startTime": "2024-05-01T12:36Z",
+          "sourceLocation": "",
+          "speedKmS": 524,
+          "halfAngleDeg": 28,
+          "latitudeDeg": -19,
+          "longitudeDeg": 0
+        },
+        {
+          "id": "2024-05-01T17:36:00-CME-001",
+          "startTime": "2024-05-01T17:36Z",
+          "sourceLocation": "N25E25",
+          "speedKmS": 464,
+          "halfAngleDeg": 21,
+          "latitudeDeg": 66,
+          "longitudeDeg": -25
+        },
+        {
+          "id": "2024-05-01T23:16:00-CME-001",
+          "startTime": "2024-05-01T23:16Z",
+          "sourceLocation": "N25E22",
+          "speedKmS": 353,
+          "halfAngleDeg": 16,
+          "latitudeDeg": 58,
+          "longitudeDeg": -22
+        },
+        {
+          "id": "2024-05-02T03:12:00-CME-001",
+          "startTime": "2024-05-02T03:12Z",
+          "sourceLocation": "N25E21",
+          "speedKmS": 716,
+          "halfAngleDeg": 14,
+          "latitudeDeg": 52,
+          "longitudeDeg": -21
+        },
+        {
+          "id": "2024-05-02T05:12:00-CME-001",
+          "startTime": "2024-05-02T05:12Z",
+          "sourceLocation": "",
+          "speedKmS": 325,
+          "halfAngleDeg": 17,
+          "latitudeDeg": -2,
+          "longitudeDeg": 0
+        },
+        {
+          "id": "2024-05-02T10:36:00-CME-001",
+          "startTime": "2024-05-02T10:36Z",
+          "sourceLocation": "",
+          "speedKmS": 474,
+          "halfAngleDeg": 33,
+          "latitudeDeg": 5,
+          "longitudeDeg": 90
+        },
+        {
+          "id": "2024-05-03T02:48:00-CME-001",
+          "startTime": "2024-05-03T02:48Z",
+          "sourceLocation": "N26E05",
+          "speedKmS": 841,
+          "halfAngleDeg": 43,
+          "latitudeDeg": 29,
+          "longitudeDeg": -14
+        },
+        {
+          "id": "2024-05-03T09:24:00-CME-001",
+          "startTime": "2024-05-03T09:24Z",
+          "sourceLocation": "N26E05",
+          "speedKmS": 652,
+          "halfAngleDeg": 21,
+          "latitudeDeg": 31,
+          "longitudeDeg": -15
+        },
+        {
+          "id": "2024-05-03T21:17:00-CME-001",
+          "startTime": "2024-05-03T21:17Z",
+          "sourceLocation": "N09E33",
+          "speedKmS": 548,
+          "halfAngleDeg": 26,
+          "latitudeDeg": 14,
+          "longitudeDeg": -32
+        },
+        {
+          "id": "2024-05-03T21:28:00-CME-001",
+          "startTime": "2024-05-03T21:28Z",
+          "sourceLocation": "N09E33",
+          "speedKmS": 509,
+          "halfAngleDeg": 18,
+          "latitudeDeg": -13,
+          "longitudeDeg": -32
+        },
+        {
+          "id": "2024-05-04T01:53:00-CME-001",
+          "startTime": "2024-05-04T01:53Z",
+          "sourceLocation": "N26W03",
+          "speedKmS": 446,
+          "halfAngleDeg": 17,
+          "latitudeDeg": 47,
+          "longitudeDeg": -12
+        },
+        {
+          "id": "2024-05-04T06:53:00-CME-001",
+          "startTime": "2024-05-04T06:53Z",
+          "sourceLocation": "N26W09",
+          "speedKmS": 804,
+          "halfAngleDeg": 23,
+          "latitudeDeg": 29,
+          "longitudeDeg": -2
+        },
+        {
+          "id": "2024-05-04T13:12:00-CME-001",
+          "startTime": "2024-05-04T13:12Z",
+          "sourceLocation": "",
+          "speedKmS": 545,
+          "halfAngleDeg": 25,
+          "latitudeDeg": 52,
+          "longitudeDeg": 0
+        },
+        {
+          "id": "2024-05-04T16:36:00-CME-001",
+          "startTime": "2024-05-04T16:36Z",
+          "sourceLocation": "",
+          "speedKmS": 428,
+          "halfAngleDeg": 13,
+          "latitudeDeg": 81,
+          "longitudeDeg": 0
+        },
+        {
+          "id": "2024-05-05T02:09:00-CME-001",
+          "startTime": "2024-05-05T02:09Z",
+          "sourceLocation": "N26W17",
+          "speedKmS": 516,
+          "halfAngleDeg": 19,
+          "latitudeDeg": 56,
+          "longitudeDeg": -9
+        },
+        {
+          "id": "2024-05-05T03:38:00-CME-001",
+          "startTime": "2024-05-05T03:38Z",
+          "sourceLocation": "N24W21",
+          "speedKmS": 443,
+          "halfAngleDeg": 17,
+          "latitudeDeg": 34,
+          "longitudeDeg": -14
+        },
+        {
+          "id": "2024-05-05T06:38:00-CME-001",
+          "startTime": "2024-05-05T06:38Z",
+          "sourceLocation": "N26W20",
+          "speedKmS": 283,
+          "halfAngleDeg": 16,
+          "latitudeDeg": 63,
+          "longitudeDeg": -16
+        },
+        {
+          "id": "2024-05-05T08:09:00-CME-001",
+          "startTime": "2024-05-05T08:09Z",
+          "sourceLocation": "",
+          "speedKmS": 455,
+          "halfAngleDeg": 18,
+          "latitudeDeg": 36,
+          "longitudeDeg": -11
+        },
+        {
+          "id": "2024-05-05T13:24:00-CME-001",
+          "startTime": "2024-05-05T13:24Z",
+          "sourceLocation": "N26W23",
+          "speedKmS": 533,
+          "halfAngleDeg": 10,
+          "latitudeDeg": 26,
+          "longitudeDeg": -4
+        },
+        {
+          "id": "2024-05-05T15:48:00-CME-001",
+          "startTime": "2024-05-05T15:48Z",
+          "sourceLocation": "S19E20",
+          "speedKmS": 642,
+          "halfAngleDeg": 32,
+          "latitudeDeg": -20,
+          "longitudeDeg": -32
+        },
+        {
+          "id": "2024-05-05T17:00:00-CME-001",
+          "startTime": "2024-05-05T17:00Z",
+          "sourceLocation": "",
+          "speedKmS": 756,
+          "halfAngleDeg": 35,
+          "latitudeDeg": 24,
+          "longitudeDeg": 0
+        },
+        {
+          "id": "2024-05-05T23:27:00-CME-001",
+          "startTime": "2024-05-05T23:27Z",
+          "sourceLocation": "S45W15",
+          "speedKmS": 344,
+          "halfAngleDeg": 29,
+          "latitudeDeg": -40,
+          "longitudeDeg": 16
+        },
+        {
+          "id": "2024-05-06T07:38:00-CME-001",
+          "startTime": "2024-05-06T07:38Z",
+          "sourceLocation": "N26W35",
+          "speedKmS": 510,
+          "halfAngleDeg": 17,
+          "latitudeDeg": 40,
+          "longitudeDeg": 10
+        },
+        {
+          "id": "2024-05-07T02:12:00-CME-001",
+          "startTime": "2024-05-07T02:12Z",
+          "sourceLocation": "S12E75",
+          "speedKmS": 628,
+          "halfAngleDeg": 10,
+          "latitudeDeg": -31,
+          "longitudeDeg": -75
+        },
+        {
+          "id": "2024-05-07T03:12:00-CME-001",
+          "startTime": "2024-05-07T03:12Z",
+          "sourceLocation": "S23E15",
+          "speedKmS": 381,
+          "halfAngleDeg": 35,
+          "latitudeDeg": -24,
+          "longitudeDeg": -24
+        },
+        {
+          "id": "2024-05-07T05:24:00-CME-001",
+          "startTime": "2024-05-07T05:24Z",
+          "sourceLocation": "S25E05",
+          "speedKmS": 430,
+          "halfAngleDeg": 21,
+          "latitudeDeg": -32,
+          "longitudeDeg": -2
+        },
+        {
+          "id": "2024-05-07T07:48:00-CME-001",
+          "startTime": "2024-05-07T07:48Z",
+          "sourceLocation": "",
+          "speedKmS": 423,
+          "halfAngleDeg": 34,
+          "latitudeDeg": 33,
+          "longitudeDeg": -95
+        },
+        {
+          "id": "2024-05-07T16:12:00-CME-001",
+          "startTime": "2024-05-07T16:12Z",
+          "sourceLocation": "S19W06",
+          "speedKmS": 306,
+          "halfAngleDeg": 20,
+          "latitudeDeg": -30,
+          "longitudeDeg": 8
+        },
+        {
+          "id": "2024-05-07T19:48:00-CME-001",
+          "startTime": "2024-05-07T19:48Z",
+          "sourceLocation": "S19W08",
+          "speedKmS": 282,
+          "halfAngleDeg": 19,
+          "latitudeDeg": -29,
+          "longitudeDeg": 9
+        },
+        {
+          "id": "2024-05-08T05:36:00-CME-001",
+          "startTime": "2024-05-08T05:36Z",
+          "sourceLocation": "S22W10",
+          "speedKmS": 870,
+          "halfAngleDeg": 43,
+          "latitudeDeg": -7,
+          "longitudeDeg": 9
+        },
+        {
+          "id": "2024-05-08T12:24:00-CME-001",
+          "startTime": "2024-05-08T12:24Z",
+          "sourceLocation": "S20W11",
+          "speedKmS": 776,
+          "halfAngleDeg": 45,
+          "latitudeDeg": -5,
+          "longitudeDeg": 3
+        },
+        {
+          "id": "2024-05-08T19:12:00-CME-001",
+          "startTime": "2024-05-08T19:12Z",
+          "sourceLocation": "N10E20",
+          "speedKmS": 828,
+          "halfAngleDeg": 38,
+          "latitudeDeg": 3,
+          "longitudeDeg": -23
+        },
+        {
+          "id": "2024-05-08T22:24:00-CME-001",
+          "startTime": "2024-05-08T22:24Z",
+          "sourceLocation": "S20W17",
+          "speedKmS": 1257,
+          "halfAngleDeg": 45,
+          "latitudeDeg": -6,
+          "longitudeDeg": 5
+        },
+        {
+          "id": "2024-05-09T09:24:00-CME-001",
+          "startTime": "2024-05-09T09:24Z",
+          "sourceLocation": "S20W25",
+          "speedKmS": 1330,
+          "halfAngleDeg": 45,
+          "latitudeDeg": -6,
+          "longitudeDeg": 19
+        },
+        {
+          "id": "2024-05-09T18:23:00-CME-001",
+          "startTime": "2024-05-09T18:23Z",
+          "sourceLocation": "S18W29",
+          "speedKmS": 895,
+          "halfAngleDeg": 44,
+          "latitudeDeg": -6,
+          "longitudeDeg": 30
+        },
+        {
+          "id": "2024-05-10T02:12:00-CME-001",
+          "startTime": "2024-05-10T02:12Z",
+          "sourceLocation": "N30E90",
+          "speedKmS": 232,
+          "halfAngleDeg": 41,
+          "latitudeDeg": 44,
+          "longitudeDeg": -90
+        },
+        {
+          "id": "2024-05-10T07:12:00-CME-001",
+          "startTime": "2024-05-10T07:12Z",
+          "sourceLocation": "S18W37",
+          "speedKmS": 1018,
+          "halfAngleDeg": 41,
+          "latitudeDeg": -2,
+          "longitudeDeg": 31
+        }
+      ]
+    },
+    {
+      "id": "geomagnetic-storm",
+      "number": 3,
+      "code": "Kp",
+      "title": "磁気圏の嵐",
+      "titleEn": "Geomagnetic Storm",
+      "accent": "118, 255, 204",
+      "sourceIds": [
+        "nasa-donki-gst"
+      ],
+      "metric": {
+        "label": "記録中の最大Kp指数",
+        "value": 9,
+        "unit": "Kp",
+        "detail": "5件の磁気嵐通知"
+      },
+      "narrative": "太陽から届く粒子や磁場は、地球を守る磁気圏を揺らすことがあります。その強さの目安であるKp指数を使い、数字が大きい記録ほど磁力線を激しく震わせます。",
+      "interaction": "地球の周囲を押すと、磁力線が一時的にたわみます。Kpは地球全体の磁気活動の目安で、特定の場所にオーロラが出る予報ではありません。",
+      "records": [
+        {
+          "id": "2024-05-02T15:00:00-GST-001",
+          "startTime": "2024-05-02T15:00Z",
+          "kp": 6.67,
+          "observations": [
+            {
+              "time": "2024-05-02T18:00Z",
+              "kp": 6.67,
+              "source": "NOAA"
+            },
+            {
+              "time": "2024-05-02T21:00Z",
+              "kp": 6.67,
+              "source": "NOAA"
+            }
+          ]
+        },
+        {
+          "id": "2024-05-10T15:00:00-GST-001",
+          "startTime": "2024-05-10T15:00Z",
+          "kp": 9,
+          "observations": [
+            {
+              "time": "2024-05-10T18:00Z",
+              "kp": 7.67,
+              "source": "NOAA"
+            },
+            {
+              "time": "2024-05-10T21:00Z",
+              "kp": 8.67,
+              "source": "NOAA"
+            },
+            {
+              "time": "2024-05-11T00:00Z",
+              "kp": 9,
+              "source": "NOAA"
+            },
+            {
+              "time": "2024-05-11T03:00Z",
+              "kp": 9,
+              "source": "NOAA"
+            },
+            {
+              "time": "2024-05-11T06:00Z",
+              "kp": 8.33,
+              "source": "NOAA"
+            },
+            {
+              "time": "2024-05-11T09:00Z",
+              "kp": 8.67,
+              "source": "NOAA"
+            },
+            {
+              "time": "2024-05-11T12:00Z",
+              "kp": 9,
+              "source": "NOAA"
+            },
+            {
+              "time": "2024-05-11T15:00Z",
+              "kp": 8.67,
+              "source": "NOAA"
+            }
+          ]
+        },
+        {
+          "id": "2024-05-12T21:00:00-GST-001",
+          "startTime": "2024-05-12T21:00Z",
+          "kp": 6.33,
+          "observations": [
+            {
+              "time": "2024-05-13T00:00Z",
+              "kp": 6.33,
+              "source": "NOAA"
+            },
+            {
+              "time": "2024-05-13T03:00Z",
+              "kp": 5.67,
+              "source": "NOAA"
+            },
+            {
+              "time": "2024-05-13T06:00Z",
+              "kp": 6,
+              "source": "NOAA"
+            }
+          ]
+        },
+        {
+          "id": "2024-05-16T06:00:00-GST-001",
+          "startTime": "2024-05-16T06:00Z",
+          "kp": 6,
+          "observations": [
+            {
+              "time": "2024-05-16T09:00Z",
+              "kp": 6,
+              "source": "NOAA"
+            }
+          ]
+        },
+        {
+          "id": "2024-05-17T18:00:00-GST-001",
+          "startTime": "2024-05-17T18:00Z",
+          "kp": 6,
+          "observations": [
+            {
+              "time": "2024-05-17T21:00Z",
+              "kp": 6,
+              "source": "NOAA"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "energetic-particles",
+      "number": 4,
+      "code": "SEP",
+      "title": "太陽から届く粒子",
+      "titleEn": "Energetic Particles",
+      "accent": "255, 226, 122",
+      "sourceIds": [
+        "nasa-donki-sep"
+      ],
+      "metric": {
+        "label": "収録した粒子イベント",
+        "value": 14,
+        "unit": "件",
+        "detail": "観測機器と結びついた通知"
+      },
+      "narrative": "太陽の活動で加速された高エネルギー粒子は、宇宙空間を通って地球の近くまで届きます。粒子の増加を捉えた時刻と観測機器を、一列ずつ異なる光の雨へ変えています。",
+      "interaction": "画面へ線を引くと仮想の盾が生まれ、光の粒子がその線を避けます。表示しているのは粒子の連続測定値ではなく、現象が確認されたという通知です。",
+      "records": [
+        {
+          "id": "2024-05-09T13:59:00-SEP-001",
+          "eventTime": "2024-05-09T13:59Z",
+          "instruments": [
+            "MODEL: REleASE:ACE/EPAM 15.8-39.8 MeV"
+          ],
+          "linkedEvents": [
+            "2024-05-09T08:45:00-FLR-001"
+          ]
+        },
+        {
+          "id": "2024-05-09T14:25:00-SEP-001",
+          "eventTime": "2024-05-09T14:25Z",
+          "instruments": [
+            "MODEL: REleASE:SOHO/EPHIN 15.8-39.8 MeV"
+          ],
+          "linkedEvents": [
+            "2024-05-09T08:45:00-FLR-001"
+          ]
+        },
+        {
+          "id": "2024-05-10T12:59:00-SEP-001",
+          "eventTime": "2024-05-10T12:59Z",
+          "instruments": [
+            "SOHO: COSTEP 15.8-39.8 MeV"
+          ],
+          "linkedEvents": [
+            "2024-05-09T08:45:00-FLR-001",
+            "2024-05-09T17:23:00-FLR-001",
+            "2024-05-10T06:27:00-FLR-001"
+          ]
+        },
+        {
+          "id": "2024-05-10T13:02:00-SEP-001",
+          "eventTime": "2024-05-10T13:02Z",
+          "instruments": [
+            "SOHO: COSTEP 28.2-50.1 MeV"
+          ],
+          "linkedEvents": [
+            "2024-05-09T08:45:00-FLR-001",
+            "2024-05-09T17:23:00-FLR-001",
+            "2024-05-10T06:27:00-FLR-001"
+          ]
+        },
+        {
+          "id": "2024-05-10T13:35:00-SEP-001",
+          "eventTime": "2024-05-10T13:35Z",
+          "instruments": [
+            "GOES-P: SEISS >10 MeV"
+          ],
+          "linkedEvents": [
+            "2024-05-08T04:20:00-FLR-001",
+            "2024-05-08T04:37:00-FLR-001",
+            "2024-05-08T05:36:00-CME-001",
+            "2024-05-08T11:26:00-FLR-001",
+            "2024-05-08T12:24:00-CME-001",
+            "2024-05-08T21:08:00-FLR-001",
+            "2024-05-08T22:05:00-FLR-001",
+            "2024-05-08T22:24:00-CME-001",
+            "2024-05-09T08:45:00-FLR-001",
+            "2024-05-09T09:24:00-CME-001",
+            "2024-05-09T17:23:00-FLR-001",
+            "2024-05-09T18:23:00-CME-001",
+            "2024-05-10T06:27:00-FLR-001",
+            "2024-05-10T07:12:00-CME-001"
+          ]
+        },
+        {
+          "id": "2024-05-10T14:50:00-SEP-001",
+          "eventTime": "2024-05-10T14:50Z",
+          "instruments": [
+            "STEREO A: IMPACT 13-100 MeV"
+          ],
+          "linkedEvents": [
+            "2024-05-08T04:20:00-FLR-001",
+            "2024-05-08T04:37:00-FLR-001",
+            "2024-05-08T11:26:00-FLR-001",
+            "2024-05-08T12:24:00-CME-001",
+            "2024-05-08T21:08:00-FLR-001",
+            "2024-05-08T22:05:00-FLR-001",
+            "2024-05-08T22:24:00-CME-001",
+            "2024-05-09T08:45:00-FLR-001",
+            "2024-05-09T09:24:00-CME-001",
+            "2024-05-09T17:23:00-FLR-001",
+            "2024-05-09T18:23:00-CME-001",
+            "2024-05-10T06:27:00-FLR-001",
+            "2024-05-10T07:12:00-CME-001",
+            "2024-05-10T13:58:00-FLR-001",
+            "2024-05-10T14:00:00-IPS-001"
+          ]
+        },
+        {
+          "id": "2024-05-11T02:10:00-SEP-001",
+          "eventTime": "2024-05-11T02:10Z",
+          "instruments": [
+            "GOES-P: SEISS >100 MeV"
+          ],
+          "linkedEvents": [
+            "2024-05-11T01:10:00-FLR-001",
+            "2024-05-11T01:36:00-CME-001"
+          ]
+        },
+        {
+          "id": "2024-05-11T04:07:00-SEP-001",
+          "eventTime": "2024-05-11T04:07Z",
+          "instruments": [
+            "STEREO A: IMPACT 13-100 MeV"
+          ],
+          "linkedEvents": [
+            "2024-05-11T01:10:00-FLR-001",
+            "2024-05-11T01:36:00-CME-001"
+          ]
+        },
+        {
+          "id": "2024-05-13T12:44:00-SEP-001",
+          "eventTime": "2024-05-13T12:44Z",
+          "instruments": [
+            "STEREO A: IMPACT 13-100 MeV"
+          ],
+          "linkedEvents": [
+            "2024-05-13T08:06:00-FLR-001",
+            "2024-05-13T08:23:00-FLR-001",
+            "2024-05-13T08:47:00-FLR-001",
+            "2024-05-13T09:12:00-CME-001",
+            "2024-05-13T09:36:00-FLR-001"
+          ]
+        },
+        {
+          "id": "2024-05-13T13:10:00-SEP-001",
+          "eventTime": "2024-05-13T13:10Z",
+          "instruments": [
+            "MODEL: REleASE:SOHO/EPHIN 15.8-39.8 MeV"
+          ],
+          "linkedEvents": [
+            "2024-05-13T08:06:00-FLR-001",
+            "2024-05-13T08:23:00-FLR-001",
+            "2024-05-13T08:47:00-FLR-001",
+            "2024-05-13T09:12:00-CME-001",
+            "2024-05-13T09:36:00-FLR-001"
+          ]
+        },
+        {
+          "id": "2024-05-13T14:00:00-SEP-001",
+          "eventTime": "2024-05-13T14:00Z",
+          "instruments": [
+            "GOES-P: SEISS >10 MeV"
+          ],
+          "linkedEvents": [
+            "2024-05-13T08:06:00-FLR-001",
+            "2024-05-13T08:23:00-FLR-001",
+            "2024-05-13T08:47:00-FLR-001",
+            "2024-05-13T09:12:00-CME-001",
+            "2024-05-13T09:36:00-FLR-001"
+          ]
+        },
+        {
+          "id": "2024-05-13T16:19:00-SEP-001",
+          "eventTime": "2024-05-13T16:19Z",
+          "instruments": [
+            "MODEL: REleASE:ACE/EPAM 15.8-39.8 MeV"
+          ],
+          "linkedEvents": [
+            "2024-05-13T08:06:00-FLR-001",
+            "2024-05-13T08:23:00-FLR-001",
+            "2024-05-13T08:47:00-FLR-001",
+            "2024-05-13T09:12:00-CME-001",
+            "2024-05-13T09:36:00-FLR-001"
+          ]
+        },
+        {
+          "id": "2024-05-13T18:07:00-SEP-001",
+          "eventTime": "2024-05-13T18:07Z",
+          "instruments": [
+            "SOHO: COSTEP 15.8-39.8 MeV"
+          ],
+          "linkedEvents": [
+            "2024-05-13T08:06:00-FLR-001",
+            "2024-05-13T08:23:00-FLR-001",
+            "2024-05-13T08:47:00-FLR-001",
+            "2024-05-13T09:12:00-CME-001",
+            "2024-05-13T09:36:00-FLR-001"
+          ]
+        },
+        {
+          "id": "2024-05-13T18:07:00-SEP-002",
+          "eventTime": "2024-05-13T18:07Z",
+          "instruments": [
+            "SOHO: COSTEP 28.2-50.1 MeV"
+          ],
+          "linkedEvents": [
+            "2024-05-13T08:06:00-FLR-001",
+            "2024-05-13T08:23:00-FLR-001",
+            "2024-05-13T08:47:00-FLR-001",
+            "2024-05-13T09:12:00-CME-001",
+            "2024-05-13T09:36:00-FLR-001"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "close-approach",
+      "number": 5,
+      "code": "NEO",
+      "title": "地球をかすめる小惑星",
+      "titleEn": "Close Approach",
+      "accent": "145, 207, 255",
+      "sourceIds": [
+        "jpl-cneos-cad"
+      ],
+      "metric": {
+        "label": "最も近かった記録",
+        "value": 0.02009900104252695,
+        "unit": "月距離",
+        "detail": "2024 XA"
+      },
+      "narrative": "2024年に地球の近くを通った小惑星を、地球と月の軌道を基準に並べます。軌道線が地球へ近いほど、NASAが記録した最接近距離も短い天体です。",
+      "interaction": "左右へなぞると時間が進み、別の接近記録を見られます。1月距離は地球から月までの平均距離です。この表示は衝突予報ではありません。",
+      "records": [
+        {
+          "designation": "2024 XA",
+          "date": "2024-Dec-01 09:46",
+          "distanceAu": 0.0000516452821681997,
+          "distanceLunar": 0.02009900104252695,
+          "velocityKmS": 13.5659763677388,
+          "absoluteMagnitude": 31.64
+        },
+        {
+          "designation": "2024 LH1",
+          "date": "2024-Jun-06 14:02",
+          "distanceAu": 0.0000541335085929206,
+          "distanceLunar": 0.02106735407314128,
+          "velocityKmS": 17.4040731251933,
+          "absoluteMagnitude": 30.79
+        },
+        {
+          "designation": "2024 UG9",
+          "date": "2024-Oct-30 12:42",
+          "distanceAu": 0.0000591577148660634,
+          "distanceLunar": 0.02302264452528536,
+          "velocityKmS": 20.3046810076548,
+          "absoluteMagnitude": 32.61
+        },
+        {
+          "designation": "2024 HA",
+          "date": "2024-Apr-16 17:42",
+          "distanceAu": 0.000103979596079937,
+          "distanceLunar": 0.0404661553248134,
+          "velocityKmS": 19.4617853048327,
+          "absoluteMagnitude": 31.77
+        },
+        {
+          "designation": "2024 UZ6",
+          "date": "2024-Oct-27 07:24",
+          "distanceAu": 0.000117148172761056,
+          "distanceLunar": 0.04559102298611121,
+          "velocityKmS": 8.13799991322131,
+          "absoluteMagnitude": 31.16
+        },
+        {
+          "designation": "2024 GJ2",
+          "date": "2024-Apr-11 18:30",
+          "distanceAu": 0.00012482612234936,
+          "distanceLunar": 0.048579081339189825,
+          "velocityKmS": 14.3791945143696,
+          "absoluteMagnitude": 30.37
+        },
+        {
+          "designation": "2024 RC42",
+          "date": "2024-Sep-12 19:32",
+          "distanceAu": 0.000144686935168409,
+          "distanceLunar": 0.056308393307230406,
+          "velocityKmS": 9.586046079277,
+          "absoluteMagnitude": 32.38
+        },
+        {
+          "designation": "2024 JN16",
+          "date": "2024-May-14 09:49",
+          "distanceAu": 0.000166961984280547,
+          "distanceLunar": 0.06497726327039759,
+          "velocityKmS": 9.26326852948483,
+          "absoluteMagnitude": 29.59
+        },
+        {
+          "designation": "2024 JT3",
+          "date": "2024-May-09 09:36",
+          "distanceAu": 0.000172146723681254,
+          "distanceLunar": 0.06699502904192835,
+          "velocityKmS": 10.8776047679118,
+          "absoluteMagnitude": 29.13
+        },
+        {
+          "designation": "2024 EJ4",
+          "date": "2024-Mar-13 17:22",
+          "distanceAu": 0.000175441198325068,
+          "distanceLunar": 0.06827715291696,
+          "velocityKmS": 8.6849356831964,
+          "absoluteMagnitude": 29.38
+        },
+        {
+          "designation": "2024 YW8",
+          "date": "2024-Dec-30 21:26",
+          "distanceAu": 0.0001893249936347,
+          "distanceLunar": 0.07368036507279074,
+          "velocityKmS": 8.83327856505311,
+          "absoluteMagnitude": 32.15
+        },
+        {
+          "designation": "2024 VR4",
+          "date": "2024-Nov-11 08:53",
+          "distanceAu": 0.000195527492274097,
+          "distanceLunar": 0.07609421627827942,
+          "velocityKmS": 5.71276898355273,
+          "absoluteMagnitude": 29.75
+        },
+        {
+          "designation": "2024 XA6",
+          "date": "2024-Dec-06 21:49",
+          "distanceAu": 0.000196096722405629,
+          "distanceLunar": 0.07631574584548827,
+          "velocityKmS": 16.1883829059776,
+          "absoluteMagnitude": 26.49
+        },
+        {
+          "designation": "2024 TH11",
+          "date": "2024-Oct-10 09:16",
+          "distanceAu": 0.0001996747164395,
+          "distanceLunar": 0.07770820809562597,
+          "velocityKmS": 13.6975110840477,
+          "absoluteMagnitude": 27.27
+        },
+        {
+          "designation": "2024 XQ3",
+          "date": "2024-Dec-04 15:35",
+          "distanceAu": 0.000202899656870914,
+          "distanceLunar": 0.07896327106308108,
+          "velocityKmS": 8.58698484390945,
+          "absoluteMagnitude": 32.06
+        },
+        {
+          "designation": "2024 FQ5",
+          "date": "2024-Mar-31 15:32",
+          "distanceAu": 0.000218031885507783,
+          "distanceLunar": 0.08485234101060593,
+          "velocityKmS": 8.58035950176025,
+          "absoluteMagnitude": 30.98
+        },
+        {
+          "designation": "2024 EL3",
+          "date": "2024-Mar-11 10:31",
+          "distanceAu": 0.000241782667127883,
+          "distanceLunar": 0.09409552769682673,
+          "velocityKmS": 13.7108784350412,
+          "absoluteMagnitude": 28.77
+        },
+        {
+          "designation": "2024 HO2",
+          "date": "2024-Apr-29 15:18",
+          "distanceAu": 0.000250060799795385,
+          "distanceLunar": 0.09731716169956915,
+          "velocityKmS": 9.23724330734462,
+          "absoluteMagnitude": 29.47
+        },
+        {
+          "designation": "2024 RL3",
+          "date": "2024-Sep-04 17:15",
+          "distanceAu": 0.000273023346225425,
+          "distanceLunar": 0.10625358774393355,
+          "velocityKmS": 8.08145031630203,
+          "absoluteMagnitude": 29.09
+        },
+        {
+          "designation": "2024 UT",
+          "date": "2024-Oct-23 17:23",
+          "distanceAu": 0.000309929560659589,
+          "distanceLunar": 0.12061652684013488,
+          "velocityKmS": 11.607098967078,
+          "absoluteMagnitude": 30.3
+        },
+        {
+          "designation": "2024 XS16",
+          "date": "2024-Dec-11 22:16",
+          "distanceAu": 0.000322990500408567,
+          "distanceLunar": 0.12569950500600366,
+          "velocityKmS": 18.5976455682976,
+          "absoluteMagnitude": 30.44
+        },
+        {
+          "designation": "2024 SV2",
+          "date": "2024-Sep-28 17:01",
+          "distanceAu": 0.000329294708445186,
+          "distanceLunar": 0.12815293886444679,
+          "velocityKmS": 11.5267118899792,
+          "absoluteMagnitude": 28.69
+        },
+        {
+          "designation": "2024 TM3",
+          "date": "2024-Oct-05 12:18",
+          "distanceAu": 0.000365804018262665,
+          "distanceLunar": 0.14236141300335436,
+          "velocityKmS": 16.7072870346365,
+          "absoluteMagnitude": 31.31
+        },
+        {
+          "designation": "2024 EF",
+          "date": "2024-Mar-04 07:00",
+          "distanceAu": 0.000385083249679448,
+          "distanceLunar": 0.1498643886107495,
+          "velocityKmS": 8.63740936578414,
+          "absoluteMagnitude": 29.15
+        },
+        {
+          "designation": "2024 UB11",
+          "date": "2024-Oct-30 08:29",
+          "distanceAu": 0.000409525351332431,
+          "distanceLunar": 0.1593766190794475,
+          "velocityKmS": 14.8173170410033,
+          "absoluteMagnitude": 29.97
+        },
+        {
+          "designation": "2024 GZ5",
+          "date": "2024-Apr-15 16:47",
+          "distanceAu": 0.000458619133144734,
+          "distanceLunar": 0.1784826425224687,
+          "velocityKmS": 5.03753332558076,
+          "absoluteMagnitude": 30.3
+        },
+        {
+          "designation": "2024 UO4",
+          "date": "2024-Oct-28 07:57",
+          "distanceAu": 0.000459858980208543,
+          "distanceLunar": 0.17896515876367952,
+          "velocityKmS": 8.36488110224885,
+          "absoluteMagnitude": 30.22
+        },
+        {
+          "designation": "2024 GX3",
+          "date": "2024-Apr-10 08:27",
+          "distanceAu": 0.000478308808926095,
+          "distanceLunar": 0.18614535240500407,
+          "velocityKmS": 10.1653433323412,
+          "absoluteMagnitude": 29.71
+        },
+        {
+          "designation": "2024 WO",
+          "date": "2024-Nov-20 17:23",
+          "distanceAu": 0.000485418696868678,
+          "distanceLunar": 0.18891233593517087,
+          "velocityKmS": 13.0711065876416,
+          "absoluteMagnitude": 27.46
+        },
+        {
+          "designation": "2024 WJ",
+          "date": "2024-Nov-19 15:12",
+          "distanceAu": 0.000557315583337822,
+          "distanceLunar": 0.21689273482991353,
+          "velocityKmS": 4.83819741184413,
+          "absoluteMagnitude": 29.75
+        },
+        {
+          "designation": "2024 RX13",
+          "date": "2024-Sep-11 02:38",
+          "distanceAu": 0.000573032658183551,
+          "distanceLunar": 0.22300941171592525,
+          "velocityKmS": 5.59414759727072,
+          "absoluteMagnitude": 31.06
+        },
+        {
+          "designation": "2024 MW",
+          "date": "2024-Jun-28 07:11",
+          "distanceAu": 0.000620165289600081,
+          "distanceLunar": 0.2413522064148219,
+          "velocityKmS": 13.5890168212526,
+          "absoluteMagnitude": 29.25
+        },
+        {
+          "designation": "2024 PY",
+          "date": "2024-Aug-04 21:36",
+          "distanceAu": 0.000630697719743107,
+          "distanceLunar": 0.2454511543833039,
+          "velocityKmS": 8.35159480980271,
+          "absoluteMagnitude": 29.43
+        },
+        {
+          "designation": "2024 TU3",
+          "date": "2024-Oct-03 15:02",
+          "distanceAu": 0.000667777571192234,
+          "distanceLunar": 0.25988166849116645,
+          "velocityKmS": 8.57551607405228,
+          "absoluteMagnitude": 28.13
+        },
+        {
+          "designation": "2024 TX6",
+          "date": "2024-Oct-07 08:17",
+          "distanceAu": 0.000682600258311593,
+          "distanceLunar": 0.2656502729281559,
+          "velocityKmS": 10.964954784577,
+          "absoluteMagnitude": 28.38
+        },
+        {
+          "designation": "2024 TL2",
+          "date": "2024-Oct-06 09:12",
+          "distanceAu": 0.000706358226676001,
+          "distanceLunar": 0.274896256508406,
+          "velocityKmS": 9.12214757974542,
+          "absoluteMagnitude": 30.76
+        },
+        {
+          "designation": "2024 CF7",
+          "date": "2024-Feb-17 05:12",
+          "distanceAu": 0.000707765002134201,
+          "distanceLunar": 0.2754437369405755,
+          "velocityKmS": 10.6144224834428,
+          "absoluteMagnitude": 29.46
+        },
+        {
+          "designation": "2024 GV2",
+          "date": "2024-Apr-09 04:17",
+          "distanceAu": 0.000719037799576872,
+          "distanceLunar": 0.27983081661252956,
+          "velocityKmS": 4.71620417804652,
+          "absoluteMagnitude": 29.18
+        },
+        {
+          "designation": "2024 CH4",
+          "date": "2024-Feb-11 06:10",
+          "distanceAu": 0.000728921643235652,
+          "distanceLunar": 0.2836773515845916,
+          "velocityKmS": 24.009927556808,
+          "absoluteMagnitude": 27.7
+        },
+        {
+          "designation": "2024 ST",
+          "date": "2024-Sep-23 02:25",
+          "distanceAu": 0.000733854594534979,
+          "distanceLunar": 0.2855971279735559,
+          "velocityKmS": 11.6891411390308,
+          "absoluteMagnitude": 29.68
+        },
+        {
+          "designation": "2024 XH1",
+          "date": "2024-Dec-02 23:46",
+          "distanceAu": 0.000739221590865525,
+          "distanceLunar": 0.2876858234034998,
+          "velocityKmS": 13.5812058056461,
+          "absoluteMagnitude": 27.66
+        },
+        {
+          "designation": "2024 TQ9",
+          "date": "2024-Oct-07 04:43",
+          "distanceAu": 0.000745496701820497,
+          "distanceLunar": 0.2901279334342901,
+          "velocityKmS": 7.49814374382386,
+          "absoluteMagnitude": 30.76
+        },
+        {
+          "designation": "2024 TR4",
+          "date": "2024-Oct-07 01:07",
+          "distanceAu": 0.000747256650083642,
+          "distanceLunar": 0.2908128595396513,
+          "velocityKmS": 15.0994699148702,
+          "absoluteMagnitude": 26.88
+        },
+        {
+          "designation": "2024 WP1",
+          "date": "2024-Nov-24 10:02",
+          "distanceAu": 0.000759230358869297,
+          "distanceLunar": 0.29547271568259975,
+          "velocityKmS": 15.9945226957604,
+          "absoluteMagnitude": 27.96
+        },
+        {
+          "designation": "2024 YQ3",
+          "date": "2024-Dec-25 14:37",
+          "distanceAu": 0.000778251057534338,
+          "distanceLunar": 0.30287507706486844,
+          "velocityKmS": 10.5854447652382,
+          "absoluteMagnitude": 30.56
+        },
+        {
+          "designation": "2024 NK3",
+          "date": "2024-Jul-11 06:20",
+          "distanceAu": 0.000793677306742826,
+          "distanceLunar": 0.30887857217433257,
+          "velocityKmS": 10.5847323284726,
+          "absoluteMagnitude": 28.72
+        },
+        {
+          "designation": "2024 AM4",
+          "date": "2024-Jan-11 09:50",
+          "distanceAu": 0.000798649159945809,
+          "distanceLunar": 0.31081348817275023,
+          "velocityKmS": 3.19538855060251,
+          "absoluteMagnitude": 28.71
+        },
+        {
+          "designation": "2024 TM20",
+          "date": "2024-Oct-15 03:42",
+          "distanceAu": 0.000806097595330164,
+          "distanceLunar": 0.31371222556502126,
+          "velocityKmS": 18.1949392374026,
+          "absoluteMagnitude": 27.09
+        },
+        {
+          "designation": "2024 CY1",
+          "date": "2024-Feb-12 07:32",
+          "distanceAu": 0.00081194110449777,
+          "distanceLunar": 0.3159863674018151,
+          "velocityKmS": 14.5258773843296,
+          "absoluteMagnitude": 29.23
+        },
+        {
+          "designation": "2024 GY4",
+          "date": "2024-Apr-09 12:08",
+          "distanceAu": 0.000844007138198947,
+          "distanceLunar": 0.32846563400143697,
+          "velocityKmS": 9.3330036653177,
+          "absoluteMagnitude": 29.55
+        },
+        {
+          "designation": "2024 UW7",
+          "date": "2024-Oct-28 18:43",
+          "distanceAu": 0.000853806027450663,
+          "distanceLunar": 0.3322791069270843,
+          "velocityKmS": 15.7928298539121,
+          "absoluteMagnitude": 30.33
+        },
+        {
+          "designation": "2024 WA",
+          "date": "2024-Nov-14 19:07",
+          "distanceAu": 0.000884401180927798,
+          "distanceLunar": 0.34418594518639484,
+          "velocityKmS": 9.23440746073153,
+          "absoluteMagnitude": 26.85
+        },
+        {
+          "designation": "2024 SD",
+          "date": "2024-Sep-21 10:02",
+          "distanceAu": 0.000886378267683333,
+          "distanceLunar": 0.34495537594739345,
+          "velocityKmS": 13.8844620985215,
+          "absoluteMagnitude": 28.45
+        },
+        {
+          "designation": "2024 FO3",
+          "date": "2024-Mar-26 12:36",
+          "distanceAu": 0.000912772062884218,
+          "distanceLunar": 0.3552271548009026,
+          "velocityKmS": 10.4362850296737,
+          "absoluteMagnitude": 27.77
+        },
+        {
+          "designation": "2024 BA16",
+          "date": "2024-Jan-15 08:11",
+          "distanceAu": 0.000935907057585432,
+          "distanceLunar": 0.3642306932287529,
+          "velocityKmS": 8.94277380227879,
+          "absoluteMagnitude": 28.94
+        },
+        {
+          "designation": "2024 CM5",
+          "date": "2024-Feb-12 15:42",
+          "distanceAu": 0.000937648238366329,
+          "distanceLunar": 0.3649083155179777,
+          "velocityKmS": 10.7641080875112,
+          "absoluteMagnitude": 28.34
+        },
+        {
+          "designation": "2024 TK22",
+          "date": "2024-Oct-15 09:02",
+          "distanceAu": 0.000951457824551063,
+          "distanceLunar": 0.37028264741183536,
+          "velocityKmS": 10.6852470246007,
+          "absoluteMagnitude": 29.95
+        },
+        {
+          "designation": "2024 TT",
+          "date": "2024-Sep-30 15:04",
+          "distanceAu": 0.000968109107191603,
+          "distanceLunar": 0.3767628936821849,
+          "velocityKmS": 7.44838738519374,
+          "absoluteMagnitude": 27.57
+        },
+        {
+          "designation": "2024 VX3",
+          "date": "2024-Nov-13 19:43",
+          "distanceAu": 0.00099112239305609,
+          "distanceLunar": 0.38571906619521074,
+          "velocityKmS": 6.97566447419501,
+          "absoluteMagnitude": 28.26
+        },
+        {
+          "designation": "2024 YN7",
+          "date": "2024-Dec-30 01:53",
+          "distanceAu": 0.0010496745526014,
+          "distanceLunar": 0.4085060443340972,
+          "velocityKmS": 13.3931746760853,
+          "absoluteMagnitude": 28.21
+        }
+      ]
+    },
+    {
+      "id": "fireball",
+      "number": 6,
+      "code": "BOLIDE",
+      "title": "大気に燃える火球",
+      "titleEn": "Atmospheric Fireball",
+      "accent": "255, 105, 68",
+      "sourceIds": [
+        "jpl-cneos-fireball"
+      ],
+      "metric": {
+        "label": "記録中の最大エネルギー",
+        "value": 3.4,
+        "unit": "kt",
+        "detail": "2024-12-20 17:52:01"
+      },
+      "narrative": "小さな天体が大気へ高速で飛び込むと、強く光る火球になることがあります。NASA/JPLの推定エネルギーが大きい記録ほど、流星を明るく、残光を長く描きます。",
+      "interaction": "ドラッグした方向へ火球が流れます。向きだけが観客の操作で、明るさと発光高度は観測記録に基づきます。すべての流星を網羅した統計ではありません。",
+      "records": [
+        {
+          "date": "2026-07-21 01:14:45",
+          "latitude": 9.4,
+          "longitude": -57.4,
+          "altitudeKm": 31.5,
+          "energyTenBillionJ": 3.2,
+          "impactKilotons": 0.11,
+          "velocityKmS": null
+        },
+        {
+          "date": "2026-06-11 02:00:58",
+          "latitude": -18.7,
+          "longitude": 16.1,
+          "altitudeKm": 33,
+          "energyTenBillionJ": 3.2,
+          "impactKilotons": 0.11,
+          "velocityKmS": null
+        },
+        {
+          "date": "2026-05-30 18:06:23",
+          "latitude": 42,
+          "longitude": -70.5,
+          "altitudeKm": 32,
+          "energyTenBillionJ": 42.1,
+          "impactKilotons": 1.1,
+          "velocityKmS": null
+        },
+        {
+          "date": "2026-05-21 02:15:51",
+          "latitude": 46.6,
+          "longitude": 133.1,
+          "altitudeKm": 31.5,
+          "energyTenBillionJ": 3.5,
+          "impactKilotons": 0.12,
+          "velocityKmS": null
+        },
+        {
+          "date": "2026-05-10 16:57:37",
+          "latitude": -45.6,
+          "longitude": -109.8,
+          "altitudeKm": 32.7,
+          "energyTenBillionJ": 6,
+          "impactKilotons": 0.19,
+          "velocityKmS": null
+        },
+        {
+          "date": "2026-05-07 05:52:03",
+          "latitude": 32.5,
+          "longitude": -36.8,
+          "altitudeKm": 36,
+          "energyTenBillionJ": 6.4,
+          "impactKilotons": 0.2,
+          "velocityKmS": null
+        },
+        {
+          "date": "2026-04-29 14:00:39",
+          "latitude": -81,
+          "longitude": 133.9,
+          "altitudeKm": 28.7,
+          "energyTenBillionJ": 4.8,
+          "impactKilotons": 0.16,
+          "velocityKmS": null
+        },
+        {
+          "date": "2026-04-08 01:58:47",
+          "latitude": 13.4,
+          "longitude": -170.2,
+          "altitudeKm": 62,
+          "energyTenBillionJ": 2.9,
+          "impactKilotons": 0.1,
+          "velocityKmS": null
+        },
+        {
+          "date": "2026-04-01 23:59:35",
+          "latitude": 57.9,
+          "longitude": -158.6,
+          "altitudeKm": 37,
+          "energyTenBillionJ": 2.2,
+          "impactKilotons": 0.079,
+          "velocityKmS": null
+        },
+        {
+          "date": "2026-04-01 02:13:14",
+          "latitude": -41.9,
+          "longitude": -54.7,
+          "altitudeKm": 90.5,
+          "energyTenBillionJ": 2.4,
+          "impactKilotons": 0.086,
+          "velocityKmS": null
+        },
+        {
+          "date": "2026-03-23 19:23:43",
+          "latitude": 54.6,
+          "longitude": -144.1,
+          "altitudeKm": 35,
+          "energyTenBillionJ": 5.1,
+          "impactKilotons": 0.17,
+          "velocityKmS": null
+        },
+        {
+          "date": "2026-03-20 10:45:59",
+          "latitude": -52.9,
+          "longitude": -143.7,
+          "altitudeKm": 27,
+          "energyTenBillionJ": 2.8,
+          "impactKilotons": 0.098,
+          "velocityKmS": null
+        },
+        {
+          "date": "2026-03-17 12:56:42",
+          "latitude": 41.2,
+          "longitude": -82,
+          "altitudeKm": 45,
+          "energyTenBillionJ": 12.6,
+          "impactKilotons": 0.37,
+          "velocityKmS": null
+        },
+        {
+          "date": "2026-02-10 14:26:26",
+          "latitude": -64,
+          "longitude": -14,
+          "altitudeKm": 44,
+          "energyTenBillionJ": 2.1,
+          "impactKilotons": 0.076,
+          "velocityKmS": null
+        },
+        {
+          "date": "2026-01-31 18:07:14",
+          "latitude": 4.1,
+          "longitude": -173.4,
+          "altitudeKm": 32,
+          "energyTenBillionJ": 5.8,
+          "impactKilotons": 0.19,
+          "velocityKmS": null
+        },
+        {
+          "date": "2026-01-30 10:25:37",
+          "latitude": -45,
+          "longitude": 174.5,
+          "altitudeKm": 89,
+          "energyTenBillionJ": 3.4,
+          "impactKilotons": 0.12,
+          "velocityKmS": null
+        },
+        {
+          "date": "2025-12-16 20:58:12",
+          "latitude": -24.1,
+          "longitude": -92.4,
+          "altitudeKm": 25,
+          "energyTenBillionJ": 9.6,
+          "impactKilotons": 0.29,
+          "velocityKmS": null
+        },
+        {
+          "date": "2025-11-15 00:48:43",
+          "latitude": -62.2,
+          "longitude": -94.7,
+          "altitudeKm": 30,
+          "energyTenBillionJ": 10.5,
+          "impactKilotons": 0.32,
+          "velocityKmS": null
+        },
+        {
+          "date": "2025-11-11 17:39:51",
+          "latitude": 27.3,
+          "longitude": -79.8,
+          "altitudeKm": 42,
+          "energyTenBillionJ": 9.3,
+          "impactKilotons": 0.28,
+          "velocityKmS": null
+        },
+        {
+          "date": "2025-10-20 13:31:27",
+          "latitude": 5.7,
+          "longitude": -135.2,
+          "altitudeKm": 41,
+          "energyTenBillionJ": 2,
+          "impactKilotons": 0.073,
+          "velocityKmS": null
+        },
+        {
+          "date": "2025-09-13 22:24:59",
+          "latitude": -38.1,
+          "longitude": -64.8,
+          "altitudeKm": 25.1,
+          "energyTenBillionJ": 16.7,
+          "impactKilotons": 0.48,
+          "velocityKmS": null
+        },
+        {
+          "date": "2025-09-10 11:00:57",
+          "latitude": -14.8,
+          "longitude": -142.4,
+          "altitudeKm": 37,
+          "energyTenBillionJ": 2.8,
+          "impactKilotons": 0.098,
+          "velocityKmS": null
+        },
+        {
+          "date": "2025-09-09 17:49:10",
+          "latitude": -2.3,
+          "longitude": -39.5,
+          "altitudeKm": 24,
+          "energyTenBillionJ": 15.3,
+          "impactKilotons": 0.44,
+          "velocityKmS": null
+        },
+        {
+          "date": "2025-09-08 10:09:15",
+          "latitude": 26.4,
+          "longitude": 42.2,
+          "altitudeKm": 28.4,
+          "energyTenBillionJ": 3.6,
+          "impactKilotons": 0.12,
+          "velocityKmS": null
+        },
+        {
+          "date": "2025-08-19 14:08:48",
+          "latitude": 30.9,
+          "longitude": 131.8,
+          "altitudeKm": 27.5,
+          "energyTenBillionJ": 65.8,
+          "impactKilotons": 1.6,
+          "velocityKmS": null
+        },
+        {
+          "date": "2025-08-12 04:09:48",
+          "latitude": -58.5,
+          "longitude": -22.3,
+          "altitudeKm": 60,
+          "energyTenBillionJ": 4.4,
+          "impactKilotons": 0.15,
+          "velocityKmS": null
+        },
+        {
+          "date": "2025-07-11 01:48:33",
+          "latitude": -6.6,
+          "longitude": -167.5,
+          "altitudeKm": 28,
+          "energyTenBillionJ": 3.2,
+          "impactKilotons": 0.11,
+          "velocityKmS": null
+        },
+        {
+          "date": "2025-06-26 16:24:57",
+          "latitude": 33.4,
+          "longitude": -84.1,
+          "altitudeKm": 32.6,
+          "energyTenBillionJ": 17,
+          "impactKilotons": 0.48,
+          "velocityKmS": null
+        },
+        {
+          "date": "2025-06-26 00:37:20",
+          "latitude": 12.1,
+          "longitude": -103.6,
+          "altitudeKm": 30,
+          "energyTenBillionJ": 13.2,
+          "impactKilotons": 0.39,
+          "velocityKmS": null
+        },
+        {
+          "date": "2025-06-22 14:37:02",
+          "latitude": -18.8,
+          "longitude": 175.7,
+          "altitudeKm": 57,
+          "energyTenBillionJ": 3.7,
+          "impactKilotons": 0.13,
+          "velocityKmS": null
+        },
+        {
+          "date": "2025-06-21 20:55:14",
+          "latitude": -61.3,
+          "longitude": 157.9,
+          "altitudeKm": 56.3,
+          "energyTenBillionJ": 3,
+          "impactKilotons": 0.1,
+          "velocityKmS": null
+        },
+        {
+          "date": "2025-05-31 23:06:33",
+          "latitude": 21.1,
+          "longitude": -98.8,
+          "altitudeKm": 47.3,
+          "energyTenBillionJ": 38.6,
+          "impactKilotons": 1,
+          "velocityKmS": null
+        },
+        {
+          "date": "2025-04-28 15:01:15",
+          "latitude": -45.1,
+          "longitude": 67.3,
+          "altitudeKm": 31.4,
+          "energyTenBillionJ": 3.4,
+          "impactKilotons": 0.12,
+          "velocityKmS": null
+        },
+        {
+          "date": "2025-04-21 09:27:34",
+          "latitude": -29.1,
+          "longitude": 151.6,
+          "altitudeKm": 41,
+          "energyTenBillionJ": 2.3,
+          "impactKilotons": 0.082,
+          "velocityKmS": null
+        },
+        {
+          "date": "2025-04-08 14:16:48",
+          "latitude": -32.2,
+          "longitude": 10.4,
+          "altitudeKm": 44.9,
+          "energyTenBillionJ": 2.1,
+          "impactKilotons": 0.076,
+          "velocityKmS": null
+        },
+        {
+          "date": "2025-03-29 08:12:43",
+          "latitude": -49.3,
+          "longitude": 14.3,
+          "altitudeKm": 21.6,
+          "energyTenBillionJ": 5.9,
+          "impactKilotons": 0.19,
+          "velocityKmS": null
+        },
+        {
+          "date": "2025-03-27 16:05:23",
+          "latitude": 14.3,
+          "longitude": -111.5,
+          "altitudeKm": 38.1,
+          "energyTenBillionJ": 104.5,
+          "impactKilotons": 2.4,
+          "velocityKmS": null
+        },
+        {
+          "date": "2025-03-24 05:51:43",
+          "latitude": -70.4,
+          "longitude": 114.2,
+          "altitudeKm": 21.5,
+          "energyTenBillionJ": 4.9,
+          "impactKilotons": 0.16,
+          "velocityKmS": null
+        },
+        {
+          "date": "2025-03-21 05:06:26",
+          "latitude": -22.8,
+          "longitude": 123.5,
+          "altitudeKm": 54.2,
+          "energyTenBillionJ": 3.9,
+          "impactKilotons": 0.13,
+          "velocityKmS": null
+        },
+        {
+          "date": "2025-03-18 17:48:32",
+          "latitude": -1.5,
+          "longitude": -30.4,
+          "altitudeKm": 27,
+          "energyTenBillionJ": 11,
+          "impactKilotons": 0.33,
+          "velocityKmS": null
+        },
+        {
+          "date": "2025-03-13 09:46:51",
+          "latitude": -7.1,
+          "longitude": 75.9,
+          "altitudeKm": 38,
+          "energyTenBillionJ": 75,
+          "impactKilotons": 1.8,
+          "velocityKmS": null
+        },
+        {
+          "date": "2025-02-22 10:26:08",
+          "latitude": 28.1,
+          "longitude": 120,
+          "altitudeKm": 46.7,
+          "energyTenBillionJ": 5.5,
+          "impactKilotons": 0.18,
+          "velocityKmS": null
+        },
+        {
+          "date": "2025-02-22 00:16:50",
+          "latitude": -6.9,
+          "longitude": 12.1,
+          "altitudeKm": 35,
+          "energyTenBillionJ": 3.5,
+          "impactKilotons": 0.12,
+          "velocityKmS": null
+        },
+        {
+          "date": "2025-02-12 04:33:39",
+          "latitude": 73.4,
+          "longitude": 49.3,
+          "altitudeKm": 42,
+          "energyTenBillionJ": 4,
+          "impactKilotons": 0.13,
+          "velocityKmS": null
+        },
+        {
+          "date": "2025-02-07 17:25:57",
+          "latitude": 14.4,
+          "longitude": -58,
+          "altitudeKm": 50.8,
+          "energyTenBillionJ": 2.4,
+          "impactKilotons": 0.086,
+          "velocityKmS": null
+        },
+        {
+          "date": "2025-02-06 17:52:54",
+          "latitude": -1.7,
+          "longitude": 130,
+          "altitudeKm": 36.2,
+          "energyTenBillionJ": 2,
+          "impactKilotons": 0.073,
+          "velocityKmS": null
+        },
+        {
+          "date": "2025-02-02 16:30:50",
+          "latitude": -17.7,
+          "longitude": 24.3,
+          "altitudeKm": 40,
+          "energyTenBillionJ": 4,
+          "impactKilotons": 0.13,
+          "velocityKmS": null
+        },
+        {
+          "date": "2025-01-11 14:46:00",
+          "latitude": -1.2,
+          "longitude": 55.3,
+          "altitudeKm": 61,
+          "energyTenBillionJ": 2.9,
+          "impactKilotons": 0.1,
+          "velocityKmS": null
+        },
+        {
+          "date": "2025-01-10 21:11:07",
+          "latitude": 47.2,
+          "longitude": 106.3,
+          "altitudeKm": 34.6,
+          "energyTenBillionJ": 2.7,
+          "impactKilotons": 0.095,
+          "velocityKmS": null
+        },
+        {
+          "date": "2024-12-28 04:45:12",
+          "latitude": 57.7,
+          "longitude": -168.1,
+          "altitudeKm": 33.7,
+          "energyTenBillionJ": 3.1,
+          "impactKilotons": 0.11,
+          "velocityKmS": null
+        },
+        {
+          "date": "2024-12-20 17:52:01",
+          "latitude": 14.3,
+          "longitude": -98.1,
+          "altitudeKm": 32.6,
+          "energyTenBillionJ": 154.2,
+          "impactKilotons": 3.4,
+          "velocityKmS": null
+        },
+        {
+          "date": "2024-12-01 08:50:16",
+          "latitude": -42.7,
+          "longitude": -172.4,
+          "altitudeKm": 35.9,
+          "energyTenBillionJ": 13,
+          "impactKilotons": 0.38,
+          "velocityKmS": null
+        },
+        {
+          "date": "2024-11-29 22:18:15",
+          "latitude": -74.6,
+          "longitude": 4.4,
+          "altitudeKm": 68.5,
+          "energyTenBillionJ": 2.7,
+          "impactKilotons": 0.095,
+          "velocityKmS": null
+        },
+        {
+          "date": "2024-11-29 17:57:18",
+          "latitude": -79.4,
+          "longitude": 74.6,
+          "altitudeKm": 62,
+          "energyTenBillionJ": 5.8,
+          "impactKilotons": 0.19,
+          "velocityKmS": null
+        },
+        {
+          "date": "2024-11-10 16:31:52",
+          "latitude": -59.8,
+          "longitude": -73.6,
+          "altitudeKm": 43,
+          "energyTenBillionJ": 5.7,
+          "impactKilotons": 0.18,
+          "velocityKmS": null
+        },
+        {
+          "date": "2024-10-22 10:54:48",
+          "latitude": 30,
+          "longitude": -136,
+          "altitudeKm": 38.2,
+          "energyTenBillionJ": 4.5,
+          "impactKilotons": 0.15,
+          "velocityKmS": null
+        },
+        {
+          "date": "2024-10-05 12:27:48",
+          "latitude": -55.9,
+          "longitude": -102.4,
+          "altitudeKm": 39.5,
+          "energyTenBillionJ": 2.7,
+          "impactKilotons": 0.095,
+          "velocityKmS": null
+        },
+        {
+          "date": "2024-09-28 00:10:19",
+          "latitude": -59.8,
+          "longitude": -51.8,
+          "altitudeKm": 34.2,
+          "energyTenBillionJ": 10.8,
+          "impactKilotons": 0.32,
+          "velocityKmS": null
+        },
+        {
+          "date": "2024-09-23 06:37:47",
+          "latitude": -45.6,
+          "longitude": -31.9,
+          "altitudeKm": 69,
+          "energyTenBillionJ": 5.5,
+          "impactKilotons": 0.18,
+          "velocityKmS": null
+        },
+        {
+          "date": "2024-09-06 12:36:22",
+          "latitude": -12.9,
+          "longitude": 117.7,
+          "altitudeKm": 27,
+          "energyTenBillionJ": 2.1,
+          "impactKilotons": 0.076,
+          "velocityKmS": null
+        }
+      ]
+    },
+    {
+      "id": "nearby-worlds",
+      "number": 7,
+      "code": "EXO NEAR",
+      "title": "近くの惑星系",
+      "titleEn": "Nearby Worlds",
+      "accent": "177, 168, 255",
+      "sourceIds": [
+        "nasa-exoplanet-archive"
+      ],
+      "metric": {
+        "label": "最も近い収録惑星",
+        "value": 1.30119,
+        "unit": "pc",
+        "detail": "Proxima Cen d"
+      },
+      "narrative": "太陽以外の星を回る惑星を、地球からの距離で並べた星図です。中心に近いほど私たちに近い惑星ですが、遠近の差が大きいため距離は対数で縮めています。",
+      "interaction": "星図を動かして惑星を選ぶと、名前・距離・見つけ方が切り替わります。1パーセクは約3.26光年です。円の大きさは惑星の実寸ではありません。",
+      "records": [
+        {
+          "planet": "Proxima Cen d",
+          "star": "Proxima Cen",
+          "discovered": 2025,
+          "method": "Radial Velocity",
+          "orbitalDays": 5.12338,
+          "radiusEarth": 0.692,
+          "massEarth": 0.26,
+          "equilibriumK": 282,
+          "distancePc": 1.30119
+        },
+        {
+          "planet": "Barnard b",
+          "star": "Barnard's star",
+          "discovered": 2024,
+          "method": "Radial Velocity",
+          "orbitalDays": 3.1542,
+          "radiusEarth": 0.72,
+          "massEarth": 0.299,
+          "equilibriumK": 438,
+          "distancePc": 1.82655
+        },
+        {
+          "planet": "Barnard c",
+          "star": "Barnard's star",
+          "discovered": 2025,
+          "method": "Radial Velocity",
+          "orbitalDays": 4.1244,
+          "radiusEarth": 0.743,
+          "massEarth": 0.335,
+          "equilibriumK": 400,
+          "distancePc": 1.82655
+        },
+        {
+          "planet": "GJ 887 b",
+          "star": "GJ 887",
+          "discovered": 2020,
+          "method": "Radial Velocity",
+          "orbitalDays": 9.2619,
+          "radiusEarth": 1.8,
+          "massEarth": 3.9,
+          "equilibriumK": 426,
+          "distancePc": 3.28679
+        },
+        {
+          "planet": "GJ 1061 d",
+          "star": "GJ 1061",
+          "discovered": 2020,
+          "method": "Radial Velocity",
+          "orbitalDays": 13.066,
+          "radiusEarth": 1.16,
+          "massEarth": 1.67,
+          "equilibriumK": 242.03,
+          "distancePc": 3.67278
+        },
+        {
+          "planet": "YZ Cet c",
+          "star": "YZ Cet",
+          "discovered": 2017,
+          "method": "Radial Velocity",
+          "orbitalDays": 3.05989,
+          "radiusEarth": 1.05,
+          "massEarth": 1.14,
+          "equilibriumK": 410.3,
+          "distancePc": 3.71207
+        },
+        {
+          "planet": "GJ 876 e",
+          "star": "GJ 876",
+          "discovered": 2010,
+          "method": "Radial Velocity",
+          "orbitalDays": 124.26,
+          "radiusEarth": 3.92,
+          "massEarth": 14.6,
+          "equilibriumK": 150.46,
+          "distancePc": 4.67517
+        },
+        {
+          "planet": "GJ 1002 b",
+          "star": "GJ 1002",
+          "discovered": 2022,
+          "method": "Radial Velocity",
+          "orbitalDays": 10.3465,
+          "radiusEarth": 1.03,
+          "massEarth": 1.08,
+          "equilibriumK": 230.9,
+          "distancePc": 4.84867
+        },
+        {
+          "planet": "GJ 832 b",
+          "star": "GJ 832",
+          "discovered": 2008,
+          "method": "Radial Velocity",
+          "orbitalDays": 3853,
+          "radiusEarth": 13.8,
+          "massEarth": 314.65012293,
+          "equilibriumK": 57.84,
+          "distancePc": 4.96435
+        },
+        {
+          "planet": "GJ 682 b",
+          "star": "GJ 682",
+          "discovered": 2014,
+          "method": "Radial Velocity",
+          "orbitalDays": 17.478,
+          "radiusEarth": 1.93,
+          "massEarth": 4.4,
+          "equilibriumK": 281.93,
+          "distancePc": 5.00671
+        },
+        {
+          "planet": "GJ 3323 b",
+          "star": "GJ 3323",
+          "discovered": 2017,
+          "method": "Radial Velocity",
+          "orbitalDays": 5.3636,
+          "radiusEarth": 1.23,
+          "massEarth": 2.02,
+          "equilibriumK": 290.06,
+          "distancePc": 5.37484
+        },
+        {
+          "planet": "HD 95735 c",
+          "star": "GJ 411",
+          "discovered": 2021,
+          "method": "Radial Velocity",
+          "orbitalDays": 2946,
+          "radiusEarth": 3.76,
+          "massEarth": 13.6,
+          "equilibriumK": 63.49,
+          "distancePc": 5.675773
+        },
+        {
+          "planet": "GJ 229 A c",
+          "star": "GJ 229",
+          "discovered": 2020,
+          "method": "Radial Velocity",
+          "orbitalDays": 121.93268,
+          "radiusEarth": 2.87,
+          "massEarth": 8.58136699,
+          "equilibriumK": 188.1,
+          "distancePc": 5.75624
+        },
+        {
+          "planet": "GJ 273 b",
+          "star": "GJ 273",
+          "discovered": 2017,
+          "method": "Radial Velocity",
+          "orbitalDays": 18.6498,
+          "radiusEarth": 1.51,
+          "massEarth": 2.89,
+          "equilibriumK": 292.47,
+          "distancePc": 5.921535
+        },
+        {
+          "planet": "GJ 581 c",
+          "star": "GJ 581",
+          "discovered": 2007,
+          "method": "Radial Velocity",
+          "orbitalDays": 12.9211,
+          "radiusEarth": 2.5,
+          "massEarth": 6.81,
+          "equilibriumK": 346.13,
+          "distancePc": 6.2981
+        },
+        {
+          "planet": "GJ 625 b",
+          "star": "GJ 625",
+          "discovered": 2017,
+          "method": "Radial Velocity",
+          "orbitalDays": 14.628,
+          "radiusEarth": 1.49,
+          "massEarth": 2.82,
+          "equilibriumK": 335.59,
+          "distancePc": 6.47249
+        },
+        {
+          "planet": "HD 219134 c",
+          "star": "HD 219134",
+          "discovered": 2015,
+          "method": "Radial Velocity",
+          "orbitalDays": 6.76458,
+          "radiusEarth": 1.511,
+          "massEarth": 4.36,
+          "equilibriumK": 782,
+          "distancePc": 6.53127
+        },
+        {
+          "planet": "GJ 667 C c",
+          "star": "GJ 667 C",
+          "discovered": 2013,
+          "method": "Radial Velocity",
+          "orbitalDays": 28.14,
+          "radiusEarth": 1.77,
+          "massEarth": 3.8,
+          "equilibriumK": 0,
+          "distancePc": 7.24396
+        },
+        {
+          "planet": "61 Vir b",
+          "star": "61 Vir",
+          "discovered": 2009,
+          "method": "Radial Velocity",
+          "orbitalDays": 4.215,
+          "radiusEarth": 2.11,
+          "massEarth": 5.1,
+          "equilibriumK": 1177.85,
+          "distancePc": 8.50332
+        },
+        {
+          "planet": "GJ 849 b",
+          "star": "GJ 849",
+          "discovered": 2006,
+          "method": "Radial Velocity",
+          "orbitalDays": 1925.31,
+          "radiusEarth": 13.9,
+          "massEarth": 283.82076745,
+          "equilibriumK": 73.63,
+          "distancePc": 8.80058
+        },
+        {
+          "planet": "GJ 367 b",
+          "star": "GJ 367",
+          "discovered": 2021,
+          "method": "Transit",
+          "orbitalDays": 0.3219226,
+          "radiusEarth": 0.736,
+          "massEarth": 0.503,
+          "equilibriumK": 1329,
+          "distancePc": 9.41263
+        },
+        {
+          "planet": "GJ 680 b",
+          "star": "GJ 680",
+          "discovered": 2022,
+          "method": "Radial Velocity",
+          "orbitalDays": 17281.66514,
+          "radiusEarth": 12,
+          "massEarth": 7977.4930157,
+          "equilibriumK": 36.57,
+          "distancePc": 9.67315
+        },
+        {
+          "planet": "HD 260655 b",
+          "star": "HD 260655",
+          "discovered": 2022,
+          "method": "Transit",
+          "orbitalDays": 2.76953,
+          "radiusEarth": 1.24,
+          "massEarth": 2.14,
+          "equilibriumK": 709,
+          "distancePc": 10.0055
+        },
+        {
+          "planet": "L 363-38 b",
+          "star": "L 363-38",
+          "discovered": 2023,
+          "method": "Radial Velocity",
+          "orbitalDays": 8.781,
+          "radiusEarth": 2,
+          "massEarth": 4.67,
+          "equilibriumK": 330,
+          "distancePc": 10.2295
+        },
+        {
+          "planet": "L 98-59 b",
+          "star": "L 98-59",
+          "discovered": 2019,
+          "method": "Transit",
+          "orbitalDays": 2.253114,
+          "radiusEarth": 0.837,
+          "massEarth": 0.46,
+          "equilibriumK": 620,
+          "distancePc": 10.6194
+        },
+        {
+          "planet": "G 261-6 b",
+          "star": "G 261-6",
+          "discovered": 2025,
+          "method": "Radial Velocity",
+          "orbitalDays": 5.4536,
+          "radiusEarth": 1.1,
+          "massEarth": 1.37,
+          "equilibriumK": 322.3,
+          "distancePc": 10.6267
+        },
+        {
+          "planet": "GJ 86 b",
+          "star": "GJ 86",
+          "discovered": 1999,
+          "method": "Radial Velocity",
+          "orbitalDays": 15.76491,
+          "radiusEarth": 12.9,
+          "massEarth": 1404.8086,
+          "equilibriumK": 661.12,
+          "distancePc": 10.7836
+        },
+        {
+          "planet": "GJ 1148 b",
+          "star": "GJ 1148",
+          "discovered": 2010,
+          "method": "Radial Velocity",
+          "orbitalDays": 41.38,
+          "radiusEarth": 11.9,
+          "massEarth": 96.7,
+          "equilibriumK": 232.94,
+          "distancePc": 11.0143
+        },
+        {
+          "planet": "HD 3651 b",
+          "star": "HD 3651",
+          "discovered": 2003,
+          "method": "Radial Velocity",
+          "orbitalDays": 62.25,
+          "radiusEarth": 10.1,
+          "massEarth": 72.46524,
+          "equilibriumK": 432.84,
+          "distancePc": 11.1336
+        },
+        {
+          "planet": "Ross 508 b",
+          "star": "Ross 508",
+          "discovered": 2022,
+          "method": "Radial Velocity",
+          "orbitalDays": 10.77,
+          "radiusEarth": 1.83,
+          "massEarth": 4,
+          "equilibriumK": 293.86,
+          "distancePc": 11.2103
+        },
+        {
+          "planet": "GJ 180 d",
+          "star": "GJ 180",
+          "discovered": 2020,
+          "method": "Radial Velocity",
+          "orbitalDays": 106.3,
+          "radiusEarth": 2.66,
+          "massEarth": 7.56,
+          "equilibriumK": 187.94,
+          "distancePc": 11.9407
+        },
+        {
+          "planet": "GJ 806 c",
+          "star": "GJ 806",
+          "discovered": 2023,
+          "method": "Radial Velocity",
+          "orbitalDays": 6.64064,
+          "radiusEarth": 2.28,
+          "massEarth": 5.8,
+          "equilibriumK": 490,
+          "distancePc": 12.0445
+        },
+        {
+          "planet": "TRAPPIST-1 d",
+          "star": "TRAPPIST-1",
+          "discovered": 2016,
+          "method": "Transit",
+          "orbitalDays": 4.049219,
+          "radiusEarth": 0.788,
+          "massEarth": 0.388,
+          "equilibriumK": 286.2,
+          "distancePc": 12.42988881
+        },
+        {
+          "planet": "55 Cnc b",
+          "star": "55 Cnc",
+          "discovered": 1996,
+          "method": "Radial Velocity",
+          "orbitalDays": 14.651552,
+          "radiusEarth": 13.9,
+          "massEarth": 263.9785,
+          "equilibriumK": 700,
+          "distancePc": 12.5855
+        },
+        {
+          "planet": "55 Cnc c",
+          "star": "55 Cnc",
+          "discovered": 2004,
+          "method": "Radial Velocity",
+          "orbitalDays": 44.3936,
+          "radiusEarth": 8.51,
+          "massEarth": 54.4738,
+          "equilibriumK": 499.27,
+          "distancePc": 12.5855
+        },
+        {
+          "planet": "VHS J125601.92-125723.9 b",
+          "star": "VHS J125601.92-125723.9",
+          "discovered": 2015,
+          "method": "Imaging",
+          "orbitalDays": 5800000,
+          "radiusEarth": 13.67495645,
+          "massEarth": 5085.254512,
+          "equilibriumK": 1194,
+          "distancePc": 12.7
+        },
+        {
+          "planet": "HD 101581 c",
+          "star": "HIP 56998",
+          "discovered": 2025,
+          "method": "Transit",
+          "orbitalDays": 6.20401,
+          "radiusEarth": 0.99,
+          "massEarth": 0.937,
+          "equilibriumK": 747,
+          "distancePc": 12.7781
+        },
+        {
+          "planet": "GJ 317 b",
+          "star": "GJ 317",
+          "discovered": 2007,
+          "method": "Radial Velocity",
+          "orbitalDays": 695.69,
+          "radiusEarth": 13.3,
+          "massEarth": 794.5,
+          "equilibriumK": 100.32,
+          "distancePc": 15.1968
+        },
+        {
+          "planet": "TYC 2187-512-1 b",
+          "star": "TYC 2187-512-1",
+          "discovered": 2022,
+          "method": "Radial Velocity",
+          "orbitalDays": 691.9,
+          "radiusEarth": 12.5,
+          "massEarth": 104.88337431,
+          "equilibriumK": 114.69,
+          "distancePc": 15.4744
+        },
+        {
+          "planet": "GJ 3929 b",
+          "star": "GJ 3929",
+          "discovered": 2022,
+          "method": "Transit",
+          "orbitalDays": 2.616235,
+          "radiusEarth": 1.09,
+          "massEarth": 1.75,
+          "equilibriumK": 568,
+          "distancePc": 15.8095
+        },
+        {
+          "planet": "HD 190360 d",
+          "star": "HD 190360",
+          "discovered": 2026,
+          "method": "Radial Velocity",
+          "orbitalDays": 88.69,
+          "radiusEarth": 3.48,
+          "massEarth": 11.9,
+          "equilibriumK": 459.21,
+          "distancePc": 16.0069
+        },
+        {
+          "planet": "G 264-012 b",
+          "star": "G 264-012",
+          "discovered": 2021,
+          "method": "Radial Velocity",
+          "orbitalDays": 2.30538,
+          "radiusEarth": 1.39,
+          "massEarth": 2.5,
+          "equilibriumK": 587,
+          "distancePc": 16.009
+        },
+        {
+          "planet": "GJ 676 A e",
+          "star": "GJ 676 A",
+          "discovered": 2012,
+          "method": "Radial Velocity",
+          "orbitalDays": 35.47358,
+          "radiusEarth": 2.47,
+          "massEarth": 6.67439655,
+          "equilibriumK": 351.55,
+          "distancePc": 16.0272
+        },
+        {
+          "planet": "GJ 143 b",
+          "star": "GJ 143",
+          "discovered": 2019,
+          "method": "Transit",
+          "orbitalDays": 35.61253,
+          "radiusEarth": 2.61,
+          "massEarth": 22.7,
+          "equilibriumK": 422,
+          "distancePc": 16.32
+        },
+        {
+          "planet": "GJ 3082 b",
+          "star": "GJ 3082",
+          "discovered": 2020,
+          "method": "Radial Velocity",
+          "orbitalDays": 11.949,
+          "radiusEarth": 2.79,
+          "massEarth": 8.2,
+          "equilibriumK": 457.53,
+          "distancePc": 16.6186
+        },
+        {
+          "planet": "GJ 508.2 b",
+          "star": "GJ 508.2",
+          "discovered": 2025,
+          "method": "Radial Velocity",
+          "orbitalDays": 5300,
+          "radiusEarth": 0,
+          "massEarth": 587.98255295,
+          "equilibriumK": 59.3,
+          "distancePc": 16.6374
+        },
+        {
+          "planet": "GJ 3942 b",
+          "star": "GJ 3942",
+          "discovered": 2017,
+          "method": "Radial Velocity",
+          "orbitalDays": 6.905,
+          "radiusEarth": 2.57,
+          "massEarth": 7.14,
+          "equilibriumK": 590,
+          "distancePc": 16.9287
+        },
+        {
+          "planet": "GJ 504 b",
+          "star": "GJ 504",
+          "discovered": 2013,
+          "method": "Imaging",
+          "orbitalDays": 0,
+          "radiusEarth": 12.10569916,
+          "massEarth": 1271.3,
+          "equilibriumK": 510,
+          "distancePc": 17.5299
+        },
+        {
+          "planet": "TOI-4527.01",
+          "star": "TOI-4527",
+          "discovered": 2024,
+          "method": "Transit",
+          "orbitalDays": 0.3994445,
+          "radiusEarth": 0.9086617,
+          "massEarth": 0.689,
+          "equilibriumK": 1362.93,
+          "distancePc": 18.1037
+        },
+        {
+          "planet": "GJ 3998 b",
+          "star": "GJ 3998",
+          "discovered": 2016,
+          "method": "Radial Velocity",
+          "orbitalDays": 2.65033,
+          "radiusEarth": 1.39,
+          "massEarth": 2.5,
+          "equilibriumK": 733.5,
+          "distancePc": 18.1459
+        },
+        {
+          "planet": "pi Men c",
+          "star": "HD 39091",
+          "discovered": 2018,
+          "method": "Transit",
+          "orbitalDays": 6.2678399,
+          "radiusEarth": 2.0189,
+          "massEarth": 3.63,
+          "equilibriumK": 1169.8,
+          "distancePc": 18.2702
+        },
+        {
+          "planet": "HD 27442 b",
+          "star": "HD 27442",
+          "discovered": 2000,
+          "method": "Radial Velocity",
+          "orbitalDays": 428.1,
+          "radiusEarth": 13.5,
+          "massEarth": 495.8,
+          "equilibriumK": 369.62,
+          "distancePc": 18.2704
+        },
+        {
+          "planet": "HIP 54373 c",
+          "star": "HIP 54373",
+          "discovered": 2019,
+          "method": "Radial Velocity",
+          "orbitalDays": 15.144,
+          "radiusEarth": 3.57,
+          "massEarth": 12.44,
+          "equilibriumK": 463.2,
+          "distancePc": 18.7168
+        },
+        {
+          "planet": "TOI-2194 b",
+          "star": "TOI-2194",
+          "discovered": 2023,
+          "method": "Transit",
+          "orbitalDays": 15.337597,
+          "radiusEarth": 1.9892,
+          "massEarth": 4.61,
+          "equilibriumK": 590.88,
+          "distancePc": 19.5711
+        },
+        {
+          "planet": "LHS 1678 c",
+          "star": "LHS 1678",
+          "discovered": 2021,
+          "method": "Transit",
+          "orbitalDays": 3.694284,
+          "radiusEarth": 0.941,
+          "massEarth": 1.4,
+          "equilibriumK": 510.9,
+          "distancePc": 19.8782
+        },
+        {
+          "planet": "BD-06 1339 c",
+          "star": "BD-06 1339",
+          "discovered": 2013,
+          "method": "Radial Velocity",
+          "orbitalDays": 125.94,
+          "radiusEarth": 8.38,
+          "massEarth": 53,
+          "equilibriumK": 261.91,
+          "distancePc": 20.2695
+        },
+        {
+          "planet": "GJ 328 b",
+          "star": "GJ 328",
+          "discovered": 2013,
+          "method": "Radial Velocity",
+          "orbitalDays": 3771,
+          "radiusEarth": 13.3,
+          "massEarth": 797.74930157,
+          "equilibriumK": 73.57,
+          "distancePc": 20.5266
+        },
+        {
+          "planet": "HD 114783 b",
+          "star": "HD 114783",
+          "discovered": 2001,
+          "method": "Radial Velocity",
+          "orbitalDays": 493.7,
+          "radiusEarth": 13.7,
+          "massEarth": 349.6,
+          "equilibriumK": 210.79,
+          "distancePc": 21.0628
+        },
+        {
+          "planet": "16 Cyg B b",
+          "star": "16 Cyg B",
+          "discovered": 1996,
+          "method": "Radial Velocity",
+          "orbitalDays": 798.5,
+          "radiusEarth": 13.5,
+          "massEarth": 565.7374,
+          "equilibriumK": 228.76,
+          "distancePc": 21.1397
+        },
+        {
+          "planet": "HD 90156 b",
+          "star": "HD 90156",
+          "discovered": 2011,
+          "method": "Radial Velocity",
+          "orbitalDays": 49.77,
+          "radiusEarth": 4.43,
+          "massEarth": 17.98,
+          "equilibriumK": 518.01,
+          "distancePc": 21.9496
+        }
+      ]
+    },
+    {
+      "id": "earth-scale-worlds",
+      "number": 8,
+      "code": "EXO EARTH",
+      "title": "地球サイズの遠い世界",
+      "titleEn": "Earth-scale Worlds",
+      "accent": "105, 224, 255",
+      "sourceIds": [
+        "nasa-exoplanet-archive"
+      ],
+      "metric": {
+        "label": "条件に当てはまる惑星",
+        "value": 12,
+        "unit": "天体",
+        "detail": "地球半径0.5–2.0倍 / 180–330K"
+      },
+      "narrative": "確認済みの系外惑星から、地球に近い大きさと温度条件を持つものを抜き出しました。円の大きさが惑星の半径、色が恒星から受ける熱をもとに計算した平衡温度を表します。",
+      "interaction": "惑星へ触れると、地球との大きさと温度の違いを見比べられます。平衡温度は実測した地表温度ではなく、この条件だけで生命の存在も判定できません。",
+      "records": [
+        {
+          "planet": "Proxima Cen d",
+          "star": "Proxima Cen",
+          "discovered": 2025,
+          "method": "Radial Velocity",
+          "orbitalDays": 5.12338,
+          "radiusEarth": 0.692,
+          "massEarth": 0.26,
+          "equilibriumK": 282,
+          "distancePc": 1.30119
+        },
+        {
+          "planet": "GJ 1061 d",
+          "star": "GJ 1061",
+          "discovered": 2020,
+          "method": "Radial Velocity",
+          "orbitalDays": 13.066,
+          "radiusEarth": 1.16,
+          "massEarth": 1.67,
+          "equilibriumK": 242.03,
+          "distancePc": 3.67278
+        },
+        {
+          "planet": "GJ 1002 b",
+          "star": "GJ 1002",
+          "discovered": 2022,
+          "method": "Radial Velocity",
+          "orbitalDays": 10.3465,
+          "radiusEarth": 1.03,
+          "massEarth": 1.08,
+          "equilibriumK": 230.9,
+          "distancePc": 4.84867
+        },
+        {
+          "planet": "GJ 682 b",
+          "star": "GJ 682",
+          "discovered": 2014,
+          "method": "Radial Velocity",
+          "orbitalDays": 17.478,
+          "radiusEarth": 1.93,
+          "massEarth": 4.4,
+          "equilibriumK": 281.93,
+          "distancePc": 5.00671
+        },
+        {
+          "planet": "GJ 3323 b",
+          "star": "GJ 3323",
+          "discovered": 2017,
+          "method": "Radial Velocity",
+          "orbitalDays": 5.3636,
+          "radiusEarth": 1.23,
+          "massEarth": 2.02,
+          "equilibriumK": 290.06,
+          "distancePc": 5.37484
+        },
+        {
+          "planet": "GJ 273 b",
+          "star": "GJ 273",
+          "discovered": 2017,
+          "method": "Radial Velocity",
+          "orbitalDays": 18.6498,
+          "radiusEarth": 1.51,
+          "massEarth": 2.89,
+          "equilibriumK": 292.47,
+          "distancePc": 5.921535
+        },
+        {
+          "planet": "L 363-38 b",
+          "star": "L 363-38",
+          "discovered": 2023,
+          "method": "Radial Velocity",
+          "orbitalDays": 8.781,
+          "radiusEarth": 2,
+          "massEarth": 4.67,
+          "equilibriumK": 330,
+          "distancePc": 10.2295
+        },
+        {
+          "planet": "G 261-6 b",
+          "star": "G 261-6",
+          "discovered": 2025,
+          "method": "Radial Velocity",
+          "orbitalDays": 5.4536,
+          "radiusEarth": 1.1,
+          "massEarth": 1.37,
+          "equilibriumK": 322.3,
+          "distancePc": 10.6267
+        },
+        {
+          "planet": "Ross 508 b",
+          "star": "Ross 508",
+          "discovered": 2022,
+          "method": "Radial Velocity",
+          "orbitalDays": 10.77,
+          "radiusEarth": 1.83,
+          "massEarth": 4,
+          "equilibriumK": 293.86,
+          "distancePc": 11.2103
+        },
+        {
+          "planet": "TRAPPIST-1 d",
+          "star": "TRAPPIST-1",
+          "discovered": 2016,
+          "method": "Transit",
+          "orbitalDays": 4.049219,
+          "radiusEarth": 0.788,
+          "massEarth": 0.388,
+          "equilibriumK": 286.2,
+          "distancePc": 12.42988881
+        },
+        {
+          "planet": "Kepler-1816 b",
+          "star": "Kepler-1816",
+          "discovered": 2021,
+          "method": "Transit",
+          "orbitalDays": 91.50099945,
+          "radiusEarth": 1.9679397,
+          "massEarth": 4.53,
+          "equilibriumK": 310,
+          "distancePc": 437.823
+        },
+        {
+          "planet": "Kepler-1389 b",
+          "star": "Kepler-1389",
+          "discovered": 2016,
+          "method": "Transit",
+          "orbitalDays": 99.2530951,
+          "radiusEarth": 1.77,
+          "massEarth": 3.78,
+          "equilibriumK": 300,
+          "distancePc": 497.093
+        }
+      ]
+    },
+    {
+      "id": "ryugu-lidar",
+      "number": 9,
+      "code": "RYUGU",
+      "title": "リュウグウに触れる光",
+      "titleEn": "Ryugu LIDAR",
+      "accent": "222, 196, 164",
+      "sourceIds": [
+        "jaxa-darts-ryugu-lidar"
+      ],
+      "metric": {
+        "label": "収録したレーザー測距",
+        "value": 52,
+        "unit": "点",
+        "detail": "2018年7月1日 / JAXA DARTS"
+      },
+      "narrative": "はやぶさ2はレーザーを当て、光が戻るまでの時間からリュウグウとの距離を測りました。その距離と機体の位置を使い、測定点を凹凸のある輪郭として立ち上げます。",
+      "interaction": "リュウグウへ触れると測定点を選び、輪郭に小さな起伏を残せます。収録した一日の一部分であり、天体全面の完成地形図ではありません。",
+      "records": [
+        {
+          "shotTime": "2018-07-01T22:50:11.217091",
+          "rangeM": 19388.2,
+          "topoLongitudeDeg": 344.301,
+          "topoLatitudeDeg": 5.751,
+          "topoHeightM": 499.313,
+          "topoXM": 478.268,
+          "topoYM": -134.426,
+          "topoZM": 50.031,
+          "spacecraftXM": 19274.359,
+          "spacecraftYM": -4697.748,
+          "spacecraftZM": -1286.138
+        },
+        {
+          "shotTime": "2018-07-01T22:51:15.216281",
+          "rangeM": 19388.7,
+          "topoLongitudeDeg": 343.585,
+          "topoLatitudeDeg": 5.621,
+          "topoHeightM": 497.646,
+          "topoXM": 475.067,
+          "topoYM": -139.952,
+          "topoZM": 48.745,
+          "spacecraftXM": 19202.635,
+          "spacecraftYM": -4979.215,
+          "spacecraftZM": -1285.942
+        },
+        {
+          "shotTime": "2018-07-01T22:52:19.215472",
+          "rangeM": 19388.2,
+          "topoLongitudeDeg": 342.768,
+          "topoLatitudeDeg": 5.825,
+          "topoHeightM": 497.516,
+          "topoXM": 472.73,
+          "topoYM": -146.628,
+          "topoZM": 50.492,
+          "spacecraftXM": 19126.801,
+          "spacecraftYM": -5259.589,
+          "spacecraftZM": -1285.746
+        },
+        {
+          "shotTime": "2018-07-01T22:53:23.214663",
+          "rangeM": 19388.2,
+          "topoLongitudeDeg": 341.801,
+          "topoLatitudeDeg": 5.717,
+          "topoHeightM": 496.462,
+          "topoXM": 469.282,
+          "topoYM": -154.283,
+          "topoZM": 49.456,
+          "spacecraftXM": 19046.874,
+          "spacecraftYM": -5538.81,
+          "spacecraftZM": -1285.55
+        },
+        {
+          "shotTime": "2018-07-01T22:54:27.213856",
+          "rangeM": 19390.7,
+          "topoLongitudeDeg": 341.002,
+          "topoLatitudeDeg": 5.822,
+          "topoHeightM": 493.133,
+          "topoXM": 463.867,
+          "topoYM": -159.704,
+          "topoZM": 50.021,
+          "spacecraftXM": 18962.87,
+          "spacecraftYM": -5816.817,
+          "spacecraftZM": -1285.353
+        },
+        {
+          "shotTime": "2018-07-01T22:56:03.212648",
+          "rangeM": 19396.2,
+          "topoLongitudeDeg": 339.635,
+          "topoLatitudeDeg": 6.04,
+          "topoHeightM": 486.504,
+          "topoXM": 453.563,
+          "topoYM": -168.362,
+          "topoZM": 51.194,
+          "spacecraftXM": 18829.26,
+          "spacecraftYM": -6231.426,
+          "spacecraftZM": -1285.058
+        },
+        {
+          "shotTime": "2018-07-01T22:56:35.212243",
+          "rangeM": 19396.6,
+          "topoLongitudeDeg": 339.205,
+          "topoLatitudeDeg": 6.104,
+          "topoHeightM": 485.728,
+          "topoXM": 451.513,
+          "topoYM": -171.465,
+          "topoZM": 51.649,
+          "spacecraftXM": 18782.706,
+          "spacecraftYM": -6368.958,
+          "spacecraftZM": -1284.96
+        },
+        {
+          "shotTime": "2018-07-01T22:57:07.211840",
+          "rangeM": 19395.4,
+          "topoLongitudeDeg": 338.798,
+          "topoLatitudeDeg": 5.959,
+          "topoHeightM": 486.26,
+          "topoXM": 450.896,
+          "topoYM": -174.908,
+          "topoZM": 50.485,
+          "spacecraftXM": 18735.148,
+          "spacecraftYM": -6506.142,
+          "spacecraftZM": -1284.862
+        },
+        {
+          "shotTime": "2018-07-01T22:57:39.211437",
+          "rangeM": 19394.8,
+          "topoLongitudeDeg": 338.384,
+          "topoLatitudeDeg": 6.112,
+          "topoHeightM": 486.629,
+          "topoXM": 449.835,
+          "topoYM": -178.246,
+          "topoZM": 51.816,
+          "spacecraftXM": 18686.588,
+          "spacecraftYM": -6642.97,
+          "spacecraftZM": -1284.763
+        },
+        {
+          "shotTime": "2018-07-01T22:58:11.211034",
+          "rangeM": 19395.1,
+          "topoLongitudeDeg": 338.052,
+          "topoLatitudeDeg": 6.07,
+          "topoHeightM": 485.766,
+          "topoXM": 448.034,
+          "topoYM": -180.541,
+          "topoZM": 51.37,
+          "spacecraftXM": 18637.027,
+          "spacecraftYM": -6779.438,
+          "spacecraftZM": -1284.665
+        },
+        {
+          "shotTime": "2018-07-01T22:58:43.210631",
+          "rangeM": 19395.2,
+          "topoLongitudeDeg": 337.501,
+          "topoLatitudeDeg": 6.044,
+          "topoHeightM": 485.198,
+          "topoXM": 445.775,
+          "topoYM": -184.639,
+          "topoZM": 51.088,
+          "spacecraftXM": 18586.471,
+          "spacecraftYM": -6915.535,
+          "spacecraftZM": -1284.566
+        },
+        {
+          "shotTime": "2018-07-01T22:59:47.209826",
+          "rangeM": 19394.7,
+          "topoLongitudeDeg": 336.656,
+          "topoLatitudeDeg": 6.021,
+          "topoHeightM": 484.736,
+          "topoXM": 442.603,
+          "topoYM": -191.014,
+          "topoZM": 50.846,
+          "spacecraftXM": 18482.378,
+          "spacecraftYM": -7186.592,
+          "spacecraftZM": -1284.369
+        },
+        {
+          "shotTime": "2018-07-01T23:00:19.209423",
+          "rangeM": 19399.6,
+          "topoLongitudeDeg": 336.013,
+          "topoLatitudeDeg": 6.323,
+          "topoHeightM": 479.816,
+          "topoXM": 435.712,
+          "topoYM": -193.871,
+          "topoZM": 52.845,
+          "spacecraftXM": 18428.849,
+          "spacecraftYM": -7321.537,
+          "spacecraftZM": -1284.27
+        },
+        {
+          "shotTime": "2018-07-01T23:00:51.209020",
+          "rangeM": 19398.7,
+          "topoLongitudeDeg": 335.941,
+          "topoLatitudeDeg": 6.322,
+          "topoHeightM": 480.148,
+          "topoXM": 435.768,
+          "topoYM": -194.558,
+          "topoZM": 52.87,
+          "spacecraftXM": 18374.334,
+          "spacecraftYM": -7456.084,
+          "spacecraftZM": -1284.172
+        },
+        {
+          "shotTime": "2018-07-01T23:01:23.208618",
+          "rangeM": 19397.4,
+          "topoLongitudeDeg": 335.342,
+          "topoLatitudeDeg": 6.166,
+          "topoHeightM": 480.821,
+          "topoXM": 434.45,
+          "topoYM": -199.437,
+          "topoZM": 51.641,
+          "spacecraftXM": 18318.836,
+          "spacecraftYM": -7590.224,
+          "spacecraftZM": -1284.073
+        },
+        {
+          "shotTime": "2018-07-01T23:01:55.208216",
+          "rangeM": 19397.9,
+          "topoLongitudeDeg": 334.936,
+          "topoLatitudeDeg": 6.352,
+          "topoHeightM": 480.119,
+          "topoXM": 432.24,
+          "topoYM": -202.143,
+          "topoZM": 53.117,
+          "spacecraftXM": 18262.358,
+          "spacecraftYM": -7723.952,
+          "spacecraftZM": -1283.974
+        },
+        {
+          "shotTime": "2018-07-01T23:02:27.207814",
+          "rangeM": 19397.9,
+          "topoLongitudeDeg": 334.47,
+          "topoLatitudeDeg": 6.3,
+          "topoHeightM": 479.586,
+          "topoXM": 430.145,
+          "topoYM": -205.448,
+          "topoZM": 52.623,
+          "spacecraftXM": 18204.905,
+          "spacecraftYM": -7857.259,
+          "spacecraftZM": -1283.875
+        },
+        {
+          "shotTime": "2018-07-01T23:02:59.207411",
+          "rangeM": 19397.4,
+          "topoLongitudeDeg": 334.121,
+          "topoLatitudeDeg": 6.309,
+          "topoHeightM": 479.618,
+          "topoXM": 428.908,
+          "topoYM": -208.068,
+          "topoZM": 52.709,
+          "spacecraftXM": 18146.479,
+          "spacecraftYM": -7990.14,
+          "spacecraftZM": -1283.776
+        },
+        {
+          "shotTime": "2018-07-01T23:03:31.207007",
+          "rangeM": 19397.4,
+          "topoLongitudeDeg": 333.616,
+          "topoLatitudeDeg": 6.298,
+          "topoHeightM": 479.159,
+          "topoXM": 426.656,
+          "topoYM": -211.647,
+          "topoZM": 52.567,
+          "spacecraftXM": 18087.082,
+          "spacecraftYM": -8122.585,
+          "spacecraftZM": -1283.677
+        },
+        {
+          "shotTime": "2018-07-01T23:04:03.206603",
+          "rangeM": 19397,
+          "topoLongitudeDeg": 333.267,
+          "topoLatitudeDeg": 6.28,
+          "topoHeightM": 479.046,
+          "topoXM": 425.275,
+          "topoYM": -214.195,
+          "topoZM": 52.405,
+          "spacecraftXM": 18026.718,
+          "spacecraftYM": -8254.591,
+          "spacecraftZM": -1283.577
+        },
+        {
+          "shotTime": "2018-07-01T23:04:35.206200",
+          "rangeM": 19397.4,
+          "topoLongitudeDeg": 332.718,
+          "topoLatitudeDeg": 6.357,
+          "topoHeightM": 478.326,
+          "topoXM": 422.506,
+          "topoYM": -217.9,
+          "topoZM": 52.959,
+          "spacecraftXM": 17965.391,
+          "spacecraftYM": -8386.146,
+          "spacecraftZM": -1283.479
+        },
+        {
+          "shotTime": "2018-07-01T23:05:07.205797",
+          "rangeM": 19397.2,
+          "topoLongitudeDeg": 332.483,
+          "topoLatitudeDeg": 6.217,
+          "topoHeightM": 477.789,
+          "topoXM": 421.247,
+          "topoYM": -219.445,
+          "topoZM": 51.74,
+          "spacecraftXM": 17903.104,
+          "spacecraftYM": -8517.247,
+          "spacecraftZM": -1283.38
+        },
+        {
+          "shotTime": "2018-07-01T23:05:39.205394",
+          "rangeM": 19396.4,
+          "topoLongitudeDeg": 331.969,
+          "topoLatitudeDeg": 6.385,
+          "topoHeightM": 478.417,
+          "topoXM": 419.676,
+          "topoYM": -223.437,
+          "topoZM": 53.206,
+          "spacecraftXM": 17839.86,
+          "spacecraftYM": -8647.885,
+          "spacecraftZM": -1283.281
+        },
+        {
+          "shotTime": "2018-07-01T23:06:11.204991",
+          "rangeM": 19396.9,
+          "topoLongitudeDeg": 331.51,
+          "topoLatitudeDeg": 6.565,
+          "topoHeightM": 477.728,
+          "topoXM": 417.12,
+          "topoYM": -226.388,
+          "topoZM": 54.621,
+          "spacecraftXM": 17775.664,
+          "spacecraftYM": -8778.053,
+          "spacecraftZM": -1283.182
+        },
+        {
+          "shotTime": "2018-07-01T23:06:43.204589",
+          "rangeM": 19395.3,
+          "topoLongitudeDeg": 330.937,
+          "topoLatitudeDeg": 6.376,
+          "topoHeightM": 478.647,
+          "topoXM": 415.791,
+          "topoYM": -231.074,
+          "topoZM": 53.152,
+          "spacecraftXM": 17710.516,
+          "spacecraftYM": -8907.746,
+          "spacecraftZM": -1283.082
+        },
+        {
+          "shotTime": "2018-07-01T23:07:15.204186",
+          "rangeM": 19393.9,
+          "topoLongitudeDeg": 330.711,
+          "topoLatitudeDeg": 6.518,
+          "topoHeightM": 479.751,
+          "topoXM": 415.719,
+          "topoYM": -233.182,
+          "topoZM": 54.456,
+          "spacecraftXM": 17644.422,
+          "spacecraftYM": -9036.954,
+          "spacecraftZM": -1282.983
+        },
+        {
+          "shotTime": "2018-07-01T23:07:47.203783",
+          "rangeM": 19394.6,
+          "topoLongitudeDeg": 330.241,
+          "topoLatitudeDeg": 6.441,
+          "topoHeightM": 478.467,
+          "topoXM": 412.747,
+          "topoYM": -235.987,
+          "topoZM": 53.672,
+          "spacecraftXM": 17577.387,
+          "spacecraftYM": -9165.673,
+          "spacecraftZM": -1282.884
+        },
+        {
+          "shotTime": "2018-07-01T23:08:19.203381",
+          "rangeM": 19391.3,
+          "topoLongitudeDeg": 329.681,
+          "topoLatitudeDeg": 6.18,
+          "topoHeightM": 481.006,
+          "topoXM": 412.804,
+          "topoYM": -241.41,
+          "topoZM": 51.78,
+          "spacecraftXM": 17509.411,
+          "spacecraftYM": -9293.894,
+          "spacecraftZM": -1282.784
+        },
+        {
+          "shotTime": "2018-07-01T23:08:51.202979",
+          "rangeM": 19391.2,
+          "topoLongitudeDeg": 329.495,
+          "topoLatitudeDeg": 6.392,
+          "topoHeightM": 480.879,
+          "topoXM": 411.743,
+          "topoYM": -242.583,
+          "topoZM": 53.535,
+          "spacecraftXM": 17440.501,
+          "spacecraftYM": -9421.611,
+          "spacecraftZM": -1282.685
+        },
+        {
+          "shotTime": "2018-07-01T23:09:23.202577",
+          "rangeM": 19390.6,
+          "topoLongitudeDeg": 328.915,
+          "topoLatitudeDeg": 6.503,
+          "topoHeightM": 481.244,
+          "topoXM": 409.487,
+          "topoYM": -246.872,
+          "topoZM": 54.505,
+          "spacecraftXM": 17370.659,
+          "spacecraftYM": -9548.818,
+          "spacecraftZM": -1282.585
+        },
+        {
+          "shotTime": "2018-07-01T23:09:55.202174",
+          "rangeM": 19387.8,
+          "topoLongitudeDeg": 328.514,
+          "topoLatitudeDeg": 6.443,
+          "topoHeightM": 483.522,
+          "topoXM": 409.728,
+          "topoYM": -250.942,
+          "topoZM": 54.262,
+          "spacecraftXM": 17299.887,
+          "spacecraftYM": -9675.506,
+          "spacecraftZM": -1282.486
+        },
+        {
+          "shotTime": "2018-07-01T23:10:27.201771",
+          "rangeM": 19385.3,
+          "topoLongitudeDeg": 328.149,
+          "topoLatitudeDeg": 6.305,
+          "topoHeightM": 485.362,
+          "topoXM": 409.783,
+          "topoYM": -254.584,
+          "topoZM": 53.299,
+          "spacecraftXM": 17228.194,
+          "spacecraftYM": -9801.671,
+          "spacecraftZM": -1282.387
+        },
+        {
+          "shotTime": "2018-07-01T23:10:59.201367",
+          "rangeM": 19385.2,
+          "topoLongitudeDeg": 327.642,
+          "topoLatitudeDeg": 6.405,
+          "topoHeightM": 485.177,
+          "topoXM": 407.282,
+          "topoYM": -258.048,
+          "topoZM": 54.126,
+          "spacecraftXM": 17155.579,
+          "spacecraftYM": -9927.304,
+          "spacecraftZM": -1282.287
+        },
+        {
+          "shotTime": "2018-07-01T23:12:03.200561",
+          "rangeM": 19381.7,
+          "topoLongitudeDeg": 326.812,
+          "topoLatitudeDeg": 6.36,
+          "topoHeightM": 487.721,
+          "topoXM": 405.651,
+          "topoYM": -265.331,
+          "topoZM": 54.028,
+          "spacecraftXM": 17007.606,
+          "spacecraftYM": -10176.95,
+          "spacecraftZM": -1282.088
+        },
+        {
+          "shotTime": "2018-07-01T23:13:07.199755",
+          "rangeM": 19379.2,
+          "topoLongitudeDeg": 326.019,
+          "topoLatitudeDeg": 6.311,
+          "topoHeightM": 489.228,
+          "topoXM": 403.222,
+          "topoYM": -271.779,
+          "topoZM": 53.777,
+          "spacecraftXM": 16855.999,
+          "spacecraftYM": -10424.391,
+          "spacecraftZM": -1281.889
+        },
+        {
+          "shotTime": "2018-07-01T23:16:19.197340",
+          "rangeM": 19366.6,
+          "topoLongitudeDeg": 323.452,
+          "topoLatitudeDeg": 6.091,
+          "topoHeightM": 498.883,
+          "topoXM": 398.522,
+          "topoYM": -295.403,
+          "topoZM": 52.938,
+          "spacecraftXM": 16379.714,
+          "spacecraftYM": -11152.959,
+          "spacecraftZM": -1281.289
+        },
+        {
+          "shotTime": "2018-07-01T23:17:55.196131",
+          "rangeM": 19362.2,
+          "topoLongitudeDeg": 322.211,
+          "topoLatitudeDeg": 6.096,
+          "topoHeightM": 501.94,
+          "topoXM": 394.425,
+          "topoYM": -305.829,
+          "topoZM": 53.306,
+          "spacecraftXM": 16129.711,
+          "spacecraftYM": -11509.186,
+          "spacecraftZM": -1280.988
+        },
+        {
+          "shotTime": "2018-07-01T23:20:03.194518",
+          "rangeM": 19355.2,
+          "topoLongitudeDeg": 320.528,
+          "topoLatitudeDeg": 5.993,
+          "topoHeightM": 507.003,
+          "topoXM": 389.233,
+          "topoYM": -320.544,
+          "topoZM": 52.936,
+          "spacecraftXM": 15784.346,
+          "spacecraftYM": -11975.412,
+          "spacecraftZM": -1280.587
+        },
+        {
+          "shotTime": "2018-07-01T23:26:27.189684",
+          "rangeM": 19348.7,
+          "topoLongitudeDeg": 315.308,
+          "topoLatitudeDeg": 6.196,
+          "topoHeightM": 508.31,
+          "topoXM": 359.244,
+          "topoYM": -355.405,
+          "topoZM": 54.861,
+          "spacecraftXM": 14668.671,
+          "spacecraftYM": -13310.415,
+          "spacecraftZM": -1279.379
+        },
+        {
+          "shotTime": "2018-07-01T23:26:59.189281",
+          "rangeM": 19347.2,
+          "topoLongitudeDeg": 314.894,
+          "topoLatitudeDeg": 6.122,
+          "topoHeightM": 509.239,
+          "topoXM": 357.37,
+          "topoYM": -358.695,
+          "topoZM": 54.304,
+          "spacecraftXM": 14570.494,
+          "spacecraftYM": -13417.133,
+          "spacecraftZM": -1279.279
+        },
+        {
+          "shotTime": "2018-07-01T23:27:31.188878",
+          "rangeM": 19347.2,
+          "topoLongitudeDeg": 314.604,
+          "topoLatitudeDeg": 6.223,
+          "topoHeightM": 508.876,
+          "topoXM": 355.227,
+          "topoYM": -360.174,
+          "topoZM": 55.161,
+          "spacecraftXM": 14471.54,
+          "spacecraftYM": -13523.129,
+          "spacecraftZM": -1279.178
+        },
+        {
+          "shotTime": "2018-07-01T23:28:03.188475",
+          "rangeM": 19345.2,
+          "topoLongitudeDeg": 314.13,
+          "topoLatitudeDeg": 6.05,
+          "topoHeightM": 510.18,
+          "topoXM": 353.253,
+          "topoYM": -364.15,
+          "topoZM": 53.767,
+          "spacecraftXM": 14371.816,
+          "spacecraftYM": -13628.394,
+          "spacecraftZM": -1279.077
+        },
+        {
+          "shotTime": "2018-07-01T23:28:35.188073",
+          "rangeM": 19344.7,
+          "topoLongitudeDeg": 313.683,
+          "topoLatitudeDeg": 6.064,
+          "topoHeightM": 510.246,
+          "topoXM": 350.441,
+          "topoYM": -366.929,
+          "topoZM": 53.905,
+          "spacecraftXM": 14271.325,
+          "spacecraftYM": -13732.924,
+          "spacecraftZM": -1278.976
+        },
+        {
+          "shotTime": "2018-07-01T23:34:59.183239",
+          "rangeM": 19350.7,
+          "topoLongitudeDeg": 308.652,
+          "topoLatitudeDeg": 6.544,
+          "topoHeightM": 499.189,
+          "topoXM": 309.754,
+          "topoYM": -387.305,
+          "topoZM": 56.895,
+          "spacecraftXM": 13007.722,
+          "spacecraftYM": -14927.934,
+          "spacecraftZM": -1277.76
+        },
+        {
+          "shotTime": "2018-07-01T23:35:31.182836",
+          "rangeM": 19349.7,
+          "topoLongitudeDeg": 308.06,
+          "topoLatitudeDeg": 6.336,
+          "topoHeightM": 499.464,
+          "topoXM": 306.032,
+          "topoYM": -390.858,
+          "topoZM": 55.123,
+          "spacecraftXM": 12897.784,
+          "spacecraftYM": -15022.412,
+          "spacecraftZM": -1277.658
+        },
+        {
+          "shotTime": "2018-07-01T23:36:35.182031",
+          "rangeM": 19345.7,
+          "topoLongitudeDeg": 307.162,
+          "topoLatitudeDeg": 6.219,
+          "topoHeightM": 502.418,
+          "topoXM": 301.709,
+          "topoYM": -398.037,
+          "topoZM": 54.425,
+          "spacecraftXM": 12675.856,
+          "spacecraftYM": -15208.934,
+          "spacecraftZM": -1277.455
+        },
+        {
+          "shotTime": "2018-07-01T23:37:07.181629",
+          "rangeM": 19344.7,
+          "topoLongitudeDeg": 306.814,
+          "topoLatitudeDeg": 6.389,
+          "topoHeightM": 503.197,
+          "topoXM": 299.656,
+          "topoYM": -400.348,
+          "topoZM": 55.992,
+          "spacecraftXM": 12563.877,
+          "spacecraftYM": -15300.968,
+          "spacecraftZM": -1277.353
+        },
+        {
+          "shotTime": "2018-07-01T23:37:39.181227",
+          "rangeM": 19344.7,
+          "topoLongitudeDeg": 306.418,
+          "topoLatitudeDeg": 6.435,
+          "topoHeightM": 502.784,
+          "topoXM": 296.61,
+          "topoYM": -402.043,
+          "topoZM": 56.349,
+          "spacecraftXM": 12451.231,
+          "spacecraftYM": -15392.177,
+          "spacecraftZM": -1277.251
+        },
+        {
+          "shotTime": "2018-07-01T23:38:11.180824",
+          "rangeM": 19343.3,
+          "topoLongitudeDeg": 306.027,
+          "topoLatitudeDeg": 6.384,
+          "topoHeightM": 503.637,
+          "topoXM": 294.384,
+          "topoYM": -404.786,
+          "topoZM": 56,
+          "spacecraftXM": 12337.922,
+          "spacecraftYM": -15482.557,
+          "spacecraftZM": -1277.149
+        },
+        {
+          "shotTime": "2018-07-01T23:38:43.180422",
+          "rangeM": 19341.7,
+          "topoLongitudeDeg": 305.693,
+          "topoLatitudeDeg": 6.425,
+          "topoHeightM": 504.819,
+          "topoXM": 292.686,
+          "topoYM": -407.414,
+          "topoZM": 56.493,
+          "spacecraftXM": 12223.957,
+          "spacecraftYM": -15572.103,
+          "spacecraftZM": -1277.048
+        },
+        {
+          "shotTime": "2018-07-01T23:39:15.180018",
+          "rangeM": 19341.8,
+          "topoLongitudeDeg": 305.148,
+          "topoLatitudeDeg": 6.447,
+          "topoHeightM": 504.326,
+          "topoXM": 288.498,
+          "topoYM": -409.763,
+          "topoZM": 56.632,
+          "spacecraftXM": 12109.343,
+          "spacecraftYM": -15660.81,
+          "spacecraftZM": -1276.946
+        },
+        {
+          "shotTime": "2018-07-01T23:39:47.179614",
+          "rangeM": 19342.1,
+          "topoLongitudeDeg": 304.72,
+          "topoLatitudeDeg": 6.286,
+          "topoHeightM": 503.284,
+          "topoXM": 284.934,
+          "topoYM": -411.183,
+          "topoZM": 55.102,
+          "spacecraftXM": 11994.081,
+          "spacecraftYM": -15748.674,
+          "spacecraftZM": -1276.843
+        }
+      ]
+    },
+    {
+      "id": "cosmic-senseware",
+      "number": 10,
+      "code": "COSMOS",
+      "title": "宇宙の感覚神経系",
+      "titleEn": "Cosmic Senseware",
+      "accent": "210, 228, 255",
+      "sourceIds": [
+        "nasa-donki-flr",
+        "nasa-donki-cme",
+        "nasa-donki-gst",
+        "nasa-donki-sep",
+        "jpl-cneos-cad",
+        "jpl-cneos-fireball",
+        "nasa-exoplanet-archive",
+        "jaxa-darts-ryugu-lidar"
+      ],
+      "metric": {
+        "label": "収録した公開記録",
+        "value": 1271,
+        "unit": "件",
+        "detail": "8/8データ源を保存"
+      },
+      "narrative": "01から09までの観測記録を、一つの空間に重ねる最終演出です。単位の違う数字を無理に総合点へせず、太陽・地球・小惑星・惑星から届く別々の信号として見せます。",
+      "interaction": "データ源の光を順に触れると、観客だけの信号網が生まれます。結ばれた線はあなたが作る仮想の関係で、天体同士の物理的な因果関係ではありません。",
+      "records": []
+    }
+  ]
+}

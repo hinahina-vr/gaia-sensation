@@ -1,0 +1,257 @@
+{
+  "sources": [
+    {
+      "file": "MD19710200_0.zip",
+      "url": "https://www.nies.go.jp/igreen/md/1971/sei/MD19710200_0.zip",
+      "year": 1971,
+      "bytes": 35976,
+      "sha256": "75f151ce39406d3fa328e0acc7c762d7216f20ad9da63b3846fa538c26d2dbd2",
+      "retrievedAt": "2026-09-11T17:20:57.299787+00:00"
+    },
+    {
+      "file": "MM19710000.zip",
+      "url": "https://www.nies.go.jp/igreen/mm/1971/MM19710000.zip",
+      "year": 1971,
+      "bytes": 38196,
+      "sha256": "b059a6eab2d09fcbe4ad16d005c054b10c25a636b9a5c59869e29be6969432e2",
+      "retrievedAt": "2026-09-11T17:20:57.552669+00:00"
+    },
+    {
+      "file": "MD19720200_0.zip",
+      "url": "https://www.nies.go.jp/igreen/md/1972/sei/MD19720200_0.zip",
+      "year": 1972,
+      "bytes": 54670,
+      "sha256": "b2aea4d33b347cdcbce24c455eec03d72ad07e87fa8d127089c3774463c0f226",
+      "retrievedAt": "2026-09-11T17:20:58.953568+00:00"
+    },
+    {
+      "file": "MM19720000.zip",
+      "url": "https://www.nies.go.jp/igreen/mm/1972/MM19720000.zip",
+      "year": 1972,
+      "bytes": 62234,
+      "sha256": "2f178b1f9b3aeaabd12a9959294da349edcf4082b697e6b8b17523c55a7be7b9",
+      "retrievedAt": "2026-09-11T17:21:00.300864+00:00"
+    },
+    {
+      "file": "MD19730200_0.zip",
+      "url": "https://www.nies.go.jp/igreen/md/1973/sei/MD19730200_0.zip",
+      "year": 1973,
+      "bytes": 77691,
+      "sha256": "136e3f38666f183443a63661b5803bbb940e3ab462ef9e53763e0aa7b0231f5c",
+      "retrievedAt": "2026-09-11T17:21:01.845871+00:00"
+    },
+    {
+      "file": "MM19730000.zip",
+      "url": "https://www.nies.go.jp/igreen/mm/1973/MM19730000.zip",
+      "year": 1973,
+      "bytes": 88449,
+      "sha256": "077ab7401e87aed2cfdeba5bedc45b077417f3f378ae6e4d7b1d3cb5ae9c32bf",
+      "retrievedAt": "2026-09-11T17:21:03.384561+00:00"
+    },
+    {
+      "file": "MD19740200_0.zip",
+      "url": "https://www.nies.go.jp/igreen/md/1974/sei/MD19740200_0.zip",
+      "year": 1974,
+      "bytes": 81061,
+      "sha256": "e787c8f298dceb72648e2305831aedf686b3581eb5abc63dc25641bdac4044ff",
+      "retrievedAt": "2026-09-11T17:21:04.811206+00:00"
+    },
+    {
+      "file": "MM19740000.zip",
+      "url": "https://www.nies.go.jp/igreen/mm/1974/MM19740000.zip",
+      "year": 1974,
+      "bytes": 92462,
+      "sha256": "1e8b48e9b4d65ade6174959a97a04a1b981ed1e60fd2da12ac383944774012e3",
+      "retrievedAt": "2026-09-11T17:21:06.112278+00:00"
+    },
+    {
+      "file": "MD19750200_0.zip",
+      "url": "https://www.nies.go.jp/igreen/md/1975/sei/MD19750200_0.zip",
+      "year": 1975,
+      "bytes": 117976,
+      "sha256": "8803b64837b9268f54264b8c79956fefcd0ef4c52490a3d040863264f0db55f9",
+      "retrievedAt": "2026-09-11T17:21:07.595003+00:00"
+    },
+    {
+      "file": "MM19750000.zip",
+      "url": "https://www.nies.go.jp/igreen/mm/1975/MM19750000.zip",
+      "year": 1975,
+      "bytes": 147852,
+      "sha256": "9d39bd590628696ab64214efc19e67a7c35cd56d96e66124757a3a10ae4a5724",
+      "retrievedAt": "2026-09-11T17:21:09.009925+00:00"
+    },
+    {
+      "file": "MD19760200_0.zip",
+      "url": "https://www.nies.go.jp/igreen/md/1976/sei/MD19760200_0.zip",
+      "year": 1976,
+      "bytes": 158404,
+      "sha256": "a33ee0f818e971ad1b03e0d43b596877dc8338fd35182323e4d19a3e6b444eef",
+      "retrievedAt": "2026-09-11T17:21:11.144885+00:00"
+    },
+    {
+      "file": "MM19760000.zip",
+      "url": "https://www.nies.go.jp/igreen/mm/1976/MM19760000.zip",
+      "year": 1976,
+      "bytes": 154455,
+      "sha256": "6991fc45471e94f6d649de606c06d22ef8ba9fc8ba13cfb53b100853d946315d",
+      "retrievedAt": "2026-09-11T17:21:12.504028+00:00"
+    },
+    {
+      "file": "MD19770200_0.zip",
+      "url": "https://www.nies.go.jp/igreen/md/1977/sei/MD19770200_0.zip",
+      "year": 1977,
+      "bytes": 186349,
+      "sha256": "c57f4defb663c41f01e45fedebc7a5f61d50282c3d2e451899d6dfaa11dd02d7",
+      "retrievedAt": "2026-09-11T17:21:13.886196+00:00"
+    },
+    {
+      "file": "MM19770000.zip",
+      "url": "https://www.nies.go.jp/igreen/mm/1977/MM19770000.zip",
+      "year": 1977,
+      "bytes": 180408,
+      "sha256": "b9cf443ec99967eae913c12789d604f24f3ab1ac14cb6e57cff1f693c7c2acf2",
+      "retrievedAt": "2026-09-11T17:21:15.146491+00:00"
+    },
+    {
+      "file": "MD19780200_0.zip",
+      "url": "https://www.nies.go.jp/igreen/md/1978/sei/MD19780200_0.zip",
+      "year": 1978,
+      "bytes": 232204,
+      "sha256": "253dadfb70ba47eab7d8e7484072342edcfc7f2eefc6d2bedadf06147e4d4327",
+      "retrievedAt": "2026-09-11T17:21:16.410739+00:00"
+    },
+    {
+      "file": "MM19780000.zip",
+      "url": "https://www.nies.go.jp/igreen/mm/1978/MM19780000.zip",
+      "year": 1978,
+      "bytes": 242830,
+      "sha256": "3520e88ef1e5e77490f00bc069e1ee5c0cb28c15be5a2d2c55c324273fd3479f",
+      "retrievedAt": "2026-09-11T17:21:17.884065+00:00"
+    },
+    {
+      "file": "MD19790200_0.zip",
+      "url": "https://www.nies.go.jp/igreen/md/1979/sei/MD19790200_0.zip",
+      "year": 1979,
+      "bytes": 223068,
+      "sha256": "c876964da9877b45670732a09af226492712e9fbe10360c0a66ac4689823f0f5",
+      "retrievedAt": "2026-09-11T17:21:19.195795+00:00"
+    },
+    {
+      "file": "MM19790000.zip",
+      "url": "https://www.nies.go.jp/igreen/mm/1979/MM19790000.zip",
+      "year": 1979,
+      "bytes": 248282,
+      "sha256": "5f822df79202bcee67d978a20733dc677b3357270b15d3c2567db608b3f19101",
+      "retrievedAt": "2026-09-11T17:21:20.732526+00:00"
+    },
+    {
+      "file": "MD19800200_0.zip",
+      "url": "https://www.nies.go.jp/igreen/md/1980/sei/MD19800200_0.zip",
+      "year": 1980,
+      "bytes": 231166,
+      "sha256": "2853b77d099168ead4fccc4cf56583e5a9e9ebf516ea88d330f251c3eabb1520",
+      "retrievedAt": "2026-09-11T17:21:22.209683+00:00"
+    },
+    {
+      "file": "MM19800000.zip",
+      "url": "https://www.nies.go.jp/igreen/mm/1980/MM19800000.zip",
+      "year": 1980,
+      "bytes": 247677,
+      "sha256": "7ca1cb1aea600b155874fb9b99a51a68c306162a9e1b544b9c013b612d9ec6cd",
+      "retrievedAt": "2026-09-11T17:21:23.594153+00:00"
+    },
+    {
+      "file": "MD19810200_0.zip",
+      "url": "https://www.nies.go.jp/igreen/md/1981/sei/MD19810200_0.zip",
+      "year": 1981,
+      "bytes": 234566,
+      "sha256": "e00945c39172d1f9e07c34d72c1614c6f3f4cce476327be4717484128637ac73",
+      "retrievedAt": "2026-09-11T17:21:25.213815+00:00"
+    },
+    {
+      "file": "MM19810000.zip",
+      "url": "https://www.nies.go.jp/igreen/mm/1981/MM19810000.zip",
+      "year": 1981,
+      "bytes": 256341,
+      "sha256": "b80dab7457b0ec582554eb85f960b299b5b94b4e5e2ef677a1db8d0e7630ae44",
+      "retrievedAt": "2026-09-11T17:21:26.684007+00:00"
+    },
+    {
+      "file": "MD19820200_0.zip",
+      "url": "https://www.nies.go.jp/igreen/md/1982/sei/MD19820200_0.zip",
+      "year": 1982,
+      "bytes": 236999,
+      "sha256": "fea05d44dca92e6e9ed4fa519f103d7937443fd801919b6cc54deaaefcec6d21",
+      "retrievedAt": "2026-09-11T17:21:28.359389+00:00"
+    },
+    {
+      "file": "MM19820000.zip",
+      "url": "https://www.nies.go.jp/igreen/mm/1982/MM19820000.zip",
+      "year": 1982,
+      "bytes": 254116,
+      "sha256": "d0b8f64c49246e19bd27cabd734fb13936c242830c845603ff8c3560b96bf899",
+      "retrievedAt": "2026-09-11T17:21:29.953991+00:00"
+    },
+    {
+      "file": "MD19830200_0.zip",
+      "url": "https://www.nies.go.jp/igreen/md/1983/sei/MD19830200_0.zip",
+      "year": 1983,
+      "bytes": 237242,
+      "sha256": "bb84ff4fff4238075a201cf8ac765dd0a78cb7954960d9c9e9cb44c75f3705f4",
+      "retrievedAt": "2026-09-11T17:21:31.521709+00:00"
+    },
+    {
+      "file": "MM19830000.zip",
+      "url": "https://www.nies.go.jp/igreen/mm/1983/MM19830000.zip",
+      "year": 1983,
+      "bytes": 275553,
+      "sha256": "f2236f1a4ddc9d277375b97c4e07be79dd569345f19dbda1c2751e4132bb2740",
+      "retrievedAt": "2026-09-11T17:21:33.146659+00:00"
+    },
+    {
+      "file": "MD19840300_0.zip",
+      "url": "https://www.nies.go.jp/igreen/md/1984/np/MD19840300_0.zip",
+      "bytes": 734,
+      "sha256": "55042c8d85bebb89bad2c2c7dbabbdd8b802200fcee1f3460cd462afa0533f37",
+      "retrievedAt": "2026-09-11T17:21:34.458663+00:00"
+    },
+    {
+      "file": "MM19840000.zip",
+      "url": "https://www.nies.go.jp/igreen/mm/1984/MM19840000.zip",
+      "bytes": 277645,
+      "sha256": "eaa7968fba808b031606c33b3892aa551a3e3b19c507edc82d0e336578a6f1a7",
+      "retrievedAt": "2026-09-11T17:21:35.964137+00:00"
+    },
+    {
+      "file": "MD_manu.pdf",
+      "url": "https://www.nies.go.jp/igreen/manual/MD_manu.pdf",
+      "bytes": 129228,
+      "sha256": "9bcd4d99b2549dc4682bc086767047e03798abe32f89776aaa9a96e8ebe626c7",
+      "retrievedAt": "2026-09-11T17:21:37.344111+00:00"
+    },
+    {
+      "file": "MM_manu.pdf",
+      "url": "https://www.nies.go.jp/igreen/manual/MM_manu.pdf",
+      "bytes": 260184,
+      "sha256": "5764d9faa5973e27405ad1bb2c7a730c2e14003fd53d9e1d8e196b84feb4bd09",
+      "retrievedAt": "2026-09-11T17:21:38.743931+00:00"
+    }
+  ],
+  "queryYears": [
+    1971,
+    1972,
+    1973,
+    1974,
+    1975,
+    1976,
+    1977,
+    1978,
+    1979,
+    1980,
+    1981,
+    1982,
+    1983
+  ],
+  "termsUrl": "https://www.nies.go.jp/igreen/index_water.html",
+  "note": "Local historical extraction; old database republication terms require separate release review."
+}

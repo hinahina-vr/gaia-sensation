@@ -1,0 +1,26 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {discoverData,analyzeDiscovery} from '../statistics-discovery.js';
+const datasets=JSON.parse(fs.readFileSync('artifacts/bi-insights-20260913/datasets.json'));
+const run=(dataset,rows=dataset.rows)=>discoverData({dataset,rows});
+const close=(a,b)=>assert(Math.abs(a-b)<1e-8,`${a} != ${b}`);
+const emission=datasets.find(d=>d.id==='emissions-urban');
+const ranked=[...emission.rows].sort((a,b)=>b.value-a.value),total=ranked.reduce((s,r)=>s+r.value,0),top=ranked.slice(0,3).reduce((s,r)=>s+r.value,0);
+const e=run(emission);
+close(e.computedInsight.scenario.totalReductionPercent,top/total*10);
+close(e.computedInsight.scenario.absoluteReduction,top*.1);
+assert.deepEqual(run(emission,[...emission.rows].reverse()).computedInsight,e.computedInsight);
+const filtered=run(emission,emission.rows.filter(r=>r.id!==ranked[0].id));
+assert.notEqual(filtered.summary,e.summary);
+assert(!filtered.computedInsight.recordIds.includes(String(ranked[0].id)));
+assert.deepEqual(run(emission,[...emission.rows,{id:'fake',value:1e20,provenance:'IMPUTED'}]).computedInsight,e.computedInsight);
+const empty=run(emission,[]);assert.equal(empty.computedInsight.status,'insufficient');
+assert.equal(run(emission,[ranked[0]]).computedInsight.status,'insufficient');
+const temporal={id:'test',title:'気温',unit:'℃',xKind:'year',insightContext:{domain:'temperature'},rows:[1,2,3,4,5,6].map((value,i)=>({id:String(i),label:String(2000+i),x:2000+i,value,provenance:'SOURCE'}))};
+const t=run(temporal);assert(!t.summary.includes('%'));close(t.computedInsight.details.change,4);
+const flat=run({...temporal,rows:temporal.rows.map(r=>({...r,value:2}))});assert(!flat.summary.includes('0%減'));
+const mixed=run({...temporal,rows:temporal.rows.map((r,i)=>({...r,sourceSeries:i<5?'old':'new'}))});assert.equal(mixed.computedInsight.status,'insufficient');
+const poll=datasets.find(d=>d.id==='pollination'),p=run(poll);assert(p.summary.includes('24分類群'));assert(!p.summary.includes('HUMAN_OBSERVATION'));
+assert.deepEqual(run(poll,poll.rows.map(r=>({...r,value:r.value+10000}))).computedInsight,p.computedInsight);
+for(const dataset of datasets){const d=run(dataset),a=analyzeDiscovery({dataset,rows:dataset.rows});assert.deepEqual(a.metrics,d.evidence);assert.equal(a.insight.meaning,d.summary);assert(!/NaN|undefined|見直す手がかり|検証する社会課題/.test(d.summary));}
+console.log('PASS: independent contribution/scenario arithmetic; filter recomputation; order invariance; imputation exclusion; empty/single/flat/mixed-series/Celsius/categorical guards; all 84 result/metric consistency checks.');

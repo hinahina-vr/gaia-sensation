@@ -1,0 +1,452 @@
+.map-mode-group-firms .map-mode-list {
+  grid-template-columns: repeat(6, minmax(36px, 1fr));
+}
+
+.map-mode-button[data-planet-exhibit] {
+  color: rgba(var(--planet-rgb), 0.8);
+  border-color: rgba(var(--planet-rgb), 0.34);
+  background:
+    radial-gradient(circle at 72% 24%, rgba(var(--planet-rgb), 0.18), transparent 37%),
+    linear-gradient(135deg, rgba(var(--planet-rgb), 0.11), rgba(3, 13, 26, 0.86));
+  box-shadow: inset 0 0 18px rgba(var(--planet-rgb), 0.05);
+}
+
+.map-mode-button[data-planet-exhibit]:is(:hover, :focus-visible, [aria-current="true"]) {
+  color: #fff;
+  border-color: rgba(var(--planet-rgb), 0.92);
+  background: linear-gradient(135deg, rgba(var(--planet-rgb), 0.28), rgba(7, 20, 38, 0.9));
+  box-shadow: 0 0 24px rgba(var(--planet-rgb), 0.24), inset 0 0 18px rgba(var(--planet-rgb), 0.1);
+}
+
+.gaia-planet-signals-canvas {
+  position: absolute;
+  z-index: 6;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 0.96;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.gaia-planet-atmosphere-canvas {
+  position: absolute;
+  z-index: 5;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.gaia-planet-atmosphere-canvas[hidden] { display: none !important; }
+
+/* Keep the pearl-light markers distinct above the translucent atmosphere. */
+.gaia-planet-signals-canvas[data-planet-engine="webgl2-continuous-atmosphere"] {
+  mix-blend-mode: normal;
+  opacity: 1;
+}
+
+.japan-layer.is-planet-signals-exhibit .japan-map > #gaia-canvas { visibility: hidden !important; }
+
+.gaia-planet-signals-canvas[hidden],
+.gaia-planet-signals-legend[hidden],
+.gaia-planet-signals-readout[hidden] {
+  display: none !important;
+}
+
+.gaia-planet-signals-legend {
+  --planet-rgb: 99, 243, 255;
+  position: absolute;
+  z-index: 9;
+  top: max(118px, calc(env(safe-area-inset-top) + 82px));
+  left: 18px;
+  display: grid;
+  width: min(310px, calc(100vw - 36px));
+  gap: 8px;
+  padding: 13px 15px 12px;
+  border: 1px solid rgba(var(--planet-rgb), 0.34);
+  border-radius: 5px 17px 5px 5px;
+  color: rgba(232, 250, 255, 0.86);
+  background:
+    radial-gradient(circle at 88% 12%, rgba(var(--planet-rgb), 0.13), transparent 42%),
+    rgba(3, 12, 24, 0.88);
+  box-shadow: 0 15px 38px rgba(0, 0, 0, 0.42), inset 0 1px rgba(233, 253, 255, 0.06);
+  backdrop-filter: none;
+  pointer-events: none;
+}
+
+.gaia-planet-signals-legend header,
+.gaia-planet-signals-legend p {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 0;
+}
+
+.gaia-planet-signals-legend header strong {
+  color: rgba(240, 253, 255, 0.94);
+  font: 750 11px/1.25 Consolas, var(--font-ja);
+  letter-spacing: 0.04em;
+}
+
+.gaia-planet-signals-legend header span,
+.gaia-planet-signals-legend p {
+  color: rgba(218, 240, 246, 0.64);
+  font: 700 9px/1.2 Consolas, var(--font-ja);
+}
+
+.gaia-planet-signals-legend > i {
+  display: block;
+  height: 9px;
+  border: 1px solid rgba(var(--planet-rgb), 0.38);
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(var(--planet-rgb), 0.04), rgba(var(--planet-rgb), 0.44), rgb(var(--planet-rgb)));
+  box-shadow: 0 0 18px rgba(var(--planet-rgb), 0.25);
+}
+
+.gaia-planet-signals-legend p em {
+  margin-left: auto;
+  color: rgb(var(--planet-rgb));
+  font-style: normal;
+}
+
+.gaia-planet-data-time {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4px 10px;
+  margin-top: 2px;
+  padding-top: 9px;
+  border-top: 1px solid rgba(var(--planet-rgb), 0.2);
+}
+
+.gaia-planet-data-time span {
+  align-self: center;
+  color: rgb(var(--planet-rgb));
+  font: 800 9px/1 var(--font-console);
+  letter-spacing: 0.08em;
+}
+
+.gaia-planet-data-time time {
+  color: #effcff;
+  font: 750 11px/1.2 var(--font-console);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.gaia-planet-data-time small {
+  grid-column: 1 / -1;
+  color: rgba(218, 240, 246, 0.58);
+  font: 600 9px/1.2 var(--font-ja);
+  text-align: right;
+}
+
+.gaia-planet-cloud-credit {
+  display: grid;
+  gap: 4px;
+  padding: 8px 0 2px;
+  border-top: 1px solid rgba(var(--planet-rgb), .18);
+  color: #dce7e9;
+  font: 600 10px/1.4 var(--font-ja);
+  text-decoration: none;
+  pointer-events: auto;
+}
+
+.gaia-planet-cloud-credit small {
+  color: #a4b7bc;
+  font-size: 9px;
+}
+
+.gaia-planet-cloud-credit:is(:hover, :focus-visible) { color: #fff; text-decoration: underline; }
+.gaia-planet-cloud-credit[hidden] { display: none !important; }
+
+.gaia-planet-signals-legend .gaia-planet-poi-key {
+  justify-content: flex-start;
+  gap: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(var(--planet-rgb), .18);
+  color: rgba(237, 251, 255, .86);
+  font: 600 10px/1.4 var(--font-ja);
+}
+
+.gaia-planet-poi-key > i {
+  flex: 0 0 14px;
+  width: 14px;
+  height: 14px;
+  background: radial-gradient(circle, #fffff4 0%, rgba(var(--planet-rgb), .55) 18%, rgba(var(--planet-rgb), .12) 42%, transparent 72%);
+}
+
+.gaia-planet-signals-readout {
+  --planet-rgb: 99, 243, 255;
+  position: absolute;
+  z-index: 33;
+  right: 12px;
+  bottom: 10px;
+  left: 12px;
+  display: grid;
+  grid-template-columns: minmax(240px, 1.25fr) minmax(210px, 0.95fr) minmax(250px, 1.15fr) minmax(310px, 1.55fr) minmax(250px, 1.15fr);
+  min-height: 122px;
+  overflow: hidden;
+  border: 1px solid rgba(var(--planet-rgb), 0.34);
+  border-radius: 18px 18px 3px 3px;
+  color: #effcff;
+  background:
+    linear-gradient(105deg, rgba(var(--planet-rgb), 0.11), transparent 40%, rgba(var(--planet-rgb), 0.06)),
+    rgba(3, 11, 23, 0.96);
+  box-shadow: 0 -20px 65px rgba(0, 0, 0, 0.5), inset 0 1px rgba(236, 253, 255, 0.05);
+  backdrop-filter: blur(18px) saturate(1.24);
+}
+
+.gaia-planet-signals-readout > * {
+  min-width: 0;
+  padding: 16px;
+  border-left: 1px solid rgba(var(--planet-rgb), 0.12);
+}
+
+.gaia-planet-signals-readout > :first-child { border-left: 0; }
+
+.gaia-planet-chapter > p,
+.gaia-planet-primary > p,
+.gaia-planet-metrics small,
+.gaia-planet-source > span {
+  margin: 0;
+  color: rgb(var(--planet-rgb));
+  font: 750 clamp(9px, 0.56vw, 13px)/1.2 var(--font-console);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.gaia-planet-chapter,
+.gaia-planet-primary,
+.gaia-planet-metrics,
+.gaia-planet-copy,
+.gaia-planet-source {
+  display: grid;
+  align-content: center;
+  gap: 8px;
+}
+
+.gaia-planet-chapter > div {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr) 28px;
+  align-items: center;
+  gap: 9px;
+}
+
+.gaia-planet-chapter button {
+  width: 28px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 18px;
+  color: rgb(var(--planet-rgb));
+  background: rgba(var(--planet-rgb), 0.1);
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.gaia-planet-chapter-title {
+  display: flex;
+  align-items: baseline;
+  min-width: 0;
+  gap: 9px;
+}
+
+.gaia-planet-chapter [data-planet-number] {
+  flex: none;
+  color: rgb(var(--planet-rgb));
+  font: 800 clamp(26px, 1.3vw, 32px)/1 var(--font-console);
+}
+
+.gaia-planet-chapter strong {
+  min-width: 0;
+  overflow: hidden;
+  color: #f4fdff;
+  font: 650 clamp(19px, 1.04vw, 27px)/1.2 var(--font-ja);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.gaia-planet-primary {
+  grid-template-columns: auto min-content;
+  overflow: hidden;
+}
+
+.gaia-planet-primary > p { grid-column: 1 / -1; }
+.gaia-planet-primary > strong {
+  color: #fff;
+  font: 500 clamp(30px, 2.2vw, 47px)/0.94 var(--font-console);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  text-shadow: 0 0 25px rgba(var(--planet-rgb), 0.38);
+}
+.gaia-planet-primary > span {
+  align-self: end;
+  padding-bottom: 4px;
+  color: rgba(223, 248, 255, 0.78);
+  font: 650 clamp(13px, 0.78vw, 18px)/1 var(--font-ja);
+  white-space: nowrap;
+}
+
+.gaia-planet-metrics {
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.gaia-planet-metrics span { display: grid; align-content: center; gap: 8px; min-width: 0; }
+.gaia-planet-metrics strong {
+  overflow: hidden;
+  color: #fff;
+  font: 700 clamp(14px, 0.85vw, 21px)/1.2 Consolas, var(--font-ja);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* The longest place name gets the flexible column; the count stays compact. */
+.gaia-planet-signals-readout[data-planet-renderer="quake"] .gaia-planet-metrics {
+  grid-template-columns: max-content minmax(0, 1fr);
+  column-gap: 16px;
+}
+.gaia-planet-metrics [hidden] { display: none !important; }
+.gaia-planet-metrics [data-planet-epicenter] {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 18px;
+  grid-template-rows: auto 1fr;
+  align-items: center;
+  gap: 3px 7px;
+  min-width: 0;
+  min-height: 44px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 3px;
+  color: rgb(var(--planet-rgb));
+  background: none;
+  text-align: left;
+  cursor: pointer;
+}
+.gaia-planet-metrics [data-planet-epicenter] > small { grid-column: 1 / -1; }
+.gaia-planet-metrics [data-planet-epicenter-name] {
+  overflow: visible;
+  font: 650 clamp(12px, .65vw, 18px)/1.3 var(--font-ui-ja);
+  white-space: normal;
+  overflow-wrap: anywhere;
+  text-overflow: clip;
+  text-decoration: underline;
+  text-decoration-color: rgba(var(--planet-rgb), .4);
+  text-underline-offset: 3px;
+}
+.gaia-planet-metrics [data-planet-epicenter] svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.3; }
+.gaia-planet-metrics [data-planet-epicenter]:hover { background: rgba(var(--planet-rgb), .08); }
+.gaia-planet-metrics [data-planet-epicenter]:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+.gaia-planet-metrics [data-planet-epicenter]:disabled { cursor: wait; opacity: .6; }
+
+.gaia-planet-copy { gap: 5px; }
+.gaia-planet-copy p {
+  margin: 0;
+  color: rgba(232, 248, 252, 0.85);
+  font: 600 12px/1.52 var(--font-ja);
+}
+.gaia-planet-copy small {
+  color: rgba(211, 234, 240, 0.58);
+  font: 500 9px/1.5 var(--font-ja);
+}
+.gaia-planet-copy b { color: rgb(var(--planet-rgb)); font-family: var(--font-console); }
+
+.gaia-planet-source > span {
+  overflow: hidden;
+  color: rgba(var(--planet-rgb), 0.74);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.gaia-planet-source a {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+  padding: 10px 11px;
+  border: 1px solid rgba(var(--planet-rgb), 0.22);
+  color: #f3fdff;
+  background: linear-gradient(115deg, rgba(var(--planet-rgb), 0.16), rgba(4, 18, 31, 0.72));
+  box-shadow: inset 3px 0 rgb(var(--planet-rgb));
+  font: 650 clamp(10px, 0.66vw, 14px)/1.25 var(--font-ja);
+  text-decoration: none;
+}
+.gaia-planet-source a strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.gaia-planet-source a i {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  place-items: center;
+  font-style: normal;
+}
+.gaia-planet-source a:is(:hover, :focus-visible) { outline: none; filter: brightness(1.18); }
+
+.japan-layer.is-planet-signals-exhibit .japan-map::after {
+  content: "";
+  position: absolute;
+  z-index: 4;
+  inset: 0;
+  background: radial-gradient(circle at 50% 48%, transparent 14%, rgba(0, 4, 12, 0.28) 72%, rgba(0, 2, 8, 0.58));
+  pointer-events: none;
+}
+
+@media (max-width: 1500px) {
+  .gaia-planet-signals-readout { grid-template-columns: 1.15fr 0.9fr 1.12fr 1.45fr 1.1fr; }
+}
+
+@media (max-width: 1120px) {
+  .gaia-planet-signals-readout { grid-template-columns: 1.1fr 0.9fr 1.25fr 1.25fr; }
+  .gaia-planet-metrics { display: none; }
+  .gaia-planet-signals-readout[data-planet-renderer="quake"] .gaia-planet-metrics { display: grid; }
+  .gaia-planet-signals-readout[data-planet-renderer="quake"] .gaia-planet-copy { display: none; }
+}
+
+@media (max-width: 720px) {
+  .map-mode-group-firms .map-mode-list { grid-template-columns: repeat(6, minmax(34px, 1fr)); }
+  .gaia-planet-signals-legend {
+    z-index: 20;
+    top: max(132px, calc(env(safe-area-inset-top) + 106px));
+    left: 8px;
+    width: min(242px, calc(100vw - 16px));
+    padding: 10px 11px 9px;
+    background:
+      radial-gradient(circle at 88% 12%, rgba(var(--planet-rgb), 0.12), transparent 42%),
+      rgba(3, 12, 24, 0.98);
+  }
+  .gaia-planet-signals-readout {
+    right: 8px;
+    bottom: max(7px, env(safe-area-inset-bottom));
+    left: 8px;
+    grid-template-columns: 1fr 0.8fr;
+    min-height: 218px;
+    border-radius: 15px 15px 4px 4px;
+  }
+  .gaia-planet-signals-readout > * { padding: 12px; }
+  .gaia-planet-metrics,
+  .gaia-planet-copy { display: none; }
+  .gaia-planet-chapter { grid-column: 1; grid-row: 1; }
+  .gaia-planet-primary { grid-column: 2; grid-row: 1; }
+  .gaia-planet-source { grid-column: 1 / -1; grid-row: 2; }
+  .gaia-planet-signals-readout[data-planet-renderer="quake"] .gaia-planet-metrics { grid-column: 1 / -1; grid-row: 2; }
+  .gaia-planet-signals-readout[data-planet-renderer="quake"] .gaia-planet-source { grid-row: 3; }
+  .gaia-planet-chapter > div { grid-template-columns: 22px minmax(0, 1fr) 22px; gap: 4px; }
+  .gaia-planet-chapter button { width: 22px; height: 32px; }
+  .gaia-planet-chapter-title { gap: 6px; }
+  .gaia-planet-chapter [data-planet-number] { font-size: 23px; }
+  .gaia-planet-chapter strong { font-size: 15px; }
+  .gaia-planet-primary > strong { font-size: clamp(25px, 9vw, 37px); }
+  .gaia-planet-source a { padding: 8px 10px; }
+  .japan-layer.is-firms-exhibit .japan-map { padding-bottom: 224px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gaia-planet-signals-canvas,
+  .gaia-planet-signals-readout,
+  .gaia-planet-signals-legend { animation: none !important; transition-duration: 1ms !important; }
+}

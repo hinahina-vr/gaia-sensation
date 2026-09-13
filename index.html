@@ -1,0 +1,3248 @@
+<!doctype html>
+<html lang="ja" class="gaia-booting" data-build-profile="release">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="data:," />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#050810" />
+    <meta
+      name="description"
+      content="地球と宇宙の公開データを、光・地図・物語・宇宙空間でたどるインタラクティブ展示。"
+    />
+    <title>惑星の放課後 — GAIA SENSATION</title>
+    <link rel="stylesheet" href="./typography.css?v=mincho-20260912" />
+    <link rel="stylesheet" href="./close-buttons.css?v=20260913" />
+    <link rel="stylesheet" href="./gaia-i18n.css?v=20260912-i18n-20260913" />
+    <script>
+      if (window.location.hash.toLowerCase() === "#esp32") {
+        window.location.replace(new URL("./sensors/#esp32", window.location.href).href);
+      }
+    </script>
+    <link rel="preload" as="image" href="./assets/brand/brand-logo-dark-surface-590.webp" fetchpriority="high" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='24' fill='%2393f4d5'/%3E%3C/svg%3E"
+    />
+    <style id="gaia-boot-critical">
+      html, body { width: 100%; height: 100%; margin: 0; background: #02070d; }
+      *, *::before, *::after { box-sizing: border-box; }
+      button, input { font: inherit; }
+      html.gaia-booting,
+      html.gaia-booting body { min-height: 100%; overflow: hidden; background: #02070d; }
+      html.gaia-booting .experience { visibility: hidden !important; }
+      .experience { position: fixed; inset: 0; overflow: hidden; }
+      .gaia-boot {
+        --boot-mint: 145, 229, 211;
+        --boot-blue: 105, 165, 205;
+        position: fixed;
+        z-index: 10000;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+        padding: clamp(20px, 5vw, 72px);
+        color: #dce9e7;
+        background:
+          radial-gradient(circle at 72% 20%, rgba(var(--boot-blue), 0.13), transparent 28%),
+          radial-gradient(circle at 24% 78%, rgba(var(--boot-mint), 0.08), transparent 31%),
+          linear-gradient(145deg, #01050a 0%, #06131f 55%, #020810 100%);
+        font-family: var(--font-ja);
+        isolation: isolate;
+        contain: layout paint style;
+        transition: opacity 420ms ease, visibility 420ms ease, filter 420ms ease;
+      }
+      .gaia-boot[hidden] { display: none; }
+      .gaia-boot::before {
+        content: "";
+        position: absolute;
+        z-index: -2;
+        inset: -20%;
+        background-image:
+          linear-gradient(rgba(var(--boot-mint), 0.035) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(var(--boot-mint), 0.035) 1px, transparent 1px);
+        background-size: 42px 42px;
+        transform: perspective(720px) rotateX(61deg) translateY(29%);
+        transform-origin: center bottom;
+        -webkit-mask-image: linear-gradient(to bottom, transparent 4%, #000 54%, transparent 96%);
+        mask-image: linear-gradient(to bottom, transparent 4%, #000 54%, transparent 96%);
+      }
+      .gaia-boot::after {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        inset: 0;
+        background: linear-gradient(105deg, transparent 0 46%, rgba(var(--boot-mint), 0.055) 49%, transparent 52% 100%);
+        transform: translateX(-75%);
+        animation: gaia-boot-scan 3.8s linear infinite;
+      }
+      .gaia-boot.is-ready {
+        opacity: 0;
+        visibility: hidden;
+        filter: blur(7px);
+        pointer-events: none;
+      }
+      .gaia-boot__shell {
+        width: min(820px, 100%);
+      }
+      .gaia-boot__copy { min-width: 0; text-align: center; }
+      .gaia-boot__eyebrow,
+      .gaia-boot__telemetry,
+      .gaia-boot__status {
+        font-family: Consolas, "Courier New", monospace;
+        text-transform: uppercase;
+      }
+      .gaia-boot__eyebrow {
+        margin: 0 0 10px;
+        color: rgba(var(--boot-mint), 0.68);
+        font-size: clamp(8px, 1vw, 11px);
+        font-weight: 700;
+        letter-spacing: 0.27em;
+      }
+      .gaia-boot__logo {
+        display: block;
+        width: min(100%, 590px);
+        height: auto;
+        margin: -3% auto -4%;
+        filter: drop-shadow(0 0 18px rgba(var(--boot-blue), 0.16));
+      }
+      .gaia-boot__tagline {
+        margin: 6px 0 0;
+        color: rgba(218, 234, 231, 0.5);
+        font-size: clamp(10px, 1.25vw, 13px);
+        font-weight: 500;
+        letter-spacing: 0.19em;
+      }
+      .gaia-boot__rail {
+        position: relative;
+        height: 2px;
+        margin: clamp(26px, 4vw, 42px) 0 14px;
+        overflow: hidden;
+        background: rgba(var(--boot-mint), 0.12);
+      }
+      .gaia-boot__rail::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        width: 38%;
+        background: linear-gradient(90deg, transparent, rgba(var(--boot-mint), 0.95), transparent);
+        box-shadow: 0 0 18px rgba(var(--boot-mint), 0.48);
+        animation: gaia-boot-rail 1.55s ease-in-out infinite;
+      }
+      .gaia-boot__telemetry {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        color: rgba(218, 234, 231, 0.34);
+        font-size: 8px;
+        letter-spacing: 0.16em;
+      }
+      .gaia-boot__status {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        margin: 26px 0 0;
+        color: rgba(var(--boot-mint), 0.72);
+        font-size: 9px;
+        letter-spacing: 0.14em;
+      }
+      .gaia-boot__status::before {
+        content: "";
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: rgb(var(--boot-mint));
+        box-shadow: 0 0 12px rgba(var(--boot-mint), 0.82);
+        animation: gaia-boot-blink 1s steps(2, end) infinite;
+      }
+      @keyframes gaia-boot-scan { to { transform: translateX(75%); } }
+      @keyframes gaia-boot-rail { from { transform: translateX(-105%); } to { transform: translateX(265%); } }
+      @keyframes gaia-boot-blink { 50% { opacity: 0.3; } }
+      @media (max-width: 620px) {
+        .gaia-boot { padding: 26px; }
+        .gaia-boot__eyebrow { margin-bottom: 14px; }
+        .gaia-boot__logo { width: min(100%, 520px); margin-inline: auto; }
+        .gaia-boot__telemetry { font-size: 7px; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .gaia-boot::after,
+        .gaia-boot__rail::before,
+        .gaia-boot__status::before { animation: none !important; }
+        .gaia-boot__rail::before { width: 100%; opacity: 0.55; }
+      }
+    </style>
+    <link rel="stylesheet" href="./navigation-controls.css?v=gaia-unified-navigation-1-map-polish-1-header-cleanup-1-mincho-20260912" />
+    <link rel="stylesheet" href="./panel-surfaces.css?v=gaia-map-polish-1-marine-cod-1-copy-transparent-20260909" />
+    <link rel="preload" as="style" href="./opening.css?v=gaia-title-about-desktop-1-white-prologue-20260909-title-return-dissolve-20260910-selected-art-20260910-sea-plume-20260910-plume-density-2-20260910-opening-art-20260912-mincho-20260912-route-art-soft-edge-about-glint-20260912" data-gaia-critical-style />
+    <script>
+      (() => {
+        const style = document.querySelector('link[data-gaia-critical-style]');
+        const loaded = () => { style.rel = 'stylesheet'; style.dataset.gaiaLoaded = 'true'; window.__gaiaBootCheck?.(); };
+        style.addEventListener('load', loaded, { once: true });
+        style.addEventListener('error', () => { style.dataset.gaiaLoaded = 'error'; window.__gaiaBootCheck?.(); }, { once: true });
+        // A cached preload can finish while an earlier stylesheet blocks this
+        // initializer. Activate it now; do not depend on a missed preload event.
+        style.rel = 'stylesheet';
+        if (style.sheet) loaded();
+      })();
+    </script>
+    <script src="./gaia-particles.js?v=gaia-opening-shooting-star-calm-1" defer fetchpriority="high"></script>
+    <script src="./opening-audio.js?v=gaia-heard-tracks-1-white-prologue-20260909" defer fetchpriority="high"></script>
+    <script src="./ui-sound.js?v=gaia-single-activation-white-prologue-20260909" defer fetchpriority="high"></script>
+    <script src="./button-glint.js?v=shared-mode-glint-20260912" defer></script>
+    <script src="./story-prologue-plume.js?v=gaia-sea-plume-dense-20260910" defer></script>
+    <script src="./story-prologue.js?v=gaia-white-prologue-20260909-sea-plume-20260910-section-entry-20260911-surf-fade-20260912" defer></script>
+    <script src="./map-exhibit-route.js?v=exhibit-links-20260912-i18n-20260913" defer></script>
+    <script src="./gaia-i18n.js?v=20260912-i18n-20260913" defer></script>
+    <script src="./gaia-i18n-canvas.js?v=20260912-i18n-20260913" defer></script>
+    <script src="./gaia-i18n-catalog.js?v=20260912-i18n-20260913" defer></script>
+    <script src="./locales/ui-common.js?v=20260912-i18n-20260913" defer></script>
+    <script src="./locales/ui-intro.js?v=20260912-i18n-20260913" defer></script>
+    <script src="./locales/ui-sources.js?v=20260912-i18n-20260913" defer></script>
+    <script src="./locales/ui-map-lab.js?v=20260912-i18n-20260913" defer></script>
+    <script src="./locales/ui-story-space.js?v=20260912-i18n-20260913" defer></script>
+    <script src="./locales/ui-story-runtime.js?v=20260912-i18n-20260913" defer></script>
+    <script src="./locales/ui-log-export.js?v=20260913-i18n-20260913" defer></script>
+    <script src="./locales/ui-geography.js?v=20260912-i18n-20260913" defer></script>
+    <script src="./locales/ui-gallery-space.js?v=20260912-i18n-20260913" defer></script>
+    <script src="./locales/ui-character-profiles.js?v=20260913-i18n-20260913" defer></script>
+    <script src="./locales/ui-secondary-modes.js?v=20260913-i18n-20260913" defer></script>
+    <script src="./locales/ui-space-runtime.js?v=20260913-i18n-20260913" defer></script>
+    <script src="./locales/ui-gx-runtime.js?v=20260913-i18n-20260913" defer></script>
+    <script src="./locales/ui-sensor-detail-ai.js?v=20260913-i18n-20260913" defer></script>
+    <script src="./locales/ui-ai-runtime.js?v=20260913-i18n-20260913" defer></script>
+    <script src="./locales/ui-map-runtime.js?v=20260913-i18n-20260913" defer></script>
+    <script src="./locales/ui-statistics-annual.js?v=i18n-20260913" defer></script>
+    <script src="./locales/ui-map-controls.js?v=20260912-i18n-20260913" defer></script>
+    <script src="./locales/ui-formats.js?v=20260912-i18n-20260913" defer></script>
+    <script src="./locales/exhibit-titles.js?v=20260912-i18n-20260913" defer></script>
+    <script src="./locales/metric-labels.js?v=20260912-i18n-20260913" defer></script>
+    <script src="./locales/ui-map-guides.js?v=20260912-i18n-20260913" defer></script>
+    <script src="./locales/ui-exhibit-descriptions.js?v=20260912-i18n-20260913" defer></script>
+    <script src="./locales/ui-controls-en-source.js?v=20260912-i18n-20260913" defer></script>
+    <script src="./locales/ui-map-reading.js?v=20260912-i18n-20260913" defer></script>
+    <script src="./locales/ui-map-reading-more.js?v=20260912-i18n-20260913" defer></script>
+    <script src="./locales/ui-map-live-world.js?v=20260912-i18n-20260913" defer></script>
+    <script src="./locales/ui-map-world-comparison.js?v=20260912-i18n-20260913" defer></script>
+    <script src="./locales/ui-map-japan-live.js?v=20260912-i18n-20260913" defer></script>
+    <script src="./locales/ui-map-japan-history.js?v=20260912-i18n-20260913" defer></script>
+    <script src="./locales/ui-reported-surfaces.js?v=20260912-i18n-20260913-previews-20260913" defer></script>
+    <script src="./locales/ui-sensor-music.js?v=20260912-i18n-20260913" defer></script>
+    <script src="./locales/ui-statistics-reading.js?v=20260912-i18n-20260913" defer></script>
+    <script src="./locales/ui-statistics-distribution.js?v=20260912-i18n-20260913" defer></script>
+    <script src="./locales/ui-statistics-inference.js?v=20260913-i18n-20260913" defer></script>
+    <script src="./locales/ui-statistics-categories.js?v=20260913-i18n-20260913" defer></script>
+    <script src="./locales/ui-statistics-models.js?v=20260913-i18n-20260913" defer></script>
+    <script src="./locales/ui-map-water-weather.js?v=20260912-i18n-20260913" defer></script>
+    <script src="./locales/ui-map-air-water-indicators.js?v=20260912-i18n-20260913" defer></script>
+    <script src="./locales/ui-map-prtr-biology.js?v=20260912-i18n-20260913" defer></script>
+    <script src="./locales/ui-map-food.js?v=20260912-i18n-20260913" defer></script>
+    <script src="./opening.js?v=gaia-title-about-desktop-1-white-prologue-20260909-title-return-dissolve-20260910-guide-track-20260910-opening-art-20260912-concept-new-tab-20260912-exhibit-links-i18n-i18n-20260913" defer fetchpriority="high"></script>
+    <script src="./opening-route-art.js?v=route-art-20260912" defer></script>
+<script src="./gaia-mode-loader.js?v=gaia-hardening-1-unified-navigation-1-sakuya-chin-1-map-polish-1-feature-intro-mizu-ame-2-mobile-collection-1-analysis-game-1-feature-fit-3-footer-credit-1-state-below-1-recycling-coverage-1-hover-inline-1-population-style-1-credit-clearance-1-plain-panel-edge-1-heading-step-1-intro-face-clearance-1-firms-surface-80-1-marine-cod-1-story-log-20260909-presence-fade-20260909-finale-focus-20260909-dock-align-20260909-separator-hold-20260909-status-place-20260909-copy-transparent-20260909-cod-ui-20260909-sensor-guide-20260909-japan-sensor-open-1-character-concept-20260909-pollution-1-compact-height-20260909-annual-type-20260909-title-poi-20260909-perf-high-20260909-prtr-biology-1-early-pause-20260909-owner-dispose-20260909-footer-story-20260909-observation-portal-20260909-tail-20260909-fao-food-1-record-dock-compact-20260909-white-prologue-20260909-calm-repeat-20260910-food-country-fill-20260910-scope-groups-20260910-title-return-dissolve-20260910-title-no-underline-20260910-heading-chevron-20260910-selected-art-20260910-direct-expression-20260910-story-temperature-20260910-completion-gate-20260910-map-blue-glass-20260910-ending-entry-slow-20260910-character-copy-align-20260910-temperature-autoplay-20260911-afternoon-clock-20260911-reading-breaks-20260911-section-entry-20260911-compact-rail-20260911-story-landscape-20260911-sound-all-story-20260911-rail-balance-20260912-feature-night-glint-20260912-periodic-tiles-20260912-unified-dock-20260912-sound-copy-20260912-shared-glint-20260912-title-opacity-20260912-statistics-observatory-20260912-action-size-20260912-mincho-20260912-prefecture-fill-20260912-theme-background-20260912-compact-food-legend-20260912-stable-next-20260912-live-badge-20260912-entry-highlights-20260912-unified-playback-20260912-source-layer-20260912-handoff-expression-20260912-log-debug-20260912-cast-fade-20260912-closing-clock-20260912-whiteboard-20260912-chat-gothic-20260912-chapter-swap-20260912-reaction-spacing-20260912-log-header-20260912-chat-memo-20260912-assistant-credit-20260912-credits-expanded-20260912-ending-return-20260912-credit-roles-20260912-assistant-size-20260912-suno-music-20260912-mic-credit-exhibit-links-20260912-exhibit-navigation-20260912-i18n-20260913-wind-strength-color-20260913-constellation-morph-20260913-picker-depth-focus-20260913-fixed-nav-dock15-20260913-status-right-20260913-nav-left-align-20260913-nav-triangles-20260913-previews-20260913-responsive-audit-20260913-responsive-followup-1" defer fetchpriority="high"></script>
+</head>
+  <body class="gaia-opening-active">
+    <div class="gaia-character-preloader" id="gaia-character-preloader" role="status" aria-live="polite" aria-hidden="true" hidden>
+      <div class="gaia-character-preloader__field" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="gaia-character-preloader__shell">
+        <p>CHARACTER ARCHIVE / LINK 03</p>
+        <strong>観測者たちの記録をひらいています</strong>
+        <div class="gaia-character-preloader__rail" aria-hidden="true"><i></i></div>
+        <span data-character-preloader-status>PORTRAIT DATA / CONNECTING</span>
+      </div>
+    </div>
+    <div class="gaia-boot" id="gaia-boot" role="status" aria-live="polite" aria-label="GAIA SENSATIONを起動しています">
+      <div class="gaia-boot__shell">
+        <div class="gaia-boot__copy">
+          <p class="gaia-boot__eyebrow">GAIA SENSATION / PLANETARY LINK</p>
+          <img
+            class="gaia-boot__logo"
+            src="./assets/brand/brand-logo-dark-surface-590.webp"
+            width="2172"
+            height="724"
+            alt="惑星の放課後 — GAIA SENSATION"
+            decoding="async"
+            fetchpriority="high"
+          />
+          <p class="gaia-boot__tagline">惑星の感覚を接続しています</p>
+          <div class="gaia-boot__rail" aria-hidden="true"></div>
+          <div class="gaia-boot__telemetry" aria-hidden="true">
+            <span>EARTH / 35.18N</span>
+            <span>ORBITAL CHANNEL 07</span>
+            <span>LOCAL DATA / SNAPSHOT</span>
+          </div>
+          <p class="gaia-boot__status" id="gaia-boot-status">INITIALIZING INTERFACE</p>
+        </div>
+      </div>
+    </div>
+    <script>
+      (() => {
+        const boot = document.querySelector("#gaia-boot");
+        const status = document.querySelector("#gaia-boot-status");
+        if (!(boot instanceof HTMLElement)) return;
+        document.documentElement.classList.add("gaia-booting");
+        let exiting = false;
+        const criticalStylesReady = () => Array.from(document.querySelectorAll("[data-gaia-critical-style]"))
+          .every((link) => link.dataset.gaiaLoaded === "true" || link.dataset.gaiaLoaded === "error");
+        window.__gaiaBootCheck = () => {
+          if (exiting || window.__gaiaInitialViewReady !== true || !criticalStylesReady()) return;
+          exiting = true;
+          if (status) status.textContent = "PLANETARY LINK ESTABLISHED";
+          requestAnimationFrame(() => requestAnimationFrame(() => {
+            boot.classList.add("is-ready");
+            boot.setAttribute("aria-hidden", "true");
+            window.setTimeout(() => {
+              boot.hidden = true;
+              document.documentElement.classList.remove("gaia-booting");
+              window.dispatchEvent(new CustomEvent("gaia:boot-handoff"));
+            }, 460);
+          }));
+        };
+        window.setTimeout(() => {
+          if (!exiting && status) status.textContent = "SYNCHRONIZING PLANETARY DATA";
+        }, 1800);
+        window.setTimeout(() => {
+          if (!exiting && status) status.textContent = "CALIBRATING OBSERVATION LAYERS";
+        }, 4800);
+        window.__gaiaBootCheck();
+      })();
+    </script>
+    <main class="experience">
+      <div class="gx-story-backdrop" id="gx-story-backdrop" aria-hidden="true" hidden></div>
+
+      <section
+        class="gaia-opening is-preloading is-awaiting-sound"
+        id="gaia-opening"
+        aria-label="惑星の放課後 GAIA SENSATION オープニング"
+      >
+        <div class="gaia-opening-preload" id="gaia-opening-preload" role="status" aria-live="polite" hidden>
+          <p>GAIA SENSATION / PRELOADING</p>
+          <strong><b id="gaia-preload-percent">0</b><span>%</span></strong>
+          <div class="gaia-preload-meter" aria-hidden="true"><i id="gaia-preload-bar"></i></div>
+          <p id="gaia-preload-status">オープニングの光・人物・音を準備しています　0 / 4</p>
+        </div>
+
+        <canvas
+          class="gaia-opening-particles"
+          id="gaia-opening-particles"
+          aria-hidden="true"
+        ></canvas>
+
+        <div class="gaia-vn-track" aria-hidden="true">
+          <section class="gaia-vn-panel gaia-vn-panel-prologue">
+            <div class="gaia-vn-prologue-lines"></div>
+            <div class="gaia-vn-prologue-lockup">
+              <small>離れた場所から、一つの作品へ</small>
+              <h2 data-opening-focus="260 650">「はじめまして。」</h2>
+              <p class="gaia-vn-prologue-copy" data-opening-focus="620 850">
+                <span>画面越しにコードやデータをやりとりしていた、あの時間。</span>
+                <span>潮風が吹き抜けるこの場所で顔を合わせるのは、<wbr>今日が初めてだった。</span>
+              </p>
+            </div>
+          </section>
+
+          <section class="gaia-vn-panel gaia-vn-panel-character gaia-vn-panel-minamo">
+            <div class="gaia-vn-character-grid"></div>
+            <div class="gaia-vn-character-echoes" aria-hidden="true"><i></i><i></i><i></i></div>
+            <div class="gaia-vn-character-copy">
+              <p><span>01</span> MIZU / FEEL</p>
+              <h2 data-opening-focus="2450 520">みず</h2>
+              <strong data-opening-focus="2720 650">「海も空も生き物も、ぜんぶ<span class="gaia-vn-quote-keep">影響し合って</span><br class="gaia-vn-quote-break">今の地球になってるんだよ。」</strong>
+              <span class="gaia-vn-character-reply" data-opening-focus="3370 650">複雑に絡み合う生態系のつながりを、直感的なビジュアルで受け止める。</span>
+            </div>
+            <div class="gaia-vn-character-band">MIZU　MIZU　MIZU</div>
+          </section>
+
+          <section class="gaia-vn-panel gaia-vn-panel-character gaia-vn-panel-sora">
+            <div class="gaia-vn-character-grid"></div>
+            <div class="gaia-vn-character-echoes" aria-hidden="true"><i></i><i></i><i></i></div>
+            <div class="gaia-vn-character-copy">
+              <p><span>02</span> AME / MEASURE</p>
+              <h2 data-opening-focus="5150 520">あめ</h2>
+              <strong data-opening-focus="5420 680">「数値で見ると、地球が<span class="gaia-vn-quote-keep">呼吸してる</span><br>リズムがちゃんとわかるね。」</strong>
+              <span class="gaia-vn-character-reply" data-opening-focus="6070 680">手元のマイコンとセンサーから、リアルタイムの地球データを追いかける。</span>
+            </div>
+            <div class="gaia-vn-character-band">AME　AME　AME　AME</div>
+          </section>
+
+          <section class="gaia-vn-panel gaia-vn-panel-real-earth">
+            <div class="gaia-vn-real-earth-orbit" aria-hidden="true"><i></i><i></i><i></i></div>
+            <div class="gaia-vn-real-earth-copy">
+              <small>本物の地球 / 公開データ</small>
+              <h2 data-opening-focus="8050 700"><span>手元の画面は、</span><span>本物の地球とつながっている。</span></h2>
+              <p class="gaia-vn-real-earth-body" data-opening-focus="8420 650"><span>CO₂濃度や気温など、世界中で観測されている実際のオープンデータを取得。</span><span>生の数値をシェーダープログラムによって、リアルタイムに光や波紋のグラフィックへと変換しています。</span></p>
+              <p class="gaia-vn-real-earth-flow" data-opening-focus="8800 650">観測する ── 描画する ── 体感する</p>
+            </div>
+          </section>
+
+          <section class="gaia-vn-panel gaia-vn-panel-montage">
+            <div class="gaia-vn-montage-dots"></div>
+            <p class="gaia-vn-montage-label">感じる / 測る / つなぐ / 選ぶ</p>
+            <div class="gaia-vn-path-copy">
+              <small>ともに変わる、そのはじまり</small>
+              <h2 data-opening-focus="10750 700">未来は、ともに変わる。</h2>
+              <p><span>この星の息づかいを、</span><span>感じ、測り、つなぎ、ともに選ぶ。</span><span>やがて、地球は静かに姿を変えていく。</span></p>
+            </div>
+            <div class="gaia-vn-word-rails" aria-label="四つの声">
+              <p><span>01</span><strong data-opening-focus="10940 520">感じる。</strong><small>MIZU</small></p>
+              <p><span>02</span><strong data-opening-focus="11160 520">測る。</strong><small>AME</small></p>
+              <p><span>03</span><strong data-opening-focus="11380 520">つなぐ。</strong><small>SAKUYA</small></p>
+              <p><span>04</span><strong data-opening-focus="11600 520">ともに選ぶ。</strong><small>YOU</small></p>
+            </div>
+          </section>
+
+          <section class="gaia-vn-panel gaia-vn-panel-final">
+            <div class="gaia-vn-final-photo"></div>
+            <div class="gaia-vn-final-shade"></div>
+            <div class="gaia-vn-final-copy">
+              <p>GAIA SENSATION / INTERACTIVE SYSTEM</p>
+              <h1 class="gaia-vn-work-title" data-opening-focus="13650 650">
+                <img
+                  class="gaia-vn-work-logo"
+                  src="./assets/brand/brand-logo-dark-surface-590.webp"
+                  srcset="./assets/brand/brand-logo-dark-surface-590.webp 590w, ./assets/brand/brand-logo-dark-surface-1180.webp 1180w"
+                  sizes="(max-width: 720px) calc(100vw - 32px), min(1180px, 76vw)"
+                  width="2172"
+                  height="724"
+                  alt="惑星の放課後 — GAIA SENSATION"
+                  decoding="async"
+                />
+              </h1>
+              <div class="gaia-vn-final-choice">
+                <strong data-opening-focus="14200 750">人間と地球は、どんな次の関係を選べるだろう。</strong>
+                <div class="gaia-opening-final-menu" id="gaia-opening-final-menu" role="group" aria-label="体験の入口" tabindex="-1" hidden>
+                  <button class="gaia-opening-route-guide-replay" id="gaia-opening-route-guide-replay" type="button" aria-label="2つの入口を順番に案内する" aria-controls="gaia-opening-route-guide">
+                    <span aria-hidden="true">?</span>
+                    <strong>入口ガイド</strong>
+                    <small aria-hidden="true">入口の案内</small>
+                  </button>
+                  <div class="gaia-opening-route-grid">
+                    <button class="gaia-opening-route gaia-opening-route--story" id="gaia-opening-route-story" type="button" aria-label="物語をはじめる">
+                      <span class="gaia-opening-route-copy">
+                        <small class="gaia-opening-route-index" aria-hidden="true">01 / STORY</small>
+                        <strong>物語をはじめる</strong>
+                        <span class="gaia-opening-route-en" lang="en" aria-hidden="true">STORY EXPERIENCE</span>
+                      </span>
+                      <span class="gaia-opening-route-symbol" aria-hidden="true">
+                        <svg class="gaia-opening-route-icon" viewBox="0 0 64 64">
+                          <path d="M8 14c9-2.4 17-.2 24 5.8v32c-7-5.8-15-8.2-24-5.8Z" />
+                          <path d="M56 14c-9-2.4-17-.2-24 5.8v32c7-5.8 15-8.2 24-5.8Z" />
+                          <path d="M32 20v32M14 22c4.7-.2 9 1 13 3.5M50 22c-4.7-.2-9 1-13 3.5" />
+                        </svg>
+                      </span>
+                    </button>
+                    <button class="gaia-opening-route gaia-opening-route--other" id="gaia-opening-route-other" type="button" aria-label="データを探索する">
+                      <span class="gaia-opening-route-copy">
+                        <small class="gaia-opening-route-index" aria-hidden="true">02 / DATA</small>
+                        <strong>データを探索する</strong>
+                        <span class="gaia-opening-route-en" lang="en" aria-hidden="true">DATA EXPLORATION</span>
+                      </span>
+                      <span class="gaia-opening-route-symbol" aria-hidden="true">
+                        <svg class="gaia-opening-route-icon" viewBox="0 0 64 64">
+                          <path d="m32 10 22 12-22 12L10 22Z" />
+                          <path d="m13 32 19 10 19-10M13 42l19 10 19-10" />
+                        </svg>
+                      </span>
+                    </button>
+                  </div>
+                  <nav class="gaia-opening-about" aria-label="作品について">
+                    <a id="gaia-opening-concept" href="./concept/" target="_blank" rel="noopener noreferrer">このサイトについて</a>
+                  </nav>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <div
+          class="gaia-opening-sound-modal"
+          id="gaia-opening-sound-modal"
+          role="dialog"
+          aria-modal="true"
+          aria-hidden="true"
+          aria-labelledby="gaia-opening-sound-title"
+          aria-describedby="gaia-opening-sound-description"
+          hidden
+        >
+          <div class="gaia-opening-sound-scene" aria-hidden="true"><span></span></div>
+          <div class="gaia-opening-sound-modal-scrim" aria-hidden="true"></div>
+          <canvas class="gaia-opening-sound-atmosphere" id="gaia-opening-sound-atmosphere" aria-hidden="true"></canvas>
+          <div class="gaia-opening-sound-dialog">
+            <div class="gaia-opening-sound-heading">
+              <small class="gaia-opening-sound-kicker">惑星の放課後</small>
+              <h2 id="gaia-opening-sound-title">サウンド設定</h2>
+              <span id="gaia-opening-sound-description">ゲーム中でも変更できます。</span>
+            </div>
+            <div class="gaia-opening-language" role="group" aria-label="表示言語を選ぶ">
+              <div class="gaia-opening-language-options">
+                <button type="button" data-gaia-language="ja" lang="ja" aria-label="表示言語：日本語" aria-pressed="true">
+                  <strong class="gaia-opening-language-name">日本語</strong>
+                  <span class="gaia-opening-language-check" aria-hidden="true">✓</span>
+                </button>
+                <button type="button" data-gaia-language="en" lang="en" aria-label="Display language: English" aria-pressed="false">
+                  <strong class="gaia-opening-language-name">English</strong>
+                  <span class="gaia-opening-language-check" aria-hidden="true">✓</span>
+                </button>
+                <button type="button" data-gaia-language="zh-CN" lang="zh-Hans" aria-label="显示语言：简体字" aria-pressed="false">
+                  <strong class="gaia-opening-language-name">简体字</strong>
+                  <span class="gaia-opening-language-check" aria-hidden="true">✓</span>
+                </button>
+              </div>
+            </div>
+            <section class="gaia-opening-sound-choices" aria-label="サウンド設定">
+              <div class="gaia-opening-sound-option gaia-opening-sound-option--on">
+                <button class="gaia-opening-sound-option-button" id="gaia-opening-sound-on" type="button" aria-label="サウンドをオンにして始める" aria-pressed="true">
+                  <span class="gaia-opening-sound-sparkles" aria-hidden="true"><i></i><i></i><i></i></span>
+                  <span class="gaia-opening-sound-icon-shell" aria-hidden="true">
+                    <svg class="gaia-opening-sound-icon" viewBox="0 0 24 24">
+                      <path d="M4 14v-3a8 8 0 0 1 16 0v3" />
+                      <rect x="3" y="12" width="4" height="8" rx="2" />
+                      <rect x="17" y="12" width="4" height="8" rx="2" />
+                      <path d="M7 7a6 6 0 0 1 10 0" opacity=".45" />
+                    </svg>
+                  </span>
+                  <span class="gaia-opening-sound-option-copy">
+                    <span class="gaia-opening-sound-option-label">サウンドあり</span>
+                    <small>音楽と環境音を、一緒に。</small>
+                  </span>
+                  <svg class="gaia-opening-sound-option-arrow" viewBox="0 0 32 16" fill="none" aria-hidden="true"><path d="M2 8h26m-6-6 6 6-6 6" /></svg>
+                </button>
+              </div>
+              <div class="gaia-opening-sound-option gaia-opening-sound-option--off">
+                <button class="gaia-opening-sound-option-button" id="gaia-opening-sound-off" type="button" aria-label="サウンドをオフにして始める" aria-pressed="false">
+                  <span class="gaia-opening-sound-sparkles" aria-hidden="true"><i></i><i></i><i></i></span>
+                  <span class="gaia-opening-sound-icon-shell" aria-hidden="true">
+                    <svg class="gaia-opening-sound-icon" viewBox="0 0 24 24">
+                      <path d="M4 9h4l5-4v14l-5-4H4z" />
+                      <path d="m17 9 5 6m0-6-5 6" />
+                    </svg>
+                  </span>
+                  <span class="gaia-opening-sound-option-copy">
+                    <span class="gaia-opening-sound-option-label">サウンドなし</span>
+                    <small>映像と言葉を、静かに。</small>
+                  </span>
+                  <svg class="gaia-opening-sound-option-arrow" viewBox="0 0 32 16" fill="none" aria-hidden="true"><path d="M2 8h26m-6-6 6 6-6 6" /></svg>
+                </button>
+              </div>
+            </section>
+            <div class="gaia-opening-volume-choice gaia-opening-setup-volume">
+              <label for="gaia-opening-volume">音量</label>
+              <input id="gaia-opening-volume" type="range" min="0" max="100" step="1" value="10" aria-label="BGM音量" />
+              <output id="gaia-opening-volume-value" for="gaia-opening-volume">10%</output>
+            </div>
+          </div>
+        </div>
+
+        <div class="gaia-opening-hud" aria-hidden="true">
+          <p><span>GS</span> LISTENING TO THE PLANET</p>
+          <div class="gaia-opening-progress"><i></i></div>
+          <p class="gaia-opening-steps"><span>01</span><span>02</span><span>03</span><span>04</span><span>05</span><span>06</span></p>
+        </div>
+
+        <div class="gaia-vn-light-sweep" aria-hidden="true"></div>
+
+        <button class="gaia-opening-skip" id="gaia-opening-skip" type="button">
+          <span>スキップ</span><span aria-hidden="true">→</span>
+        </button>
+        <div class="gaia-opening-wipe" aria-hidden="true"></div>
+      </section>
+
+      <aside class="gaia-audio-dock" id="gaia-audio-dock" aria-label="BGM操作" hidden>
+        <button
+          id="gaia-audio-toggle"
+          type="button"
+          aria-label="音量調整を開く"
+          aria-pressed="false"
+          aria-expanded="false"
+          aria-controls="gaia-audio-volume-panel"
+        >
+          <span class="gaia-audio-toggle-icon" id="gaia-audio-toggle-icon" aria-hidden="true">
+            <svg class="gaia-audio-icon gaia-audio-icon--playing" viewBox="0 0 24 24">
+              <path d="M4 9.25h4L13 5v14l-5-4.25H4z" />
+              <path d="M16 8.25c1.15.88 1.75 2.1 1.75 3.75S17.15 14.87 16 15.75" />
+              <path d="M18.75 5.75c1.7 1.55 2.75 3.6 2.75 6.25s-1.05 4.7-2.75 6.25" />
+            </svg>
+            <svg class="gaia-audio-icon gaia-audio-icon--muted" viewBox="0 0 24 24">
+              <path d="M4 9.25h4L13 5v14l-5-4.25H4z" />
+              <path d="m16.25 8.25 5.5 7.5M21.75 8.25l-5.5 7.5" />
+            </svg>
+          </span>
+        </button>
+        <label id="gaia-audio-volume-panel" for="gaia-audio-volume">
+          <span>BGM</span>
+          <input
+            id="gaia-audio-volume"
+            type="range"
+            min="0"
+            max="100"
+            step="1"
+            value="10"
+            aria-label="BGM音量"
+          />
+          <output id="gaia-audio-volume-value" for="gaia-audio-volume">10%</output>
+        </label>
+        <button
+          class="gaia-audio-gallery-open"
+          type="button"
+          data-sound-gallery-open
+          aria-haspopup="dialog"
+          aria-controls="sound-layer"
+        >
+          <span aria-hidden="true">♪</span>
+          <strong>SOUND</strong>
+        </button>
+      </aside>
+
+      <template id="gaia-template-sound">
+      <section
+        class="sound-layer"
+        id="sound-layer"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="sound-mode-title"
+        aria-describedby="sound-mode-description"
+        aria-hidden="true"
+        hidden
+      >
+        <div class="sound-layer-background" aria-hidden="true">
+          <img
+            class="sound-character-scene"
+            src="./assets/visuals-07/sound-archive-bg-v3.png?v=gaia-sound-selected-20260913"
+            width="1672"
+            height="941"
+            alt=""
+            loading="lazy"
+            decoding="async"
+            fetchpriority="low"
+          />
+          <canvas class="sound-visualizer" id="sound-visualizer" data-renderer="pending"></canvas>
+        </div>
+
+        <header class="sound-header">
+          <div>
+            <p><span>GAIA SENSATION</span></p>
+            <h2 id="sound-mode-title">サウンド鑑賞モード</h2>
+          </div>
+          <button class="sound-close mode-exit-control" id="sound-close" type="button" aria-label="サウンド鑑賞モードを閉じて戻る">戻る</button>
+        </header>
+
+        <div class="sound-layout">
+          <aside class="sound-track-panel" aria-label="収録曲">
+            <div class="sound-track-heading">
+              <span>楽曲一覧</span>
+              <strong>全12曲</strong>
+            </div>
+            <button class="sound-track" type="button" data-sound-track="opening" aria-current="false" aria-disabled="false">
+              <span>01</span>
+              <div>
+                <strong>Planet Forecast - Hope</strong>
+                <small>OPENING THEME</small>
+              </div>
+              <i aria-hidden="true"></i>
+            </button>
+            <button class="sound-track" type="button" data-sound-track="story" aria-current="false" aria-disabled="false">
+              <span>02</span>
+              <div>
+                <strong>Planet Forecast — Windowlight</strong>
+                <small>STORY THEME</small>
+              </div>
+              <i aria-hidden="true"></i>
+            </button>
+            <button class="sound-track" type="button" data-sound-track="windowlight" aria-current="false" aria-disabled="false">
+              <span>03</span>
+              <div>
+                <strong>Planet Forecast — Calm</strong>
+                <small>OBSERVATION ROOM</small>
+              </div>
+              <i aria-hidden="true"></i>
+            </button>
+            <button class="sound-track" type="button" data-sound-track="firstlight" aria-current="false" aria-disabled="false">
+              <span>04</span>
+              <div>
+                <strong>Planet Forecast — First Light</strong>
+                <small>DAWN THEME</small>
+              </div>
+              <i aria-hidden="true"></i>
+            </button>
+            <button class="sound-track" type="button" data-sound-track="foldedwind" aria-current="false" aria-disabled="false">
+              <span>05</span>
+              <div>
+                <strong>折り目の向こうの風</strong>
+                <small>UNSENT RECORD</small>
+              </div>
+              <i aria-hidden="true"></i>
+            </button>
+            <button class="sound-track" type="button" data-sound-track="snowfire" aria-current="false" aria-disabled="false">
+              <span>06</span>
+              <div>
+                <strong>雪火の観測信号</strong>
+                <small>UNKNOWN SIGNAL</small>
+              </div>
+              <i aria-hidden="true"></i>
+            </button>
+            <button class="sound-track" type="button" data-sound-track="snowafter" aria-current="false" aria-disabled="false">
+              <span>07</span>
+              <div>
+                <strong>雪火、軌道の外へ</strong>
+                <small>BRANCHING LIGHT</small>
+              </div>
+              <i aria-hidden="true"></i>
+            </button>
+            <button class="sound-track" type="button" data-sound-track="moonbook" aria-current="false" aria-disabled="false">
+              <span>08</span>
+              <div>
+                <strong>月明かりの観測ノート</strong>
+                <small>NIGHT NOTE</small>
+              </div>
+              <i aria-hidden="true"></i>
+            </button>
+            <button class="sound-track" type="button" data-sound-track="senseware" aria-current="false" aria-disabled="false">
+              <span>09</span>
+              <div>
+                <strong>GAIA SENSEWARE</strong>
+                <small>SYSTEM THEME</small>
+              </div>
+              <i aria-hidden="true"></i>
+            </button>
+            <button class="sound-track" type="button" data-sound-track="moonreopen" aria-current="false" aria-disabled="false">
+              <span>10</span>
+              <div>
+                <strong>青硝子の潮汐</strong>
+                <small>BLUE GLASS TIDE</small>
+              </div>
+              <i aria-hidden="true"></i>
+            </button>
+            <button class="sound-track" type="button" data-sound-track="ending" aria-current="false" aria-disabled="false">
+              <span>11</span>
+              <div>
+                <strong>AfterSchool, AfterGlow</strong>
+                <small>ENDING THEME</small>
+              </div>
+              <i aria-hidden="true"></i>
+            </button>
+            <button class="sound-track" type="button" data-sound-track="trueend" aria-current="false" aria-disabled="false">
+              <span>12</span>
+              <div>
+                <strong>Sensory Horizon</strong>
+                <small>Beyond</small>
+              </div>
+              <i aria-hidden="true"></i>
+            </button>
+          </aside>
+
+          <main class="sound-player">
+            <div class="sound-now-playing" aria-live="polite" aria-atomic="true">
+              <p id="sound-track-number">全12曲</p>
+              <h3 id="sound-track-title">曲を選んでください</h3>
+              <p id="sound-mode-description">作品を彩る全12曲を、最初から自由に聴くことができます。</p>
+            </div>
+
+            <div class="sound-transport">
+              <button class="sound-play" id="sound-play" type="button" aria-label="曲を選んでください" aria-pressed="false" disabled>
+                <span class="sound-play-icon" aria-hidden="true"></span>
+              </button>
+              <div class="sound-progress-group" data-sound-control="seek">
+                <div class="sound-control-heading">
+                  <label for="sound-progress">再生位置</label>
+                  <span>再生位置</span>
+                </div>
+                <input id="sound-progress" type="range" min="0" max="1000" step="1" value="0" disabled />
+                <div class="sound-time"><output id="sound-current-time">0:00</output><span>繰り返し</span><output id="sound-duration">0:00</output></div>
+              </div>
+            </div>
+
+            <label class="sound-volume" for="sound-volume" data-sound-control="volume">
+              <span class="sound-volume-label"><svg class="sound-volume-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 5 5 9H2v6h3l5 4Z M14 8c3 2 3 6 0 8 M17 5c5 4 5 10 0 14" /></svg><strong>音量</strong><small>音量</small></span>
+              <input id="sound-volume" type="range" min="0" max="100" step="1" value="10" />
+              <output id="sound-volume-value" for="sound-volume">10%</output>
+            </label>
+          </main>
+        </div>
+
+        <footer class="sound-footer">
+          <span>作品内の音源</span>
+          <p>音源は作品内に保存されています。外部サービスへの接続は行いません。</p>
+        </footer>
+      </section>
+      </template>
+
+      <template id="gaia-template-character">
+      <section
+        class="character-book-layer"
+        id="character-book-layer"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="character-book-title"
+        aria-describedby="character-book-description"
+        aria-hidden="true"
+        data-character-id="amane"
+        hidden
+      >
+        <canvas class="character-book-webgl" id="character-book-webgl" aria-hidden="true"></canvas>
+        <div class="character-book-scenery" aria-hidden="true"></div>
+
+        <header class="character-book-header">
+          <button
+            class="character-book-close mode-exit-control"
+            id="character-book-close"
+            type="button"
+            aria-label="キャラクター設定を閉じて戻る"
+          >戻る</button>
+        </header>
+
+        <div class="character-book-scroll" id="character-book-scroll">
+          <section class="character-book-hero" id="character-book-hero">
+            <div class="character-book-hero-copy">
+              <h2 id="character-book-title"><span>キャラクター</span><small>人物紹介</small></h2>
+              <p class="character-book-lead" id="character-book-description">四つの瞳に映る、たったひとつの地球。</p>
+
+              <nav class="character-book-selector" aria-label="キャラクターを選ぶ">
+                <button type="button" data-character-select="amane" aria-current="true" aria-label="あめ｜雨宮 周を表示">
+                  <span><img src="/assets/characters/amane-calm-07-v2.png?v=gaia-character-profile-1" alt="" width="920" height="1840" /></span>
+                </button>
+                <button type="button" data-character-select="mizuha" aria-current="false" aria-label="みず｜青野 瑞葉を表示">
+                  <span><img src="/assets/characters/mizuha-calm-07-v2.png?v=gaia-character-profile-1" alt="" width="920" height="1840" /></span>
+                </button>
+                <button type="button" data-character-select="sakuya" aria-current="false" aria-label="saku｜木下 咲弥を表示">
+                  <span><img src="/assets/characters/sakuya-calm-07-v1.png?v=gaia-character-profile-1" alt="" width="920" height="1840" /></span>
+                </button>
+                <button type="button" data-character-select="aoneko" aria-current="false" aria-label="青猫を表示">
+                  <span><img src="/assets/characters/aoneko-silhouette-imagegen-v4.png?v=gaia-aoneko-natural-posture-1" alt="" width="941" height="1489" /></span>
+                </button>
+              </nav>
+
+            </div>
+
+            <section class="character-book-hero-detail" aria-live="polite" aria-atomic="true">
+              <p id="character-book-tagline">20,000ルーメンを背負う電工少女</p>
+              <h3 id="character-book-page-title">
+                <span id="character-book-native">あめ</span><i aria-hidden="true">｜</i><strong id="character-book-full-name">雨宮 周</strong><small id="character-book-reading">あめみや あまね</small>
+              </h3>
+              <p id="character-book-profile"><span>水色のショートボブと眠そうな目元が特徴の大学2年生。</span><span>普段は無口で省エネ運転だが、電気やエネルギーの話になると途端にスイッチが入る。</span><span>電気工事士・電気主任技術者の資格を持ち、現場の機材設営から安全管理までを一手に担う実践派。</span></p>
+              <div class="character-book-expressions" aria-label="表情差分" aria-live="off">
+                <p><span>表情</span><b id="character-book-expression-name">通常</b></p>
+                <div class="character-book-expression-list" id="character-book-expression-list" role="group" aria-label="あめの表情を選ぶ"></div>
+              </div>
+            </section>
+
+            <figure class="character-book-hero-figure" id="character-book-page">
+              <span class="character-book-hero-halo" aria-hidden="true"></span>
+              <blockquote class="character-book-hero-quote" id="character-book-quote">「信号線とは違うの。一本飛んだら、本当に終わるよ」</blockquote>
+              <img
+                id="character-book-image"
+                src="/assets/characters/amane-calm-07-v2.png?v=gaia-character-profile-1"
+                width="920"
+                height="1840"
+                alt="水色のショートボブと眠そうな目元が特徴のあめ（アマネ）"
+                decoding="async"
+                fetchpriority="high"
+              />
+              <figcaption><span id="character-book-current">01</span> / 04</figcaption>
+            </figure>
+            <a class="character-book-scroll-cue" href="#character-book-cg"><span>物語の場面</span><i aria-hidden="true"></i></a>
+            <div class="character-book-wave" aria-hidden="true"></div>
+          </section>
+
+          <main class="character-book-profiles" id="character-book-profiles">
+            <section class="character-book-cg" id="character-book-cg" aria-labelledby="character-book-cg-title">
+              <header class="character-book-cg-intro">
+                <p>物語の記憶 / 6つの場面</p>
+                <div>
+                  <h3 id="character-book-cg-title">記憶のアルバム</h3>
+                  <span>物語を彩った、六つの景色。絵をめくるたび、あの日の空気がよみがえります。</span>
+                </div>
+              </header>
+              <div class="character-book-cg-grid" id="character-book-cg-grid"></div>
+            </section>
+
+            <section class="character-book-concept" id="character-book-concept" aria-labelledby="character-book-concept-title">
+              <div>
+                <h3 id="character-book-concept-title">放課後の窓辺から。</h3>
+                <p>放課後の静けさの向こうに広がる、地球の気配。『惑星の放課後～GAIA SENSATION～』が生まれた背景と思想を綴りました。</p>
+              </div>
+              <a id="character-book-concept-link" href="./concept/">コンセプトページを読む <span aria-hidden="true">→</span></a>
+            </section>
+
+          </main>
+
+          <footer class="character-book-footer">
+            <a href="#character-book-hero">キャラクター紹介の先頭へ</a>
+            <button type="button" data-character-close>GAIA SENSEWAREへ戻る</button>
+          </footer>
+        </div>
+
+        <section
+          class="character-book-cg-viewer"
+          id="character-book-cg-viewer"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="character-book-cg-viewer-title"
+          aria-describedby="character-book-cg-viewer-poem"
+          aria-hidden="true"
+          hidden
+        >
+          <button class="character-book-cg-viewer-backdrop" type="button" data-character-cg-close tabindex="-1" aria-label="CGを閉じる"></button>
+          <div class="character-book-cg-viewer-sheet">
+            <header>
+              <p>物語の場面 / <span id="character-book-cg-viewer-count">01 / 06</span></p>
+              <button class="character-book-cg-viewer-close" type="button" data-character-cg-close aria-label="CGを閉じる">閉じる</button>
+            </header>
+            <figure class="character-book-cg-viewer-figure">
+              <img id="character-book-cg-viewer-image" alt="" decoding="async" />
+            </figure>
+            <div class="character-book-cg-viewer-copy">
+              <p id="character-book-cg-viewer-chapter"></p>
+              <h3 id="character-book-cg-viewer-title"></h3>
+              <blockquote id="character-book-cg-viewer-poem"></blockquote>
+            </div>
+            <nav aria-label="CGを切り替える">
+              <button type="button" id="character-book-cg-viewer-previous" aria-label="前のCGへ"><span aria-hidden="true">←</span> 前へ</button>
+              <button type="button" id="character-book-cg-viewer-next" aria-label="次のCGへ">次へ <span aria-hidden="true">→</span></button>
+            </nav>
+          </div>
+        </section>
+      </section>
+      </template>
+
+      <template id="gaia-template-exploration">
+      <canvas
+        id="gaia-canvas"
+        tabindex="0"
+        aria-label="指やマウスで動きを変えながら見る、地球観測データの9つの展示"
+      >
+        お使いのブラウザはCanvasに対応していません。
+      </canvas>
+      <img
+        class="abstract-mode-background"
+        src="./assets/visuals-07/mode-abstract-v1.webp"
+        width="1672"
+        height="941"
+        alt=""
+        aria-hidden="true"
+        fetchpriority="high"
+        decoding="async"
+      />
+
+      <section
+        class="intro-layer"
+        id="intro-layer"
+        role="dialog"
+        aria-modal="true"
+        aria-label="惑星の放課後 GAIA SENSATIONの入口"
+        aria-hidden="true"
+        hidden
+      >
+        <button class="intro-title-return mode-exit-control" id="intro-title-return" type="button" aria-label="タイトル画面へ戻る">タイトル</button>
+        <button class="mode-exit-control" id="intro-path-back" type="button" hidden>戻る</button>
+        <div class="intro-visual-stack" aria-hidden="true">
+          <img
+            class="intro-visual is-active"
+            data-intro-visual="default"
+            src="./assets/visuals-07/gateway-keyvisual-v2.png"
+            alt=""
+            loading="lazy"
+            decoding="async"
+            fetchpriority="low"
+          />
+          <img
+            class="intro-visual"
+            data-intro-visual="map"
+            src="./assets/visuals-07/novel-bg-map01-data-provenance-autumn-morning-v3.png"
+            alt=""
+            loading="lazy"
+            decoding="async"
+            fetchpriority="low"
+          />
+          <img
+            class="intro-visual"
+            data-intro-visual="novel"
+            src="./assets/visuals-07/novel-background-v1.webp"
+            alt=""
+            loading="lazy"
+            decoding="async"
+            fetchpriority="low"
+          />
+          <img
+            class="intro-visual"
+            data-intro-visual="space"
+            src="./assets/visuals-07/mode-space-v2.png"
+            alt=""
+            loading="lazy"
+            decoding="async"
+            fetchpriority="low"
+          />
+          <img
+            class="intro-visual"
+            data-intro-visual="sound"
+            src="./assets/visuals-07/sound-archive-bg-v3.png?v=gaia-sound-selected-20260913"
+            alt=""
+            loading="lazy"
+            decoding="async"
+            fetchpriority="low"
+          />
+        </div>
+        <div class="intro-shell">
+          <section class="intro-stage intro-path-stage" id="intro-path-stage" data-intro-stage="path">
+            <div class="intro-lp-hero">
+              <div class="intro-title-lockup">
+                <h2 id="intro-title"><span>GAIA</span><span>SENSEWARE</span></h2>
+                <strong>この星は、いま何を感じているか。</strong>
+              </div>
+
+              <p class="intro-lead" id="intro-lead">
+                公開データに残された地球の変化を、地図と物語へ。<br />
+                人間と地球が、ともに次の姿へ進むためのインタラクティブ・システム。
+              </p>
+
+              <div class="intro-exploration-heading">
+                <p>見たい世界を選ぶ</p>
+                <h3>観測モードを選ぶ</h3>
+                <div class="intro-utility-actions">
+                <button class="intro-entry-guide-replay" id="intro-terms-open" type="button" aria-haspopup="dialog" aria-controls="site-terms"><span aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8Z"/><path d="M14 3v5h5M8 11h5M8 16l2 2 5-5"/></svg></span><strong>利用規約</strong></button>
+                <button class="intro-entry-guide-replay" id="intro-entry-guide-replay" type="button" aria-label="4つのデータ入口を順番に案内する" aria-controls="intro-entry-guide">
+                  <span aria-hidden="true">?</span>
+                  <strong>入口ガイド</strong>
+                  <small aria-hidden="true">入口の案内</small>
+                </button>
+                </div>
+              </div>
+
+              <div class="intro-path-grid" id="intro-path-grid" aria-label="観測モードを選ぶ">
+                <button class="intro-path-card" type="button" data-intro-path="map" data-intro-guide="map">
+                  <span class="intro-card-reveal-fx" aria-hidden="true"></span>
+                  <span class="intro-border-glint" aria-hidden="true"></span>
+                  <span class="intro-path-index">01 / 地図</span>
+                  <span class="intro-path-glyph intro-path-glyph--map" aria-hidden="true">
+                    <svg viewBox="0 0 64 44" focusable="false">
+                      <ellipse cx="32" cy="22" rx="28" ry="17"></ellipse>
+                      <path class="intro-map-grid" d="M4 22h56M8 14c13 6 35 6 48 0M8 30c13-6 35-6 48 0M32 5c-12 8-12 26 0 34M32 5c12 8 12 26 0 34"></path>
+                      <path class="intro-map-land" d="m14 15 6-5 7 2 3 4-4 3-4-1-3 5-5-2 2-3Zm22-4 7-2 8 4-2 5-5 1-2 4-4-2-2-5Zm3 16 6 1 2 5-4 4-5-4Z"></path>
+                    </svg>
+                  </span>
+                  <strong>世界を観測する</strong>
+                  <p>地球のデータを光と色で描く</p>
+                  <span class="intro-path-enter">地図を開く <b aria-hidden="true">→</b></span>
+                </button>
+                <a class="intro-path-card intro-path-card--sensor" href="./sensors/#map" data-sensor-platform-link data-intro-guide="sensor">
+                  <span class="intro-card-reveal-fx" aria-hidden="true"></span>
+                  <span class="intro-border-glint" aria-hidden="true"></span>
+                  <span class="intro-path-index">02 / センサー</span>
+                  <span class="intro-path-glyph intro-path-glyph--sensor" aria-hidden="true">
+                    <svg viewBox="0 0 64 44" focusable="false">
+                      <rect x="23" y="11" width="18" height="22" rx="3"></rect>
+                      <path d="M17 17c-4 3-4 7 0 10M47 17c4 3 4 7 0 10M11 12c-8 6-8 14 0 20M53 12c8 6 8 14 0 20"></path>
+                      <circle cx="32" cy="22" r="3"></circle>
+                    </svg>
+                  </span>
+                  <strong>みんなのセンサー</strong>
+                  <p>あなたの端末をひとつのセンサーに</p>
+                  <span class="intro-path-enter">センサー地図 <b aria-hidden="true">→</b></span>
+                </a>
+                <button
+                  class="intro-path-card intro-path-card--character"
+                  id="intro-character-jump"
+                  type="button"
+                  data-character-gallery-open
+                  data-intro-guide="character"
+                  aria-label="キャラクター設定を開く"
+                  aria-haspopup="dialog"
+                  aria-controls="character-book-layer"
+                >
+                  <span class="intro-card-reveal-fx" aria-hidden="true"></span>
+                  <span class="intro-border-glint" aria-hidden="true"></span>
+                  <span class="intro-path-index">03 / キャラクター</span>
+                  <span class="intro-path-glyph intro-path-glyph--character" aria-hidden="true">
+                    <svg viewBox="0 0 64 44" focusable="false">
+                      <circle cx="32" cy="14" r="8"></circle>
+                      <path d="M16 39c1.8-9.1 7.1-14 16-14s14.2 4.9 16 14"></path>
+                      <path class="intro-character-spark" d="M11 10h8M15 6v8M47 28h7M50.5 24.5v7"></path>
+                    </svg>
+                  </span>
+                  <strong>登場人物の記録</strong>
+                  <p>4人の役割と設定スケッチ</p>
+                  <span class="intro-path-enter">人物紹介へ <b aria-hidden="true">→</b></span>
+                </button>
+                <button class="intro-path-card intro-path-card--sound" type="button" data-sound-gallery-open data-intro-guide="sound" aria-haspopup="dialog" aria-controls="sound-layer">
+                  <span class="intro-card-reveal-fx" aria-hidden="true"></span>
+                  <span class="intro-border-glint" aria-hidden="true"></span>
+                  <span class="intro-path-index">04 / 音楽</span>
+                  <span class="intro-path-glyph intro-path-glyph--sound" aria-hidden="true">♪</span>
+                  <strong>音楽を聴く</strong>
+                  <p>放課後を彩る音楽のアーカイブ</p>
+                  <span class="intro-path-enter">楽曲を聴く <b aria-hidden="true">→</b></span>
+                </button>
+              </div>
+
+              <button class="intro-story-return" type="button" data-intro-path="novel" data-primary-action="true" aria-label="物語をはじめる">
+                <span class="intro-story-kicker">物語</span>
+                <strong class="intro-story-title">物語をはじめる</strong>
+              </button>
+
+              <button
+                class="intro-lp-scroll"
+                id="intro-lp-scroll"
+                type="button"
+                aria-controls="intro-architecture-jump"
+                aria-label="下へスクロールして公開データの案内を見る"
+              >
+                <span><b>下へ</b><small>公開データを見る</small></span>
+                <i aria-hidden="true"></i>
+              </button>
+            </div>
+
+            <div class="intro-lp-afterfold">
+              <div class="intro-portal-footer">
+                <button class="intro-architecture-jump" id="intro-architecture-jump" type="button">
+                  <span>公開データ</span>
+                  <strong>作品を支えるデータと設計を見る</strong>
+                  <span aria-hidden="true">↓</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <section class="intro-stage intro-sense-stage" id="intro-sense-stage" data-intro-stage="sense" hidden>
+            <div class="intro-heading">
+              <p class="intro-kicker">
+                <span class="intro-dot" aria-hidden="true"></span>
+                <span id="intro-path-kicker">Abstract mode / Touch the signal</span>
+              </p>
+              <p class="intro-chapter" aria-hidden="true">SENSE / 02</p>
+            </div>
+
+            <h2 id="intro-sense-title">どの感覚に、<br />触れますか？</h2>
+            <p class="intro-lead" id="intro-sense-lead">
+              意味と操作が直接つながる9つの観測展示から、最初に見る入口を選んでください。
+            </p>
+
+            <p class="intro-selection-prompt" id="intro-selection-prompt">最初に触れる感覚器を選ぶ</p>
+            <div
+              class="intro-mode-list"
+              id="intro-mode-list"
+              role="listbox"
+              aria-label="最初に見る地球の感覚器を選ぶ"
+            ></div>
+
+            <article class="intro-selection-preview" aria-live="polite">
+              <span id="intro-selection-number">01 / 大気</span>
+              <div>
+                <strong id="intro-selection-title">空気の声</strong>
+                <p id="intro-selection-copy">
+                  CO₂の季節変化と、長い時間の増加を色と呼吸で見る。
+                </p>
+              </div>
+            </article>
+
+            <div class="intro-footer">
+              <p id="intro-path-note">選んだ展示は、あとから01〜09のバンクで切り替えられます。</p>
+            </div>
+          </section>
+        </div>
+
+        <section
+          class="architecture-exhibit"
+          id="architecture-exhibit"
+          aria-labelledby="architecture-title"
+        >
+          <section
+            class="data-glossary"
+            id="intro-open-data-exhibit"
+            aria-labelledby="data-glossary-title"
+            tabindex="-1"
+          >
+            <header class="data-glossary-header">
+              <div>
+                <p class="architecture-label">公開データの出典と利用方法</p>
+                <h3 id="data-glossary-title">
+                  <span>作品を支える、</span>
+                  <span>公開データの出典。</span>
+                </h3>
+              </div>
+              <p>
+                衛星・地上の観測、気象モデル、食料や人口の統計、国内の環境記録。作品では性質の異なる公開データを使い、世界と日本の展示を描いています。ここでは主な提供元と使い方を紹介します。観測値・モデル値・計算による補間や仮定は同じものではありません。各展示で使っている指標、対象期間、更新状態、出典の詳細は、地図の「出典」で確認できます。
+              </p>
+            </header>
+
+            <div class="data-glossary-grid" aria-label="世界と日本の展示で使用する公開データ">
+              <article class="data-source-card">
+                <h4>NASA / NOAA / JAXA / Open-Meteo</h4>
+                <p>衛星による火災の検知、CO₂や気温の記録、海流、宇宙の観測に加え、Open-Meteo経由の気象・大気モデルを利用しています。モデルによる値を、その場所で直接測った観測値として扱うことはありません。</p>
+                <p class="data-source-use"><strong>展示では</strong> 地図の点・面・流線などへ変換します。光や動きには抽象的な演出も含まれます。LIVE表示でも保存値へ切り替わる場合があるため、取得状態と時刻をあわせて表示します。</p>
+              </article>
+              <article class="data-source-card">
+                <h4>FAO / World Bank</h4>
+                <p>FAOの食料に関する指標と、World Bankの人口・都市化・再生可能電力などの統計を利用しています。食料の需給と供給に関する展示も、これらの公開資料に基づきます。</p>
+                <p class="data-source-use"><strong>展示では</strong> 国や地域ごとの差と、収録期間内の変化を比較します。指標ごとに単位・対象年・収録範囲が異なり、欠測をゼロとはみなしません。</p>
+              </article>
+              <article class="data-source-card">
+                <h4>総務省統計局 — 人口移動</h4>
+                <p>住民基本台帳人口移動報告の、日本人移動者の転入超過を使用しています。</p>
+                <p class="data-source-use"><strong>用途</strong> 展示21で都道府県別の転入・転出の差と年次変化を表示・分析します。1954〜2025年を収録し、沖縄は1973年から。出生・死亡を含む人口増減ではありません。</p>
+                <div class="data-source-links"><a href="https://www.stat.go.jp/data/idou/6.html" target="_blank" rel="noopener">総務省統計局の公開資料 ↗</a></div>
+              </article>
+              <article class="data-source-card">
+                <h4>環境省 — 海・川・湖の水質</h4>
+                <p>水環境総合情報サイトの公共用水域の水質測定結果を使用しています。</p>
+                <p class="data-source-use"><strong>用途</strong> 展示31〜37・55〜64で、COD、BOD、pH、DO、栄養塩などを地点・年度別に比較します。年度統計と限界値を区別し、測定値だけで安全性を断定しません。</p>
+                <div class="data-source-links"><a href="https://water-pub.env.go.jp/water-pub/mizu-site/mizu/download/download.asp" target="_blank" rel="noopener">環境省の水質資料 ↗</a></div>
+              </article>
+              <article class="data-source-card">
+                <h4>環境省・経済産業省 / NITE — PRTR</h4>
+                <p>化学物質の排出・移動に関する事業所別届出とGISを使用しています。</p>
+                <p class="data-source-use"><strong>用途</strong> 展示65〜67で2018〜2022年度の大気への排出、水域への排出、事業所外への移動を分けて表示します。届出量は周辺環境の濃度や危険度とは異なります。</p>
+                <div class="data-source-links"><a href="https://www.env.go.jp/chemi/prtr/kaiji/index.html" target="_blank" rel="noopener">PRTRの公開資料 ↗</a></div>
+              </article>
+              <article class="data-source-card">
+                <h4>国立環境研究所 — 大気汚染</h4>
+                <p>環境展望台の大気汚染常時監視データを使用しています。</p>
+                <p class="data-source-use"><strong>用途</strong> 展示44〜54でSO₂、NO₂、PM2.5などの年度値を比較します。収録期間は物質ごとに異なり、年間の値を現在の濃度として表示しません。</p>
+                <div class="data-source-links"><a href="https://tenbou.nies.go.jp/download/" target="_blank" rel="noopener">環境展望台の公開資料 ↗</a></div>
+              </article>
+              <article class="data-source-card">
+                <h4>気象庁 — 気象の年次記録</h4>
+                <p>過去の気象データ検索から、代表観測地点の気温・湿度・日照・降水・気圧・風速・日射を使用しています。</p>
+                <p class="data-source-use"><strong>用途</strong> 展示24〜30・38〜43で地点ごとの年次変化を表示・分析します。県全域の平均ではなく、観測所の移転や測器変更にも注意が必要です。</p>
+                <div class="data-source-links"><a href="https://www.data.jma.go.jp/stats/etrn/" target="_blank" rel="noopener">気象庁の公開資料 ↗</a></div>
+              </article>
+              <article class="data-source-card">
+                <h4>観光庁・国土交通省・国総研 — 暮らしと河川生物</h4>
+                <p>宿泊旅行統計、新設住宅着工統計、河川水辺の国勢調査を使用しています。</p>
+                <p class="data-source-use"><strong>用途</strong> 展示22は延べ宿泊者数、23は住宅着工戸数、68〜69は河川の確認リスト・GISを照合した分類群数を表示します。宿泊は従業者10人以上の施設が対象で、分類群数は生物の個体数ではありません。</p>
+                <div class="data-source-links"><a href="https://www.mlit.go.jp/kankocho/tokei_hakusyo/shukuhakutokei.html" target="_blank" rel="noopener">宿泊統計 ↗</a><a href="https://www.mlit.go.jp/sogoseisaku/jouhouka/sosei_jouhouka_tk4_000002.html" target="_blank" rel="noopener">住宅統計 ↗</a><a href="https://www.nilim.go.jp/lab/fbg/ksnkankyo/" target="_blank" rel="noopener">河川環境資料 ↗</a></div>
+              </article>
+            </div>
+
+            <nav class="data-journey-index" aria-label="オープンデータの出典と利用方法、四つの章">
+              <a href="#data-chapter-air"><span>01</span><strong>大気と気温</strong></a>
+              <a href="#data-chapter-flow"><span>02</span><strong>海と生態系</strong></a>
+              <a href="#data-chapter-human"><span>03</span><strong>社会と地震</strong></a>
+              <a href="#data-chapter-space"><span>04</span><strong>太陽と宇宙</strong></a>
+            </nav>
+            <div class="data-journey-progress" aria-hidden="true"><i></i></div>
+
+            <div class="data-glossary-grid data-journey" data-data-journey>
+              <section class="data-chapter" id="data-chapter-air" data-data-chapter="air">
+                <div class="data-chapter-scene">
+                  <img src="./assets/visuals-07/data-chapter-air-v1.webp" alt="高層の観測室から大気の層と地球観測衛星を見渡す風景" decoding="async" />
+                  <div class="data-chapter-shade" aria-hidden="true"></div>
+                  <div class="data-chapter-number" aria-hidden="true">01</div>
+                  <div class="data-scene-readout" aria-live="polite">
+                    <span>表示中のデータ</span><strong>GOSAT</strong><small>CO₂濃度 → 地図の色</small>
+                  </div>
+                </div>
+                <div class="data-chapter-content">
+                  <header class="data-chapter-heading">
+                    <p>第1章 / 大気と気温</p>
+                    <h4>
+                      <span>見えない空気は、</span>
+                      <span>長い記憶を持っている。</span>
+                    </h4>
+                    <p>一回の測定では見えない変化も、衛星と地上観測を時間の上へ並べると、季節の呼吸と戻らない増加に分かれます。</p>
+                  </header>
+                  <div class="data-chapter-cards">
+              <article class="data-source-card">
+                <div class="data-source-card-head"><span>01 / 大気</span></div>
+                <h4>GOSAT（ゴーサット）</h4>
+                <p class="data-source-name">温室効果ガス観測技術衛星「いぶき」</p>
+                <p>
+                  GOSATは、宇宙からCO₂やメタンを調べる日本の人工衛星です。
+                  地表から上空までの空気をひとまとめにして、CO₂の平均的な濃さを測ります。この値をXCO₂と呼びます。
+                </p>
+                <p class="data-source-use"><strong>展示では</strong> 2010〜2025年のXCO₂を地図の色にしました。雲などで値がない場所は近くの観測から計算し、斜線をつけています。</p>
+                <a href="https://data2.gosat.nies.go.jp/gallery/fts_l3_swir_co2_gallery_en.html" target="_blank" rel="noopener">GOSAT公式データを見る ↗</a>
+              </article>
+
+              <article class="data-source-card">
+                <div class="data-source-card-head"><span>02 / 大気</span></div>
+                <h4>NOAA マウナロアCO₂</h4>
+                <p class="data-source-name">ハワイの空気を長く測り続けた記録</p>
+                <p>
+                  ハワイのマウナロア観測所で、空気中のCO₂を毎月測った記録です。
+                  春夏秋冬の上下と、何十年も続く増加を一緒に見ることができます。衛星地図と違い、これは一地点の記録です。
+                </p>
+                <p class="data-source-use"><strong>展示では</strong> 1958年から現在までの時間軸に使います。2050年までの部分は、最近10年の傾向が続いた場合の試算なので、SCENARIOと表示します。</p>
+                <a href="https://gml.noaa.gov/ccgg/trends/data.html" target="_blank" rel="noopener">NOAA公式データを見る ↗</a>
+              </article>
+
+              <article class="data-source-card">
+                <div class="data-source-card-head"><span>03 / 気温</span></div>
+                <h4>NASA GISTEMP</h4>
+                <p class="data-source-name">地球の表面温度が、基準からどれだけずれたか</p>
+                <p>
+                  世界各地の気温と海面水温をもとに、地球全体の表面温度の変化をまとめたデータです。
+                  ここで見るのは気温そのものではなく、1951〜1980年の平均からの差です。
+                </p>
+                <p class="data-source-use"><strong>展示では</strong> 基準より暑い年ほど背景が暖かい色になります。CO₂と同じ画面に出しますが、二つの関係をこの表示だけで証明するものではありません。</p>
+                <a href="https://data.giss.nasa.gov/gistemp/" target="_blank" rel="noopener">NASA公式説明を見る ↗</a>
+              </article>
+
+                  </div>
+                </div>
+              </section>
+
+              <section class="data-chapter" id="data-chapter-flow" data-data-chapter="flow">
+                <div class="data-chapter-scene">
+                  <img src="./assets/visuals-07/data-chapter-flow-v1.webp" alt="海流が森の雨と花の生命へつながる海岸の風景" loading="lazy" decoding="async" />
+                  <div class="data-chapter-shade" aria-hidden="true"></div>
+                  <div class="data-chapter-number" aria-hidden="true">02</div>
+                  <div class="data-scene-readout" aria-live="polite">
+                    <span>表示中のデータ</span><strong>CoastWatch</strong><small>海流ベクトル → 光の軌跡</small>
+                  </div>
+                </div>
+                <div class="data-chapter-content">
+                  <header class="data-chapter-heading">
+                    <p>第2章 / 海と生態系</p>
+                    <h4>
+                      <span>海から森へ。</span>
+                      <span>流れは境界を越えていく。</span>
+                    </h4>
+                    <p>水、風、雨、生きものは別々の資料に記録されています。ここでは因果を決めつけず、同じ地球で重なっている流れとして読みます。</p>
+                  </header>
+                  <div class="data-chapter-cards">
+
+              <article class="data-source-card">
+                <div class="data-source-card-head"><span>04 / 海流</span></div>
+                <h4>NOAA CoastWatch / NASA POWER</h4>
+                <p class="data-source-name">海の流れと、風・雨・太陽の条件</p>
+                <p>
+                  CoastWatchでは海面の流れる向きと速さを、POWERでは世界各地の風、雨、日差しを調べられます。
+                  海流と風は別々のデータです。
+                </p>
+                <p class="data-source-use"><strong>展示では</strong> 海流が同じ速さで続いたら14日でどこまで進むかを線にしました。白い矢印は風です。実際の海の予報には使えません。</p>
+                <div class="data-source-links"><a href="https://coastwatch.noaa.gov/" target="_blank" rel="noopener">NOAA ↗</a><a href="https://power.larc.nasa.gov/" target="_blank" rel="noopener">NASA POWER ↗</a></div>
+              </article>
+
+              <article class="data-source-card">
+                <div class="data-source-card-head"><span>05 / 陸地</span></div>
+                <h4>NASA MODIS / VIIRS</h4>
+                <p class="data-source-name">昼の土地の姿と、夜の人間活動の光</p>
+                <p>
+                  MODISは地表を森林、草地、都市、水面などに分けたデータです。VIIRSは宇宙から見える夜の明かりを記録します。
+                  夜の明るさと排出量は、同じ数字ではありません。
+                </p>
+                <p class="data-source-use"><strong>展示では</strong> 土地の種類を背景に、夜の明かりを白く重ねます。化石燃料由来CO₂は別の年次データを使い、赤い円で示します。夜間光は2016年固定です。</p>
+                <div class="data-source-links"><a href="https://modis.gsfc.nasa.gov/data/dataprod/mod12.php" target="_blank" rel="noopener">MODIS ↗</a><a href="https://gibs.earthdata.nasa.gov/layer-metadata/v1.0/VIIRS_Night_Lights.json" target="_blank" rel="noopener">VIIRS ↗</a></div>
+              </article>
+
+                  </div>
+                </div>
+              </section>
+
+              <section class="data-chapter" id="data-chapter-human" data-data-chapter="human">
+                <div class="data-chapter-scene">
+                  <img src="./assets/visuals-07/data-chapter-human-v1.webp" alt="都市の灯り、資源循環施設、地震の波紋、森の社が同居する海辺の街" loading="lazy" decoding="async" />
+                  <div class="data-chapter-shade" aria-hidden="true"></div>
+                  <div class="data-chapter-number" aria-hidden="true">03</div>
+                  <div class="data-scene-readout" aria-live="polite">
+                    <span>表示中のデータ</span><strong>SDG 12.5.1</strong><small>再資源化率 → 粒子の分岐</small>
+                  </div>
+                </div>
+                <div class="data-chapter-content">
+                  <header class="data-chapter-heading">
+                    <p>第3章 / 社会と地震</p>
+                    <h4>
+                      <span>便利さも、傷跡も、</span>
+                      <span>残したい記憶も光になる。</span>
+                    </h4>
+                    <p>夜の明かりは排出量そのものではなく、揺れの大きさは地震の規模そのものではありません。似た数字を混ぜず、人間の痕跡を層に分けます。</p>
+                  </header>
+                  <div class="data-chapter-cards">
+
+              <article class="data-source-card">
+                <div class="data-source-card-head"><span>06 / WASTE</span></div>
+                <h4>国連 SDG 12.5.1</h4>
+                <p class="data-source-name">ごみが、どれくらい再資源化されたか</p>
+                <p>
+                  自治体が集めたごみのうち、どれくらいが再び資源として使われたかを示す国連の統計です。
+                  国によって調査年や集計方法が違うため、単純な順位表にはできません。
+                </p>
+                <p class="data-source-use"><strong>展示では</strong> 同じ大きさの円グラフにし、緑を再資源化率、橙をそれ以外として表示します。公式値がない地域は近い5か国から仮の値を計算し、破線とDERIVEDの文字で区別します。</p>
+                <a href="https://unstats.un.org/sdgs/metadata/?Goal=12&amp;Target=12.5" target="_blank" rel="noopener">国連の指標説明を見る ↗</a>
+              </article>
+
+              <article class="data-source-card">
+                <div class="data-source-card-head"><span>07 / SOCIETY</span></div>
+                <h4>Global Carbon Project / World Bank</h4>
+                <p class="data-source-name">化石燃料由来CO₂と、都市・電力・人口の統計</p>
+                <p>
+                  Global Carbon Projectからは1945年以降の国別化石燃料由来CO₂を使います。
+                  World Bankからは、都市で暮らす人の割合、再生可能電力の割合、1960年以降の総人口を使います。
+                </p>
+                <p class="data-source-use"><strong>展示では</strong> CO₂と人口を年ごとの比較円にし、再生可能電力は31か国の国土を暗い青から明るい水色へ塗り分けます。</p>
+                <div class="data-source-links"><a href="https://doi.org/10.5281/zenodo.13981696" target="_blank" rel="noopener">GCP化石CO₂ ↗</a><a href="https://data.worldbank.org/indicator/SP.URB.TOTL.IN.ZS" target="_blank" rel="noopener">都市人口 ↗</a><a href="https://data.worldbank.org/indicator/EG.ELC.RNEW.ZS" target="_blank" rel="noopener">再エネ比率 ↗</a><a href="https://data.worldbank.org/indicator/SP.POP.TOTL" target="_blank" rel="noopener">総人口 ↗</a></div>
+              </article>
+
+              <article class="data-source-card">
+                <div class="data-source-card-head"><span>08 / QUAKE</span></div>
+                <h4>気象庁 / USGS</h4>
+                <p class="data-source-name">日本で観測した揺れと、世界の大地震</p>
+                <p>
+                  気象庁の震度は、その場所で感じた揺れの強さです。USGSのマグニチュードは、地震そのものの規模です。
+                  名前のそばに並ぶ数字でも、意味は違います。
+                </p>
+                <p class="data-source-use"><strong>展示では</strong> 世界のM7.5以上の地震を点で示します。日本の代表的な地震では、P波とS波が届く目安と、各地で実際に記録された震度を再生します。</p>
+                <div class="data-source-links"><a href="https://ds.data.jma.go.jp/svd/eqdb/data/shindo/" target="_blank" rel="noopener">気象庁 ↗</a><a href="https://earthquake.usgs.gov/fdsnws/event/1/" target="_blank" rel="noopener">USGS ↗</a></div>
+              </article>
+
+              <article class="data-source-card">
+                <div class="data-source-card-head"><span>09 / MEMORY</span></div>
+                <h4>UNESCO 世界遺産</h4>
+                <p class="data-source-name">人間が未来へ残すと決めた、文化と自然の場所</p>
+                <p>
+                  UNESCOの一覧には、文化遺産、自然遺産、その両方の価値を持つ複合遺産が登録されています。
+                  文化や心の豊かさを点数にした資料ではありません。
+                </p>
+                <p class="data-source-use"><strong>展示では</strong> 人が「未来へ残したい」と考えた場所の例として、各地域から選んだ世界遺産を点で示します。</p>
+                <a href="https://whc.unesco.org/en/list/" target="_blank" rel="noopener">UNESCO公式一覧を見る ↗</a>
+              </article>
+
+                  </div>
+                </div>
+              </section>
+
+              <section class="data-chapter data-chapter-space" id="data-chapter-space" data-data-chapter="space">
+                <div class="data-chapter-scene">
+                  <img src="./assets/visuals-07/data-chapter-space-v1.webp" alt="巨大な太陽、遠くの地球、小惑星リュウグウと探査機を見渡す宇宙の風景" loading="lazy" decoding="async" />
+                  <div class="data-chapter-shade" aria-hidden="true"></div>
+                  <div class="data-chapter-number" aria-hidden="true">04</div>
+                  <div class="data-scene-readout" aria-live="polite">
+                    <span>NOW READING</span><strong>NASA DONKI</strong><small>太陽活動 → 光と磁力線</small>
+                  </div>
+                </div>
+                <div class="data-chapter-content">
+                  <header class="data-chapter-heading">
+                    <p>第4章 / 太陽と宇宙</p>
+                    <h4>
+                      <span>地球の外へ出て、</span>
+                      <span>はじめて見える地球がある。</span>
+                    </h4>
+                    <p>太陽から届く波、小惑星との距離、遠い惑星の大きさ。宇宙の記録は、地球が孤立した舞台ではないことを教えます。</p>
+                  </header>
+                  <div class="data-chapter-cards">
+
+              <article class="data-source-card data-source-card-space">
+                <div class="data-source-card-head"><span>S1 / SUN</span><em>使用：宇宙01〜04</em></div>
+                <h4>NASA DONKI</h4>
+                <p class="data-source-name">太陽の出来事を、地球側から見張る記録</p>
+                <p>
+                  DONKIは、太陽フレア、コロナ質量放出、磁気嵐、高エネルギー粒子などの観測と解析をまとめたNASAのデータベースです。
+                  この作品では太陽活動が活発だった2024年5月の記録を保存しました。
+                </p>
+                <p class="data-source-use"><strong>展示では</strong> フレア等級を光の大きさ、CMEの解析速度を波の速さ、Kp指数を磁力線の揺れへ変換します。現在の宇宙天気予報ではありません。</p>
+                <a href="https://api.nasa.gov/" target="_blank" rel="noopener">NASA Open APIs / DONKIを見る ↗</a>
+              </article>
+
+              <article class="data-source-card data-source-card-space">
+                <div class="data-source-card-head"><span>S2 / NEAR EARTH</span><em>使用：宇宙05・06</em></div>
+                <h4>NASA/JPL CNEOS</h4>
+                <p class="data-source-name">地球へ近づく小惑星と、大気で光った火球</p>
+                <p>
+                  CNEOSは、地球近傍天体の軌道や接近記録を扱うNASA/JPLのセンターです。火球データには、ピーク発光時の場所や推定エネルギーが含まれます。
+                </p>
+                <p class="data-source-use"><strong>展示では</strong> 小惑星の最接近距離を月までの距離LDへ換算し、火球の推定衝撃エネルギーを残光の強さへ変えます。衝突予報には使えません。</p>
+                <div class="data-source-links"><a href="https://ssd-api.jpl.nasa.gov/doc/cad.html" target="_blank" rel="noopener">接近データ ↗</a><a href="https://ssd-api.jpl.nasa.gov/doc/fireball.html" target="_blank" rel="noopener">火球データ ↗</a></div>
+              </article>
+
+              <article class="data-source-card data-source-card-space">
+                <div class="data-source-card-head"><span>S3 / EXOPLANET</span><em>使用：宇宙07・08</em></div>
+                <h4>NASA Exoplanet Archive</h4>
+                <p class="data-source-name">太陽系の外で確認された惑星の研究記録</p>
+                <p>
+                  論文で報告された系外惑星の距離、半径、質量、公転周期などをまとめたNASAのアーカイブです。研究が更新されると値も変わることがあります。
+                </p>
+                <p class="data-source-use"><strong>展示では</strong> 近い1000件から表示用の記録を選びます。「地球サイズ」は半径と平衡温度による見比べで、生命や居住可能性の判定ではありません。</p>
+                <a href="https://exoplanetarchive.ipac.caltech.edu/docs/TAP/usingTAP.html" target="_blank" rel="noopener">NASA公式TAPデータを見る ↗</a>
+              </article>
+
+              <article class="data-source-card data-source-card-space">
+                <div class="data-source-card-head"><span>S4 / RYUGU</span><em>使用：宇宙09</em></div>
+                <h4>ISAS/JAXA DARTS</h4>
+                <p class="data-source-name">はやぶさ2がレーザーで測った、リュウグウまでの距離</p>
+                <p>
+                  はやぶさ2のLIDARはレーザーを送り、反射が戻るまでの時間から探査機と小惑星表面の距離を測りました。DARTSでは時刻、距離、表面位置など11列のCSVが公開されています。
+                </p>
+                <p class="data-source-use"><strong>展示では</strong> 2018年7月1日の公式CSVを保存し、表面中心からの高さを輪郭の凹凸へ変えます。一日の一部で、全面地形図ではありません。</p>
+                <div class="data-source-links"><a href="https://data.darts.isas.jaxa.jp/pub/hayabusa2/lidar_bundle/browse/topo_ts.html" target="_blank" rel="noopener">11列の説明 ↗</a><a href="https://darts.isas.jaxa.jp/missions/hayabusa2/index_en.html" target="_blank" rel="noopener">DARTS ↗</a></div>
+              </article>
+                  </div>
+                </div>
+              </section>
+
+              <section class="data-journey-epilogue">
+                <div>
+                  <p>NEXT / STORY MODE</p>
+                  <h4>公開データとGXの関係を、物語でたどる。</h4>
+                </div>
+                <button type="button" data-novel-open aria-haspopup="dialog" aria-controls="novel-layer"><span>STORY MODE</span>ストーリーモードへ <b aria-hidden="true">▶</b></button>
+              </section>
+            </div>
+          </section>
+
+          <header class="architecture-header">
+            <div>
+              <p>作品の仕組み / 01</p>
+              <h2 id="architecture-title"><span>観測データが、</span><span>この画面に届くまで。</span></h2>
+            </div>
+            <button class="mode-exit-control" id="intro-architecture-back" type="button">
+              戻る
+            </button>
+          </header>
+
+          <figure class="architecture-figure">
+            <div
+              class="architecture-scene"
+              role="img"
+              aria-label="地球と宇宙の公開記録を保存JSONと外部APIから取得し、SOURCE、DERIVED、SCENARIOを分けて、地図の観測展示と四つの入口へつなぐ作品構成図"
+            >
+              <img
+                class="architecture-scene-art"
+                src="./assets/architecture/observatory-architecture-v2.png"
+                alt=""
+                loading="lazy"
+              />
+              <div class="architecture-scene-shade" aria-hidden="true"></div>
+              <div class="architecture-flow-line" aria-hidden="true"></div>
+
+              <section class="architecture-node architecture-node-source">
+                <p><span>01</span> 地球から届くもの</p>
+                <h3>地球と宇宙の公開記録</h3>
+                <ul>
+                  <li>大気・海・森林・生命</li>
+                  <li>社会・地震・太陽・小惑星</li>
+                </ul>
+              </section>
+
+              <section class="architecture-node architecture-node-snapshot">
+                <p><span>02</span> データを取得</p>
+                <h3>保存JSON ＋ API</h3>
+                <small>サイト経由・直接接続を併用<br />取得値をキャッシュして表示</small>
+              </section>
+
+              <section class="architecture-node architecture-node-transform">
+                <p><span>03</span> 数字の読み分け</p>
+                <div class="architecture-data-kinds">
+                  <span><b>SOURCE</b><small>公開記録</small></span>
+                  <span><b>DERIVED</b><small>補間・集計</small></span>
+                  <span><b>SCENARIO</b><small>未来の仮定</small></span>
+                </div>
+              </section>
+
+              <section class="architecture-node architecture-node-senses">
+                <p><span>04</span> 数字を感覚へ</p>
+                <h3>地図の観測展示</h3>
+                <small>地球・国内統計・年次記録<br />ライブ／モデル・宇宙</small>
+              </section>
+
+              <section class="architecture-node architecture-node-output">
+                <p><span>05</span> 観客が出会うもの</p>
+                <h3>四つの入口</h3>
+                <ul>
+                  <li>世界を観測する</li>
+                  <li>みんなのセンサー</li>
+                  <li>登場人物の記録</li>
+                  <li>音楽を聴く</li>
+                </ul>
+              </section>
+
+            </div>
+            <figcaption>
+              展示ごとの出典欄で、データの提供元、対象期間、加工方法や注意点を確認できます。
+              色や動きはデータを読み解くための表現であり、実測・集計・モデル・演出を同じ意味では扱いません。背景美術：OpenAI ImageGen。構成・文字・データフロー：オリジナル実装。
+            </figcaption>
+          </figure>
+
+          <div class="architecture-copy-grid">
+            <section class="architecture-story" aria-labelledby="architecture-story-title">
+              <p class="architecture-label">DATA PIPELINE / データの流れ</p>
+              <h3 id="architecture-story-title">観測から、画面の表現まで</h3>
+              <ol>
+                <li>
+                  <span>01</span>
+                  <div><strong>公開データを集める</strong><p>大気、海、森林、生きもの、人口・社会、地震、太陽や小惑星の記録を使います。国内の水質・大気・気象については、地点ごとの年次記録もたどれます。</p></div>
+                </li>
+                <li>
+                  <span>02</span>
+                  <div><strong>保存データとAPIを併用する</strong><p>取得済みのJSONに加え、一部の展示では閲覧中に公開APIへ接続します。取得値はキャッシュし、通信に失敗した場合は展示ごとに過去の取得値・保存値・演出用サンプルへ切り替えるか、欠測として扱います。</p></div>
+                </li>
+                <li>
+                  <span>03</span>
+                  <div><strong>数字の出どころを分ける</strong><p>実際の記録はSOURCE、計算した値はDERIVED、未来の仮定はSCENARIOと表示します。</p></div>
+                </li>
+                <li>
+                  <span>04</span>
+                  <div><strong>数字を色や動きにする</strong><p>CO₂濃度は色、海流は線、地震は波の到着時間に置き換えます。詳しい計算はデータ台帳で確認できます。</p></div>
+                </li>
+                <li>
+                  <span>05</span>
+                  <div><strong>自分の観測につなげる</strong><p>「みんなのセンサー」では公開地図を閲覧し、参加する場合は対応するESP32とセンサーを準備します。公的な観測統計と参加者のセンサー値は、測定条件も集計期間も異なります。</p></div>
+                </li>
+              </ol>
+            </section>
+
+            <section class="regulation-explanation" aria-labelledby="regulation-title">
+              <p class="architecture-label">SYSTEM ARCHITECTURE / システム構成</p>
+              <h3 id="regulation-title">画面・配信・観測をつなぐ</h3>
+              <p class="regulation-lead">
+                ブラウザが表示と操作を担い、保存ファイルとAPIがデータを届けます。
+                センサーの登録・送信は別の経路で扱い、公開地図へつなぎます。
+              </p>
+              <div class="regulation-list">
+                <article><span>01</span><div><strong>入口とモードの読み込み</strong><p>入口から地図・物語・音楽などを選ぶと、モードごとのJavaScriptや必要な素材を読み込みます。表示・操作はHTMLとCSS、描画はWebGLとCanvasが担います。</p></div></article>
+                <article><span>02</span><div><strong>保存ファイルの配信</strong><p>取得・加工したJSONと地図のGeoJSON / TopoJSONをサイトから配信します。年次記録は選択した年や地点のファイルを読み込み、観測値と出典・注記を組み合わせて表示します。</p></div></article>
+                <article><span>03</span><div><strong>公開APIとキャッシュ</strong><p>一部はサイト側APIが提供元のデータを取得し、別の展示はブラウザから公開APIへ直接接続します。取得結果をキャッシュし、通信失敗時は保存値・サンプル・欠測を区別して表示します。</p></div></article>
+                <article><span>04</span><div><strong>センサーの登録・受信・公開</strong><p>ESP32から送信する観測値を、サイト側で登録機器と対応づけて受信・保存します。閲覧者には選択された公開位置で表示し、機器の管理と公開地図の閲覧を分けています。</p></div></article>
+                <article><span>05</span><div><strong>状態を保存する場所</strong><p>物語の進行や音量などはブラウザ内に、参加センサーの登録・観測記録はサーバー側に保存します。画面の状態、データの取得時刻、実際の観測時刻はそれぞれ分けて扱います。</p></div></article>
+              </div>
+              <aside class="regulation-note">
+                <strong>地図について</strong>
+                <p>大陸と国境にはNatural Earth 1:50m、都道府県境界には地球地図日本を使っています。すべて作品内のGeoJSON / TopoJSONに保存し、Canvasで一枚の地図として描いています。</p>
+              </aside>
+            </section>
+
+            <section class="architecture-story architecture-data-policy" id="architecture-data-policy" aria-labelledby="architecture-data-policy-title">
+              <p class="architecture-label">データの取得経路と鮮度</p>
+              <h3 id="architecture-data-policy-title">データの取得経路と鮮度</h3>
+              <ol>
+                <li><span>01</span><div><strong>作品に同梱した保存データ</strong><p>基礎データ、国内統計、水質・大気・気象の年次記録、ORBITALは、主に取得・加工済みのJSONを表示します。年次記録は選んだ年や地点に応じて保存ファイルを読み込みます。これらの表示自体には提供元のAPIを使いません。ただし、MAP 01のオーロラ層には別途ライブ取得があります。</p></div></li>
+                <li><span>02</span><div><strong>サイト側APIを経由するデータ</strong><p>MAP 10—15と26は、同じサイトの /api/live/v1/ へ接続します。サイト側がOpen-Meteo／CAMSやNASA FIRMSなどの公開データを取得し、キャッシュ付きで配信します。</p></div></li>
+                <li><span>03</span><div><strong>ブラウザから直接取得するデータ</strong><p>MAP 01のオーロラ層はNOAA SWPC、MAP 27—30はOpen-MeteoとUSGSへ直接接続します。MAP 27—30は取得した値をこのタブ内に5分間キャッシュします。</p></div></li>
+              </ol>
+              <aside class="regulation-note" id="architecture-cache-guide">
+                <strong>LIVE / LIVE CACHEは「今この瞬間の実測」ではありません</strong>
+                <p>MAP 27—30のLIVEはAPIからの取得成功、LIVE CACHEは取得後5分以内のタブ内キャッシュの再利用です。MAP 26のLIVE CACHEはサイト側APIの取得値を表し、サーバーでは15分を基準にキャッシュします。どちらも常時再取得の意味ではありません。取得時刻とデータ自体の時刻は異なるため、画面のデータ時刻・経過時間も確認してください。気象・大気質にはモデル値を含みます。</p>
+                <p>SAVED SNAPSHOTは保存済みデータです。MAP 26では更新失敗時の期限切れAPIキャッシュもこの表示に含まれます。MAP 27—30のSAVED VALUESは演出用サンプルであり、過去の実測データではありません。データの取得状態と、SOURCE／DERIVED／SCENARIOという加工・仮定の区分は別の情報です。</p>
+              </aside>
+              <aside class="regulation-note">
+                <strong>国内統計と、年ごとの観測記録</strong>
+                <p>総務省統計局などの国内統計、環境省の水質・大気の記録、気象庁の気象統計を使用しています。気象の年次展示は全国38気象官署の保存値が対象で、全アメダスや全国平均を表すものではありません。利用できる年は指標によって異なります。</p>
+                <p>欠測や原資料の注記を保持し、比較できない値は分析から除外します。年度平均、年合計、最小・最大、瞬時値は区別してください。昔の観測地点の移転や測定方法の違いもあり、色の違いだけで原因や安全性を断定することはできません。</p>
+              </aside>
+            </section>
+          </div>
+        </section>
+      </section>
+
+      <section
+        class="japan-layer"
+        id="japan-layer"
+        aria-labelledby="japan-title"
+        aria-describedby="japan-description"
+        aria-hidden="true"
+        hidden
+      >
+        <div
+          class="japan-map"
+          id="japan-map"
+          role="application"
+          tabindex="0"
+          aria-label="世界全体を表示する地図。ドラッグで移動、ホイールまたはピンチで拡大縮小し、地点を押すと観測データの説明を読めます"
+        >
+          <div class="japan-tiles" id="japan-tiles" aria-hidden="true"></div>
+          <canvas class="japan-overlay" id="japan-overlay" aria-hidden="true"></canvas>
+          <div class="japan-map-shade" aria-hidden="true"></div>
+        </div>
+
+        <nav class="gaia-map-zoom-controls" id="gaia-map-zoom-controls" aria-label="地図の拡大縮小">
+          <button id="gaia-map-zoom-in" type="button" aria-label="地図を拡大" data-tooltip="地図を拡大する"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+          <button id="gaia-map-zoom-out" type="button" aria-label="地図を縮小" data-tooltip="地図を縮小する"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/></svg></button>
+          <button id="gaia-map-zoom-reset" type="button" aria-label="世界全体が見える位置に戻す" data-overview="world" data-tooltip="世界全体が見える位置に戻す" hidden><svg data-overview-icon="world" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18M5 6.5h14M5 17.5h14"/></svg><svg data-overview-icon="japan" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="1" fill="#fff"/><circle cx="12" cy="12" r="4.2" fill="#bc002d"/></svg></button>
+        </nav>
+
+        <button
+          class="story-map-modal-skip"
+          id="story-map-modal-skip"
+          type="button"
+          aria-label="地図の操作をスキップして物語へ戻る"
+        >
+          <strong>スキップ</strong><b aria-hidden="true">▶</b>
+        </button>
+
+        <div class="map-title-transition" id="map-title-transition" aria-hidden="true">
+          <div class="map-title-transition-copy">
+            <span id="map-title-transition-text"></span>
+            <p id="map-title-transition-subtitle"></p>
+          </div>
+        </div>
+
+        <header class="japan-heading">
+          <p class="japan-kicker">
+            <span class="japan-live-dot" aria-hidden="true"></span>
+            <span id="map-scope-kicker">Planetary lens / Open map</span>
+          </p>
+          <h2 id="japan-title" data-exhibit-number="06" aria-label="積み重なるCO₂" aria-live="polite">積み重なるCO₂</h2>
+          <button
+            class="map-mobile-heading-toggle"
+            id="map-mobile-heading-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="japan-description japan-data-button gaia-statistics-button"
+          >
+            <span>INFO</span>
+            <strong>詳細</strong>
+          </button>
+          <p id="japan-description">
+            空気に残る炭素は、私たちが暮らす気候に関わる
+          </p>
+          <button
+            class="japan-data-button"
+            id="japan-data-button"
+            type="button"
+            aria-expanded="false"
+            aria-controls="japan-data-panel"
+          >
+            <span class="japan-data-button-copy"><small aria-hidden="true">公開データの出典</small><span>データの出典を表示する</span></span>
+            <span class="japan-data-button-symbol" aria-hidden="true">↗</span>
+          </button>
+          <button
+            class="japan-data-button gaia-statistics-button"
+            id="gaia-statistics-button"
+            type="button"
+            aria-haspopup="dialog"
+            aria-controls="gaia-statistics-lab"
+          >
+            <span class="japan-data-button-copy"><small aria-hidden="true">STATISTICS / ANALYSIS</small><span>データを統計分析する</span></span>
+            <span class="japan-data-button-symbol" aria-hidden="true">＋</span>
+          </button>
+        </header>
+
+        <div class="japan-observation" aria-live="polite">
+          <div class="co2-timeline-display" id="co2-timeline-display" hidden>
+            <span id="co2-timeline-phase">DERIVED RECONSTRUCTION</span>
+            <b id="co2-timeline-year">1958</b>
+            <div>
+              <strong id="co2-timeline-ppm">315.7 ppm</strong>
+              <small id="co2-timeline-method">NOAA BASELINE × EARLIEST GOSAT PATTERN</small>
+            </div>
+          </div>
+          <p class="map-observation-a11y" id="japan-observation-kicker">JMA HISTORY / SHINDO 6-JAKU+</p>
+          <strong class="map-observation-a11y" id="japan-observation-copy">地震を選ぶと、P波とS波が届く目安を再生します。各地点の数字は、実際に記録された震度です。</strong>
+          <span class="map-observation-a11y" id="japan-map-status">JMA HISTORY / LOADING OBSERVATIONS</span>
+        </div>
+
+        <details class="map-reading-guide" id="map-reading-guide" open>
+          <summary>
+            <span>この地図で確かめること</span>
+            <strong id="map-guide-title">積み重なるCO₂</strong>
+            <i aria-hidden="true"></i>
+          </summary>
+          <div class="map-reading-guide-body" aria-live="polite">
+            <section>
+              <h3>何を見る？</h3>
+              <p id="map-guide-subject">大気中のCO₂濃度が、過去から現在、そして未来の試算までどう変わるかを見る地図です。</p>
+            </section>
+            <section>
+              <h3>色の意味</h3>
+              <p id="map-guide-reading">地図の色がCO₂濃度です。斜線は、観測がない場所を周辺の値から補ったことを示します。</p>
+            </section>
+            <section>
+              <h3>押すと</h3>
+              <p id="map-guide-action">年表示を動かすかマスを押すと、その時点の値と、実測・補完・試算の区分を確認できます。</p>
+            </section>
+          </div>
+        </details>
+
+        <section class="signal-console signal-console-map" data-signal-console aria-label="選択中の観測データ">
+          <div class="signal-console-heading">
+            <span data-signal-act>ACT 1 / 循環を知る</span>
+            <strong data-signal-value>DATA SNAPSHOT LOADING</strong>
+          </div>
+          <label>
+            <span data-signal-time-label>観測時点</span>
+            <input data-signal-time type="range" min="0" max="100" value="100" step="1" />
+            <output data-signal-time-output>—</output>
+          </label>
+          <button
+            class="map-mobile-legend-toggle"
+            id="map-mobile-legend-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="map-signal-encoding-legend-dock"
+            hidden
+          >
+            <span>KEY</span>
+            <strong>凡例</strong>
+          </button>
+        </section>
+
+        <aside class="signal-encoding-legend-dock" id="map-signal-encoding-legend-dock" aria-label="地図の凡例">
+          <div class="signal-encoding-legend-title" data-signal-encoding-legend-title hidden>
+            <strong>凡例</strong>
+            <span>MAP LEGEND</span>
+          </div>
+          <dl class="signal-encoding-legend" data-signal-encoding-legend aria-label="地図の凡例" hidden>
+            <div>
+              <dt data-encoding-label="heatmap"><i data-encoding-mark="heatmap"></i>色 / CO₂濃度</dt>
+            </div>
+            <div>
+              <dt data-encoding-label="nodata"><i data-encoding-mark="nodata"></i>斜線 / まわりから補った値</dt>
+            </div>
+            <div>
+              <dt data-encoding-label="estimate"><i data-encoding-mark="estimate"></i>塗り / 時代区分</dt>
+            </div>
+            <div>
+              <dt data-encoding-label="resolution"><i data-encoding-mark="resolution"></i>1セル / 2.5°</dt>
+            </div>
+          </dl>
+        </aside>
+
+        <p class="japan-map-note" id="map-scope-note" aria-hidden="true">
+          BASEMAP / NATURAL EARTH 1:50m<br />
+          LOCAL VECTOR LOADING
+        </p>
+
+        <section class="map-mode-bank" data-active-mode="06" data-map-surface="map" aria-label="地図の31展示を選ぶ">
+          <button
+            class="map-mobile-bank-toggle"
+            id="map-mobile-bank-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="map-exhibit-groups"
+          >
+            <span>SELECT</span>
+            <strong>展示一覧</strong>
+            <i aria-hidden="true"></i>
+          </button>
+          <div class="map-mode-bank-heading">
+            <p id="map-mode-bank-kicker">INSTALLATION BANK / MAP 01—30</p>
+            <div>
+              <span id="japan-mode-number">06</span>
+              <strong id="japan-mode-title">積み重なるCO₂</strong>
+            </div>
+          </div>
+          <p class="map-mode-bank-guide" id="map-mode-bank-guide">見たい地図展示を選んでください</p>
+          <div id="map-exhibit-groups" class="map-mode-groups">
+            <section class="map-mode-group" aria-labelledby="map-mode-map-label">
+              <p class="map-mode-group-label" id="map-mode-map-label"><span>MAP</span><strong>地図</strong></p>
+              <div class="map-mode-list" id="japan-mode-list"></div>
+            </section>
+            <section class="map-mode-group map-mode-group-estat" aria-labelledby="map-mode-estat-label">
+              <p class="map-mode-group-label" id="map-mode-estat-label"><span>JAPAN / 公的統計</span><strong>47都道府県・月次＋71年気候</strong></p>
+              <div class="map-mode-list" id="japan-estat-mode-list"></div>
+            </section>
+            <section class="map-mode-group map-mode-group-firms" aria-labelledby="map-mode-firms-label">
+              <p class="map-mode-group-label" id="map-mode-firms-label"><span>地球 / 公開観測データ</span><strong>全球・5つの観測信号</strong></p>
+              <div class="map-mode-list" id="japan-firms-mode-list"></div>
+            </section>
+          </div>
+          <aside class="map-mode-01-tooltip map-mode-preview" id="map-mode-preview" role="tooltip" aria-hidden="true">
+            <div>
+              <span id="map-mode-preview-number">06 / AIR</span>
+              <b id="map-mode-preview-label">積み重なるCO₂</b>
+              <p id="map-mode-preview-copy">日々のエネルギー利用ともつながるCO₂の蓄積。1958年からの濃度をたどり、観測・再構成・未来の試算を分けて読みます。</p>
+            </div>
+          </aside>
+        </section>
+
+        <div class="japan-layer-switch" aria-label="表示する地震データを選ぶ">
+          <button id="japan-history-layer" type="button" aria-pressed="true">
+            <span>HISTORY</span>
+            <strong id="history-layer-label">震度6弱+</strong>
+          </button>
+          <button id="japan-live-layer" type="button" aria-pressed="false">
+            <span>SNAPSHOT</span>
+            <strong id="live-layer-label">世界 M7.5+</strong>
+          </button>
+        </div>
+
+        <aside
+          class="japan-poi-preview"
+          id="japan-poi-preview"
+          role="tooltip"
+          aria-hidden="true"
+        >
+          <p class="japan-poi-preview-kicker" id="japan-poi-preview-kicker">INTERACTIVE POI</p>
+          <strong class="japan-poi-preview-title" id="japan-poi-preview-title"></strong>
+          <p class="japan-poi-preview-meta" id="japan-poi-preview-meta"></p>
+          <p class="japan-poi-preview-action">
+            <span aria-hidden="true">↗</span>
+            クリックで詳しく見る
+          </p>
+        </aside>
+
+        <article
+          class="japan-poi-card"
+          id="japan-poi-card"
+          aria-live="polite"
+          aria-hidden="true"
+          hidden
+        >
+          <button id="japan-poi-close" type="button" aria-label="地点の説明を閉じる"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+          <p class="japan-poi-type" id="japan-poi-type">CURATED LISTENING NODE</p>
+          <p class="japan-poi-meta" id="japan-poi-meta"></p>
+          <section class="country-emissions-history" id="japan-poi-history" aria-label="国別CO₂排出量の経年グラフ" hidden></section>
+          <a
+            class="japan-poi-source"
+            id="japan-poi-source"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span>元データを確認する</span>
+            <span class="japan-poi-source-icon" aria-hidden="true">↗<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18 18 6M7 6h11v11"/></svg></span>
+          </a>
+        </article>
+
+        <div class="japan-map-actions" aria-label="地図の操作">
+          <button
+            class="japan-close mode-exit-control"
+            id="japan-close"
+            type="button"
+            aria-label="トップの感覚器選択画面へ戻る"
+          >
+            戻る
+          </button>
+        </div>
+
+        <div class="japan-credits">
+          <a
+            href="https://www.naturalearthdata.com/downloads/50m-physical-vectors/50m-land/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Land + country borders: Natural Earth 1:50m / public domain
+          </a>
+          <a
+            href="https://github.com/dataofjapan/land"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Prefecture borders: 地球地図日本 / 国土地理院
+          </a>
+          <a
+            href="https://www.data.jma.go.jp/eqdb/data/shindo/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Historical intensity: JMA
+          </a>
+          <a
+            href="https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Seismic observations: USGS
+          </a>
+          <a
+            class="japan-attribution"
+            href="https://www.openstreetmap.org/copyright"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            © OpenStreetMap contributors / ODbL
+          </a>
+        </div>
+
+        <button
+          class="japan-data-scrim"
+          id="japan-data-scrim"
+          type="button"
+          aria-label="データ説明を閉じる"
+          aria-hidden="true"
+          tabindex="-1"
+        ></button>
+
+        <aside
+          class="japan-data-panel"
+          id="japan-data-panel"
+          role="dialog"
+          aria-modal="true"
+          aria-label="世界地図で使用しているオープンデータと表現方法"
+          aria-hidden="true"
+        >
+          <header class="japan-data-header">
+            <div>
+              <p>DATA SOURCES</p>
+              <h2>データの出典</h2>
+            </div>
+            <button id="japan-data-close" type="button" aria-label="データ説明を閉じる">
+              <span aria-hidden="true">×</span>
+            </button>
+          </header>
+
+          <div class="japan-data-scroll" tabindex="0">
+            <section class="source-purpose-heading"><h3>表示・分析に使うデータ</h3></section>
+            <p class="japan-data-lead">
+              <strong id="data-ledger-mode-title">この画面で使っているデータ</strong>
+              <span id="data-ledger-mode-question"></span>
+            </p>
+
+            <div class="data-ledger-runtime-meta" aria-hidden="true">
+              <span id="data-ledger-act"></span>
+              <span id="data-ledger-state"></span>
+              <span id="data-ledger-updated"></span>
+              <span id="japan-history-state"></span>
+              <span id="japan-history-updated"></span>
+              <span id="japan-data-state"></span>
+              <span id="japan-data-updated"></span>
+            </div>
+
+            <div id="data-ledger-sources" aria-live="polite"></div>
+          </div>
+        </aside>
+
+        <section
+          class="gaia-statistics-lab"
+          id="gaia-statistics-lab"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="gaia-statistics-title"
+          aria-describedby="gaia-statistics-context"
+          aria-hidden="true"
+          hidden
+        >
+          <div class="gaia-statistics-shell">
+            <header class="gaia-statistics-header">
+              <div>
+                <h2 id="gaia-statistics-title">データサイエンスラボ<span class="gaia-statistics-subtitle">統計分析×AIで見えてくる、新たな地平。</span></h2>
+                <p id="gaia-statistics-context">現在の展示データを引き継いでいます。</p>
+              </div>
+              <div class="gaia-statistics-header-actions">
+                <button class="gaia-statistics-ai-open" id="gaia-statistics-ai-open" type="button" aria-haspopup="dialog" aria-controls="gaia-statistics-ai-dialog" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m12 3 2.5 6.5L21 12l-6.5 2.5L12 21l-2.5-6.5L3 12l6.5-2.5Z"/><path d="M20 2v4m-2-2h4"/></svg><span>AIで分析する</span></button>
+                <button class="gaia-statistics-menu-toggle" id="gaia-statistics-menu-toggle" type="button" aria-label="分析を変える" aria-expanded="false" aria-controls="gaia-statistics-controls">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h9m4 0h3M4 17h3m4 0h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg><span>分析を変える</span>
+                </button>
+                <button class="gaia-statistics-close" id="gaia-statistics-close" type="button" aria-label="統計解析ラボを閉じる"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+              </div>
+            </header>
+
+            <div class="gaia-statistics-body">
+              <button class="gaia-statistics-menu-scrim" id="gaia-statistics-menu-scrim" type="button" tabindex="-1" aria-label="解析メニューを閉じる"></button>
+              <aside class="gaia-statistics-controls" id="gaia-statistics-controls" aria-label="解析条件" aria-hidden="true" inert>
+                <header class="gaia-statistics-controls-header">
+                  <div><span>ANALYSIS MENU</span><strong>どんな分析をする？</strong></div>
+                  <button id="gaia-statistics-menu-close" type="button" aria-label="解析メニューを閉じる">×</button>
+                </header>
+                <section class="gaia-statistics-purpose-panel">
+                  <p class="gaia-statistics-control-label">1. 確かめたいことを選ぶ</p>
+                  <div class="gaia-statistics-purpose-grid" id="gaia-statistics-purpose-grid" role="group" aria-label="分析の目的"></div>
+                  <select id="gaia-statistics-lectures" aria-label="分析カテゴリ" hidden tabindex="-1"></select>
+                </section>
+                <section class="gaia-statistics-method-panel">
+                  <div class="gaia-statistics-method-heading"><p class="gaia-statistics-control-label" id="gaia-statistics-picker-heading">2. 分析の見方を選ぶ</p><span>アイコンは分析の概念図です</span></div>
+                  <div class="gaia-statistics-methods" id="gaia-statistics-methods" role="group" aria-labelledby="gaia-statistics-picker-heading"></div>
+                </section>
+                <details class="gaia-statistics-data-options">
+                  <summary>データの絞り込み・条件</summary>
+                <section>
+                  <p class="gaia-statistics-control-label">データ区分</p>
+                  <div class="gaia-statistics-provenance" aria-label="使用するデータ区分">
+                    <span>SOURCE</span>
+                    <label><input id="gaia-statistics-derived" type="checkbox" /> 補完・派生値も含める</label>
+                  </div>
+                </section>
+                <section class="gaia-statistics-filter-panel">
+                  <p class="gaia-statistics-control-label">データを絞る</p>
+                  <div class="gaia-statistics-search">
+                    <input
+                      id="gaia-statistics-record-filter"
+                      type="search"
+                      placeholder="国・地点・分類を検索"
+                      aria-label="分析対象レコードを検索"
+                      aria-controls="gaia-statistics-canvas gaia-statistics-records-body"
+                      autocomplete="off"
+                    />
+                    <button id="gaia-statistics-filter-clear" type="button" disabled>解除</button>
+                  </div>
+                  <output class="gaia-statistics-segment-compare" id="gaia-statistics-segment-compare" data-status="idle" aria-live="polite">
+                    <span>COMPARE / ALL ELIGIBLE</span>
+                    <strong>セグメント未指定</strong>
+                    <small>検索すると、表示中平均と全体平均の差を表示します。</small>
+                  </output>
+                </section>
+                <section class="gaia-statistics-saved-panel">
+                  <p class="gaia-statistics-control-label">保存した条件</p>
+                  <select id="gaia-statistics-saved-view" aria-label="保存済みの分析ビュー">
+                    <option value="">保存ビューなし</option>
+                  </select>
+                  <div>
+                    <button id="gaia-statistics-view-save" type="button">現在を保存</button>
+                    <button id="gaia-statistics-view-apply" type="button" disabled>適用</button>
+                    <button id="gaia-statistics-view-delete" type="button" disabled>削除</button>
+                  </div>
+                  <small>この端末のブラウザ内だけに保存します。</small>
+                </section>
+                </details>
+              </aside>
+
+              <main class="gaia-statistics-stage">
+                <header class="gaia-statistics-stage-header">
+                  <div>
+                    <p id="gaia-statistics-method-number">記述・探索</p>
+                    <h3 id="gaia-statistics-method-title">要約統計</h3>
+                    <p id="gaia-statistics-method-copy">中心、広がり、分布の形を同じ画面で確認します。</p>
+                  </div>
+                  <output id="gaia-statistics-status" aria-live="polite">準備中</output>
+                  <button class="gaia-statistics-companion" type="button" data-stat-go="findings" aria-label="みずとあめと、このグラフから分かることを見る">
+                    <img src="./assets/modes/analysis-mizu-ame-companions-v1.webp" width="1536" height="1024" alt="" decoding="async" loading="lazy" />
+                    <span><small>みず・あめと見つけよう</small><strong>分かることへ <b aria-hidden="true">→</b></strong></span>
+                  </button>
+                </header>
+
+                <div class="gaia-statistics-view-tabs" role="tablist" aria-label="分析結果の表示">
+                  <button id="stat-view-chart" type="button" role="tab" data-stat-view="chart" aria-selected="true" aria-controls="gaia-statistics-visual">分析チャート</button>
+                  <button id="stat-view-findings" type="button" role="tab" data-stat-view="findings" aria-selected="false" aria-controls="stat-panel-findings" tabindex="-1">インサイト</button>
+                  <button id="stat-view-values" type="button" role="tab" data-stat-view="values" aria-selected="false" aria-controls="stat-panel-values" tabindex="-1">数値の内訳</button>
+                  <button id="stat-view-records" type="button" role="tab" data-stat-view="records" aria-selected="false" aria-controls="stat-panel-records" tabindex="-1">観測データ</button>
+                  <button id="stat-view-insights" type="button" role="tab" data-stat-view="insights" aria-selected="false" aria-controls="stat-panel-insights" tabindex="-1">分析の補足</button>
+                  <button id="stat-view-ai" type="button" role="tab" data-stat-view="ai" aria-selected="false" aria-controls="gaia-statistics-ai-dialog" tabindex="-1">AIで分析する</button>
+                </div>
+
+                <section class="gaia-statistics-takeaway" id="gaia-statistics-takeaway" aria-labelledby="gaia-statistics-takeaway-title" aria-live="polite">
+                  <h3 class="insight-summary-label">インサイトサマリー</h3>
+                  <div class="gaia-statistics-takeaway-copy">
+                    <p>このデータから分かること</p>
+                    <h4 id="gaia-statistics-takeaway-title">データを読み込んでいます</h4>
+                    <div id="gaia-statistics-takeaway-body">分析が完了すると、ここに要点を短く表示します。</div>
+                  </div>
+                  <div class="gaia-statistics-takeaway-evidence" id="gaia-statistics-takeaway-evidence" aria-label="インサイトの根拠となる数値"></div>
+                  <button class="gaia-statistics-discover-cta" type="button" data-stat-go="findings"><strong>詳しく見る <b aria-hidden="true">▶</b></strong></button>
+                  <p class="gaia-statistics-takeaway-caveat" id="gaia-statistics-takeaway-caveat">注意点もここで確認できます。</p>
+                </section>
+
+                <section class="gaia-statistics-bi-strip" aria-label="分析サマリー">
+                  <div class="gaia-statistics-kpis" id="gaia-statistics-kpis" aria-live="polite">
+                    <article data-stat-kpi="rows">
+                      <p>対象</p>
+                      <strong id="gaia-statistics-kpi-rows">—</strong>
+                      <small id="gaia-statistics-kpi-rows-note">使用行 / 全行</small>
+                    </article>
+                    <article data-stat-kpi="coverage">
+                      <p>COVERAGE</p>
+                      <strong id="gaia-statistics-kpi-coverage">—</strong>
+                      <small id="gaia-statistics-kpi-coverage-note">フィルター後の利用率</small>
+                    </article>
+                    <article data-stat-kpi="primary">
+                      <p id="gaia-statistics-kpi-primary-label">PRIMARY KPI</p>
+                      <strong id="gaia-statistics-kpi-primary">—</strong>
+                      <small id="gaia-statistics-kpi-primary-note">分析完了後に表示</small>
+                    </article>
+                    <article data-stat-kpi="quality">
+                      <p>DATA QUALITY</p>
+                      <strong id="gaia-statistics-kpi-quality">—</strong>
+                      <small id="gaia-statistics-kpi-quality-note">出典カバレッジ</small>
+                    </article>
+                  </div>
+                  <div class="gaia-statistics-bi-context">
+                    <p id="gaia-statistics-filter-summary">FILTER / SOURCE · LOCAL ANALYSIS</p>
+                    <small>分析結果は画面内表示のみです</small>
+                  </div>
+                </section>
+
+                <div class="gaia-statistics-visual" id="gaia-statistics-visual" role="tabpanel" aria-labelledby="stat-view-chart">
+                  <canvas
+                    id="gaia-statistics-canvas"
+                    tabindex="0"
+                    aria-label="統計解析グラフ"
+                    aria-describedby="gaia-statistics-chart-help"
+                  ></canvas>
+                  <div class="gaia-statistics-transition" id="gaia-statistics-transition" aria-hidden="true"></div>
+                </div>
+                <p class="gaia-statistics-visually-hidden" id="gaia-statistics-chart-help">グラフへフォーカスし、左右または上下の矢印キーでデータ点を順番に確認できます。Enterキーで対応する監査レコードを開きます。</p>
+
+                <details class="gaia-statistics-values" id="stat-panel-values" data-stat-panel="values" role="tabpanel" aria-labelledby="stat-view-values">
+                  <summary>計算の内訳</summary>
+                  <button class="gaia-statistics-panel-back" type="button" aria-label="数値一覧を閉じて分析チャートに戻る">◀ 分析チャートに戻る</button>
+                  <div class="gaia-statistics-values-scroll">
+                    <table>
+                      <thead><tr><th scope="col">指標</th><th scope="col">値</th></tr></thead>
+                      <tbody id="gaia-statistics-metrics"></tbody>
+                    </table>
+                    <p id="gaia-statistics-formula"></p>
+                  </div>
+                </details>
+
+                <details class="gaia-statistics-records" id="stat-panel-records" data-stat-panel="records" role="tabpanel" aria-labelledby="stat-view-records">
+                  <summary>観測データ <output id="gaia-statistics-record-count">0件</output></summary>
+                  <button class="gaia-statistics-panel-back" type="button" aria-label="元データを閉じて分析チャートに戻る">◀ 分析チャートに戻る</button>
+                  <div class="gaia-statistics-records-scroll">
+                    <table>
+                      <caption class="gaia-statistics-visually-hidden">現在のフィルターを適用した分析対象データ</caption>
+                      <thead>
+                        <tr>
+                          <th scope="col" data-record-sort="label" aria-sort="none"><button type="button" data-record-sort-action="label"><span>レコード</span><i aria-hidden="true"></i></button></th>
+                          <th scope="col" data-record-sort="x" aria-sort="none"><button type="button" data-record-sort-action="x"><span id="gaia-statistics-record-x-heading">説明変数</span><i aria-hidden="true"></i></button></th>
+                          <th scope="col" data-record-sort="y" aria-sort="none"><button type="button" data-record-sort-action="y"><span id="gaia-statistics-record-y-heading">値</span><i aria-hidden="true"></i></button></th>
+                          <th scope="col" data-record-sort="provenance" aria-sort="none"><button type="button" data-record-sort-action="provenance"><span>データの種類</span><i aria-hidden="true"></i></button></th>
+                        </tr>
+                      </thead>
+                      <tbody id="gaia-statistics-records-body"></tbody>
+                    </table>
+                  </div>
+                  <output class="gaia-statistics-visually-hidden" id="gaia-statistics-record-drill-status" aria-live="polite"></output>
+                </details>
+
+                <details class="gaia-statistics-findings-panel" id="stat-panel-findings" data-stat-panel="findings" role="tabpanel" aria-labelledby="stat-view-findings">
+                  <summary>比較した記録と読み方</summary>
+                  <button class="gaia-statistics-panel-back" type="button" aria-label="インサイトを閉じて分析チャートに戻る">◀ 分析チャートに戻る</button>
+                  <div class="gaia-statistics-findings" id="gaia-statistics-findings" aria-live="polite" tabindex="-1"></div>
+                </details>
+
+                <details class="gaia-statistics-insights-panel" id="stat-panel-insights" data-stat-panel="insights" role="tabpanel" aria-labelledby="stat-view-insights">
+                  <summary>分析の補足・数値的な根拠と限界</summary>
+                  <button class="gaia-statistics-panel-back" type="button" aria-label="解説を閉じて分析チャートに戻る">◀ 分析チャートに戻る</button>
+                  <div class="gaia-statistics-insights" id="gaia-statistics-insights" aria-live="polite"></div>
+                </details>
+              </main>
+            </div>
+          </div>
+        </section>
+      </section>
+      </template>
+
+      <template id="gaia-template-gx">
+      <section
+        class="gx-layer"
+        id="gx-layer"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="gx-title"
+        aria-describedby="gx-subtitle"
+        aria-hidden="true"
+        hidden
+      >
+        <canvas class="gx-canvas" id="gx-canvas" tabindex="-1" aria-label="太古の海から現在まで、生命と地球が互いを変えた歴史へ触れる展示"></canvas>
+        <div class="gx-color-field" aria-hidden="true"></div>
+        <div class="gx-noise" aria-hidden="true"></div>
+        <div class="gx-vignette" aria-hidden="true"></div>
+
+        <button class="gx-close mode-exit-control" id="gx-close" type="button" hidden>戻る</button>
+        <button
+          class="gx-modal-skip"
+          id="gx-modal-skip"
+          type="button"
+          aria-label="GXモーダルをスキップして戻る"
+          hidden
+        >
+          <span>スキップ</span><b aria-hidden="true">▶</b>
+        </button>
+
+        <div class="gx-time" id="gx-time" data-counter="4,600,000,000" aria-label="現在まで、あと46億年">
+          <span class="gx-time-kicker">現在からさかのぼる</span>
+          <strong class="gx-time-number">
+            <span id="gx-time-value">4,600,000,000</span>
+            <small>年前</small>
+          </strong>
+          <span class="gx-time-context" id="gx-time-context">約46–40億年前 / 冥王代</span>
+        </div>
+
+        <div class="gx-reading" id="gx-reading">
+          <header class="gx-header">
+            <p class="gx-kicker">GAIA TRANSFORMATION / DEEP TIME</p>
+            <h2 id="gx-title">THE FIRST GX</h2>
+          </header>
+          <article class="gx-story-card" id="gx-story-card" aria-live="polite" data-mobile-info-open="false">
+            <p class="gx-phase-meta">
+              <span id="gx-phase-index">01 / 08</span>
+              <span class="gx-kind" id="gx-kind" data-kind="SOURCE">SOURCE</span>
+            </p>
+            <h3 id="gx-phase-title">結晶に残る、水の記憶。</h3>
+            <p class="gx-summary" id="gx-phase-summary">地球史の記録を読み込んでいます。</p>
+            <button
+              class="gx-mobile-info-toggle"
+              id="gx-mobile-info-toggle"
+              type="button"
+              aria-expanded="false"
+              aria-controls="gx-mobile-info"
+            >
+              <span>背景と地層の記録</span><b aria-hidden="true">＋</b>
+            </button>
+            <div class="gx-mobile-info" id="gx-mobile-info" hidden>
+              <p class="gx-copy" id="gx-phase-copy">地球史の記録を読み込んでいます。</p>
+              <div class="gx-strata-marker">
+                <span>地層に残るもの</span>
+                <strong id="gx-strata-marker">ジルコン / 最古の岩石</strong>
+              </div>
+              <p class="gx-guide gx-guide--effect" id="gx-effect-row"><span>画面で起きること</span><b id="gx-effect">まだ触れていません。</b></p>
+              <div class="gx-secondary-controls">
+                <button id="gx-restart" type="button">最初から</button>
+                <button id="gx-data" type="button" aria-expanded="false" aria-controls="gx-data-panel">出典とデータ</button>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="gx-controls" id="gx-controls">
+          <nav class="gx-phase-nav" id="gx-phase-nav" aria-label="THE FIRST GXの章を選ぶ"></nav>
+          <div class="gx-era-progress" id="gx-era-progress" hidden aria-live="polite">
+            <p class="gx-gesture" id="gx-phase-guide">水面をなぞってください。</p>
+            <div class="gx-era-progress__head">
+              <span id="gx-era-progress-label">水の記録</span>
+              <strong id="gx-era-progress-value">0%</strong>
+            </div>
+            <div class="gx-era-progress__track" role="progressbar" aria-labelledby="gx-era-progress-label" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i id="gx-era-progress-bar"></i></div>
+            <p id="gx-era-progress-copy" class="gx-completion-note" hidden></p>
+          </div>
+          <button class="gx-next" id="gx-next" type="button" hidden>海へ光を置く　→</button>
+        </div>
+
+        <div class="gx-era-transition" id="gx-era-transition" aria-hidden="true">
+          <span id="gx-era-transition-label">ARCHEAN → PROTEROZOIC</span>
+          <strong id="gx-era-transition-title">生命の酸素が、岩石の色を変える。</strong>
+          <i aria-hidden="true"></i>
+        </div>
+
+        <aside class="gx-data-panel" id="gx-data-panel" aria-hidden="true">
+          <button id="gx-data-close" type="button" aria-label="データ諸元を閉じる">×</button>
+          <p class="gx-data-label">OPEN DATA / INTERPRETIVE TIMELINE</p>
+          <p id="gx-subtitle">GX = 人間と地球が、ともに変わるための転換</p>
+          <h3>この光は、何から作った？</h3>
+          <p id="gx-data-notice">地質年代の幅と研究上の解釈を、鑑賞用の時間軸へ変換しています。</p>
+          <dl>
+            <div><dt>SOURCE</dt><dd>論文・公開資料で確認できる記録や年代</dd></div>
+            <div><dt>DERIVED</dt><dd>複数の記録を鑑賞用に整理・補間した表現</dd></div>
+            <div><dt>SCENARIO</dt><dd>観客の操作によって生まれる仮想状態</dd></div>
+            <div><dt>SNAPSHOT</dt><dd id="gx-data-date">取得・整理日：—</dd></div>
+          </dl>
+          <div class="gx-source-list" id="gx-source-list"></div>
+        </aside>
+
+        <div class="gx-loading" id="gx-loading" role="status" aria-live="polite">
+          <div><i aria-hidden="true"></i><p>DEEP TIME RECORDS / LOADING</p></div>
+        </div>
+      </section>
+
+      <aside
+        class="gx-story-dialogue"
+        id="gx-story-dialogue"
+        aria-label="ミズハとアマネの会話"
+        aria-live="polite"
+        hidden
+      >
+        <article class="gx-story-bubble" id="gx-story-bubble-first">
+          <span class="gx-story-bubble-speaker"></span>
+          <p></p>
+        </article>
+        <article class="gx-story-bubble" id="gx-story-bubble-second">
+          <span class="gx-story-bubble-speaker"></span>
+          <p></p>
+        </article>
+      </aside>
+      </template>
+
+      <template id="gaia-template-story">
+      <section
+        class="novel-layer"
+        id="novel-layer"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="novel-title"
+        aria-hidden="true"
+        hidden
+      >
+        <canvas class="novel-particles" id="novel-particles" aria-hidden="true"></canvas>
+        <div class="novel-veil" aria-hidden="true"></div>
+        <div class="novel-scanlines" aria-hidden="true"></div>
+
+        <header class="novel-topbar">
+          <div>
+            <span>GAIA SENSATION / INTERACTIVE SYSTEM</span>
+            <strong id="novel-mode-readout">CURRENT — 学園祭の展示ホール</strong>
+          </div>
+          <nav aria-label="ストーリーモードの操作">
+            <button
+              class="novel-eves-button"
+              id="novel-eves-button"
+              type="button"
+              aria-label="これまでの選択を開く"
+              aria-expanded="false"
+              aria-controls="novel-eves-panel"
+              aria-hidden="true"
+              tabindex="-1"
+              disabled
+              hidden
+              title="これまでの選択を確認する"
+            ><svg class="novel-nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="6" r="2"></circle><circle cx="18" cy="8" r="2"></circle><circle cx="12" cy="18" r="2"></circle><path d="M7.8 6.7 16.1 7.6M7.1 7.7l3.8 8.6m6-6.5-3.8 6.5"></path></svg><span class="novel-nav-label">E.V.E.S.</span><b id="novel-eves-count" aria-hidden="true">0 / 2</b></button>
+            <button id="novel-log-button" type="button" aria-label="会話履歴を開く" title="会話履歴" aria-expanded="false" aria-controls="novel-log-panel"><svg class="novel-nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 6h12M7 12h12M7 18h8"></path><circle cx="3.5" cy="6" r="1"></circle><circle cx="3.5" cy="12" r="1"></circle><circle cx="3.5" cy="18" r="1"></circle></svg><span class="novel-nav-label">LOG</span></button>
+            <button id="novel-save-button" type="button" aria-label="保存画面を開く" title="保存" aria-expanded="false" aria-controls="novel-save-panel"><svg class="novel-nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v11m-4-4 4 4 4-4M5 16v4h14v-4"></path></svg><span class="novel-nav-label">SAVE</span></button>
+            <button id="novel-load-button" type="button" aria-label="読込画面を開く" title="読込" aria-expanded="false" aria-controls="novel-save-panel"><svg class="novel-nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 16V5m-4 4 4-4 4 4M5 16v4h14v-4"></path></svg><span class="novel-nav-label">LOAD</span></button>
+            <button id="novel-config-button" type="button" aria-label="設定を開く" title="設定" aria-expanded="false" aria-controls="novel-config-panel"><svg class="novel-nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 6h5m4 0h7M4 12h10m4 0h2M4 18h2m4 0h10"></path><circle cx="11" cy="6" r="2"></circle><circle cx="16" cy="12" r="2"></circle><circle cx="8" cy="18" r="2"></circle></svg><span class="novel-nav-label">CONFIG</span></button>
+            <button id="novel-auto-button" type="button" aria-label="自動送り" title="自動送り" aria-pressed="false"><svg class="novel-nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19 8a8 8 0 1 0 1 7"></path><path d="m18 3 1 5-5-1M10 8l6 4-6 4Z"></path></svg><span class="novel-nav-label">AUTO</span></button>
+            <button id="novel-fast-forward-button" type="button" aria-label="早送り" title="早送り" aria-pressed="false"><svg class="novel-nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m3 6 7 6-7 6Zm9 0 7 6-7 6ZM21 6v12"></path></svg><span class="novel-nav-label" id="novel-fast-forward-label">早送り</span></button>
+            <button
+              class="novel-jump-button"
+              id="novel-jump-button"
+              type="button"
+              aria-label="シーン移動を開く"
+              title="シーン移動"
+              aria-expanded="false"
+              aria-controls="novel-jump-panel"
+              hidden
+            ><svg class="novel-nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 5v5h5M19 19v-5h-5M6 10a7 7 0 0 1 12-2M18 14A7 7 0 0 1 6 16"></path></svg><span class="novel-nav-label">JUMP</span></button>
+            <button id="novel-restart-button" type="button" aria-hidden="true" tabindex="-1" hidden>RESTART</button>
+            <button
+              class="mode-exit-control"
+              id="novel-close-button"
+              type="button"
+              aria-label="ストーリーメニューを閉じる"
+              title="ストーリーメニューを閉じる"
+            >戻る</button>
+          </nav>
+          <button
+            class="mode-exit-control"
+            id="novel-home-button"
+            type="button"
+            aria-label="物語を閉じてトップページへ戻る"
+            title="トップページへ戻る"
+            hidden
+          >戻る</button>
+          <button
+            class="novel-gallery-button"
+            id="novel-gallery-button"
+            type="button"
+            aria-label="CGアルバムを開く"
+            aria-expanded="false"
+            aria-controls="novel-gallery-panel"
+            hidden
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5h16v14H4z"></path><circle cx="9" cy="10" r="2"></circle><path d="m5 17 4-4 3 3 2-2 5 4"></path></svg>
+            <span>CG ALBUM</span>
+            <b id="novel-gallery-count">0 / 6</b>
+          </button>
+          <aside
+            class="novel-jump-panel"
+            id="novel-jump-panel"
+            role="dialog"
+            aria-modal="false"
+            aria-labelledby="novel-jump-title"
+            hidden
+          >
+            <header>
+              <div>
+                <span>SCENE JUMP</span>
+                <strong id="novel-jump-title">シーンの先頭へ移動</strong>
+              </div>
+              <button id="novel-jump-close" type="button" aria-label="シーン一覧を閉じる">×</button>
+            </header>
+            <p class="novel-jump-current" id="novel-jump-current" aria-live="polite"></p>
+            <ol class="novel-jump-list" id="novel-jump-list" aria-label="シーン一覧"></ol>
+          </aside>
+        </header>
+
+        <div class="novel-progress" aria-hidden="true"><i id="novel-progress-bar"></i></div>
+
+        <p
+          class="novel-script-debug"
+          id="novel-script-debug"
+          role="note"
+          aria-hidden="true"
+          hidden
+        >
+          <span class="novel-script-debug-copy" aria-hidden="true"><span>SCRIPT #</span><b id="novel-script-debug-number"></b><span>｜</span><code id="novel-script-debug-step-id"></code></span>
+          <button
+            class="novel-script-debug-copy-button"
+            id="novel-script-debug-copy-button"
+            type="button"
+            aria-label="現在のスクリプト位置をコピー"
+          ><span id="novel-script-debug-copy-status" aria-live="polite" aria-atomic="true">COPY</span></button>
+        </p>
+
+        <section class="novel-title-screen" id="novel-title-screen" hidden aria-hidden="true">
+          <div class="novel-title-orbit" aria-hidden="true"><i></i><i></i><i></i></div>
+          <p>AN INTERACTIVE SYSTEM</p>
+          <h2 id="novel-title" class="novel-work-title">
+            <img
+              class="novel-work-title-logo"
+              src="./assets/brand/brand-logo-dark-surface-590.webp"
+              srcset="./assets/brand/brand-logo-dark-surface-590.webp 590w, ./assets/brand/brand-logo-dark-surface-1180.webp 1180w"
+              sizes="(max-width: 600px) calc(100vw - 36px), min(690px, 48vw)"
+              width="2172"
+              height="724"
+              alt="惑星の放課後 — GAIA SENSATION"
+              decoding="async"
+            />
+          </h2>
+          <div class="novel-title-actions">
+            <button id="novel-start-button" type="button" aria-label="はじめる">はじめる</button>
+            <button id="novel-resume-button" type="button" hidden aria-controls="novel-save-panel" aria-expanded="false">続きから</button>
+            <button class="novel-title-gallery-button" id="novel-title-gallery-button" type="button">
+              <span>CG ALBUM</span><b id="novel-title-gallery-progress">0 / 6｜0%</b>
+            </button>
+          </div>
+        </section>
+
+        <section class="novel-runtime" id="novel-runtime" hidden aria-live="polite">
+          <div class="novel-chapter-card" id="novel-chapter-card" hidden>
+            <span id="novel-chapter-index">CHAPTER 01</span>
+            <strong id="novel-chapter-title"></strong>
+          </div>
+
+          <div
+            class="novel-temporal-transition"
+            id="novel-temporal-transition"
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
+            hidden
+          >
+            <span id="novel-temporal-transition-context"></span>
+            <strong id="novel-temporal-transition-title"></strong>
+            <small id="novel-temporal-transition-detail" hidden></small>
+          </div>
+
+          <div class="novel-cast" id="novel-cast" data-speaker="narrator" aria-hidden="true">
+            <figure class="novel-character novel-character--sora" id="novel-character-sora" data-expression="calm">
+              <div class="novel-character-portrait" role="img" aria-label="青空をイメージしたアマネの立ち絵"></div>
+              <figcaption><b>AMANE</b><span>測れたことと想像の境界を、静かに確かめる人</span></figcaption>
+            </figure>
+            <figure class="novel-character novel-character--minamo" id="novel-character-minamo" data-expression="calm">
+              <div class="novel-character-portrait" role="img" aria-label="海をイメージしたミズハの立ち絵"></div>
+              <figcaption><b>MIZUHA</b><span>数字の揺れを、人が触れられる感覚へ渡す人</span></figcaption>
+            </figure>
+            <figure class="novel-character novel-character--sakuya" id="novel-character-sakuya" data-expression="calm">
+              <div class="novel-character-portrait" role="img" aria-label="カメラと押し花ノートを持つサクヤの立ち絵"></div>
+              <figcaption><b>SAKUYA</b><span>拾われなかった言葉を、記録の流れへ戻す人</span></figcaption>
+            </figure>
+          </div>
+
+          <div class="novel-avatar" id="novel-avatar" data-speaker="narrator" aria-hidden="true" hidden>
+            <div class="novel-avatar-rings"><i></i><i></i><i></i></div>
+            <div class="novel-avatar-core"><span id="novel-avatar-glyph">◌</span></div>
+            <div class="novel-sakuya-thought">
+              <svg viewBox="0 0 240 240" focusable="false" aria-hidden="true">
+                <defs>
+                  <radialGradient id="sakuya-aura" cx="49%" cy="48%" r="58%">
+                    <stop offset="0" stop-color="#fff9ec" stop-opacity=".92" />
+                    <stop offset=".18" stop-color="#ffd9e5" stop-opacity=".48" />
+                    <stop offset=".52" stop-color="#c5efff" stop-opacity=".17" />
+                    <stop offset="1" stop-color="#bdefff" stop-opacity="0" />
+                  </radialGradient>
+                  <linearGradient id="sakuya-membrane" x1=".1" y1=".04" x2=".9" y2=".96">
+                    <stop offset="0" stop-color="#fffef7" stop-opacity=".82" />
+                    <stop offset=".46" stop-color="#ffdbe7" stop-opacity=".42" />
+                    <stop offset="1" stop-color="#aeeaff" stop-opacity=".08" />
+                  </linearGradient>
+                  <linearGradient id="sakuya-trace" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#ffedf5" stop-opacity="0" />
+                    <stop offset=".45" stop-color="#fff8e4" stop-opacity=".58" />
+                    <stop offset="1" stop-color="#a8ebff" stop-opacity="0" />
+                  </linearGradient>
+                  <linearGradient id="sakuya-ember" x1=".5" y1="0" x2=".5" y2="1">
+                    <stop offset="0" stop-color="#fff" stop-opacity=".94" />
+                    <stop offset=".44" stop-color="#ffe6bd" stop-opacity=".86" />
+                    <stop offset="1" stop-color="#ffb9d3" stop-opacity=".12" />
+                  </linearGradient>
+                  <filter id="sakuya-soft-light" x="-80%" y="-80%" width="260%" height="260%">
+                    <feGaussianBlur stdDeviation="7" />
+                  </filter>
+                  <filter id="sakuya-presence-light" x="-60%" y="-60%" width="220%" height="220%">
+                    <feGaussianBlur in="SourceGraphic" stdDeviation=".8" result="soft" />
+                    <feMerge><feMergeNode in="soft" /><feMergeNode in="SourceGraphic" /></feMerge>
+                  </filter>
+                </defs>
+
+                <ellipse class="novel-sakuya-aura" cx="120" cy="121" rx="75" ry="94" fill="url(#sakuya-aura)" />
+
+                <g class="novel-sakuya-traces" fill="none" stroke="url(#sakuya-trace)" stroke-linecap="round">
+                  <path d="M31 154C59 140 82 116 102 82c8-14 14-28 18-43 4 15 10 29 18 43 19 34 43 58 71 72" />
+                  <path d="M40 181c31 10 67 8 94-4 33-15 55-43 63-75" />
+                  <path d="M61 67c3 34 17 62 43 83 25 20 57 27 84 18" />
+                  <path d="M84 204c19-23 29-48 32-75 3-30-2-59 8-87" />
+                </g>
+
+                <g class="novel-sakuya-echo" fill="none" stroke="#fff7ef" stroke-linecap="round">
+                  <ellipse cx="120" cy="121" rx="48" ry="70" transform="rotate(-14 120 121)" />
+                  <path d="M71 119c19-31 54-49 87-38 19 7 34 23 43 44" />
+                  <path d="M61 151c30 24 72 31 105 13 13-7 23-18 31-31" />
+                </g>
+
+                <g class="novel-sakuya-fragments" fill="url(#sakuya-membrane)" stroke="#fffdf7" filter="url(#sakuya-presence-light)">
+                  <path d="M112 91c-4-17-3-34 5-49l12-22c-1 19 5 34 1 49-3 11-9 20-18 22Z" />
+                  <path d="M88 112c-15-7-30-5-43 4l-15 12c17-2 29 5 42 5 10 0 15-7 16-21Z" />
+                  <path d="M151 93c12-9 27-12 43-7l18 7c-17 3-26 14-39 17-10 2-18-3-22-17Z" />
+                  <path d="M93 147c-11 9-17 23-16 39l2 23c7-16 18-23 23-36 4-10 1-19-9-26Z" />
+                  <path d="M151 148c15 5 25 15 31 30l7 19c-11-12-24-14-33-23-7-7-8-16-5-26Z" />
+                </g>
+
+                <g class="novel-sakuya-core">
+                  <path d="M120 111c-8-11-8-22-1-33 7 10 11 20 6 31-1 3-3 5-5 7-1-2-1-3 0-5Z" fill="url(#sakuya-ember)" filter="url(#sakuya-soft-light)" />
+                  <path d="M120 111c-4-7-3-14 1-21 4 7 5 13 2 19l-3 5Z" fill="#fff9e7" fill-opacity=".9" />
+                  <circle cx="120" cy="116" r="3.6" fill="#fff" />
+                </g>
+
+                <g class="novel-sakuya-axis" fill="none" stroke="url(#sakuya-ember)" stroke-linecap="round">
+                  <path d="M120 113c-2-17 1-31 8-45" />
+                  <path d="M57 158c22-3 38-12 49-28 6-8 10-14 14-14 5 0 9 7 15 15 12 15 29 24 50 27" />
+                  <path d="M73 170c28-8 59-8 93 0" />
+                </g>
+
+                <g class="novel-sakuya-motes" fill="#fffbed">
+                  <circle cx="52" cy="93" r="1.5" /><circle cx="76" cy="190" r="1.8" />
+                  <circle cx="177" cy="57" r="1.3" /><circle cx="201" cy="143" r="1.6" />
+                  <circle cx="154" cy="202" r="1.1" /><circle cx="43" cy="151" r=".9" />
+                  <circle cx="146" cy="65" r=".8" /><circle cx="94" cy="75" r="1" />
+                </g>
+
+                <g class="novel-sakuya-drift" fill="url(#sakuya-membrane)" stroke="#fff" stroke-opacity=".38">
+                  <path d="M183 75c9-5 17-2 21 5-5 8-13 11-22 7-3-4-2-8 1-12Z" />
+                  <path d="M52 164c7-4 14-1 17 5-5 7-11 9-18 5-2-3-2-7 1-10Z" />
+                  <path d="M168 188c5-3 10-1 12 3-3 5-8 7-13 4-2-2-1-5 1-7Z" />
+                </g>
+              </svg>
+            </div>
+          </div>
+
+          <div
+            class="novel-signal-caption"
+            id="novel-source-label"
+          >
+            <span id="novel-data-kind">SOURCE</span>
+            <span id="novel-signal-title" hidden></span>
+            <em class="novel-temporal-context" id="novel-temporal-context" hidden></em>
+            <strong id="novel-location">GAIA SENSATION｜現在の場面</strong>
+          </div>
+
+          <section class="novel-slack-surface" id="novel-slack-surface" aria-label="制作チームの学内チャット記録" hidden></section>
+          <section
+            class="novel-operations-phone-surface"
+            id="novel-operations-phone-surface"
+            aria-label="学園祭運営スマートフォン"
+            hidden
+          >
+            <article class="novel-operations-phone" aria-label="学園祭運営スマートフォン">
+              <header class="novel-operations-phone-statusbar">
+                <time id="novel-operations-phone-clock">15:52</time>
+                <span aria-hidden="true"><i></i><i></i><i></i></span>
+              </header>
+              <div class="novel-operations-phone-screen">
+                <section class="novel-operations-phone-view is-prepare" aria-label="運営端末を確認中">
+                  <span>運営端末</span>
+                  <strong id="novel-operations-phone-title">連絡を確認中</strong>
+                  <p>公式連絡を表示します</p>
+                </section>
+                <section class="novel-operations-phone-view is-notice" aria-label="公式通知">
+                  <header><span>公式通知</span><time id="novel-operations-phone-notice-time">15:52</time></header>
+                  <strong id="novel-operations-phone-notice-sender">大学学生支援窓口</strong>
+                  <p id="novel-operations-phone-notice-body"></p>
+                </section>
+                <section class="novel-operations-phone-view is-audio" aria-label="本人音声">
+                  <span>音声着信</span>
+                  <div class="novel-operations-phone-avatar" aria-hidden="true">S</div>
+                  <strong id="novel-operations-phone-audio-speaker">サクヤ</strong>
+                  <p id="novel-operations-phone-audio-status" role="status" aria-live="polite">本人音声</p>
+                  <div class="novel-operations-phone-wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+                  <div class="novel-operations-phone-call-controls" aria-hidden="true"><i></i><i></i><i></i></div>
+                </section>
+              </div>
+              <footer aria-hidden="true"><i></i></footer>
+            </article>
+          </section>
+          <section class="novel-evidence-surface" id="novel-evidence-surface" aria-label="SOURCEとDERIVEDの証拠表示" hidden></section>
+          <section class="novel-reflection-surface" id="novel-reflection-surface" aria-label="次へ渡す姿勢の選択" hidden></section>
+          <section class="novel-result-surface" id="novel-result-surface" aria-label="最終観測結果" hidden></section>
+
+          <article class="novel-dialogue" id="novel-dialogue" tabindex="0" aria-label="クリック、Enterキー、またはスペースキーで物語を進める">
+            <p class="novel-speaker" id="novel-speaker"></p>
+            <p class="novel-text" id="novel-text"></p>
+            <span class="novel-cursor" id="novel-cursor" aria-hidden="true" hidden></span>
+            <span class="novel-continue" id="novel-continue" aria-hidden="true">▼</span>
+          </article>
+
+          <div class="novel-choices" id="novel-choices" aria-label="物語の選択肢"></div>
+
+          <footer class="novel-footer">
+            <span class="novel-footer-location">夏の逗子</span>
+            <span>CLICK / SPACE — NEXT</span>
+          </footer>
+        </section>
+
+        <aside class="novel-log-panel" id="novel-log-panel" aria-hidden="true" hidden>
+          <header>
+            <div class="novel-log-heading">
+              <span>OBSERVATION LOG / SCRIPT ARCHIVE</span>
+              <strong id="novel-log-title">ここまでに聞いた言葉</strong>
+              <div class="novel-log-view-tabs" role="tablist" aria-label="ログの表示範囲">
+                <button id="novel-log-view-heard" type="button" role="tab" aria-selected="true" aria-controls="novel-log-content">観測ログ<small>既読</small></button>
+                <button id="novel-log-view-script" type="button" role="tab" aria-selected="false" aria-controls="novel-log-content">全台本<small>本編＋APEIRONCENE</small></button>
+              </div>
+            </div>
+            <div class="novel-log-tools">
+              <span class="novel-log-comment-count" id="novel-log-comment-count">コメント 0件</span>
+              <button class="novel-log-delete-all" id="novel-log-delete-all" type="button" hidden disabled>コメントを全削除</button>
+              <button class="novel-log-export" id="novel-log-export" type="button">Codex用Markdown</button>
+              <button class="novel-log-export novel-log-script-export" id="novel-log-script-export" type="button">全台本Markdown</button>
+              <span class="novel-log-status" id="novel-log-status" role="status" aria-live="polite"></span>
+            </div>
+            <button class="novel-log-close" id="novel-log-close" type="button" aria-label="会話履歴を閉じる">×</button>
+          </header>
+          <div id="novel-log-content" role="tabpanel" aria-labelledby="novel-log-view-heard" tabindex="0"></div>
+        </aside>
+
+        <aside class="novel-save-panel" id="novel-save-panel" aria-hidden="true" hidden>
+          <div class="novel-save-shell" role="dialog" aria-modal="true" aria-labelledby="novel-save-title">
+            <header class="novel-save-header">
+              <div>
+                <span>LOCAL STORY ARCHIVE</span>
+                <h2 id="novel-save-title">SAVE / LOAD</h2>
+                <p>物語の現在地と選択経路を、このブラウザのユーザープロファイルに保存します。</p>
+              </div>
+              <button id="novel-save-close" type="button" aria-label="セーブ・ロード画面を閉じる">×</button>
+            </header>
+            <div class="novel-save-toolbar">
+              <div class="novel-save-tabs" role="tablist" aria-label="セーブまたはロード">
+                <button id="novel-save-tab" type="button" role="tab" aria-selected="true">SAVE</button>
+                <button id="novel-load-tab" type="button" role="tab" aria-selected="false">LOAD</button>
+              </div>
+              <p id="novel-save-status" aria-live="polite">保存先：このブラウザのみ</p>
+            </div>
+            <div class="novel-save-slots" id="novel-save-slots" tabindex="0" aria-label="セーブ・ロードスロット一覧"></div>
+            <footer class="novel-save-footer">
+              <span>LOCAL PROFILE ONLY / NO SERVER SYNC</span>
+              <p>サーバーへの送信・アカウント同期は行いません。ブラウザデータを消去した場合や、別のブラウザプロファイルでは読み込めません。</p>
+            </footer>
+          </div>
+        </aside>
+
+        <aside class="novel-config-panel" id="novel-config-panel" aria-hidden="true" hidden>
+          <div class="novel-config-shell" role="dialog" aria-modal="true" aria-labelledby="novel-config-title">
+            <header class="novel-config-header">
+              <div>
+                <span>STORY PLAYBACK SETTINGS</span>
+                <h2 id="novel-config-title">CONFIG</h2>
+                <p>物語の読み心地を、このブラウザ用に調整します。</p>
+              </div>
+              <button id="novel-config-close" type="button" aria-label="コンフィグ画面を閉じる">×</button>
+            </header>
+            <div class="novel-config-content">
+              <section class="novel-config-setting" aria-labelledby="novel-message-speed-title">
+                <div class="novel-config-setting-header">
+                  <div>
+                    <span>MESSAGE SPEED</span>
+                    <h3 id="novel-message-speed-title">メッセージ表示速度</h3>
+                  </div>
+                  <output id="novel-message-speed-value" for="novel-message-speed">2.7×</output>
+                </div>
+                <label class="novel-config-range" for="novel-message-speed">
+                  <span>ゆっくり</span>
+                  <input
+                    id="novel-message-speed"
+                    type="range"
+                    min="50"
+                    max="400"
+                    step="10"
+                    value="270"
+                    aria-describedby="novel-message-speed-hint"
+                  />
+                  <span>速い</span>
+                </label>
+                <p id="novel-message-speed-hint">初期値は2.7倍速です。すべての文字を約24ミリ秒の一定間隔で表示します。</p>
+              </section>
+              <section class="novel-config-setting" aria-labelledby="novel-motion-title">
+                <div class="novel-config-setting-header">
+                  <div>
+                    <span>MOTION</span>
+                    <h3 id="novel-motion-title">動きを減らす</h3>
+                  </div>
+                </div>
+                <label class="novel-config-check" for="novel-reduced-motion">
+                  <input id="novel-reduced-motion" type="checkbox" />
+                  <span>粒子・場面転換を抑え、操作の順序を文字でも表示する</span>
+                </label>
+              </section>
+            </div>
+            <footer class="novel-config-footer">
+              <span>LOCAL PROFILE / AUTO SAVE</span>
+              <button id="novel-config-reset" type="button">初期値に戻す</button>
+            </footer>
+          </div>
+        </aside>
+
+        <aside class="novel-eves-panel" id="novel-eves-panel" aria-hidden="true" inert hidden>
+          <div class="novel-eves-shell" role="dialog" aria-modal="true" aria-labelledby="novel-eves-title">
+            <header class="novel-eves-header">
+              <div>
+                <span>E.V.E.S.</span>
+                <h2 id="novel-eves-title">これまでの選択</h2>
+                <p>このプレイで行った二つの選択を確認し、最後の選択からやり直せます。箱は選択する場所とその結果、線は選べる内容と進む順番を表します。得点や性格診断を表示する画面ではありません。</p>
+              </div>
+              <button id="novel-eves-close" type="button" aria-label="E.V.E.S.を閉じる">×</button>
+            </header>
+            <div class="novel-eves-status" aria-live="polite">
+              <span>選択の進み具合</span>
+              <strong id="novel-eves-current">0 / 2｜まだ選択前です</strong>
+            </div>
+            <div class="novel-eves-graph" id="novel-eves-graph" aria-label="二つの選択の進み具合を示す図"></div>
+            <section class="novel-eves-history" aria-labelledby="novel-eves-history-title">
+              <header>
+                <span>E.V.E.S.</span>
+                <h3 id="novel-eves-history-title">選択した内容</h3>
+                <p>このプレイで選んだ内容を、選んだ順に表示します。</p>
+              </header>
+              <ol id="novel-eves-history"></ol>
+            </section>
+            <footer class="novel-eves-footer">
+              <button id="novel-eves-rewind" type="button" disabled>最後の選択をやり直す</button>
+              <p id="novel-eves-rewind-note">まだやり直せる選択はありません。</p>
+            </footer>
+          </div>
+        </aside>
+
+        <aside class="novel-gallery-panel" id="novel-gallery-panel" aria-hidden="true" hidden>
+          <div class="novel-gallery-shell" role="dialog" aria-modal="true" aria-labelledby="novel-gallery-title">
+            <header class="novel-gallery-header">
+              <div>
+                <span>VISUAL MEMORY ARCHIVE</span>
+                <h2 id="novel-gallery-title">CG ALBUM</h2>
+                <p>物語で出会った一枚絵を、このブラウザに記録します。</p>
+              </div>
+              <button id="novel-gallery-close" type="button" aria-label="CGアルバムを閉じる">×</button>
+            </header>
+            <section class="novel-gallery-progress" aria-labelledby="novel-gallery-progress-title">
+              <div>
+                <span id="novel-gallery-progress-title">CG達成率</span>
+                <strong id="novel-gallery-progress-value" aria-live="polite">0%</strong>
+              </div>
+              <p id="novel-gallery-progress-copy">0 / 6 UNLOCKED</p>
+              <div class="novel-gallery-progress-track" aria-hidden="true"><i id="novel-gallery-progress-bar"></i></div>
+            </section>
+            <div class="novel-gallery-grid" id="novel-gallery-grid" aria-label="CG一覧"></div>
+            <footer class="novel-gallery-footer">
+              <span>LOCAL PROFILE / PERMANENT UNLOCK</span>
+            </footer>
+          </div>
+          <section class="novel-gallery-viewer" id="novel-gallery-viewer" role="dialog" aria-modal="true" aria-labelledby="novel-gallery-viewer-title" hidden>
+            <button class="novel-gallery-viewer-close" id="novel-gallery-viewer-close" type="button" aria-label="拡大CGを閉じる">×</button>
+            <button class="novel-gallery-viewer-nav is-previous" id="novel-gallery-viewer-previous" type="button" aria-label="前のCGへ">
+              <span aria-hidden="true">‹</span><small>PREV</small>
+            </button>
+            <button class="novel-gallery-viewer-nav is-next" id="novel-gallery-viewer-next" type="button" aria-label="次のCGへ">
+              <small>NEXT</small><span aria-hidden="true">›</span>
+            </button>
+            <p class="novel-gallery-viewer-count" id="novel-gallery-viewer-count" aria-live="polite">1 / 1</p>
+            <figure id="novel-gallery-viewer-figure">
+              <img id="novel-gallery-viewer-image" alt="" />
+              <figcaption>
+                <span id="novel-gallery-viewer-chapter"></span>
+                <strong id="novel-gallery-viewer-title"></strong>
+              </figcaption>
+            </figure>
+          </section>
+        </aside>
+      </section>
+      </template>
+
+      <template id="gaia-template-space">
+      <section
+        class="space-layer"
+        id="space-layer"
+        aria-labelledby="space-title"
+        aria-describedby="space-description"
+        aria-hidden="true"
+        hidden
+      >
+        <canvas class="space-canvas" id="space-canvas" aria-hidden="true"></canvas>
+        <div class="space-veil" aria-hidden="true"></div>
+
+        <header class="space-header">
+          <p>GAIA TRANSFORMATION <span>／</span> ORBITAL FIELD</p>
+          <h2 id="space-title">宇宙は、<br />遠くにない。</h2>
+          <p id="space-description">指先の動きが太陽から届く粒子に触れ、地球の磁気圏へ波として伝わります。</p>
+        </header>
+
+        <button class="space-close mode-exit-control" id="space-close" type="button" aria-label="宇宙モードを閉じてトップへ戻る">
+          戻る
+        </button>
+
+        <article class="space-readout" aria-live="polite">
+          <p class="space-readout-index"><span id="space-number">01</span><em id="space-code">FLARE</em></p>
+          <h3 id="space-mode-title">太陽の閃光</h3>
+          <p class="space-mode-title-en" id="space-mode-title-en">Solar Flare</p>
+          <div class="space-explanation">
+            <div class="space-explanation-row">
+              <span>何を見ている？</span>
+              <p class="space-narrative" id="space-narrative">宇宙データを読み込んでいます。</p>
+            </div>
+            <div class="space-explanation-row">
+              <span>図の読み方</span>
+              <p id="space-visual-guide">画面の光と公開データの対応を読み込んでいます。</p>
+            </div>
+            <div class="space-explanation-row space-explanation-row--interaction">
+              <span>どう触る？</span>
+              <p id="space-interaction">画面に触れると、観測記録が光へ変わります。</p>
+            </div>
+            <div class="space-explanation-row space-explanation-row--record">
+              <span>いまの記録</span>
+              <p><strong id="space-record-title">読み込み中</strong><small id="space-record-detail">公開記録を準備しています。</small></p>
+            </div>
+            <div class="space-explanation-row space-explanation-row--effect" id="space-effect-row">
+              <span>いまの操作</span>
+              <p id="space-effect">まだ操作していません。画面へ触れると、ここに変化の意味が表示されます。</p>
+            </div>
+          </div>
+          <div class="space-metric">
+            <span id="space-metric-label">DATA SNAPSHOT</span>
+            <strong><b id="space-metric-value">—</b> <small id="space-metric-unit"></small></strong>
+            <p id="space-metric-detail">LOCAL JSON / LOADING</p>
+          </div>
+        </article>
+
+        <div class="space-touch" aria-live="polite">
+          <button id="space-launch" type="button">この記録を再生</button>
+          <p id="space-phase">現在の観測値を光の波として再生します。</p>
+        </div>
+
+        <nav class="space-mode-bank" id="space-mode-list" aria-label="宇宙を感じる10の公開データ"></nav>
+
+        <footer class="space-footer">
+          <div class="space-sequence-controls">
+            <button id="space-previous" type="button" aria-label="前の記録へ">PREV</button>
+            <button id="space-next" type="button" aria-label="次の記録へ">NEXT</button>
+          </div>
+          <button class="space-data-button" id="space-data-button" type="button" aria-expanded="false" aria-controls="space-data-panel">
+            <span>公開データ</span><strong>この光の根拠を見る</strong>
+          </button>
+          <p id="space-date-note">取得済みスナップショットを読み込んでいます。</p>
+        </footer>
+
+        <aside class="space-data-panel" id="space-data-panel" aria-hidden="true" hidden>
+          <header>
+            <div><span>OPEN DATA LEDGER / SPACE</span><strong id="space-data-title">宇宙データの諸元</strong></div>
+            <button id="space-data-close" type="button" aria-label="宇宙データの諸元を閉じる">×</button>
+          </header>
+          <div class="space-data-scroll" id="space-data-content" tabindex="0"></div>
+        </aside>
+      </section>
+      </template>
+
+      <div id="exploration-runtime-bridge" hidden aria-hidden="true">
+        <button id="intro-button" type="button"></button>
+        <span id="mode-number"></span>
+        <span id="mode-title"></span>
+        <span id="mode-title-ja"></span>
+        <span id="mode-description"></span>
+        <button id="concept-open" type="button"></button>
+        <button id="previous-mode" type="button"></button>
+        <div id="mode-list"></div>
+        <button id="next-mode" type="button"></button>
+        <button id="space-button" type="button"></button>
+        <button id="story-button" type="button"></button>
+        <button id="japan-button" type="button" aria-pressed="false"></button>
+        <button id="auto-button" type="button" aria-pressed="false"></button>
+        <button id="source-button" type="button" aria-expanded="false"></button>
+        <button id="reset-button" type="button"></button>
+      </div>
+
+      <button
+        class="source-scrim"
+        id="source-scrim"
+        type="button"
+        aria-label="パネルを閉じる"
+        aria-hidden="true"
+        tabindex="-1"
+      ></button>
+
+      <aside
+        class="concept-panel"
+        id="concept-panel"
+        aria-label="選択中の演出のコンセプト解説"
+        aria-hidden="true"
+      >
+        <header class="concept-header">
+          <div>
+            <p class="concept-kicker">PLANETARY SENSE ORGAN <span id="concept-number">01 / 09</span></p>
+            <h2 id="concept-title">積み重なるCO₂</h2>
+            <p class="concept-title-en" id="concept-title-en">Breathing Earth</p>
+          </div>
+          <button class="concept-close" id="concept-close" type="button" aria-label="解説を閉じる">
+            <span aria-hidden="true">×</span>
+          </button>
+        </header>
+
+        <nav
+          class="concept-mode-list"
+          id="concept-mode-list"
+          aria-label="解説する演出を選ぶ"
+        ></nav>
+
+        <div class="concept-scroll" id="concept-scroll" tabindex="0">
+          <p class="concept-lead" id="concept-lead"></p>
+
+          <section class="concept-section">
+            <p class="concept-label">01 / WHAT YOU ARE SEEING</p>
+            <h3>画面の見方</h3>
+            <p id="concept-seeing"></p>
+          </section>
+
+          <section class="concept-section">
+            <p class="concept-label">02 / TOUCH AS PARTICIPATION</p>
+            <h3>触るとどうなる？</h3>
+            <p id="concept-touch"></p>
+          </section>
+
+          <section class="concept-section">
+            <p class="concept-label">03 / CO-CREATION CONTEXT</p>
+            <h3>授業とのつながり</h3>
+            <p id="concept-context"></p>
+          </section>
+
+          <blockquote class="concept-question">
+            <p>ここで、少し考えてみる</p>
+            <strong id="concept-question"></strong>
+          </blockquote>
+        </div>
+
+        <footer class="concept-footer">
+          <button id="concept-previous" type="button" aria-label="前の演出の解説">
+            <span aria-hidden="true">←</span>
+            <span>PREVIOUS</span>
+          </button>
+          <span id="concept-position">01 / 09</span>
+          <button id="concept-next" type="button" aria-label="次の演出の解説">
+            <span>NEXT</span>
+            <span aria-hidden="true">→</span>
+          </button>
+        </footer>
+      </aside>
+
+      <aside
+        class="source-panel"
+        id="source-panel"
+        aria-label="実行中のGLSLソースコード"
+        aria-hidden="true"
+      >
+        <header class="source-header">
+          <div>
+            <p class="source-kicker">SOURCE VIEW</p>
+            <h2 id="source-title">Breathing Earth</h2>
+          </div>
+          <button class="source-close" id="source-close" type="button" aria-label="コード表示を閉じる">
+            <span aria-hidden="true">×</span>
+          </button>
+        </header>
+        <div class="source-meta">
+          <span id="source-file">01-breathing-earth.frag</span>
+          <span id="source-language">GLSL ES 3.00</span>
+        </div>
+        <nav class="source-tabs" aria-label="表示するコードの種類">
+          <button type="button" data-source-tab="visual" aria-selected="true">VISUAL / 描画コード</button>
+          <button type="button" data-source-tab="transform" aria-selected="false">TRANSFORM / 変換</button>
+          <button type="button" data-source-tab="raw" aria-selected="false">RAW / 元データ</button>
+        </nav>
+        <pre class="source-pre" tabindex="0"><code id="source-code"></code></pre>
+      </aside>
+
+      <aside class="error-panel" id="error-panel" role="status" hidden>
+        <p>3D表示を開始できませんでした。</p>
+        <small>この端末では静的な案内を表示しています。公開データの説明と30秒ガイドは引き続き確認できます。</small>
+        <div class="error-panel-actions">
+          <a href="./?fallback=1#tour">30秒ガイドを続ける</a>
+          <a href="https://github.com/hinahina-vr/gaia-senseware#readme" target="_blank" rel="noopener">データと実装を見る</a>
+        </div>
+      </aside>
+
+      <canvas
+        class="scene-transition"
+        id="scene-transition"
+        aria-hidden="true"
+        hidden
+      ></canvas>
+
+      <noscript>
+        <p class="error-panel">この作品の表示にはJavaScriptが必要です。</p>
+      </noscript>
+    </main>
+  <style>
+    /* The story ending is intentionally quiet, but it must never become a dead end. */
+    #story-ending-exit {
+      position: fixed;
+      left: 50%;
+      bottom: clamp(24px, 5vh, 56px);
+      z-index: 2147483600;
+      min-width: min(320px, calc(100vw - 40px));
+      padding: 15px 28px;
+      border: 1px solid rgba(150, 224, 255, 0.56);
+      border-radius: 999px;
+      background: linear-gradient(135deg, rgba(8, 31, 54, 0.86), rgba(22, 77, 108, 0.7));
+      color: #f2fcff;
+      font: inherit;
+      font-size: clamp(16px, 1.4vw, 22px);
+      letter-spacing: 0.08em;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, 0.05),
+        0 14px 40px rgba(0, 0, 0, 0.3),
+        0 0 26px rgba(108, 218, 255, 0.16);
+      cursor: pointer;
+      opacity: 0;
+      transform: translate(-50%, 8px);
+      animation: story-ending-exit-in 0.5s ease forwards;
+    }
+
+    #story-ending-exit::after {
+      content: "  →";
+    }
+
+    #story-ending-exit:hover,
+    #story-ending-exit:focus-visible {
+      border-color: rgba(215, 250, 255, 0.94);
+      box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, 0.1),
+        0 14px 40px rgba(0, 0, 0, 0.3),
+        0 0 34px rgba(125, 228, 255, 0.36);
+      outline: none;
+    }
+
+    @keyframes story-ending-exit-in {
+      to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+      }
+    }
+  </style>
+
+  <script>
+    (() => {
+      const endingMarkers = ['THE LISTENING CONTINUES', '空白を守り、観測を続ける朝'];
+      let endingActive = false;
+      let updateQueued = false;
+
+      const returnToEntrance = () => {
+        const url = new URL(window.location.href);
+        url.hash = '';
+        url.search = '';
+        url.pathname = url.pathname.replace(/\/story\/?$/, '/');
+        window.location.assign(url.toString());
+      };
+
+      const updateEndingExit = () => {
+        updateQueued = false;
+        const novelLayer = document.querySelector('#novel-layer');
+        const visibleEndingText = novelLayer instanceof HTMLElement
+          && !novelLayer.hidden
+          && endingMarkers.some((marker) => novelLayer.textContent.includes(marker));
+        const isStoryRoute = window.location.hash.includes('story')
+          || /\/story\/?$/i.test(window.location.pathname);
+        const isEnding = isStoryRoute && visibleEndingText;
+        endingActive = isEnding;
+
+        let exitButton = document.getElementById('story-ending-exit');
+        if (isEnding && !exitButton) {
+          exitButton = document.createElement('button');
+          exitButton.id = 'story-ending-exit';
+          exitButton.type = 'button';
+          exitButton.textContent = '入口へ戻る';
+          exitButton.setAttribute('aria-label', '物語を終えて入口へ戻る');
+          exitButton.addEventListener('click', (event) => {
+            event.stopPropagation();
+            returnToEntrance();
+          });
+          document.body.appendChild(exitButton);
+        } else if (!isEnding && exitButton) {
+          exitButton.remove();
+        }
+      };
+
+      const scheduleEndingUpdate = () => {
+        if (updateQueued) return;
+        updateQueued = true;
+        window.requestAnimationFrame(updateEndingExit);
+      };
+
+      const startEndingGuard = () => {
+        document.addEventListener('click', (event) => {
+          if (!endingActive) return;
+          if (event.target.closest('button, a, input, select, textarea, [role="button"]')) return;
+          returnToEntrance();
+        });
+
+        window.addEventListener('gaia:novel-step-rendered', scheduleEndingUpdate);
+        window.addEventListener('gaia:novel-open', scheduleEndingUpdate);
+        window.addEventListener('gaia:return-to-intro', scheduleEndingUpdate);
+        window.addEventListener('hashchange', scheduleEndingUpdate);
+        scheduleEndingUpdate();
+      };
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', startEndingGuard, { once: true });
+      } else {
+        startEndingGuard();
+      }
+    })();
+  </script>
+<style id="close-control-color-refinement">
+  /* Keep close controls inside the same translucent blue-green visual system. */
+  .gs-close-refined {
+    color: rgba(232, 252, 250, 0.94) !important;
+    background: linear-gradient(180deg, rgba(20, 57, 72, 0.82), rgba(6, 24, 40, 0.90)) !important;
+    border-color: rgba(120, 220, 211, 0.36) !important;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.06),
+      0 6px 24px rgba(0, 0, 0, 0.22) !important;
+    backdrop-filter: blur(10px) saturate(1.12);
+    -webkit-backdrop-filter: blur(10px) saturate(1.12);
+    transition: background 180ms ease, border-color 180ms ease, box-shadow 180ms ease, color 180ms ease !important;
+  }
+
+  .gs-close-refined:hover,
+  .gs-close-refined:focus-visible {
+    color: #f7fffe !important;
+    background: linear-gradient(180deg, rgba(35, 88, 98, 0.92), rgba(9, 37, 54, 0.94)) !important;
+    border-color: rgba(151, 241, 228, 0.72) !important;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.10),
+      0 0 0 1px rgba(122, 225, 212, 0.16),
+      0 0 22px rgba(85, 214, 207, 0.20) !important;
+  }
+</style>
+<script id="close-control-color-refinement-script">
+  (() => {
+    const selector = 'button, a, [role="button"], [class*="close"], [data-action*="close"]';
+    const closeMarks = new Set(['×', '✕', '✖']);
+
+    const isCloseControl = (element) => {
+      const text = (element.textContent || '').trim();
+      const label = (element.getAttribute('aria-label') || element.getAttribute('title') || '').trim();
+      return closeMarks.has(text) || /^(close|閉じる)$/i.test(label);
+    };
+
+    const refine = (root) => {
+      if (!root || (root.nodeType !== 1 && root.nodeType !== 9)) return;
+      const controls = [];
+      if (root.nodeType === 1 && root.matches(selector)) controls.push(root);
+      if (root.querySelectorAll) controls.push(...root.querySelectorAll(selector));
+      controls.forEach((control) => {
+        if (isCloseControl(control)) control.classList.add('gs-close-refined');
+      });
+    };
+
+    const start = () => {
+      refine(document);
+      window.addEventListener('gaia:mode-group-loaded', () => refine(document));
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', start, { once: true });
+    } else {
+      start();
+    }
+  })();
+</script>
+<link rel="stylesheet" href="./site-terms.css?v=20260912" />
+<script src="./site-terms.js?v=20260912" defer></script>
+<dialog id="site-terms" aria-labelledby="site-terms-title">
+  <header><div><small>TERMS OF USE</small><h2 id="site-terms-title">利用規約</h2></div><button type="button" data-terms-close autofocus aria-label="利用規約を閉じる">閉じる ×</button></header>
+  <div class="site-terms-body">
+    <p>惑星の放課後 — GAIA SENSATION / GAIA SENSEWARE<br />更新日：2026年9月12日</p>
+    <p>本作品を閲覧・利用する方に向けて、データの扱い方やセンサー参加時の注意事項、作品の利用条件をまとめています。</p>
+    <h3>1. この作品について</h3>
+    <p>本作品は、物語と公開データの可視化、センサー参加を通して地球の変化に触れる展示・学習・試作のためのものです。制作：ひなひな。</p>
+    <h3>2. 観測データの読み方</h3>
+    <p>保存データ、取得済みキャッシュ、モデル値、加工値、未来の仮定や演出用サンプルを含みます。すべてが現在の実測値ではありません。展示の出典、対象期間、取得状態、欠測や測定条件を確認してください。色や動きは安全性や因果関係を保証するものではありません。</p>
+    <p>医療、防災、設備制御、法定監視など、人命・安全に関わる判断には使用せず、関係機関の公式情報を確認してください。</p>
+    <h3>3. センサーでの参加</h3>
+    <p>管理権限のある機器・回線を使い、公開するセンサー名・地域・観測値・地図上の位置に個人や第三者の秘密を含めないでください。ファームウェアの書き込みは既存の内容を上書きします。参加前にバックアップと対応機種を確認してください。</p>
+    <p>登録・公開範囲・削除・機器の安全上の注意は、<a href="./sensors/#terms" target="_blank" rel="noopener noreferrer">みんなのセンサーの利用条件（別タブ）</a>も確認してください。</p>
+    <h3>4. 作品・データの利用</h3>
+    <p>文章・画像・音楽・コードと、外部の公開データでは利用条件が異なります。閲覧できることだけを理由に、すべての素材の再配布や商用利用が許可されるわけではありません。再利用する際は個別のライセンスと出典を確認し、法令上認められる引用などの範囲を守ってください。</p>
+    <h3>5. 禁止事項</h3>
+    <p>不正アクセス、認証情報の取得・公開、サービスを妨害する過剰な送信、権利侵害、他人へのなりすまし、第三者の個人情報の無断公開を禁止します。模擬データを実測値と偽って送信しないでください。</p>
+    <h3>6. 保存・外部通信</h3>
+    <p>進行状況や設定などをブラウザ内に保存します。ブラウザのデータ消去や端末の変更で引き継がれない場合があります。展示によって外部データ提供元に通信し、センサー参加では認証・登録・観測データの送受信を行います。端末を共有するときは保存情報とログイン状態に注意してください。</p>
+    <h3>7. 提供範囲と責任</h3>
+    <p>データの誤差・欠測、通信障害、端末差による表示不具合が生じる場合があります。正確性・継続提供・特定の目的への適合を保証するものではありません。本規約は、提供者が法令上負う責任を一律に免除したり、利用者の法令上の権利を制限したりするものではありません。</p>
+    <h3>8. 規約の更新</h3>
+    <p>作品の機能やデータの変更に合わせて、本規約を更新することがあります。最新の内容と更新日は、この画面でご確認ください。</p>
+  </div>
+</dialog>
+</body>
+</html>

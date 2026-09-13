@@ -1,0 +1,316 @@
+/* Compact observatory chrome. Data, plot colours and reading order stay intact. */
+.gaia-statistics-lab {
+  /* The body-level sweep is at 2147483000. The lazily appended lab previously
+     shared that value and painted over it despite a running animation. */
+  z-index: 2147482999;
+  --game-body: clamp(16px, min(1vw, 1.7dvh), 28px);
+  --game-small: clamp(13px, min(.8vw, 1.3dvh), 22px);
+  --game-title: clamp(23px, min(1.65vw, 2.7dvh), 42px);
+  --game-gap: clamp(10px, min(.85vw, 1.3dvh), 22px);
+  --observatory-line: #aacede32;
+  --observatory-light: inset 0 1px #e4f7ff30, inset 0 -1px #020b1940, 0 6px 18px #01091438;
+  --button-accent-rgb: 171, 228, 242;
+  color-scheme: dark;
+}
+.gaia-statistics-lab .gaia-statistics-shell {
+  height: 90dvh;
+  background:
+    radial-gradient(ellipse at 6% 0%, #548f9824, transparent 42%),
+    radial-gradient(ellipse at 98% 12%, #79719521, transparent 45%),
+    linear-gradient(135deg, #0e2332ed, #101c2af7 52%, #201f32f5);
+  border-color: #badbe24d;
+  box-shadow: inset 0 1px #e0f9ff4a, inset 0 0 40px #a9d6ec04, 0 30px 100px #0009, 0 0 60px #72c5d412;
+}
+.gaia-statistics-lab .gaia-statistics-header {
+  padding: clamp(10px, 1.2dvh, 20px) 2px;
+  gap: 12px;
+  border-bottom-color: var(--observatory-line);
+}
+.gaia-statistics-lab .gaia-statistics-header h2 { font-size: var(--game-title); font-weight: 600; letter-spacing: .07em; }
+.gaia-statistics-lab .gaia-statistics-kicker { font-weight: 500; font-size: clamp(11px, .72vw, 18px); letter-spacing: .08em; color: #a3d6d2; }
+.gaia-statistics-lab .gaia-statistics-kicker::before { width: 4px; height: 4px; box-shadow: 0 0 10px #a4f0e590; }
+.gaia-statistics-lab #gaia-statistics-context { margin-top: 2px; color: #a9bfcb; }
+.gaia-statistics-lab :is(.gaia-statistics-ai-open, .gaia-statistics-menu-toggle, .gaia-statistics-close) {
+  min-height: clamp(44px, 4.2dvh, 64px);
+  padding-inline: clamp(12px, 1vw, 24px);
+  border-radius: 10px;
+  border: 1px solid #aecde13d;
+  color: #dfedf2;
+  background: radial-gradient(ellipse at 25% 0, #cfebff18, transparent 75%), linear-gradient(150deg, #243f51b3, #172e416e);
+  box-shadow: var(--observatory-light);
+  font-weight: 600;
+}
+.gaia-statistics-lab .gaia-statistics-close { width: clamp(44px, 4.2dvh, 64px); padding: 10px; }
+.gaia-statistics-lab .gaia-statistics-ai-open { --button-accent-rgb: 205, 193, 242; border-color: #bdadde52; background: radial-gradient(ellipse at 20% 0, #d9c1ed26, transparent 80%), linear-gradient(135deg, #504564, #2c304f); }
+.gaia-statistics-lab .gaia-statistics-header-actions svg { width: clamp(20px, 1.2vw, 30px); height: clamp(20px, 1.2vw, 30px); }
+.gaia-statistics-lab .gaia-statistics-stage { grid-template-columns: minmax(0, 1.85fr) minmax(320px, 1fr); }
+.gaia-statistics-lab .gaia-statistics-stage-header {
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: var(--game-gap);
+  padding: clamp(9px, 1dvh, 16px) clamp(14px, 1.1vw, 28px);
+  border-radius: 13px;
+  border-color: var(--observatory-line);
+  background: radial-gradient(ellipse at 8% 0, #a5e2db12, transparent 60%), linear-gradient(110deg, #23465063, #302c454d);
+  box-shadow: var(--observatory-light);
+}
+.gaia-statistics-lab .gaia-statistics-stage-header > div > p:first-child { margin-bottom: 3px; color: #9fc7c7; font-weight: 500; letter-spacing: .12em; }
+.gaia-statistics-lab .gaia-statistics-stage-header h3 { font: 500 var(--game-title)/1.35 var(--font-ja); letter-spacing: .04em; text-wrap: balance; }
+.gaia-statistics-lab #gaia-statistics-method-copy { margin-top: 3px; color: #a9c2ce; }
+.gaia-statistics-lab #gaia-statistics-status { color: #afddcb; border: 1px solid #a4d9c22f; background: #91d0bc0c; font-size: var(--game-small); font-weight: 500; }
+.gaia-statistics-lab .gaia-statistics-companion {
+  grid-template-columns: clamp(84px, 7.5dvh, 126px) minmax(0, 1fr);
+  display: grid;
+  min-height: 0;
+  gap: clamp(8px, .8vw, 18px);
+  padding: 4px clamp(10px, .9vw, 20px) 4px 4px;
+  border-radius: 10px;
+  border-color: #badcd235;
+  background: radial-gradient(ellipse at 0 0, #96ddd322, transparent 70%), linear-gradient(130deg, #254a5178, #28365066);
+  box-shadow: var(--observatory-light);
+}
+.gaia-statistics-lab .gaia-statistics-companion img { width: 100%; height: auto; max-height: none; aspect-ratio: 3 / 2; border-radius: 7px; object-fit: contain; }
+.gaia-statistics-lab .gaia-statistics-companion span { gap: 2px; }
+.gaia-statistics-lab .gaia-statistics-companion small { color: #b1cfcf; font-size: clamp(10px, .72vw, 18px); font-weight: 500; }
+.gaia-statistics-lab .gaia-statistics-companion strong { font-size: clamp(14px, 1vw, 24px); font-weight: 600; white-space: nowrap; }
+.gaia-statistics-lab .gaia-statistics-view-tabs { gap: clamp(5px, .5vw, 12px); }
+.gaia-statistics-lab .gaia-statistics-view-tabs button {
+  min-height: clamp(44px, 4.3dvh, 64px);
+  padding: 8px 10px;
+  border: 1px solid #acc9de30;
+  border-radius: 10px;
+  background: linear-gradient(160deg, #a8c8d312, #7895af04), #14283980;
+  box-shadow: var(--observatory-light);
+  color: #b7cbd6;
+  font-weight: 500;
+}
+.gaia-statistics-lab .gaia-statistics-view-tabs button:nth-child(-n+2) { flex-grow: 1.15; }
+.gaia-statistics-lab .gaia-statistics-view-tabs button:nth-child(2) { --button-accent-rgb: 205, 193, 242; color: #ccbfdf; border-color: #c3afe33b; background: linear-gradient(150deg, #b6a1d614, #6a639c08), #25283e75; }
+.gaia-statistics-lab .gaia-statistics-view-tabs button[aria-selected="true"] { color: #edfafb; border-color: #9adbd77a; background: radial-gradient(ellipse at 30% 0, #c5f6e922, transparent 70%), linear-gradient(130deg, #29515a, #233d53); box-shadow: inset 0 1px #d3fff960, inset 0 -2px #a1ddd86b, 0 5px 20px #74c7d216; }
+.gaia-statistics-lab .gaia-statistics-view-tabs button:nth-child(2)[aria-selected="true"] { color: #f3edff; border-color: #c6b6e780; background: radial-gradient(ellipse at 30% 0, #edddff20, transparent 70%), linear-gradient(130deg, #514365, #30354f); box-shadow: inset 0 1px #ede3ff60, inset 0 -2px #ccb6ed70, 0 5px 20px #b7a4d316; }
+.gaia-statistics-lab .gaia-statistics-view-tabs button span { min-width: 21px; height: 21px; margin-right: 6px; color: #b4dddc; background: #a5dbd916; }
+.gaia-statistics-lab #gaia-statistics-visual { border: 1px solid #c2dfeea6; border-radius: 13px; box-shadow: inset 0 1px #fff, 0 8px 28px #0005, 0 0 24px #8cd4e30a; }
+.gaia-statistics-lab .gaia-statistics-takeaway {
+  padding: clamp(12px, 1.3dvh, 22px);
+  gap: clamp(10px, 1.25dvh, 20px);
+  border: 1px solid #b4c6e133;
+  border-radius: 13px;
+  background: radial-gradient(ellipse at 95% 0, #aa96ca16, transparent 55%), linear-gradient(150deg, #2039497a, #222b405c);
+  box-shadow: var(--observatory-light);
+}
+.gaia-statistics-lab .gaia-statistics-takeaway-copy > p:first-child { margin-bottom: 5px; color: #bfb5d4; font-weight: 500; letter-spacing: .08em; }
+.gaia-statistics-lab .gaia-statistics-takeaway h4 { font-size: clamp(20px, min(1.35vw, 2.25dvh), 36px); font-weight: 500; line-height: 1.5; }
+.gaia-statistics-lab #gaia-statistics-takeaway-body { margin-top: 6px; font-weight: 400; line-height: 1.65; color: #bdced7; }
+.gaia-statistics-lab .gaia-statistics-takeaway-evidence { gap: 7px; }
+.gaia-statistics-lab .gaia-statistics-takeaway-evidence button,
+.gaia-statistics-lab .gaia-statistics-takeaway-evidence button:first-child {
+  --button-accent-rgb: 164, 227, 218;
+  min-height: 76px;
+  gap: 6px;
+  padding: clamp(10px, 1dvh, 16px) 10px;
+  border: 1px solid #9ad9d84d;
+  border-radius: 11px;
+  background: radial-gradient(ellipse at 0 0, #9ce5dc1e, transparent 80%), linear-gradient(150deg, #204551b5, #172d3f80);
+  box-shadow: var(--observatory-light);
+}
+.gaia-statistics-lab .gaia-statistics-takeaway-evidence button:nth-child(2) { --button-accent-rgb: 205, 193, 242; border-color: #c4b4e04a; background: radial-gradient(ellipse at 0 0, #d6b2ed1b, transparent 80%), linear-gradient(150deg, #383451b0, #292c4580); }
+.gaia-statistics-lab .gaia-statistics-takeaway-evidence button:last-child { --button-accent-rgb: 232, 211, 169; border-color: #d5bf8a48; background: radial-gradient(ellipse at 0 0, #e4c6901a, transparent 80%), linear-gradient(150deg, #43403999, #30323b80); }
+.gaia-statistics-lab .gaia-statistics-takeaway-evidence button span { color: #b8cdd5; font-weight: 500; }
+.gaia-statistics-lab .gaia-statistics-takeaway-evidence button strong,
+.gaia-statistics-lab .gaia-statistics-takeaway-evidence button:first-child strong,
+.gaia-statistics-lab .gaia-statistics-takeaway-evidence button:last-child strong { color: #b4eee3; font-size: clamp(25px, min(1.7vw, 2.9dvh), 46px); font-weight: 600; letter-spacing: -.02em; }
+.gaia-statistics-lab .gaia-statistics-takeaway-evidence button:nth-child(2) strong { color: #dac2ef; }
+.gaia-statistics-lab .gaia-statistics-takeaway-evidence button:last-child strong { color: #ebd09c; }
+.gaia-statistics-lab .gaia-statistics-takeaway-evidence button small { color: #adc2cf; font-weight: 400; }
+.gaia-statistics-lab .gaia-statistics-discover-cta {
+  gap: 3px;
+  padding: clamp(10px, 1.2dvh, 18px) 12px;
+  border-radius: 11px;
+  border-color: #aadbd572;
+  background: radial-gradient(ellipse at 20% 0, #b7eed522, transparent 80%), linear-gradient(120deg, #28505a, #293951 75%, #3d3655);
+  box-shadow: inset 0 1px #dbfff74d, 0 7px 22px #050e233d;
+}
+.gaia-statistics-lab .gaia-statistics-discover-cta span { color: #b6ced3; font-weight: 400; }
+.gaia-statistics-lab .gaia-statistics-discover-cta strong { font-weight: 600; }
+.gaia-statistics-lab .gaia-statistics-discover-cta::after { display: none; }
+.gaia-statistics-lab .gaia-statistics-takeaway-caveat { padding: 10px 12px; color: #cfc3a9; border-color: #d1be9329; background: linear-gradient(135deg, #b99a4d0e, #a69aa406); font-weight: 400; line-height: 1.55; }
+
+/* Stationary hit surfaces let the shared focus/hover sweep finish. It formerly
+   cancelled when the card's translateY changed its bounds on the next frame. */
+.gaia-statistics-lab button:not(:disabled):not([aria-disabled="true"]):is(:hover, :active) { transform: none; }
+.gaia-statistics-lab button:not(:disabled):not([aria-disabled="true"]):is(:hover, :focus-visible) { filter: brightness(1.12); border-color: #c4ecec9c; box-shadow: inset 0 1px #e4ffff70, 0 0 20px #a3dbdf1c, 0 6px 18px #01091438; }
+.gaia-statistics-lab :is(button, input, select, summary):focus-visible { outline: 2px solid #c6f2e8; outline-offset: 3px; }
+
+/* Reading and selection surfaces remain bright paper, inset into the same
+   frame; keep their original dark chart/table text and accessible contrast. */
+.gaia-statistics-lab .gaia-statistics-stage > details[open],
+.gaia-statistics-lab .gaia-statistics-controls { border-width: 1px; border-color: #a9c8da8c; box-shadow: inset 0 1px #fff9, 0 12px 36px #020a204f; }
+.gaia-statistics-lab :is(.gaia-statistics-purpose-grid, .gaia-statistics-methods) button { border-width: 1px; background: linear-gradient(150deg, #ffffffed, #eaf3f6ad); box-shadow: inset 0 1px #fff, 0 3px 10px #24374e15; }
+.gaia-statistics-lab #gaia-statistics-findings > .gaia-statistics-finding { border-width: 1px; box-shadow: inset 0 1px #fff, 0 4px 14px #24445a12; }
+.gaia-statistics-lab :is(.gaia-statistics-controls, .gaia-statistics-stage > details) :is(button, input, select, summary):focus-visible { outline-color: #246b83; }
+.gaia-statistics-lab .gaia-statistics-records tbody th strong { color: #23475f; }
+.gaia-statistics-lab .gaia-statistics-records tbody th small { color: #496879; font-size: 11px; line-height: 1.4; }
+.gaia-statistics-lab #gaia-statistics-record-count { color: #386478; font-size: var(--game-small); }
+
+@media (min-width: 981px) {
+  .gaia-statistics-lab .gaia-statistics-takeaway { align-self: start; max-height: 100%; }
+}
+@media (min-width: 981px) and (max-width: 1200px) {
+  .gaia-statistics-lab .gaia-statistics-stage { grid-template-columns: minmax(0, 1fr) 380px; }
+  .gaia-statistics-lab .gaia-statistics-stage[data-result-view="findings"] { grid-template-columns: minmax(0, 1fr); }
+  .gaia-statistics-lab .gaia-statistics-header { padding-block: 8px; }
+  .gaia-statistics-lab .gaia-statistics-kicker { margin-bottom: 2px; }
+  .gaia-statistics-lab .gaia-statistics-stage-header { padding-block: 5px; }
+  .gaia-statistics-lab .gaia-statistics-stage-header > div > p:first-child { margin-bottom: 1px; }
+  .gaia-statistics-lab #gaia-statistics-method-copy { margin-top: 1px; }
+}
+
+@media (max-width: 1100px) {
+  .gaia-statistics-lab .gaia-statistics-stage-header { grid-template-columns: minmax(0, 1fr) auto; }
+}
+@media (max-width: 980px) {
+  .gaia-statistics-lab .gaia-statistics-header { background: #122535f5; }
+  .gaia-statistics-lab .gaia-statistics-stage,
+  .gaia-statistics-lab .gaia-statistics-stage:not([data-result-view="findings"]) { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto 340px auto; }
+  .gaia-statistics-lab .gaia-statistics-stage[data-result-view="findings"] { grid-template-rows: auto auto; }
+  .gaia-statistics-lab .gaia-statistics-takeaway { overflow: visible; }
+  .gaia-statistics-lab .gaia-statistics-companion { grid-template-columns: 68px minmax(0, 1fr); }
+}
+@media (max-width: 600px) {
+  .gaia-statistics-lab .gaia-statistics-header { gap: 6px; padding-block: 8px; }
+  .gaia-statistics-lab .gaia-statistics-header h2 { font-size: 22px; }
+  .gaia-statistics-lab .gaia-statistics-kicker { font-size: 10px; }
+  .gaia-statistics-lab #gaia-statistics-context { font-size: 11px; }
+  .gaia-statistics-lab .gaia-statistics-stage-header { padding: 10px; gap: 8px; }
+  .gaia-statistics-lab .gaia-statistics-stage-header h3 { font-size: 19px; }
+  .gaia-statistics-lab .gaia-statistics-companion { display: flex; flex-direction: column; gap: 3px; width: 86px; padding: 4px; }
+  .gaia-statistics-lab .gaia-statistics-companion strong { font-size: 12px; }
+  .gaia-statistics-lab .gaia-statistics-view-tabs button:nth-child(-n+2) { flex: 1 1 40%; }
+  .gaia-statistics-lab .gaia-statistics-view-tabs button { font-size: 12px; padding-inline: 5px; }
+  .gaia-statistics-lab .gaia-statistics-takeaway-evidence { grid-template-columns: minmax(0, 1fr); }
+  .gaia-statistics-lab .gaia-statistics-takeaway-evidence button,
+  .gaia-statistics-lab .gaia-statistics-takeaway-evidence button:first-child { grid-template-columns: minmax(0, 1fr) auto; align-items: center; min-height: 54px; padding: 10px; }
+  .gaia-statistics-lab .gaia-statistics-takeaway-evidence button span { font-size: 12px; }
+  .gaia-statistics-lab .gaia-statistics-takeaway-evidence button strong,
+  .gaia-statistics-lab .gaia-statistics-takeaway-evidence button:first-child strong,
+  .gaia-statistics-lab .gaia-statistics-takeaway-evidence button:last-child strong { font-size: 23px; white-space: nowrap; }
+  .gaia-statistics-lab .gaia-statistics-takeaway-evidence button small { display: inline; margin: 0; font-size: 12px; }
+}
+@media (max-height: 500px) and (min-width: 480px) {
+  .gaia-statistics-lab .gaia-statistics-stage-header { padding: 6px 10px; }
+  .gaia-statistics-lab .gaia-statistics-companion { grid-template-columns: 60px minmax(0, 1fr); }
+  .gaia-statistics-lab .gaia-statistics-view-tabs button:nth-child(-n+2) { flex: 1 1 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gaia-statistics-lab button { transition: none; }
+}
+/* Calculation details use the light reading surface, not the dark map ink. */
+.gaia-statistics-lab #stat-panel-values > .gaia-statistics-values-scroll {
+  box-sizing: border-box;
+  padding: clamp(16px, 2vw, 32px);
+}
+.gaia-statistics-lab #stat-panel-values table {
+  max-width: 1120px;
+  margin: 0 auto;
+  table-layout: fixed;
+}
+.gaia-statistics-lab #stat-panel-values :is(th, td) {
+  padding: 18px 24px;
+  color: #234152;
+  font-size: clamp(15px, 1vw, 22px);
+  line-height: 1.75;
+  vertical-align: middle;
+  overflow-wrap: anywhere;
+}
+.gaia-statistics-lab #stat-panel-values thead th {
+  color: #234152;
+  background: #e2eef4;
+  font-weight: 600;
+}
+.gaia-statistics-lab #stat-panel-values th:first-child { width: 60%; }
+.gaia-statistics-lab #stat-panel-values .gaia-statistics-evidence-button {
+  padding: 8px 0;
+  min-height: 44px;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+  color: #164f6b;
+  font: inherit;
+  font-weight: 600;
+  white-space: normal;
+}
+.gaia-statistics-lab #stat-panel-values .gaia-statistics-evidence-button:hover { text-decoration: underline; }
+.gaia-statistics-lab #stat-panel-values #gaia-statistics-formula {
+  max-width: 1120px;
+  margin: 24px auto 0;
+  padding: 16px 24px;
+  color: #385364;
+  font-size: clamp(14px, .9vw, 20px);
+  line-height: 1.9;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 520px) {
+  .gaia-statistics-lab #stat-panel-values :is(th, td) { padding: 14px 10px; font-size: 15px; }
+  .gaia-statistics-lab #stat-panel-values #gaia-statistics-formula { padding: 12px 4px; }
+}
+/* Give the findings a reading rhythm instead of packing every card together. */
+.gaia-statistics-lab #stat-panel-findings > #gaia-statistics-findings {
+  padding: clamp(28px, 2.5vw, 56px);
+  gap: clamp(28px, 2vw, 48px);
+}
+.gaia-statistics-lab #gaia-statistics-findings > .gaia-statistics-finding {
+  padding: clamp(32px, 2.5vw, 56px);
+}
+.gaia-statistics-lab #gaia-statistics-findings > .gaia-statistics-finding h5 {
+  margin: 0 0 22px;
+  line-height: 1.6;
+}
+.gaia-statistics-lab #gaia-statistics-findings > .gaia-statistics-finding > p {
+  max-width: 36em;
+  margin: 0 0 16px;
+  line-height: 2;
+}
+.gaia-statistics-lab #gaia-statistics-findings .gaia-statistics-next-button {
+  display: block;
+  width: 100%;
+  margin: 18px 0 0;
+  padding: 12px 18px;
+  line-height: 1.7;
+}
+.gaia-statistics-lab #gaia-statistics-findings > .gaia-statistics-discovery-alternatives {
+  padding-top: 16px;
+}
+@media (max-width: 520px) {
+  .gaia-statistics-lab #stat-panel-findings > #gaia-statistics-findings { padding: 20px 16px 32px; gap: 24px; }
+  .gaia-statistics-lab #gaia-statistics-findings > .gaia-statistics-finding { padding: 28px 24px; }
+}
+/* Wide screens use horizontal space; keep a single overflow path for long reports. */
+@media (min-width: 1200px) {
+  .gaia-statistics-lab[data-result-view="findings"] .gaia-statistics-shell {
+    width: calc(100vw - 32px);
+    max-height: calc(100dvh - 32px);
+  }
+  .gaia-statistics-lab #stat-panel-findings > #gaia-statistics-findings {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: 28px;
+    row-gap: 24px;
+    padding: 24px 28px 28px;
+  }
+  .gaia-statistics-lab #gaia-statistics-findings > .gaia-statistics-reading-scope,
+  .gaia-statistics-lab #gaia-statistics-findings > h4 { grid-column: 1 / 3; }
+  .gaia-statistics-lab #gaia-statistics-findings > .gaia-statistics-reading-companions {
+    grid-column: 3;
+    grid-row: 1 / 3;
+    max-height: 100px;
+  }
+  .gaia-statistics-lab #gaia-statistics-findings .gaia-statistics-reading-companions img { width: auto; max-width: 45%; height: 100px; }
+  .gaia-statistics-lab #gaia-statistics-findings > .gaia-statistics-finding {
+    grid-column: auto;
+    grid-row: 3;
+    padding: 28px;
+  }
+  .gaia-statistics-lab #gaia-statistics-findings > .gaia-statistics-finding[data-kind="observation"] { grid-column: 1; grid-row: 3; }
+  .gaia-statistics-lab #gaia-statistics-findings > .gaia-statistics-discovery-alternatives { grid-column: auto; padding-top: 0; }
+  .gaia-statistics-lab #gaia-statistics-findings > .gaia-statistics-discovery-alternatives[open] { grid-column: 1 / -1; }
+  .gaia-statistics-lab #gaia-statistics-findings > .gaia-statistics-next-button { grid-column: auto; margin: 0; align-self: start; }
+}

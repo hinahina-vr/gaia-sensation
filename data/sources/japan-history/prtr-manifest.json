@@ -1,0 +1,76 @@
+{
+  "sources": [
+    {
+      "file": "prtrdata.json",
+      "url": "https://www.nite.go.jp/chem/prtr/mapdata/assets/config/prtrdata.json",
+      "bytes": 2590052,
+      "sha256": "c24104a1a66548549d11ee7bd21346ca7c9c5d69ce2918782e48a281a37442ad",
+      "retrievedAt": "2026-09-11T17:21:59.141917+00:00"
+    },
+    {
+      "file": "office_2018.zip",
+      "url": "https://www.nite.go.jp/chem/prtr/mapdata/data/2018/data_10/office/office_2018.zip",
+      "year": 2018,
+      "bytes": 7683798,
+      "sha256": "b61e03ffefa6f571fbc97283b9a537b3a4ca6f79d2535a6a97d50461d2153cc0",
+      "retrievedAt": "2026-09-11T17:22:01.814023+00:00"
+    },
+    {
+      "file": "H30PRTRdata.zip",
+      "url": "https://www.env.go.jp/chemi/prtr/kaiji/data/H30PRTRdata.zip",
+      "year": 2018,
+      "bytes": 3988141,
+      "sha256": "139e931822a9ae1fbe4c13220240cb5114ac6851d3952201cf6afe1237d29904",
+      "retrievedAt": "2026-09-11T17:22:03.527138+00:00"
+    },
+    {
+      "file": "office_2019.zip",
+      "url": "https://www.nite.go.jp/chem/prtr/mapdata/data/2019/data_8/office/office_2019.zip",
+      "year": 2019,
+      "bytes": 7626613,
+      "sha256": "aca043947ca3078330c47204cd01b39d896219a1765104e7d941fac5060516e5",
+      "retrievedAt": "2026-09-11T17:22:06.198947+00:00"
+    },
+    {
+      "file": "R01PRTRdata.zip",
+      "url": "https://www.env.go.jp/chemi/prtr/kaiji/data/R01PRTRdata.zip",
+      "year": 2019,
+      "bytes": 3783497,
+      "sha256": "b308dd2a8eeab953c786b7996225e5a612e2e6cfa8c80812f51bf58551de9cfb",
+      "retrievedAt": "2026-09-11T17:22:07.709153+00:00"
+    },
+    {
+      "file": "office_2020.zip",
+      "url": "https://www.nite.go.jp/chem/prtr/mapdata/data/2020/data_9/office/office_2020.zip",
+      "year": 2020,
+      "bytes": 7459794,
+      "sha256": "b598383d4401ce102cfb873a8cec2179dcfc2e7da7af870c9a3116725e9e0953",
+      "retrievedAt": "2026-09-11T17:22:10.449432+00:00"
+    },
+    {
+      "file": "R02PRTRdata.zip",
+      "url": "https://www.env.go.jp/chemi/prtr/kaiji/data/R02PRTRdata.zip",
+      "year": 2020,
+      "bytes": 3705553,
+      "sha256": "03d64f770a5e767b7a5e7123357b699e55262565067d87a0d68998e989719a18",
+      "retrievedAt": "2026-09-11T17:22:12.041438+00:00"
+    },
+    {
+      "file": "office_2021.zip",
+      "url": "https://www.nite.go.jp/chem/prtr/mapdata/data/2021/data_3/office/office_2021.zip",
+      "year": 2021,
+      "bytes": 7809894,
+      "sha256": "ecec427d932170970810f82a26dcfe4820706b32eb96d63018c879c0e2db3752",
+      "retrievedAt": "2026-09-11T17:22:15.388922+00:00"
+    },
+    {
+      "file": "R03PRTRdata.zip",
+      "url": "https://www.env.go.jp/chemi/prtr/kaiji/data/R03PRTRdata.zip",
+      "year": 2021,
+      "bytes": 3677954,
+      "sha256": "d95e892a11e17768e14573b03bb5bb33c767caf0c3901caf227fcc1b1ef18501",
+      "retrievedAt": "2026-09-11T17:22:16.852322+00:00"
+    }
+  ],
+  "sameYearCoordinatesOnly": true
+}

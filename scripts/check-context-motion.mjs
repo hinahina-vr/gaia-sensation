@@ -1,0 +1,38 @@
+import {chromium} from 'playwright-core';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {createHash} from 'node:crypto';
+const dir='artifacts/context-motion-20260913';fs.mkdirSync(dir,{recursive:true});
+const browser=await chromium.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true});
+try {
+  const page=await browser.newPage({viewport:{width:1440,height:900},hasTouch:true,reducedMotion:'no-preference'});
+  await page.route('https://**',r=>r.abort());
+  await page.goto('http://127.0.0.1:4492/#world-28');
+  await page.locator('#gaia-boot').waitFor({state:'hidden',timeout:60000});
+  await page.evaluate(()=>{GaiaModeEntryGuide?.close('map',{restoreFocus:false});GaiaEstatExhibits?.pausePlayback();});
+  const details=page.locator('.map-dock-context:visible').first(),button=details.locator(':scope > summary');
+  const motions=()=>details.evaluate(n=>n.getAnimations({subtree:true}).filter(a=>a.playState==='running').length);
+  assert.equal(await details.evaluate(n=>n.open),false);
+  await button.click();
+  await page.waitForTimeout(90);
+  assert.equal(await details.evaluate(n=>n.open),true);
+  assert(await motions()>=2,'Button and explanation both animate');
+  await page.screenshot({path:`${dir}/opening.png`});
+  await page.waitForTimeout(850);
+  assert.equal(await motions(),0);
+  assert.equal(await details.locator('.gaia-estat-copy').evaluate(n=>getComputedStyle(n).opacity),'1');
+  await page.screenshot({path:`${dir}/open.png`});
+  await button.focus();await page.keyboard.press('Enter');
+  await page.waitForTimeout(40);assert.equal(await details.evaluate(n=>n.open),false);
+  await page.keyboard.press('Enter');await page.waitForTimeout(40);
+  assert(await motions()>=2,'Keyboard replays motion');
+  await page.keyboard.press('Enter');await page.waitForTimeout(40);
+  assert.equal(await details.evaluate(n=>n.open),false);assert.equal(await motions(),0,'Rapid closure cancels animations');
+  await button.tap();await page.waitForTimeout(80);assert(await motions()>=2,'Touch replays motion');
+  await page.emulateMedia({reducedMotion:'reduce'});await page.waitForTimeout(40);assert.equal(await motions(),0);
+  await button.click();await button.click();await page.waitForTimeout(80);
+  assert.equal(await details.evaluate(n=>n.open),true);assert.equal(await motions(),0,'Reduced motion keeps native disclosure without effects');
+  assert.equal(await details.locator('.gaia-estat-copy').evaluate(n=>getComputedStyle(n).opacity),'1');
+  fs.writeFileSync(`${dir}/verification.json`,JSON.stringify({status:'PASS',date:new Date().toISOString(),browser:browser.version(),sha256:createHash('sha256').update(fs.readFileSync('map-stable-navigation.js')).digest('hex'),checks:['mouse opening and settled rendering','Enter open/close/reopen','rapid close cancels stale effects','touch opening','live reduced-motion change','reduced-motion reopen'],scope:'Local 1440×900 desktop disclosure. No deployment.'},null,2));
+  console.log('PASS context disclosure: mouse, keyboard, touch, rapid close/reopen, reduced motion and settled opacity');
+} finally {await browser.close();}

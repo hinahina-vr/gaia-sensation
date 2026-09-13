@@ -1,0 +1,82 @@
+{
+  "selectedOn": "2026-09-12",
+  "status": "local-only",
+  "processing": "PNG originals unchanged; WebP quality 84 (prologue) / 92 (characters), full frame, no crop or repaint. Compact variants resized proportionally to 834px width.",
+  "assets": [
+    {
+      "id": "prologue",
+      "title": "初対面1：潮風と振り返り",
+      "sourceFile": "exec-c7791342-85d1-4470-8570-94354c30a686.png",
+      "original": "opening-prologue-01.png",
+      "sha256": "1652ab3a4074fb5973c612dfc891b2bdbeafdbe8065966238d6707a4a7cd60d3",
+      "variants": [
+        {
+          "file": "opening-prologue-01.webp",
+          "quality": 84,
+          "width": 1672,
+          "height": 941,
+          "bytes": 298482,
+          "sha256": "6be04312be6fc0a6b7d980cb015802cd176a426cbf7184deaa3f307382eb1ef7"
+        },
+        {
+          "file": "opening-prologue-01-834.webp",
+          "quality": 84,
+          "width": 834,
+          "height": 469,
+          "bytes": 109264,
+          "sha256": "b2a244f534b5109f11337e95d2a0af4a4df7c84a25f8f01fc032ba3a9f1845d9"
+        }
+      ]
+    },
+    {
+      "id": "mizu",
+      "title": "みず1：群青の窓辺",
+      "sourceFile": "exec-31c5ca6e-d362-4d0a-b1ae-52fb62af13b1.png",
+      "original": "opening-mizu-01.png",
+      "sha256": "4099cb298ecff1f350adbe07b5eca65cae525b3c0fa41ebfb969d0dac53ebd12",
+      "variants": [
+        {
+          "file": "opening-mizu-01.webp",
+          "quality": 92,
+          "width": 1672,
+          "height": 941,
+          "bytes": 265316,
+          "sha256": "bfc70e9036f456ca86c751752ec20cda42a03a3c5a12c942f9e3f678eb755707"
+        },
+        {
+          "file": "opening-mizu-01-834.webp",
+          "quality": 92,
+          "width": 834,
+          "height": 469,
+          "bytes": 95524,
+          "sha256": "d90ea6948f81da643d6784faece73b30a36ca7ce572cbedfbc73e3f62dfb7a93"
+        }
+      ]
+    },
+    {
+      "id": "ame",
+      "title": "あめ1：夜明けの天球儀",
+      "sourceFile": "exec-88227541-52af-4252-b3d8-2d7c37a7407d.png",
+      "original": "opening-ame-01.png",
+      "sha256": "1f296c0d34da6086cc369bb563182392cbb57d7db71600012900398842e34c1e",
+      "variants": [
+        {
+          "file": "opening-ame-01.webp",
+          "quality": 92,
+          "width": 1672,
+          "height": 941,
+          "bytes": 376704,
+          "sha256": "ba5245d69a43ad38bde143b6e2df04a1828cf26de12fcd34bd713a3a7f7a0ab6"
+        },
+        {
+          "file": "opening-ame-01-834.webp",
+          "quality": 92,
+          "width": 834,
+          "height": 469,
+          "bytes": 129592,
+          "sha256": "47ae6c4177d87b67eab9bf01ff36ae0a1baf8feed58487a848be9eb8f63a7ee0"
+        }
+      ]
+    }
+  ]
+}

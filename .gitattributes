@@ -1,0 +1,7 @@
+story/物語台本.md -text
+contest-limited/story/機能限定版台本.md -text
+story/台本修正版_2026-08-23.md text eol=lf
+# Preserve official response bytes, including original CRLF and source whitespace.
+/data/sources/japan-history/*.csv -text -whitespace
+/data/sources/japan-history/prtrdata.json -text -whitespace
+/data/annual/**/*.gz binary

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="1840" viewBox="0 0 920 1840" role="img" aria-labelledby="title desc">
+  <title id="title">青猫</title>
+  <desc id="desc">顔立ちを描かない、中性的な立ち姿の青いシルエット。</desc>
+  <defs>
+    <linearGradient id="shade" x1="280" y1="130" x2="630" y2="1660" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#244657"/>
+      <stop offset=".48" stop-color="#132e40"/>
+      <stop offset="1" stop-color="#0b1c2c"/>
+    </linearGradient>
+    <linearGradient id="rim" x1="290" y1="180" x2="670" y2="1530" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#9dcbd6" stop-opacity=".72"/>
+      <stop offset=".5" stop-color="#74b2c7" stop-opacity=".2"/>
+      <stop offset="1" stop-color="#417080" stop-opacity=".32"/>
+    </linearGradient>
+  </defs>
+  <ellipse cx="460" cy="1721" rx="169" ry="18" fill="#061321" opacity=".16"/>
+  <!-- Original in-repository vector artwork: no face, gendered features, or
+       photographic reference. One continuous outline keeps the figure anonymous. -->
+  <path fill="url(#shade)" stroke="url(#rim)" stroke-width="2.5" stroke-linejoin="round" d="
+    M 405 101 C 374 106 350 132 351 171
+    L 337 191 349 185 341 220 354 211
+    C 356 252 370 285 395 309 C 405 320 416 329 423 334
+    L 419 365 C 390 379 368 389 338 405
+    C 301 412 281 438 270 484 L 242 697
+    C 235 751 230 809 235 865 L 230 918
+    C 227 944 234 966 247 972 C 259 977 267 966 273 951
+    L 282 903 C 292 887 296 863 296 839
+    L 318 646 327 828 C 331 883 325 932 324 978
+    L 307 1175 314 1409 306 1636
+    C 290 1658 277 1682 285 1700 C 307 1719 354 1717 385 1706
+    L 409 1667 420 1430 448 1213 C 452 1184 458 1163 467 1140
+    L 489 1407 513 1639 C 509 1665 514 1691 534 1706
+    C 564 1718 610 1715 631 1699 C 638 1683 626 1663 607 1640
+    L 597 1400 609 1167 595 967 C 593 923 587 877 591 828
+    L 604 638 625 835 C 625 864 631 886 643 903
+    L 650 947 C 654 965 666 977 678 969 C 691 960 693 938 687 915
+    L 680 860 C 684 796 675 746 668 690 L 640 483
+    C 634 439 610 414 574 405 C 547 391 522 378 501 367
+    L 499 334 C 526 317 548 287 557 251
+    L 567 219 560 187 568 194 560 162
+    C 555 129 539 109 514 99 L 495 79 478 91 455 74 445 91 424 84 Z"/>
+</svg>

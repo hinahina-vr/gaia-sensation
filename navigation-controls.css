@@ -1,0 +1,162 @@
+/* Stable component boundary: important declarations in this named layer beat
+   legacy, unlayered mode rules even when a mode stylesheet is lazy-loaded last.
+   Keep appearance here; mode-exit.css still owns the story date/audio layout. */
+@layer gaia-navigation {
+  :root {
+    --navigation-top: max(16px, env(safe-area-inset-top));
+    --navigation-left: max(16px, env(safe-area-inset-left));
+    --navigation-right: max(16px, env(safe-area-inset-right));
+    --page-header-height: calc(var(--navigation-top) + 56px);
+  }
+
+  .mode-exit-control {
+    --mode-exit-rgb: 129, 194, 232 !important;
+    box-sizing: border-box !important;
+    display: inline-flex !important;
+    flex: 0 0 auto !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 7px !important;
+    width: max-content !important;
+    min-width: 88px !important;
+    max-width: calc(100vw - 32px) !important;
+    height: 44px !important;
+    min-height: 44px !important;
+    max-height: 44px !important;
+    margin: 0 !important;
+    padding: 0 14px !important;
+    overflow: hidden !important;
+    border: 1px solid rgba(174, 224, 248, .34) !important;
+    border-radius: 12px !important;
+    clip-path: none !important;
+    color: rgba(239, 249, 255, .94) !important;
+    background:
+      radial-gradient(ellipse 110% 180% at 5% -20%, rgba(74, 153, 211, .24), transparent 68%),
+      linear-gradient(135deg, rgba(7, 42, 88, .86), rgba(4, 25, 60, .84) 52%, rgba(2, 13, 39, .9)) !important;
+    box-shadow: inset 0 1px rgba(224, 244, 255, .16), 0 8px 24px rgba(0, 5, 24, .24), 0 0 24px rgba(72, 158, 218, .06) !important;
+    backdrop-filter: blur(12px) saturate(1.08) !important;
+    -webkit-backdrop-filter: blur(12px) saturate(1.08) !important;
+    font: 500 12px/1 var(--font-ja, "Yu Mincho", serif) !important;
+    letter-spacing: .04em !important;
+    text-align: center !important;
+    text-decoration: none !important;
+    text-transform: none !important;
+    white-space: nowrap !important;
+    cursor: pointer !important;
+    pointer-events: auto !important;
+    transform: none !important;
+    transition: border-color 180ms ease, color 180ms ease, box-shadow 180ms ease !important;
+  }
+
+  .mode-exit-control::before {
+    position: static !important;
+    display: grid !important;
+    flex: 0 0 14px !important;
+    width: 14px !important;
+    height: 14px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    color: rgb(166, 226, 247) !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    content: "◀" !important;
+    font: 500 11px/1 var(--font-console) !important;
+    letter-spacing: 0 !important;
+    place-items: center !important;
+    transform: none !important;
+  }
+  .mode-exit-control::after { display: none !important; content: none !important; }
+  .mode-exit-control[data-control-mode="skip"]::before { display: none !important; content: none !important; }
+  .mode-exit-control[hidden] { display: none !important; }
+  .mode-exit-control:hover,
+  .mode-exit-control:focus-visible {
+    border-color: rgba(174, 224, 248, .72) !important;
+    color: #fff !important;
+    box-shadow: inset 0 1px rgba(224, 244, 255, .22), 0 8px 24px rgba(0, 5, 24, .3), 0 0 24px rgba(72, 158, 218, .18) !important;
+  }
+  .mode-exit-control:focus-visible { outline: 2px solid #a6e2f7 !important; outline-offset: 3px !important; }
+  #japan-close.mode-exit-control:focus-visible {
+    outline: none !important;
+    box-shadow: inset 0 0 0 1px #b9eaf0 !important;
+  }
+  .mode-exit-control:active { border-color: #e0f4ff !important; }
+
+  /* Only page exits use the viewport corner. Section-local back actions retain
+     their place in the document and share exactly the same visual component. */
+  :is(#intro-title-return, #intro-path-back, #sound-close, #character-book-close,
+      #gx-close, #space-close, #novel-home-button, #novel-close-button) {
+    position: fixed !important;
+    inset: var(--navigation-top) auto auto var(--navigation-left) !important;
+  }
+  #intro-title-return, #intro-path-back { z-index: 12 !important; }
+  /* Long reading pages scroll behind one opaque header strip. Its masking
+     surface never intercepts clicks and is not an 80%-opacity popup. */
+  #intro-layer.is-reading-data::after { position: fixed !important; inset: 0 0 auto !important; height: var(--page-header-height) !important; background: #030b10 !important; opacity: 1 !important; z-index: 11 !important; pointer-events: none !important; content: "" !important; transform: none !important; mix-blend-mode: normal !important; }
+  #intro-layer .data-journey-index { top: var(--page-header-height) !important; background: #030b10 !important; }
+  #intro-layer .data-journey-progress { top: calc(var(--page-header-height) + 69px) !important; }
+  #intro-layer .data-chapter { scroll-margin-top: calc(var(--page-header-height) + 72px); }
+  #intro-layer .data-chapter-scene { top: calc(var(--page-header-height) + 92px); }
+  #intro-layer:has(#intro-sense-stage:not([hidden])) #intro-title-return { display: none !important; }
+  #novel-close-button[data-control-mode="skip"] { left: calc(var(--navigation-left) + 96px) !important; }
+  .japan-map-actions {
+    position: fixed !important;
+    inset: var(--navigation-top) auto auto var(--navigation-left) !important;
+    gap: 8px !important;
+  }
+  #japan-close { position: static !important; inset: auto !important; }
+
+  /* Reserve the corner in the sticky/fixed sensor header without removing the
+     back button from grid flow (which would shift its neighbouring navigation). */
+  .sensor-topbar {
+    align-items: start !important;
+    padding: var(--navigation-top) var(--navigation-right) 12px var(--navigation-left) !important;
+    min-height: 76px !important;
+  }
+  .sensor-home-back { align-self: start !important; }
+  .sensor-topbar .gaia-audio-dock {
+    position: fixed !important; top: var(--navigation-top) !important; right: var(--navigation-right) !important;
+    box-sizing: border-box !important; min-height: 44px !important; height: 44px !important; padding: 4px !important;
+  }
+  body:has(.sensor-topbar) .gaia-mode-entry-guide-replay {
+    top: var(--navigation-top) !important; right: calc(var(--navigation-right) + 54px) !important;
+    box-sizing: border-box !important; height: 44px !important; min-height: 44px !important;
+  }
+  .sensor-topbar { background: #030b10 !important; }
+  .sensor-back { margin-bottom: 28px !important; }
+  html[data-sensor-view="map"] { --sensor-header-height: 76px !important; }
+
+  @media (max-width: 900px) {
+    #intro-layer .data-journey-progress { top: calc(var(--page-header-height) + 57px) !important; }
+    #intro-layer .data-chapter-scene { top: auto; }
+    /* An outside pointerdown closes the volume panel. Snap its geometry so the
+       shrinking panel cannot pass over Back between pointerdown and pointerup. */
+    body.novel-open:has(#novel-layer.is-open:not(.is-title)) .gaia-audio-dock {
+      transition: background-color 180ms ease, border-color 180ms ease, box-shadow 180ms ease !important;
+    }
+    #japan-layer.is-mobile-map-shell .japan-heading {
+      top: var(--navigation-top) !important;
+      left: calc(var(--navigation-left) + 100px) !important;
+    }
+    body.novel-open .novel-layer:not(.is-title) .novel-signal-caption {
+      top: calc(var(--navigation-top) + 52px) !important;
+      left: 50vw !important;
+      width: max-content !important;
+      max-width: calc(100vw - 32px) !important;
+      transform: translateX(-50%) !important;
+    }
+    body.novel-open:has(#novel-layer.is-open:not(.is-title)) .gaia-audio-dock.is-expanded {
+      top: calc(var(--navigation-top) + 100px) !important;
+      width: min(320px, calc(100vw - 32px)) !important;
+    }
+  }
+  @media (max-width: 760px) {
+    .sensor-topbar { row-gap: 8px !important; }
+    html[data-sensor-view="map"] { --sensor-header-height: calc(var(--navigation-top) + 104px) !important; }
+    html[data-sensor-view="map"] .sensor-topbar { grid-template-rows: 44px 44px !important; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mode-exit-control { transition: none !important; }
+  }
+}

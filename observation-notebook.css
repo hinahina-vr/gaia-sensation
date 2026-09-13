@@ -1,0 +1,225 @@
+:root {
+  --observation-ink: 228, 251, 247;
+  --observation-mint: 112, 230, 208;
+  --observation-blue: 111, 190, 255;
+}
+
+.gaia-observation-launcher {
+  position: fixed;
+  z-index: 86;
+  right: max(18px, env(safe-area-inset-right));
+  bottom: max(18px, env(safe-area-inset-bottom));
+  display: grid;
+  grid-template-columns: auto auto auto;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 9px 12px;
+  border: 1px solid rgba(var(--observation-mint), 0.42);
+  border-radius: 999px;
+  color: rgb(var(--observation-ink));
+  background: rgba(4, 23, 37, 0.9);
+  box-shadow: 0 12px 36px rgba(0, 5, 15, 0.34), inset 0 1px rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  cursor: pointer;
+}
+
+.gaia-observation-launcher[hidden] { display: none; }
+
+.gaia-observation-launcher > span { color: rgb(var(--observation-mint)); font-size: 18px; }
+.gaia-observation-launcher strong { font: 600 11px/1.2 var(--font-ja, sans-serif); letter-spacing: 0.08em; }
+.gaia-observation-launcher small {
+  display: grid;
+  width: 22px;
+  height: 22px;
+  place-items: center;
+  border-radius: 50%;
+  color: #06131e;
+  background: rgb(var(--observation-mint));
+  font: 700 9px/1 var(--font-console);
+}
+
+.gaia-observation-launcher:hover,
+.gaia-observation-launcher:focus-visible,
+.gaia-observation-capture:hover,
+.gaia-observation-capture:focus-visible {
+  border-color: rgba(var(--observation-mint), 0.82);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(var(--observation-mint), 0.16), 0 14px 40px rgba(0, 5, 15, 0.42);
+}
+
+.gaia-observation-drawer {
+  position: fixed;
+  z-index: 420;
+  inset: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) min(620px, 100%);
+  color: rgb(var(--observation-ink));
+}
+
+.gaia-observation-drawer[hidden] { display: none; }
+.gaia-observation-scrim { grid-area: 1 / 1 / 2 / 3; background: rgba(0, 6, 14, 0.72); backdrop-filter: blur(5px); }
+
+.gaia-observation-panel {
+  position: relative;
+  grid-area: 1 / 2;
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: max(24px, env(safe-area-inset-top)) max(24px, env(safe-area-inset-right)) max(26px, env(safe-area-inset-bottom)) 24px;
+  border-left: 1px solid rgba(var(--observation-mint), 0.24);
+  background:
+    radial-gradient(circle at 100% 0, rgba(var(--observation-blue), 0.12), transparent 34%),
+    linear-gradient(150deg, rgba(5, 24, 39, 0.99), rgba(3, 14, 26, 0.99));
+  box-shadow: -24px 0 72px rgba(0, 5, 14, 0.42);
+}
+
+.gaia-observation-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+.gaia-observation-head p,
+.gaia-observation-shared header p,
+.gaia-observation-compare header p,
+.gaia-observation-card header p {
+  margin: 0 0 7px;
+  color: rgba(var(--observation-mint), 0.72);
+  font: 700 8px/1 var(--font-console);
+  letter-spacing: 0.18em;
+}
+.gaia-observation-head h2 { margin: 0; font: 500 clamp(26px, 4vw, 38px)/1.2 var(--font-ja, sans-serif); letter-spacing: 0.06em; }
+.gaia-observation-head > button {
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(var(--observation-mint), 0.28);
+  border-radius: 50%;
+  color: inherit;
+  background: rgba(8, 37, 51, 0.72);
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.gaia-observation-privacy {
+  margin: 18px 0 20px;
+  padding: 12px 14px;
+  border-left: 2px solid rgba(var(--observation-mint), 0.58);
+  color: rgba(var(--observation-ink), 0.68);
+  background: rgba(var(--observation-mint), 0.045);
+  font: 400 10px/1.75 var(--font-ja, sans-serif);
+}
+
+.gaia-observation-status {
+  margin-bottom: 14px;
+  padding: 10px 12px;
+  border: 1px solid rgba(var(--observation-mint), 0.24);
+  color: rgba(var(--observation-ink), 0.86);
+  background: rgba(var(--observation-mint), 0.07);
+  font: 500 11px/1.6 var(--font-ja, sans-serif);
+}
+.gaia-observation-status[data-kind="error"] { border-color: rgba(255, 154, 117, 0.4); color: #ffd7c8; background: rgba(255, 118, 82, 0.08); }
+
+.gaia-observation-list,
+.gaia-observation-shared { display: grid; gap: 12px; }
+.gaia-observation-shared {
+  margin-bottom: 20px;
+  padding: 16px;
+  border: 1px solid rgba(var(--observation-blue), 0.32);
+  background: rgba(var(--observation-blue), 0.055);
+}
+.gaia-observation-shared header h3,
+.gaia-observation-compare h3 { margin: 0 0 6px; font: 500 18px/1.4 var(--font-ja, sans-serif); }
+.gaia-observation-shared header span { color: rgba(var(--observation-ink), 0.62); font: 400 10px/1.6 var(--font-ja, sans-serif); }
+
+.gaia-observation-card {
+  padding: 15px;
+  border: 1px solid rgba(var(--observation-ink), 0.14);
+  border-left: 3px solid rgba(var(--observation-mint), 0.62);
+  background: rgba(8, 32, 47, 0.66);
+}
+.gaia-observation-card[data-source="sensor"] { border-left-color: rgba(var(--observation-blue), 0.72); }
+.gaia-observation-card > header { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; }
+.gaia-observation-card h3 { margin: 0 0 5px; font: 600 15px/1.45 var(--font-ja, sans-serif); }
+.gaia-observation-card time { color: rgba(var(--observation-ink), 0.48); font: 500 9px/1.2 var(--font-console); }
+.gaia-observation-card input[type="checkbox"] { width: 22px; height: 22px; accent-color: rgb(var(--observation-mint)); }
+.gaia-observation-subtitle { margin: 10px 0; color: rgba(var(--observation-ink), 0.66); font: 400 10px/1.6 var(--font-ja, sans-serif); }
+
+.gaia-observation-metrics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; margin: 12px 0 0; background: rgba(var(--observation-ink), 0.1); }
+.gaia-observation-metrics div { min-width: 0; padding: 10px; background: rgba(3, 18, 29, 0.94); }
+.gaia-observation-metrics dt { overflow: hidden; color: rgba(var(--observation-ink), 0.48); font: 500 8px/1.2 var(--font-ja, sans-serif); text-overflow: ellipsis; white-space: nowrap; }
+.gaia-observation-metrics dd { margin: 5px 0 0; color: rgba(var(--observation-ink), 0.94); font: 600 13px/1.2 var(--font-console); }
+.gaia-observation-source { margin: 10px 0 0; color: rgba(var(--observation-mint), 0.56); font: 600 7.5px/1.5 var(--font-console); letter-spacing: 0.06em; overflow-wrap: anywhere; }
+.gaia-observation-card > footer { display: flex; justify-content: flex-end; gap: 7px; margin-top: 12px; }
+
+.gaia-observation-card button,
+.gaia-observation-footer button,
+.gaia-observation-shared > button {
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px solid rgba(var(--observation-mint), 0.28);
+  color: rgba(var(--observation-ink), 0.88);
+  background: rgba(var(--observation-mint), 0.06);
+  font: 600 9px/1 var(--font-ja, sans-serif);
+  letter-spacing: 0.06em;
+  cursor: pointer;
+}
+.gaia-observation-card button:disabled,
+.gaia-observation-footer button:disabled { opacity: 0.38; cursor: default; }
+
+.gaia-observation-compare { margin: 0 0 16px; padding: 16px; border: 1px solid rgba(var(--observation-mint), 0.3); background: rgba(var(--observation-mint), 0.05); }
+.gaia-observation-comparison-grid { display: grid; gap: 8px; margin-top: 12px; }
+.gaia-observation-comparison-grid p { display: grid; grid-template-columns: minmax(90px, .7fr) 1.3fr auto; gap: 10px; margin: 0; padding: 10px; background: rgba(3, 17, 29, 0.78); }
+.gaia-observation-comparison-grid span { color: rgba(var(--observation-ink), 0.58); font: 500 9px/1.4 var(--font-ja, sans-serif); }
+.gaia-observation-comparison-grid strong { font: 600 10px/1.4 var(--font-console); }
+.gaia-observation-comparison-grid small { color: rgb(var(--observation-mint)); font: 600 10px/1.4 var(--font-console); }
+.gaia-observation-comparison-note { margin: 12px 0 0; color: rgba(var(--observation-ink), 0.55); font: 400 9px/1.6 var(--font-ja, sans-serif); }
+
+.gaia-observation-empty { display: grid; gap: 6px; padding: 34px 18px; border: 1px dashed rgba(var(--observation-mint), 0.22); text-align: center; }
+.gaia-observation-empty strong { font: 600 15px/1.4 var(--font-ja, sans-serif); }
+.gaia-observation-empty span { color: rgba(var(--observation-ink), 0.55); font: 400 10px/1.65 var(--font-ja, sans-serif); }
+
+.gaia-observation-footer { position: sticky; bottom: calc(-1 * max(26px, env(safe-area-inset-bottom))); display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 16px; padding: 14px 0 max(26px, env(safe-area-inset-bottom)); background: linear-gradient(180deg, transparent, rgba(3, 14, 26, 0.98) 28%); }
+.gaia-observation-footer p { margin: 0; color: rgba(var(--observation-ink), 0.58); font: 400 9px/1.5 var(--font-ja, sans-serif); }
+.gaia-observation-footer > div { display: flex; gap: 7px; }
+.gaia-observation-url { margin-top: 10px; }
+.gaia-observation-url label { display: grid; gap: 6px; color: rgba(var(--observation-ink), 0.58); font: 500 9px/1.4 var(--font-ja, sans-serif); }
+.gaia-observation-url input { width: 100%; padding: 11px; border: 1px solid rgba(var(--observation-mint), 0.25); color: rgb(var(--observation-ink)); background: #03111c; font: 9px/1.4 var(--font-console); }
+
+.gaia-observation-capture {
+  min-height: 42px;
+  padding: 9px 14px;
+  border: 1px solid rgba(var(--observation-mint), 0.36);
+  color: rgba(var(--observation-ink), 0.92);
+  background: rgba(5, 29, 43, 0.76);
+  font: 600 9px/1.25 var(--font-ja, sans-serif);
+  letter-spacing: 0.08em;
+  cursor: pointer;
+}
+.gaia-observation-capture--map {
+  width: auto;
+  min-height: 44px;
+  margin: 0;
+  padding: 8px 13px;
+  border-radius: 999px;
+  background: rgba(2, 18, 25, 0.72);
+  backdrop-filter: blur(13px);
+  pointer-events: auto;
+  white-space: nowrap;
+}
+.japan-layer.is-live-exhibit .gaia-observation-capture--map { display: none; }
+.sensor-history li { position: relative; }
+.sensor-history .gaia-observation-capture { margin-left: auto; white-space: nowrap; }
+.sensor-topbar nav [data-observation-open] { border: 0; color: inherit; background: transparent; font: inherit; cursor: pointer; }
+
+body.gaia-observation-open { overflow: hidden; }
+
+@media (max-width: 720px) {
+  .gaia-observation-launcher { right: max(10px, env(safe-area-inset-right)); bottom: max(10px, env(safe-area-inset-bottom)); }
+  .gaia-observation-drawer { grid-template-columns: 1fr; }
+  .gaia-observation-panel { grid-area: 1 / 1; padding: max(18px, env(safe-area-inset-top)) max(14px, env(safe-area-inset-right)) max(18px, env(safe-area-inset-bottom)) max(14px, env(safe-area-inset-left)); border-left: 0; }
+  .gaia-observation-metrics { grid-template-columns: 1fr; }
+  .gaia-observation-footer { align-items: stretch; flex-direction: column; }
+  .gaia-observation-footer > div { display: grid; grid-template-columns: 1fr 1fr; }
+  .gaia-observation-comparison-grid p { grid-template-columns: 1fr; gap: 4px; }
+  .sensor-history .gaia-observation-capture { width: 100%; margin: 8px 0 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gaia-observation-drawer *,
+  .gaia-observation-launcher { scroll-behavior: auto !important; transition: none !important; }
+}

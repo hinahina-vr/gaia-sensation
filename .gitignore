@@ -1,0 +1,32 @@
+# Local visual QA captures
+desktop*.png
+mobile*.png
+gaia-*.png
+!assets/architecture/gaia-system-architecture.png
+qa-*.png
+
+# Cloudflare Wrangler local cache
+.wrangler/
+**/node_modules/
+**/.dev.vars
+**/.dev.vars.*
+!**/.dev.vars.example
+
+# Local visual QA artifacts and temporary working files.
+# The ten curated GX setting-bible sheets are public exhibition assets.
+/.tmp-character-copy/
+/artifacts/*
+!/artifacts/gx-setting-bible/
+/artifacts/gx-setting-bible/*
+!/artifacts/gx-setting-bible/*.png
+/tmp/
+
+# Python-generated caches
+__pycache__/
+*.py[cod]
+
+# Reproducible original pollution-source downloads remain local.
+/data/sources/japan-pollution/*.zip
+/data/sources/japan-pollution/*.pdf
+/data/sources/japan-history/*.zip
+/data/sources/japan-history/*.pdf

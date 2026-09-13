@@ -1,0 +1,66 @@
+{
+  "source": "環境省 水環境総合情報サイト 公共用水域水質測定データ（年間値・生活環境項目・海域）",
+  "sourceUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/mizu/download/download.asp",
+  "manualUrl": "https://water-pub.env.go.jp/water-pub/mizu-site/mizu/download/kousui/kousui_y_manual.pdf",
+  "licenseUrl": "https://www.env.go.jp/mail.html",
+  "sourceCrs": "JGD2000 (EPSG:4612)",
+  "crsReference": "https://water-pub.env.go.jp/water-pub/mizu-site/mizu/script/mizu-common.js",
+  "retrievedOn": "2026-09-08",
+  "sources": [
+    {
+      "year": 2020,
+      "file": "2020.zip",
+      "bytes": 95267,
+      "sha256": "c377c06c102136a5904d5c92295d41f8ec70751784390ccac4c3b4faa1d8d30e",
+      "query": {
+        "featureClassName": "p_kosui_y02",
+        "whereClause": "nendo=2020 and '600' <= suiikicode",
+        "extension": "csv"
+      }
+    },
+    {
+      "year": 2021,
+      "file": "2021.zip",
+      "bytes": 96776,
+      "sha256": "2c5809ed69b1c0c7510138894a34250b923f1d8d76d046477c732230c4d10ced",
+      "query": {
+        "featureClassName": "p_kosui_y02",
+        "whereClause": "nendo=2021 and '600' <= suiikicode",
+        "extension": "csv"
+      }
+    },
+    {
+      "year": 2022,
+      "file": "2022.zip",
+      "bytes": 96502,
+      "sha256": "ef16a91de195c360a183e9fc7815937fb9ce782035d2d773240d888368b08af1",
+      "query": {
+        "featureClassName": "p_kosui_y02",
+        "whereClause": "nendo=2022 and '600' <= suiikicode",
+        "extension": "csv"
+      }
+    },
+    {
+      "year": 2023,
+      "file": "2023.zip",
+      "bytes": 97214,
+      "sha256": "bd1c7939cca170e1f276ae5364a03035cd4927a1044584edfc62ac86c8172bbc",
+      "query": {
+        "featureClassName": "p_kosui_y02",
+        "whereClause": "nendo=2023 and '600' <= suiikicode",
+        "extension": "csv"
+      }
+    },
+    {
+      "year": 2024,
+      "file": "2024.zip",
+      "bytes": 97468,
+      "sha256": "97e48461f7756a16bc198c37dc13ebb954e91911d06e935f0f1d1b4d00b9b6e6",
+      "query": {
+        "featureClassName": "p_kosui_y02",
+        "whereClause": "nendo=2024 and '600' <= suiikicode",
+        "extension": "csv"
+      }
+    }
+  ]
+}

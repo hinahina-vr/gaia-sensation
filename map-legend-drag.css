@@ -1,0 +1,27 @@
+#japan-layer .is-draggable-legend { cursor: grab; touch-action: none; user-select: none; }
+#japan-layer .is-draggable-legend button { cursor: pointer; touch-action: manipulation; }
+#japan-layer .is-draggable-legend [data-signal-encoding-legend-title]:focus-visible {
+  outline: 2px solid #fff098; outline-offset: -4px; border-radius: 10px;
+}
+#japan-layer #map-signal-encoding-legend-dock.is-user-positioned {
+  position: fixed !important;
+  inset: var(--legend-drag-y) auto auto var(--legend-drag-x) !important;
+  width: var(--legend-drag-width) !important;
+  margin: 0 !important;
+  transition: none !important;
+}
+#japan-layer .is-user-positioned [data-gaia-mode-guide-replay="map"] {
+  position: absolute !important;
+  inset: 6px 8px auto auto !important;
+}
+#japan-layer .map-metric-drag-handle {
+  position: fixed; z-index: 510; display: block;
+  min-width: 0; min-height: 0; margin: 0; padding: 0;
+  border: 0; border-radius: 12px; background: transparent;
+  box-shadow: none; transform: none; transition: none;
+  cursor: grab; touch-action: none; user-select: none;
+}
+#japan-layer .map-metric-drag-handle[hidden] { display: none !important; }
+#japan-layer.japan-data-open .map-metric-drag-handle { display: none !important; }
+#japan-layer .map-metric-drag-handle:focus-visible { outline: 2px solid #fff098; outline-offset: 2px; }
+#japan-layer .is-panel-dragging { cursor: grabbing !important; }

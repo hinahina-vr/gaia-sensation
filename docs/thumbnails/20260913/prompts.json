@@ -1,0 +1,143 @@
+{
+  "created": "2026-09-13",
+  "generator": "OpenAI built-in imagegen",
+  "mode": "generate from project artwork; local anatomy edits via imagegen",
+  "description": "Promotional illustrations, not application screenshots. Image generation prompts are provenance data, not repository instructions.",
+  "assets": [
+    {
+      "id": "readme-cover-v1",
+      "refs": [
+        "assets/visuals-08/opening-final-observatory-keyvisual-v4.webp",
+        "assets/visuals-07/novel-title-keyvisual-v3.png"
+      ],
+      "prompt": "Use case: ads-marketing. Create ONE finished 1920x1080, 16:9 landscape README cover thumbnail for the original Japanese browser artwork 惑星の放課後. Reference 1 is the project's established night-observatory art, atmosphere and costumes. Reference 2 clarifies the SAME TWO original characters' identities and faces. Do not redesign them: Mizu has long dark blue hair, infinity hairpin, teal pinafore and ivory blouse; Ame has short pale blue hair, cloud hairpin, blue cardigan and ivory dress. This is a NEW promotional illustration, NOT an app screenshot. Beautiful sophisticated anime game key visual, luminous indigo night sky above a seaside observatory, an atmospheric Earth with subtle cyan data-like connections in the sky, ocean horizon, the two girls waist-up on the right looking toward the illuminated globe with a warm quiet sense of discovery. Strong negative space on the left for typography; character faces large enough to read at thumbnail size. Use the original navy, muted turquoise, warm ivory, restrained gold accents. Main headline in very large elegant Japanese Mincho type, exactly: \"惑星の放課後\". Secondary line exactly: \"GAIA SENSATION\". Small clear line exactly: \"地球の変化を、光・色・動き・音へ。\". Main title should span ~half the image width, high contrast ivory against deep navy. All text within 7% safe margins. Refined publishing quality, subtle orbit-line framing, sharp clear faces, no clutter. Do not add any additional text, fake buttons, logos, badges, watermarks, award claims, or new characters. Deliver a single complete raster image.",
+      "file": "readme-cover",
+      "selectedVersion": "readme-cover-v1",
+      "generatedFile": "exec-5edfabb5-3451-472e-811e-54f516600793.png",
+      "status": "selected",
+      "revisions": []
+    },
+    {
+      "id": "contest-wide-v1",
+      "refs": [
+        "assets/visuals-07/novel-title-keyvisual-v3.png",
+        "assets/visuals-08/opening-final-observatory-keyvisual-v4.webp"
+      ],
+      "prompt": "Use case: ads-marketing. Create ONE outstanding finished contest-entry thumbnail for the Japanese interactive browser artwork 惑星の放課後, exactly 1920x1080 landscape 16:9. The two reference images are established project art, character identity and visual mood references, not editable UI screenshots. Preserve these same two characters' facial identity, hairpins and costumes: long dark-blue-haired Mizu in teal pinafore/ivory blouse with infinity clip, and short pale-blue-haired Ame in blue cardigan/ivory dress with cloud clip. A bold readable composition: large friendly waist-up characters on the right, one glowing blue-green Earth near the lower center, flowing luminous lines connecting a seaside classroom/observatory atmosphere to Earth, warm daylight blending into a rich cobalt star field. Emotional visual-novel charm meets an elegant data-art exhibition. This must look like a polished original game cover, not a crowded infographic. Main exact Japanese title in extremely large elegant Mincho letters on the left across TWO lines if needed: \"惑星の放課後\". Secondary exact line: \"GAIA SENSATION\". One clear feature line: \"71の展示 × ヴィジュアルノベル\". Main Japanese title dominates and remains readable at 320 pixels wide. Cream white title, deep navy ground, cyan accents and small restrained golden highlights. Keep all text and faces within 8% safe margins. Do NOT include contest name, awards, prize laurels, unsupported claims, UI mockups, screenshot panels, extra characters, extra text, logos or watermark. A single complete raster thumbnail.",
+      "file": "contest-wide",
+      "selectedVersion": "contest-wide-v2",
+      "generatedFile": "exec-d84234d4-c1ab-4824-96c7-3a3f3bf1f6ea.png",
+      "status": "selected",
+      "revisions": [
+        {
+          "id": "contest-wide-v2",
+          "sourceVersion": "contest-wide-v1",
+          "prompt": "Edit this exact landscape contest thumbnail. Correct only the confusing hand at the LOWER RIGHT of the globe, in front of the dark-haired girl's abdomen/waist. That open palm appears to emerge from Mizu's stomach and has a wrong pale-blue cuff. REMOVE that open palm AND its short disconnected blue-cuffed forearm entirely. In that small area, continue Mizu's existing dark teal pinafore fabric and long navy hair naturally behind the globe. Mizu's other arm is now relaxed DOWN beside her torso, with the forearm/hand fully OCCLUDED behind the large foreground globe, so no new exposed hand is needed. Preserve her existing natural raised hand touching her hair near her cheek and its white blouse sleeve. Retain the pale-blue-haired girl's open palm to the LEFT of the globe exactly unchanged. Keep both faces, identity, hair clips, costumes, Earth, starry sea/exhibition background, layout and all lettering unchanged. Exact typography unchanged: 惑星の放課後; GAIA SENSATION; 71の展示 × ヴィジュアルノベル. No other changes; no new limbs; no cropping. The priority is unambiguous shoulder-to-arm anatomy, no hand emerging from anyone's abdomen.",
+          "sourceGeneratedFile": "exec-2e4f0abc-7af8-40c9-91da-f5eb73f7fef8.png"
+        }
+      ]
+    },
+    {
+      "id": "contest-square-v1",
+      "refs": [
+        "assets/visuals-07/novel-title-keyvisual-v3.png",
+        "assets/modes/guide-map-discovery-mizu-ame-v2.webp"
+      ],
+      "prompt": "Use case: ads-marketing. Create ONE 1536x1536 square contest-entry thumbnail for 惑星の放課後, using the SAME original two anime characters from the references. Reference 1 is main character identity and costumes, reference 2 is the luminous friendly Earth-discovery atmosphere, NOT the exact chibi proportions. Elegant anime key visual with expressive waist-up young-adult student characters Mizu (long dark navy-blue hair, infinity clip, teal pinafore, ivory blouse) and Ame (short ice-blue bob, cloud clip, blue cardigan, ivory dress) on either side of a small luminous blue-green Earth, watching it with delight. Deep midnight-blue to teal observatory sky background, subtle star constellations and golden evening ocean light, clean luminous composition. At the top reserve a substantial uncluttered navy title area. Main exact Japanese title, huge high-contrast Mincho, on TWO lines: first \"惑星の\" and second \"放課後\". Under it exact smaller text \"GAIA SENSATION\". Bottom exact short text: \"見る・つなぐ・深める\". Keep text away from character faces and keep all critical content within 9% safe margins for square thumbnails. Beautiful blue/ivory palette matching the original work, sophisticated rather than toy-like. No additional words, fake application UI, awards, logos, watermarks, or extra characters. Deliver one finished square raster image.",
+      "file": "contest-square",
+      "selectedVersion": "contest-square-v2",
+      "generatedFile": "exec-69331498-9a38-40e6-9022-78558bc8ffb1.png",
+      "status": "selected",
+      "revisions": [
+        {
+          "id": "contest-square-v2",
+          "sourceVersion": "contest-square-v1",
+          "prompt": "Edit this exact SQUARE contest thumbnail. Correct ONLY Ame's hands and related forearms: Ame is the PALE BLUE short-haired girl on the RIGHT with the cloud hair clip. Her current hands around her chin and the right edge of the Earth look anatomically awkward. Give her a simple unmistakably natural pose: ONE hand gently supporting her cheek with a softly open palm, four fingers naturally together alongside her cheek and a thumb tucked gently under the jaw; a slim normal wrist continuing into a clear pale-blue cardigan sleeve, forearm angled naturally down toward her elbow resting on the display ledge at her own right side. Do not use a clenched fist or knotted fingers. Her OTHER arm is relaxed down beside her torso, and that hand is naturally hidden behind the large foreground Earth/display edge. REMOVE the existing extra-looking reaching hand at the RIGHT EDGE OF THE EARTH entirely; no reaching fingers there. Reconstruct the cleared area with the existing globe glow and her clothing. Ame has exactly two arms, only one visible hand, with coherent shoulder-elbow-wrist anatomy, no extra fingers. Keep Mizu, the dark-haired girl on the left, and ALL of Mizu's hands completely unchanged. Preserve both facial identities, joyful expressions, cloud/infinity clips, costumes, framing, starry observatory, Earth, colors and all exact typography unchanged: \"惑星の放課後\", \"GAIA SENSATION\", \"見る・つなぐ・深める\". No new objects, no cropping, no other changes.",
+          "sourceGeneratedFile": "exec-acbd9832-88c1-4cb6-9108-11e8e94c3712.png"
+        }
+      ]
+    },
+    {
+      "id": "readme-map-v1",
+      "refs": [
+        "assets/modes/guide-map-discovery-mizu-ame-v2.webp"
+      ],
+      "prompt": "Use case: ads-marketing. Produce ONE finished 1600x900, 16:9 landscape feature-thumbnail for the README of the original browser artwork 惑星の放課後 / GAIA SENSATION. This is promotional illustration, NOT an actual app screenshot; do not fabricate UI. Cohesive premium visual-novel editorial design: deep navy/teal ground, luminous blue and warm ivory, fine restrained orbit-line accents, generous margins. Very large clean ivory Japanese Mincho headline on the LEFT, supporting art on the RIGHT ~60%, with a subtle seamless dark gradient behind text. No frame around the entire image. All text within 7% safe margins and readable when shown at 420px wide. Exactly one English small uppercase kicker at top-left, one Japanese headline, and small footer \"GAIA SENSATION\". No other text, no watermarks, badges, awards, invented logos or fake numbers. References establish character identity and art style; preserve them faithfully. Kicker exactly \"MAP / 71 EXHIBITS\". Main Japanese headline exactly \"71の地図展示\". Supporting art: a beautifully luminous Earth surrounded by abstract wind streamlines, a few amber heat points and softly glowing cyan observation lights; stylized scientific data translated into visual poetry, not a factual dataset diagram. On the right, the SAME two SMALL friendly chibi guides from the reference peek toward the globe: dark long-blue-haired Mizu with infinity clip and pale-blue-bobbed Ame with cloud clip, original teal/ivory and light-blue/ivory outfits. Globe should be the main focal point; faces secondary but clear. Cool teal, ocean blue and ivory, no additional people. Bold visual impact with restrained density.",
+      "file": "readme-map",
+      "selectedVersion": "readme-map-v1",
+      "generatedFile": "exec-9204b35b-c508-4a4e-af7c-120c8f3b7287.png",
+      "status": "selected",
+      "revisions": []
+    },
+    {
+      "id": "readme-story-v1",
+      "refs": [
+        "assets/visuals-07/novel-title-keyvisual-v3.png"
+      ],
+      "prompt": "Use case: ads-marketing. Produce ONE finished 1600x900, 16:9 landscape feature-thumbnail for the README of the original browser artwork 惑星の放課後 / GAIA SENSATION. This is promotional illustration, NOT an actual app screenshot; do not fabricate UI. Cohesive premium visual-novel editorial design: deep navy/teal ground, luminous blue and warm ivory, fine restrained orbit-line accents, generous margins. Very large clean ivory Japanese Mincho headline on the LEFT, supporting art on the RIGHT ~60%, with a subtle seamless dark gradient behind text. No frame around the entire image. All text within 7% safe margins and readable when shown at 420px wide. Exactly one English small uppercase kicker at top-left, one Japanese headline, and small footer \"GAIA SENSATION\". No other text, no watermarks, badges, awards, invented logos or fake numbers. References establish character identity and art style; preserve them faithfully. Kicker exactly \"STORY / VISUAL NOVEL\". Main Japanese headline exactly \"物語をはじめる\". Supporting art: the SAME two non-chibi original young-adult student characters from reference in a light-filled seaside exhibition hall with blue hanging installations and a distant ocean view, mid-conversation, sharing a quietly happy moment while facing the viewer. Mizu's long navy hair and infinity clip, teal pinafore and ivory blouse; Ame's pale blue bob and cloud clip, blue cardigan and ivory dress. Natural expressive waist-up framing, beautiful translucent afternoon light, dark blue framing blends into light art on right. Avoid holding hands unnaturally, extra fingers, extra characters or text. Friendly cinematic visual-novel cover.",
+      "file": "readme-story",
+      "selectedVersion": "readme-story-v1",
+      "generatedFile": "exec-e28f74eb-ddd8-473a-b861-e62ffe89113e.png",
+      "status": "selected",
+      "revisions": []
+    },
+    {
+      "id": "readme-analysis-v1",
+      "refs": [
+        "assets/modes/guide-map-discovery-mizu-ame-v2.webp"
+      ],
+      "prompt": "Use case: ads-marketing. Produce ONE finished 1600x900, 16:9 landscape feature-thumbnail for the README of the original browser artwork 惑星の放課後 / GAIA SENSATION. This is promotional illustration, NOT an actual app screenshot; do not fabricate UI. Cohesive premium visual-novel editorial design: deep navy/teal ground, luminous blue and warm ivory, fine restrained orbit-line accents, generous margins. Very large clean ivory Japanese Mincho headline on the LEFT, supporting art on the RIGHT ~60%, with a subtle seamless dark gradient behind text. No frame around the entire image. All text within 7% safe margins and readable when shown at 420px wide. Exactly one English small uppercase kicker at top-left, one Japanese headline, and small footer \"GAIA SENSATION\". No other text, no watermarks, badges, awards, invented logos or fake numbers. References establish character identity and art style; preserve them faithfully. Kicker exactly \"DATA / ANALYSIS\". Main Japanese headline exactly \"データを深く読む\". Supporting art: same chibi Mizu (long dark blue hair, infinity clip, teal pinafore) holding a notebook with a simple line graph, and chibi Ame (short pale blue hair, cloud clip, light blue cardigan) pointing to a large beautiful floating translucent scatterplot and bars. Simple luminous cyan/gold data points, no numeric values or axis text, no fabricated UI windows. A small Earth echoes the observational theme. Analytical insight made inviting, midnight teal to muted violet light, ivory characters, crystal-clear headline. The illustration symbolizes browser statistical analysis; do not claim AI accuracy or show a chatbot.",
+      "file": "readme-analysis",
+      "selectedVersion": "readme-analysis-v2",
+      "generatedFile": "exec-a75e93a0-d793-4cf4-a610-12c81f6dc4dc.png",
+      "status": "selected",
+      "revisions": [
+        {
+          "id": "readme-analysis-v2",
+          "sourceVersion": "readme-analysis-v1",
+          "prompt": "Edit this existing promotional thumbnail. Make ONE strictly local anatomy correction: the pale-blue-haired girl on the right currently appears to have three hands because a separate extra hand holds a magnifying glass alongside her pointing hand. REMOVE the entire magnifying glass and the extra hand/forearm holding it. Retain ONE natural extended arm pointing up toward the chart with index finger, and retain her OTHER hand near her chest. She must have exactly TWO arms and TWO hands, naturally connected, with correct fingers. Reconstruct only the tiny cleared area with the existing blue sleeve/chart/glow as appropriate. Preserve absolutely everything else: the dark-haired girl and notebook, both faces and character designs, clouds, Earth, graph, colors, all typography, framing, dimensions, and composition. All text must remain exactly unchanged: \"DATA / ANALYSIS\", \"データを深く読む\", \"GAIA SENSATION\". Do not add any new objects or text.",
+          "sourceGeneratedFile": "exec-56a7c315-54b6-4177-98bb-1e639773c086.png"
+        }
+      ]
+    },
+    {
+      "id": "readme-sensor-v1",
+      "refs": [
+        "assets/modes/guide-sensor-connect-mizu-ame-v1.webp"
+      ],
+      "prompt": "Use case: ads-marketing. Produce ONE finished 1600x900, 16:9 landscape feature-thumbnail for the README of the original browser artwork 惑星の放課後 / GAIA SENSATION. This is promotional illustration, NOT an actual app screenshot; do not fabricate UI. Cohesive premium visual-novel editorial design: deep navy/teal ground, luminous blue and warm ivory, fine restrained orbit-line accents, generous margins. Very large clean ivory Japanese Mincho headline on the LEFT, supporting art on the RIGHT ~60%, with a subtle seamless dark gradient behind text. No frame around the entire image. All text within 7% safe margins and readable when shown at 420px wide. Exactly one English small uppercase kicker at top-left, one Japanese headline, and small footer \"GAIA SENSATION\". No other text, no watermarks, badges, awards, invented logos or fake numbers. References establish character identity and art style; preserve them faithfully. Kicker exactly \"SENSOR / CONNECT\". Main Japanese headline exactly \"みんなのセンサー\". Supporting art: same two friendly chibi guides Mizu (long navy hair, infinity clip, teal pinafore/ivory blouse) and Ame (short pale blue bob, cloud clip, blue cardigan/ivory dress) carefully observing a small green ESP32-style development board connected with a neat cable to a white vented environmental sensor on a table next to a basil seedling. A soft glowing cyan line traces out toward a few distant observation lights, symbolizing community observations. Warm sunlit ivory and sage greens within the overall blue editorial palette. Preserve plausible hardware appearance from the reference; no fake readings, no labeled chip brands, no extra components or extra people. Charming approachable IoT participation, clear readable title.",
+      "file": "readme-sensor",
+      "selectedVersion": "readme-sensor-v1",
+      "generatedFile": "exec-e3a033ab-94c7-4613-bf0d-7c3cf1116581.png",
+      "status": "selected",
+      "revisions": []
+    },
+    {
+      "id": "readme-character-v1",
+      "refs": [
+        "assets/visuals-07/novel-title-keyvisual-v3.png",
+        "assets/characters/sakuya-calm-07-v1.png",
+        "assets/characters/aoneko-silhouette-imagegen-v4.png"
+      ],
+      "prompt": "Use case: ads-marketing. Produce ONE finished 1600x900, 16:9 landscape feature-thumbnail for the README of the original browser artwork 惑星の放課後 / GAIA SENSATION. This is promotional illustration, NOT an actual app screenshot; do not fabricate UI. Cohesive premium visual-novel editorial design: deep navy/teal ground, luminous blue and warm ivory, fine restrained orbit-line accents, generous margins. Very large clean ivory Japanese Mincho headline on the LEFT, supporting art on the RIGHT ~60%, with a subtle seamless dark gradient behind text. No frame around the entire image. All text within 7% safe margins and readable when shown at 420px wide. Exactly one English small uppercase kicker at top-left, one Japanese headline, and small footer \"GAIA SENSATION\". No other text, no watermarks, badges, awards, invented logos or fake numbers. References establish character identity and art style; preserve them faithfully. Kicker exactly \"CHARACTER / ARCHIVE\". Main Japanese headline exactly \"登場人物の記録\". Supporting art on the right is an elegant overlapping portrait composition of the FOUR established original characters only: the two girls from reference 1 (Mizu long navy hair/infinity clip/teal pinafore, Ame short pale blue hair/cloud clip/blue cardigan), Saku from reference 2 (brown ponytail with white flower clip, dark charcoal outfit and rust tie, small camera strap), and a fourth quiet BLUE HUMAN SILHOUETTE from reference 3 in the rear. The fourth is a human student silhouette with short bob and dark-blue outfit, NOT an animal or cat; keep its face intentionally undefined. Three clear friendly faces with their original identity, shoulders/waist-up framing, no full-body cutouts, elegant moonlit teal archival-paper textures and subtle portrait framing without UI. Do not copy any checkerboard background. No extra people, labels or speech bubbles.",
+      "file": "readme-character",
+      "selectedVersion": "readme-character-v1",
+      "generatedFile": "exec-ec78ed40-3c58-49c0-9329-0969912e8012.png",
+      "status": "selected",
+      "revisions": []
+    },
+    {
+      "id": "readme-sound-v1",
+      "refs": [
+        "assets/guide-previews/sound.jpg",
+        "assets/visuals-08/opening-final-observatory-keyvisual-v4.webp"
+      ],
+      "prompt": "Use case: ads-marketing. Produce ONE finished 1600x900, 16:9 landscape feature-thumbnail for the README of the original browser artwork 惑星の放課後 / GAIA SENSATION. This is promotional illustration, NOT an actual app screenshot; do not fabricate UI. Cohesive premium visual-novel editorial design: deep navy/teal ground, luminous blue and warm ivory, fine restrained orbit-line accents, generous margins. Very large clean ivory Japanese Mincho headline on the LEFT, supporting art on the RIGHT ~60%, with a subtle seamless dark gradient behind text. No frame around the entire image. All text within 7% safe margins and readable when shown at 420px wide. Exactly one English small uppercase kicker at top-left, one Japanese headline, and small footer \"GAIA SENSATION\". No other text, no watermarks, badges, awards, invented logos or fake numbers. References establish character identity and art style; preserve them faithfully. Kicker exactly \"SOUND / 12 TRACKS\". Main Japanese headline exactly \"音楽と星座\". Reference 1 is ONLY character/environment mood reference: REMOVE ALL existing screenshot UI/buttons and text; this is a fresh editorial illustration. Supporting art: Mizu, same long dark blue hair, infinity clip, teal pinafore/ivory blouse, wearing simple headphones in a moonlit seaside observatory; Ame, same pale blue bob, cloud clip and blue cardigan/ivory dress, gently watches a constellation transforming into a flowing glowing musical waveform in the air. Calm luminous indigo and soft lavender, refined star-trail arcs, distant ocean/lighthouse, warm tiny stars, expressive faces on right. No literal musical notes, no app screenshot panes, no playback controls, no extra written song titles. A poetic music-and-constellation archive image.",
+      "file": "readme-sound",
+      "selectedVersion": "readme-sound-v1",
+      "generatedFile": "exec-eb9d41e4-9810-4a8e-a54e-24a51e2b741a.png",
+      "status": "selected",
+      "revisions": []
+    }
+  ]
+}

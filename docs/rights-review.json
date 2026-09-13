@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-09-07",
+  "scope": "非営利でのWeb公開・展示。現状の素材を維持し、提供元の条件確認と製作者による利用継続判断を区別する。製作者判断を記録した項目は公開保留を解除し、未解決の別項目は変更しない。公開中という事実を許諾根拠にしない。",
+  "scopeMaintenance": {
+    "previousScopeSha256": "8ce44c3a2cc79c75e69bfdee11bc7b8dce505cedac8e0fb719d8783111c1d568",
+    "currentScopeSha256": "f626449f950c9cfc1545dbcfeeb11a404790c09557ab01d09e5b967e8192a187",
+    "changedAssets": [
+      "assets/ending-candidates-20260909/01-turning-in-the-sunset.webp",
+      "assets/title-candidates-20260909/01-starlit-observatory.webp",
+      "assets/modes/guide-map-discovery-mizu-ame-v2.webp",
+      "assets/modes/guide-map-live-mizu-ame-v2.webp",
+      "assets/modes/guide-map-time-mizu-ame-v2.webp"
+    ],
+    "changedDataSources": [
+      "fao-food-balances",
+      "fao-food-security",
+      "nasa-gistemp-regional-annual"
+    ],
+    "evidence": "docs/RELEASE_STORY_TEMPERATURE_2026-09-10.md",
+    "basis": "製作者が依頼したFAO展示、STORY気温デモ、案内画像の更新、指定タイトル・エンディング画像の採用と、今回の明示的な「コミット・プッシュ・デプロイ」に対応する公開範囲の保守。基点cdc82c8との照合で既存314素材の内容SHA-256と既存32出典・193依存、gaia-signals、GBIF、両lockfileは不変。既存PNG2点の採用・変換説明のみ更新、WebP5点追加。追加データは提供元の利用条件・指定引用・加工表示と実画面を照合。各決定日時・決定理由・提供元許諾の確認状態は変更せず、一般的公開指示を未確認の新しい権利リスクへの了承には読み替えない。"
+  },
+  "reviews": [
+    {
+      "id": "gosat",
+      "status": "owner-accepted",
+      "evidence": "docs/EXTERNAL_DATA_USAGE_AUDIT.md",
+      "requiredAction": "製作者の非営利・公益目的での利用継続判断を記録済み。現在の加工表示・表示用JSONの配信を継続し、出典・加工内容・近似値/補完の説明を維持する。提供元の個別許諾取得済みとは表示しない。",
+      "decidedBy": "GAIA SENSEWARE 製作者（プロジェクト所有者）",
+      "decidedAt": "2026-09-07",
+      "decisionEvidence": "docs/GOSAT_OWNER_DECISION_2026-09-07.md",
+      "decisionBasis": "非営利の作品公開・展示による公益性を鑑み、現行のGOSAT由来データの可視化と表示用加工JSONの配信に問題ないと製作者が判断し、利用継続と公開保留解除を指示した。",
+      "providerPermissionVerified": false,
+      "scopeSha256": "359447a405da63e02f9de3902ae8f1aa9f14e56fa6cd63a2dc875fdd70adccc6"
+    },
+    {
+      "id": "unesco",
+      "status": "owner-accepted",
+      "evidence": "docs/EXTERNAL_DATA_USAGE_AUDIT.md",
+      "requiredAction": "世界遺産24地点の基本情報を独自選定して紹介する現行利用を継続。UNESCO出典リンク、24例の標本であること、文化を点数化せず相関計算へ含めない説明を維持する。",
+      "decidedBy": "GAIA SENSEWARE 製作者（プロジェクト所有者）",
+      "decidedAt": "2026-09-07",
+      "decisionEvidence": "docs/UNESCO_OWNER_DECISION_2026-09-07.md",
+      "decisionBasis": "世界遺産24地点の名称・座標・分類を紹介する実装で、WHCの説明文や写真を転載するものではないとの説明を受け、製作者が現行利用の継続を了承した。",
+      "providerPermissionVerified": false,
+      "scopeSha256": "359447a405da63e02f9de3902ae8f1aa9f14e56fa6cd63a2dc875fdd70adccc6"
+    },
+    {
+      "id": "gbif",
+      "status": "owner-accepted",
+      "evidence": "data/gbif-rights.json",
+      "requiredAction": "既存62記録のレコードURL・原データセット・権利者・CC BY/CC BY-NC条件・引用を維持。非営利範囲と帰属表示の未確認リスクを区別して公開を継続。画像ファイルのライセンスはこの記録ライセンスと同一とは限らない。",
+      "decidedBy": "GAIA SENSEWARE 製作者（プロジェクト所有者）",
+      "decidedAt": "2026-09-08",
+      "decisionEvidence": "docs/PUBLICATION_OWNER_DECISION_2026-09-08.md",
+      "decisionBasis": "GBIFと残余データ・ソフトウェアの未確認リスクを説明し、出典・利用条件を維持する非営利公開として続行するか確認した直後、製作者が「デプロイ」と回答。今回版を説明済みの条件で公開する指示として記録した。",
+      "providerPermissionVerified": false,
+      "scopeSha256": "359447a405da63e02f9de3902ae8f1aa9f14e56fa6cd63a2dc875fdd70adccc6"
+    },
+    {
+      "id": "jaxa-fnf-image",
+      "status": "approved",
+      "evidence": "docs/MEDIA_OWNER_DECISION_2026-09-07.md",
+      "requiredAction": "未使用の assets/data/jaxa-fnf-riau.png を製作者指示で削除し、素材台帳からも除外。削除後の残存素材範囲を確認する。",
+      "decidedBy": "GAIA SENSEWARE 製作者（プロジェクト所有者）",
+      "decidedAt": "2026-09-07",
+      "decisionEvidence": "docs/MEDIA_OWNER_DECISION_2026-09-07.md",
+      "excludedPaths": [
+        "assets/data/jaxa-fnf-riau.png"
+      ],
+      "scopeSha256": "359447a405da63e02f9de3902ae8f1aa9f14e56fa6cd63a2dc875fdd70adccc6"
+    },
+    {
+      "id": "generated-images-music",
+      "status": "owner-accepted",
+      "evidence": "docs/media-rights-ledger.json",
+      "requiredAction": "制作元・出典・加工内容の記録を維持し、現行の生成画像・音楽の利用を継続する。生成イラスト: OpenAI Imagegen。生成音楽: Suno AI。",
+      "decidedBy": "GAIA SENSEWARE 製作者（プロジェクト所有者）",
+      "decidedAt": "2026-09-07",
+      "decisionEvidence": "docs/MEDIA_OWNER_DECISION_2026-09-07.md",
+      "decisionBasis": "製作者指示により、生成素材は制作元と出典の記録に整理し、現行素材の利用を継続する。",
+      "providerPermissionVerified": false,
+      "scopeSha256": "359447a405da63e02f9de3902ae8f1aa9f14e56fa6cd63a2dc875fdd70adccc6"
+    },
+    {
+      "id": "remaining-data-and-software",
+      "status": "owner-accepted",
+      "evidence": "docs/THIRD_PARTY_INVENTORY.json",
+      "requiredAction": "追加世界銀行資料を含むデータ別の帰属・加工表記・利用条件とソフトウェアライセンス表示を維持。本文等の未確認事項は確認済みとせず、依存一覧の存在だけを全体の適合性確認とは扱わない。",
+      "decidedBy": "GAIA SENSEWARE 製作者（プロジェクト所有者）",
+      "decidedAt": "2026-09-08",
+      "decisionEvidence": "docs/PUBLICATION_OWNER_DECISION_2026-09-08.md",
+      "decisionBasis": "GBIFと残余データ・ソフトウェアの未確認リスクを説明し、出典・利用条件を維持する非営利公開として続行するか確認した直後、製作者が「デプロイ」と回答。追加世界銀行資料を含む今回版を説明済みの条件で公開する指示として記録した。",
+      "providerPermissionVerified": false,
+      "scopeSha256": "359447a405da63e02f9de3902ae8f1aa9f14e56fa6cd63a2dc875fdd70adccc6"
+    }
+  ],
+  "scopeMaintenance20260913": {
+    "previousScopeSha256": "867809b6d92cb31e9742b4a51c99cc0c5d050ab366105d3c5fbd464b6bde0984",
+    "currentScopeSha256": "4f80b7f23b4afeaa7aad4e0a0a628d0d7a36fa5581fe7bd913e45e7d56f16bcd",
+    "evidence": "docs/internal/RIGHTS_SCOPE_RECONCILIATION_20260913.md",
+    "basis": "HEADの確認対象と現在の6ファイルを照合。変更は素材台帳のみ。既存338素材の追加・削除なし、更新済み紹介スクリーンショット4枚のハッシュを反映し、既存実装の出典一覧を6件から116件へ補完。元の判断日時・条件・提供元許諾確認状態は変更しない。"
+  },
+  "scopeMaintenance20260912": {
+    "evidence": "docs/RELEASE_STORY_UPDATES_2026-09-12.md",
+    "basis": "既存337素材のSHA-256および他の対象データ・依存ファイルは不変。作者が生成を依頼し採用・公開を指示した手書き画像1点を追加、既存素材のGit初出日時を更新。既存決定日時・提供元許諾確認状態・制約は維持。"
+  },
+  "soundAdoption20260913": {
+    "evidence": "docs/QA_SOUND_BACKGROUND_ADOPTION_20260913.md",
+    "previousScopeSha256": "4f80b7f23b4afeaa7aad4e0a0a628d0d7a36fa5581fe7bd913e45e7d56f16bcd",
+    "currentScopeSha256": "b2a0ff9ebccd6e318beb81543f9f51b40a1c996cf365310ba5ffd51a57d9ab0c",
+    "basis": "ユーザーが生成を依頼し案1を採用した音楽背景1点を追加。データ・依存5ファイルは不変。既存の判断日・許諾状態を維持。独自データの再配布保留は解除しない。今回はコミット・プッシュのみ、デプロイしない。 コミットb180fbaで新素材のGit初出日時が確定したため、日時のみ追記して対象ハッシュを同期。素材内容は不変。"
+  },
+  "conceptDiagramV4Adoption20260913": {
+    "currentScopeSha256": "742a2d49fa287937f3829253f3dbb63601942893b6e7ec6281f960f1ee1632b2",
+    "evidence": "docs/QA_CONCEPT_DIAGRAM_V4_20260913.md",
+    "basis": "ユーザー指定生成画像1点の採用。既存素材とデータ・依存は不変。元の判断日・提供元許諾の状態と独自データ再配布保留を維持。開発リポジトリへのpushのみ。 d1b656dで確定したGit初出日時を同期。"
+  },
+  "releaseMigration": {
+    "sourceCommit": "20f0e5d3f84e56b1c97303c283fc80abd495b3f1",
+    "previousScopeSha256": "742a2d49fa287937f3829253f3dbb63601942893b6e7ec6281f960f1ee1632b2",
+    "currentScopeSha256": "359447a405da63e02f9de3902ae8f1aa9f14e56fa6cd63a2dc875fdd70adccc6",
+    "evidence": "docs/V1_RELEASE_PROVENANCE.md",
+    "basis": "Only unused runtime decoder dependencies were removed; data, asset ledger and existing rights decisions are unchanged. This records scope maintenance, not new provider permission."
+  }
+}

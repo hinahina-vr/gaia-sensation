@@ -1,0 +1,18 @@
+/* Shared geometry; each surface retains its own foreground and background colors. */
+:is(#japan-poi-close,#japan-data-close,#gaia-statistics-close,#gaia-statistics-menu-close,#gx-data-close,[data-mobile-sheet-close],[data-close-sources],.gaia-feature-close,.sensor-dialog-close,.sensor-map-card-close,#concept-close,[data-record-close],[data-terms-close]) {
+  box-sizing:border-box !important; width:48px !important; height:48px !important;
+  min-width:48px !important; min-height:48px !important; max-width:48px !important; max-height:48px !important;
+  flex:0 0 48px !important; padding:0 !important; border-radius:12px !important;
+  border-width:1px !important; border-style:solid !important;
+  display:inline-grid !important; place-items:center !important; grid-template:1fr / 1fr !important; font-size:0 !important; cursor:pointer;
+  background-image:none !important; box-shadow:none !important;
+}
+:is(#japan-poi-close,#japan-data-close,#gaia-statistics-close,#gaia-statistics-menu-close,#gx-data-close,[data-mobile-sheet-close],[data-close-sources],.gaia-feature-close,.sensor-dialog-close,.sensor-map-card-close,#concept-close,[data-record-close],[data-terms-close]) > * { display:none !important; }
+:is(#japan-poi-close,#japan-data-close,#gaia-statistics-close,#gaia-statistics-menu-close,#gx-data-close,[data-mobile-sheet-close],[data-close-sources],.gaia-feature-close,.sensor-dialog-close,.sensor-map-card-close,#concept-close,[data-record-close],[data-terms-close])::before { content:none !important; }
+:is(#japan-poi-close,#japan-data-close,#gaia-statistics-close,#gaia-statistics-menu-close,#gx-data-close,[data-mobile-sheet-close],[data-close-sources],.gaia-feature-close,.sensor-dialog-close,.sensor-map-card-close,#concept-close,[data-record-close],[data-terms-close])::after {
+  content:"" !important; display:block !important; position:static !important; grid-area:1 / 1 !important;
+  width:20px !important; height:20px !important; margin:0 !important; transform:none !important;
+  background:currentColor !important; opacity:1 !important;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='m5 5 14 14M19 5 5 19' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+:is(#japan-poi-close,#japan-data-close,#gaia-statistics-close,#gaia-statistics-menu-close,#gx-data-close,[data-mobile-sheet-close],[data-close-sources],.gaia-feature-close,.sensor-dialog-close,.sensor-map-card-close,#concept-close,[data-record-close],[data-terms-close]):focus-visible { outline:2px solid currentColor; outline-offset:3px; }

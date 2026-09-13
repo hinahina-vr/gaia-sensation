@@ -1,0 +1,407 @@
+/* 06–20 use the same Mincho typography and native range as 21. */
+#japan-layer {
+  --map-dock-label-size: clamp(10px, .58vw, 14px);
+  --map-dock-title-size: clamp(21px, 1.1vw, 28px);
+  --map-dock-number-size: clamp(26px, 1.3vw, 32px);
+  --map-dock-value-size: clamp(28px, 2.2vw, 46px);
+}
+#japan-layer :is(.map-dock-bank-copy, .map-dock-bank-copy *, .gaia-live-timeline *, .map-command-dock #map-reading-guide, .map-command-dock #map-reading-guide *) {
+  font-family: var(--font-ja) !important;
+  font-weight: 400 !important;
+  text-shadow: none !important;
+}
+#japan-layer :is([data-map-dock-title], [data-live-deck-title]) {
+  font-size: var(--map-dock-title-size) !important;
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+#japan-layer :is([data-map-dock-number], [data-live-deck-number]) {
+  font-size: var(--map-dock-number-size) !important;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: 0;
+}
+/* Tight numeric tracking, matching the owner's compact year reference.
+   Do not carry the surrounding label's tracking into digits or the unit. */
+#japan-layer :is(.signal-value-primary, .signal-value-primary > span, [data-live-exhibit-value]) {
+  letter-spacing: -.06em !important;
+}
+#japan-layer :is(.signal-value-primary > small, [data-live-exhibit-value] > small) {
+  letter-spacing: 0 !important;
+  margin-left: .12em;
+}
+#japan-layer .gaia-live-timeline { display: grid; align-content: center; gap: 8px; min-width: 0; }
+#japan-layer .gaia-live-timeline header { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+#japan-layer .gaia-live-timeline header :is(label, span, b) {
+  font-size: var(--map-dock-label-size); line-height: 1.2; letter-spacing: .12em;
+}
+#japan-layer .gaia-live-timeline header { color: #a9c2c6; }
+#japan-layer .gaia-live-timeline header b { color: #fff; }
+#japan-layer .gaia-live-timeline input { width: 100%; height: 18px; margin: 0; accent-color: var(--map-accent); cursor: pointer; }
+#japan-layer [data-live-period-ticks] { display: grid; grid-template-columns: repeat(var(--live-period-count, 25), minmax(0, 1fr)); gap: 2px; }
+#japan-layer [data-live-period-ticks] i { position: relative; display: block; height: 3px; border-radius: 3px; background: #c5e9e724; }
+#japan-layer [data-live-period-ticks] i.is-current { background: var(--map-accent); box-shadow: 0 0 13px var(--map-accent); }
+#japan-layer [data-live-period-ticks] span { position: absolute; top: 7px; left: 50%; transform: translateX(-50%); color: #dbf2f080; font-size: 9px; line-height: 1; white-space: nowrap; }
+#japan-layer [data-live-period-ticks] i:first-child span { left: 0; transform: none; }
+#japan-layer [data-live-period-ticks] i:last-child span { left: auto; right: 0; transform: none; }
+#japan-layer .gaia-live-timeline input:disabled { opacity: .45; cursor: not-allowed; }
+
+@media (min-width: 901px) {
+  #japan-layer .gaia-live-exhibit-readout::after { right: 0; }
+  body.map-grid-desktop #japan-layer.is-live-exhibit .gaia-live-exhibit-readout {
+    grid-template-columns: var(--map-chapter-width) minmax(0, 1fr) minmax(0, .9fr) minmax(0, 1.8fr) calc(var(--map-exhibit-actions-width) + 16px);
+  }
+  body.map-grid-desktop #japan-layer.is-live-exhibit .gaia-live-exhibit-primary { display: grid !important; grid-template-columns: minmax(0, 1fr); align-content: center; gap: 8px; padding-inline: 12px; }
+  #japan-layer .gaia-live-exhibit-primary :is(h3, [data-live-exhibit-title]) { display: none; }
+  #japan-layer .gaia-live-exhibit-primary [data-live-exhibit-kicker] { margin: 0; font-size: var(--map-dock-label-size) !important; line-height: 1.2; letter-spacing: .12em; }
+  #japan-layer .gaia-live-exhibit-primary > strong { display: block; font-size: var(--map-dock-value-size) !important; line-height: .94; letter-spacing: 0; white-space: nowrap; }
+  #japan-layer .gaia-live-exhibit-primary > strong small { font-size: clamp(15px, .85vw, 20px); }
+  #japan-layer [data-live-deck-location] { font-size: clamp(14px, .7vw, 22px) !important; line-height: 1.3; }
+  #japan-layer .gaia-live-deck-chapter > div { padding-top: 14px !important; }
+  /* Match exhibit 21: category above a baseline-aligned number/title row. */
+  #japan-layer .gaia-live-deck-selector-toggle { display: flex; align-items: baseline; height: auto; min-height: 44px; padding: 6px 0; gap: 9px; }
+  #japan-layer .gaia-live-deck-selector-toggle > span { flex-shrink: 0; }
+  #japan-layer .gaia-live-deck-question { display: none; }
+  #japan-layer .gaia-live-timeline { padding: 0 14px 12px; }
+  body.map-grid-desktop #japan-layer .map-command-dock .signal-console-map { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.4fr) !important; }
+  body.map-grid-desktop #japan-layer .map-command-dock .signal-console-map > label {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-rows: auto 18px 12px;
+    gap: 7px 8px;
+    align-content: center;
+    padding: 0 14px;
+  }
+  body.map-grid-desktop #japan-layer .map-command-dock .signal-console-map label > [data-signal-time-label] { grid-column: 1; max-width: 100%; padding: 0; font-size: var(--map-dock-label-size); }
+  body.map-grid-desktop #japan-layer .map-command-dock .signal-console-heading > small { font-size: var(--map-dock-label-size) !important; line-height: 1.2; }
+  body.map-grid-desktop #japan-layer .map-command-dock .signal-console-heading > strong { font-size: clamp(14px, .9vw, 22px); line-height: 1.3; white-space: normal; }
+  #japan-layer .map-command-dock .signal-value-primary { display: block; white-space: nowrap; font-size: var(--map-dock-value-size) !important; line-height: .94; }
+  #japan-layer .map-command-dock .signal-value-primary > span { font-size: inherit !important; }
+  #japan-layer .map-command-dock .signal-value-primary > small { font-size: clamp(15px, .85vw, 20px) !important; }
+  #japan-layer .map-command-dock .signal-value-details { font-size: var(--map-dock-label-size) !important; }
+  #japan-layer .map-command-dock .has-dock-metric { display: grid; gap: 6px; }
+  #japan-layer .map-command-dock .signal-value-details[hidden] { display: none; }
+  body.map-grid-desktop #japan-layer .map-command-dock .map-dock-year { grid-column: 2; grid-row: 1; height: auto; grid-template-columns: 20px auto 20px; gap: 3px; }
+  body.map-grid-desktop #japan-layer .map-command-dock .map-dock-year b { font-size: var(--map-dock-label-size); line-height: 1.2; letter-spacing: 0; }
+  #japan-layer .map-command-dock .map-dock-year small { font-size: var(--map-dock-label-size); }
+  #japan-layer .map-command-dock .map-dock-year > button { width: 20px; height: 18px; font-size: 18px; }
+  body.map-grid-desktop #japan-layer .map-command-dock [data-signal-time-output] { display: none; }
+  body.map-grid-desktop #japan-layer .map-command-dock [data-signal-time] { grid-row: 2; grid-column: 1 / -1; width: 100%; height: 18px; margin: 0; accent-color: var(--map-accent); }
+  body.map-grid-desktop #japan-layer .map-command-dock [data-signal-time]::-webkit-slider-runnable-track { all: revert; }
+  body.map-grid-desktop #japan-layer .map-command-dock [data-signal-time]::-webkit-slider-thumb { all: revert; }
+  #japan-layer .map-command-dock .map-dock-timeline-scale { grid-row: 3; grid-column: 1 / -1; margin: 0; padding: 0; }
+  #japan-layer .map-command-dock .map-dock-timeline-scale > span { font-size: 9px; line-height: 1; }
+  #japan-layer .map-command-dock .map-dock-timeline-scale > span::before { content: ''; display: block; height: 3px; margin-bottom: 7px; border-radius: 3px; background: #c5e9e724; }
+  #japan-layer .map-command-dock #map-reading-guide > :is(small, span, p) { font-size: var(--map-dock-label-size); }
+  #japan-layer .map-command-dock #map-reading-guide > summary > span { font-size: var(--map-dock-label-size); }
+  #japan-layer .map-command-dock .map-dock-action small { font-size: 8px; }
+}
+/* Give the value its full line box and put provenance in the unused right
+   side of the reading. These rules do not change the story detour dock. */
+@media (min-width: 901px) {
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer .map-command-dock:has(.has-dock-metric) {
+    --map-command-dock-height: clamp(100px, 8.65vh, 124px);
+    --map-chapter-height: calc(var(--map-command-dock-height) - 21px);
+  }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer .map-command-dock .signal-console-heading:has(.has-dock-metric) {
+    box-sizing: border-box;
+    height: 100%;
+    min-height: 0;
+    align-self: stretch;
+    gap: 4px;
+    padding-block: 8px;
+  }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer .map-command-dock .signal-console-heading:has(.has-dock-metric) > [data-signal-act] {
+    font-size: var(--map-dock-label-size);
+    line-height: 1.4;
+  }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer .map-command-dock .signal-console-heading > .has-dock-metric {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: clamp(12px, 1vw, 28px);
+    overflow: visible;
+  }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer .map-command-dock .has-dock-metric > .signal-value-primary {
+    flex: 0 0 auto;
+    line-height: 1.3;
+  }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer .map-command-dock .has-dock-metric > .signal-value-details {
+    flex: 0 1 auto;
+    justify-content: flex-end;
+    text-align: right;
+    line-height: 1.4;
+  }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer .map-command-dock .signal-console-map:has(.has-dock-metric) > label {
+    grid-template-rows: auto 18px 20px;
+  }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer .map-command-dock:has(.has-dock-metric) .map-dock-timeline-scale {
+    container-type: inline-size;
+  }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer .map-command-dock:has(.has-dock-metric) .map-dock-timeline-scale > span {
+    white-space: nowrap;
+  }
+}
+/* Tick labels must not wrap upward over the slider's hit area. */
+@container (max-width: 260px) {
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer .map-command-dock:has(.has-dock-metric) .map-dock-timeline-scale > span:nth-child(even) {
+    display: none;
+  }
+}
+/* A narrow desktop cannot fit a full chapter, measurement, time control,
+   explanation and actions in one row. Keep the reading and time together. */
+@media (min-width: 901px) and (max-width: 1400px) {
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer .map-command-dock:has(.has-dock-metric) {
+    --map-command-dock-height: 167px;
+    --map-chapter-height: 70px;
+    grid-template-columns: var(--map-chapter-width) minmax(0, 1fr) 110px 110px;
+    grid-template-rows: 76px 70px;
+  }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer .map-command-dock:has(.has-dock-metric) > .signal-console-map {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    border-bottom: 1px solid rgba(113, 207, 221, .18) !important;
+  }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer .map-command-dock:has(.has-dock-metric) > :is(.map-mode-bank, .map-reading-guide, .map-dock-action) {
+    grid-row: 2;
+  }
+}
+@media (min-width: 901px) and (max-width: 1200px) {
+  body.map-grid-desktop #japan-layer.is-live-exhibit { --map-command-dock-height: 161px; --map-chapter-height: 76px; }
+  body.map-grid-desktop #japan-layer.is-live-exhibit .gaia-live-exhibit-readout {
+    grid-template-columns: var(--map-chapter-width) minmax(0, 1fr) var(--map-exhibit-actions-width);
+    grid-template-rows: 64px 76px;
+  }
+  #japan-layer .gaia-live-deck-chapter { grid-column: 1; grid-row: 2; }
+  #japan-layer .gaia-live-prefecture-picker { grid-column: 1 / 3; grid-row: 1; }
+  #japan-layer .gaia-live-exhibit-primary { grid-column: 2; grid-row: 2; }
+  #japan-layer .gaia-live-timeline { grid-column: 3; grid-row: 1; padding: 0 14px 8px; }
+  #japan-layer .gaia-live-deck-actions { grid-column: 3; grid-row: 2; }
+  #japan-layer [data-live-deck-location] { white-space: normal !important; overflow: visible; text-overflow: clip; }
+  #japan-layer .gaia-live-deck-location-control { gap: 2px; grid-template-columns: 24px minmax(0, 1fr) 24px; }
+  #japan-layer .gaia-live-deck-location-control > button[data-live-poi-step] { width: 24px; }
+}
+@media (max-width: 900px) {
+  #japan-layer.is-mobile-map-shell .gaia-live-timeline { grid-column: 1 / -1; order: 3; gap: 4px; padding: 0; }
+  #japan-layer.is-mobile-map-shell [data-live-period-ticks] { display: none; }
+  #japan-layer.is-mobile-map-shell .gaia-live-timeline header { font-size: 10px; }
+  #japan-layer.is-mobile-map-shell .gaia-live-timeline input { min-height: 28px; }
+  #japan-layer.is-mobile-map-shell .gaia-live-exhibit-primary > strong { font-size: 23px !important; }
+  #japan-layer.is-mobile-map-shell .gaia-live-exhibit-primary > strong small { font-size: 15px; }
+  #japan-layer.is-mobile-map-shell [data-live-deck-location] { font-size: 14px !important; line-height: 1.3; }
+  #japan-layer.is-mobile-map-shell .signal-console-map [data-signal-value] { font-size: 23px; }
+  #japan-layer.is-mobile-map-shell .signal-value-details { font-size: 11px; }
+  #japan-layer.is-mobile-map-shell .map-dock-year :is(b, small) { font-size: 10px; }
+}
+@media (min-width: 600px) and (max-width: 900px) {
+  #japan-layer.is-mobile-map-shell .gaia-live-prefecture-picker { grid-column: 1; grid-row: 1; }
+  #japan-layer.is-mobile-map-shell .gaia-live-exhibit-primary { grid-column: 2; grid-row: 1; align-self: end; text-align: right; }
+}
+
+/* Every desktop exhibit uses 06's action geometry. Derive it only from the
+   viewport: provider docks have different row heights and type scales. */
+@media (min-width: 901px) {
+  :root {
+    --map-action-column: clamp(148px, 10.6vw, 192px);
+    --map-action-height: calc(clamp(100px, 8.65vh, 124px) - 33px);
+    --map-action-icon: clamp(32px, 2.15vw, 40px);
+    --map-action-padding: clamp(9px, .7vw, 12px);
+    --map-action-gap: 8px;
+    --map-action-title: clamp(12px, .78vw, 17px);
+    --map-action-tracking: .035em;
+    --map-dock-action-width: var(--map-action-column);
+    --map-exhibit-actions-width: calc(2 * var(--map-action-column));
+  }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer :is(.map-command-dock, .gaia-live-exhibit-readout, .gaia-estat-readout, .gaia-marine-cod-readout.is-record-exhibit) {
+    min-height: calc(var(--map-action-height) + 33px);
+  }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer .gaia-map-actions {
+    grid-template-columns: repeat(2, var(--map-action-column));
+    align-items: center;
+    align-content: center;
+    justify-content: end;
+    min-height: calc(var(--map-action-height) + 12px);
+  }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer :is(.map-dock-action, .gaia-map-actions > .gaia-map-action) {
+    box-sizing: border-box;
+    width: calc(var(--map-action-column) - 10px);
+    min-width: calc(var(--map-action-column) - 10px);
+    max-width: calc(var(--map-action-column) - 10px);
+    height: var(--map-action-height) !important;
+    min-height: var(--map-action-height);
+    max-height: var(--map-action-height);
+    align-self: center;
+    justify-self: center;
+    grid-template-columns: var(--map-action-icon) minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr);
+    align-items: center;
+    gap: var(--map-action-gap);
+    margin: 6px 5px !important;
+    padding: 0 var(--map-action-padding);
+  }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer :is(.map-dock-action, .gaia-map-action) > i {
+    width: var(--map-action-icon);
+    height: var(--map-action-icon);
+  }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer :is(.map-dock-action, .gaia-map-action) > span {
+    display: grid;
+    grid-template-rows: auto auto;
+    align-content: center;
+    gap: 6px;
+    min-width: 0;
+  }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer :is(.map-dock-action, .gaia-map-action) small {
+    font: 600 9px/1 var(--font-ja) !important;
+    letter-spacing: .13em;
+    white-space: nowrap;
+  }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer :is(.map-dock-action, .gaia-map-action) strong {
+    font: 650 var(--map-action-title)/1.2 var(--font-ja) !important;
+    letter-spacing: var(--map-action-tracking);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+@media (min-width: 901px) and (max-width: 1400px) {
+  :root {
+    --map-action-column: 110px;
+    --map-action-height: 58px;
+    --map-action-icon: 20px;
+    --map-action-padding: 4px;
+    --map-action-gap: 3px;
+    --map-action-title: 11px;
+    --map-action-tracking: 0;
+  }
+}
+/* One overview action beside zoom, rather than a duplicate in each data dock. */
+.japan-poi-preview .poi-preview-title-line { display: block; white-space: nowrap; overflow-wrap: normal; }
+@media (max-width: 900px) {
+  #japan-poi-preview {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "kicker" "title" "meta" "action";
+    row-gap: 10px;
+  }
+  #japan-poi-preview .japan-poi-preview-title { font-size: clamp(13px, 4vw, 18px); }
+}
+@media (min-width: 901px) {
+  #japan-poi-preview {
+    width: fit-content;
+    max-width: calc(100vw - 36px);
+    grid-template-columns: max-content minmax(240px, 320px) max-content;
+    column-gap: 20px;
+  }
+  #japan-poi-preview .has-single-reading .poi-preview-reading {
+    grid-template-columns: max-content minmax(100px, 1fr);
+  }
+}
+#japan-layer :is([data-cod-overview], [data-food-overview]),
+#gaia-map-zoom-reset[hidden],
+#gaia-map-zoom-reset[data-overview="world"] [data-overview-icon="japan"],
+#gaia-map-zoom-reset[data-overview="japan"] [data-overview-icon="world"] { display: none !important; }
+#gaia-map-zoom-controls button { position: relative; }
+#gaia-map-zoom-controls button[data-tooltip]::after {
+  content: attr(data-tooltip);
+  display: none;
+  position: absolute;
+  right: calc(100% + 12px);
+  top: 50%;
+  transform: translateY(-50%);
+  width: max-content;
+  max-width: min(240px, calc(100vw - 110px));
+  padding: 10px 14px;
+  border: 1px solid #638491;
+  border-radius: 8px;
+  background: #081d2bf5;
+  color: #effbff;
+  font: 400 14px/1.6 var(--font-ja);
+  white-space: normal;
+  pointer-events: none;
+}
+#gaia-map-zoom-controls button[data-tooltip]:is(:hover, :focus-visible)::after { display: block; }
+@media (max-width: 900px) {
+  #japan-layer.is-mobile-map-shell nav#gaia-map-zoom-controls { display: grid !important; }
+}
+
+/* Exhibition 15 is the shared desktop instrument frame. Provider-specific
+   content stays native; its panel may no longer change the bottom baseline. */
+@media (min-width: 901px) {
+  body.map-grid-desktop #japan-layer.has-map-stable-navigation {
+    --map-unified-height: 100px;
+    --map-command-dock-height: var(--map-unified-height) !important;
+    --map-chapter-height: calc(var(--map-unified-height) - 21px) !important;
+  }
+  body.map-grid-desktop #japan-layer.has-map-stable-navigation :is(.map-command-dock, .gaia-live-exhibit-readout, .gaia-estat-readout, .gaia-firms-readout, .gaia-planet-signals-readout, .gaia-marine-cod-readout, .gaia-food-readout) {
+    --map-command-dock-height: var(--map-unified-height) !important;
+    --map-chapter-height: calc(var(--map-unified-height) - 21px) !important;
+    box-sizing: border-box;
+    bottom: 0 !important;
+    height: var(--map-unified-height) !important;
+    min-height: var(--map-unified-height) !important;
+    max-height: var(--map-unified-height) !important;
+    border-radius: 28px 28px 0 0;
+  }
+  body.map-grid-desktop #japan-layer.has-map-stable-navigation :is(.gaia-firms-readout, .gaia-planet-signals-readout) {
+    grid-template-columns: var(--map-chapter-width) minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, 1.2fr) var(--map-exhibit-actions-width);
+    grid-template-rows: minmax(0, 1fr);
+  }
+  body.map-grid-desktop #japan-layer.has-map-stable-navigation .gaia-firms-readout { grid-template-areas: 'chapter realtime primary timeline actions'; }
+  body.map-grid-desktop #japan-layer.has-map-stable-navigation .gaia-planet-signals-readout { grid-template-areas: 'chapter realtime primary metrics actions'; }
+  body.map-grid-desktop #japan-layer.has-map-stable-navigation .gaia-realtime-status {
+    display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto auto;
+    grid-template-areas: none; align-content: center; gap: 3px; padding: 4px 12px; min-height: 0;
+  }
+  body.map-grid-desktop #japan-layer.has-map-stable-navigation .gaia-realtime-status > * { grid-area: auto; }
+  body.map-grid-desktop #japan-layer.has-map-stable-navigation .gaia-realtime-status h3 { font-size: 14px; line-height: 18px; gap: 4px; }
+  body.map-grid-desktop #japan-layer.has-map-stable-navigation .gaia-realtime-state :is(b, span) { font-size: 10px; line-height: 13px; }
+  body.map-grid-desktop #japan-layer.has-map-stable-navigation .gaia-realtime-time { display: block; font-size: 9px; line-height: 12px; }
+  body.map-grid-desktop #japan-layer.has-map-stable-navigation .gaia-realtime-time :is(span, time) { font-size: 9px; line-height: 12px; white-space: normal; }
+  body.map-grid-desktop #japan-layer.has-map-stable-navigation .gaia-estat-readout {
+    grid-template-columns: var(--map-chapter-width) minmax(0, 1fr) minmax(0, .9fr) minmax(0, 1.8fr) var(--map-exhibit-actions-width);
+    grid-template-rows: minmax(0, 1fr);
+    overflow: visible;
+  }
+  body.map-grid-desktop #japan-layer.has-map-stable-navigation .gaia-estat-readout > :not(.map-dock-context) { grid-row: 1; }
+  body.map-grid-desktop #japan-layer.has-map-stable-navigation .gaia-estat-readout::before { grid-area: auto; inset: 0; }
+  body.map-grid-desktop #japan-layer.has-map-stable-navigation :is(.gaia-estat-primary > strong, .gaia-firms-primary > strong, .gaia-planet-primary > strong, .gaia-cod-primary > strong, .gaia-food-primary > strong) {
+    font-family: var(--font-ja); font-size: var(--map-dock-value-size); line-height: 1.1;
+  }
+  body.map-grid-desktop #japan-layer.has-map-stable-navigation .is-record-exhibit .gaia-cod-primary > strong { font-size: clamp(16px, 1.3vw, 24px); }
+  body.map-grid-desktop #japan-layer.has-map-stable-navigation .japan-credits {
+    bottom: calc(var(--map-unified-height) + 12px) !important;
+  }
+  body.map-grid-desktop #japan-layer.has-map-stable-navigation .map-dock-context {
+    grid-area: auto !important;
+    position: absolute; left: 12px; bottom: calc(100% + 8px); z-index: 5;
+    width: min(600px, calc(100vw - 48px)); padding: 0; border: 0;
+    font: 12px/1.6 var(--font-ja); color: #d7ecec;
+  }
+  .map-dock-context > summary { width: max-content; padding: 4px 12px; border: 1px solid #8fc6ca66; border-radius: 6px; background: #0a202deF; cursor: pointer; }
+  body.map-grid-desktop #japan-layer.has-map-stable-navigation .map-dock-context[open] > .gaia-estat-copy {
+    display: grid !important; padding: 14px; max-height: 30vh; overflow: auto;
+    border: 1px solid #8fc6ca66; border-radius: 8px; background: #0a202df5;
+  }
+  body.map-grid-desktop #japan-layer.has-map-stable-navigation .map-dock-context[open] > .gaia-estat-comparison {
+    display: grid; padding: 12px; background: #0a202df5;
+  }
+}
+@media (min-width: 901px) and (max-width: 1200px) {
+  body.map-grid-desktop #japan-layer.has-map-stable-navigation { --map-unified-height: 161px; }
+  body.map-grid-desktop #japan-layer.has-map-stable-navigation :is(.gaia-firms-readout, .gaia-planet-signals-readout, .gaia-estat-readout, .gaia-marine-cod-readout, .gaia-food-readout, .map-command-dock) {
+    --map-chapter-height: 76px !important;
+    padding-block: 9px 11px; row-gap: 0;
+    grid-template-columns: var(--map-chapter-width) minmax(0, 1fr) var(--map-exhibit-actions-width);
+    grid-template-rows: 64px minmax(0, 1fr); grid-template-areas: none;
+  }
+  body.map-grid-desktop #japan-layer.has-map-stable-navigation :is(.gaia-firms-chapter, .gaia-planet-chapter, .gaia-estat-chapter, .gaia-marine-cod-chapter, .gaia-food-chapter) { grid-area: 2 / 1; }
+  body.map-grid-desktop #japan-layer.has-map-stable-navigation :is(.gaia-firms-primary, .gaia-planet-primary, .gaia-estat-primary, .gaia-cod-primary, .gaia-food-primary) { grid-area: 2 / 2; padding-block: 0; margin-block: 0; }
+  body.map-grid-desktop #japan-layer.has-map-stable-navigation :is(.gaia-realtime-status, .gaia-estat-place, .gaia-cod-pickers, .gaia-food-pickers) { grid-area: 1 / 1 / 2 / 3; }
+  body.map-grid-desktop #japan-layer.has-map-stable-navigation :is(.gaia-firms-timeline, .gaia-planet-metrics, .gaia-estat-timeline, .gaia-cod-timeline, .gaia-food-timeline) { grid-area: 1 / 3; padding-block: 0; }
+  body.map-grid-desktop #japan-layer.has-map-stable-navigation :is(.gaia-firms-readout, .gaia-planet-signals-readout, .gaia-estat-readout, .gaia-marine-cod-readout, .gaia-food-readout) > .gaia-map-actions { grid-area: 2 / 3; }
+  body.map-grid-desktop #japan-layer.has-map-stable-navigation .gaia-estat-readout > .gaia-estat-chapter { grid-row: 2; }
+  body.map-grid-desktop #japan-layer.has-map-stable-navigation .gaia-estat-readout > .gaia-estat-primary { grid-row: 2; }
+  body.map-grid-desktop #japan-layer.has-map-stable-navigation .gaia-estat-readout > .gaia-map-actions { grid-row: 2; }
+  body.map-grid-desktop #japan-layer.has-map-stable-navigation .map-command-dock { grid-template-columns: var(--map-chapter-width) minmax(0,1fr) 110px 110px; }
+}
+@media (min-width: 2400px) {
+  body.map-grid-desktop #japan-layer.has-map-stable-navigation { --map-unified-height: 124px; }
+}

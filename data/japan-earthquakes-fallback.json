@@ -1,0 +1,191 @@
+{
+  "source": "USGS Earthquake Hazards Program",
+  "sourceUrl": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php",
+  "feedUrl": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojson",
+  "retrievedAt": "2026-07-31T11:26:54Z",
+  "region": "Japan surroundings (122-154E, 20-48N)",
+  "minimumMagnitude": 2.5,
+  "note": "Preliminary observations may be updated by USGS.",
+  "events": [
+    {
+      "id": "us6000th0s",
+      "time": "2026-07-30T16:20:48Z",
+      "magnitude": 4.3,
+      "place": "48 km ENE of Noda, Japan",
+      "longitude": 142.3617,
+      "latitude": 40.2239,
+      "depthKm": 51.3
+    },
+    {
+      "id": "us6000tgy8",
+      "time": "2026-07-30T13:47:38Z",
+      "magnitude": 5.0,
+      "place": "2 km WNW of Uto, Japan",
+      "longitude": 130.642,
+      "latitude": 32.6877,
+      "depthKm": 10.0
+    },
+    {
+      "id": "us6000tgt4",
+      "time": "2026-07-29T20:16:35Z",
+      "magnitude": 4.8,
+      "place": "7 km W of Honmachi, Japan",
+      "longitude": 130.5159,
+      "latitude": 32.4953,
+      "depthKm": 11.7
+    },
+    {
+      "id": "us6000tgn1",
+      "time": "2026-07-29T14:02:34Z",
+      "magnitude": 4.6,
+      "place": "10 km W of Honmachi, Japan",
+      "longitude": 130.4901,
+      "latitude": 32.5115,
+      "depthKm": 10.0
+    },
+    {
+      "id": "us6000tgmx",
+      "time": "2026-07-29T13:19:36Z",
+      "magnitude": 5.4,
+      "place": "11 km N of Tsunagi, Japan",
+      "longitude": 130.4881,
+      "latitude": 32.34,
+      "depthKm": 10.0
+    },
+    {
+      "id": "us6000tgmj",
+      "time": "2026-07-29T11:47:53Z",
+      "magnitude": 4.4,
+      "place": "14 km ESE of Shimabara, Japan",
+      "longitude": 130.5047,
+      "latitude": 32.7155,
+      "depthKm": 10.0
+    },
+    {
+      "id": "us6000tgd4",
+      "time": "2026-07-28T14:01:56Z",
+      "magnitude": 4.8,
+      "place": "13 km NW of Honmachi, Japan",
+      "longitude": 130.4935,
+      "latitude": 32.5899,
+      "depthKm": 2.3
+    },
+    {
+      "id": "us6000tgcq",
+      "time": "2026-07-28T12:26:18Z",
+      "magnitude": 4.7,
+      "place": "8 km SSW of Mifune, Japan",
+      "longitude": 130.7799,
+      "latitude": 32.6443,
+      "depthKm": 10.0
+    },
+    {
+      "id": "us6000tgc8",
+      "time": "2026-07-28T10:09:38Z",
+      "magnitude": 4.4,
+      "place": "10 km SE of Honmachi, Japan",
+      "longitude": 130.675,
+      "latitude": 32.43,
+      "depthKm": 10.0
+    },
+    {
+      "id": "us6000tgc6",
+      "time": "2026-07-28T10:03:13Z",
+      "magnitude": 4.4,
+      "place": "10 km ESE of Uki, Japan",
+      "longitude": 130.753,
+      "latitude": 32.5747,
+      "depthKm": 10.0
+    },
+    {
+      "id": "us6000tgbn",
+      "time": "2026-07-28T08:18:54Z",
+      "magnitude": 4.9,
+      "place": "14 km NNE of Tsunagi, Japan",
+      "longitude": 130.5429,
+      "latitude": 32.3585,
+      "depthKm": 10.0
+    },
+    {
+      "id": "us6000tgbm",
+      "time": "2026-07-28T08:08:35Z",
+      "magnitude": 5.6,
+      "place": "16 km NE of Tsunagi, Japan",
+      "longitude": 130.5868,
+      "latitude": 32.3529,
+      "depthKm": 10.0
+    },
+    {
+      "id": "us6000tgb9",
+      "time": "2026-07-28T07:27:15Z",
+      "magnitude": 6.8,
+      "place": "2026 Uto, Japan Earthquake",
+      "longitude": 130.7217,
+      "latitude": 32.6817,
+      "depthKm": 10.0
+    },
+    {
+      "id": "us6000tg99",
+      "time": "2026-07-27T23:20:46Z",
+      "magnitude": 4.1,
+      "place": "Bonin Islands, Japan region",
+      "longitude": 140.1742,
+      "latitude": 27.1167,
+      "depthKm": 462.2
+    },
+    {
+      "id": "us6000tg6e",
+      "time": "2026-07-27T19:03:38Z",
+      "magnitude": 4.5,
+      "place": "Bonin Islands, Japan region",
+      "longitude": 139.8936,
+      "latitude": 28.1222,
+      "depthKm": 426.8
+    },
+    {
+      "id": "us6000tg64",
+      "time": "2026-07-27T18:40:22Z",
+      "magnitude": 4.2,
+      "place": "113 km S of Honchō, Japan",
+      "longitude": 143.0938,
+      "latitude": 41.1174,
+      "depthKm": 47.9
+    },
+    {
+      "id": "us7000t3f0",
+      "time": "2026-07-26T05:58:52Z",
+      "magnitude": 4.4,
+      "place": "260 km N of Ama, Japan",
+      "longitude": 133.4886,
+      "latitude": 38.4173,
+      "depthKm": 446.1
+    },
+    {
+      "id": "us7000t3bu",
+      "time": "2026-07-25T15:04:27Z",
+      "magnitude": 4.4,
+      "place": "Kuril Islands",
+      "longitude": 153.1701,
+      "latitude": 47.1353,
+      "depthKm": 89.7
+    },
+    {
+      "id": "us7000t389",
+      "time": "2026-07-24T23:18:21Z",
+      "magnitude": 4.4,
+      "place": "182 km SSE of Tateyama, Japan",
+      "longitude": 140.2775,
+      "latitude": 33.3698,
+      "depthKm": 73.1
+    },
+    {
+      "id": "us7000t36e",
+      "time": "2026-07-24T18:43:04Z",
+      "magnitude": 4.5,
+      "place": "Izu Islands, Japan region",
+      "longitude": 141.3858,
+      "latitude": 31.4494,
+      "depthKm": 35.0
+    }
+  ]
+}

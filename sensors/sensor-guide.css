@@ -1,0 +1,152 @@
+/* Connection guide only. Registration, terms and the map keep their own UI. */
+#guide {
+  --guide-line: rgba(153,199,184,.17);
+  --guide-muted: #a4bbb5;
+  max-width: 1140px;
+  padding: clamp(22px,3.4vw,46px);
+  border: 1px solid var(--guide-line);
+  border-radius: 24px;
+  background: radial-gradient(ellipse at 8% 0,rgba(73,139,120,.12),transparent 42%),linear-gradient(150deg,#0a1d24f5,#07151df5 65%);
+  box-shadow: 0 24px 80px #0003;
+  clip-path: none;
+  color: #dce9e5;
+  font-family: var(--font-ui-ja);
+}
+#guide::before { display: none; }
+#guide [hidden] { display: none !important; }
+#guide .sensor-guide-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+#guide :is(a,button,input,summary):focus-visible { outline: 2px solid #9de8d3; outline-offset: 4px; }
+#guide :is(h2,#sensor-connect-path) { scroll-margin-top: 132px; }
+#guide .sensor-guide-hero { grid-template-columns: minmax(0,1.2fr) minmax(320px,1fr); gap: 32px; align-items: center; padding: 8px 0 34px; border-color: var(--guide-line); }
+#guide .sensor-kicker { display: flex; flex-wrap: wrap; gap: 8px 12px; margin-bottom: 18px; color: #a5dfce; font: 600 11px/1.5 var(--font-ui-ja); letter-spacing: .06em; }
+#guide .sensor-kicker span { color: #739b91; font: 10px/1.7 var(--font-console); letter-spacing: .09em; }
+#guide .sensor-guide-hero h1 { font-size: clamp(30px,3vw,42px); line-height: 1.42; letter-spacing: .025em; white-space: normal; text-shadow: none; }
+#guide .sensor-guide-lead { max-width: 76ch; margin: 14px 0 0; color: var(--guide-muted); font: 400 13px/1.9 var(--font-ui-ja); letter-spacing: .015em; }
+#guide .sensor-guide-badges { gap: 8px 14px; margin-top: 22px; }
+#guide .sensor-guide-badges span { display: flex; align-items: center; gap: 6px; padding: 0; border: 0; color: #b3ccc2; font: 400 10px/1.5 var(--font-ui-ja); letter-spacing: 0; }
+#guide .sensor-guide-badges span::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: #85c4ae; }
+#guide .sensor-guide-jump { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 9px; padding: 0; border: 0; background: none; box-shadow: none; }
+#guide .sensor-guide-jump > p { grid-column: 1 / -1; padding: 0 2px 5px; background: none; color: #93b4a9; font: 500 11px/1.5 var(--font-ui-ja); letter-spacing: .05em; }
+#guide .sensor-guide-jump a { position: relative; grid-template-columns: 1fr; gap: 7px; align-content: start; min-height: 118px; padding: 17px 15px; border: 1px solid var(--guide-line); border-radius: 12px; background: linear-gradient(135deg,#9dd5bd09,#03202518); transition: background 160ms ease,border-color 160ms ease; }
+#guide .sensor-guide-jump a::after { content: '↗'; position: absolute; right: 14px; top: 14px; color: #86b9a8; font-size: 15px; }
+#guide .sensor-guide-jump a:is(:hover,:focus-visible) { transform: none; background: #9dd5bd0e; border-color: #91c8b563; }
+#guide .sensor-guide-jump a > span { grid-row: auto; color: #8fc5b2; font: 11px/1 var(--font-console); }
+#guide .sensor-guide-jump strong { font: 600 13px/1.5 var(--font-ui-ja); letter-spacing: 0; }
+#guide .sensor-guide-jump small { color: #8da99f; font: 10px/1.55 var(--font-ui-ja); letter-spacing: 0; }
+#guide .sensor-guide-section, #guide .sensor-troubleshooting { margin-top: 38px; }
+#guide .sensor-guide-heading { display: grid; gap: 8px; margin-bottom: 18px; }
+#guide .sensor-guide-heading > span { color: #8ac6b1; font: 10px/1.5 var(--font-console); letter-spacing: .12em; }
+#guide .sensor-guide-heading h2 { font: 500 24px/1.5 var(--font-ja); letter-spacing: .025em; }
+#guide .sensor-kit-list { grid-template-columns: repeat(4,minmax(0,1fr)); gap: 10px; }
+#guide .sensor-kit-list li { align-content: start; gap: 9px; padding: 19px 16px; border-color: var(--guide-line); border-radius: 12px; background: #b4e4cf04; box-shadow: none; }
+#guide .sensor-kit-list svg { width: 26px; height: 26px; margin-bottom: 8px; fill: none; stroke: #9ecdbb; stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; }
+#guide .sensor-kit-list b { font: 600 13px/1.5 var(--font-ui-ja); }
+#guide .sensor-kit-list span { color: #98b1a8; font: 400 11px/1.75 var(--font-ui-ja); overflow-wrap: anywhere; }
+#guide .sensor-guide-compatibility { margin-top: 14px; padding: 0 15px; border: 1px solid #dbbb7425; border-radius: 10px; background: #d4ad6907; }
+#guide summary { list-style: none; }
+#guide summary::-webkit-details-marker { display: none; }
+#guide :is(.sensor-guide-compatibility,.sensor-troubleshooting details) > summary { position: relative; padding: 15px 24px 15px 0; font: 500 12px/1.7 var(--font-ui-ja); }
+#guide :is(.sensor-guide-compatibility,.sensor-measurement-group,.sensor-troubleshooting details) > summary::after { content: ''; position: absolute; right: 4px; top: 50%; width: 6px; height: 6px; border-right: 1px solid #8fb5a6; border-bottom: 1px solid #8fb5a6; transform: translateY(-70%) rotate(45deg); }
+#guide :is(.sensor-guide-compatibility,.sensor-measurement-group,.sensor-troubleshooting details)[open] > summary::after { transform: translateY(-15%) rotate(225deg); }
+#guide .sensor-guide-compatibility summary { cursor: pointer; color: #c5c4a7; }
+#guide .sensor-guide-compatibility summary span { margin-left: 12px; font-size: 11px; color: #9dac9f; }
+#guide .sensor-guide-compatibility > p { margin: 0 0 16px; color: #c5baa2; font: 12px/1.85 var(--font-ui-ja); }
+#guide .sensor-guide-measurement-notice { margin-top: 17px; padding: 15px 17px; border: 1px solid #d7bc6e24; border-radius: 10px; background: #d7bc6e06; }
+#guide .sensor-guide-measurement-notice > b { color: #d1c5a2; font: 600 12px/1.8 var(--font-ui-ja); }
+#guide .sensor-guide-measurement-notice > p { margin: 5px 0 0; color: #a8b4a9; font: 11px/1.85 var(--font-ui-ja); }
+#guide .sensor-measurement-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 22px; }
+#guide .sensor-measurement-toolbar label { display: flex; align-items: center; gap: 10px; width: min(100%,420px); margin: 0; padding: 0 14px; border: 1px solid var(--guide-line); border-radius: 10px; background: #03101680; }
+#guide .sensor-measurement-toolbar svg { flex: 0 0 17px; width: 17px; height: 17px; fill: none; stroke: #8dac9f; stroke-width: 1.5; stroke-linecap: round; }
+#guide .sensor-measurement-toolbar input { width: 100%; min-width: 0; min-height: 44px; padding: 10px 0; border: 0; border-radius: 0; color: #dce9e5; background: transparent; font: 12px/1.5 var(--font-ui-ja); }
+#guide .sensor-measurement-toolbar input::placeholder { color: #879e96; opacity: 1; }
+#guide .sensor-measurement-toolbar label:focus-within { border-color: #9ac6b7; }
+#guide .sensor-measurement-summary { flex-shrink: 0; margin: 0; color: #8eafa2; font: 11px/1.5 var(--font-ui-ja); letter-spacing: 0; }
+#guide .sensor-measurement-groups { grid-template-columns: minmax(0,1fr); align-items: start; gap: 8px; margin-top: 14px; }
+#guide .sensor-measurement-group { border-color: var(--guide-line); border-radius: 11px; background: #88c8ae04; overflow: clip; }
+#guide .sensor-measurement-group > summary { position: relative; grid-template-columns: minmax(0,1fr) auto; gap: 4px 12px; align-content: center; min-height: 80px; padding: 15px 48px 15px 19px; }
+#guide .sensor-measurement-group > summary::after { right: 21px; }
+#guide .sensor-measurement-group > summary:hover { background: #b4e4cf06; }
+#guide .sensor-measurement-group > summary strong { font: 600 14px/1.5 var(--font-ui-ja); letter-spacing: .015em; }
+#guide .sensor-measurement-group > summary b { grid-column: 2; grid-row: 1 / 3; align-self: center; color: #9bbaad; font: 11px/1.5 var(--font-ui-ja); }
+#guide .sensor-measurement-group > summary small { grid-column: 1; color: #8aa59b; font: 11px/1.65 var(--font-ui-ja); }
+#guide .sensor-measurement-list { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; padding: 12px; background: #00101730; border-color: var(--guide-line); }
+#guide .sensor-measurement-item { grid-template-columns: minmax(0,1fr); align-content: start; gap: 9px; padding: 16px; border: 1px solid #9bcebb13; border-radius: 8px; background: #0c222985; }
+#guide .sensor-measurement-item strong { font: 600 13px/1.55 var(--font-ui-ja); }
+#guide .sensor-measurement-item code { margin-top: 4px; color: #84ac9d; font: 10px/1.6 var(--font-console); }
+#guide .sensor-measurement-item p { color: #a2b9af; font: 11px/1.8 var(--font-ui-ja); }
+#guide .sensor-measurement-item .sensor-measurement-note { border: 0; border-radius: 5px; font-size: 10px; }
+#guide .sensor-guide-note { margin: 12px 0 0 !important; padding: 0; border: 0; background: none; color: #8fa69d; font: 11px/1.8 var(--font-ui-ja); }
+#guide #measurement-catalog-empty { padding: 24px 18px; border: 1px dashed var(--guide-line); border-radius: 10px; color: #b0c4ba; font: 12px/1.8 var(--font-ui-ja); }
+#guide :is(.sensor-measurement-source,.sensor-developer-links) { margin-top: 14px; color: #90a99e; font: 11px/1.8 var(--font-ui-ja); }
+#guide :is(.sensor-measurement-source,.sensor-developer-links) > summary { display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 8px 0; cursor: pointer; }
+#guide :is(.sensor-measurement-source,.sensor-developer-links) > summary::before { content: '+'; color: #9fc7b5; font: 16px var(--font-console); }
+#guide :is(.sensor-measurement-source,.sensor-developer-links)[open] > summary::before { content: '−'; }
+#guide .sensor-guide-path { grid-template-columns: minmax(0,1fr); gap: 0; margin: 26px 0 0; }
+#guide .sensor-guide-path > li { position: relative; grid-template-columns: 34px minmax(0,1fr); align-items: start; gap: 19px; min-height: 0; padding: 0 0 28px; border: 0; background: none; }
+#guide .sensor-guide-path > li:not(:last-child)::before { content: ''; position: absolute; left: 16px; top: 40px; bottom: 7px; width: 1px; background: var(--guide-line); }
+#guide .sensor-guide-path > li > span { width: 34px; height: 34px; border: 1px solid #a2cab332; border-radius: 50%; background: #98d7b909; color: #aacdbd; font: 11px/1 var(--font-console); }
+#guide .sensor-guide-path > li > div { padding: 3px 0 0; }
+#guide .sensor-guide-path strong { margin-bottom: 9px; font: 600 15px/1.6 var(--font-ui-ja); letter-spacing: .01em; }
+#guide .sensor-guide-path p { max-width: 80ch; color: var(--guide-muted); font: 12px/1.9 var(--font-ui-ja); letter-spacing: .015em; }
+#guide .sensor-firmware-source { margin-top: 15px; padding: 16px; border-color: var(--guide-line); border-radius: 10px; background: #99cdb507; }
+#guide .sensor-firmware-source > span { font: 600 11px/1.5 var(--font-ui-ja); letter-spacing: 0; }
+#guide .sensor-firmware-source > code { color: #97b5a6; font: 10px/1.8 var(--font-console); }
+#guide .sensor-firmware-source a { display: inline-flex; align-items: center; min-height: 44px; border-color: #97b5a62e; border-radius: 7px; font: 11px/1.6 var(--font-ui-ja); }
+#guide .sensor-firmware-source > p { font-size: 11px; }
+#guide .sensor-guide-request { margin-top: 14px; padding: 16px; border: 1px solid var(--guide-line); border-radius: 10px; background: #000c1466; }
+#guide .sensor-guide-request > div { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+#guide .sensor-guide-request > div > span { font: 600 11px/1.6 var(--font-ui-ja); color: #aac7b9; }
+#guide .sensor-guide-request button { min-height: 44px; padding: 10px 13px; border: 1px solid #9bcdb744; border-radius: 8px; color: #b2d7c5; background: #8fceb70b; font: 500 11px/1.5 var(--font-ui-ja); cursor: pointer; }
+#guide .sensor-guide-request button:hover { background: #8fceb71b; }
+#guide .sensor-guide-request .sensor-copy-line { margin: 12px 0 0; padding: 0; border: 0; background: none; color: #a5bfb3; font: 11px/1.9 var(--font-ui-ja); }
+#guide .sensor-guide-request > small { display: block; color: #b8d9c7; font: 11px/1.7 var(--font-ui-ja); }
+#guide .sensor-guide-request > small:not(:empty) { margin-top: 10px; }
+#guide .sensor-troubleshooting details { padding: 0 16px; border-color: var(--guide-line); background: none; }
+#guide .sensor-troubleshooting details p { padding: 0 20px 18px 0; font: 12px/1.85 var(--font-ui-ja); color: var(--guide-muted); }
+#guide .sensor-guide-finish { grid-template-columns: minmax(0,1fr) auto; gap: 6px 20px; margin-top: 32px; padding: 24px; border-color: #9bceb538; border-radius: 14px; background: linear-gradient(120deg,#a1dab718,#73bdca05); }
+#guide .sensor-guide-finish span { grid-column: 1; color: #8dbaa4; font-size: 9px; }
+#guide .sensor-guide-finish strong { grid-column: 1; font: 500 16px/1.7 var(--font-ja); letter-spacing: .015em; }
+#guide .sensor-guide-finish a { grid-column: 2; grid-row: 1 / 3; display: flex; align-items: center; justify-content: center; padding: 12px 18px; border-color: #a3d0b954; border-radius: 9px; background: #9bceb511; font: 600 12px/1.5 var(--font-ui-ja); }
+#guide .sensor-developer-links a { border-radius: 8px; }
+@media (max-width: 960px) {
+  #guide .sensor-guide-hero { grid-template-columns: minmax(0,1fr); gap: 25px; }
+  #guide .sensor-guide-jump { grid-template-columns: repeat(4,minmax(0,1fr)); }
+  #guide .sensor-guide-jump a { min-height: 110px; }
+}
+@media (max-width: 760px) {
+  #guide :is(h2,#sensor-connect-path) { scroll-margin-top: 182px; }
+}
+@media (max-width: 620px) {
+  #guide { padding: 24px 18px; border-radius: 18px; }
+  #guide .sensor-guide-hero { padding: 0 0 28px; }
+  #guide .sensor-guide-hero h1 { font-size: clamp(26px,7vw,34px); }
+  #guide .sensor-kicker { display: grid; gap: 4px; margin-bottom: 15px; }
+  #guide .sensor-guide-lead { font-size: 12px; }
+  #guide .sensor-guide-badges { gap: 8px 12px; margin-top: 18px; }
+  #guide .sensor-guide-jump { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px; }
+  #guide .sensor-guide-jump a { min-height: 112px; padding: 14px 12px; }
+  #guide .sensor-guide-jump strong { font-size: 12px; }
+  #guide .sensor-guide-heading h2 { font-size: 21px; }
+  #guide .sensor-kit-list { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px; }
+  #guide .sensor-kit-list li { padding: 16px 12px; }
+  #guide .sensor-kit-list b { font-size: 11px; overflow-wrap: anywhere; }
+  #guide .sensor-kit-list span { font-size: 10px; }
+  #guide .sensor-guide-compatibility summary span { display: block; margin: 5px 0 0; }
+  #guide .sensor-measurement-toolbar { flex-direction: column; align-items: stretch; gap: 10px; }
+  #guide .sensor-measurement-summary { text-align: right; }
+  #guide .sensor-measurement-group > summary { padding-left: 14px; padding-right: 38px; }
+  #guide .sensor-measurement-group > summary strong { font-size: 13px; }
+  #guide .sensor-measurement-group > summary b { font-size: 10px; }
+  #guide .sensor-measurement-group > summary::after { right: 15px; }
+  #guide .sensor-measurement-list { grid-template-columns: minmax(0,1fr); padding: 8px; gap: 8px; }
+  #guide .sensor-guide-path > li { gap: 12px; grid-template-columns: 30px minmax(0,1fr); }
+  #guide .sensor-guide-path > li > span { width: 30px; height: 30px; }
+  #guide .sensor-guide-path > li:not(:last-child)::before { left: 14px; }
+  #guide .sensor-guide-path strong { font-size: 14px; }
+  #guide :is(.sensor-guide-request,.sensor-firmware-source) { padding: 13px; }
+  #guide .sensor-guide-finish { grid-template-columns: minmax(0,1fr); padding: 20px; gap: 9px; }
+  #guide .sensor-guide-finish a { grid-column: 1; grid-row: auto; margin-top: 5px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #guide *, #guide *::before, #guide *::after { transition: none !important; animation: none !important; }
+}

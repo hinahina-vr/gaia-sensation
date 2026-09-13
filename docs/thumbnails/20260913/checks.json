@@ -1,0 +1,127 @@
+{
+  "browser": "152.0.7977.83",
+  "scope": "Local Chrome, not live GitHub rendering or contest upload",
+  "assets": [
+    {
+      "file": "readme-cover",
+      "selectedVersion": "readme-cover-v1",
+      "hashes": "PASS"
+    },
+    {
+      "file": "contest-wide",
+      "selectedVersion": "contest-wide-v2",
+      "hashes": "PASS"
+    },
+    {
+      "file": "contest-square",
+      "selectedVersion": "contest-square-v2",
+      "hashes": "PASS"
+    },
+    {
+      "file": "readme-map",
+      "selectedVersion": "readme-map-v1",
+      "hashes": "PASS"
+    },
+    {
+      "file": "readme-story",
+      "selectedVersion": "readme-story-v1",
+      "hashes": "PASS"
+    },
+    {
+      "file": "readme-analysis",
+      "selectedVersion": "readme-analysis-v2",
+      "hashes": "PASS"
+    },
+    {
+      "file": "readme-sensor",
+      "selectedVersion": "readme-sensor-v1",
+      "hashes": "PASS"
+    },
+    {
+      "file": "readme-character",
+      "selectedVersion": "readme-character-v1",
+      "hashes": "PASS"
+    },
+    {
+      "file": "readme-sound",
+      "selectedVersion": "readme-sound-v1",
+      "hashes": "PASS"
+    }
+  ],
+  "views": [
+    {
+      "kind": "gallery",
+      "width": 320,
+      "images": 9,
+      "overflow": false,
+      "passed": true
+    },
+    {
+      "kind": "readme",
+      "width": 320,
+      "images": 7,
+      "overflow": false,
+      "passed": true
+    },
+    {
+      "kind": "gallery",
+      "width": 390,
+      "images": 9,
+      "overflow": false,
+      "passed": true
+    },
+    {
+      "kind": "readme",
+      "width": 390,
+      "images": 7,
+      "overflow": false,
+      "passed": true
+    },
+    {
+      "kind": "gallery",
+      "width": 768,
+      "images": 9,
+      "overflow": false,
+      "passed": true
+    },
+    {
+      "kind": "readme",
+      "width": 768,
+      "images": 7,
+      "overflow": false,
+      "passed": true
+    },
+    {
+      "kind": "gallery",
+      "width": 1440,
+      "images": 9,
+      "overflow": false,
+      "passed": true
+    },
+    {
+      "kind": "readme",
+      "width": 1440,
+      "images": 7,
+      "overflow": false,
+      "passed": true
+    }
+  ],
+  "downloads": [
+    {
+      "file": "originals/contest-wide.png",
+      "savedBytesMatch": true
+    },
+    {
+      "file": "contest-wide.jpg",
+      "savedBytesMatch": true
+    },
+    {
+      "file": "originals/contest-square.png",
+      "savedBytesMatch": true
+    },
+    {
+      "file": "contest-square.jpg",
+      "savedBytesMatch": true
+    }
+  ]
+}

@@ -1,0 +1,322 @@
+{
+  "retrievedOn": "2026-09-09",
+  "sources": [
+    {
+      "file": "office_2022.zip",
+      "url": "https://www.nite.go.jp/chem/prtr/mapdata/data/2022/data_3/office/office_2022.zip",
+      "bytes": 7570594,
+      "sha256": "8055c983c65a779e36d398437c7f7c7cca495dc1eac46227bfe0e64331e9fc0c"
+    },
+    {
+      "file": "R04PRTRdata.zip",
+      "url": "https://www.env.go.jp/chemi/prtr/kaiji/data/R04PRTRdata.zip",
+      "bytes": 3638741,
+      "sha256": "436d2b69d4b75fa7f6c269907f03cf80614ea6b31e443191d63f550bc8d30cc1"
+    },
+    {
+      "file": "RT81_B01.zip",
+      "url": "https://www.nilim.go.jp/lab/fbg/ksnkankyo/download/slist/RT81_B01.zip",
+      "bytes": 5937640,
+      "sha256": "5f1f540b19d13286cc4c89ab4a1cf9641d2f9f4db0a610a52d76b9a1f30711af"
+    },
+    {
+      "file": "RG81_B01.zip",
+      "url": "https://www.nilim.go.jp/lab/fbg/ksnkankyo/download/shape/RG81_B01.zip",
+      "bytes": 6501006,
+      "sha256": "6d6e13f9f2943a6277907ed3e56dbc3cebfac82f33c355e8f8494da1c584657b"
+    },
+    {
+      "file": "RT82_B01.zip",
+      "url": "https://www.nilim.go.jp/lab/fbg/ksnkankyo/download/slist/RT82_B01.zip",
+      "bytes": 10402735,
+      "sha256": "a475a1a66424d4d02ac894b0a7ae9bf64999bd92a4b6111821b673c8a3807b04"
+    },
+    {
+      "file": "RG82_B01.zip",
+      "url": "https://www.nilim.go.jp/lab/fbg/ksnkankyo/download/shape/RG82_B01.zip",
+      "bytes": 6345908,
+      "sha256": "9a10c30f2be33b18d1ce2efe0afd7c7475dfd3a1d0df5eca6765d9b5eb7556bd"
+    },
+    {
+      "file": "RT83_B01.zip",
+      "url": "https://www.nilim.go.jp/lab/fbg/ksnkankyo/download/slist/RT83_B01.zip",
+      "bytes": 11147888,
+      "sha256": "c9bd9076b11e3b38d83d0af23d3cc9841855ccbbab209fdc2c658d75f836fadd"
+    },
+    {
+      "file": "RG83_B01.zip",
+      "url": "https://www.nilim.go.jp/lab/fbg/ksnkankyo/download/shape/RG83_B01.zip",
+      "bytes": 9469946,
+      "sha256": "80c1e0a80d9e623157441d628a3dbd0590dde89d1760eb921754943a97ef0112"
+    },
+    {
+      "file": "RT84_B01.zip",
+      "url": "https://www.nilim.go.jp/lab/fbg/ksnkankyo/download/slist/RT84_B01.zip",
+      "bytes": 8088780,
+      "sha256": "9538c31c0c59736570f79c8a35d0215fb1fade547876e483b835913f41e315a3"
+    },
+    {
+      "file": "RG84_B01.zip",
+      "url": "https://www.nilim.go.jp/lab/fbg/ksnkankyo/download/shape/RG84_B01.zip",
+      "bytes": 16679719,
+      "sha256": "09fbb951780c1461a7084a0c283b436a5d422ed81f68f38f41fdf433e79f767c"
+    },
+    {
+      "file": "RT85_B01.zip",
+      "url": "https://www.nilim.go.jp/lab/fbg/ksnkankyo/download/slist/RT85_B01.zip",
+      "bytes": 13819399,
+      "sha256": "52684fb20e4e48ecccefbe8981f1cb7e4f1b40d6e463e35e8992e9ba170bbd88"
+    },
+    {
+      "file": "RG85_B01.zip",
+      "url": "https://www.nilim.go.jp/lab/fbg/ksnkankyo/download/shape/RG85_B01.zip",
+      "bytes": 6252125,
+      "sha256": "a69721fd276dd476e432ec059cfa050599787c0e4eedb65650602119c8db9662"
+    },
+    {
+      "file": "RT86_B01.zip",
+      "url": "https://www.nilim.go.jp/lab/fbg/ksnkankyo/download/slist/RT86_B01.zip",
+      "bytes": 15429821,
+      "sha256": "7ea7fde1fd1e64a3a3d74746de3d09433f511e05d1f906abd311ca6af2a5a54c"
+    },
+    {
+      "file": "RG86_B01.zip",
+      "url": "https://www.nilim.go.jp/lab/fbg/ksnkankyo/download/shape/RG86_B01.zip",
+      "bytes": 3852484,
+      "sha256": "218b6245350281f5fe98cea1dde4c7a3f8d14725fcf30ac65943b4101963c073"
+    },
+    {
+      "file": "RT87_B01.zip",
+      "url": "https://www.nilim.go.jp/lab/fbg/ksnkankyo/download/slist/RT87_B01.zip",
+      "bytes": 8879365,
+      "sha256": "1fd6a7201f3100164bc9921002b2723c04a9b6d1f55e0e773b957f6d97205f4e"
+    },
+    {
+      "file": "RG87_B01.zip",
+      "url": "https://www.nilim.go.jp/lab/fbg/ksnkankyo/download/shape/RG87_B01.zip",
+      "bytes": 3804289,
+      "sha256": "47079824e20b909ba211983637ca8fb0e70a8c16f57e2f810a4519e7e26cd92e"
+    },
+    {
+      "file": "RT88_B01.zip",
+      "url": "https://www.nilim.go.jp/lab/fbg/ksnkankyo/download/slist/RT88_B01.zip",
+      "bytes": 4989698,
+      "sha256": "36e8bce43a62337d0f0666c6b7da7350209b522a0ac09f6c0a4be2443389c803"
+    },
+    {
+      "file": "RG88_B01.zip",
+      "url": "https://www.nilim.go.jp/lab/fbg/ksnkankyo/download/shape/RG88_B01.zip",
+      "bytes": 1973486,
+      "sha256": "0dfe4c54e5438a192d7dd2d7c70c1e985e19993c721cb8caa918ee27933417e1"
+    },
+    {
+      "file": "RT89_B01.zip",
+      "url": "https://www.nilim.go.jp/lab/fbg/ksnkankyo/download/slist/RT89_B01.zip",
+      "bytes": 15300571,
+      "sha256": "0b22c8da70798c60a40b0073a5f73c151cbe4c2ae14b1ea2ef3a5ece4017d478"
+    },
+    {
+      "file": "RG89_B01.zip",
+      "url": "https://www.nilim.go.jp/lab/fbg/ksnkankyo/download/shape/RG89_B01.zip",
+      "bytes": 4987122,
+      "sha256": "57d7117cc43ce55db11e0de8f4afe084417a70342762608ef93d47fcc14a6afe"
+    },
+    {
+      "file": "RT81_B02.zip",
+      "url": "https://www.nilim.go.jp/lab/fbg/ksnkankyo/download/slist/RT81_B02.zip",
+      "bytes": 25810132,
+      "sha256": "cdba9c293ad649d957e1c36de4b83e8a0fcb43abf080f5f4c6fdcbed09989221"
+    },
+    {
+      "file": "RG81_B02.zip",
+      "url": "https://www.nilim.go.jp/lab/fbg/ksnkankyo/download/shape/RG81_B02.zip",
+      "bytes": 4739059,
+      "sha256": "2a105086c650ba1a9ae774e98c70bb294dd8092bcbb0a285ca623a43295ca7c0"
+    },
+    {
+      "file": "RT82_B02.zip",
+      "url": "https://www.nilim.go.jp/lab/fbg/ksnkankyo/download/slist/RT82_B02.zip",
+      "bytes": 35747056,
+      "sha256": "6296459c712373f171d26b98948c3cdfa59d221410c199327be97b287763be3a"
+    },
+    {
+      "file": "RG82_B02.zip",
+      "url": "https://www.nilim.go.jp/lab/fbg/ksnkankyo/download/shape/RG82_B02.zip",
+      "bytes": 5181137,
+      "sha256": "63b29245f027b91195710849156abda87a83300b23ce2983d13c83cf1f55254e"
+    },
+    {
+      "file": "RT83_B02.zip",
+      "url": "https://www.nilim.go.jp/lab/fbg/ksnkankyo/download/slist/RT83_B02.zip",
+      "bytes": 41309571,
+      "sha256": "114779588ab37b38519b70e174353eb21a8b4e4107b7ce4d557844a5aca62bfe"
+    },
+    {
+      "file": "RG83_B02.zip",
+      "url": "https://www.nilim.go.jp/lab/fbg/ksnkankyo/download/shape/RG83_B02.zip",
+      "bytes": 3911779,
+      "sha256": "03f07aaf333dfcb92eb394867304a3fedfaa889737fe147e5b09a2058bd28a35"
+    },
+    {
+      "file": "RT84_B02.zip",
+      "url": "https://www.nilim.go.jp/lab/fbg/ksnkankyo/download/slist/RT84_B02.zip",
+      "bytes": 27110651,
+      "sha256": "ff1ec0c0ee3d69fe2c5c7ede6cd7f05b847276696d78e3f4b7e4879ab407362f"
+    },
+    {
+      "file": "RG84_B02.zip",
+      "url": "https://www.nilim.go.jp/lab/fbg/ksnkankyo/download/shape/RG84_B02.zip",
+      "bytes": 13707191,
+      "sha256": "c3431828caa4f9fc3972a02362ebafe96ce3e6d074935a1f2f52014b1f957aed"
+    },
+    {
+      "file": "RT85_B02.zip",
+      "url": "https://www.nilim.go.jp/lab/fbg/ksnkankyo/download/slist/RT85_B02.zip",
+      "bytes": 44977429,
+      "sha256": "c6d2f5616048c8651de2901a8bf7ecd3671dbe7d1ad012e4386c4875c03a00d1"
+    },
+    {
+      "file": "RG85_B02.zip",
+      "url": "https://www.nilim.go.jp/lab/fbg/ksnkankyo/download/shape/RG85_B02.zip",
+      "bytes": 5330057,
+      "sha256": "897cef07d025f9225e53bbf01cf52f68192b8c4ac5ee757ba5b7dfa03976eeb0"
+    },
+    {
+      "file": "RT86_B02.zip",
+      "url": "https://www.nilim.go.jp/lab/fbg/ksnkankyo/download/slist/RT86_B02.zip",
+      "bytes": 34155106,
+      "sha256": "732f34c61d69e1b8c71c7bc71afe4983cd56d6901ba53fbddb1088ff7715fc98"
+    },
+    {
+      "file": "RG86_B02.zip",
+      "url": "https://www.nilim.go.jp/lab/fbg/ksnkankyo/download/shape/RG86_B02.zip",
+      "bytes": 3539111,
+      "sha256": "5cbd3c140650969d7c0ae3cae54e14db1787fbfe0086501e7c294a28b09d5d98"
+    },
+    {
+      "file": "RT87_B02.zip",
+      "url": "https://www.nilim.go.jp/lab/fbg/ksnkankyo/download/slist/RT87_B02.zip",
+      "bytes": 33811794,
+      "sha256": "ec020a0bcc97be8b804a156471ddd67044c64d07058781648f5bae441492f603"
+    },
+    {
+      "file": "RG87_B02.zip",
+      "url": "https://www.nilim.go.jp/lab/fbg/ksnkankyo/download/shape/RG87_B02.zip",
+      "bytes": 3550805,
+      "sha256": "a9975aeab5e956ebf2547923b02c067be862cb942263b2451d100d46505377a9"
+    },
+    {
+      "file": "RT88_B02.zip",
+      "url": "https://www.nilim.go.jp/lab/fbg/ksnkankyo/download/slist/RT88_B02.zip",
+      "bytes": 12861818,
+      "sha256": "66d6767610f37b074cf98bcf028a74ac6219ee04ee016546d6de5f193f12226f"
+    },
+    {
+      "file": "RG88_B02.zip",
+      "url": "https://www.nilim.go.jp/lab/fbg/ksnkankyo/download/shape/RG88_B02.zip",
+      "bytes": 2104159,
+      "sha256": "99595a8e6d4f73964bc35b00c7864f13a1f0f0bccbdc70805da147ffd0bb0470"
+    },
+    {
+      "file": "RT89_B02.zip",
+      "url": "https://www.nilim.go.jp/lab/fbg/ksnkankyo/download/slist/RT89_B02.zip",
+      "bytes": 45921924,
+      "sha256": "44636a64964ecfab5a41cf3dff6647634f660a3be6132928626603886df209e1"
+    },
+    {
+      "file": "RG89_B02.zip",
+      "url": "https://www.nilim.go.jp/lab/fbg/ksnkankyo/download/shape/RG89_B02.zip",
+      "bytes": 7756040,
+      "sha256": "0f6ad594c747125c54b62fcffd5d5e89db3695773ee1cbff8c11bd3760d46cf0"
+    }
+  ],
+  "checks": {
+    "prtr": {
+      "matchedFacilities": 32191,
+      "noMatchingCoordinate": 191,
+      "mgTEQSubstanceRows": 3376
+    },
+    "gis-81-01": {
+      "districts": 515,
+      "ambiguousDistrictsExcluded": 26
+    },
+    "gis-82-01": {
+      "districts": 635,
+      "ambiguousDistrictsExcluded": 35
+    },
+    "gis-83-01": {
+      "districts": 749,
+      "ambiguousDistrictsExcluded": 18
+    },
+    "gis-84-01": {
+      "districts": 496,
+      "ambiguousDistrictsExcluded": 0
+    },
+    "gis-85-01": {
+      "districts": 706,
+      "ambiguousDistrictsExcluded": 6
+    },
+    "gis-86-01": {
+      "districts": 492,
+      "ambiguousDistrictsExcluded": 11
+    },
+    "gis-87-01": {
+      "districts": 552,
+      "ambiguousDistrictsExcluded": 20
+    },
+    "gis-88-01": {
+      "districts": 192,
+      "ambiguousDistrictsExcluded": 6
+    },
+    "gis-89-01": {
+      "districts": 848,
+      "ambiguousDistrictsExcluded": 14
+    },
+    "fish": {
+      "sourceRowsInPeriod": 447144,
+      "rowsWithoutDistrictGIS": 129964,
+      "rowsWithoutTaxon": 35
+    },
+    "gis-81-02": {
+      "districts": 506,
+      "ambiguousDistrictsExcluded": 18
+    },
+    "gis-82-02": {
+      "districts": 559,
+      "ambiguousDistrictsExcluded": 11
+    },
+    "gis-83-02": {
+      "districts": 750,
+      "ambiguousDistrictsExcluded": 7
+    },
+    "gis-84-02": {
+      "districts": 399,
+      "ambiguousDistrictsExcluded": 10
+    },
+    "gis-85-02": {
+      "districts": 666,
+      "ambiguousDistrictsExcluded": 4
+    },
+    "gis-86-02": {
+      "districts": 475,
+      "ambiguousDistrictsExcluded": 9
+    },
+    "gis-87-02": {
+      "districts": 499,
+      "ambiguousDistrictsExcluded": 13
+    },
+    "gis-88-02": {
+      "districts": 186,
+      "ambiguousDistrictsExcluded": 2
+    },
+    "gis-89-02": {
+      "districts": 739,
+      "ambiguousDistrictsExcluded": 19
+    },
+    "benthos": {
+      "sourceRowsInPeriod": 1693623,
+      "rowsWithoutDistrictGIS": 495658,
+      "rowsWithoutTaxon": 210
+    }
+  }
+}

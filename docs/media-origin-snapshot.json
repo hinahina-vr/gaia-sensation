@@ -1,0 +1,1707 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "20f0e5d3f84e56b1c97303c283fc80abd495b3f1",
+  "sourceLedgerSha256": "07f188faf6fbe1ccd9d837d38113b398dda84e293df2f9eb0bee29f00cac033d",
+  "assets": [
+    {
+      "path": "assets/architecture/gaia-field-sensor-whiteboard-20260912.png",
+      "sha256": "1505b98161b090534c8a7c9ff6a7e495b55ec872ad679c6b3aeccbe74a171443",
+      "firstRepositoryEvidenceAt": "2026-09-12T14:32:58+09:00"
+    },
+    {
+      "path": "assets/architecture/gaia-system-architecture.png",
+      "sha256": "3968956b9c79c4de2ef5ac98911f14e6c9cf31373da5625188fc4037d799e13b",
+      "firstRepositoryEvidenceAt": "2026-08-02T13:20:57+09:00"
+    },
+    {
+      "path": "assets/architecture/observatory-architecture-v2.png",
+      "sha256": "2d9a83372b16ee05652323e8bcad3a071923c0b78f9b9b9d202dd816493fecb1",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/audio/after-school-afterglow.mp3",
+      "sha256": "ed7158bd02243fb34b51965e11787553d04854200181be5c4181bd481b0540d6",
+      "firstRepositoryEvidenceAt": "2026-08-20T04:48:01+09:00"
+    },
+    {
+      "path": "assets/audio/folded-wind-message.mp3",
+      "sha256": "a659bf6fe0aaaedbc06bbc1ef240797f573e269aefb38cfbfcabc4da170a69f4",
+      "firstRepositoryEvidenceAt": "2026-08-09T00:27:29+09:00"
+    },
+    {
+      "path": "assets/audio/gaia-map-ambient-harp-felt-piano.wav",
+      "sha256": "e1f24a9227002ce659050f1cd6bbc1a4222f791dcf0474e926cb380aa55f08d2",
+      "firstRepositoryEvidenceAt": "2026-08-29T23:35:05+09:00"
+    },
+    {
+      "path": "assets/audio/moonlit-observation-notebook.mp3",
+      "sha256": "3f3a1b9dde229ff9f38e62e4e7ed78c5e652cc76597d4eb1ea8897a9d8765491",
+      "firstRepositoryEvidenceAt": "2026-08-09T00:27:29+09:00"
+    },
+    {
+      "path": "assets/audio/moonlit-reopen.mp3",
+      "sha256": "3c5f7411866d192420d2ce3f53a29e313cf3783972a3d7425c4ef17760f57cd7",
+      "firstRepositoryEvidenceAt": "2026-08-09T00:27:29+09:00"
+    },
+    {
+      "path": "assets/audio/moonlit-source-save.mp3",
+      "sha256": "2fbef9f979ce895a6bfe9a2d834a9d88cc2c4b3f2125f7b01042b51b5b8b648f",
+      "firstRepositoryEvidenceAt": "2026-08-09T00:27:29+09:00"
+    },
+    {
+      "path": "assets/audio/planet-forecast-first-light.mp3",
+      "sha256": "840bf7adf4c0398f1deb5f00e8aa51e176544669ab013a2bf693d4430cac93d2",
+      "firstRepositoryEvidenceAt": "2026-08-08T01:27:14+09:00"
+    },
+    {
+      "path": "assets/audio/planet-forecast-windowlight.mp3",
+      "sha256": "55ecc73460dbf0da60b827b67995a21b0e681d68e9058cee32667181284e5816",
+      "firstRepositoryEvidenceAt": "2026-08-08T01:27:14+09:00"
+    },
+    {
+      "path": "assets/audio/satellite-forecast-calm.mp3",
+      "sha256": "3a42b447340e531e770c44410d9fc76a517b4aa035396c4b5e4cd8c7e2217c20",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/audio/satellite-forecast-hope.mp3",
+      "sha256": "71829dfa66ef7f6b0a4239d09a826999c9caf398e02cdd3ead925f6373eb2450",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/audio/sensory-horizon.wav",
+      "sha256": "08552919def0468a3d2c10c5799919fced03724ce437a605b598877d1efc8de4",
+      "firstRepositoryEvidenceAt": "2026-08-21T01:15:18+09:00"
+    },
+    {
+      "path": "assets/audio/snowfire-afterimage.mp3",
+      "sha256": "1afefc4ce8b63c7c5faecb166416616edce0f7956bb1b0cc07c3d0ebd74ba01d",
+      "firstRepositoryEvidenceAt": "2026-08-09T00:27:29+09:00"
+    },
+    {
+      "path": "assets/audio/snowfire-signal.mp3",
+      "sha256": "8ce254e45d74da66201b464b2d3bf6d4b013628849fc9aaa3099c64b63b56ad1",
+      "firstRepositoryEvidenceAt": "2026-08-09T00:27:29+09:00"
+    },
+    {
+      "path": "assets/brand/brand-logo-dark-surface-1180.webp",
+      "sha256": "56011ffb57f99ad9f1a6652b2bb1cbfe4387101ea8bae8b6b4407ea9408ef3c2",
+      "firstRepositoryEvidenceAt": "2026-08-25T23:03:24+09:00"
+    },
+    {
+      "path": "assets/brand/brand-logo-dark-surface-590.webp",
+      "sha256": "ec033f03d62e18a5fdeac8ebde7851737524dad66806282659b2d7ed091442cb",
+      "firstRepositoryEvidenceAt": "2026-08-25T23:03:24+09:00"
+    },
+    {
+      "path": "assets/brand/brand-logo-dark-surface.png",
+      "sha256": "56fb76b55b936ee91d5afc86ac6dfd2ebe2f8bf9bdd2ef45461d62b96d0523c7",
+      "firstRepositoryEvidenceAt": "2026-08-24T22:08:25+09:00"
+    },
+    {
+      "path": "assets/brand/brand-logo-light-surface.png",
+      "sha256": "71f19dfeb99ece156ce0bdd77df4ee808c48ede049b683d489066eec9d9622fc",
+      "firstRepositoryEvidenceAt": "2026-08-24T22:08:25+09:00"
+    },
+    {
+      "path": "assets/characters/amane-calm-07-key-v2.png",
+      "sha256": "22fc9984971ca9535d9f12b4db00f062676b282d0db4148dfe047d039f685722",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/characters/amane-calm-07-v2.png",
+      "sha256": "5aef948252ff3355341ee8184727275b8560e112c7785f44cc85287803859059",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/characters/amane-calm-07-v3.png",
+      "sha256": "9446b50bdc40129ea6e66366dfe5113f38d09169f8aa3c81e10895c1202eb074",
+      "firstRepositoryEvidenceAt": "2026-08-20T08:40:07+09:00"
+    },
+    {
+      "path": "assets/characters/amane-exasperated-07-key-v2.png",
+      "sha256": "c9af82ef37464c57309429417ffe657afe59d9a6d42f601cd4bc4f9f4ec5fd08",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/characters/amane-exasperated-07-v2.png",
+      "sha256": "6ed43b3405baa0253817552c178540e07b1bfb4f1b2a8e69fa05846bfdc1f0e1",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/characters/amane-exasperated-07-v3.png",
+      "sha256": "2954830f515b4b1b3953770993dcb316c71fe7d0f7038637c18728c366ec408a",
+      "firstRepositoryEvidenceAt": "2026-08-20T08:40:07+09:00"
+    },
+    {
+      "path": "assets/characters/amane-soft-07-key-v2.png",
+      "sha256": "606e78b9d00914e921b77ccf44149fe945898523d5c587f5ea1a547ac6f0ff92",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/characters/amane-soft-07-v2.png",
+      "sha256": "782fc43d8f304f89fef81db529f6a6cc1e7b18bb88e39074079dfea29bff0576",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/characters/amane-soft-07-v3.png",
+      "sha256": "52cb37ac00b874c2147beff4d77e03f912b3841ddc90b3fa823b34c743bdeef3",
+      "firstRepositoryEvidenceAt": "2026-08-20T08:40:07+09:00"
+    },
+    {
+      "path": "assets/characters/amane-startled-07-key-v2.png",
+      "sha256": "876a568c0634baa80bc949fe9a23fd92ef68ad13cf9dd8fdb197a90739bd72fa",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/characters/amane-startled-07-v2.png",
+      "sha256": "5cc7ab5eb89d19c27b54f1a644ba7592d246cd7a38cc5c1b4599a187af4c3098",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/characters/amane-startled-07-v3.png",
+      "sha256": "d19ea0b9943d994348ec9fe19314b4dee3e19e251b5eda5c9e54a8fb2ef536eb",
+      "firstRepositoryEvidenceAt": "2026-08-20T08:40:07+09:00"
+    },
+    {
+      "path": "assets/characters/aoneko-silhouette-imagegen-v3.png",
+      "sha256": "e42cc3e8cbbecf557accbf794043b11910571ccc2ce4b65b5004882c560f3fc4",
+      "firstRepositoryEvidenceAt": "2026-09-07T17:18:57+09:00"
+    },
+    {
+      "path": "assets/characters/aoneko-silhouette-imagegen-v4.png",
+      "sha256": "2c95edb345045d4b12c41b9b2d239364f51ec4abda5d092bb09cca62ff44ce50",
+      "firstRepositoryEvidenceAt": "2026-09-08T03:08:24+09:00"
+    },
+    {
+      "path": "assets/characters/minamo-expression-sheet-07-alpha.png",
+      "sha256": "b78ab74f0d8755a89d2cfa07bf838aa68fe205ee186e5d7a09fe951c133d2813",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/characters/minamo-expression-sheet-alpha-v1.png",
+      "sha256": "2181a08f388a6a031da28ba267f78dfea4d101a07868da87c4e0b4c111c9988c",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/characters/minamo-expression-sheet-alpha-v2.png",
+      "sha256": "8c5fccfb0b354802c33f759093e40180db23e42da960d3a94a940ab74816182b",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/characters/minamo-expression-sheet-alpha-v3.png",
+      "sha256": "3b4409462a0526d0b6fefec9c761220e68e1753b463a1d32055df54c44d0d772",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/characters/minamo-expression-sheet-alpha-v4.png",
+      "sha256": "3d807418af06087a4e7c179438116ed75ba57fd731f7cd3fda9f43e8cddb4bd9",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/characters/minamo-expression-sheet-alpha-v5.png",
+      "sha256": "81c447342d5c73d42587ce140b077b21655876b7d627c89dab970a391527a0a2",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/characters/minamo-expression-sheet-key-v4.png",
+      "sha256": "7461594cb9954fb0b31ad668f4fb1d776b05853a766e029d8f04a548ced4cc00",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/characters/minamo-expression-sheet-v1.png",
+      "sha256": "26ea75f582554199340ab1e3b9dcc6802eb09ae91db301cd519f089cc66cab8f",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/characters/minamo-expression-sheet-v5-raw.png",
+      "sha256": "e1771574b4cdb17d303a1b22d4c234aba0eb838f7f978936f6c95ee5e2f039e6",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/characters/minamo-sora-design-handdrawn-v5.png",
+      "sha256": "20e82b9bfab0e46f3d604330eff1f30049eff5d7ee28e9aa4f1a37630225a6ce",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/characters/mizuha-calm-07-key-v2.png",
+      "sha256": "86436dd9b72453ee3678f91bc43da5fe4cd54e861a9c66ff2a450dd13b447197",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/characters/mizuha-calm-07-v2.png",
+      "sha256": "2a7faad55695516e9c237d2f94fb3c8e007e7d5f14552bad8625f37f6cb4f957",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/characters/mizuha-sad-07-key-v2.png",
+      "sha256": "89ff0a35f127da155ff0c4b446c88d22e65e71ce3bff803f1a2dc7cd16173467",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/characters/mizuha-sad-07-v2.png",
+      "sha256": "e49c341ad51acb310aac33922449dd7d6e57a4f1fc42fde27703231babb00456",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/characters/mizuha-teasing-07-key-v2.png",
+      "sha256": "be6f7ee5bdcab235d2b333cea76b2b203d5f3faf7e9f607c95347a41ae4439fb",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/characters/mizuha-teasing-07-v2.png",
+      "sha256": "3ee927136f7d5160163500aa5192ae963de4cde1e0c0e62f63e1cc5a28e4e2f8",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/characters/mizuha-worried-07-key-v2.png",
+      "sha256": "dcf733369e6a37191ac498479daf973591288e6f83228676132c2d2a4767d0f8",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/characters/mizuha-worried-07-v2.png",
+      "sha256": "21d241a539c032f3b3b62d50a61e8180a52e42278cb80b041bb47bc82eb51da1",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/characters/sakuya-calm-07-v1.png",
+      "sha256": "56a7cd4a8d53f5db6e67e85aadd939609d3ee0de3cf55350dee5ba183641f887",
+      "firstRepositoryEvidenceAt": "2026-08-10T03:54:18+09:00"
+    },
+    {
+      "path": "assets/characters/sakuya-calm-bust-07-v2.png",
+      "sha256": "3927299b048b4d9cf09a847dbdaa98c04b2aec1c86f39cb5176557310ba2ef5a",
+      "firstRepositoryEvidenceAt": "2026-08-09T22:02:28+09:00"
+    },
+    {
+      "path": "assets/characters/sakuya-sad-07-v1.png",
+      "sha256": "b882c04e0b52159b29703951c8fc9dacbdf0d2a46a30a15d538c73cbfd56d3b1",
+      "firstRepositoryEvidenceAt": "2026-08-10T03:54:18+09:00"
+    },
+    {
+      "path": "assets/characters/sakuya-sad-bust-07-v2.png",
+      "sha256": "58ce415d151a2c0c2a73b3b7ebe892e795cddff1b30f2e059f79d8df56263878",
+      "firstRepositoryEvidenceAt": "2026-08-09T22:02:28+09:00"
+    },
+    {
+      "path": "assets/characters/sakuya-teasing-07-v1.png",
+      "sha256": "7bce3cb73e031dfb987cfbfb164e3227cea8c0846d2b8e5493f39b326798fe2b",
+      "firstRepositoryEvidenceAt": "2026-08-10T03:54:18+09:00"
+    },
+    {
+      "path": "assets/characters/sakuya-teasing-bust-07-v2.png",
+      "sha256": "c91a6c2c73ed2ac4a678c35aa37b10587ae47544029e403e870c46f5546f8b22",
+      "firstRepositoryEvidenceAt": "2026-08-09T22:02:28+09:00"
+    },
+    {
+      "path": "assets/characters/sakuya-worried-07-v1.png",
+      "sha256": "434ef2f1455ea4968e8c1885ff784997ea023b54549f4aabb8c568f9b3ea2eaf",
+      "firstRepositoryEvidenceAt": "2026-08-10T03:54:18+09:00"
+    },
+    {
+      "path": "assets/characters/sakuya-worried-bust-07-v2.png",
+      "sha256": "7d86d27de66dce6764209a1f60705f311bfd80c2f3cd56fa8a545e8a8e798d1b",
+      "firstRepositoryEvidenceAt": "2026-08-09T22:02:28+09:00"
+    },
+    {
+      "path": "assets/characters/sora-expression-sheet-07-alpha.png",
+      "sha256": "263f9cf63b108696b14db24d43b2afa71fa73c6d01752d15ee609675df7f0ca6",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/characters/sora-expression-sheet-alpha-v1.png",
+      "sha256": "8bd74f903fe53e108b4a69ffdc23d01e02bc94f0010bc6b86142b36a0b3e984a",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/characters/sora-expression-sheet-alpha-v2.png",
+      "sha256": "f3b06ec8df423fbd83bcab83b3490dd006b425b85a8e3d442ce85f94e4ef1884",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/characters/sora-expression-sheet-alpha-v3.png",
+      "sha256": "3817c2b1a55c2ba60013ca8911aef2d35e0d31541643a107c2cfe6ab45499f79",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/characters/sora-expression-sheet-alpha-v4.png",
+      "sha256": "4f48117c15cba16647f13f22499509764ceb6c00413b7dd02c716e3d42f2ad47",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/characters/sora-expression-sheet-alpha-v5.png",
+      "sha256": "461ae71f0cfd19617c5e337f9967c2fa3c2b16cf9916a3627e794b9802c02338",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/characters/sora-expression-sheet-key-v4.png",
+      "sha256": "2f6fc2875813de11dd7142acbc8bddae9389cbb1ccb095f83c1a6b48048ae553",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/characters/sora-expression-sheet-v1.png",
+      "sha256": "356d0c29205b34cecca285dd00ed8e711d923414e6749ac70aa09863b76692d8",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/characters/sora-expression-sheet-v5-raw.png",
+      "sha256": "a59703fd4d071703de2d6baacf25f349a80e5f5184f5277d20f2ebe778c7554f",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/concept/brochure-coast-v1.webp",
+      "sha256": "608b2a2fc625c43c73eeb524a30881a0cc658797eea7fde27009e4bb385b7b09",
+      "firstRepositoryEvidenceAt": "2026-09-07T17:18:57+09:00"
+    },
+    {
+      "path": "assets/concept/brochure-map-co2-v1.webp",
+      "sha256": "6611a99f0cb9297f92662d6738c08be66b74877595cfc117837918a7b634dc6b",
+      "firstRepositoryEvidenceAt": "2026-09-07T17:18:57+09:00"
+    },
+    {
+      "path": "assets/concept/brochure-map-currents-v1.webp",
+      "sha256": "83707dbbedc26780f158ce805e0dee5079901e3dda24ad14b5b4e4b3de90faac",
+      "firstRepositoryEvidenceAt": "2026-09-07T17:18:57+09:00"
+    },
+    {
+      "path": "assets/concept/brochure-map-energy-v1.webp",
+      "sha256": "ddb9c56777a17e929658bf2c767b64c34addeef26b10cc54051531e6123728ab",
+      "firstRepositoryEvidenceAt": "2026-09-07T17:18:57+09:00"
+    },
+    {
+      "path": "assets/concept/brochure-meet-v1.webp",
+      "sha256": "99085ca831ee2f43600c2789cbee62323686fd069cbde70b3a5b13e2a5a75b4a",
+      "firstRepositoryEvidenceAt": "2026-09-07T17:18:57+09:00"
+    },
+    {
+      "path": "assets/concept/brochure-ornament-archive-v1.webp",
+      "sha256": "66a09c0227241ed281fb9139c6ed0b291fe4d2c9d9ba130f2b8f871c43c72d1b",
+      "firstRepositoryEvidenceAt": "2026-09-07T17:18:57+09:00"
+    },
+    {
+      "path": "assets/concept/brochure-ornament-earth-v1.webp",
+      "sha256": "75fe68e75411dac19f13a5fa7c9080d03de5616d59b52e0b008641488fbdfdff",
+      "firstRepositoryEvidenceAt": "2026-09-07T17:18:57+09:00"
+    },
+    {
+      "path": "assets/concept/brochure-ornament-learning-v1.webp",
+      "sha256": "4abb638a1ab73e054a0aa4f5e62f8fcf655b1779e068deac3842b5543db3d734",
+      "firstRepositoryEvidenceAt": "2026-09-07T17:18:57+09:00"
+    },
+    {
+      "path": "assets/concept/brochure-ornament-ribbon-v1.webp",
+      "sha256": "13fa96b0781719cf6074fa5208e4a2c1c8fe3cdd49539b36f5f26f823a824cd1",
+      "firstRepositoryEvidenceAt": "2026-09-07T17:18:57+09:00"
+    },
+    {
+      "path": "assets/concept/brochure-sound-v1.webp",
+      "sha256": "b62d28b746b9eee879dc6285a5b86ca11292344191d1ffbd6bcd42e91b36e242",
+      "firstRepositoryEvidenceAt": "2026-09-07T17:18:57+09:00"
+    },
+    {
+      "path": "assets/concept/concept-01-earth-as-partner.png",
+      "sha256": "15a2449c4825485d8880cbeabf0942d86a7a6822236b96c51cee6572baf7b180",
+      "firstRepositoryEvidenceAt": "2026-07-31T17:12:54+09:00"
+    },
+    {
+      "path": "assets/concept/concept-02-ten-windows.png",
+      "sha256": "28d5db876ab377bf04772244e08b3f03facf888b7795fcccf8db2ef72eeecf76",
+      "firstRepositoryEvidenceAt": "2026-07-31T17:12:54+09:00"
+    },
+    {
+      "path": "assets/concept/concept-03-touch-becomes-memory.png",
+      "sha256": "052c16501b0d672ad6fac53180b008d96d323237dbafe28854520b4197178293",
+      "firstRepositoryEvidenceAt": "2026-07-31T17:12:54+09:00"
+    },
+    {
+      "path": "assets/concept/concept-04-co-created-future.png",
+      "sha256": "55a72d5165895d95ace15c76153f7d8bcc0d586ce6c16f8c90bcfd6036c20581",
+      "firstRepositoryEvidenceAt": "2026-07-31T17:12:54+09:00"
+    },
+    {
+      "path": "assets/concept/myth-agency-loop-v1.png",
+      "sha256": "22a19e7abf1a3c355ce5096df3bd2632ded1db98c41afa09cd0f1e62bc454213",
+      "firstRepositoryEvidenceAt": "2026-09-09T06:58:18+09:00"
+    },
+    {
+      "path": "assets/concept/myth-agency-loop-v2.png",
+      "sha256": "16f86267b4bdc205b5232662591addd342ff892750bac5554dda164ef31780e0",
+      "firstRepositoryEvidenceAt": "2026-09-09T06:58:18+09:00"
+    },
+    {
+      "path": "assets/concept/myth-machine-circulation-v3.png",
+      "sha256": "8d1ccc1cbf148317f03c285dcc9399c29f4433c1e8ee2e10b31e064d33cc68b5",
+      "firstRepositoryEvidenceAt": "2026-09-09T06:58:18+09:00"
+    },
+    {
+      "path": "assets/concept/myth-machine-circulation-v4.png",
+      "sha256": "7938f6d971198da1c0f3052f8872431c260d27c05a7d3d2eeda123ee9efec27c",
+      "firstRepositoryEvidenceAt": "2026-09-13T22:03:56+09:00"
+    },
+    {
+      "path": "assets/concept/myth-machine-diagram-v2.webp",
+      "sha256": "39b4a0ed4aa6b4ee6edabc484eb3712a5f287cd406d0c6a74081903e0ac7c73b",
+      "firstRepositoryEvidenceAt": "2026-09-07T17:18:57+09:00"
+    },
+    {
+      "path": "assets/concept/myth-machine-hero-v2.webp",
+      "sha256": "636a29f07f61167ce92cd300b3b5358aab9e4b330a65d8212d4b8cbeac12de1b",
+      "firstRepositoryEvidenceAt": "2026-09-07T17:18:57+09:00"
+    },
+    {
+      "path": "assets/concept/myth-possible-worlds-v1.png",
+      "sha256": "ebfd70d4ece881ed09a6c6c9f5b846d8a7eedc078e40182fb64ea5e7a0d4871c",
+      "firstRepositoryEvidenceAt": "2026-09-09T06:58:18+09:00"
+    },
+    {
+      "path": "assets/data/modis-land-cover-2023.png",
+      "sha256": "fdf3eda4fefa1b8c53f6601baf17f6c7da1658b2cc075d4c47a06b710484ea2f",
+      "firstRepositoryEvidenceAt": "2026-08-02T13:20:57+09:00"
+    },
+    {
+      "path": "assets/data/viirs-night-lights-2016.png",
+      "sha256": "66a0b9e8590f89a3392711c78e664c17632ef3e0ad153b8cb529a6d1c29ba27a",
+      "firstRepositoryEvidenceAt": "2026-08-02T13:20:57+09:00"
+    },
+    {
+      "path": "assets/ending-candidates-20260909/01-turning-in-the-sunset.png",
+      "sha256": "1442096aecab41a438da2a2910cf98a8b0c3f064f6a0febc440291de4392b84a",
+      "firstRepositoryEvidenceAt": "2026-09-09T15:12:20+09:00"
+    },
+    {
+      "path": "assets/ending-candidates-20260909/01-turning-in-the-sunset.webp",
+      "sha256": "1ff79669ded20e05d92cd0e2867dd6ef127b101256f37da6854aaf719bd5d4fa",
+      "firstRepositoryEvidenceAt": "2026-09-10T03:57:02+09:00"
+    },
+    {
+      "path": "assets/ending-candidates-20260909/02-the-conversation-continues.png",
+      "sha256": "5e23f028611912dd93d396ca22ae57c76af1013d4f23f873b7b1d89b3041c3e1",
+      "firstRepositoryEvidenceAt": "2026-09-09T15:12:20+09:00"
+    },
+    {
+      "path": "assets/ending-candidates-20260909/03-waiting-on-the-way-home.png",
+      "sha256": "4167f0ed2b86809ce7981b722c645bb7aa1b84cff5501a39c35e8fc692471361",
+      "firstRepositoryEvidenceAt": "2026-09-09T15:12:20+09:00"
+    },
+    {
+      "path": "assets/ending-candidates-20260909/04-watching-the-afterglow.png",
+      "sha256": "40c9743bffc7af3fd58f0bfff783168358b704b125329f514105abb224377fd7",
+      "firstRepositoryEvidenceAt": "2026-09-09T15:12:20+09:00"
+    },
+    {
+      "path": "assets/ending-candidates-20260909/05-the-first-evening-star.png",
+      "sha256": "6e04ccc972bf3bb94091bfe91839d59271b3aa665412042daffbe3571eb2a2da",
+      "firstRepositoryEvidenceAt": "2026-09-09T15:12:20+09:00"
+    },
+    {
+      "path": "assets/guide-previews/character.jpg",
+      "sha256": "d286c444699084b0e2a96fab63ed318be4b33a47325ad4404a9bec5fdabb58ef",
+      "firstRepositoryEvidenceAt": "2026-08-31T16:03:03+09:00"
+    },
+    {
+      "path": "assets/guide-previews/map.jpg",
+      "sha256": "7319de5f54a6cc58c2c8395e28216f939ba3bea376c6d53c2d09e015d175c9b2",
+      "firstRepositoryEvidenceAt": "2026-08-31T16:03:03+09:00"
+    },
+    {
+      "path": "assets/guide-previews/sensor.jpg",
+      "sha256": "5faedd052ceedb088cd341b6b0734bf06ec80d433d3e2de2b39ab42afec0709f",
+      "firstRepositoryEvidenceAt": "2026-08-31T16:03:03+09:00"
+    },
+    {
+      "path": "assets/guide-previews/sound.jpg",
+      "sha256": "68ca462b612128548f9418981ea38b7b4845d78418c095d7a427f1de257266e2",
+      "firstRepositoryEvidenceAt": "2026-08-31T16:03:03+09:00"
+    },
+    {
+      "path": "assets/maps/nasa-blue-marble-clouds-2048.jpg",
+      "sha256": "daddaad84d7a33bbbc86cdda3f591099f57cee8607b7bcf3b67eb7e4f7a1c793",
+      "firstRepositoryEvidenceAt": "2026-09-05T21:13:59+09:00"
+    },
+    {
+      "path": "assets/modes/analysis-mizu-ame-companions-v1.webp",
+      "sha256": "03ecb7a54f073de9448089d5b1ae5f597bfe3651b6a697e1e1dcdd762a8fe131",
+      "firstRepositoryEvidenceAt": "2026-09-08T08:25:34+09:00"
+    },
+    {
+      "path": "assets/modes/guide-map-discovery-mizu-ame-v1.webp",
+      "sha256": "e6542789ade702516db119593ae1b32ebf0c485c25ee097ec2f2992a1aa5b21b",
+      "firstRepositoryEvidenceAt": "2026-09-08T08:25:34+09:00"
+    },
+    {
+      "path": "assets/modes/guide-map-discovery-mizu-ame-v2.webp",
+      "sha256": "e460b5de3a8a6ab376e10caf4df4937fe706cbdd7f51f681d5e0ca34423b3d37",
+      "firstRepositoryEvidenceAt": "2026-09-10T03:57:02+09:00"
+    },
+    {
+      "path": "assets/modes/guide-map-live-mizu-ame-v1.webp",
+      "sha256": "1f912db1c2bd445212ef87f8dc38612d646372f1d0b9511c41725a52082d11f1",
+      "firstRepositoryEvidenceAt": "2026-09-08T08:25:34+09:00"
+    },
+    {
+      "path": "assets/modes/guide-map-live-mizu-ame-v2.webp",
+      "sha256": "adc833ecf953168941bf243696a703ad860561ce3a0766b87607ade32b4989ae",
+      "firstRepositoryEvidenceAt": "2026-09-10T03:57:02+09:00"
+    },
+    {
+      "path": "assets/modes/guide-map-time-mizu-ame-v1.webp",
+      "sha256": "dfbaa86b71041557263f750bb2934e864d48f0085037352fae6431e0d800bfbf",
+      "firstRepositoryEvidenceAt": "2026-09-08T08:25:34+09:00"
+    },
+    {
+      "path": "assets/modes/guide-map-time-mizu-ame-v2.webp",
+      "sha256": "7b71271c3e7defef2f6a486bbda50cdf42536a64c4eb87459bd3b846f193e6e7",
+      "firstRepositoryEvidenceAt": "2026-09-10T03:57:02+09:00"
+    },
+    {
+      "path": "assets/modes/guide-sensor-analysis-mizu-ame-v1.webp",
+      "sha256": "d6921494c8a2d9815a23d651711692095dc2deea9e58568a0b2b3bb2c2e132e1",
+      "firstRepositoryEvidenceAt": "2026-09-09T06:58:18+09:00"
+    },
+    {
+      "path": "assets/modes/guide-sensor-connect-mizu-ame-v1.webp",
+      "sha256": "3fe46848227b1af636215e3c8982e29dad9b9590d81b225b0346b1211a87b9ed",
+      "firstRepositoryEvidenceAt": "2026-09-09T06:58:18+09:00"
+    },
+    {
+      "path": "assets/modes/guide-sensor-live-mizu-ame-v1.webp",
+      "sha256": "99f3ede1e850fbc3ce3852234350adf0897e15be83f2f8b91c8a20603f0f75af",
+      "firstRepositoryEvidenceAt": "2026-09-09T06:58:18+09:00"
+    },
+    {
+      "path": "assets/modes/mode-abstract-chibi-v3.png",
+      "sha256": "f7265f42609af662bc5f99bff8ba0829197e246a33bd9e6ca3a05387c301c72b",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/modes/mode-abstract-chibi-v3.webp",
+      "sha256": "913986fd8cdfda875e014b5d3457af7f36a34f5ade293c688fa115d6ee5fd149",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/modes/mode-abstract-crystal-v6.png",
+      "sha256": "f44cbbbada9f833b5cf73e33bea16b37641d3887c6d17675469fd7b444358beb",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/modes/mode-abstract-crystal-v6.webp",
+      "sha256": "52c04ae6ff1c4f3f53b5904a84877cc56f3baa5412ec6dab1fed0f7e818dadd2",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/modes/mode-abstract-handdrawn-v7.png",
+      "sha256": "e7db4a96bff54103a5dd3cfb5038d001861d13a793b30371dfe679541ed8e6a1",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/modes/mode-abstract-handdrawn-v7.webp",
+      "sha256": "b7e35986ec1748337dcaf008012c24c9319cb4dba9e960d027073612f35dc2e6",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/modes/mode-abstract-soft-v4.png",
+      "sha256": "f340686ee403b446e55aeac06c7254af374537fc22e224720168ab74ef701e6c",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/modes/mode-abstract-soft-v4.webp",
+      "sha256": "84634da8d5b5f6120fd1849078a5287ddd8fe15777d16f05756391d90f568bf5",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/modes/mode-abstract-v2.webp",
+      "sha256": "cc0427d7f554ac3754d648f19c43e8db8810ca322621d5a029f5eae815d88fdf",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/modes/mode-abstract-warm-v5.png",
+      "sha256": "398ff177e262db94ca700d40e48d34f38816ab3a7cdac7ca80b172767cac55a6",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/modes/mode-abstract-warm-v5.webp",
+      "sha256": "e6690736ee462dd74c3b68be953d5364e1977d0b05882f9aef1d74ab7e87e028",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/modes/mode-gateway-chibi-v3.png",
+      "sha256": "d03a2f6bbb5e7235a0656d211dd476b1be48f3be88cd19e5e1b13fbbf52a9107",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/modes/mode-gateway-chibi-v3.webp",
+      "sha256": "af2fc82191c80820d778527450c6e8670b6b04bb04057e4979bd836cf24fdcab",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/modes/mode-gateway-handdrawn-v7.png",
+      "sha256": "9c86a42f16d6335f1797d07f5cbbea2a91683b57d647e7e906e9ba167d23e18b",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/modes/mode-gateway-handdrawn-v7.webp",
+      "sha256": "115fa4126492ea9960580d6a54d2fa28a3f25cd84646524a1c7a6d92cc39d426",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/modes/mode-gateway-soft-v4.png",
+      "sha256": "e3df44b3dbcf326df661bf0d4bc2e30016b2c667384835f307d42a261fdd431b",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/modes/mode-gateway-soft-v4.webp",
+      "sha256": "4dee33f8e5e85ceaf8582e1ddbcd96324691a0140d8734b7a3f902adf590cd48",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/modes/mode-gateway-warm-v5.png",
+      "sha256": "18a64c3505e4da31df2efd926ec20395384959b7f1448d42b022271404b9edeb",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/modes/mode-gateway-warm-v5.webp",
+      "sha256": "c2bebbc9a0bf8cdddde21f0183a74a465d39c8e2bf12c5c2bceca5a8663ed0aa",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/modes/mode-map-chibi-v3.png",
+      "sha256": "a5776e364dd8fc982d382cc559e645a5eb5aa351fac24340419a9e998395a4e0",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/modes/mode-map-chibi-v3.webp",
+      "sha256": "6b8d21d62cfb84dba0c5a2ac329d37d6de8b63dddf7d1fbaf473f68a91ca2418",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/modes/mode-map-crystal-v6.png",
+      "sha256": "f7f3b4767cfbb8b1f1a72da5a7da8dc23caa0d2629957d8355102c1fe9aa5749",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/modes/mode-map-crystal-v6.webp",
+      "sha256": "519ea07340911bdf6097bd164f2b0a8ab5b4778203bddfdd1b6a5958c6df336c",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/modes/mode-map-handdrawn-v7.png",
+      "sha256": "f08ad478f55e95bcc992b9f96d14872e64025940354ca636e1b009cb1cd50b44",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/modes/mode-map-handdrawn-v7.webp",
+      "sha256": "94d595002a7ae52bed672eca356b8046220aa30fd7efd9ff1fa8ccdde86feebf",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/modes/mode-map-soft-v4.png",
+      "sha256": "ee858772b2412a263b191c04fc1fc8215a240886a521dd73eb133c582c818eae",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/modes/mode-map-soft-v4.webp",
+      "sha256": "5e9b9dcbcaa9353e91b180e621312b41a9d2f0ed13adcf503957e04d8157ddfd",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/modes/mode-map-v2.webp",
+      "sha256": "303cc7701639fab6fd28a128a1f10146010dbc30480e93a19dc46ba57d5992d1",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/modes/mode-map-warm-v5.png",
+      "sha256": "36a7dcca48e436e6ba1ccc6d677828766f1d4bf02ccefcadca08dfa8641ef03b",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/modes/mode-map-warm-v5.webp",
+      "sha256": "449fcdc1825a9765613ed76ba623c7419641a713a391ec33318da8e411914335",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/modes/mode-novel-chibi-v3.png",
+      "sha256": "2be241b2c98bd1e1217f1ec25098bb65ca05d6e366b12ea2f55cdb8a34345021",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/modes/mode-novel-chibi-v3.webp",
+      "sha256": "d4a41e33ad52ee436f1ede98faa00d4cc0181d92c69512671e8f7722bb5872f5",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/modes/mode-novel-crystal-v6.png",
+      "sha256": "862081051396217d1ebdc6743ea3a112a7323866ae6a5b05ab686933e10ce7f9",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/modes/mode-novel-crystal-v6.webp",
+      "sha256": "59f4119aa954f7fa40354fb3777151b02123bfd0fc4c6ae19ee7e04753b7b8fa",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/modes/mode-novel-handdrawn-v7.png",
+      "sha256": "e2284fff700d9db365077db9519b149747840d257b265840ea64293ddab5f867",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/modes/mode-novel-handdrawn-v7.webp",
+      "sha256": "c8910cbd76558b8fbc7ad1b332be0350f18852c8a84f6be2ca956ab43fc7964e",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/modes/mode-novel-soft-v4.png",
+      "sha256": "2d5d89c29cd97b1a5c9d97ee08fffd8811b1b37b605041c6e6921c1dc974ebbf",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/modes/mode-novel-soft-v4.webp",
+      "sha256": "85fab05abfae3cfa934db4840bd84e41d2261b6b5d3774954cb2794c3fe58b80",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/modes/mode-novel-v2.webp",
+      "sha256": "55e1f38ca29282c8e5bb569d82328ac722abf879b2ab5ae0b1401c9a8646402a",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/modes/mode-novel-warm-v5.png",
+      "sha256": "9e8c346db2c60aeb9628adc119a85a8cbff31b6a50bff59022979bfff04fd409",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/modes/mode-novel-warm-v5.webp",
+      "sha256": "4d0cfd0cffd0647c666b3c4f360ba4ef841b033dd5b47b2a49cd967312204c7c",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/modes/mode-space-chibi-v3.png",
+      "sha256": "1adc9e9384bac21d37b21028a04cd67f1f2c03c99c4c408bc01c330dd29ede18",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/modes/mode-space-chibi-v3.webp",
+      "sha256": "8689a4f56bdf2bfd0e36594b176d3b4952a1b320cdd9105db25eceb8882d17e9",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/modes/mode-space-crystal-v6.png",
+      "sha256": "6d3089d4e1c81797fdc3a91144014346539df5b64be046750d9fede203618574",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/modes/mode-space-crystal-v6.webp",
+      "sha256": "9ee03900ddb86a033aee4aa42183d0823fb63226efee16967736c599c8ce5dd2",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/modes/mode-space-handdrawn-v7.png",
+      "sha256": "837e2d5fc79731b2b31ef14e770b84edd64245a3f179a5565e32d2d12d1933e0",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/modes/mode-space-handdrawn-v7.webp",
+      "sha256": "2ebfdde54c2015150b765c0cfbd9397570bbf53c5b8f688b0d4f3904f13019f3",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/modes/mode-space-soft-v4.png",
+      "sha256": "bd8ef13e5f22b9a356cedf0ccec319f00ed606ec68438d54dbe1ab1a20d2bfb9",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/modes/mode-space-soft-v4.webp",
+      "sha256": "3d73a64f3fe25fbbe75a707a5dc0879a600cdd5dce061e208f4d2a0a221a45ed",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/modes/mode-space-v2.webp",
+      "sha256": "7da7c98c34c48a192697e7c481dcd831827d47f6435516a82a29fd6d8ba0989d",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/modes/mode-space-warm-v5.png",
+      "sha256": "3b5b1b41736138d7672722e67cc0ef7f13f159cd95bd5403e4c3d4983486b5bf",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/modes/mode-space-warm-v5.webp",
+      "sha256": "d38d413c0e375abc221e5fb113da4ea0d26b87caa6c196ba92b1eeffd3c19ecc",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/opening-candidates-20260911/ame-01.png",
+      "sha256": "1f296c0d34da6086cc369bb563182392cbb57d7db71600012900398842e34c1e",
+      "firstRepositoryEvidenceAt": "2026-09-12T11:32:01+09:00"
+    },
+    {
+      "path": "assets/opening-candidates-20260911/ame-02.png",
+      "sha256": "df7c8f1f6886070ddf6675986048369aaea253a7dfb0ec7cb127f419aed56bf0",
+      "firstRepositoryEvidenceAt": "2026-09-12T11:32:01+09:00"
+    },
+    {
+      "path": "assets/opening-candidates-20260911/ame-03.png",
+      "sha256": "caec5118ae215ffcf33dde08b494e7677b59d63bded99938efd094500ccf13d5",
+      "firstRepositoryEvidenceAt": "2026-09-12T11:32:01+09:00"
+    },
+    {
+      "path": "assets/opening-candidates-20260911/mizu-01.png",
+      "sha256": "4099cb298ecff1f350adbe07b5eca65cae525b3c0fa41ebfb969d0dac53ebd12",
+      "firstRepositoryEvidenceAt": "2026-09-12T11:32:01+09:00"
+    },
+    {
+      "path": "assets/opening-candidates-20260911/mizu-02.png",
+      "sha256": "888c23e4482483a637bcfa4ac4f0819be69953688abcb1d212b5ebc5d104482d",
+      "firstRepositoryEvidenceAt": "2026-09-12T11:32:01+09:00"
+    },
+    {
+      "path": "assets/opening-candidates-20260911/mizu-03.png",
+      "sha256": "bb4982dfe70631d67c9a60c9e6b7263e1865f11310bc647f393d2733ebfceb84",
+      "firstRepositoryEvidenceAt": "2026-09-12T11:32:01+09:00"
+    },
+    {
+      "path": "assets/opening-candidates-20260911/prologue-01.png",
+      "sha256": "3525f9edc8d201ae3810a446705ce8384a4e35a8ce237ae5034f5dd5abd72f68",
+      "firstRepositoryEvidenceAt": "2026-09-12T11:32:01+09:00"
+    },
+    {
+      "path": "assets/opening-candidates-20260911/prologue-02.png",
+      "sha256": "a7293adcc559944f0333d8e5d6e64f4b4c51280403c1cf1718b101de56f0e11d",
+      "firstRepositoryEvidenceAt": "2026-09-12T11:32:01+09:00"
+    },
+    {
+      "path": "assets/opening-candidates-20260911/prologue-03.png",
+      "sha256": "29ea5cb75b15877cde0aa874270ebee149fc326b8b7472b6c00f70702add1a6d",
+      "firstRepositoryEvidenceAt": "2026-09-12T11:32:01+09:00"
+    },
+    {
+      "path": "assets/opening-selected-20260912/opening-ame-01-834.webp",
+      "sha256": "47ae6c4177d87b67eab9bf01ff36ae0a1baf8feed58487a848be9eb8f63a7ee0",
+      "firstRepositoryEvidenceAt": "2026-09-12T11:32:01+09:00"
+    },
+    {
+      "path": "assets/opening-selected-20260912/opening-ame-01.png",
+      "sha256": "1f296c0d34da6086cc369bb563182392cbb57d7db71600012900398842e34c1e",
+      "firstRepositoryEvidenceAt": "2026-09-12T11:32:01+09:00"
+    },
+    {
+      "path": "assets/opening-selected-20260912/opening-ame-01.webp",
+      "sha256": "ba5245d69a43ad38bde143b6e2df04a1828cf26de12fcd34bd713a3a7f7a0ab6",
+      "firstRepositoryEvidenceAt": "2026-09-12T11:32:01+09:00"
+    },
+    {
+      "path": "assets/opening-selected-20260912/opening-mizu-01-834.webp",
+      "sha256": "d90ea6948f81da643d6784faece73b30a36ca7ce572cbedfbc73e3f62dfb7a93",
+      "firstRepositoryEvidenceAt": "2026-09-12T11:32:01+09:00"
+    },
+    {
+      "path": "assets/opening-selected-20260912/opening-mizu-01.png",
+      "sha256": "4099cb298ecff1f350adbe07b5eca65cae525b3c0fa41ebfb969d0dac53ebd12",
+      "firstRepositoryEvidenceAt": "2026-09-12T11:32:01+09:00"
+    },
+    {
+      "path": "assets/opening-selected-20260912/opening-mizu-01.webp",
+      "sha256": "bfc70e9036f456ca86c751752ec20cda42a03a3c5a12c942f9e3f678eb755707",
+      "firstRepositoryEvidenceAt": "2026-09-12T11:32:01+09:00"
+    },
+    {
+      "path": "assets/opening-selected-20260912/opening-prologue-01-834.webp",
+      "sha256": "b2a244f534b5109f11337e95d2a0af4a4df7c84a25f8f01fc032ba3a9f1845d9",
+      "firstRepositoryEvidenceAt": "2026-09-12T11:32:01+09:00"
+    },
+    {
+      "path": "assets/opening-selected-20260912/opening-prologue-01.png",
+      "sha256": "1652ab3a4074fb5973c612dfc891b2bdbeafdbe8065966238d6707a4a7cd60d3",
+      "firstRepositoryEvidenceAt": "2026-09-12T11:32:01+09:00"
+    },
+    {
+      "path": "assets/opening-selected-20260912/opening-prologue-01.webp",
+      "sha256": "6be04312be6fc0a6b7d980cb015802cd176a426cbf7184deaa3f307382eb1ef7",
+      "firstRepositoryEvidenceAt": "2026-09-12T11:32:01+09:00"
+    },
+    {
+      "path": "assets/references/amane-selected-style-v8.png",
+      "sha256": "aac15b12b4b313d532bd6e5b2ad9c1c6b8e92b076c6060fafc5d2372aede05fb",
+      "firstRepositoryEvidenceAt": "2026-08-20T01:48:48+09:00"
+    },
+    {
+      "path": "assets/references/amane-six-head-proportion-alt-v8.png",
+      "sha256": "40a9165e2cd99115692a7e199d45c3f0e3446e4ac78babe87ea3faf0cb5a354d",
+      "firstRepositoryEvidenceAt": "2026-08-20T01:48:48+09:00"
+    },
+    {
+      "path": "assets/references/amane-six-head-proportion-v8.png",
+      "sha256": "43b7b6a2464ce748991ea469a41974fe0a51df53b0e434daad2438149d9e376a",
+      "firstRepositoryEvidenceAt": "2026-08-20T01:48:48+09:00"
+    },
+    {
+      "path": "assets/references/hinahina-handdrawn-style.png",
+      "sha256": "1ef863c99d00ded613db72b7594f6fc115b7089a310dfbc89c40c26214e9e1ba",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/references/hinahina-proportions-eyes.png",
+      "sha256": "1fda1266a63ed02b210ad5a34403c335d320a946d479d0a23159bc1b0703c9f8",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/title-candidates-20260909/01-starlit-observatory.png",
+      "sha256": "9741653e0583d86a0d8e0f4c4ea0c46642194fb7d27a59eec78579b0cef9ec6d",
+      "firstRepositoryEvidenceAt": "2026-09-09T15:12:20+09:00"
+    },
+    {
+      "path": "assets/title-candidates-20260909/01-starlit-observatory.webp",
+      "sha256": "11c81556903dfdac0d55be1af3ca05cd1a54c489cf434434d4da5d24aeb710bb",
+      "firstRepositoryEvidenceAt": "2026-09-10T03:57:02+09:00"
+    },
+    {
+      "path": "assets/title-candidates-20260909/02-after-rain-window.png",
+      "sha256": "d67bd60a959d9b6c1ea6ea9fd2c74161c76aa53859eb746a7283b439a5a0a0ce",
+      "firstRepositoryEvidenceAt": "2026-09-09T15:12:20+09:00"
+    },
+    {
+      "path": "assets/title-candidates-20260909/03-sunset-seaside.png",
+      "sha256": "f7c45795ce634d273ac65078f4748288e437fe4efbf4acc08642ae2923323b5a",
+      "firstRepositoryEvidenceAt": "2026-09-09T15:12:20+09:00"
+    },
+    {
+      "path": "assets/title-candidates-20260909/04-water-and-stars.png",
+      "sha256": "18b98086a810168bda9a76e720002a44a4736b63726b03532c1da0cfa8d82c29",
+      "firstRepositoryEvidenceAt": "2026-09-09T15:12:20+09:00"
+    },
+    {
+      "path": "assets/title-candidates-20260909/05-dawn-campus.png",
+      "sha256": "7bce396399bb5470d21eec695dc20eecc62d2e64f9dfe6b80469f77ad3cc6de1",
+      "firstRepositoryEvidenceAt": "2026-09-09T15:12:20+09:00"
+    },
+    {
+      "path": "assets/true-end/true-end-amane-thoughtform-v1.webp",
+      "sha256": "b24b1beeeff5a75ef335c81072746b4588cf6364ad46f924a69bbd66b69a2a0a",
+      "firstRepositoryEvidenceAt": "2026-08-21T13:10:23+09:00"
+    },
+    {
+      "path": "assets/true-end/true-end-bg-fossil-sensor-v1.webp",
+      "sha256": "3531e798f33e1755344901f68274a22b6ba52089ec57f48e630fc3360e305c62",
+      "firstRepositoryEvidenceAt": "2026-08-21T13:10:23+09:00"
+    },
+    {
+      "path": "assets/true-end/true-end-bg-galactic-senses-v1.webp",
+      "sha256": "c5b7f0a74fc95d7b646ebee0fb6ae3fb8654d0e1da3e0b5cb687889dd7a7b9a4",
+      "firstRepositoryEvidenceAt": "2026-08-21T13:10:23+09:00"
+    },
+    {
+      "path": "assets/true-end/true-end-bg-pregeometry-loom-v1.webp",
+      "sha256": "c6e14ffd862b61b88ef64c1acd86519628e1a46c83960035ea33de9247ca6886",
+      "firstRepositoryEvidenceAt": "2026-08-21T13:10:23+09:00"
+    },
+    {
+      "path": "assets/true-end/true-end-luu-cute-v1.webp",
+      "sha256": "ac7a0edd467350acfa40d37a2d542eaf9c269c150c15a21ecde05d3b489912c5",
+      "firstRepositoryEvidenceAt": "2026-08-21T13:10:23+09:00"
+    },
+    {
+      "path": "assets/true-end/true-end-mizuha-thoughtform-v1.webp",
+      "sha256": "e5ba7fa91c6813d3abfc80622544e06bf888c175a753bd9ae703c4347574d809",
+      "firstRepositoryEvidenceAt": "2026-08-21T13:10:23+09:00"
+    },
+    {
+      "path": "assets/true-end/true-end-sakuya-thoughtform-v1.webp",
+      "sha256": "50ed1e87d2117731915d1042327f7c470d40c51f4ae9356a284880ddf224948d",
+      "firstRepositoryEvidenceAt": "2026-08-21T13:10:23+09:00"
+    },
+    {
+      "path": "assets/visuals-07/data-chapter-air-v1.webp",
+      "sha256": "db3ef5ded3bb6c0525e0b0fdb4faa2e64c586b57301e7f465d3fcc3a9ace51bf",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/visuals-07/data-chapter-flow-v1.webp",
+      "sha256": "ba5af43f365e8715efd657c03765d6cca6b30a20b5c0a869170c316c1917f67c",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/visuals-07/data-chapter-human-v1.webp",
+      "sha256": "222fa32618340ecc3d918797ca32dd4c6e07dce61e138e7d2dbb4811774ab37f",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/visuals-07/data-chapter-space-v1.webp",
+      "sha256": "5d855203602a75c0f5076b4b80ceacd81e2123901b0b57139980a965dca70123",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/visuals-07/event-cg-amane-closeup-five-plane-v2.png",
+      "sha256": "484e717473011c20095439c4734a302893b4aca8c786717e439746690a079207",
+      "firstRepositoryEvidenceAt": "2026-08-13T06:02:51+09:00"
+    },
+    {
+      "path": "assets/visuals-07/event-cg-amane-closeup-five-plane-v3.png",
+      "sha256": "ae7b03317515a741ae231d82be7be28076d44213c208f3c4c080439b499b16ea",
+      "firstRepositoryEvidenceAt": "2026-08-20T18:42:31+09:00"
+    },
+    {
+      "path": "assets/visuals-07/event-cg-amane-closeup-five-plane-v4.png",
+      "sha256": "fba2b7665ec59064d7dca1d4b2f0deb88a98fb3b9549802068cf6b851f2d43b4",
+      "firstRepositoryEvidenceAt": "2026-08-23T02:26:57+09:00"
+    },
+    {
+      "path": "assets/visuals-07/event-cg-amane-closeup-v1.png",
+      "sha256": "5423cd16bab5102b38fa2286af1eec46a285a44a7972b35d42cdde4f95a02e95",
+      "firstRepositoryEvidenceAt": "2026-08-12T12:15:31+09:00"
+    },
+    {
+      "path": "assets/visuals-07/event-cg-circle-invitation-card-mobile-v1.png",
+      "sha256": "872f8d20ede2e8ccaa0413a9755f2e5ca33e7a39fa395bc89c6374d7842589cc",
+      "firstRepositoryEvidenceAt": "2026-08-20T18:42:31+09:00"
+    },
+    {
+      "path": "assets/visuals-07/event-cg-circle-invitation-card-v2.png",
+      "sha256": "04c631338a496b0de06660357cfa0c5967ec8595aeafaa7a4f8e45ce9c5c7c26",
+      "firstRepositoryEvidenceAt": "2026-08-16T17:55:00+09:00"
+    },
+    {
+      "path": "assets/visuals-07/event-cg-circle-invitation-card-v3.png",
+      "sha256": "0333bec3f7b6d0af5b3dca51913ede5f87dc30ffe81df28b4520bc1c7cb2f04b",
+      "firstRepositoryEvidenceAt": "2026-08-20T18:42:31+09:00"
+    },
+    {
+      "path": "assets/visuals-07/event-cg-circle-welcome-mobile-v1.png",
+      "sha256": "ea8faebbfe367375e45bce4196d39e4ab437a4e789a114d1fad167316b409073",
+      "firstRepositoryEvidenceAt": "2026-08-20T18:42:31+09:00"
+    },
+    {
+      "path": "assets/visuals-07/event-cg-circle-welcome-v1.png",
+      "sha256": "0d191c928ccd36c4d0e1d38ff0eaff32ede4e204aa98972759aaf918bb79d1f1",
+      "firstRepositoryEvidenceAt": "2026-08-12T10:57:53+09:00"
+    },
+    {
+      "path": "assets/visuals-07/event-cg-circle-welcome-v2.png",
+      "sha256": "525634c93527c677b8afa337e89a5d00ed46e1b64b349bfa123efb220ff7dfbd",
+      "firstRepositoryEvidenceAt": "2026-08-20T18:42:31+09:00"
+    },
+    {
+      "path": "assets/visuals-07/event-cg-esp32-collaboration-mobile-v1.png",
+      "sha256": "1aa6b17e6aeca59ef4f102d58c4c30db773d68e2dcce33b8761ada52b097a061",
+      "firstRepositoryEvidenceAt": "2026-08-20T18:42:31+09:00"
+    },
+    {
+      "path": "assets/visuals-07/event-cg-esp32-collaboration-v1.png",
+      "sha256": "bc057bb723e9f79c990777c3bff3be86196fe9720aa55b53ced422a925888292",
+      "firstRepositoryEvidenceAt": "2026-08-12T12:15:31+09:00"
+    },
+    {
+      "path": "assets/visuals-07/event-cg-esp32-collaboration-v2.png",
+      "sha256": "9dac8e247d2fc37fc86b57a49be249c0cd73da84f02fe803d9c6f802c83c68fd",
+      "firstRepositoryEvidenceAt": "2026-08-20T18:42:31+09:00"
+    },
+    {
+      "path": "assets/visuals-07/event-cg-exhibition-finale-mobile-v1.png",
+      "sha256": "8a807ffdebdd185e4eee52e20678444f95cf14b67770518fe424de9867590847",
+      "firstRepositoryEvidenceAt": "2026-08-20T18:42:31+09:00"
+    },
+    {
+      "path": "assets/visuals-07/event-cg-exhibition-finale-sunset-mobile-v1.png",
+      "sha256": "35e41575d55cde2dc37357a6d65ca7ea8af7ef5aacc195b30e33b9b4f1fede81",
+      "firstRepositoryEvidenceAt": "2026-08-22T23:30:34+09:00"
+    },
+    {
+      "path": "assets/visuals-07/event-cg-exhibition-finale-sunset-v1.png",
+      "sha256": "7428259fd4f926d842d72765b15ff12698e5f19456802c8c5f6cd9b502909f0b",
+      "firstRepositoryEvidenceAt": "2026-08-22T23:30:34+09:00"
+    },
+    {
+      "path": "assets/visuals-07/event-cg-exhibition-finale-v1.png",
+      "sha256": "2c99d899bcb5ab7c51a345069683ca0899f9881ac4962ad2a949e932148b3f14",
+      "firstRepositoryEvidenceAt": "2026-08-12T11:34:40+09:00"
+    },
+    {
+      "path": "assets/visuals-07/event-cg-exhibition-finale-v2.png",
+      "sha256": "343579e6a2af3cfbc8c1e2d1314dc852ef69d2a742e432f3f8ce7fa49fae2262",
+      "firstRepositoryEvidenceAt": "2026-08-20T18:42:31+09:00"
+    },
+    {
+      "path": "assets/visuals-07/event-cg-festival-map-transition-five-plane-mobile-v1.png",
+      "sha256": "eb601dd82f9e17ec68be869df9c28d1b67df4abbb18026cf080f96f7472a8091",
+      "firstRepositoryEvidenceAt": "2026-08-20T18:42:31+09:00"
+    },
+    {
+      "path": "assets/visuals-07/event-cg-festival-map-transition-five-plane-v2.png",
+      "sha256": "191548edc687bd13167fbb8051382e244ec0baa045305d2f80d0955713376e12",
+      "firstRepositoryEvidenceAt": "2026-08-13T06:02:51+09:00"
+    },
+    {
+      "path": "assets/visuals-07/event-cg-festival-map-transition-five-plane-v3.png",
+      "sha256": "9eae1fce4e79ce8d32961dce29c348fe1ed0df329e70684b2fdb1cde657ce380",
+      "firstRepositoryEvidenceAt": "2026-08-20T18:42:31+09:00"
+    },
+    {
+      "path": "assets/visuals-07/event-cg-first-encounter-five-plane-mobile-v1.png",
+      "sha256": "2734e36a8eca798931e6f00f30dff761d228ad8700bf3a7fe0bf7a9f20296041",
+      "firstRepositoryEvidenceAt": "2026-08-20T08:40:07+09:00"
+    },
+    {
+      "path": "assets/visuals-07/event-cg-first-encounter-five-plane-mobile-v2.png",
+      "sha256": "ab0c3e95f29f5392ed185a01761f0300eaee0d6f3e03f4c8f40c39553e711e47",
+      "firstRepositoryEvidenceAt": "2026-08-20T18:42:31+09:00"
+    },
+    {
+      "path": "assets/visuals-07/event-cg-first-encounter-five-plane-v2.png",
+      "sha256": "973828ebd5492793dbbfa1938dc9db17dd68649bd76eb79bbf50fe28262a8d2d",
+      "firstRepositoryEvidenceAt": "2026-08-13T06:02:51+09:00"
+    },
+    {
+      "path": "assets/visuals-07/event-cg-first-encounter-five-plane-v3.png",
+      "sha256": "62984fd5ea1bbca86bf985be02c06b61d3680aae19ec2af932ae8dc4240efaa6",
+      "firstRepositoryEvidenceAt": "2026-08-20T18:42:31+09:00"
+    },
+    {
+      "path": "assets/visuals-07/event-cg-first-encounter-v1.png",
+      "sha256": "6efd1dc4a5e2934d8579442c1a6e3f26718324d2ca2d8d3ae5f8a3a19e8331c0",
+      "firstRepositoryEvidenceAt": "2026-08-12T10:57:53+09:00"
+    },
+    {
+      "path": "assets/visuals-07/event-cg-mizuha-closeup-five-plane-mobile-v1.png",
+      "sha256": "02c93ab7613f07f11107dca3def3074ab6c49a9a4144235c344f75dbb41915c1",
+      "firstRepositoryEvidenceAt": "2026-08-20T08:40:07+09:00"
+    },
+    {
+      "path": "assets/visuals-07/event-cg-mizuha-closeup-five-plane-v2.png",
+      "sha256": "8c30befac59efa86c3e35472881e5243b01987a107d177eeaf5531fe5094ed54",
+      "firstRepositoryEvidenceAt": "2026-08-13T06:02:51+09:00"
+    },
+    {
+      "path": "assets/visuals-07/event-cg-mizuha-closeup-five-plane-v3.png",
+      "sha256": "440c8c71df5cc82a142994fc2757b24f2be874272a1067da9a9a5b872b946672",
+      "firstRepositoryEvidenceAt": "2026-08-20T18:42:31+09:00"
+    },
+    {
+      "path": "assets/visuals-07/event-cg-mizuha-closeup-v1.png",
+      "sha256": "ae9220ee2b9ec7c4b416f633f128117564a3b7ab0e2c07bfcc12926c7564a396",
+      "firstRepositoryEvidenceAt": "2026-08-12T12:15:31+09:00"
+    },
+    {
+      "path": "assets/visuals-07/gateway-keyvisual-v1.webp",
+      "sha256": "5514507b46b583a5a6018a0452aa4d45a7f4a81823d950b3b095ade4d64c3d32",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/visuals-07/gateway-keyvisual-v2.png",
+      "sha256": "31be6112c401335696a528171ada5afb699d3067cde9e8b1c60ca172aeb7e8d2",
+      "firstRepositoryEvidenceAt": "2026-08-22T23:30:34+09:00"
+    },
+    {
+      "path": "assets/visuals-07/mode-abstract-v1.webp",
+      "sha256": "be589ad2fd084284d967e2fd873c8565ac4ceb468820a4eca9b87d6815b67b68",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/visuals-07/mode-map-v1.webp",
+      "sha256": "1a245a6af41d7b4dd5621cf0673b5b44284932c64d7b12c192c885c0f579e1d5",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/visuals-07/mode-space-v1.webp",
+      "sha256": "a7a841c6de8086063721d1aa0f735b720aa51fd0a8a58863170bf83e5f6e3834",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/visuals-07/mode-space-v2.png",
+      "sha256": "2f1265046a75e6bba65b0df82ef26aaeae86eea96f5a3156cd0548064d744eba",
+      "firstRepositoryEvidenceAt": "2026-08-22T23:30:34+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-background-v1.webp",
+      "sha256": "933900ea6c5d9dca04861d551d25e67fb7fffd33085f3a4abe43ff102a8b4d02",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-bg-amane-room-day-v1.png",
+      "sha256": "6a8a308d70531c24b2d5db456c32ec598ebf886d7e4b95a3bb60851dafe2bd86",
+      "firstRepositoryEvidenceAt": "2026-08-09T22:56:37+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-bg-amane-room-evening-v1.png",
+      "sha256": "005f20e52016fa97f6d803e1531e476e7da848504a8b20eb9eeebc3a03eb1fb6",
+      "firstRepositoryEvidenceAt": "2026-08-09T22:56:37+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-bg-amane-room-morning-v1.png",
+      "sha256": "ee62dd25a91eaf3362f438b3a32140be8dd9839aece37266b4e767f5a6d42d52",
+      "firstRepositoryEvidenceAt": "2026-08-09T22:56:37+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-bg-amane-room-night-v1.png",
+      "sha256": "fc9c7b78fcbd3b96d0c1c2855316ee03ad6141c7028de50ba058891416cfcf7a",
+      "firstRepositoryEvidenceAt": "2026-08-09T22:56:37+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-bg-coastal-venue-autumn-morning-v1.png",
+      "sha256": "972adf6beac6b3ac51e9e132b81c7ca61acb24e9f795600153ec021b7c9d1654",
+      "firstRepositoryEvidenceAt": "2026-08-20T03:36:55+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-bg-coastal-venue-v2.png",
+      "sha256": "51f376385ed71ef73b835684962b80a052b04322041cfdd7f8028c96e933b15c",
+      "firstRepositoryEvidenceAt": "2026-08-08T22:37:31+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-bg-coastal-venue-v3.png",
+      "sha256": "89ff0f5d42cfb068af8724515d4392cb1c0428f8e96eaa5ac79b6e887b562c61",
+      "firstRepositoryEvidenceAt": "2026-08-11T19:54:46+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-bg-convention-hall-entrance-autumn-morning-v1.png",
+      "sha256": "c54278de22f4de6695130845bbb4cdf461d842d546ec53ca039bb8fd02def35c",
+      "firstRepositoryEvidenceAt": "2026-08-20T20:08:35+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-bg-convention-hall-entrance-autumn-morning-v2.png",
+      "sha256": "5c3483fa1b584672e0138b1a04176ff939b1ad2dffd79d25509f82c78edb3679",
+      "firstRepositoryEvidenceAt": "2026-08-21T02:51:38+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-bg-exhibition-autumn-morning-close-v4.png",
+      "sha256": "7395fdf68129209f51e2eb1fea26e478627b4fbf03525a7ecb9cdc3d58c45f69",
+      "firstRepositoryEvidenceAt": "2026-08-20T03:36:55+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-bg-exhibition-autumn-morning-wide-v4.png",
+      "sha256": "9dc2b6db1bb35274842128b81a4e0bf09257be43727b472ec0ff5b06d7ad5ea4",
+      "firstRepositoryEvidenceAt": "2026-08-20T03:36:55+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-bg-exhibition-v2.png",
+      "sha256": "e95c65e957209273db5caf99e6d0510c9a195983dc04609716bc0356b26392fc",
+      "firstRepositoryEvidenceAt": "2026-08-08T22:37:31+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-bg-exhibition-v3.png",
+      "sha256": "424d03553db9a0c82be64acecaaff470cdd675553447be78becd5288b3db567c",
+      "firstRepositoryEvidenceAt": "2026-08-10T02:27:39+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-bg-festival-b-hall-autumn-morning-v1.png",
+      "sha256": "47c4b03ca464db0df64b5a0f055f862bc63f7bc697d40ffe374cdce4d6dac519",
+      "firstRepositoryEvidenceAt": "2026-08-20T03:36:55+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-bg-festival-b-hall-overview-v1.png",
+      "sha256": "d8876b775624d38bd2bf17b14efd23ce7b71c738aa8cd873f56d266a3722586a",
+      "firstRepositoryEvidenceAt": "2026-08-12T16:56:29+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-bg-festival-five-plane-projection-autumn-morning-v2.png",
+      "sha256": "42821b8efb82deb36075a9164d04d60bb52e284a2ca0ad3ac72d9f0b1a65ee1f",
+      "firstRepositoryEvidenceAt": "2026-08-20T03:36:55+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-bg-festival-five-plane-projection-v1.png",
+      "sha256": "8a79b7bc434546a0020761b0d920acb23d866ad496ff8cd2ac451f4bd070002d",
+      "firstRepositoryEvidenceAt": "2026-08-13T01:44:50+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-bg-festival-projection-conversation-v1.png",
+      "sha256": "ce49de5053c65361b0e06fbcab99bb2aa18d4f4ead2a84584022d5fffeaed4e7",
+      "firstRepositoryEvidenceAt": "2026-08-13T01:44:50+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-bg-garden-center-v2.png",
+      "sha256": "5a24f91042b9b75bb65c55c916f94a7e2c121b721c0dfe6d78895ae7dfdddcb4",
+      "firstRepositoryEvidenceAt": "2026-08-08T22:37:31+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-bg-gx-ancient-ocean-autumn-morning-v2.png",
+      "sha256": "4c1ad6438f49230df897c9eb39db0a2c1b224274022b391a4cf26ca2c0994727",
+      "firstRepositoryEvidenceAt": "2026-08-20T03:36:55+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-bg-gx-ancient-ocean-autumn-morning-v3.png",
+      "sha256": "f219a47c1b5d24ab780dedf492f807515b9ecc6a088f7d5f803fff584903699f",
+      "firstRepositoryEvidenceAt": "2026-08-20T18:42:31+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-bg-gx-ancient-ocean-five-plane-v1.png",
+      "sha256": "1281d347795e43f779c04e4a87907b2781b27d0afee1100d4828546689627020",
+      "firstRepositoryEvidenceAt": "2026-08-13T06:02:51+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-bg-gx-breathing-points-autumn-morning-v2.png",
+      "sha256": "c1730e84c3728c021ada5f5c92360492cf70fed76a1b8cb64235c7d651ece381",
+      "firstRepositoryEvidenceAt": "2026-08-20T03:36:55+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-bg-gx-breathing-points-autumn-morning-v3.png",
+      "sha256": "d468bdcead823a16b9847dce49c8945bf011b48c82ce9f933dfe6602f39ad0e7",
+      "firstRepositoryEvidenceAt": "2026-08-20T18:42:31+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-bg-gx-breathing-points-five-plane-v1.png",
+      "sha256": "77aa36d5f05254482e3517602c119e1f04adb965884d78f8f4314ee0a87159f9",
+      "firstRepositoryEvidenceAt": "2026-08-13T06:02:51+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-bg-gx-mode-gateway-autumn-morning-v3.png",
+      "sha256": "85c3bd80ca39983f911183a5822fed0d0702663c7bf190d32e574434830037eb",
+      "firstRepositoryEvidenceAt": "2026-08-20T03:36:55+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-bg-gx-mode-gateway-autumn-morning-v4.png",
+      "sha256": "6cb628c79e74496fd7393c6844c0a0fd8d91e5bd682f5567065c5218fb826514",
+      "firstRepositoryEvidenceAt": "2026-08-20T18:42:31+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-bg-gx-mode-gateway-five-plane-v2.png",
+      "sha256": "e0057b17a95a9ca1bbed2a6c8f773b83ef3fe622968af014a4132b17eae65d78",
+      "firstRepositoryEvidenceAt": "2026-08-16T17:55:00+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-bg-gx-temperature-anomaly-autumn-morning-v2.png",
+      "sha256": "4937a2451e9da1df89675e2c074f6a3fb4f5f40cdf135d1c4aa138d6d9bca30b",
+      "firstRepositoryEvidenceAt": "2026-08-20T03:36:55+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-bg-gx-temperature-anomaly-autumn-morning-v3.png",
+      "sha256": "f03f821c95cc0ccd4c3b62d1f5e7b08f8a0fb7c741fd2c210edb600b2ffd0050",
+      "firstRepositoryEvidenceAt": "2026-08-20T18:42:31+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-bg-gx-temperature-anomaly-five-plane-v1.png",
+      "sha256": "840791970c2904d55db59af47dd569c1b290a5aba7669a3976d45cfa101cb6c1",
+      "firstRepositoryEvidenceAt": "2026-08-13T06:02:51+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-bg-map01-data-provenance-autumn-morning-v2.png",
+      "sha256": "f8d790382472b9f0c77bad60e48ca17a943a5f0b34099fe939b58b692396a6fc",
+      "firstRepositoryEvidenceAt": "2026-08-20T03:36:55+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-bg-map01-data-provenance-autumn-morning-v3.png",
+      "sha256": "90316d1300c7b5a19ed04eca347ad8bd702d476e2d5bb03e8ef207784160e206",
+      "firstRepositoryEvidenceAt": "2026-08-20T18:42:31+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-bg-map01-data-provenance-five-plane-v1.png",
+      "sha256": "8bec85968d715ba5baf93d17411ba3c630ff84ceb51cfe16779e1284a775dd6a",
+      "firstRepositoryEvidenceAt": "2026-08-16T16:58:22+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-bg-mizuha-room-day-v1.png",
+      "sha256": "63f94fa69f5bf31903c17d39299d54f233961fe8d71144e9fd18fbea384c267c",
+      "firstRepositoryEvidenceAt": "2026-08-09T22:56:37+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-bg-mizuha-room-evening-v1.png",
+      "sha256": "ed3fe94ee6456b7476aaecdd5ad59682c84f20d4b0ed480569c75c08cd637cfd",
+      "firstRepositoryEvidenceAt": "2026-08-09T22:56:37+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-bg-mizuha-room-morning-v1.png",
+      "sha256": "ceadff128490cd072fd6b34e80642cefce6ac006a9dfd064a396ad9c2dfd2126",
+      "firstRepositoryEvidenceAt": "2026-08-09T22:56:37+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-bg-mizuha-room-night-v1.png",
+      "sha256": "08c9664f2bf6fab9cda8de8a13961d36525541d8a32e791f46ef575f82733e3a",
+      "firstRepositoryEvidenceAt": "2026-08-09T22:56:37+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-bg-online-night-v2.png",
+      "sha256": "d268c7ff60f5281fc8990787f9f48af88559b6310fc33168ec86f1a19306e594",
+      "firstRepositoryEvidenceAt": "2026-08-08T22:37:31+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-bg-production-night-v2.png",
+      "sha256": "9c36d9f406c63ddabf3a575231745fde4e9774ae1a6007919b5451771e2926ce",
+      "firstRepositoryEvidenceAt": "2026-08-08T22:37:31+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-bg-production-return-train-v1.png",
+      "sha256": "3160135fef99316a8855797e4153c02bb9236169bed6b5b4e5f354a0a34dbcaf",
+      "firstRepositoryEvidenceAt": "2026-08-09T23:41:53+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-bg-production-shared-meeting-v3.png",
+      "sha256": "643f86d3d0678d1b2c47caba0e4bee0318dc760ee39619aa475eb1bcbcd4c1dd",
+      "firstRepositoryEvidenceAt": "2026-08-09T22:05:49+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-bg-production-station-meeting-v1.png",
+      "sha256": "70314dfacc70d4e8a1d99fd218cef40294bdfe41992802aa6706b778aacba028",
+      "firstRepositoryEvidenceAt": "2026-08-09T23:41:53+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-bg-production-used-equipment-store-v1.png",
+      "sha256": "71f62f31e55ad49bd8ed8a45049f4a26ffe5fbc2f3677bb007a4ef27cd20fd27",
+      "firstRepositoryEvidenceAt": "2026-08-09T23:41:53+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-bg-production-venue-prep-v1.png",
+      "sha256": "bb4f25c414048b41e85ddfd971b183ea5cd110cd686a9128de7c9e4bc405e098",
+      "firstRepositoryEvidenceAt": "2026-08-09T23:41:53+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-bg-sakuya-room-day-v1.png",
+      "sha256": "f9e8bb848b6040a25f09562c146e7b0094abec561b69caf811448808bbbc3207",
+      "firstRepositoryEvidenceAt": "2026-08-09T22:56:37+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-bg-sakuya-room-evening-v1.png",
+      "sha256": "1862e276abe9f6a4e2c9e90dae8c0d29e2d31cb5e2de3b7c7c65e1bb0297335b",
+      "firstRepositoryEvidenceAt": "2026-08-09T22:56:37+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-bg-sakuya-room-morning-v1.png",
+      "sha256": "327e7aee46e285a4786022a97a8b83ffeae187c8b63eb1301b1504034dcf3f7e",
+      "firstRepositoryEvidenceAt": "2026-08-09T22:56:37+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-bg-sakuya-room-night-v1.png",
+      "sha256": "5c534197b1ec9e678c520a9acaa5f1f86ff97eef82d242dc51ef4d47dd3a10fc",
+      "firstRepositoryEvidenceAt": "2026-08-09T22:56:37+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-bg-workroom-v2.png",
+      "sha256": "60871c09ad3c8ef892f7aa87cb5c35ca74831dd0cbb3da6bff9fc3004de49eae",
+      "firstRepositoryEvidenceAt": "2026-08-08T22:37:31+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-bg-zushi-coast-autumn-day-v3.png",
+      "sha256": "f8017fc5902cbae1df2f9e037b7009179a5bf924e5d943f73e76005d60c1467e",
+      "firstRepositoryEvidenceAt": "2026-08-20T03:36:55+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-bg-zushi-coast-night-v2.png",
+      "sha256": "0d5658c82eee40fec1ac7da4fc951ce378868420fe939e4a5f9e396f9ad80f83",
+      "firstRepositoryEvidenceAt": "2026-08-08T22:37:31+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-result-observation-v1.png",
+      "sha256": "02fd8b346525789ef2a9eb2c5bf95f9763f4c1626e54d6b717f1ff20e31bb638",
+      "firstRepositoryEvidenceAt": "2026-08-08T21:50:37+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-title-keyvisual-mobile-v1.png",
+      "sha256": "f3f73a044d3256e5d4be9b1c6fbb06eebb4c19f059479fb53b6f9160916665a7",
+      "firstRepositoryEvidenceAt": "2026-08-21T00:36:08+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-title-keyvisual-v2.png",
+      "sha256": "d3dc2134da05b1e077f42e8406d8be99501b2a42a90ad4baaea6a4dbb92af12f",
+      "firstRepositoryEvidenceAt": "2026-08-08T21:50:37+09:00"
+    },
+    {
+      "path": "assets/visuals-07/novel-title-keyvisual-v3.png",
+      "sha256": "71507ae2e29026d5dbcd07a7cbc413886e1de1a3ca2459c6c1e5a1ccea1462dd",
+      "firstRepositoryEvidenceAt": "2026-08-21T00:36:08+09:00"
+    },
+    {
+      "path": "assets/visuals-07/open-data-archive-bg-v1-834.webp",
+      "sha256": "3e94f1e540171247dad0a1914586868434cb25b714e4bed703623124fd83ead1",
+      "firstRepositoryEvidenceAt": "2026-08-25T23:03:24+09:00"
+    },
+    {
+      "path": "assets/visuals-07/open-data-archive-bg-v1.png",
+      "sha256": "8075e81d4c9e02e13b6936ea2379185f1cab8609673eac969b64efb0342c47f8",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/visuals-07/open-data-archive-bg-v1.webp",
+      "sha256": "c4d969d14cce85e3a4c2a2c85c64f1dc80a34633616bc38a01efa0536da35ee0",
+      "firstRepositoryEvidenceAt": "2026-08-25T23:03:24+09:00"
+    },
+    {
+      "path": "assets/visuals-07/opening-keyvisual-v1.webp",
+      "sha256": "fb41837aa68d74e4f10731ae93a8bd310350ce527a2a37e698af2620a2aeeb5a",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/visuals-07/opening-keyvisual-v2-834.webp",
+      "sha256": "cbc58c57cc21085a41006dfe74587faae7d52e4fc135a80f49ede8092cde7e51",
+      "firstRepositoryEvidenceAt": "2026-08-25T23:03:24+09:00"
+    },
+    {
+      "path": "assets/visuals-07/opening-keyvisual-v2.png",
+      "sha256": "bca76c0724903a55fd5166417b639bcc6ef13ec4075c302d79a411dccac6726b",
+      "firstRepositoryEvidenceAt": "2026-08-22T23:30:34+09:00"
+    },
+    {
+      "path": "assets/visuals-07/opening-keyvisual-v2.webp",
+      "sha256": "d6a18cb740b7a4476bb3022b7b98e4a8ddd69496eab391e66a4f81ad8b58af2b",
+      "firstRepositoryEvidenceAt": "2026-08-25T23:03:24+09:00"
+    },
+    {
+      "path": "assets/visuals-07/slack-attachment-basil-v1.webp",
+      "sha256": "119571f8f1d1a0ab3f134587b61aff07e50bfac3bb4a76e16bef9dd8af4fa978",
+      "firstRepositoryEvidenceAt": "2026-08-09T22:39:47+09:00"
+    },
+    {
+      "path": "assets/visuals-07/slack-attachment-flowerbed-v1.webp",
+      "sha256": "923a27a7c0be60ac59560a53300f57315e906bbebd0162a203b5df2f45689325",
+      "firstRepositoryEvidenceAt": "2026-08-09T22:39:47+09:00"
+    },
+    {
+      "path": "assets/visuals-07/slack-attachment-venue-v1.webp",
+      "sha256": "40a3b3e7a4fb644df631b1c2ac447cd1fcbcdca2e44265f3d0007bbe3445f8aa",
+      "firstRepositoryEvidenceAt": "2026-08-09T22:39:47+09:00"
+    },
+    {
+      "path": "assets/visuals-07/slack-avatar-amane-v1.webp",
+      "sha256": "7236f540ad4ca94dfd16e47c9f26091fac5b80e8334c792e5eca33190a78372d",
+      "firstRepositoryEvidenceAt": "2026-08-09T00:01:00+09:00"
+    },
+    {
+      "path": "assets/visuals-07/slack-avatar-amane-v2.webp",
+      "sha256": "2e24cbe5129f34810e86d5959865fbeafd8b250dcbe4f016f3520e60ffab76f8",
+      "firstRepositoryEvidenceAt": "2026-08-13T14:16:48+09:00"
+    },
+    {
+      "path": "assets/visuals-07/slack-avatar-mizuha-v1.webp",
+      "sha256": "d09542f27f1a8db96408dffe6792e1a7abc7b065c49093a58b99e4edf5dee78c",
+      "firstRepositoryEvidenceAt": "2026-08-09T00:01:00+09:00"
+    },
+    {
+      "path": "assets/visuals-07/slack-avatar-mizuha-v2.webp",
+      "sha256": "d75d1e0098b426dab8f0fc89e1f71687123eb29a0c82f3bd80d0ad403cf9895e",
+      "firstRepositoryEvidenceAt": "2026-08-13T14:16:48+09:00"
+    },
+    {
+      "path": "assets/visuals-07/slack-avatar-sakuya-flower-v3.webp",
+      "sha256": "cd964d49464fa8a8d73dec978858895c4941021e6b7dccd983328b71f4d98899",
+      "firstRepositoryEvidenceAt": "2026-08-09T21:46:17+09:00"
+    },
+    {
+      "path": "assets/visuals-07/slack-avatar-sakuya-v1.webp",
+      "sha256": "bb2740b105936c2f3c765aedf2f4abda3b4e8d244803f2b58b4d696aad99c13a",
+      "firstRepositoryEvidenceAt": "2026-08-09T00:01:00+09:00"
+    },
+    {
+      "path": "assets/visuals-07/sound-archive-bg-v1.webp",
+      "sha256": "befa5a331c176a6f653ac950f3c3e7fbcbf8eae92028dd34fb67bb47ca04e770",
+      "firstRepositoryEvidenceAt": "2026-08-08T01:27:14+09:00"
+    },
+    {
+      "path": "assets/visuals-07/sound-archive-bg-v2.png",
+      "sha256": "4a86cabb1161ef015d7a85ed34257d39ca0d35ceda84cd8d2078d0af4b6f55bd",
+      "firstRepositoryEvidenceAt": "2026-08-22T23:30:34+09:00"
+    },
+    {
+      "path": "assets/visuals-07/sound-archive-bg-v3.png",
+      "sha256": "967b1624e6e59aa0a0f0c63b411c41b44d6d73df47b24d33aa2737e9bc1702f6",
+      "firstRepositoryEvidenceAt": "2026-09-13T21:38:40+09:00"
+    },
+    {
+      "path": "assets/visuals-07/zushi-campus-story-bg-v1.webp",
+      "sha256": "129201140a440fa24dfa91619748784d88eae053bbf6cc432a4098facc3627e2",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/visuals-07/zushi-campus-story-bg-v2.webp",
+      "sha256": "08c456a4a5e647c708f411692669beaf039cad9a6a6d942beb5f538635f681ae",
+      "firstRepositoryEvidenceAt": "2026-08-04T23:22:27+09:00"
+    },
+    {
+      "path": "assets/visuals-07/zushi-campus-story-bg-v3.webp",
+      "sha256": "f21a9a2c0e83f2572defea3647058d086334d05fff72031dd8dccb0da137259b",
+      "firstRepositoryEvidenceAt": "2026-08-06T01:18:12+09:00"
+    },
+    {
+      "path": "assets/visuals-07/zushi-campus-story-bg-v4.webp",
+      "sha256": "066e3cb370ba4deea6907176a04efe74d83e558aeb58604a14ef1b671f1b115a",
+      "firstRepositoryEvidenceAt": "2026-08-06T01:18:12+09:00"
+    },
+    {
+      "path": "assets/visuals-08/campus-chat-gaia-senseware-connection-diagram-v1.png",
+      "sha256": "280110c4986108e15672e09c4338bf79eaf458f3fbd4e1da601f6f715bd036fa",
+      "firstRepositoryEvidenceAt": "2026-08-22T23:30:34+09:00"
+    },
+    {
+      "path": "assets/visuals-08/opening-amane-keyvisual-v1-834.webp",
+      "sha256": "9e94b392334a7f01493a7febfb4a4d07fea48d2420756da3cbab54a4258a12ba",
+      "firstRepositoryEvidenceAt": "2026-08-25T23:03:24+09:00"
+    },
+    {
+      "path": "assets/visuals-08/opening-amane-keyvisual-v1.png",
+      "sha256": "4576eface93c6aba771cb76e611915ce7068cd596c8b40e4f2eff5d507bb0f35",
+      "firstRepositoryEvidenceAt": "2026-08-23T01:04:02+09:00"
+    },
+    {
+      "path": "assets/visuals-08/opening-amane-keyvisual-v1.webp",
+      "sha256": "dcb1e9add8e30184c86b21d7fce42321d9b7164104ca50cafac3f1e626fd2f9c",
+      "firstRepositoryEvidenceAt": "2026-08-25T23:03:24+09:00"
+    },
+    {
+      "path": "assets/visuals-08/opening-final-night-keyvisual-v1-960.webp",
+      "sha256": "032db35e50acdf157f6e7891fc89877647b76483b0b37ecfe32b861586641405",
+      "firstRepositoryEvidenceAt": "2026-08-26T01:08:12+09:00"
+    },
+    {
+      "path": "assets/visuals-08/opening-final-night-keyvisual-v1.webp",
+      "sha256": "6db494fa1bc9cd45f50521bae5d10300f25c7f69a685692f400b8a650e8852a7",
+      "firstRepositoryEvidenceAt": "2026-08-26T01:08:12+09:00"
+    },
+    {
+      "path": "assets/visuals-08/opening-final-night-keyvisual-v2-960.webp",
+      "sha256": "423f3549eeb1938f0de83527d5e64d3d63300fcd9db5ad6c0df352af11575408",
+      "firstRepositoryEvidenceAt": "2026-08-26T05:09:48+09:00"
+    },
+    {
+      "path": "assets/visuals-08/opening-final-night-keyvisual-v2.webp",
+      "sha256": "ea5080019180f48bd992a5806ab74763db30031574eb10232a830241acecb858",
+      "firstRepositoryEvidenceAt": "2026-08-26T05:09:48+09:00"
+    },
+    {
+      "path": "assets/visuals-08/opening-final-night-keyvisual-v3-960.webp",
+      "sha256": "d0357d59b29692ec1d5993ac0adb298c8567190b2b11e5e5c4bb11d7d29113dd",
+      "firstRepositoryEvidenceAt": "2026-08-26T11:39:38+09:00"
+    },
+    {
+      "path": "assets/visuals-08/opening-final-night-keyvisual-v3.webp",
+      "sha256": "7c7bf77c6c3d0d3ae0ae5dfea08c6bf4c4bc27b71f3c0aadc2a1e9536e2609cc",
+      "firstRepositoryEvidenceAt": "2026-08-26T11:39:38+09:00"
+    },
+    {
+      "path": "assets/visuals-08/opening-final-observatory-keyvisual-v4-960.webp",
+      "sha256": "66437f9e7443bcee2e9310a0e8e541950d3fbd5d93ca754bf257037423337320",
+      "firstRepositoryEvidenceAt": "2026-08-30T08:40:44+09:00"
+    },
+    {
+      "path": "assets/visuals-08/opening-final-observatory-keyvisual-v4.webp",
+      "sha256": "7a9b9c651aac96a270d4d3c4efe9748b02ad02224fda5df1771df2171eb40855",
+      "firstRepositoryEvidenceAt": "2026-08-30T08:40:44+09:00"
+    },
+    {
+      "path": "assets/visuals-08/opening-mizuha-keyvisual-portrait-v2-720.webp",
+      "sha256": "1e826c3e83b0e9943b7a19c991a3406556e559467ac74e94857d8e62a47dd4e3",
+      "firstRepositoryEvidenceAt": "2026-08-25T23:03:24+09:00"
+    },
+    {
+      "path": "assets/visuals-08/opening-mizuha-keyvisual-portrait-v2.png",
+      "sha256": "784b15cf855c242e9059a36104635bfb85235a4e4dab50c70237600ad6e25ef0",
+      "firstRepositoryEvidenceAt": "2026-08-25T23:03:24+09:00"
+    },
+    {
+      "path": "assets/visuals-08/opening-mizuha-keyvisual-portrait-v2.webp",
+      "sha256": "9f12e89f7ecd6c8a1c3123ddb5d1fbeed841373463c34f2aca7924b959a4fe6b",
+      "firstRepositoryEvidenceAt": "2026-08-25T23:03:24+09:00"
+    },
+    {
+      "path": "assets/visuals-08/opening-mizuha-keyvisual-v1-834.webp",
+      "sha256": "344422e064f7ccfa99eab39090697651a62bd06345a9051642da7c112a315a6b",
+      "firstRepositoryEvidenceAt": "2026-08-25T23:03:24+09:00"
+    },
+    {
+      "path": "assets/visuals-08/opening-mizuha-keyvisual-v1.png",
+      "sha256": "89d344dd2e9206833c3fa6ec159f6a99e7c34dda1f318b6a5e6792c79e8ed329",
+      "firstRepositoryEvidenceAt": "2026-08-23T01:04:02+09:00"
+    },
+    {
+      "path": "assets/visuals-08/opening-mizuha-keyvisual-v1.webp",
+      "sha256": "435981d4389efde4827dbbba33f5e0488ef2e9c7eca4c21965b0421cfdb6febd",
+      "firstRepositoryEvidenceAt": "2026-08-25T23:03:24+09:00"
+    },
+    {
+      "path": "assets/visuals-08/true-end-future-cosmic-shore-v1.png",
+      "sha256": "7a44df09c58e5c41fc746012e4f7dca82fb2b650924a7f27698d9f6f9b4ec691",
+      "firstRepositoryEvidenceAt": "2026-08-22T23:30:34+09:00"
+    }
+  ]
+}

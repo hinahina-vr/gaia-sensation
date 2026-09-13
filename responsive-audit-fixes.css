@@ -1,0 +1,176 @@
+/* Shared responsive invariants: native controls stay in their original providers. */
+@media(min-width:901px) {
+  body:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation.has-ecology-legend-lane #map-signal-encoding-legend-dock:not(.is-user-positioned) { right:var(--ecology-legend-right) !important; }
+}
+.signal-encoding-legend[data-mode="ecologies"] [data-encoding-mark="heatmap"] { background:rgba(145,229,177,.95) !important; width:28px !important; height:8px !important; border:0 !important; }
+.signal-encoding-legend[data-mode="ecologies"] [data-encoding-mark="nodata"] { background:rgba(131,213,245,.95) !important; width:28px !important; height:8px !important; border:0 !important; }
+.signal-encoding-legend[data-mode="ecologies"] [data-encoding-mark="estimate"] { background:none !important; border:0 !important; }
+.signal-encoding-legend[data-mode="ecologies"] [data-encoding-mark="estimate"]::after { content:'≠'; }
+#japan-layer.has-map-stable-navigation :is(.japan-credits,#map-scope-note) { background:linear-gradient(145deg,rgba(19,42,52,.8),rgba(5,22,32,.8)) !important; box-shadow:none !important; border:1px solid #aec9d522; border-radius:8px; }
+#japan-layer .map-dock-context > summary { width:fit-content; margin-left:auto !important; margin-right:0 !important; }
+#japan-layer .map-base-sources { margin-top:24px; padding-top:16px; border-top:1px solid #9cbfc844; }
+#japan-layer .map-base-sources > summary { cursor:pointer; padding:10px 0; font-size:18px; font-weight:600; color:#d9ebee; }
+#japan-layer .map-base-sources > summary:focus-visible { outline:2px solid #9bdded; outline-offset:4px; }
+#japan-layer .data-source-internal-note { color:#a9c3c8; font-size:14px; }
+#japan-layer .map-base-sources a { display:block; padding:10px 0; color:#c5dedd; overflow-wrap:anywhere; }
+@media(min-width:901px) {
+  body:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation { --map-aligned-edge:16px; }
+  body:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation :is(.japan-map-actions,#map-stable-navigation,#gaia-map-zoom-controls) { left:var(--map-aligned-edge) !important; margin-left:0 !important; }
+  body:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation :is(.gaia-estat-heat-legend,.gaia-live-metric-legend,.signal-encoding-legend-dock,#map-scope-note):not(.is-user-positioned) { right:var(--map-aligned-edge) !important; margin-right:0 !important; }
+  body:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation #map-scope-note { top:var(--responsive-map-note-top,420px) !important; bottom:auto !important; }
+}
+#sound-mini-player { display:none; }
+@media(max-width:920px) {
+  #sound-layer.sound-layer.sound-morph-prototype { padding-bottom:max(90px,calc(env(safe-area-inset-bottom) + 78px)); }
+  #sound-layer.sound-morph-prototype .sound-layout { padding-bottom:0; scroll-padding-bottom:16px; }
+  #sound-layer.sound-morph-prototype .sound-track-panel { flex:none; } /* Preserve the last track and bottom clearance in the landscape flex layout. */
+  #sound-layer.sound-morph-prototype .sound-track { scroll-margin-bottom:16px; }
+  #sound-layer #sound-mini-player { position:fixed; z-index:600; bottom:max(12px,env(safe-area-inset-bottom)); left:12px; right:12px; display:flex; align-items:center; gap:12px; padding:8px 12px; min-height:64px; border:1px solid #86cacb; border-radius:12px; background:#081e2af5; color:#e4f5f3; box-shadow:0 4px 24px #0006; }
+  #sound-mini-title { flex:1; min-width:0; overflow-wrap:anywhere; font:600 14px/1.4 var(--font-ja); }
+  #sound-mini-play { flex:none; width:48px; height:48px; border:1px solid #a5e6d9; border-radius:50%; background:#afe5d5; color:#0d3437; font-size:22px; cursor:pointer; }
+  #sound-mini-play:focus-visible { outline:3px solid #fff0a4; outline-offset:3px; }
+}
+#map-responsive-data[hidden] { display:none !important; }
+.map-mobile-source-credits { padding:10px; border:1px solid #80c6cf66; border-radius:8px; }
+.map-mobile-source-credits > summary { min-height:32px; cursor:pointer; }
+.map-mobile-source-credits > a { display:block; padding:12px 0; color:#d5e9eb; overflow-wrap:anywhere; }
+#map-responsive-data { position:fixed; z-index:270; left:12px; right:12px; bottom:76px; color:#e4f5f3; background:#071d29f5; border:1px solid #80c6cf; border-radius:10px; max-height:calc(100dvh - 152px); overflow:auto; }
+#map-responsive-data > summary { padding:10px 14px; min-height:44px; box-sizing:border-box; cursor:pointer; font:600 14px/24px var(--font-ja); }
+#japan-layer #map-responsive-data > :not(summary):not([hidden]) { position:static !important; inset:auto !important; width:auto !important; max-width:none !important; height:auto !important; min-height:0 !important; max-height:none !important; margin:0 !important; padding:12px !important; transform:none !important; }
+#japan-layer #map-responsive-data .map-dock-context { display:none !important; } /* Also available under Reading / legend. */
+#japan-layer #map-responsive-data :is(.gaia-cod-annotations,.gaia-cod-status,.gaia-cod-count,.gaia-food-status,.gaia-food-count) { position:static !important; max-width:100%; }
+#japan-layer #map-responsive-data .gaia-cod-annotations { text-align:left; align-items:flex-start; }
+#japan-layer#japan-layer.has-map-stable-navigation .japan-credits { bottom:var(--responsive-credit-bottom,120px) !important; max-width:calc(100% - 28px); max-height:32px; overflow:auto; }
+#japan-layer.has-map-stable-navigation .map-dock-context { left:auto !important; right:16px !important; bottom:calc(100% + 74px) !important; }
+body:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation #gaia-map-zoom-controls { left:12px !important; right:auto !important; top:160px !important; bottom:auto !important; transform:none !important; translate:none !important; }
+@media(min-width:901px) and (max-width:1399px) {
+  body.map-grid-desktop #japan-layer.has-map-stable-navigation.is-food-exhibit { --map-unified-height:161px; }
+  body.map-grid-desktop #japan-layer.has-map-stable-navigation .gaia-food-readout { grid-template-columns:minmax(300px,1.3fr) minmax(0,1fr) var(--map-exhibit-actions-width) !important; grid-template-rows:64px 76px !important; gap:0 !important; --map-chapter-height:76px !important; }
+}
+@media(min-width:901px) {
+  /* Header, persistent navigation and legends have separate occupied rows. */
+  #japan-layer.has-map-stable-navigation :is(.signal-encoding-legend-dock,.gaia-estat-heat-legend,.gaia-food-legend,.gaia-marine-cod-legend,.gaia-firms-legend,.gaia-planet-signals-legend):not(.is-user-positioned) { top:var(--responsive-legend-top,154px) !important; }
+  #japan-layer.has-map-stable-navigation .gaia-live-metric-legend:not(.is-user-positioned) { top:var(--responsive-metric-top,310px) !important; }
+  #japan-layer.has-map-stable-navigation .gaia-estat-prefecture-tooltip { display:none !important; } /* Selected place/year/value already live in the legend and observation dock. */
+  #japan-layer.has-map-stable-navigation .japan-credits { display:flex !important; flex-wrap:wrap; justify-content:flex-end; gap:3px 10px; width:fit-content !important; max-width:calc(100vw - 210px) !important; max-height:52px; right:16px !important; left:auto !important; padding:4px 8px; background:#061923e8; }
+  #japan-layer.has-map-stable-navigation .japan-credits a { font-size:11px !important; line-height:1.4 !important; letter-spacing:0 !important; color:#c5dedd !important; }
+  #japan-layer.has-map-stable-navigation .japan-credits > span:not([hidden]) { display:contents !important; }
+}
+@media(min-width:901px) and (max-width:1399px) {
+  #japan-layer.has-map-stable-navigation :is(.signal-encoding-legend-dock,.gaia-live-metric-legend) { max-width:320px !important; }
+  @layer gaia-navigation {
+    #japan-layer.has-map-stable-navigation.has-map-heading-navigation .japan-heading { left:90px !important; top:150px !important; width:calc(100vw - 120px) !important; max-width:calc(100vw - 120px) !important; }
+    #japan-layer.has-map-stable-navigation.has-map-heading-navigation #japan-title { font-size:22px !important; line-height:1.4 !important; }
+  }
+}
+#map-responsive-sources-button { position:fixed; left:12px; bottom:calc(var(--responsive-credit-bottom,120px) + 60px); z-index:260; min-height:44px; max-width:174px; padding:8px 12px; border:1px solid #80c6cf; border-radius:8px; background:#081e2af5; color:#deefed; font:600 13px/1.4 var(--font-ja); cursor:pointer; }
+#map-responsive-sources-button[hidden] { display:none; }
+#map-responsive-sources { width:min(620px,calc(100vw - 28px)); max-height:calc(100dvh - 32px); padding:20px; overflow:auto; border:1px solid #80c6cf; border-radius:12px; background:#081e2a; color:#e4f5f3; }
+#map-responsive-sources::backdrop { background:#001018aa; }
+#map-responsive-sources header { display:flex; align-items:center; justify-content:space-between; gap:16px; }
+#map-responsive-sources h2 { margin:0; font:600 22px/1.5 var(--font-ja); }
+#map-responsive-sources [data-close-sources] { flex:none; width:44px; height:44px; border:1px solid #80c6cf; border-radius:8px; background:#153341; color:#e4f5f3; font-size:24px; cursor:pointer; }
+#map-responsive-sources a { display:block; min-height:44px; margin-top:8px; padding:10px; color:#c7f4ef; font:400 15px/1.6 var(--font-ja); overflow-wrap:anywhere; }
+@media(max-width:900px) {
+  /* Legends remain available, with their full text, in the existing reading sheet. */
+  #japan-layer.is-mobile-map-shell :is(.gaia-marine-cod-legend,.gaia-food-legend,.gaia-live-metric-legend,.gaia-estat-heat-legend,.signal-encoding-legend-dock,.gaia-firms-legend,.gaia-planet-signals-legend) { display:none !important; }
+  /* The selected prefecture and metric are already shown in the observation panel. */
+  #japan-layer.is-mobile-map-shell .gaia-estat-prefecture-tooltip { display:none !important; }
+  /* 46px outer width = two 1px borders + a 44px touch target; no extra side padding. */
+  body:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation.is-mobile-map-shell #gaia-map-zoom-controls { position:fixed !important; top:var(--responsive-zoom-top,180px) !important; width:46px !important; padding-inline:0; justify-items:center; z-index:240 !important; }
+  #japan-layer.is-mobile-map-shell .map-dock-context { display:none !important; }
+  #japan-layer.is-mobile-map-shell .japan-credits { right:12px; left:auto !important; font-size:9px !important; max-width:calc(100vw - 80px); max-height:26px; }
+}
+@media(max-width:900px) and (max-height:700px) {
+  #japan-layer.has-compact-observation .japan-credits { display:none !important; } /* Source links remain in Reading and Controls. */
+  #japan-layer.has-compact-observation .gaia-live-exhibit-timeline { display:block !important; }
+}
+@media(min-width:600px) and (max-width:900px) and (max-height:500px) {
+  @layer gaia-navigation {
+    #japan-layer.has-map-stable-navigation.is-mobile-map-shell .japan-heading { top:18px !important; left:120px !important; width:calc(100vw - 220px) !important; max-width:calc(100vw - 220px) !important; }
+  }
+  body:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation.is-mobile-map-shell #gaia-map-zoom-controls { top:140px !important; }
+}
+
+/* Small screens need separate cells; desktop keeps the published composition. */
+@media(max-width:1100px) {
+#character-book-layer .character-book-hero { display:grid; grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr) minmax(0,1fr); align-items:center; gap:24px; min-height:100dvh; padding:96px 4vw 60px; }
+#character-book-layer .character-book-hero-copy { position:relative; inset:auto; grid-column:1; grid-row:1; width:auto; max-width:100%; margin:0; }
+#character-book-layer .character-book-hero-detail { position:relative; inset:auto; grid-column:2; grid-row:1; width:auto; max-width:100%; margin:0; }
+#character-book-layer .character-book-hero-figure { position:relative; inset:auto; grid-column:3; grid-row:1; width:100%; height:auto; margin:0; opacity:1; display:flex; flex-direction:column; align-items:center; }
+#character-book-layer .character-book-hero-figure > img { height:min(62dvh,720px); width:100%; object-fit:contain; }
+#character-book-layer .character-book-hero-quote { position:relative; inset:auto; width:100%; box-sizing:border-box; writing-mode:horizontal-tb; white-space:normal; padding:12px; margin-top:12px; font-size:14px; line-height:1.7; background:#edf6f4; color:#173747; transform:none; }
+#character-book-layer .character-book-hero-figure figcaption { display:none; }
+#character-book-layer #character-book-profile { font-size:clamp(13px,.9vw,18px); line-height:1.85; max-width:100%; }
+#character-book-layer #character-book-page-title { flex-wrap:wrap; }
+#character-book-layer .character-book-hero-copy #character-book-title > span { font-size:clamp(27px,3.2vw,62px); }
+#character-book-layer .character-book-selector { flex-wrap:wrap; }
+}
+@media(max-width:1100px) {
+  #character-book-layer .character-book-hero { grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:24px; }
+  #character-book-layer .character-book-hero-copy { grid-column:1/-1; grid-row:1; }
+  #character-book-layer .character-book-hero-detail { grid-column:1; grid-row:2; }
+  #character-book-layer .character-book-hero-figure { grid-column:2; grid-row:2; }
+}
+@media(max-width:600px) {
+  #character-book-layer .character-book-hero { display:flex; flex-direction:column; align-items:stretch; padding:90px 18px 48px; min-height:0; gap:24px; }
+  #character-book-layer .character-book-hero-copy { order:0; }
+  #character-book-layer .character-book-hero-detail { order:1; }
+  #character-book-layer .character-book-hero-figure { order:2; }
+  #character-book-layer .character-book-hero-figure > img { height:350px; max-height:65dvh; }
+  #character-book-layer .character-book-hero-quote { margin:0; }
+}
+
+/* One scrolling content region; only the small close/header bar stays fixed. */
+@media(max-width:600px),(max-height:600px) {
+  #gaia-statistics-lab .gaia-statistics-shell { display:flex !important; flex-direction:column; width:calc(100vw - 12px); height:calc(100dvh - 12px); max-height:calc(100dvh - 12px); padding:8px !important; overflow:hidden !important; }
+  #gaia-statistics-lab .gaia-statistics-header { flex:none; display:flex; align-items:center; gap:8px; padding:4px 0 8px; }
+  #gaia-statistics-lab .gaia-statistics-header > div:first-child { min-width:0; flex:1; }
+  #gaia-statistics-lab .gaia-statistics-header h2 { font-size:18px; }
+  #gaia-statistics-lab #gaia-statistics-context { max-height:30px; overflow:auto; font-size:9px; }
+  #gaia-statistics-lab .gaia-statistics-header-actions { gap:4px; }
+  #gaia-statistics-lab .gaia-statistics-header-actions button { min-width:40px; padding:6px; }
+  #gaia-statistics-lab .gaia-statistics-body { flex:1; min-height:0; overflow:auto !important; display:block !important; }
+  #gaia-statistics-lab .gaia-statistics-stage { display:flex !important; flex-direction:column; overflow:visible !important; min-height:0; padding-top:0; gap:8px; }
+  #gaia-statistics-lab .gaia-statistics-stage > * { order:10; }
+  #gaia-statistics-lab .gaia-statistics-stage-header { order:0; }
+  #gaia-statistics-lab .gaia-statistics-view-tabs { order:1; }
+  #gaia-statistics-lab #gaia-statistics-visual { order:2; }
+  #gaia-statistics-lab .gaia-statistics-stage-header { padding:8px; min-height:0; }
+  #gaia-statistics-lab .gaia-statistics-stage-header h3 { font-size:16px; }
+  #gaia-statistics-lab .gaia-statistics-stage-header :is(#gaia-statistics-method-copy,#gaia-statistics-method-number,#gaia-statistics-status,.gaia-statistics-companion) { display:none; }
+  #gaia-statistics-lab .gaia-statistics-view-tabs { display:flex; flex-wrap:nowrap; overflow:auto; flex-shrink:0; }
+  #gaia-statistics-lab .gaia-statistics-view-tabs button { flex:0 0 auto; min-height:40px; padding:6px 10px; }
+  #gaia-statistics-lab .gaia-statistics-visual { flex-shrink:0; min-height:300px !important; }
+}
+
+@media(max-width:600px) {
+  #gaia-statistics-lab .gaia-statistics-header { flex-wrap:wrap; }
+  #gaia-statistics-lab .gaia-statistics-header > div:first-child { flex:1 0 100%; }
+  #gaia-statistics-lab .gaia-statistics-header-actions { margin-left:auto; }
+}
+
+@media(min-width:600px) and (max-width:920px) and (max-height:500px) {
+  #sound-layer.sound-morph-prototype { padding:12px 20px; }
+  #sound-layer.sound-morph-prototype .sound-header { padding-top:54px; }
+  #sound-layer.sound-morph-prototype .sound-header h2 { font-size:20px; }
+  #sound-layer.sound-morph-prototype .sound-layout { overflow:auto; display:flex; flex-direction:column; gap:12px; }
+  #sound-layer.sound-morph-prototype .sound-player { order:-1; flex:none; margin:0; padding:0; display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.3fr); gap:10px 20px; }
+  #sound-layer.sound-morph-prototype .sound-now-playing { grid-column:1; grid-row:1/3; margin:0; padding:0; }
+  #sound-layer.sound-morph-prototype .sound-now-playing .sound-cover-art { display:none; }
+  #sound-layer.sound-morph-prototype .sound-now-playing h3 { font-size:22px; margin:8px 0; }
+  #sound-layer.sound-morph-prototype .sound-transport { grid-column:2; grid-row:1; margin:0; padding:0; min-height:60px; }
+  #sound-layer.sound-morph-prototype .sound-volume { grid-column:2; grid-row:2; margin:0; padding:0; }
+  #sound-layer.sound-morph-prototype .sound-play { width:52px; height:52px; min-height:52px; }
+  #sound-layer.sound-morph-prototype .sound-footer { display:none; }
+}
+/* Source purpose is explicit: analytical records vs map/function assets. */
+#japan-layer .map-draggable-legend { cursor:grab; touch-action:none; user-select:none; pointer-events:auto; }
+#japan-layer .map-draggable-legend.is-dragging { cursor:grabbing; }
+#japan-layer .map-draggable-legend:focus-visible { outline:2px solid #a4ecff; outline-offset:3px; }
+#japan-data-panel .source-purpose-heading { padding:16px; background:#173d4c; border:1px solid #438a9f; border-radius:12px; margin-bottom:16px; }
+#japan-data-panel .source-purpose-heading h3 { margin:0 0 8px; color:#e8fbff; font:700 18px/1.5 sans-serif; }
+#japan-data-panel :is(.source-purpose-heading,.map-base-sources) p { font:400 14px/1.7 sans-serif; color:#c3dbe2; margin:6px 0 12px; }
+#japan-data-panel .source-use-card { padding:14px 0; border-bottom:1px solid #7a9ca54d; }
+#japan-data-panel .source-use-card h4 { font:700 16px/1.5 sans-serif; color:#e2f6fb; margin:0; }
+#japan-data-panel .source-use-card a { font:400 13px/1.6 sans-serif; overflow-wrap:anywhere; }

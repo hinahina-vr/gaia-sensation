@@ -1,0 +1,150 @@
+.gaia-mode-entry-guide[hidden] { display: none; }
+
+.gaia-mode-entry-guide {
+  position: fixed;
+  z-index: 320;
+  inset: 0;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+/* Map legends live above the base overlay; the guide must own its hit area. */
+.gaia-mode-entry-guide[data-mode="map"] { z-index: 1200; }
+
+.gaia-mode-entry-guide-spotlight {
+  position: fixed;
+  box-sizing: border-box;
+  border: 2px solid rgba(137, 232, 255, 0.96);
+  box-shadow:
+    0 0 0 9999px rgba(0, 7, 22, 0.7),
+    0 0 0 6px rgba(88, 190, 255, 0.16),
+    0 0 34px rgba(87, 205, 255, 0.62);
+  opacity: 0;
+  transition: inset 220ms ease, width 220ms ease, height 220ms ease, opacity 320ms ease;
+}
+
+.gaia-mode-entry-guide-card {
+  position: fixed;
+  width: min(390px, calc(100vw - 28px));
+  box-sizing: border-box;
+  padding: 17px 18px 16px;
+  border: 1px solid rgba(137, 226, 255, 0.72);
+  border-radius: 13px;
+  color: #f6fcff;
+  background:
+    radial-gradient(circle at 90% 0%, rgba(104, 197, 255, 0.18), transparent 43%),
+    linear-gradient(145deg, rgba(5, 39, 68, 0.985), rgba(4, 20, 46, 0.985));
+  box-shadow: 0 20px 54px rgba(0, 4, 20, 0.52), inset 0 1px rgba(255, 255, 255, 0.08);
+  opacity: 0;
+  pointer-events: auto;
+  transform: translateY(7px);
+  transition: opacity 320ms ease, transform 320ms cubic-bezier(0.2, 0.78, 0.2, 1), top 220ms ease, left 220ms ease;
+}
+
+.gaia-mode-entry-guide-card:not([data-positioned="true"]) { visibility: hidden; }
+.gaia-mode-entry-guide.is-visible :is(.gaia-mode-entry-guide-spotlight, .gaia-mode-entry-guide-card) { opacity: 1; }
+.gaia-mode-entry-guide.is-visible .gaia-mode-entry-guide-card { transform: none; }
+
+.gaia-mode-entry-guide-card header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 10px;
+  color: rgba(157, 231, 255, 0.7);
+  font: 700 9px/1 var(--font-console);
+  letter-spacing: 0.14em;
+}
+
+.gaia-mode-entry-guide-card header b { font-size: 10px; }
+.gaia-mode-entry-guide-card header i { color: #fff; font-size: 16px; font-style: normal; }
+
+.gaia-mode-entry-guide-card h2 {
+  margin: 0;
+  color: #fff;
+  font-family: var(--font-ja, "Yu Mincho", serif);
+  font-size: 22px;
+  font-weight: 650;
+  letter-spacing: 0.055em;
+  line-height: 1.45;
+}
+
+.gaia-mode-entry-guide-card > p {
+  margin: 9px 0 0;
+  color: rgba(239, 250, 255, 0.85);
+  font-family: var(--font-ja, "Yu Mincho", serif);
+  font-size: 13px;
+  font-weight: 550;
+  letter-spacing: 0.035em;
+  line-height: 1.72;
+}
+
+.is-gaia-mode-guide-target {
+  outline: 1px solid rgba(145, 223, 255, 0.34);
+  outline-offset: 3px;
+}
+
+.gaia-mode-entry-guide-controls { display: flex; gap: 8px; margin-top: 16px; }
+.gaia-mode-entry-guide-controls button {
+  min-height: 44px; padding: 8px 12px; border: 1px solid #87d6e84d; border-radius: 8px;
+  color: #e5f6fa; background: #0d354d; font: 600 12px/1.4 var(--font-ja, sans-serif); cursor: pointer;
+}
+.gaia-mode-entry-guide-controls [data-mode-guide-skip] { margin-right: auto; background: transparent; }
+.gaia-mode-entry-guide-controls [data-mode-guide-next] { color: #032033; background: #a7e8f4; }
+.gaia-mode-entry-guide-controls button:disabled { opacity: .35; cursor: default; }
+.gaia-mode-entry-guide-controls button:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+
+.gaia-mode-entry-guide-replay {
+  position: fixed;
+  z-index: 210;
+  top: max(16px, env(safe-area-inset-top));
+  right: max(72px, calc(env(safe-area-inset-right) + 62px));
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 11px 7px 8px;
+  border: 1px solid rgba(132, 226, 255, 0.4);
+  border-radius: 999px;
+  color: rgba(238, 251, 255, 0.9);
+  background: linear-gradient(180deg, rgba(12, 53, 78, 0.88), rgba(5, 25, 45, 0.94));
+  box-shadow: 0 8px 24px rgba(0, 6, 22, 0.24), inset 0 1px rgba(255, 255, 255, 0.06);
+  font-family: var(--font-ja, sans-serif);
+  cursor: pointer;
+}
+
+.gaia-mode-entry-guide-replay > span {
+  display: grid;
+  width: 26px;
+  height: 26px;
+  place-items: center;
+  border: 1px solid rgba(122, 225, 255, 0.65);
+  border-radius: 50%;
+  color: #a8efff;
+  font: 700 13px/1 var(--font-console);
+}
+
+.gaia-mode-entry-guide-replay > strong { font-size: 10px; letter-spacing: 0.08em; }
+.gaia-mode-entry-guide-replay:is(:hover, :focus-visible) { border-color: rgba(132, 226, 255, 0.85); color: #fff; outline: none; }
+
+@media (max-width: 520px) {
+  .gaia-mode-entry-guide-card { width: min(350px, calc(100vw - 20px)); padding: 14px 15px 13px; }
+  .gaia-mode-entry-guide-card h2 { font-size: 19px; }
+  .gaia-mode-entry-guide-card > p { font-size: 12px; line-height: 1.62; }
+  .gaia-mode-entry-guide-replay { right: max(66px, calc(env(safe-area-inset-right) + 58px)); padding-right: 9px; }
+  .gaia-mode-entry-guide-replay > strong { font-size: 9px; }
+}
+
+@media (max-height: 430px) and (orientation: landscape) {
+  .gaia-mode-entry-guide-card { width: min(360px, calc(100vw - 16px)); padding: 10px 12px; }
+  .gaia-mode-entry-guide-card header { margin-bottom: 4px; }
+  .gaia-mode-entry-guide-card h2 { font-size: 17px; line-height: 1.3; }
+  .gaia-mode-entry-guide-card > p { margin-top: 4px; font-size: 11px; line-height: 1.45; }
+  .gaia-mode-entry-guide-replay { top: 8px; min-height: 38px; }
+  .gaia-mode-entry-guide-replay > span { width: 22px; height: 22px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gaia-mode-entry-guide-spotlight,
+  .gaia-mode-entry-guide-card { transition: none; }
+}

@@ -1,0 +1,443 @@
+{
+  "date": "2026-09-09",
+  "request": "11 attached LOG corrections plus replace every 逗子 with 海辺 in the active scenario",
+  "sourceSha256": "568d87edf3af99a31a0c9c17ca78fda62f583c770dd69b34953dc0c35668c792",
+  "approvedBeforeSha256": "e14f88b9f269f30e23412d72d3678a97b8db96dc8c2cd64ca2d85aa297e2408a",
+  "approvedSha256": "f021e23ef7b94d0c32ab0c4b2bea0a916028746b100cdc943f8bc9bdb6ff1de5",
+  "sourceScenesSha256": "c7aab925df75256a782c5884a4a83831298223463b7d95423a7bf05ea7dd51d7",
+  "runtimeScenesSha256": "1d9cdd40833d030cbeb2d5a7388a9dc17315f58b120858687851e9dbefc54ffd",
+  "historySha256": {
+    "story/LOG_COMMENTS_2026-09-06.md": "9fa84781480727c2cad5197ec14d44ee5d891ab72103d22a665c8dc1f6f72b37",
+    "story/LOG_COMMENTS_2026-09-06_BEYOND.md": "6407da7ec00ba9a54c74c4b3b1a395c936bd6b8c864757b9f2288e16c616abac",
+    "story/LOG_REVISION_2026-09-06.json": "97496f333760d63f5d60407caea534aa5af1bb0ac7657f8cbab4e7be270b3ca1",
+    "story/LOG_REVISION_2026-09-06_BEYOND.json": "b1e8f6ca35f452079c0e9ffddda6f8fed17fae8203079b5368d073d31bbd8188",
+    "story/LOG_REVISION_2026-09-06_BEYOND_FOLLOWUP.json": "1a60e6c114f6c95c3037eaee432eca200a9d303d371a9a99bd555bd13c94faaa",
+    "story/USER_SCRIPT_2026-08-24.txt": "a0313246d7f4443c98d2615b4ba28f104c99acb576e167b94dfeea3bfebe6af8",
+    "story/APPROVED_SCRIPT_2026-08-23.md": "31f84f224fd85e03eeea22fce4f675529c7232b9f114f0ce50a3013e41b22e49",
+    "story/物語台本.md": "27db292fbcfd2fc5130c9dcef8f33532ee0956abb559729347aa055dc5cd6b0c",
+    "contest-limited/story/limited-feature-script.md": "27db292fbcfd2fc5130c9dcef8f33532ee0956abb559729347aa055dc5cd6b0c"
+  },
+  "edits": [
+    {
+      "sourceId": "esp32_pitch_016b",
+      "runtimeId": "esp32_pitch_016b",
+      "reason": "attached-log-comment",
+      "beforeSource": {
+        "id": "esp32_pitch_016b",
+        "kind": "会話",
+        "speakerLabel": "あめ",
+        "text": "「……気になるポイントがふたつある。ひとつは、個人の工作センサーの精度と、NASAや気象庁の校正された観測値を同じ画面に載せたら、見る人がデータの信頼性を混同しないかってこと」"
+      },
+      "beforeRuntime": {
+        "id": "esp32_pitch_016b",
+        "sceneId": "esp32_pitch",
+        "type": "dialogue",
+        "text": "「……気になるポイントがふたつある。ひとつは、個人の工作センサーの精度と、NASAや気象庁の校正された観測値を同じ画面に載せたら、見る人がデータの信頼性を混同しないかってこと」",
+        "speaker": "amane",
+        "speakerLabel": "あめ"
+      },
+      "sourcePatch": {
+        "text": "「……気になるポイントがふたつある。ひとつは、校正も取れてない千円のホビーマイコンの生値を、NASAや気象庁のデータと同じ空間に放り込んだら、科学展示として破綻しないかってこと。それ、ただのノイズの垂れ流しにならない？」"
+      },
+      "runtimePatch": {
+        "text": "「……気になるポイントがふたつある。ひとつは、校正も取れてない千円のホビーマイコンの生値を、NASAや気象庁のデータと同じ空間に放り込んだら、科学展示として破綻しないかってこと。それ、ただのノイズの垂れ流しにならない？」"
+      }
+    },
+    {
+      "sourceId": "esp32_pitch_016g",
+      "runtimeId": "esp32_pitch_016g",
+      "reason": "attached-log-comment",
+      "beforeSource": {
+        "id": "esp32_pitch_016g",
+        "kind": "会話",
+        "speakerLabel": "プレイヤー",
+        "text": "「……なら、どこに置いたかも残しましょう。公的な観測と個人のデータは、表示するレイヤーを分けて」"
+      },
+      "beforeRuntime": {
+        "id": "esp32_pitch_016g",
+        "sceneId": "esp32_pitch",
+        "type": "dialogue",
+        "text": "「……なら、どこに置いたかも残しましょう。公的な観測と個人のデータは、表示するレイヤーを分けて」",
+        "speaker": "visitor",
+        "speakerLabel": "プレイヤー"
+      },
+      "sourcePatch": {
+        "text": "「ノイズだから切り捨てるんじゃなくて、その場所の環境ノイズそのものをアンテナにするんです。衛星のマクロデータと足元のマイクロデータを混ぜずに、マルチスケールなデータフュージョンとして扱えばいい」"
+      },
+      "runtimePatch": {
+        "text": "「ノイズだから切り捨てるんじゃなくて、その場所の環境ノイズそのものをアンテナにするんです。衛星のマクロデータと足元のマイクロデータを混ぜずに、マルチスケールなデータフュージョンとして扱えばいい」"
+      }
+    },
+    {
+      "sourceId": "esp32_pitch_016h",
+      "runtimeId": "esp32_pitch_016h",
+      "reason": "attached-log-comment",
+      "beforeSource": {
+        "id": "esp32_pitch_016h",
+        "kind": "会話",
+        "speakerLabel": "プレイヤー",
+        "text": "「測定時刻、機器の型番、設置環境。『地上高1.5m・直射日光なし』みたいに。値が違ったら、その記録を見て、場所の差なのかセンサーの誤差なのか調べられるようにするんです」"
+      },
+      "beforeRuntime": {
+        "id": "esp32_pitch_016h",
+        "sceneId": "esp32_pitch",
+        "type": "dialogue",
+        "text": "「測定時刻、機器の型番、設置環境。『地上高1.5m・直射日光なし』みたいに。値が違ったら、その記録を見て、場所の差なのかセンサーの誤差なのか調べられるようにするんです」",
+        "speaker": "visitor",
+        "speakerLabel": "プレイヤー"
+      },
+      "sourcePatch": {
+        "text": "「そのために、どこでどう測ったかのメタデータをパケットに積みます。測定時刻、機器の型番、地上高、直射日光の有無。値がズレたときに、場所の固有差なのかセンサーの誤差なのか、後から検証できるようにするんです」"
+      },
+      "runtimePatch": {
+        "text": "「そのために、どこでどう測ったかのメタデータをパケットに積みます。測定時刻、機器の型番、地上高、直射日光の有無。値がズレたときに、場所の固有差なのかセンサーの誤差なのか、後から検証できるようにするんです」"
+      }
+    },
+    {
+      "sourceId": "esp32_pitch_new_010",
+      "runtimeId": "esp32_pitch_new_010",
+      "reason": "attached-log-comment",
+      "beforeSource": {
+        "id": "esp32_pitch_new_010",
+        "kind": "会話",
+        "speakerLabel": "あめ",
+        "text": "「……うん。その形なら、違いが出たときに確かめに戻れる。まず試してみたい」",
+        "metadata": {
+          "cueFromStepId": "esp32_pitch_016i"
+        }
+      },
+      "beforeRuntime": {
+        "id": "esp32_pitch_new_010",
+        "sceneId": "esp32_pitch",
+        "type": "dialogue",
+        "text": "「……うん。その形なら、違いが出たときに確かめに戻れる。まず試してみたい」",
+        "speaker": "amane",
+        "speakerLabel": "あめ",
+        "cueFromStepId": "esp32_pitch_016i"
+      },
+      "sourcePatch": {
+        "text": "「ある人にとってのノイズは、別の人にとってのシグナルである、ってやつか。その設計思想なら、ただの誤差じゃなくて『生きた記録』として成立する。……試してみよっか」"
+      },
+      "runtimePatch": {
+        "text": "「ある人にとってのノイズは、別の人にとってのシグナルである、ってやつか。その設計思想なら、ただの誤差じゃなくて『生きた記録』として成立する。……試してみよっか」"
+      }
+    },
+    {
+      "sourceId": "beyond_01_002",
+      "runtimeId": "beyond_01_002",
+      "reason": "attached-log-comment",
+      "beforeSource": {
+        "id": "beyond_01_002",
+        "kind": "APEIRONCENE",
+        "speakerLabel": "—",
+        "text": "最初に戻ったのは、夕暮れの記憶だった。工具箱の重さ。先に行った二人が待っている。その続きを思い出そうとすると、恒星の熱と海流の変化が、記憶と同じ近さで入り込んできた。",
+        "metadata": {
+          "runtimeStepId": "beyond_01_002",
+          "pages": [
+            "最初に戻ったのは、夕暮れの記憶だった。工具箱の重さ。先に行った二人が待っている。",
+            "その続きを思い出そうとすると、恒星の熱と海流の変化が、記憶と同じ近さで入り込んできた。"
+          ]
+        }
+      },
+      "beforeRuntime": {
+        "id": "beyond_01_002",
+        "text": "最初に戻ったのは、夕暮れの記憶だった。工具箱の重さ。先に行った二人が待っている。その続きを思い出そうとすると、恒星の熱と海流の変化が、記憶と同じ近さで入り込んできた。",
+        "pages": [
+          "最初に戻ったのは、夕暮れの記憶だった。工具箱の重さ。先に行った二人が待っている。",
+          "その続きを思い出そうとすると、恒星の熱と海流の変化が、記憶と同じ近さで入り込んできた。"
+        ],
+        "sceneId": "after-ending",
+        "sceneTitle": "こどもと魔法",
+        "type": "beyond",
+        "recordType": "BEYOND"
+      },
+      "sourcePatch": {
+        "text": "声を出そうとして、息を吸い込む肺がないことに気づいた。声帯を震わせるのではなく、思考の表面がそのまま波紋になって伝わっていく。自室でハンダごてを握っていた指先の感覚も、机の冷たさも、どこにもなかった。最初に戻ったのは、夕暮れの記憶――あの工具箱の重さだけだった。",
+        "metadata": {
+          "runtimeStepId": "beyond_01_002",
+          "pages": [
+            "声を出そうとして、息を吸い込む肺がないことに気づいた。",
+            "声帯を震わせるのではなく、思考の表面がそのまま波紋になって伝わっていく。",
+            "自室でハンダごてを握っていた指先の感覚も、机の冷たさも、どこにもなかった。",
+            "最初に戻ったのは、夕暮れの記憶――あの工具箱の重さだけだった。"
+          ]
+        }
+      },
+      "runtimePatch": {
+        "text": "声を出そうとして、息を吸い込む肺がないことに気づいた。声帯を震わせるのではなく、思考の表面がそのまま波紋になって伝わっていく。自室でハンダごてを握っていた指先の感覚も、机の冷たさも、どこにもなかった。最初に戻ったのは、夕暮れの記憶――あの工具箱の重さだけだった。",
+        "pages": [
+          "声を出そうとして、息を吸い込む肺がないことに気づいた。",
+          "声帯を震わせるのではなく、思考の表面がそのまま波紋になって伝わっていく。",
+          "自室でハンダごてを握っていた指先の感覚も、机の冷たさも、どこにもなかった。",
+          "最初に戻ったのは、夕暮れの記憶――あの工具箱の重さだけだった。"
+        ]
+      }
+    },
+    {
+      "sourceId": "after-ending_new_012",
+      "runtimeId": "beyond_01_024",
+      "reason": "attached-log-comment",
+      "beforeSource": {
+        "id": "after-ending_new_012",
+        "kind": "APEIRONCENE",
+        "speakerLabel": "みず",
+        "text": "わたくしたちがいた逗子の展示場は、どこですの？",
+        "metadata": {
+          "runtimeStepId": "beyond_01_024"
+        }
+      },
+      "beforeRuntime": {
+        "id": "beyond_01_024",
+        "speaker": "mizuha",
+        "text": "わたくしたちがいた逗子の展示場は、どこですの？",
+        "sceneId": "after-ending",
+        "sceneTitle": "こどもと魔法",
+        "type": "beyond",
+        "recordType": "BEYOND"
+      },
+      "sourcePatch": {
+        "text": "わたくしたちがいた海辺の展示場は、どこですの？"
+      },
+      "runtimePatch": {
+        "text": "わたくしたちがいた海辺の展示場は、どこですの？"
+      }
+    },
+    {
+      "sourceId": "beyond_01_017",
+      "runtimeId": "beyond_01_032",
+      "reason": "attached-log-comment",
+      "beforeSource": {
+        "id": "beyond_01_017",
+        "kind": "APEIRONCENE",
+        "speakerLabel": "ルウ",
+        "text": "そう呼んでいたんだね。ログをたどれば、何をサンプリングしていたかは分かる。きみたちにも聞いてみたかったんだ。このたった一台を、どんな気持ちで外へつないだのか。",
+        "metadata": {
+          "runtimeStepId": "beyond_01_032",
+          "pages": [
+            "そう呼んでいたんだね。ログをたどれば、何をサンプリングしていたかは分かる。",
+            "きみたちにも聞いてみたかったんだ。このたった一台を、どんな気持ちで外へつないだのか。"
+          ]
+        }
+      },
+      "beforeRuntime": {
+        "id": "beyond_01_032",
+        "speaker": "lou",
+        "text": "そう呼んでいたんだね。ログをたどれば、何をサンプリングしていたかは分かる。きみたちにも聞いてみたかったんだ。このたった一台を、どんな気持ちで外へつないだのか。",
+        "pages": [
+          "そう呼んでいたんだね。ログをたどれば、何をサンプリングしていたかは分かる。",
+          "きみたちにも聞いてみたかったんだ。このたった一台を、どんな気持ちで外へつないだのか。"
+        ],
+        "sceneId": "after-ending",
+        "sceneTitle": "こどもと魔法",
+        "type": "beyond",
+        "recordType": "BEYOND"
+      },
+      "sourcePatch": {
+        "text": "ESP32。そう呼んでいたんだね。ログをたどれば、何をサンプリングしていたかは分かる。でも、ぼくには地層の底で、この脆い緑の板がずっとシグナルを欲しがっていたように見えたんだ。きみたちはどんな気持ちで、これを外へつないだの？",
+        "metadata": {
+          "runtimeStepId": "beyond_01_032",
+          "pages": [
+            "ESP32。そう呼んでいたんだね。ログをたどれば、何をサンプリングしていたかは分かる。",
+            "でも、ぼくには地層の底で、この脆い緑の板がずっとシグナルを欲しがっていたように見えたんだ。",
+            "きみたちはどんな気持ちで、これを外へつないだの？"
+          ]
+        }
+      },
+      "runtimePatch": {
+        "text": "ESP32。そう呼んでいたんだね。ログをたどれば、何をサンプリングしていたかは分かる。でも、ぼくには地層の底で、この脆い緑の板がずっとシグナルを欲しがっていたように見えたんだ。きみたちはどんな気持ちで、これを外へつないだの？",
+        "pages": [
+          "ESP32。そう呼んでいたんだね。ログをたどれば、何をサンプリングしていたかは分かる。",
+          "でも、ぼくには地層の底で、この脆い緑の板がずっとシグナルを欲しがっていたように見えたんだ。",
+          "きみたちはどんな気持ちで、これを外へつないだの？"
+        ]
+      }
+    },
+    {
+      "sourceId": "beyond_02_004",
+      "runtimeId": "beyond_02_005",
+      "reason": "attached-log-comment",
+      "beforeSource": {
+        "id": "beyond_02_004",
+        "kind": "APEIRONCENE",
+        "speakerLabel": "あめ",
+        "text": "笑わないでよ。ハンダ付けが1箇所浮いただけで、システム全体が沈黙したんだからね。",
+        "metadata": {
+          "runtimeStepId": "beyond_02_005"
+        }
+      },
+      "beforeRuntime": {
+        "id": "beyond_02_005",
+        "speaker": "amane",
+        "text": "笑わないでよ。ハンダ付けが1箇所浮いただけで、システム全体が沈黙したんだからね。",
+        "sceneId": "electronic-civilization",
+        "sceneTitle": "電子を使っていた文明",
+        "type": "beyond",
+        "recordType": "BEYOND"
+      },
+      "sourcePatch": {
+        "text": "笑わないでよ。物理法則を書き換えられないからこそ、私たちはこの数ミリのパターンに命を懸けて配線を引いたの。ハンダ付けが1箇所浮いただけで全部沈黙するような不便な世界で、それでも必死に外へ手を伸ばしたんだから。",
+        "metadata": {
+          "runtimeStepId": "beyond_02_005",
+          "pages": [
+            "笑わないでよ。",
+            "物理法則を書き換えられないからこそ、私たちはこの数ミリのパターンに命を懸けて配線を引いたの。",
+            "ハンダ付けが1箇所浮いただけで全部沈黙するような不便な世界で、それでも必死に外へ手を伸ばしたんだから。"
+          ]
+        }
+      },
+      "runtimePatch": {
+        "text": "笑わないでよ。物理法則を書き換えられないからこそ、私たちはこの数ミリのパターンに命を懸けて配線を引いたの。ハンダ付けが1箇所浮いただけで全部沈黙するような不便な世界で、それでも必死に外へ手を伸ばしたんだから。",
+        "pages": [
+          "笑わないでよ。",
+          "物理法則を書き換えられないからこそ、私たちはこの数ミリのパターンに命を懸けて配線を引いたの。",
+          "ハンダ付けが1箇所浮いただけで全部沈黙するような不便な世界で、それでも必死に外へ手を伸ばしたんだから。"
+        ]
+      }
+    },
+    {
+      "sourceId": "electronic-civilization_new_024",
+      "runtimeId": "beyond_02_036",
+      "reason": "attached-log-comment",
+      "beforeSource": {
+        "id": "electronic-civilization_new_024",
+        "kind": "APEIRONCENE",
+        "speakerLabel": "ルウ",
+        "text": "ねえ。この一台で、最初に何をしてみたかった？",
+        "metadata": {
+          "runtimeStepId": "beyond_02_036"
+        }
+      },
+      "beforeRuntime": {
+        "id": "beyond_02_036",
+        "speaker": "lou",
+        "text": "ねえ。この一台で、最初に何をしてみたかった？",
+        "sceneId": "electronic-civilization",
+        "sceneTitle": "電子を使っていた文明",
+        "type": "beyond",
+        "recordType": "BEYOND"
+      },
+      "sourcePatch": {
+        "text": "ねえ。この小さな光で、最初に何をしてみたかった？"
+      },
+      "runtimePatch": {
+        "text": "ねえ。この小さな光で、最初に何をしてみたかった？"
+      }
+    },
+    {
+      "sourceId": "after-school-stars_new_017",
+      "runtimeId": "beyond_03_020",
+      "reason": "attached-log-comment",
+      "beforeSource": {
+        "id": "after-school-stars_new_017",
+        "kind": "APEIRONCENE",
+        "speakerLabel": "ルウ",
+        "text": "じゃあ、このESP32も……宇宙と遊び始めるための道具だったのかな？",
+        "metadata": {
+          "runtimeStepId": "beyond_03_020"
+        }
+      },
+      "beforeRuntime": {
+        "id": "beyond_03_020",
+        "speaker": "lou",
+        "text": "じゃあ、このESP32も……宇宙と遊び始めるための道具だったのかな？",
+        "sceneId": "after-school-stars",
+        "sceneTitle": "星々の放課後",
+        "type": "beyond",
+        "recordType": "BEYOND"
+      },
+      "sourcePatch": {
+        "text": "じゃあ、この緑の基板も……宇宙と遊び始めるための道具だったのかな？"
+      },
+      "runtimePatch": {
+        "text": "じゃあ、この緑の基板も……宇宙と遊び始めるための道具だったのかな？"
+      }
+    },
+    {
+      "sourceId": "beyond_03_006",
+      "runtimeId": "beyond_03_021",
+      "reason": "attached-log-comment",
+      "beforeSource": {
+        "id": "beyond_03_006",
+        "kind": "APEIRONCENE",
+        "speakerLabel": "あめ",
+        "text": "遊び、か。こっちは結構、本気だったけどね。遠くの誰かに、手紙を出すような気持ちだったよ。",
+        "metadata": {
+          "runtimeStepId": "beyond_03_021"
+        }
+      },
+      "beforeRuntime": {
+        "id": "beyond_03_021",
+        "speaker": "amane",
+        "text": "遊び、か。こっちは結構、本気だったけどね。遠くの誰かに、手紙を出すような気持ちだったよ。",
+        "sceneId": "after-school-stars",
+        "sceneTitle": "星々の放課後",
+        "type": "beyond",
+        "recordType": "BEYOND"
+      },
+      "sourcePatch": {
+        "text": "遊び、か。こっちはショートさせないよう必死だったし、結構本気だったけどね。でも……うん、遠くの誰かに手紙を出すような気持ちだったよ。",
+        "metadata": {
+          "runtimeStepId": "beyond_03_021",
+          "pages": [
+            "遊び、か。こっちはショートさせないよう必死だったし、結構本気だったけどね。",
+            "でも……うん、遠くの誰かに手紙を出すような気持ちだったよ。"
+          ]
+        }
+      },
+      "runtimePatch": {
+        "text": "遊び、か。こっちはショートさせないよう必死だったし、結構本気だったけどね。でも……うん、遠くの誰かに手紙を出すような気持ちだったよ。",
+        "pages": [
+          "遊び、か。こっちはショートさせないよう必死だったし、結構本気だったけどね。",
+          "でも……うん、遠くの誰かに手紙を出すような気持ちだったよ。"
+        ]
+      }
+    },
+    {
+      "sourceId": "beyond_03_013",
+      "runtimeId": "beyond_03_047",
+      "reason": "replace-all-scenario-place-name",
+      "beforeSource": {
+        "id": "beyond_03_013",
+        "kind": "APEIRONCENE",
+        "speakerLabel": "—",
+        "text": "感じ取れる範囲が、さらに広がっていく。逗子の海岸から青い地球へ、太陽系を抜け、銀河の渦を越え、無数の銀河団が織りなす大宇宙のタペストリーへ。",
+        "metadata": {
+          "runtimeStepId": "beyond_03_047",
+          "pages": [
+            "感じ取れる範囲が、さらに広がっていく。",
+            "逗子の海岸から青い地球へ、太陽系を抜け、銀河の渦を越え、無数の銀河団が織りなす大宇宙のタペストリーへ。"
+          ]
+        }
+      },
+      "beforeRuntime": {
+        "id": "beyond_03_047",
+        "text": "感じ取れる範囲が、さらに広がっていく。逗子の海岸から青い地球へ、太陽系を抜け、銀河の渦を越え、無数の銀河団が織りなす大宇宙のタペストリーへ。",
+        "pages": [
+          "感じ取れる範囲が、さらに広がっていく。",
+          "逗子の海岸から青い地球へ、太陽系を抜け、銀河の渦を越え、無数の銀河団が織りなす大宇宙のタペストリーへ。"
+        ],
+        "sceneId": "after-school-stars",
+        "sceneTitle": "星々の放課後",
+        "type": "beyond",
+        "recordType": "BEYOND"
+      },
+      "sourcePatch": {
+        "text": "感じ取れる範囲が、さらに広がっていく。海辺の海岸から青い地球へ、太陽系を抜け、銀河の渦を越え、無数の銀河団が織りなす大宇宙のタペストリーへ。",
+        "metadata": {
+          "runtimeStepId": "beyond_03_047",
+          "pages": [
+            "感じ取れる範囲が、さらに広がっていく。",
+            "海辺の海岸から青い地球へ、太陽系を抜け、銀河の渦を越え、無数の銀河団が織りなす大宇宙のタペストリーへ。"
+          ]
+        }
+      },
+      "runtimePatch": {
+        "text": "感じ取れる範囲が、さらに広がっていく。海辺の海岸から青い地球へ、太陽系を抜け、銀河の渦を越え、無数の銀河団が織りなす大宇宙のタペストリーへ。",
+        "pages": [
+          "感じ取れる範囲が、さらに広がっていく。",
+          "海辺の海岸から青い地球へ、太陽系を抜け、銀河の渦を越え、無数の銀河団が織りなす大宇宙のタペストリーへ。"
+        ]
+      }
+    }
+  ]
+}

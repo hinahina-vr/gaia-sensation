@@ -1,0 +1,62 @@
+// Background art is deliberately independent of observation values. It must
+// never look like an interpolated measurement or a measured transport route.
+export const MAP_BACKGROUND_NOTE = '背景の流れ・模様はテーマを表すWebGL演出です。観測値の分布、汚染・生息範囲、実際の移動経路を示すものではありません。';
+
+const rows = [
+  [1,'nasa-firms-active-fire',0,'熱のゆらぎ','#ec713b','#edb881'],
+  [15,'wind-field',8,'風をイメージした光の流れ','#7acfd0','#b0d6da'],
+  [16,'carbon-pulse',10,'大気をイメージした薄い層','#c5b888','#91bbc0'],
+  [17,'rain-chorus',7,'雨をイメージした筋と波','#78b1dc','#a8d6e0'],
+  [18,'temperature-field',4,'暖気と冷気のゆらぎ','#e5a178','#8caacc'],
+  [19,'cloud-drift',5,'雲をイメージした薄い層','#9dcad1','#a8bfd5'],
+  [20,'pm25-haze',11,'空気を漂う粒子の層','#b6a6d9','#c8bcd9'],
+  [31,'japan-marine-cod',1,'沿岸の光の流れ','#57bfc9','#8faecb'],
+  [32,'japan-marine-ph',2,'酸とアルカリの二重の流れ','#849ae4','#6ad7c5'],
+  [33,'japan-marine-do',3,'水に溶ける光','#75cce1','#a8e6d3'],
+  [34,'japan-river-ph',2,'川の二重の流れ','#799ad6','#9bd6b8'],
+  [35,'japan-river-do',3,'川をのぼる光','#66c6d0','#b4dfcd'],
+  [36,'japan-lake-ph',2,'湖に広がる二重の波','#979bd9','#7fc9c6'],
+  [37,'japan-lake-do',3,'湖に溶ける光','#91cbdc','#b3dbd7'],
+  [38,'japan-weather-temperature',4,'暖気と冷気のゆらぎ','#e5a178','#8caacc'],
+  [39,'japan-weather-humidity',5,'水蒸気の薄い層','#9dcad1','#a8bfd5'],
+  [40,'japan-weather-pressure',6,'空気の重なり','#8baad3','#afcfcf'],
+  [41,'japan-weather-rainfall',7,'雨の筋と水面','#78b1dc','#a8d6e0'],
+  [42,'japan-weather-wind-speed',8,'長く流れる風の線','#7acfd0','#b0d6da'],
+  [43,'japan-weather-solar-irradiance',9,'降り注ぐ日射の帯','#e7c987','#f0ddba'],
+  [44,'japan-air-so2',10,'空気の薄い層・硫黄','#c5b888','#91bbc0'],
+  [45,'japan-air-no',10,'空気の薄い層・一酸化窒素','#92b0d5','#c4a6c5'],
+  [46,'japan-air-no2',10,'空気の薄い層・二酸化窒素','#c3a0b9','#e0b298'],
+  [47,'japan-air-nox',10,'重なり合う空気の層','#a3a6d4','#b6c8d3'],
+  [48,'japan-air-co',10,'燃焼をたどる空気の層','#d1a496','#a8baca'],
+  [49,'japan-air-ox',9,'日差しと空気の交差','#c7c08a','#aeafd5'],
+  [50,'japan-air-nmhc',10,'炭化水素の薄い層','#a69ed6','#95c0c8'],
+  [51,'japan-air-ch4',10,'地表をめぐる空気の層','#9cbea3','#a4cbd0'],
+  [52,'japan-air-thc',10,'炭素を含む層の重なり','#a1b5c7','#c7aec7'],
+  [53,'japan-air-spm',11,'漂う粒子の層','#a2b6c8','#d4c9b4'],
+  [54,'japan-air-pm25',11,'細かな粒子の層','#b6a6d9','#c8bcd9'],
+  [55,'japan-water-river-bod',1,'分解と水のめぐり','#7bbab5','#b7cfa8'],
+  [56,'japan-water-river-cod',1,'川に残る光の流れ','#77b9c7','#abcabb'],
+  [57,'japan-water-lake-cod',1,'湖に重なる波','#8aacc9','#bdc7b2'],
+  [58,'japan-water-ss',12,'水中を漂う粒','#a3b8b9','#d4c5a7'],
+  [59,'japan-water-tn',12,'水域をめぐる栄養の線','#94c8ae','#b6d3c3'],
+  [60,'japan-water-tp',12,'水面の細かな重なり','#b1c795','#8fc4ba'],
+  [61,'japan-water-hex',13,'抽出物を象徴する薄膜','#a7a2c9','#a1bfcc'],
+  [62,'japan-water-zinc',13,'金属を象徴する結晶線','#b0c3d5','#a2d2cb'],
+  [63,'japan-water-las',13,'界面を象徴する重なる膜','#90c4cd','#c4b5d4'],
+  [64,'japan-water-nonylphenol',13,'微量をたどる細い線','#b7add3','#9cc9c4'],
+  [65,'japan-prtr-air',10,'大気への届出を象徴する流れ','#a3b0dc','#d1b6c4'],
+  [66,'japan-prtr-water',1,'水域への届出を象徴する流れ','#7fc2d1','#afdad6'],
+  [67,'japan-prtr-transfer',17,'移動区分を象徴する編み目','#baa9d4','#d4c7a6'],
+  [68,'japan-river-benthos',14,'川底の小さな有機模様','#98bca9','#c2d0ac'],
+  [69,'japan-river-fish',15,'泳ぎを象徴する光の群れ','#83c6cc','#b1d8c4'],
+  [70,'food-balances',16,'収穫を象徴する金と緑の畝','#cbbb7a','#90b997'],
+  [71,'food-security',17,'食卓を支える織り目','#b7a5d0','#8bc1ba'],
+];
+const rgb = hex => Object.freeze(hex.slice(1).match(/../g).map(value=>parseInt(value,16)/255));
+export const MAP_BACKGROUND_THEMES = Object.freeze(rows.map(([number,id,pattern,label,accent,secondary])=>Object.freeze({
+  number, id, pattern, label, accent:rgb(accent), secondary:rgb(secondary),
+  // Live rainfall (17) uses the same rain arrangement and land mask as 41.
+  seed:(number===17?41:number)*.173, oceanOnly:number===17||number>=31,
+  speed:pattern===7?.7:pattern===8?.8:pattern===15?.65:.48,
+})));
+export const mapBackgroundTheme = id => MAP_BACKGROUND_THEMES.find(theme=>theme.id===id)||null;

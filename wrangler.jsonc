@@ -1,0 +1,27 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "gaia-senseware",
+  "pages_build_output_dir": ".",
+  "compatibility_date": "2026-08-11",
+  "compatibility_flags": ["nodejs_compat"],
+  "vars": {
+    "ENVIRONMENT": "production",
+    "SENSOR_API_MODE": "normal",
+    "PUBLIC_ORIGIN": "https://gaia-senseware.pages.dev",
+    "WEB_ORIGIN": "https://gaia-senseware.pages.dev",
+    "SESSION_TTL_SECONDS": "28800",
+    "ONLINE_THRESHOLD_SECONDS": "900",
+    "LIVE_SENSEWARE_ENABLED": "true",
+    "LIVE_SENSEWARE_JAXA_ENABLED": "false",
+    "LIVE_SENSEWARE_ESA_ENABLED": "false"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "gaia-senseware-sensors",
+      "database_id": "6a386d6a-2858-4673-b396-6c340f9ea6d7",
+      "migrations_dir": "sensor-platform/migrations",
+      "migrations_table": "d1_migrations"
+    }
+  ]
+}

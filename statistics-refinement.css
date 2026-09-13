@@ -1,0 +1,352 @@
+/* Shared inset and surface keep every analysis tab in the same visual workspace. */
+@media(min-width:1000px) and (min-height:700px) {
+  #gaia-statistics-lab .gaia-statistics-shell { width:92vw !important; height:90dvh !important; max-height:90dvh !important; margin:auto; box-shadow:0 24px 80px #00142080; }
+}
+#gaia-statistics-lab .gaia-statistics-header { background:linear-gradient(120deg,#c8f5e8 0%,#b9e7f9 42%,#d9d0f4 78%,#ecdef8); border:1px solid #edffffb3; border-radius:16px 16px 10px 10px; padding:16px 20px !important; box-shadow:inset 0 1px 0 #fff, inset 0 -1px #91b9d377; }
+#gaia-statistics-lab .gaia-statistics-header #gaia-statistics-title { color:#244e65 !important; text-shadow:0 1px #ffffffaa; }
+#gaia-statistics-lab .gaia-statistics-header #gaia-statistics-title .gaia-statistics-subtitle { color:#45697d !important; }
+#gaia-statistics-lab #gaia-statistics-ai-dialog [data-ai-answer] { font:400 var(--ai-answer-size,16px)/1.8 var(--stat-ui-font); white-space:normal; color:#244354; overflow:auto; scrollbar-width:auto; scrollbar-color:#50788c #d2e1e8; }
+#gaia-statistics-lab #gaia-statistics-ai-dialog [data-ai-answer] :is(p,li,code) { font-size:inherit; line-height:inherit; color:inherit; }
+#gaia-statistics-lab #gaia-statistics-ai-dialog [data-ai-answer] h4 { font:700 1.15em/1.5 var(--stat-ui-font); color:#244354; margin:1.2em 0 .5em; }
+#gaia-statistics-lab #gaia-statistics-ai-dialog [data-ai-answer] p { margin:.5em 0; }
+#gaia-statistics-lab #gaia-statistics-ai-dialog [data-ai-answer] ul { padding-left:1.5em; margin:.5em 0; }
+#gaia-statistics-lab #gaia-statistics-ai-dialog .ai-answer-size { display:flex; align-items:center; gap:8px; margin-left:auto; font-size:12px; }
+#gaia-statistics-lab #gaia-statistics-ai-dialog .ai-answer-size select { width:auto; min-height:36px; padding:4px 8px; }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-result-head { flex-wrap:wrap; gap:10px; }
+#gaia-statistics-lab .gaia-statistics-stage[data-result-view] { display:grid; grid-template-rows:48px minmax(0,1fr) !important; gap:12px; align-content:stretch; height:100%; min-height:0; }
+#gaia-statistics-lab .gaia-statistics-stage[data-result-view] > .gaia-statistics-view-tabs { grid-row:1 !important; grid-column:1 / -1; height:48px; margin:0; }
+#gaia-statistics-lab .gaia-statistics-stage[data-result-view] > :is(.gaia-statistics-visual,.gaia-statistics-takeaway,details[open],#gaia-statistics-ai-dialog) { grid-row:2 !important; min-height:0; margin:0; }
+
+/* Final information hierarchy across analysis tabs. */
+#gaia-statistics-lab .gaia-statistics-header > .gaia-statistics-stage-header { display:none !important; }
+#gaia-statistics-lab .gaia-statistics-view-tabs button { position:relative; font:600 clamp(15px,1.05vw,23px)/1.4 var(--stat-ui-font); color:#b8cedb; border:1px solid #adc7dc28; background:linear-gradient(180deg,#29435770,#182a3c80); border-radius:8px; min-height:48px; padding:10px 16px; box-shadow:inset 0 1px #ffffff08; }
+#gaia-statistics-lab .gaia-statistics-view-tabs button:hover { color:#f0f9ff; border-color:#8dafc080; }
+#gaia-statistics-lab .gaia-statistics-view-tabs button[aria-selected="true"] { color:#f2fffe; background:linear-gradient(120deg,#294f5d,#263f54); border-color:#75afbd; box-shadow:inset 0 -2px #95dcd9; }
+#gaia-statistics-lab .gaia-statistics-stage :is(summary,h4,h5,p,td,th,button) { font-family:var(--stat-ui-font); }
+#gaia-statistics-lab .gaia-statistics-insight { padding:24px; min-height:0; background:#e8f0f5; border:1px solid #a5bfcd; box-shadow:none; }
+#gaia-statistics-lab .gaia-statistics-insight h4 { font-size:21px; line-height:1.5; font-weight:700; color:#24465a; margin:10px 0 16px; }
+#gaia-statistics-lab .gaia-statistics-insight > p:not(:first-child) { font-size:16px; line-height:1.85; color:#334f61; max-width:none; width:auto; white-space:normal; }
+#gaia-statistics-lab .gaia-statistics-insights { align-content:start; grid-auto-rows:max-content; }
+#gaia-statistics-lab .gaia-statistics-insight > p:first-child { font-size:13px; font-weight:600; }
+#gaia-statistics-lab .gaia-statistics-evidence-button { font-size:17px; padding:12px 16px; color:#205665; background:#d1e6eb; box-shadow:none; }
+#gaia-statistics-lab .gaia-statistics-discovery-alternatives :is(.gaia-statistics-finding,p) { color:#2e4b5e !important; font-size:16px !important; line-height:1.8 !important; opacity:1 !important; }
+#gaia-statistics-lab .gaia-statistics-discovery-alternatives .gaia-statistics-finding { background:#e6eff4 !important; padding:20px; border:1px solid #9db9ca; border-radius:10px; box-shadow:none; }
+#gaia-statistics-lab .gaia-statistics-discovery-alternatives h5 { color:#214c62 !important; font-size:18px !important; margin:0 0 10px; }
+#gaia-statistics-lab .gaia-statistics-discovery-alternatives summary { color:#294b60; font-size:16px; padding:12px 0; }
+#gaia-statistics-lab .gaia-statistics-records-scroll :is(td,th) { font:400 15px/1.6 var(--stat-ui-font); padding:12px 16px; color:#294a5d; }
+#gaia-statistics-lab .gaia-statistics-records-scroll th strong { font:600 15px/1.6 var(--stat-ui-font); }
+#gaia-statistics-lab .gaia-statistics-records-scroll thead th { font-weight:700; background:#bbd2df; }
+#gaia-statistics-lab .gaia-statistics-records-scroll [data-provenance] { font-size:11px; padding:3px 6px; color:#275c6b; background:#d2e7ee; }
+#gaia-statistics-lab #gaia-statistics-ai-dialog .gaia-statistics-ai-target { display:flex; flex-wrap:wrap; align-items:center; gap:8px 14px; padding:12px 16px; background:#d0e2eb; border:0; border-radius:10px; }
+#gaia-statistics-lab #gaia-statistics-ai-dialog .gaia-statistics-ai-target > span { color:#285267; font-size:12px; font-weight:700; background:#b8d2df; padding:5px 9px; border-radius:5px; }
+#gaia-statistics-lab #gaia-statistics-ai-dialog .gaia-statistics-ai-target p { font-size:14px; color:#29485d; line-height:1.6; }
+
+
+/* Controls read as an approachable tool, not oversized editorial copy. */
+#gaia-statistics-lab #gaia-statistics-ai-dialog,
+#gaia-statistics-lab #gaia-statistics-ai-dialog :is(button,input,textarea,select,h2,h3,strong,small,p,label,summary) { font-family:var(--stat-ui-font); letter-spacing:normal; }
+#gaia-statistics-lab #gaia-statistics-ai-title { font-size:22px; font-weight:700; line-height:1.4; }
+#gaia-statistics-lab #gaia-statistics-ai-dialog .gaia-statistics-ai-head { padding:0 0 10px; }
+#gaia-statistics-lab #gaia-statistics-ai-dialog .gaia-statistics-ai-layout { grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr); gap:24px; }
+#gaia-statistics-lab #gaia-statistics-ai-dialog form { grid-template-rows:auto minmax(0,1fr) auto; }
+#gaia-statistics-lab #gaia-statistics-ai-dialog .gaia-statistics-ai-prompts button { position:relative; border:1px solid #95afc0; border-bottom-width:3px; border-radius:10px; background:#eef5f8; min-height:72px; padding:12px; transition:transform .15s,background .15s; box-shadow:none; }
+#gaia-statistics-lab #gaia-statistics-ai-dialog .gaia-statistics-ai-prompts button:hover { transform:translateY(-2px); background:#fff; }
+#gaia-statistics-lab #gaia-statistics-ai-dialog .gaia-statistics-ai-prompts button:active { transform:translateY(1px); }
+#gaia-statistics-lab #gaia-statistics-ai-dialog .gaia-statistics-ai-prompts button[aria-pressed="true"] { background:#c6e9e3; border-color:#398778; box-shadow:none; }
+#gaia-statistics-lab #gaia-statistics-ai-dialog .gaia-statistics-ai-prompts button:focus-visible { outline:3px solid #3b7dab; outline-offset:3px; }
+#gaia-statistics-lab #gaia-statistics-ai-dialog .gaia-statistics-ai-prompts strong { font-size:15px; font-weight:700; color:#234a60; }
+#gaia-statistics-lab #gaia-statistics-ai-dialog .gaia-statistics-ai-prompts small { font-size:12px; color:#516879; }
+#gaia-statistics-lab #gaia-statistics-ai-dialog .gaia-statistics-ai-prompts svg { width:30px; height:30px; padding:5px; box-sizing:content-box; border-radius:8px; background:#cde3ee; color:#286489; }
+#gaia-statistics-lab #gaia-statistics-ai-dialog .gaia-statistics-ai-prompts button:nth-child(2n) svg { background:#e2d9ef; color:#72529b; }
+#gaia-statistics-lab #gaia-statistics-ai-dialog .gaia-statistics-ai-prompts button:nth-child(3n) svg { background:#f1e3bf; color:#896522; }
+#gaia-statistics-lab #gaia-statistics-ai-dialog .gaia-statistics-ai-empty-title { font-size:19px; font-weight:700; color:#365568; }
+#gaia-statistics-lab #gaia-statistics-ai-dialog .gaia-statistics-ai-result { background:#e5eff4; border-radius:14px; }
+#gaia-statistics-lab #gaia-statistics-ai-dialog .gaia-statistics-ai-result-head h3 { font-size:16px; font-weight:700; }
+#gaia-statistics-lab #gaia-statistics-ai-dialog textarea { font-size:14px; line-height:1.7; }
+#gaia-statistics-lab #gaia-statistics-ai-dialog button[type="submit"] { background:#277c75; border:1px solid #21685f; border-bottom:3px solid #19594f; box-shadow:none; font-weight:700; border-radius:10px; }
+#gaia-statistics-lab .gaia-statistics-header .gaia-statistics-companion { gap:10px; width:auto; min-width:0; justify-content:center; border-radius:10px; }
+#gaia-statistics-lab .gaia-statistics-header .gaia-statistics-companion strong { font:600 14px/1.4 var(--stat-ui-font); letter-spacing:0; }
+#gaia-statistics-lab .gaia-statistics-header #gaia-statistics-status { font:400 12px/1.4 var(--stat-ui-font); border:0; background:none; padding:4px; }
+@media(max-width:800px),(max-height:600px) {
+ #gaia-statistics-lab #gaia-statistics-ai-dialog .gaia-statistics-ai-layout { display:block; }
+ #gaia-statistics-lab #gaia-statistics-ai-dialog .gaia-statistics-ai-prompts button { min-height:72px; padding:9px; }
+ #gaia-statistics-lab #gaia-statistics-ai-dialog .gaia-statistics-ai-prompts svg { width:22px; height:22px; }
+}
+@media(prefers-reduced-motion:reduce) { #gaia-statistics-lab #gaia-statistics-ai-dialog .gaia-statistics-ai-prompts button { transition:none; transform:none; } }
+
+#gaia-statistics-lab { --stat-ui-font:"Yu Gothic UI","Meiryo",sans-serif; }
+#gaia-statistics-lab { --stat-inset:clamp(16px,1.5vw,40px); --stat-surface:#dce9ed; background:#07131d66; backdrop-filter:blur(6px); }
+#gaia-statistics-lab .gaia-statistics-shell { opacity:.9 !important; }
+#gaia-statistics-visual { position:relative; }
+#gaia-statistics-lab #gaia-statistics-visual .gaia-statistics-prefecture { position:absolute; z-index:2; top:12px; right:16px; width:clamp(180px,16vw,280px); max-width:none; color:#35566a; background:#bdcfd7; border-color:#8daab8; box-shadow:none; }
+#gaia-statistics-lab #gaia-statistics-visual .gaia-statistics-prefecture select { color:#23495e; }
+#gaia-statistics-ai-open { display:inline-flex; align-items:center; justify-content:center; gap:10px; }
+#gaia-statistics-ai-open svg { width:1.2em; height:1.2em; flex:none; }
+@container (max-width:599px) {
+  #gaia-statistics-lab #gaia-statistics-visual .gaia-statistics-prefecture { top:74px; min-height:54px; padding:4px 10px; }
+}
+#gaia-statistics-visual { container-type:inline-size; }
+#gaia-statistics-lab .gaia-statistics-stage > details[open] { padding:var(--stat-inset); background:var(--stat-surface); }
+#gaia-statistics-lab .gaia-statistics-stage > details[open] > .gaia-statistics-panel-back { top:var(--stat-inset); right:var(--stat-inset); }
+#gaia-statistics-lab .gaia-statistics-stage > details[open] > :is(.gaia-statistics-values-scroll,.gaia-statistics-records-scroll,.gaia-statistics-insights,.gaia-statistics-findings) {
+  inset:calc(60px + var(--stat-inset)) var(--stat-inset) var(--stat-inset); height:auto; background:transparent;
+}
+#gaia-statistics-lab #stat-panel-findings > #gaia-statistics-findings { padding:20px 0; }
+#gaia-statistics-lab .gaia-statistics-records-scroll tbody tr { background:transparent; }
+#gaia-statistics-lab .gaia-statistics-records-scroll tbody tr:nth-child(even) { background:#ffffff18; }
+/* Prominent, slow light sweeps rather than rapid flashing. */
+#gaia-statistics-lab :is(#gaia-statistics-ai-open,#gaia-statistics-menu-toggle) {
+  position:relative; overflow:hidden; isolation:isolate; border:1px solid #c0f8ff;
+  color:#fff; background:linear-gradient(120deg,#116d85,#3946a0,#8554ad);
+  box-shadow:0 0 12px #65eaffaa,inset 0 0 14px #bfeaff40;
+  animation:stat-action-glow 2.4s ease-in-out infinite;
+}
+#gaia-statistics-lab #gaia-statistics-ai-open { border-color:#f0ceff; animation-delay:.3s; }
+#gaia-statistics-lab :is(#gaia-statistics-ai-open,#gaia-statistics-menu-toggle)::before {
+  content:""; position:absolute; inset:-50% auto -50% -60%; width:35%; pointer-events:none;
+  background:linear-gradient(90deg,transparent,#e3ffffb3,transparent); transform:skewX(-20deg);
+  animation:stat-action-sweep 3s ease-in-out infinite;
+}
+@keyframes stat-action-glow { 50% { box-shadow:0 0 24px #75eaffcc,0 0 44px #9c77ff66,inset 0 0 20px #bfeaff70; border-color:#fff; } }
+@keyframes stat-action-sweep { 0%,35% { left:-60%; } 75%,100% { left:140%; } }
+/* Two columns: questions and settings on the left, an uncluttered answer on the right. */
+#gaia-statistics-lab #gaia-statistics-ai-dialog { padding:var(--stat-inset); background:var(--stat-surface); gap:14px; }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-layout { grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:24px; }
+#gaia-statistics-ai-dialog form { display:grid; grid-template-columns:minmax(0,1fr); grid-template-rows:auto minmax(0,1fr) auto; gap:14px; overflow:hidden; }
+#gaia-statistics-ai-dialog form > * { flex:none; }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-connection { order:-1; display:block; max-height:190px; overflow:auto; padding:12px 16px; border:1px solid #9eb6c5; border-radius:12px; background:#cddfe6; }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-connection > summary { font-size:16px; font-weight:600; min-height:32px; }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-connection > :not(summary) { margin-top:8px; }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-question-section { padding:0; overflow:auto; }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-section-title > span { display:none; }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-section-title { font-size:16px; }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-prompts button { background:#eaf1f4; border:1px solid #a8bfcb; color:#315269; border-radius:8px; }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-prompts button[aria-pressed="true"] { background:#c2dae5; border:2px solid #337990; box-shadow:none; }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-prompts strong { font-size:14px; }
+#gaia-statistics-ai-dialog label { font-size:13px; }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-send { margin-top:auto; }
+#gaia-statistics-ai-dialog button[type="submit"] { background:#276e85; color:white; border:1px solid #205d76; border-radius:8px; box-shadow:none; }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-result { background:#e5eef1; border:1px solid #a2bac7; box-shadow:none; padding:24px; }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-empty-title { font-size:22px; letter-spacing:.02em; }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-companions { height:72px; }
+@media(max-width:800px),(max-height:600px) {
+  #gaia-statistics-lab { --stat-inset:14px; }
+  #gaia-statistics-ai-dialog .gaia-statistics-ai-layout { display:block; }
+  #gaia-statistics-ai-dialog form { display:flex; overflow:visible; }
+  #gaia-statistics-ai-dialog .gaia-statistics-ai-connection { max-height:none; overflow:visible; }
+}
+@media(prefers-reduced-motion:reduce) {
+  #gaia-statistics-lab :is(#gaia-statistics-ai-open,#gaia-statistics-menu-toggle),
+  #gaia-statistics-lab :is(#gaia-statistics-ai-open,#gaia-statistics-menu-toggle)::before { animation:none; }
+}
+/* A luminous reading desk: distinct question cards and a calm result focal point. */
+#gaia-statistics-lab #gaia-statistics-ai-dialog {
+  background:radial-gradient(ellipse at 0 0,#b4e1e866,transparent 55%),radial-gradient(ellipse at 100% 85%,#c5b7e466,transparent 60%),#dce9ed;
+  border:1px solid #a8c4ce; border-radius:16px;
+}
+#gaia-statistics-ai-dialog .gaia-statistics-ai-head { padding:4px 0 12px; border-bottom:1px solid #789bab55; }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-head h2 { font-size:clamp(26px,2vw,42px); color:#284d67; }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-target { background:#eef6f780; border-color:#adc6cf; padding:10px 16px; border-radius:10px; }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-target p { font-size:clamp(12px,.9vw,17px); }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-layout { gap:clamp(20px,2vw,48px); }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-prompts { gap:10px; }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-prompts button {
+  display:flex; align-items:center; gap:12px; padding:14px; min-height:76px; text-align:left;
+  background:linear-gradient(135deg,#f3fbfc,#dce8ef); border:1px solid #a7bfce; border-radius:12px;
+  box-shadow:0 3px 8px #264b6710,inset 0 1px #ffffffc0; transition:box-shadow .2s,border-color .2s;
+}
+#gaia-statistics-ai-dialog .gaia-statistics-ai-prompts button:hover { border-color:#5c94a7; box-shadow:0 4px 14px #43789030; }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-prompts button[aria-pressed="true"] { background:linear-gradient(120deg,#b9dfe4,#d4cdeb); border:1px solid #568ca5; box-shadow:inset 3px 0 #4b839e,0 3px 14px #5a82ac30; }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-prompts svg { display:block; flex:none; width:28px; height:28px; color:#487d98; }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-prompts strong { font-size:clamp(14px,1vw,20px); }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-prompts small { display:block; font-size:12px; color:#527086; margin-top:4px; }
+#gaia-statistics-ai-dialog textarea { font-size:clamp(14px,1vw,19px); line-height:1.8; background:#f2f7f9; border-color:#a0bbc9; padding:14px; border-radius:12px; }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-connection { background:linear-gradient(110deg,#cadfe6,#d9dfed); border-radius:10px; }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-result { background:radial-gradient(ellipse at 50% 30%,#d2e8ef,#e6e9f3 65%,#dbdfef); border:1px solid #9bb6ca; border-radius:18px; box-shadow:inset 0 1px #ffffffbb,0 8px 28px #31547515; }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-empty { margin:auto 0; padding:20px; }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-companions { height:clamp(110px,15vh,200px); width:auto; max-width:100%; border-radius:24px; box-shadow:0 8px 32px #5685ab30; }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-empty-title { font-size:clamp(26px,2vw,40px); line-height:1.5; color:#455a87; margin:18px 0 12px; }
+#gaia-statistics-ai-dialog button[type="submit"] { background:linear-gradient(110deg,#266d86,#5265a2,#78569b); border-color:#788db4; min-height:50px; font-size:16px; box-shadow:0 4px 18px #4d6d9b35,inset 0 1px #c8ebff77; }
+@media(max-width:800px),(max-height:600px) {
+  #gaia-statistics-ai-dialog .gaia-statistics-ai-prompts button { min-height:64px; padding:10px; gap:8px; }
+  #gaia-statistics-ai-dialog .gaia-statistics-ai-prompts svg { width:22px; height:22px; }
+  #gaia-statistics-ai-dialog .gaia-statistics-ai-empty { padding:12px; }
+}
+#gaia-statistics-title { white-space:nowrap; font-size:clamp(12px,1.65vw,32px) !important; letter-spacing:.02em !important; }
+#gaia-statistics-title .gaia-statistics-subtitle { display:inline; font-size:.62em; line-height:1.6; letter-spacing:0; color:#a7cbd9; margin-left:.6em; }
+@media(max-width:600px) { #gaia-statistics-title { font-size:clamp(9px,2.65vw,15px) !important; } }
+#gaia-statistics-context { display:grid; grid-template-columns:24px minmax(0,1fr); gap:3px 10px; padding:8px 14px; border-left:2px solid #83ccdb; background:linear-gradient(90deg,#63bdce18,transparent); border-radius:0 12px 12px 0; }
+#gaia-statistics-context::before { content:'✧'; grid-row:1 / 3; color:#a6e4e9; align-self:center; font-size:26px; }
+#gaia-statistics-context strong { font-weight:500; color:#cbe7ee; font-size:clamp(12px,1vw,19px); }
+#gaia-statistics-context small { color:#95afc0; font-size:clamp(10px,.8vw,14px); }
+#gaia-statistics-context { display:flex; flex-wrap:wrap; gap:4px 16px; padding:0; border:0; background:none; border-radius:0; }
+#gaia-statistics-context::before { content:none; }
+#gaia-statistics-context strong { color:#d5e4eb; }
+#gaia-statistics-context small { align-self:center; }
+#gaia-statistics-ai-dialog .gaia-statistics-ai-prompts button[aria-pressed="true"] { background:#c5d9e4; border:1px solid #436e88; box-shadow:inset 0 0 0 1px #436e88; }
+#gaia-statistics-lab .gaia-statistics-header { flex-wrap:wrap; }
+#gaia-statistics-lab .gaia-statistics-header > .gaia-statistics-stage-header { grid-column:1 / -1; flex:1 0 100%; width:100%; min-height:0; margin:0; padding:6px 0 0; background:none; border:0; border-top:1px solid #aec9d522; border-radius:0; box-shadow:none; }
+#gaia-statistics-lab .gaia-statistics-header .gaia-statistics-stage-header > div { display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 12px; }
+#gaia-statistics-lab .gaia-statistics-header .gaia-statistics-stage-header :is(h3,p) { margin:0; }
+#gaia-statistics-lab .gaia-statistics-header .gaia-statistics-stage-header h3 { font-size:clamp(13px,1.1vw,20px); }
+#gaia-statistics-lab .gaia-statistics-header .gaia-statistics-companion { padding:4px 10px; min-height:40px; }
+#gaia-statistics-lab .gaia-statistics-header .gaia-statistics-companion img { width:48px; height:32px; }
+#gaia-statistics-lab .gaia-statistics-header .gaia-statistics-companion small { display:none; }
+#gaia-statistics-lab .gaia-statistics-header { padding-top:18px; padding-bottom:14px; row-gap:12px; }
+#gaia-statistics-lab #gaia-statistics-context { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); }
+#gaia-statistics-lab .gaia-statistics-header #gaia-statistics-method-number,
+#gaia-statistics-lab .gaia-statistics-header #gaia-statistics-method-copy { display:none; }
+#gaia-statistics-lab .gaia-statistics-header > .gaia-statistics-stage-header { border:0; padding-top:0; }
+#gaia-statistics-lab .gaia-statistics-header #gaia-statistics-method-title { color:#a9c9d5; font-size:clamp(13px,1vw,18px); font-weight:400; letter-spacing:.06em; }
+#gaia-statistics-lab #gaia-statistics-title { color:#edf7f7; font-weight:500; letter-spacing:.06em !important; }
+#gaia-statistics-lab #gaia-statistics-title .gaia-statistics-subtitle { color:#94bdcd; font-size:.55em; margin-left:1.2em; }
+@media(min-width:1000px) and (min-height:700px) {
+  #gaia-statistics-ai-dialog .gaia-statistics-ai-prompts { grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; }
+  #gaia-statistics-ai-dialog .gaia-statistics-ai-prompts button { min-height:62px; padding:10px; gap:8px; }
+  #gaia-statistics-ai-dialog .gaia-statistics-ai-prompts svg { width:22px; height:22px; }
+  #gaia-statistics-ai-dialog textarea { height:70px; min-height:64px; padding:10px; }
+}
+/* Reading surfaces: visible scrolling and strong, consistent type hierarchy. */
+#gaia-statistics-lab :is(.gaia-statistics-records-scroll,.gaia-statistics-values-scroll,.gaia-statistics-findings,.gaia-statistics-insights) { scrollbar-width:auto !important; scrollbar-color:#50788c #c3d6df !important; scrollbar-gutter:stable; overflow-y:auto; }
+#gaia-statistics-lab :is(.gaia-statistics-records-scroll,.gaia-statistics-values-scroll,.gaia-statistics-findings,.gaia-statistics-insights)::-webkit-scrollbar { display:block !important; width:12px; height:12px; }
+#gaia-statistics-lab ::-webkit-scrollbar-thumb { background:#50788c; border:3px solid #c3d6df; border-radius:10px; }
+#gaia-statistics-lab ::-webkit-scrollbar-track { background:#c3d6df; border-radius:10px; }
+#gaia-statistics-lab :is(.gaia-statistics-records-scroll,.gaia-statistics-values-scroll) :is(td,th,p) { color:#203e50; font-family:var(--stat-ui-font); font-size:16px; line-height:1.7; }
+#gaia-statistics-lab :is(.gaia-statistics-records-scroll,.gaia-statistics-values-scroll) tbody tr { background:#edf3f6; }
+#gaia-statistics-lab :is(.gaia-statistics-records-scroll,.gaia-statistics-values-scroll) tbody tr:nth-child(even) { background:#d9e5ed; }
+#gaia-statistics-lab :is(.gaia-statistics-records-scroll,.gaia-statistics-values-scroll) :is(td,th) { border-bottom:1px solid #9db7c5; }
+#gaia-statistics-lab .gaia-statistics-findings :is(h3,h4,h5,p,button,summary) { font-family:var(--stat-ui-font); }
+#gaia-statistics-lab .gaia-statistics-findings h4 { font-size:20px; color:#244a60; line-height:1.5; }
+#gaia-statistics-lab .gaia-statistics-findings p { font-size:16px; line-height:1.85; color:#2a485b; }
+#gaia-statistics-lab .gaia-statistics-finding { padding:22px; border-radius:10px; box-shadow:none; }
+#gaia-statistics-lab #gaia-statistics-visual .gaia-statistics-prefecture { color:#e4fcff; background:linear-gradient(120deg,#087f91,#176ab2 65%,#6354b0); border-color:#8bc8ec; box-shadow:0 3px 12px #245d7b30; }
+#gaia-statistics-lab #gaia-statistics-visual .gaia-statistics-prefecture select { color:#fff; }
+
+/* Unified crystal palette and compact, fully expanded insight workspace. */
+#gaia-statistics-lab #gaia-statistics-ai-dialog .gaia-statistics-ai-result-head h3 { font:700 22px/1.4 var(--stat-ui-font); }
+#gaia-statistics-lab #gaia-statistics-ai-dialog .ai-answer-size button { display:grid; place-items:center; width:38px; height:38px; padding:0; font-size:22px; color:#274967; background:#fff; border:1px solid #9ebcd7; border-radius:8px; }
+#gaia-statistics-lab #gaia-statistics-ai-dialog .ai-answer-size output { min-width:24px; text-align:center; font-variant-numeric:tabular-nums; }
+#gaia-statistics-lab #gaia-statistics-ai-dialog .gaia-statistics-ai-connection { max-height:none !important; height:auto !important; overflow:visible !important; flex-shrink:0; }
+#gaia-statistics-lab #gaia-statistics-ai-dialog form:has(.gaia-statistics-ai-connection[open]) { display:block; overflow-y:auto; }
+#gaia-statistics-lab .insight-summary-label { font:700 16px/1.4 var(--stat-ui-font); color:#285879; margin:0 0 10px; padding-bottom:10px; border-bottom:1px solid #bdcfe2; }
+#gaia-statistics-lab .gaia-statistics-discover-cta { background:linear-gradient(110deg,#087f96,#5365bf 70%,#805ab9); min-height:44px; padding:10px 16px; box-shadow:none; }
+#gaia-statistics-lab .gaia-statistics-discover-cta strong { font:600 16px/1.5 var(--stat-ui-font); color:#fff; }
+#gaia-statistics-lab .gaia-statistics-shell { opacity:1 !important; }
+#gaia-statistics-lab #gaia-statistics-findings > .gaia-statistics-finding[data-kind="meaning"] { grid-column:1/-1; order:-1; background:linear-gradient(110deg,#e6f8ff,#f1ecff); border-color:#a8c9e6; padding:18px; }
+#gaia-statistics-lab #gaia-statistics-findings .insight-key-metrics { display:flex; flex-wrap:wrap; gap:24px; margin:8px 0 12px; }
+#gaia-statistics-lab #gaia-statistics-findings .insight-key-metrics span { display:block; font:500 13px/1.5 var(--stat-ui-font); color:#3e556e; }
+#gaia-statistics-lab #gaia-statistics-findings .insight-key-metrics strong { display:block; font:700 25px/1.4 var(--stat-ui-font); color:#285e96; }
+#gaia-statistics-lab .gaia-statistics-view-tabs button { display:flex !important; align-items:center !important; justify-content:center !important; box-sizing:border-box; height:48px !important; min-height:48px !important; padding:0 12px !important; line-height:1.4 !important; }
+#gaia-statistics-lab #gaia-statistics-takeaway-evidence button { background:#e4f4ff !important; border:1px solid #9abed9; box-shadow:none !important; padding:12px 14px; }
+#gaia-statistics-lab #gaia-statistics-takeaway-evidence button:nth-child(2) { background:#eee8ff !important; border-color:#bcace2; }
+#gaia-statistics-lab #gaia-statistics-takeaway-evidence button > span { font:600 13px/1.5 var(--stat-ui-font) !important; color:#344c63 !important; }
+#gaia-statistics-lab #gaia-statistics-takeaway-evidence button strong { font:700 28px/1.3 var(--stat-ui-font) !important; color:#155485 !important; }
+#gaia-statistics-lab #gaia-statistics-takeaway-evidence button:nth-child(2) strong { color:#61439a !important; }
+#gaia-statistics-lab #gaia-statistics-takeaway-evidence button small { font:400 13px/1.5 var(--stat-ui-font) !important; color:#344c63 !important; }
+#gaia-statistics-lab :is(button,a,summary,[role="button"]):not(:disabled),
+#gaia-statistics-lab :is(button,a,summary,[role="button"]):not(:disabled) * { cursor:pointer !important; }
+#gaia-statistics-lab :is(button,a,summary):focus-visible { outline:3px solid #237eae; outline-offset:3px; }
+#gaia-statistics-lab button:disabled { cursor:not-allowed !important; }
+#gaia-statistics-lab .gaia-statistics-shell { box-sizing:border-box; padding:14px; overflow:hidden; background:linear-gradient(135deg,#e6faf5,#e8f3ff 55%,#efe9fb) !important; }
+#gaia-statistics-lab .gaia-statistics-header { box-sizing:border-box; min-width:0; width:100%; border-radius:12px; }
+#gaia-statistics-lab #gaia-statistics-close { color:#34516c !important; background:#ffffff80 !important; }
+#gaia-statistics-lab .gaia-statistics-view-tabs button { color:#264662; background:linear-gradient(135deg,#dcfff5,#d5ecff 65%,#e8ddff); border:1px solid #9dbdd7; box-shadow:inset 0 1px 0 #fff; }
+#gaia-statistics-lab .gaia-statistics-view-tabs button:hover { color:#173b56; background:linear-gradient(135deg,#b7f6e4,#bedfff,#d5c4ff); }
+#gaia-statistics-lab .gaia-statistics-view-tabs button[aria-selected="true"] { color:#fff; background:linear-gradient(120deg,#087f96,#4269c7 65%,#855bc1); border-color:#537ac0; box-shadow:inset 0 1px #ffffff80,0 2px 6px #5275a040; }
+#gaia-statistics-lab .gaia-statistics-takeaway { background:#f5f8ff; border-color:#bdcfe2; color:#27445d; }
+#gaia-statistics-lab .gaia-statistics-takeaway :is(h3,h4,p,small) { color:#27445d; }
+#gaia-statistics-lab #gaia-statistics-findings { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); grid-auto-rows:max-content; align-content:start; gap:10px !important; padding:8px 0 !important; }
+#gaia-statistics-lab #gaia-statistics-findings > * { margin-top:0 !important; margin-bottom:0 !important; }
+#gaia-statistics-lab #gaia-statistics-findings > details { grid-column:1/-1 !important; }
+#gaia-statistics-lab #gaia-statistics-findings > details p { font-size:13px !important; line-height:1.5 !important; }
+#gaia-statistics-lab #gaia-statistics-findings > :is(h4,.gaia-statistics-reading-scope) { grid-column:1/-1; margin:0; }
+#gaia-statistics-lab #gaia-statistics-findings :is(p,h5,summary,button) { font-family:var(--stat-ui-font) !important; letter-spacing:normal; }
+#gaia-statistics-lab #gaia-statistics-findings h4 { font:700 19px/1.4 var(--stat-ui-font); color:#223f5e; }
+#gaia-statistics-lab #gaia-statistics-findings h5 { font-size:16px !important; line-height:1.4; color:#2b4c70 !important; margin:0 0 8px; }
+#gaia-statistics-lab #gaia-statistics-findings p { font-size:14px !important; line-height:1.65 !important; color:#304b61 !important; margin:6px 0; }
+#gaia-statistics-lab #gaia-statistics-findings .gaia-statistics-finding { min-height:0; padding:14px; border:1px solid #c3d4e3; background:#f7fbff; box-shadow:none; border-radius:10px; }
+#gaia-statistics-lab #gaia-statistics-findings .gaia-statistics-finding[data-kind="meaning"] { background:#eeeaff; border-color:#c8bce9; }
+#gaia-statistics-lab #gaia-statistics-findings .gaia-statistics-next-button { display:inline-flex; width:auto; min-height:32px; padding:6px 10px; margin:4px 5px 0 0; font-size:13px; box-shadow:none; }
+#gaia-statistics-lab #gaia-statistics-findings > details { grid-column:auto; padding:10px; border:1px solid #c3d4e3; border-radius:10px; background:#f3f8fd; }
+#gaia-statistics-lab #gaia-statistics-findings > details summary { font-size:14px; padding:0 0 6px; color:#294b65; }
+#gaia-statistics-lab #gaia-statistics-findings > details .gaia-statistics-finding { padding:8px 0; border:0; background:transparent !important; }
+#gaia-statistics-lab #gaia-statistics-visual .gaia-statistics-prefecture { box-sizing:border-box; min-height:68px; padding:8px 14px 40px; }
+#gaia-statistics-lab #gaia-statistics-visual .gaia-statistics-prefecture select { position:absolute; inset:0; width:100%; height:100%; box-sizing:border-box; padding:25px 14px 5px; margin:0; border:0 !important; border-radius:inherit; background:transparent; box-shadow:none !important; cursor:pointer; }
+#gaia-statistics-lab #gaia-statistics-visual .gaia-statistics-prefecture:focus-within { outline:3px solid #42bdd5; outline-offset:3px; }
+#gaia-statistics-lab #gaia-statistics-visual .gaia-statistics-prefecture select:focus { outline:0 !important; }
+/* Reset legacy named placements before assigning the responsive reading order. */
+#gaia-statistics-lab .gaia-statistics-stage > #gaia-statistics-ai-dialog { grid-column:1/-1 !important; width:100%; box-sizing:border-box; }
+#gaia-statistics-lab #gaia-statistics-ai-dialog { grid-template-rows:auto minmax(0,1fr) !important; }
+#gaia-statistics-lab #gaia-statistics-ai-dialog .ai-answer-size { display:flex; gap:0; padding:4px; border:1px solid #b1c8df; border-radius:12px; background:linear-gradient(120deg,#e0f5ff,#ece6fc); box-shadow:inset 0 1px #fff; font-size:12px; padding-left:12px; }
+#gaia-statistics-lab #gaia-statistics-ai-dialog .ai-answer-size button { width:32px; height:32px; border:0; border-radius:8px; background:transparent; font:500 20px/1 var(--stat-ui-font); }
+#gaia-statistics-lab #gaia-statistics-ai-dialog .ai-answer-size button:hover { background:#fff; color:#265fc0; }
+#gaia-statistics-lab #gaia-statistics-ai-dialog .ai-answer-size output { display:grid; place-items:center; width:36px; min-width:36px; height:32px; margin:0; padding:0; font:600 13px/1 var(--stat-ui-font); }
+#gaia-statistics-lab #gaia-statistics-ai-dialog .gaia-statistics-ai-result-head { flex:0 0 auto; flex-wrap:nowrap; gap:8px; min-height:0; margin:0; padding:0 0 6px; }
+#gaia-statistics-lab #gaia-statistics-ai-dialog .gaia-statistics-ai-result-head h3 { margin:0; font:700 18px/1.3 var(--stat-ui-font); white-space:nowrap; }
+#gaia-statistics-lab #gaia-statistics-ai-dialog .ai-answer-size { flex:0 0 auto; padding-top:2px; padding-bottom:2px; }
+#gaia-statistics-lab #gaia-statistics-ai-dialog .ai-answer-size button { min-height:32px; margin-top:0; margin-bottom:0; }
+@media(max-width:600px) {
+  #gaia-statistics-lab #gaia-statistics-ai-dialog .ai-answer-size-label { display:none; }
+  #gaia-statistics-lab #gaia-statistics-ai-dialog .ai-answer-size { padding-left:2px; }
+  #gaia-statistics-lab #gaia-statistics-ai-dialog .ai-answer-size button:first-of-type { margin-left:0; }
+  #gaia-statistics-lab #gaia-statistics-ai-dialog .gaia-statistics-ai-result-head h3 { font-size:16px; }
+}
+#gaia-statistics-lab #gaia-statistics-ai-dialog .ai-answer-size button:first-of-type { margin-left:8px; }
+#gaia-statistics-lab #gaia-statistics-ai-dialog .gaia-statistics-ai-result > [data-ai-status] { justify-self:center; align-self:center; margin:8px auto; font:600 13px/1.4 var(--stat-ui-font); padding:5px 12px; border-radius:20px; color:#39624d; background:#e0f5e8; }
+#gaia-statistics-lab #gaia-statistics-ai-dialog .gaia-statistics-ai-head { display:flex; flex-wrap:wrap; align-items:center; gap:12px 24px; }
+#gaia-statistics-lab #gaia-statistics-ai-dialog .gaia-statistics-ai-head .gaia-statistics-ai-target { flex:1 1 360px; min-width:0; margin:0; }
+#gaia-statistics-lab #gaia-statistics-ai-dialog .gaia-statistics-ai-connection:has(input:invalid,select:invalid) > summary { color:#fff; background:linear-gradient(110deg,#087f96,#4d69c4 65%,#8754bc); border:1px solid #b4dfff; border-radius:9px; padding:14px 16px; box-shadow:0 0 16px #488bd680,inset 0 1px #ffffff80; }
+#gaia-statistics-lab #gaia-statistics-ai-dialog .gaia-statistics-ai-connection:has(input:invalid,select:invalid) > summary::after { content:'未設定'; margin-left:12px; font-size:12px; font-weight:700; }
+#gaia-statistics-lab [data-result-view="chart"] > #gaia-statistics-takeaway { display:flex !important; flex-direction:column; gap:12px; }
+#gaia-statistics-lab #gaia-statistics-takeaway > * { order:0 !important; flex:0 0 auto; margin-top:0; margin-bottom:0; }
+#gaia-statistics-lab #gaia-statistics-takeaway > .insight-summary-label { order:-1 !important; }
+#gaia-statistics-lab #gaia-statistics-findings { grid-template-areas:none !important; grid-template-rows:none !important; grid-template-columns:repeat(2,minmax(0,1fr)) !important; }
+#gaia-statistics-lab #gaia-statistics-findings > * { grid-area:auto !important; order:0 !important; min-width:0; width:auto; }
+#gaia-statistics-lab #gaia-statistics-findings > :is(h4,.gaia-statistics-reading-scope,details) { grid-column:1/-1 !important; }
+#gaia-statistics-lab #gaia-statistics-findings > .gaia-statistics-finding { align-self:start; }
+#gaia-statistics-lab #gaia-statistics-takeaway-body h5 { font:700 19px/1.4 var(--stat-ui-font); color:#285879; margin:16px 0 8px; }
+#gaia-statistics-lab #gaia-statistics-takeaway-body p { font:400 18px/1.75 var(--stat-ui-font); margin:0; color:#2c455d; }
+@media(max-width:900px) { #gaia-statistics-lab #gaia-statistics-findings { grid-template-columns:1fr !important; } }
+@media(min-width:1600px) {
+  #gaia-statistics-lab #stat-panel-findings { padding:16px !important; }
+  #gaia-statistics-lab #gaia-statistics-findings > details.gaia-statistics-discovery-alternatives > summary { margin:0 0 6px !important; min-height:0; }
+  #gaia-statistics-lab #gaia-statistics-findings > details.gaia-statistics-discovery-alternatives p { margin:4px 0 !important; }
+  #gaia-statistics-lab #gaia-statistics-findings > .gaia-statistics-next-button { min-height:30px; margin:0 !important; }
+  #gaia-statistics-lab #gaia-statistics-findings { grid-template-columns:repeat(3,minmax(0,1fr)) !important; }
+  #gaia-statistics-lab #gaia-statistics-findings > details.gaia-statistics-discovery-alternatives { grid-column:auto !important; }
+  #gaia-statistics-lab #gaia-statistics-findings > [data-kind="limit"] { order:1 !important; }
+  #gaia-statistics-lab #gaia-statistics-findings > [data-kind="metadata"] { order:2 !important; }
+  #gaia-statistics-lab #gaia-statistics-findings > details { order:3 !important; }
+  #gaia-statistics-lab #gaia-statistics-findings > button { order:4 !important; }
+}
+/* Dashboard: KPIs, chart + reading, then supporting methods. */
+#gaia-statistics-lab #gaia-statistics-findings.is-dashboard { grid-template-columns:repeat(3,minmax(0,1fr)) !important; gap:14px !important; }
+#gaia-statistics-lab #gaia-statistics-findings.is-dashboard > :is(.insight-key-metrics,.dashboard-main) { grid-column:1/-1 !important; order:0 !important; }
+#gaia-statistics-lab #gaia-statistics-findings.is-dashboard > .insight-key-metrics { display:flex; gap:12px; margin:0; }
+#gaia-statistics-lab #gaia-statistics-findings.is-dashboard > .insight-key-metrics > div { flex:1; padding:14px 18px; border:1px solid #b8d7e9; border-radius:12px; background:linear-gradient(120deg,#e4f7ff,#f3faff); }
+#gaia-statistics-lab #gaia-statistics-findings.is-dashboard > .insight-key-metrics > div:nth-child(2) { background:linear-gradient(120deg,#eee9ff,#f8f6ff); border-color:#cbbcec; }
+#gaia-statistics-lab #gaia-statistics-findings.is-dashboard .insight-key-metrics strong { font-size:30px; }
+#gaia-statistics-lab #gaia-statistics-findings.is-dashboard .dashboard-main { display:grid; grid-template-columns:1.1fr 1fr; gap:14px; }
+#gaia-statistics-lab #gaia-statistics-findings.is-dashboard .dashboard-main:not(:has(figure)) { grid-template-columns:1fr; }
+#gaia-statistics-lab #gaia-statistics-findings.is-dashboard .dashboard-chart { margin:0; padding:16px; background:#fff; border:1px solid #bed0e3; border-radius:12px; min-width:0; }
+#gaia-statistics-lab #gaia-statistics-findings.is-dashboard .dashboard-chart figcaption { font:700 16px/1.5 var(--stat-ui-font); color:#294c6c; }
+#gaia-statistics-lab #gaia-statistics-findings.is-dashboard .dashboard-chart svg { display:block; width:100%; max-height:160px; }
+#gaia-statistics-lab #gaia-statistics-findings.is-dashboard > .gaia-statistics-reading-scope { display:none; }
+#gaia-statistics-lab #gaia-statistics-findings.is-dashboard .dashboard-chart text { font:12px var(--stat-ui-font); fill:#48627a; }
+#gaia-statistics-lab #gaia-statistics-findings.is-dashboard .dashboard-reading { display:grid; gap:10px; align-content:start; min-width:0; }
+#gaia-statistics-lab #gaia-statistics-findings.is-dashboard .dashboard-reading p { font-size:15px !important; }
+#gaia-statistics-lab #gaia-statistics-findings.is-dashboard > details.gaia-statistics-discovery-alternatives { grid-column:auto !important; min-width:0; align-self:start; }
+@media(min-width:1600px) {
+ #gaia-statistics-lab #gaia-statistics-findings.is-dashboard { grid-template-columns:repeat(4,minmax(0,1fr)) !important; }
+ #gaia-statistics-lab #gaia-statistics-findings.is-dashboard > .insight-key-metrics > div { padding:10px 18px; }
+ #gaia-statistics-lab #gaia-statistics-findings.is-dashboard > details .gaia-statistics-finding { margin:8px 0 !important; padding:0 !important; }
+ #gaia-statistics-lab #gaia-statistics-findings.is-dashboard > details .gaia-statistics-finding h5 { margin:0 0 4px !important; }
+}
+@media(max-width:1100px) {
+ #gaia-statistics-lab #gaia-statistics-findings.is-dashboard { grid-template-columns:1fr !important; }
+ #gaia-statistics-lab #gaia-statistics-findings.is-dashboard .dashboard-main { grid-template-columns:1fr; }
+ #gaia-statistics-lab #gaia-statistics-findings.is-dashboard > .insight-key-metrics { flex-wrap:wrap; }
+}
+@media(max-width:600px) {
+ #gaia-statistics-lab #gaia-statistics-findings.is-dashboard > .insight-key-metrics > div { flex:1 1 140px; }
+}

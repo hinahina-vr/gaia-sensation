@@ -1,0 +1,363 @@
+{
+  "schemaVersion": 1,
+  "dataset": "GISTEMP v4 Land-Ocean Temperature Index, ERSSTv5, 1200 km smoothing",
+  "provider": "NASA GISS",
+  "sourceUrl": "https://data.giss.nasa.gov/pub/gistemp/gistemp1200_GHCNv4_ERSSTv5.nc.gz",
+  "documentationUrl": "https://data.giss.nasa.gov/gistemp/",
+  "citation": "GISTEMP Team, 2026; Lenssen et al. (2024), doi:10.1029/2023JD040179",
+  "retrievedAt": "2026-09-09T18:17:10+00:00",
+  "sourceSha256": "93f73f648a5e43b2870880865406ae98d35b03146612717e538d48a3bec02425",
+  "binarySha256": "c69cca7c4fe3ec636ba40eb0fd0cf945f6286095297c1de683c0a554a060483d",
+  "baseline": "1951–1980",
+  "unit": "°C",
+  "width": 180,
+  "height": 90,
+  "resolutionDegrees": 2,
+  "storage": "little-endian int16; °C × 100; north-to-south, west-to-east",
+  "missing": 32767,
+  "binary": "story-temperature-annual.bin",
+  "method": "Annual arithmetic mean only where all 12 monthly grid values are valid; round to 0.01 °C. No additional spatial interpolation, no future projection.",
+  "caveat": "Regional gridded estimates with NASA 1200 km smoothing, not point thermometer readings. Missing cells remain missing. Area-weighted grid mean is not the official GISTEMP global index.",
+  "frames": [
+    {
+      "year": 1958,
+      "validCells": 15888,
+      "areaMeanC": 0.057
+    },
+    {
+      "year": 1959,
+      "validCells": 15904,
+      "areaMeanC": 0.026
+    },
+    {
+      "year": 1960,
+      "validCells": 15943,
+      "areaMeanC": -0.028
+    },
+    {
+      "year": 1961,
+      "validCells": 15863,
+      "areaMeanC": 0.059
+    },
+    {
+      "year": 1962,
+      "validCells": 15822,
+      "areaMeanC": 0.033
+    },
+    {
+      "year": 1963,
+      "validCells": 15984,
+      "areaMeanC": 0.059
+    },
+    {
+      "year": 1964,
+      "validCells": 15982,
+      "areaMeanC": -0.2
+    },
+    {
+      "year": 1965,
+      "validCells": 15972,
+      "areaMeanC": -0.112
+    },
+    {
+      "year": 1966,
+      "validCells": 15998,
+      "areaMeanC": -0.059
+    },
+    {
+      "year": 1967,
+      "validCells": 15974,
+      "areaMeanC": -0.019
+    },
+    {
+      "year": 1968,
+      "validCells": 15968,
+      "areaMeanC": -0.081
+    },
+    {
+      "year": 1969,
+      "validCells": 15031,
+      "areaMeanC": 0.058
+    },
+    {
+      "year": 1970,
+      "validCells": 15856,
+      "areaMeanC": 0.026
+    },
+    {
+      "year": 1971,
+      "validCells": 15871,
+      "areaMeanC": -0.085
+    },
+    {
+      "year": 1972,
+      "validCells": 15887,
+      "areaMeanC": 0.004
+    },
+    {
+      "year": 1973,
+      "validCells": 15875,
+      "areaMeanC": 0.157
+    },
+    {
+      "year": 1974,
+      "validCells": 15887,
+      "areaMeanC": -0.067
+    },
+    {
+      "year": 1975,
+      "validCells": 15839,
+      "areaMeanC": -0.022
+    },
+    {
+      "year": 1976,
+      "validCells": 15869,
+      "areaMeanC": -0.112
+    },
+    {
+      "year": 1977,
+      "validCells": 15891,
+      "areaMeanC": 0.174
+    },
+    {
+      "year": 1978,
+      "validCells": 15837,
+      "areaMeanC": 0.062
+    },
+    {
+      "year": 1979,
+      "validCells": 15889,
+      "areaMeanC": 0.157
+    },
+    {
+      "year": 1980,
+      "validCells": 15885,
+      "areaMeanC": 0.254
+    },
+    {
+      "year": 1981,
+      "validCells": 15889,
+      "areaMeanC": 0.324
+    },
+    {
+      "year": 1982,
+      "validCells": 15875,
+      "areaMeanC": 0.127
+    },
+    {
+      "year": 1983,
+      "validCells": 15881,
+      "areaMeanC": 0.311
+    },
+    {
+      "year": 1984,
+      "validCells": 15887,
+      "areaMeanC": 0.148
+    },
+    {
+      "year": 1985,
+      "validCells": 15889,
+      "areaMeanC": 0.112
+    },
+    {
+      "year": 1986,
+      "validCells": 15885,
+      "areaMeanC": 0.183
+    },
+    {
+      "year": 1987,
+      "validCells": 15889,
+      "areaMeanC": 0.314
+    },
+    {
+      "year": 1988,
+      "validCells": 15889,
+      "areaMeanC": 0.388
+    },
+    {
+      "year": 1989,
+      "validCells": 15889,
+      "areaMeanC": 0.272
+    },
+    {
+      "year": 1990,
+      "validCells": 15872,
+      "areaMeanC": 0.447
+    },
+    {
+      "year": 1991,
+      "validCells": 15874,
+      "areaMeanC": 0.409
+    },
+    {
+      "year": 1992,
+      "validCells": 15874,
+      "areaMeanC": 0.211
+    },
+    {
+      "year": 1993,
+      "validCells": 15889,
+      "areaMeanC": 0.221
+    },
+    {
+      "year": 1994,
+      "validCells": 15898,
+      "areaMeanC": 0.312
+    },
+    {
+      "year": 1995,
+      "validCells": 15883,
+      "areaMeanC": 0.442
+    },
+    {
+      "year": 1996,
+      "validCells": 15885,
+      "areaMeanC": 0.343
+    },
+    {
+      "year": 1997,
+      "validCells": 15951,
+      "areaMeanC": 0.462
+    },
+    {
+      "year": 1998,
+      "validCells": 15990,
+      "areaMeanC": 0.609
+    },
+    {
+      "year": 1999,
+      "validCells": 15881,
+      "areaMeanC": 0.377
+    },
+    {
+      "year": 2000,
+      "validCells": 15881,
+      "areaMeanC": 0.395
+    },
+    {
+      "year": 2001,
+      "validCells": 15887,
+      "areaMeanC": 0.535
+    },
+    {
+      "year": 2002,
+      "validCells": 15885,
+      "areaMeanC": 0.634
+    },
+    {
+      "year": 2003,
+      "validCells": 15876,
+      "areaMeanC": 0.622
+    },
+    {
+      "year": 2004,
+      "validCells": 15867,
+      "areaMeanC": 0.539
+    },
+    {
+      "year": 2005,
+      "validCells": 15883,
+      "areaMeanC": 0.684
+    },
+    {
+      "year": 2006,
+      "validCells": 15885,
+      "areaMeanC": 0.644
+    },
+    {
+      "year": 2007,
+      "validCells": 15889,
+      "areaMeanC": 0.669
+    },
+    {
+      "year": 2008,
+      "validCells": 15889,
+      "areaMeanC": 0.542
+    },
+    {
+      "year": 2009,
+      "validCells": 15957,
+      "areaMeanC": 0.665
+    },
+    {
+      "year": 2010,
+      "validCells": 15996,
+      "areaMeanC": 0.732
+    },
+    {
+      "year": 2011,
+      "validCells": 15919,
+      "areaMeanC": 0.612
+    },
+    {
+      "year": 2012,
+      "validCells": 15994,
+      "areaMeanC": 0.647
+    },
+    {
+      "year": 2013,
+      "validCells": 15926,
+      "areaMeanC": 0.687
+    },
+    {
+      "year": 2014,
+      "validCells": 15996,
+      "areaMeanC": 0.749
+    },
+    {
+      "year": 2015,
+      "validCells": 15996,
+      "areaMeanC": 0.894
+    },
+    {
+      "year": 2016,
+      "validCells": 15996,
+      "areaMeanC": 1.026
+    },
+    {
+      "year": 2017,
+      "validCells": 15996,
+      "areaMeanC": 0.919
+    },
+    {
+      "year": 2018,
+      "validCells": 15995,
+      "areaMeanC": 0.856
+    },
+    {
+      "year": 2019,
+      "validCells": 15988,
+      "areaMeanC": 0.984
+    },
+    {
+      "year": 2020,
+      "validCells": 15992,
+      "areaMeanC": 1.012
+    },
+    {
+      "year": 2021,
+      "validCells": 15990,
+      "areaMeanC": 0.857
+    },
+    {
+      "year": 2022,
+      "validCells": 15994,
+      "areaMeanC": 0.902
+    },
+    {
+      "year": 2023,
+      "validCells": 15996,
+      "areaMeanC": 1.177
+    },
+    {
+      "year": 2024,
+      "validCells": 15994,
+      "areaMeanC": 1.289
+    },
+    {
+      "year": 2025,
+      "validCells": 15994,
+      "areaMeanC": 1.207
+    }
+  ]
+}

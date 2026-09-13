@@ -1,0 +1,6 @@
+{
+  "sourceCommit": "b236255db4dc60f748aecfe4327d45d39f8ad33b",
+  "path": "data/gaia-signals.json",
+  "sha256": "6ef88c8938b6491680029e9f9bc7a79cadd415db51b25add52613b133de0854d",
+  "purpose": "Exact pre-change regression input, retained without importing Git history."
+}

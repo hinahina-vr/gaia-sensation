@@ -1,0 +1,160 @@
+{
+  "title": "THE FIRST GX",
+  "subtitle": "地層に残った七つの変革から、まだ存在しない次の層へ",
+  "snapshotDate": "2026-08-04",
+  "notice": "年代はInternational Chronostratigraphic Chartを基準に、一般向けに丸めています。地層・化石・化学成分は実在する証拠ですが、画面上の色・速度・位置は鑑賞用の表現です。人新世は2024年に正式な地質年代としては採用されず、ここでは人間活動の地質学的な痕跡を考える非公式な概念として扱います。",
+  "labels": {
+    "SOURCE": "論文・公的資料で確認できる年代と地質記録",
+    "DERIVED": "複数の記録を鑑賞用に整理した表現",
+    "SCENARIO": "観客の操作で生まれる、まだ地層にない未来"
+  },
+  "phases": [
+    {
+      "id": "hadean",
+      "index": "01 / 08",
+      "kind": "SOURCE",
+      "time": "約46–40億年前 / 冥王代",
+      "title": "結晶に残る、水の記憶。",
+      "summary": "約44億年前の結晶に残る、水があった可能性。地層がほとんど残らない初期の地球を、小さなジルコンから読みます。",
+      "copy": "地球が生まれ、熱い表面が少しずつ冷えました。約44億年前のジルコンには、早い時期から地表に液体の水があった可能性が記録されています。地層がほとんど残らない時代を、小さな結晶が語ります。",
+      "marker": "ジルコン結晶・最古級の岩石",
+      "guide": "暗い地球へ触れると、冷えた場所にジルコンの光が残ります。",
+      "action": "最初の生命へ進む"
+    },
+    {
+      "id": "archean-life",
+      "index": "02 / 08",
+      "kind": "SOURCE",
+      "time": "約40–25億年前 / 太古代",
+      "title": "生命が、海に層を刻む。",
+      "summary": "微生物が海に層をつくり、やがて光合成が酸素を放つ。小さな生命の営みが、地球の環境を変え始めます。",
+      "copy": "微生物の群落は浅い海で膜のように広がり、泥や鉱物を取り込んでストロマトライトをつくりました。のちにシアノバクテリアの光合成が酸素を放ち、地球の化学を変え始めます。",
+      "marker": "ストロマトライト・微生物マット",
+      "guide": "地球の海をなぞり、シアノバクテリアで満たしてください。満ちると次の時代へ進みます。",
+      "action": "酸素の行方を見る"
+    },
+    {
+      "id": "proterozoic-oxygen",
+      "index": "03 / 08",
+      "kind": "SOURCE",
+      "time": "約25億–5億3900万年前 / 原生代",
+      "title": "酸素が、海と陸を赤く。",
+      "summary": "生命が放った酸素は、海中の鉄を酸化させ、やがて大気へ。海底の縞状鉄鉱層と陸上の赤色層に、その変化が残ります。",
+      "copy": "酸素はまず海中の鉄と結びつき、縞状鉄鉱層として沈みました。やがて大気に蓄積すると陸上にも赤色層が生まれます。全球凍結の時代は、氷が運んだ岩や解氷後の炭酸塩層として残りました。",
+      "marker": "縞状鉄鉱層・赤色層・氷砕岩・キャップカーボネート",
+      "guide": "地球へ触れると鉄の酸化が進み、赤褐色の層が海底から大陸へ広がります。",
+      "action": "石炭の森へ進む"
+    },
+    {
+      "id": "paleozoic-coal",
+      "index": "04 / 08",
+      "kind": "SOURCE",
+      "time": "約5億3900万–2億5200万年前 / 古生代",
+      "title": "森が、空気を石へ渡す。",
+      "summary": "湿地で育った植物が埋もれ、長い時間をかけて石炭へ。森が蓄えた炭素は、地中に残る黒い層になりました。",
+      "copy": "生きものは硬い殻をもち、植物は陸へ進出しました。石炭紀の湿地では大量の植物が育ち、酸素の少ない水底へ埋もれ、長い圧力と熱を受けて石炭層になりました。分解菌の不在だけでなく、湿地・埋没・地殻運動が重なった記録です。",
+      "marker": "殻の化石・植物化石・石炭層",
+      "guide": "湿地をなぞると植物の炭素が沈み、黒い石炭層へ圧密されます。",
+      "action": "衝突の境界へ進む"
+    },
+    {
+      "id": "mesozoic-impact",
+      "index": "05 / 08",
+      "kind": "SOURCE",
+      "time": "約2億5200万–6600万年前 / 中生代",
+      "title": "衝突が、時代を分ける。",
+      "summary": "約6600万年前の巨大天体の衝突。その急変は、イリジウムを多く含む薄い層として世界各地に残っています。",
+      "copy": "恐竜やアンモナイトが栄えた時代の終わりに、巨大天体が衝突しました。約6600万年前のK–Pg境界には、地表では珍しいイリジウムを多く含む薄い層が世界各地に残っています。",
+      "marker": "アンモナイト化石・K–Pg境界のイリジウム濃集層",
+      "guide": "地球へ触れると衝突の波が走り、薄い境界層が一周します。",
+      "action": "氷と花粉の時代へ進む"
+    },
+    {
+      "id": "cenozoic-climate",
+      "index": "06 / 08",
+      "kind": "SOURCE",
+      "time": "6600万年前–現在 / 新生代",
+      "title": "氷と花粉が語る気候。",
+      "summary": "氷河の堆積物、海底の微化石、湖底の花粉。異なる記録を重ねると、寒冷期と温暖期を繰り返した気候が見えてきます。",
+      "copy": "哺乳類が広がり、山脈が隆起し、寒冷期と温暖期が繰り返されました。氷河が運んだ堆積物、海底の微化石、湖底の花粉は、気温や植生が変わった順番を保存しています。",
+      "marker": "哺乳類化石・花粉・微化石・氷河堆積物",
+      "guide": "地球を上下になぞると氷が広がり、戻ると花粉の記録が現れます。",
+      "action": "人間の層へ進む"
+    },
+    {
+      "id": "anthropocene",
+      "index": "07 / 08",
+      "kind": "DERIVED",
+      "time": "20世紀半ば–現在 / 非公式概念",
+      "title": "都市が、未来の化石に。",
+      "summary": "コンクリートやプラスチックなど、人間活動の痕跡も地層へ。「人新世」は正式な地質年代ではなく、この変化を考える概念です。",
+      "copy": "コンクリート、プラスチック、燃焼由来の球状粒子、化学肥料の窒素とリン、核実験由来の放射性核種。人間活動は、遠い未来にも見分けられる急な変化を地層へ残し始めました。人新世は正式な地質年代ではありませんが、変化を考える重要な概念です。",
+      "marker": "コンクリート・プラスチック・フライアッシュ・放射性核種",
+      "guide": "都市へ触れると人工物の層とCO₂が増え、大気が厚く暖色へ変わります。",
+      "action": "まだない地層へ進む"
+    },
+    {
+      "id": "gaia-transformation",
+      "index": "08 / 08",
+      "kind": "SCENARIO",
+      "time": "現在–未来 / GX",
+      "title": "次の地層は、まだ白紙。",
+      "summary": "地球の信号を読み、技術や暮らしを組み替える。地球を変える私たちも、変わった環境から変え返される。次に残す層は、まだ未定です。",
+      "copy": "過去の生命も、隕石も、人間も、地球を一方的に操作したのではありません。環境を変え、変えた環境から変え返されました。地球の信号を読み、人間の技術や暮らしも組み替える。その相互の進化を、本作ではGaia Transformationと呼びます。",
+      "marker": "未定 — 私たちがこれから残す層",
+      "guide": "地球の上へ大きな円を描いてください。人間の光と地球の時間が、同じ軌道へ入ります。",
+      "action": "展示を終える"
+    }
+  ],
+  "sources": [
+    {
+      "id": "ics-chart",
+      "provider": "International Commission on Stratigraphy",
+      "title": "International Chronostratigraphic Chart",
+      "url": "https://stratigraphy.org/chart/",
+      "usedFor": "地質年代境界の基準"
+    },
+    {
+      "id": "usgs-time",
+      "provider": "U.S. Geological Survey",
+      "title": "Fossils, Rocks, and Time",
+      "url": "https://pubs.usgs.gov/gip/fossils/scale.html",
+      "usedFor": "岩石と化石から地球史を読む基本説明"
+    },
+    {
+      "id": "usgs-early-earth",
+      "provider": "U.S. Geological Survey",
+      "title": "The Precambrian: Beginning of Life",
+      "url": "https://pubs.usgs.gov/fs/2007/3004/",
+      "usedFor": "先カンブリア時代の環境と生命"
+    },
+    {
+      "id": "kahaku-kpg",
+      "provider": "国立科学博物館",
+      "title": "米国における恐竜絶滅層（K–Pg境界層）の調査",
+      "url": "https://www.kahaku.go.jp/pickup-science/nid00000957.html",
+      "usedFor": "K–Pg境界層とイリジウム"
+    },
+    {
+      "id": "iugs-anthropocene",
+      "provider": "IUGS / ICS",
+      "title": "Joint statement on the Anthropocene proposal",
+      "url": "https://www.iugs.org/_files/ugd/f1fc07_a9ed7d24766444c69007c86a01745c56.pdf?index=true",
+      "usedFor": "人新世が正式な地質年代ではないこと"
+    },
+    {
+      "id": "pnas-coal",
+      "provider": "PNAS",
+      "title": "Delayed fungal evolution did not cause the Paleozoic peak in coal production",
+      "url": "https://doi.org/10.1073/pnas.1517943113",
+      "usedFor": "石炭形成を分解菌不在だけで説明しないための注意"
+    },
+    {
+      "id": "nature-thylakoids",
+      "provider": "Nature",
+      "title": "Oldest thylakoids in fossil cells directly evidence oxygenic photosynthesis",
+      "url": "https://www.nature.com/articles/s41586-023-06896-7",
+      "usedFor": "酸素発生型光合成の直接証拠"
+    }
+  ]
+}

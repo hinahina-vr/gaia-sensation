@@ -1,0 +1,30 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {chromium} from 'playwright-core';
+const out='artifacts/site-terms-20260912';fs.mkdirSync(out,{recursive:true});
+const browser=await chromium.launch({headless:true,executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe'});
+try {for(const width of [1440,390]){
+ const page=await browser.newPage({viewport:{width,height:900},reducedMotion:'reduce'});
+ page.on('pageerror',e=>console.log('PAGEERROR',e.message));page.on('response',r=>{if(r.url().includes('site-terms'))console.log(r.status(),r.url());});
+ await page.goto('http://127.0.0.1:4492/');
+ await page.locator('#gaia-opening-sound-off').click();
+ await page.locator('#gaia-opening-route-other').click();
+ const button=page.locator('#intro-terms-open');await button.scrollIntoViewIfNeeded();
+ const b=await button.boundingBox(),g=await page.locator('#intro-entry-guide-replay').boundingBox();
+ assert(b.x+b.width<=g.x+1,'terms must be left of guide');
+ assert.equal(b.height,g.height,'matching utility button heights');
+ const styles=await page.evaluate(()=>['intro-terms-open','intro-entry-guide-replay'].map(id=>{const el=document.getElementById(id),s=getComputedStyle(el),t=getComputedStyle(el.querySelector('strong'));return [s.backgroundImage,s.borderColor,s.borderRadius,s.padding,t.fontSize,t.fontWeight];}));
+ assert.deepEqual(styles[0],styles[1],'shared guide styling');
+ await page.screenshot({path:`${out}/${width}-button.png`});await button.click();
+ const dialog=page.locator('#site-terms');await dialog.waitFor({state:'visible'});
+ assert.equal(await dialog.locator('h3').count(),8);
+ const termsText=await dialog.textContent();
+ assert(!/DRAFT|たたき台|本稿|公開前|確定します/.test(termsText),'no author-facing draft notes');
+ assert(termsText.includes('本作品を閲覧・利用する方に向けて'));
+ await page.screenshot({path:`${out}/${width}-dialog.png`});
+ assert(await dialog.evaluate(d=>d.scrollWidth<=d.clientWidth));
+ await page.keyboard.press('Escape');await dialog.waitFor({state:'hidden'});await page.waitForFunction(()=>document.activeElement?.id==='intro-terms-open');
+ await page.keyboard.press('Enter');await dialog.waitFor({state:'visible'});
+ await dialog.locator('[data-terms-close]').click();await dialog.waitFor({state:'hidden'});
+ console.log(`PASS ${width}: placement, modal, Escape, focus return, keyboard reopen, close`);await page.close();
+}}finally{await browser.close();}

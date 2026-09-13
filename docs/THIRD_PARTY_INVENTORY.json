@@ -1,0 +1,2014 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "scripts/build-third-party-inventory.mjs",
+  "note": "ロックファイルの宣言と収録データ出典を列挙。ライセンス本文や公開許諾の代わりではない。利用者OSに存在するシステムフォントを優先し、フォント本体は収録していない。",
+  "hostedFonts": [],
+  "dependencies": [
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@cloudflare/kv-asset-handler",
+      "version": "0.5.0",
+      "license": "MIT OR Apache-2.0",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@cloudflare/kv-asset-handler/-/kv-asset-handler-0.5.0.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@cloudflare/unenv-preset",
+      "version": "2.16.1",
+      "license": "MIT OR Apache-2.0",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@cloudflare/unenv-preset/-/unenv-preset-2.16.1.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@cloudflare/workerd-darwin-64",
+      "version": "1.20260831.1",
+      "license": "Apache-2.0",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@cloudflare/workerd-darwin-64/-/workerd-darwin-64-1.20260831.1.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@cloudflare/workerd-darwin-arm64",
+      "version": "1.20260831.1",
+      "license": "Apache-2.0",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@cloudflare/workerd-darwin-arm64/-/workerd-darwin-arm64-1.20260831.1.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@cloudflare/workerd-linux-64",
+      "version": "1.20260831.1",
+      "license": "Apache-2.0",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@cloudflare/workerd-linux-64/-/workerd-linux-64-1.20260831.1.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@cloudflare/workerd-linux-arm64",
+      "version": "1.20260831.1",
+      "license": "Apache-2.0",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@cloudflare/workerd-linux-arm64/-/workerd-linux-arm64-1.20260831.1.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@cloudflare/workerd-windows-64",
+      "version": "1.20260831.1",
+      "license": "Apache-2.0",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@cloudflare/workerd-windows-64/-/workerd-windows-64-1.20260831.1.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@cspotcode/source-map-support",
+      "version": "0.8.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@cspotcode/source-map-support/-/source-map-support-0.8.1.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@emnapi/runtime",
+      "version": "1.11.3",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@emnapi/runtime/-/runtime-1.11.3.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@esbuild/aix-ppc64",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@esbuild/aix-ppc64/-/aix-ppc64-0.28.1.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@esbuild/android-arm",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@esbuild/android-arm/-/android-arm-0.28.1.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@esbuild/android-arm64",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@esbuild/android-arm64/-/android-arm64-0.28.1.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@esbuild/android-x64",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@esbuild/android-x64/-/android-x64-0.28.1.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@esbuild/darwin-arm64",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@esbuild/darwin-arm64/-/darwin-arm64-0.28.1.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@esbuild/darwin-x64",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@esbuild/darwin-x64/-/darwin-x64-0.28.1.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@esbuild/freebsd-arm64",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@esbuild/freebsd-arm64/-/freebsd-arm64-0.28.1.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@esbuild/freebsd-x64",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@esbuild/freebsd-x64/-/freebsd-x64-0.28.1.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@esbuild/linux-arm",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@esbuild/linux-arm/-/linux-arm-0.28.1.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@esbuild/linux-arm64",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@esbuild/linux-arm64/-/linux-arm64-0.28.1.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@esbuild/linux-ia32",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@esbuild/linux-ia32/-/linux-ia32-0.28.1.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@esbuild/linux-loong64",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@esbuild/linux-loong64/-/linux-loong64-0.28.1.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@esbuild/linux-mips64el",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@esbuild/linux-mips64el/-/linux-mips64el-0.28.1.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@esbuild/linux-ppc64",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@esbuild/linux-ppc64/-/linux-ppc64-0.28.1.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@esbuild/linux-riscv64",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@esbuild/linux-riscv64/-/linux-riscv64-0.28.1.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@esbuild/linux-s390x",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@esbuild/linux-s390x/-/linux-s390x-0.28.1.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@esbuild/linux-x64",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@esbuild/linux-x64/-/linux-x64-0.28.1.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@esbuild/netbsd-arm64",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@esbuild/netbsd-arm64/-/netbsd-arm64-0.28.1.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@esbuild/netbsd-x64",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@esbuild/netbsd-x64/-/netbsd-x64-0.28.1.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@esbuild/openbsd-arm64",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@esbuild/openbsd-arm64/-/openbsd-arm64-0.28.1.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@esbuild/openbsd-x64",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@esbuild/openbsd-x64/-/openbsd-x64-0.28.1.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@esbuild/openharmony-arm64",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@esbuild/openharmony-arm64/-/openharmony-arm64-0.28.1.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@esbuild/sunos-x64",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@esbuild/sunos-x64/-/sunos-x64-0.28.1.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@esbuild/win32-arm64",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@esbuild/win32-arm64/-/win32-arm64-0.28.1.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@esbuild/win32-ia32",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@esbuild/win32-ia32/-/win32-ia32-0.28.1.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@esbuild/win32-x64",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@esbuild/win32-x64/-/win32-x64-0.28.1.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@img/colour",
+      "version": "1.1.0",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/colour/-/colour-1.1.0.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@img/sharp-darwin-arm64",
+      "version": "0.35.2",
+      "license": "Apache-2.0",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/sharp-darwin-arm64/-/sharp-darwin-arm64-0.35.2.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@img/sharp-darwin-x64",
+      "version": "0.35.2",
+      "license": "Apache-2.0",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/sharp-darwin-x64/-/sharp-darwin-x64-0.35.2.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@img/sharp-freebsd-wasm32",
+      "version": "0.35.2",
+      "license": "Apache-2.0",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/sharp-freebsd-wasm32/-/sharp-freebsd-wasm32-0.35.2.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@img/sharp-libvips-darwin-arm64",
+      "version": "1.3.1",
+      "license": "LGPL-3.0-or-later",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/sharp-libvips-darwin-arm64/-/sharp-libvips-darwin-arm64-1.3.1.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@img/sharp-libvips-darwin-x64",
+      "version": "1.3.1",
+      "license": "LGPL-3.0-or-later",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/sharp-libvips-darwin-x64/-/sharp-libvips-darwin-x64-1.3.1.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@img/sharp-libvips-linux-arm",
+      "version": "1.3.1",
+      "license": "LGPL-3.0-or-later",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/sharp-libvips-linux-arm/-/sharp-libvips-linux-arm-1.3.1.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@img/sharp-libvips-linux-arm64",
+      "version": "1.3.1",
+      "license": "LGPL-3.0-or-later",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/sharp-libvips-linux-arm64/-/sharp-libvips-linux-arm64-1.3.1.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@img/sharp-libvips-linux-ppc64",
+      "version": "1.3.1",
+      "license": "LGPL-3.0-or-later",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/sharp-libvips-linux-ppc64/-/sharp-libvips-linux-ppc64-1.3.1.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@img/sharp-libvips-linux-riscv64",
+      "version": "1.3.1",
+      "license": "LGPL-3.0-or-later",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/sharp-libvips-linux-riscv64/-/sharp-libvips-linux-riscv64-1.3.1.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@img/sharp-libvips-linux-s390x",
+      "version": "1.3.1",
+      "license": "LGPL-3.0-or-later",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/sharp-libvips-linux-s390x/-/sharp-libvips-linux-s390x-1.3.1.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@img/sharp-libvips-linux-x64",
+      "version": "1.3.1",
+      "license": "LGPL-3.0-or-later",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/sharp-libvips-linux-x64/-/sharp-libvips-linux-x64-1.3.1.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@img/sharp-libvips-linuxmusl-arm64",
+      "version": "1.3.1",
+      "license": "LGPL-3.0-or-later",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/sharp-libvips-linuxmusl-arm64/-/sharp-libvips-linuxmusl-arm64-1.3.1.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@img/sharp-libvips-linuxmusl-x64",
+      "version": "1.3.1",
+      "license": "LGPL-3.0-or-later",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/sharp-libvips-linuxmusl-x64/-/sharp-libvips-linuxmusl-x64-1.3.1.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@img/sharp-linux-arm",
+      "version": "0.35.2",
+      "license": "Apache-2.0",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/sharp-linux-arm/-/sharp-linux-arm-0.35.2.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@img/sharp-linux-arm64",
+      "version": "0.35.2",
+      "license": "Apache-2.0",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/sharp-linux-arm64/-/sharp-linux-arm64-0.35.2.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@img/sharp-linux-ppc64",
+      "version": "0.35.2",
+      "license": "Apache-2.0",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/sharp-linux-ppc64/-/sharp-linux-ppc64-0.35.2.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@img/sharp-linux-riscv64",
+      "version": "0.35.2",
+      "license": "Apache-2.0",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/sharp-linux-riscv64/-/sharp-linux-riscv64-0.35.2.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@img/sharp-linux-s390x",
+      "version": "0.35.2",
+      "license": "Apache-2.0",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/sharp-linux-s390x/-/sharp-linux-s390x-0.35.2.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@img/sharp-linux-x64",
+      "version": "0.35.2",
+      "license": "Apache-2.0",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/sharp-linux-x64/-/sharp-linux-x64-0.35.2.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@img/sharp-linuxmusl-arm64",
+      "version": "0.35.2",
+      "license": "Apache-2.0",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/sharp-linuxmusl-arm64/-/sharp-linuxmusl-arm64-0.35.2.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@img/sharp-linuxmusl-x64",
+      "version": "0.35.2",
+      "license": "Apache-2.0",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/sharp-linuxmusl-x64/-/sharp-linuxmusl-x64-0.35.2.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@img/sharp-wasm32",
+      "version": "0.35.2",
+      "license": "Apache-2.0 AND LGPL-3.0-or-later AND MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/sharp-wasm32/-/sharp-wasm32-0.35.2.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@img/sharp-webcontainers-wasm32",
+      "version": "0.35.2",
+      "license": "Apache-2.0",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/sharp-webcontainers-wasm32/-/sharp-webcontainers-wasm32-0.35.2.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@img/sharp-win32-arm64",
+      "version": "0.35.2",
+      "license": "Apache-2.0 AND LGPL-3.0-or-later",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/sharp-win32-arm64/-/sharp-win32-arm64-0.35.2.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@img/sharp-win32-ia32",
+      "version": "0.35.2",
+      "license": "Apache-2.0 AND LGPL-3.0-or-later",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/sharp-win32-ia32/-/sharp-win32-ia32-0.35.2.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@img/sharp-win32-x64",
+      "version": "0.35.2",
+      "license": "Apache-2.0 AND LGPL-3.0-or-later",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/sharp-win32-x64/-/sharp-win32-x64-0.35.2.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@jridgewell/resolve-uri",
+      "version": "3.1.2",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@jridgewell/resolve-uri/-/resolve-uri-3.1.2.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@jridgewell/sourcemap-codec",
+      "version": "1.6.0",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@jridgewell/sourcemap-codec/-/sourcemap-codec-1.6.0.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@jridgewell/trace-mapping",
+      "version": "0.3.9",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@jridgewell/trace-mapping/-/trace-mapping-0.3.9.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@poppinss/colors",
+      "version": "4.1.6",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@poppinss/colors/-/colors-4.1.6.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@poppinss/dumper",
+      "version": "0.6.5",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@poppinss/dumper/-/dumper-0.6.5.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@poppinss/exception",
+      "version": "1.2.3",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@poppinss/exception/-/exception-1.2.3.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@sindresorhus/is",
+      "version": "7.2.0",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@sindresorhus/is/-/is-7.2.0.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/@speed-highlight/core",
+      "version": "1.2.24",
+      "license": "CC0-1.0",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@speed-highlight/core/-/core-1.2.24.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/blake3-wasm",
+      "version": "2.1.5",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/blake3-wasm/-/blake3-wasm-2.1.5.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/cookie",
+      "version": "1.1.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/cookie/-/cookie-1.1.1.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/detect-libc",
+      "version": "2.1.2",
+      "license": "Apache-2.0",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/detect-libc/-/detect-libc-2.1.2.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/error-stack-parser-es",
+      "version": "1.0.5",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/error-stack-parser-es/-/error-stack-parser-es-1.0.5.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/esbuild",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/esbuild/-/esbuild-0.28.1.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/fsevents",
+      "version": "2.3.3",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/fsevents/-/fsevents-2.3.3.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/kleur",
+      "version": "4.1.5",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/kleur/-/kleur-4.1.5.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/miniflare",
+      "version": "5.20260831.0-alpha",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/miniflare/-/miniflare-5.20260831.0-alpha.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/path-to-regexp",
+      "version": "6.3.0",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/path-to-regexp/-/path-to-regexp-6.3.0.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/pathe",
+      "version": "2.0.3",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/pathe/-/pathe-2.0.3.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/playwright-core",
+      "version": "1.62.1",
+      "license": "Apache-2.0",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/playwright-core/-/playwright-core-1.62.1.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/semver",
+      "version": "7.8.5",
+      "license": "ISC",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/semver/-/semver-7.8.5.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/sharp",
+      "version": "0.35.2",
+      "license": "Apache-2.0",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/sharp/-/sharp-0.35.2.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/supports-color",
+      "version": "10.2.2",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/supports-color/-/supports-color-10.2.2.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/tslib",
+      "version": "2.8.1",
+      "license": "0BSD",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/tslib/-/tslib-2.8.1.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/undici",
+      "version": "7.29.0",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/undici/-/undici-7.29.0.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/unenv",
+      "version": "2.0.0-rc.24",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/unenv/-/unenv-2.0.0-rc.24.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/workerd",
+      "version": "1.20260831.1",
+      "license": "Apache-2.0",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/workerd/-/workerd-1.20260831.1.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/wrangler",
+      "version": "4.128.0",
+      "license": "MIT OR Apache-2.0",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/wrangler/-/wrangler-4.128.0.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/ws",
+      "version": "8.21.0",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/ws/-/ws-8.21.0.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/youch",
+      "version": "4.1.0-beta.10",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/youch/-/youch-4.1.0-beta.10.tgz"
+    },
+    {
+      "lockfile": "package-lock.json",
+      "path": "node_modules/youch-core",
+      "version": "0.3.3",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/youch-core/-/youch-core-0.3.3.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@cloudflare/kv-asset-handler",
+      "version": "0.5.0",
+      "license": "MIT OR Apache-2.0",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@cloudflare/kv-asset-handler/-/kv-asset-handler-0.5.0.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@cloudflare/unenv-preset",
+      "version": "2.16.1",
+      "license": "MIT OR Apache-2.0",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@cloudflare/unenv-preset/-/unenv-preset-2.16.1.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@cloudflare/workerd-darwin-64",
+      "version": "1.20260804.1",
+      "license": "Apache-2.0",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@cloudflare/workerd-darwin-64/-/workerd-darwin-64-1.20260804.1.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@cloudflare/workerd-darwin-arm64",
+      "version": "1.20260804.1",
+      "license": "Apache-2.0",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@cloudflare/workerd-darwin-arm64/-/workerd-darwin-arm64-1.20260804.1.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@cloudflare/workerd-linux-64",
+      "version": "1.20260804.1",
+      "license": "Apache-2.0",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@cloudflare/workerd-linux-64/-/workerd-linux-64-1.20260804.1.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@cloudflare/workerd-linux-arm64",
+      "version": "1.20260804.1",
+      "license": "Apache-2.0",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@cloudflare/workerd-linux-arm64/-/workerd-linux-arm64-1.20260804.1.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@cloudflare/workerd-windows-64",
+      "version": "1.20260804.1",
+      "license": "Apache-2.0",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@cloudflare/workerd-windows-64/-/workerd-windows-64-1.20260804.1.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@cspotcode/source-map-support",
+      "version": "0.8.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@cspotcode/source-map-support/-/source-map-support-0.8.1.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@emnapi/runtime",
+      "version": "1.11.3",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@emnapi/runtime/-/runtime-1.11.3.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@esbuild/aix-ppc64",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@esbuild/aix-ppc64/-/aix-ppc64-0.28.1.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@esbuild/android-arm",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@esbuild/android-arm/-/android-arm-0.28.1.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@esbuild/android-arm64",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@esbuild/android-arm64/-/android-arm64-0.28.1.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@esbuild/android-x64",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@esbuild/android-x64/-/android-x64-0.28.1.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@esbuild/darwin-arm64",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@esbuild/darwin-arm64/-/darwin-arm64-0.28.1.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@esbuild/darwin-x64",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@esbuild/darwin-x64/-/darwin-x64-0.28.1.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@esbuild/freebsd-arm64",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@esbuild/freebsd-arm64/-/freebsd-arm64-0.28.1.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@esbuild/freebsd-x64",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@esbuild/freebsd-x64/-/freebsd-x64-0.28.1.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@esbuild/linux-arm",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@esbuild/linux-arm/-/linux-arm-0.28.1.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@esbuild/linux-arm64",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@esbuild/linux-arm64/-/linux-arm64-0.28.1.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@esbuild/linux-ia32",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@esbuild/linux-ia32/-/linux-ia32-0.28.1.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@esbuild/linux-loong64",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@esbuild/linux-loong64/-/linux-loong64-0.28.1.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@esbuild/linux-mips64el",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@esbuild/linux-mips64el/-/linux-mips64el-0.28.1.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@esbuild/linux-ppc64",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@esbuild/linux-ppc64/-/linux-ppc64-0.28.1.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@esbuild/linux-riscv64",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@esbuild/linux-riscv64/-/linux-riscv64-0.28.1.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@esbuild/linux-s390x",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@esbuild/linux-s390x/-/linux-s390x-0.28.1.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@esbuild/linux-x64",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@esbuild/linux-x64/-/linux-x64-0.28.1.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@esbuild/netbsd-arm64",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@esbuild/netbsd-arm64/-/netbsd-arm64-0.28.1.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@esbuild/netbsd-x64",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@esbuild/netbsd-x64/-/netbsd-x64-0.28.1.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@esbuild/openbsd-arm64",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@esbuild/openbsd-arm64/-/openbsd-arm64-0.28.1.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@esbuild/openbsd-x64",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@esbuild/openbsd-x64/-/openbsd-x64-0.28.1.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@esbuild/openharmony-arm64",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@esbuild/openharmony-arm64/-/openharmony-arm64-0.28.1.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@esbuild/sunos-x64",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@esbuild/sunos-x64/-/sunos-x64-0.28.1.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@esbuild/win32-arm64",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@esbuild/win32-arm64/-/win32-arm64-0.28.1.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@esbuild/win32-ia32",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@esbuild/win32-ia32/-/win32-ia32-0.28.1.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@esbuild/win32-x64",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@esbuild/win32-x64/-/win32-x64-0.28.1.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@img/colour",
+      "version": "1.1.0",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/colour/-/colour-1.1.0.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@img/sharp-darwin-arm64",
+      "version": "0.35.2",
+      "license": "Apache-2.0",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/sharp-darwin-arm64/-/sharp-darwin-arm64-0.35.2.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@img/sharp-darwin-x64",
+      "version": "0.35.2",
+      "license": "Apache-2.0",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/sharp-darwin-x64/-/sharp-darwin-x64-0.35.2.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@img/sharp-freebsd-wasm32",
+      "version": "0.35.2",
+      "license": "Apache-2.0",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/sharp-freebsd-wasm32/-/sharp-freebsd-wasm32-0.35.2.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@img/sharp-libvips-darwin-arm64",
+      "version": "1.3.1",
+      "license": "LGPL-3.0-or-later",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/sharp-libvips-darwin-arm64/-/sharp-libvips-darwin-arm64-1.3.1.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@img/sharp-libvips-darwin-x64",
+      "version": "1.3.1",
+      "license": "LGPL-3.0-or-later",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/sharp-libvips-darwin-x64/-/sharp-libvips-darwin-x64-1.3.1.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@img/sharp-libvips-linux-arm",
+      "version": "1.3.1",
+      "license": "LGPL-3.0-or-later",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/sharp-libvips-linux-arm/-/sharp-libvips-linux-arm-1.3.1.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@img/sharp-libvips-linux-arm64",
+      "version": "1.3.1",
+      "license": "LGPL-3.0-or-later",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/sharp-libvips-linux-arm64/-/sharp-libvips-linux-arm64-1.3.1.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@img/sharp-libvips-linux-ppc64",
+      "version": "1.3.1",
+      "license": "LGPL-3.0-or-later",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/sharp-libvips-linux-ppc64/-/sharp-libvips-linux-ppc64-1.3.1.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@img/sharp-libvips-linux-riscv64",
+      "version": "1.3.1",
+      "license": "LGPL-3.0-or-later",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/sharp-libvips-linux-riscv64/-/sharp-libvips-linux-riscv64-1.3.1.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@img/sharp-libvips-linux-s390x",
+      "version": "1.3.1",
+      "license": "LGPL-3.0-or-later",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/sharp-libvips-linux-s390x/-/sharp-libvips-linux-s390x-1.3.1.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@img/sharp-libvips-linux-x64",
+      "version": "1.3.1",
+      "license": "LGPL-3.0-or-later",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/sharp-libvips-linux-x64/-/sharp-libvips-linux-x64-1.3.1.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@img/sharp-libvips-linuxmusl-arm64",
+      "version": "1.3.1",
+      "license": "LGPL-3.0-or-later",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/sharp-libvips-linuxmusl-arm64/-/sharp-libvips-linuxmusl-arm64-1.3.1.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@img/sharp-libvips-linuxmusl-x64",
+      "version": "1.3.1",
+      "license": "LGPL-3.0-or-later",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/sharp-libvips-linuxmusl-x64/-/sharp-libvips-linuxmusl-x64-1.3.1.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@img/sharp-linux-arm",
+      "version": "0.35.2",
+      "license": "Apache-2.0",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/sharp-linux-arm/-/sharp-linux-arm-0.35.2.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@img/sharp-linux-arm64",
+      "version": "0.35.2",
+      "license": "Apache-2.0",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/sharp-linux-arm64/-/sharp-linux-arm64-0.35.2.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@img/sharp-linux-ppc64",
+      "version": "0.35.2",
+      "license": "Apache-2.0",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/sharp-linux-ppc64/-/sharp-linux-ppc64-0.35.2.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@img/sharp-linux-riscv64",
+      "version": "0.35.2",
+      "license": "Apache-2.0",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/sharp-linux-riscv64/-/sharp-linux-riscv64-0.35.2.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@img/sharp-linux-s390x",
+      "version": "0.35.2",
+      "license": "Apache-2.0",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/sharp-linux-s390x/-/sharp-linux-s390x-0.35.2.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@img/sharp-linux-x64",
+      "version": "0.35.2",
+      "license": "Apache-2.0",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/sharp-linux-x64/-/sharp-linux-x64-0.35.2.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@img/sharp-linuxmusl-arm64",
+      "version": "0.35.2",
+      "license": "Apache-2.0",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/sharp-linuxmusl-arm64/-/sharp-linuxmusl-arm64-0.35.2.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@img/sharp-linuxmusl-x64",
+      "version": "0.35.2",
+      "license": "Apache-2.0",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/sharp-linuxmusl-x64/-/sharp-linuxmusl-x64-0.35.2.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@img/sharp-wasm32",
+      "version": "0.35.2",
+      "license": "Apache-2.0 AND LGPL-3.0-or-later AND MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/sharp-wasm32/-/sharp-wasm32-0.35.2.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@img/sharp-webcontainers-wasm32",
+      "version": "0.35.2",
+      "license": "Apache-2.0",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/sharp-webcontainers-wasm32/-/sharp-webcontainers-wasm32-0.35.2.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@img/sharp-win32-arm64",
+      "version": "0.35.2",
+      "license": "Apache-2.0 AND LGPL-3.0-or-later",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/sharp-win32-arm64/-/sharp-win32-arm64-0.35.2.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@img/sharp-win32-ia32",
+      "version": "0.35.2",
+      "license": "Apache-2.0 AND LGPL-3.0-or-later",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/sharp-win32-ia32/-/sharp-win32-ia32-0.35.2.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@img/sharp-win32-x64",
+      "version": "0.35.2",
+      "license": "Apache-2.0 AND LGPL-3.0-or-later",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@img/sharp-win32-x64/-/sharp-win32-x64-0.35.2.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@jridgewell/resolve-uri",
+      "version": "3.1.2",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@jridgewell/resolve-uri/-/resolve-uri-3.1.2.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@jridgewell/sourcemap-codec",
+      "version": "1.5.5",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@jridgewell/sourcemap-codec/-/sourcemap-codec-1.5.5.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@jridgewell/trace-mapping",
+      "version": "0.3.9",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@jridgewell/trace-mapping/-/trace-mapping-0.3.9.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@poppinss/colors",
+      "version": "4.1.6",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@poppinss/colors/-/colors-4.1.6.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@poppinss/dumper",
+      "version": "0.6.5",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@poppinss/dumper/-/dumper-0.6.5.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@poppinss/exception",
+      "version": "1.2.3",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@poppinss/exception/-/exception-1.2.3.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@sindresorhus/is",
+      "version": "7.2.0",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@sindresorhus/is/-/is-7.2.0.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/@speed-highlight/core",
+      "version": "1.2.24",
+      "license": "CC0-1.0",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/@speed-highlight/core/-/core-1.2.24.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/blake3-wasm",
+      "version": "2.1.5",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/blake3-wasm/-/blake3-wasm-2.1.5.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/cookie",
+      "version": "1.1.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/cookie/-/cookie-1.1.1.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/detect-libc",
+      "version": "2.1.2",
+      "license": "Apache-2.0",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/detect-libc/-/detect-libc-2.1.2.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/error-stack-parser-es",
+      "version": "1.0.5",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/error-stack-parser-es/-/error-stack-parser-es-1.0.5.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/esbuild",
+      "version": "0.28.1",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/esbuild/-/esbuild-0.28.1.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/fsevents",
+      "version": "2.3.3",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/fsevents/-/fsevents-2.3.3.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/kleur",
+      "version": "4.1.5",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/kleur/-/kleur-4.1.5.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/miniflare",
+      "version": "5.20260804.1-alpha",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/miniflare/-/miniflare-5.20260804.1-alpha.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/path-to-regexp",
+      "version": "6.3.0",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/path-to-regexp/-/path-to-regexp-6.3.0.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/pathe",
+      "version": "2.0.3",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/pathe/-/pathe-2.0.3.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/semver",
+      "version": "7.8.5",
+      "license": "ISC",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/semver/-/semver-7.8.5.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/sharp",
+      "version": "0.35.2",
+      "license": "Apache-2.0",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/sharp/-/sharp-0.35.2.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/supports-color",
+      "version": "10.2.2",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/supports-color/-/supports-color-10.2.2.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/tslib",
+      "version": "2.8.1",
+      "license": "0BSD",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/tslib/-/tslib-2.8.1.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/typescript",
+      "version": "5.9.3",
+      "license": "Apache-2.0",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/typescript/-/typescript-5.9.3.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/undici",
+      "version": "7.29.0",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/undici/-/undici-7.29.0.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/unenv",
+      "version": "2.0.0-rc.24",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/unenv/-/unenv-2.0.0-rc.24.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/workerd",
+      "version": "1.20260804.1",
+      "license": "Apache-2.0",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/workerd/-/workerd-1.20260804.1.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/wrangler",
+      "version": "4.121.0",
+      "license": "MIT OR Apache-2.0",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/wrangler/-/wrangler-4.121.0.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/ws",
+      "version": "8.21.0",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/ws/-/ws-8.21.0.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/youch",
+      "version": "4.1.0-beta.10",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/youch/-/youch-4.1.0-beta.10.tgz"
+    },
+    {
+      "lockfile": "sensor-platform/package-lock.json",
+      "path": "node_modules/youch-core",
+      "version": "0.3.3",
+      "license": "MIT",
+      "dev": true,
+      "resolved": "https://registry.npmjs.org/youch-core/-/youch-core-0.3.3.tgz"
+    }
+  ],
+  "dataSources": [
+    {
+      "modeId": "breathing-earth",
+      "id": "noaa-ovation-aurora",
+      "title": "OVATION 2020 オーロラ30〜90分予報",
+      "organisation": "NOAA / NWS Space Weather Prediction Center",
+      "sourceUrl": "https://www.swpc.noaa.gov/products/aurora-30-minute-forecast",
+      "termsUrl": null,
+      "retrievedAt": "2026-09-01T21:46:46.975Z",
+      "transformation": "高緯度の格子値をエメラルド、シアン、淡い金色の発光帯へ変換し、5分ごとに更新します。",
+      "usageSurfaces": [
+        "on-screen transformed display",
+        "directly served bundled JSON",
+        "participant-selected analysis fields may be sent to BYOK AI after consent"
+      ]
+    },
+    {
+      "modeId": "breathing-earth",
+      "id": "gosat-l3-xco2",
+      "title": "GOSAT FTS SWIR Level 3 XCO₂ monthly maps V03.05",
+      "organisation": "JAXA / NIES / MOE",
+      "sourceUrl": "https://data2.gosat.nies.go.jp/gallery/fts_l3_swir_co2_gallery_en.html",
+      "termsUrl": null,
+      "retrievedAt": "2026-09-01T21:46:46.975Z",
+      "transformation": "公式地図の色を凡例と照らし合わせ、CO₂濃度の数値へ読み戻しました。",
+      "usageSurfaces": [
+        "on-screen transformed display",
+        "directly served bundled JSON",
+        "participant-selected analysis fields may be sent to BYOK AI after consent"
+      ]
+    },
+    {
+      "modeId": "breathing-earth",
+      "id": "gosat-gallery-decoded",
+      "title": "GOSAT公式閲覧画像から復元したXCO₂色階級",
+      "organisation": "GAIA SENSEWARE",
+      "sourceUrl": "./data/gaia-signals.json",
+      "termsUrl": null,
+      "retrievedAt": "2026-09-01T21:46:46.975Z",
+      "transformation": "地図の各マスの色をCO₂濃度へ変換しました。色を読めないマスは、近くの8地点から補い、斜線で区別します。",
+      "usageSurfaces": [
+        "on-screen transformed display",
+        "directly served bundled JSON",
+        "participant-selected analysis fields may be sent to BYOK AI after consent"
+      ]
+    },
+    {
+      "modeId": "breathing-earth",
+      "id": "co2-past-reconstruction",
+      "title": "1958–2009 CO₂空間再構成",
+      "organisation": "GAIA SENSEWARE",
+      "sourceUrl": "https://gml.noaa.gov/webdata/ccgg/trends/co2/co2_mm_mlo.csv",
+      "termsUrl": null,
+      "retrievedAt": "2026-09-01T21:46:46.975Z",
+      "transformation": "2010年の世界分布を土台にし、NOAAが各年に測ったCO₂との差を、すべてのマスへ同じだけ足し引きしました。",
+      "usageSurfaces": [
+        "on-screen transformed display",
+        "directly served bundled JSON",
+        "participant-selected analysis fields may be sent to BYOK AI after consent"
+      ]
+    },
+    {
+      "modeId": "breathing-earth",
+      "id": "noaa-co2",
+      "title": "Mauna Loa CO₂ monthly mean",
+      "organisation": "NOAA Global Monitoring Laboratory",
+      "sourceUrl": "https://gml.noaa.gov/webdata/ccgg/trends/co2/co2_mm_mlo.csv",
+      "termsUrl": null,
+      "retrievedAt": "2026-09-01T21:46:46.975Z",
+      "transformation": "季節ごとの上下を球体の呼吸に、長期の増加を光の強さに使います。直近120か月は、未来の仮定をつくる計算にも使います。",
+      "usageSurfaces": [
+        "on-screen transformed display",
+        "directly served bundled JSON",
+        "participant-selected analysis fields may be sent to BYOK AI after consent"
+      ]
+    },
+    {
+      "modeId": "breathing-earth",
+      "id": "nasa-gistemp",
+      "title": "GISTEMP v4 global temperature anomaly",
+      "organisation": "NASA GISS",
+      "sourceUrl": "https://data.giss.nasa.gov/gistemp/tabledata_v4/GLB.Ts+dSST.csv",
+      "termsUrl": null,
+      "retrievedAt": "2026-09-01T21:46:46.975Z",
+      "transformation": "球体版のみ：基準期間1951–1980からの偏差を色の応答へ変換。地図色には不使用",
+      "usageSurfaces": [
+        "on-screen transformed display",
+        "directly served bundled JSON",
+        "participant-selected analysis fields may be sent to BYOK AI after consent"
+      ]
+    },
+    {
+      "modeId": "breathing-earth",
+      "id": "jma-co2",
+      "title": "国内3地点の年平均CO₂濃度",
+      "organisation": "気象庁",
+      "sourceUrl": "https://www.data.jma.go.jp/ghg/kanshi/obs/co2_yearave.csv",
+      "termsUrl": null,
+      "retrievedAt": "2026-09-01T21:46:46.975Z",
+      "transformation": "GOSATとの観測量の違いを確認する比較資料として台帳に収録。観測開始前・終了後は構造的欠測として補完しない",
+      "usageSurfaces": [
+        "on-screen transformed display",
+        "directly served bundled JSON",
+        "participant-selected analysis fields may be sent to BYOK AI after consent"
+      ]
+    },
+    {
+      "modeId": "breathing-earth",
+      "id": "co2-ols-trend-projection",
+      "title": "NOAA直近120か月によるCO₂最小二乗トレンド投影",
+      "organisation": "GAIA SENSEWARE / statistics layer",
+      "sourceUrl": "./scripts/statistics.mjs",
+      "termsUrl": null,
+      "retrievedAt": "2026-09-01T21:46:46.975Z",
+      "transformation": "直近120か月を一本の傾向線にまとめました。年あたりの増加は2.536558 ppm、当てはまりの指標R²は0.995353です。予想には幅も添えます。",
+      "usageSurfaces": [
+        "on-screen transformed display",
+        "directly served bundled JSON",
+        "participant-selected analysis fields may be sent to BYOK AI after consent"
+      ]
+    },
+    {
+      "modeId": "breathing-earth",
+      "id": "gosat-spatial-imputation",
+      "title": "GOSAT欠測セルの空間k近傍IDW補完",
+      "organisation": "GAIA SENSEWARE / statistics layer",
+      "sourceUrl": "./scripts/statistics.mjs",
+      "termsUrl": null,
+      "retrievedAt": "2026-09-01T21:46:46.975Z",
+      "transformation": "測れなかったマスは、地球上で近い8地点から補いました。近い地点ほど強く、遠い地点ほど弱く参考にします。",
+      "usageSurfaces": [
+        "on-screen transformed display",
+        "directly served bundled JSON",
+        "participant-selected analysis fields may be sent to BYOK AI after consent"
+      ]
+    },
+    {
+      "modeId": "blue-circulation",
+      "id": "oscar",
+      "title": "OSCAR near-surface ocean currents",
+      "organisation": "NASA/JPL PO.DAAC",
+      "sourceUrl": "https://podaac.jpl.nasa.gov/dataset/oscar_l4_oc_nrt_v2.0",
+      "termsUrl": null,
+      "retrievedAt": "2026-09-01T21:46:46.975Z",
+      "transformation": "OSCARを取得できなかったため、展示にはNOAA CoastWatchの海流データを使いました。",
+      "usageSurfaces": [
+        "on-screen transformed display",
+        "directly served bundled JSON",
+        "participant-selected analysis fields may be sent to BYOK AI after consent"
+      ]
+    },
+    {
+      "modeId": "blue-circulation",
+      "id": "noaa-current-fallback",
+      "title": "Blended NRT surface currents",
+      "organisation": "NOAA CoastWatch",
+      "sourceUrl": "https://coastwatch.noaa.gov/erddap/griddap/noaacwBLENDEDNRTcurrentsDaily.csv?u_current%5B3345%5D%5B120:120:600%5D%5B0:240:1200%5D,v_current%5B3345%5D%5B120:120:600%5D%5B0:240:1200%5D",
+      "termsUrl": null,
+      "retrievedAt": "2026-09-01T21:46:46.975Z",
+      "transformation": "東西と南北の速度から、海流の速さと向きを計算しました。速さは青の濃さ、向きは線で示します。",
+      "usageSurfaces": [
+        "on-screen transformed display",
+        "directly served bundled JSON",
+        "participant-selected analysis fields may be sent to BYOK AI after consent"
+      ]
+    },
+    {
+      "modeId": "blue-circulation",
+      "id": "current-local-advection",
+      "title": "0–14 day constant-vector local transport",
+      "organisation": "GAIA SENSEWARE",
+      "sourceUrl": "./scripts/build-gaia-data.mjs",
+      "termsUrl": null,
+      "retrievedAt": "2026-09-01T21:46:46.975Z",
+      "transformation": "各地点の流れが変わらないと仮定し、速さに時間を掛けて、0〜14日間の移動距離を求めました。",
+      "usageSurfaces": [
+        "on-screen transformed display",
+        "directly served bundled JSON",
+        "participant-selected analysis fields may be sent to BYOK AI after consent"
+      ]
+    },
+    {
+      "modeId": "blue-circulation",
+      "id": "nasa-power-wind",
+      "title": "10 m wind climatology",
+      "organisation": "NASA POWER",
+      "sourceUrl": "https://power.larc.nasa.gov/api/temporal/climatology/point",
+      "termsUrl": null,
+      "retrievedAt": "2026-09-06T19:17:41.662Z",
+      "transformation": "237の国・地域に置いた参照座標の気候値を表示。既存31地点の座標は維持し、追加地点にはNatural Earthの地図ラベル座標等を使用。",
+      "usageSurfaces": [
+        "on-screen transformed display",
+        "directly served bundled JSON",
+        "participant-selected analysis fields may be sent to BYOK AI after consent"
+      ]
+    },
+    {
+      "modeId": "forest-cloud-engine",
+      "id": "nasa-modis-land-cover",
+      "title": "MCD12Q1 IGBP Land Cover Type",
+      "organisation": "NASA GIBS / MODIS",
+      "sourceUrl": "https://gibs.earthdata.nasa.gov/layer-metadata/v1.0/MODIS_Combined_L3_IGBP_Land_Cover_Type_Annual.json",
+      "termsUrl": null,
+      "retrievedAt": "2026-09-01T21:46:46.975Z",
+      "transformation": "公式GIBS WMSの全球分類画像を同梱し、森林5分類を含む土地被覆の背景層として表示",
+      "usageSurfaces": [
+        "on-screen transformed display",
+        "directly served bundled JSON",
+        "participant-selected analysis fields may be sent to BYOK AI after consent"
+      ]
+    },
+    {
+      "modeId": "forest-cloud-engine",
+      "id": "nasa-power-precip",
+      "title": "Precipitation climatology / global stratified sample",
+      "organisation": "NASA POWER",
+      "sourceUrl": "https://power.larc.nasa.gov/api/temporal/climatology/point",
+      "termsUrl": null,
+      "retrievedAt": "2026-09-06T19:17:41.662Z",
+      "transformation": "237の国・地域に置いた参照座標の気候値を表示。既存31地点の座標は維持し、追加地点にはNatural Earthの地図ラベル座標等を使用。",
+      "usageSurfaces": [
+        "on-screen transformed display",
+        "directly served bundled JSON",
+        "participant-selected analysis fields may be sent to BYOK AI after consent"
+      ]
+    },
+    {
+      "modeId": "pollination-protocol",
+      "id": "globi",
+      "title": "Documented pollination interactions",
+      "organisation": "Global Biotic Interactions",
+      "sourceUrl": "https://api.globalbioticinteractions.org/interaction.csv?sourceTaxon=Apis%20mellifera&interactionType=pollinates&limit=24",
+      "termsUrl": null,
+      "retrievedAt": "2026-09-01T21:46:46.975Z",
+      "transformation": "場所を持たない花との関係を、太平洋上の非地理ネットワークとして表示します。枝の位置・長さは場所・頻度・強さを表しません。",
+      "usageSurfaces": [
+        "on-screen transformed display",
+        "directly served bundled JSON",
+        "participant-selected analysis fields may be sent to BYOK AI after consent"
+      ]
+    },
+    {
+      "modeId": "pollination-protocol",
+      "id": "gbif",
+      "title": "Apis mellifera occurrences / global stratified sample",
+      "organisation": "GBIF",
+      "sourceUrl": "https://api.gbif.org/v1/occurrence/search",
+      "termsUrl": null,
+      "retrievedAt": "2026-09-01T21:46:46.975Z",
+      "transformation": "観察点、各国最大2件という標本制約、花との非地理関係網の3段階で表示します。",
+      "usageSurfaces": [
+        "on-screen transformed display",
+        "directly served bundled JSON",
+        "participant-selected analysis fields may be sent to BYOK AI after consent"
+      ]
+    },
+    {
+      "modeId": "nothing-is-waste",
+      "id": "un-sdg",
+      "title": "SDG 12.5.1 / municipal waste recycled",
+      "organisation": "United Nations Statistics Division",
+      "sourceUrl": "https://unstats.un.org/SDGAPI/v1/sdg/Series/Data?seriesCode=EN_MWT_RCYR",
+      "termsUrl": null,
+      "retrievedAt": "2026-09-06T19:17:41.662Z",
+      "transformation": "国連SDG APIの全ページから自治体ごみ再資源化率の最新公表値を国・地域別に採用。世界・地域合計は除外。国土を0〜100%の青の共通尺度で塗り分け、選択国の報告年と割合を表示。",
+      "usageSurfaces": [
+        "on-screen transformed display",
+        "directly served bundled JSON",
+        "participant-selected analysis fields may be sent to BYOK AI after consent"
+      ]
+    },
+    {
+      "modeId": "nothing-is-waste",
+      "id": "waste-route-scenario",
+      "title": "再資源化率の仮想経路",
+      "organisation": "Audience / local browser",
+      "sourceUrl": "about:local",
+      "termsUrl": null,
+      "retrievedAt": "2026-09-01T21:46:46.975Z",
+      "transformation": "旧形式の仮想シナリオの参考資料で、現在の地図では使用しません。スライダーは国・地域の選択に使い、再資源化率の公表値を変更しません。",
+      "usageSurfaces": [
+        "on-screen transformed display",
+        "directly served bundled JSON",
+        "participant-selected analysis fields may be sent to BYOK AI after consent"
+      ]
+    },
+    {
+      "modeId": "nothing-is-waste",
+      "id": "worldbank-waw3-recycling",
+      "title": "What a Waste 3.0 / 再資源化向け回収率",
+      "organisation": "World Bank Group",
+      "sourceUrl": "https://datacatalog.worldbank.org/search/dataset/0039597/what-a-waste-global-database",
+      "termsUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "retrievedAt": "2026-09-08T00:30:40.475098+00:00",
+      "transformation": "世界銀行の国別Excelの百分率セルを100倍して%へ単位変換し、国連に有効値のない国・地域だけを補足。値の丸め・補間・ゼロ埋めはせず、コードブックの年・元資料・注記を保持。フィジーの2都市限定値は全国へ拡張せず除外。",
+      "usageSurfaces": [
+        "on-screen transformed display",
+        "directly served bundled JSON",
+        "participant-selected analysis fields may be sent to BYOK AI after consent"
+      ]
+    },
+    {
+      "modeId": "anthropocene-scar",
+      "id": "gcp-fossil-co2",
+      "title": "GCB2024 national fossil CO₂ emissions",
+      "organisation": "Global Carbon Project / CICERO",
+      "sourceUrl": "https://doi.org/10.5281/zenodo.13981696",
+      "termsUrl": null,
+      "retrievedAt": "2026-09-06T19:17:41.662Z",
+      "transformation": "GCB2024の全ての照合可能な国・地域について1945年以降のTotal列を採用。現行の地図境界で表示し、旧国家・地域合計・国際輸送は現在の国へ振り分けません。年別の欠測は未収録のままです。",
+      "usageSurfaces": [
+        "on-screen transformed display",
+        "directly served bundled JSON",
+        "participant-selected analysis fields may be sent to BYOK AI after consent"
+      ]
+    },
+    {
+      "modeId": "anthropocene-scar",
+      "id": "nasa-gibs-night",
+      "title": "VIIRS Night Lights / Black Marble",
+      "organisation": "NASA GIBS",
+      "sourceUrl": "https://gibs.earthdata.nasa.gov/layer-metadata/v1.0/VIIRS_Night_Lights.json",
+      "termsUrl": null,
+      "retrievedAt": "2026-09-01T21:46:46.975Z",
+      "transformation": "公式GIBS WMSの全球画像をWeb Mercatorから地理投影へ変換し、画素位置を保った白い発光面として表示。全年度で2016年画像を固定し、長押し後の6秒間だけ透明化",
+      "usageSurfaces": [
+        "on-screen transformed display",
+        "directly served bundled JSON",
+        "participant-selected analysis fields may be sent to BYOK AI after consent"
+      ]
+    },
+    {
+      "modeId": "rhythm-of-disaster",
+      "id": "jma-shindo",
+      "title": "震度データベース検索",
+      "organisation": "気象庁",
+      "sourceUrl": "https://www.data.jma.go.jp/eqdb/data/shindo/",
+      "termsUrl": null,
+      "retrievedAt": "2026-09-01T21:46:46.975Z",
+      "transformation": "震度6弱以上を実際に観測した地点を、S波が計算上到着したあとに表示します。",
+      "usageSurfaces": [
+        "on-screen transformed display",
+        "directly served bundled JSON",
+        "participant-selected analysis fields may be sent to BYOK AI after consent"
+      ]
+    },
+    {
+      "modeId": "rhythm-of-disaster",
+      "id": "usgs-earthquakes",
+      "title": "FDSN Event Web Service / global M7.5+",
+      "organisation": "USGS",
+      "sourceUrl": "https://earthquake.usgs.gov/fdsnws/event/1/query",
+      "termsUrl": null,
+      "retrievedAt": "2026-09-01T21:46:46.975Z",
+      "transformation": "M7.5以上の全143震源を年度別に分け、一度に一年度だけ世界表示。年度切替時に全震源の表示波を同時開始し、M7.5を最大半径の48%、M9.1を地図幅の約半分へ対応",
+      "usageSurfaces": [
+        "on-screen transformed display",
+        "directly served bundled JSON",
+        "participant-selected analysis fields may be sent to BYOK AI after consent"
+      ]
+    },
+    {
+      "modeId": "three-ecologies",
+      "id": "nasa-modis-ecological-layer",
+      "title": "MCD12Q1 IGBP Land Cover Type",
+      "organisation": "NASA GIBS / MODIS",
+      "sourceUrl": "https://gibs.earthdata.nasa.gov/layer-metadata/v1.0/MODIS_Combined_L3_IGBP_Land_Cover_Type_Annual.json",
+      "termsUrl": null,
+      "retrievedAt": "2026-09-01T21:46:46.975Z",
+      "transformation": "背景参照として保存した資料です。比較の読みやすさを優先して地図には表示せず、相関計算にも使いません。",
+      "usageSurfaces": [
+        "on-screen transformed display",
+        "directly served bundled JSON",
+        "participant-selected analysis fields may be sent to BYOK AI after consent"
+      ]
+    },
+    {
+      "modeId": "three-ecologies",
+      "id": "worldbank-forest",
+      "title": "Forest area (% of land area)",
+      "organisation": "World Bank / FAO",
+      "sourceUrl": "https://data.worldbank.org/indicator/AG.LND.FRST.ZS",
+      "termsUrl": null,
+      "retrievedAt": "2026-09-06T19:17:41.662Z",
+      "transformation": "陸地に占める森林の割合を、緑の0〜100%棒と散布図の縦軸へ変換。都市人口率が最も近い国と並べて比較します。",
+      "usageSurfaces": [
+        "on-screen transformed display",
+        "directly served bundled JSON",
+        "participant-selected analysis fields may be sent to BYOK AI after consent"
+      ]
+    },
+    {
+      "modeId": "three-ecologies",
+      "id": "worldbank-urban",
+      "title": "Urban population (% of total)",
+      "organisation": "World Bank / UN Population Division",
+      "sourceUrl": "https://data.worldbank.org/indicator/SP.URB.TOTL.IN.ZS",
+      "termsUrl": null,
+      "retrievedAt": "2026-09-06T19:17:41.662Z",
+      "transformation": "人口に占める都市居住者の割合を、青の0〜100%棒と散布図の横軸へ変換。森林率とは分母が異なります。",
+      "usageSurfaces": [
+        "on-screen transformed display",
+        "directly served bundled JSON",
+        "participant-selected analysis fields may be sent to BYOK AI after consent"
+      ]
+    },
+    {
+      "modeId": "three-ecologies",
+      "id": "forest-urban-correlation",
+      "title": "Paired-country forest × urban comparison",
+      "organisation": "GAIA SENSEWARE",
+      "sourceUrl": "./scripts/build-gaia-data.mjs",
+      "termsUrl": null,
+      "retrievedAt": "2026-09-06T19:17:41.662Z",
+      "transformation": "選んだ国と都市人口率の差が最小の国を比較。「関係を見る」で両指標のある国・地域のPearson相関と単回帰線を表示。国別の時間変化ではありません。",
+      "usageSurfaces": [
+        "on-screen transformed display",
+        "directly served bundled JSON",
+        "participant-selected analysis fields may be sent to BYOK AI after consent"
+      ]
+    },
+    {
+      "modeId": "three-ecologies",
+      "id": "unesco-whc",
+      "title": "World Heritage List / global curated sample",
+      "organisation": "UNESCO World Heritage Centre",
+      "sourceUrl": "https://whc.unesco.org/en/list/",
+      "termsUrl": null,
+      "retrievedAt": "2026-09-01T21:46:46.975Z",
+      "transformation": "各大地域の世界遺産24例を、文化・記憶の独立した表示へ配置。森林率・都市人口率の比較や相関計算には混ぜません。",
+      "usageSurfaces": [
+        "on-screen transformed display",
+        "directly served bundled JSON",
+        "participant-selected analysis fields may be sent to BYOK AI after consent"
+      ]
+    },
+    {
+      "modeId": "earth-organ",
+      "id": "worldbank-renewable",
+      "title": "Renewable electricity output (% of total electricity output)",
+      "organisation": "World Bank / International Energy Agency",
+      "sourceUrl": "https://data.worldbank.org/indicator/EG.ELC.RNEW.ZS",
+      "termsUrl": null,
+      "retrievedAt": "2026-09-06T10:45:15.483Z",
+      "transformation": "209の国・地域の国土を同じ0〜100%尺度で、暗い青から明るい水色へ塗り分けます。自動再生とスライダーは発電割合の高い国から低い国へ移動します。小さな地域は代表点でも選べます。",
+      "usageSurfaces": [
+        "on-screen transformed display",
+        "directly served bundled JSON",
+        "participant-selected analysis fields may be sent to BYOK AI after consent"
+      ]
+    },
+    {
+      "modeId": "earth-organ",
+      "id": "nasa-power-renewable",
+      "title": "Solar and wind climatology / global stratified sample",
+      "organisation": "NASA POWER",
+      "sourceUrl": "https://power.larc.nasa.gov/api/temporal/climatology/point",
+      "termsUrl": null,
+      "retrievedAt": "2026-09-01T21:46:46.975Z",
+      "transformation": "選択国の代表地点について、日射を黄色い円、風を緑の矢印で補足表示します。",
+      "usageSurfaces": [
+        "on-screen transformed display",
+        "directly served bundled JSON",
+        "participant-selected analysis fields may be sent to BYOK AI after consent"
+      ]
+    },
+    {
+      "modeId": "population-tide",
+      "id": "worldbank-population",
+      "title": "Population, total (SP.POP.TOTL)",
+      "organisation": "World Bank / United Nations Population Division",
+      "sourceUrl": "https://data.worldbank.org/indicator/SP.POP.TOTL",
+      "termsUrl": null,
+      "retrievedAt": "2026-09-05T21:15:55.236Z",
+      "transformation": "世界銀行の国・地域を全件対象とし、世界・地域・所得階層などの集計値を除外。選択年の人口を、全年共通の面積尺度で円に変換します。欠測年は補間せず非表示にします。",
+      "usageSurfaces": [
+        "on-screen transformed display",
+        "directly served bundled JSON",
+        "participant-selected analysis fields may be sent to BYOK AI after consent"
+      ]
+    },
+    {
+      "modeId": "food-balances",
+      "id": "fao-food-balances",
+      "title": "FAOSTAT FBS",
+      "organisation": "FAO",
+      "sourceUrl": "https://data.fao.org/catalog/iso/2f264bb6-1238-459a-bf8b-0e2d0a16804a",
+      "bulkUrl": "https://bulks-faostat.fao.org/production/FoodBalanceSheets_E_All_Data_(Normalized).zip",
+      "termsUrl": "https://www.fao.org/contact-us/terms/db-terms-of-use/en/",
+      "retrievedAt": "2026-09-09T13:34:43.327Z",
+      "license": "CC BY 4.0 (FAO database terms apply)",
+      "sourceSha256": "26200855ed5da3d0805e34219124e241d0e0bc6959d0995ebc77a10dd84cbaf1",
+      "transformation": "2010–2023, 9 commodity groups; original production/import/export quantities and flags; SSR derived without stock variation; missing and invalid quantities not zero-filled.",
+      "usageSurfaces": [
+        "on-screen transformed display",
+        "directly served bundled JSON",
+        "participant-selected analysis fields may be sent to BYOK AI after consent"
+      ]
+    },
+    {
+      "modeId": "food-security",
+      "id": "fao-food-security",
+      "title": "FAOSTAT FS",
+      "organisation": "FAO",
+      "sourceUrl": "https://data.fao.org/catalog/dataset/955d6564-40a9-48b4-b51b-f19d65bb3539",
+      "bulkUrl": "https://bulks-faostat.fao.org/production/Food_Security_Data_E_All_Data_(Normalized).zip",
+      "termsUrl": "https://www.fao.org/contact-us/terms/db-terms-of-use/en/",
+      "retrievedAt": "2026-09-09T13:34:43.847Z",
+      "license": "CC BY 4.0 (FAO database terms apply)",
+      "sourceSha256": "1ccced40d8e228693c6fcc5d172de9bcaa3a1c6a1581ebde345d71c1dfa9b692",
+      "transformation": "Two FAO-published three-year-average indicators and original flags; no annual interpolation.",
+      "usageSurfaces": [
+        "on-screen transformed display",
+        "directly served bundled JSON",
+        "participant-selected analysis fields may be sent to BYOK AI after consent"
+      ]
+    },
+    {
+      "modeId": "story-map01-temperature",
+      "id": "nasa-gistemp-regional-annual",
+      "title": "GISTEMP v4 Land-Ocean Temperature Index, ERSSTv5, 1200 km smoothing",
+      "organisation": "NASA GISS",
+      "sourceUrl": "https://data.giss.nasa.gov/pub/gistemp/gistemp1200_GHCNv4_ERSSTv5.nc.gz",
+      "documentationUrl": "https://data.giss.nasa.gov/gistemp/",
+      "retrievedAt": "2026-09-09T18:17:10+00:00",
+      "sourceSha256": "93f73f648a5e43b2870880865406ae98d35b03146612717e538d48a3bec02425",
+      "transformation": "Annual arithmetic mean only where all 12 monthly grid values are valid; round to 0.01 °C. No additional spatial interpolation, no future projection.",
+      "caveat": "Regional gridded estimates with NASA 1200 km smoothing, not point thermometer readings. Missing cells remain missing. Area-weighted grid mean is not the official GISTEMP global index.",
+      "usageSurfaces": [
+        "story temperature map",
+        "directly served derived annual binary and metadata"
+      ]
+    }
+  ]
+}

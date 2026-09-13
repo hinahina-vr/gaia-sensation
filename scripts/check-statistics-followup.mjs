@@ -1,0 +1,34 @@
+import {chromium} from 'playwright-core';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+const browser=await chromium.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true});
+const dir='artifacts/statistics-followup';fs.mkdirSync(dir,{recursive:true});
+try {
+const page=await browser.newPage({viewport:{width:1920,height:1080},reducedMotion:'reduce'});
+await page.route('https://**',r=>r.abort());
+await page.goto('http://127.0.0.1:4492/#world-28');
+await page.waitForFunction(()=>globalThis.GaiaEstatExhibits?.getStatisticsDataset(),null,{timeout:60000});
+await page.locator('#gaia-boot').waitFor({state:'hidden'});
+await page.evaluate(()=>GaiaModeLoader.load('statistics'));
+await page.waitForFunction(()=>globalThis.GaiaStatisticsLab);
+await page.evaluate(()=>{GaiaModeEntryGuide?.close('map',{restoreFocus:false});GaiaStatisticsLab.open({dataset:GaiaEstatExhibits.getStatisticsDataset()});});
+await page.waitForFunction(()=>document.querySelector('#gaia-statistics-status')?.textContent==='解析済み');
+await page.waitForTimeout(500);
+await page.locator('#gaia-statistics-canvas').focus();
+assert.equal(await page.locator('#gaia-statistics-canvas').evaluate(n=>getComputedStyle(n).cursor),'pointer');
+await page.keyboard.press('ArrowRight');
+assert(!/SOURCE|年: 1,9\d\d/.test(await page.locator('#gaia-statistics-chart-tooltip').textContent()));
+await page.locator('[data-stat-view="findings"]').click();
+await page.waitForTimeout(200);
+const layout=await page.locator('#gaia-statistics-findings').evaluate(n=>({scroll:n.scrollHeight,height:n.clientHeight,closed:n.querySelectorAll('details:not([open])').length}));
+assert.equal(await page.locator('.dashboard-chart polyline').count(),1);
+assert.equal(await page.locator('#gaia-statistics-findings > .insight-key-metrics > div').count(),2);
+assert.equal(await page.locator('.dashboard-reading [data-kind="observation"]').count(),1);
+assert.equal(await page.locator('.dashboard-reading [data-kind="meaning"]').count(),1);
+assert.equal(layout.closed,0);
+await page.screenshot({path:`${dir}/sunshine-findings.png`});
+console.log(JSON.stringify(layout));
+assert(layout.scroll<=layout.height+2,'All expanded findings fit desktop page');
+assert(await page.locator('#gaia-statistics-findings').evaluate(n=>{const bottom=document.querySelector('#stat-panel-findings').getBoundingClientRect().bottom;return [...n.children].every(c=>c.getBoundingClientRect().bottom<=bottom);}), 'Every item stays inside visible panel');
+console.log('PASS sunshine expanded page and chart cursor/labels');
+} finally {await browser.close();}

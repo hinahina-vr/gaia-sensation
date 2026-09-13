@@ -1,0 +1,27 @@
+{
+  "sources": [
+    {
+      "file": "maff-production.csv",
+      "url": "https://www.e-stat.go.jp/stat-search/file-download?fileKind=1&statInfId=000040422798",
+      "bytes": 27424,
+      "sha256": "d72c8680cfebca4e8f90d140b598b50bd4b548e625654a7e5fcaab29895b27ce",
+      "retrievedAt": "2026-09-11T17:41:11.349191+00:00"
+    },
+    {
+      "file": "maff-imports.csv",
+      "url": "https://www.e-stat.go.jp/stat-search/file-download?fileKind=1&statInfId=000040422799",
+      "bytes": 22998,
+      "sha256": "55f042d82bfa544fff9c0cfb425a0aee2612e7f2fb60da95d97df08464bdf541",
+      "retrievedAt": "2026-09-11T17:41:13.277231+00:00"
+    },
+    {
+      "file": "maff-exports.csv",
+      "url": "https://www.e-stat.go.jp/stat-search/file-download?fileKind=1&statInfId=000040422800",
+      "bytes": 14828,
+      "sha256": "2ef9b45cbbdfd910f5a003280a3c0f0fcb5e74e351111af811eac0575cd5eeea",
+      "retrievedAt": "2026-09-11T17:41:14.814618+00:00"
+    }
+  ],
+  "catalogUrl": "https://www.e-stat.go.jp/stat-search/files?layout=datalist&lid=000001478566&page=1",
+  "sourceName": "農林水産省 食料需給表 令和6年度 項目別累年表"
+}

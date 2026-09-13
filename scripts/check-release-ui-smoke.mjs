@@ -1,0 +1,34 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {chromium} from 'playwright-core';
+const base=process.env.GAIA_BASE_URL||'http://127.0.0.1:4492';
+const out=process.env.GAIA_OUTPUT_DIR||'artifacts/release-ui-smoke';fs.mkdirSync(out,{recursive:true});
+const browser=await chromium.launch({headless:true,executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe'});
+const results=[];
+try {for(const width of [1440,390]) {
+ const page=await browser.newPage({viewport:{width,height:900}});
+ await page.goto(`${base}/sensors/`);
+ const guide=page.locator('.gaia-feature-intro');await guide.waitFor({state:'visible'});
+ assert.doesNotMatch(await guide.textContent(),/今後実装予定|見るだけなら機器/);
+ const close=page.locator('[data-feature-close]');assert.equal(await close.evaluate(e=>getComputedStyle(e).borderRadius),'10px');
+ await close.click();await guide.waitFor({state:'hidden'});
+ await page.goto(`${base}/?exhibit=33#world`);await page.locator('[data-feature-start]').click();
+ await page.locator('#gaia-mode-entry-guide').waitFor({state:'hidden'});
+ await page.waitForFunction(()=>globalThis.GaiaMapPlayback?.getState().number===33);
+ await page.waitForTimeout(2500);
+ await page.evaluate(()=>{GaiaMapPlayback.stop();GaiaMapObservationAdapter.focusEarthLocation({lon:135,lat:35,zoom:12,durationMs:0});});
+ const reset=page.locator('#gaia-map-zoom-reset');await reset.waitFor({state:'visible'});assert.equal(await reset.getAttribute('data-overview'),'japan');
+ await reset.click();await reset.waitFor({state:'hidden'});
+ await page.screenshot({path:`${out}/map-${width}.png`});
+ await page.goto(`${base}/`);
+ await page.evaluate(async()=>{await GaiaModeLoader.load('story');void GaiaNovel.open(null,{autoStartFresh:true,prologueReveal:async()=>{}});});
+ await page.waitForSelector('[data-ui-arrival=revealing]');
+ const first=Number(await page.locator('.novel-runtime').evaluate(e=>getComputedStyle(e).opacity));
+ await page.waitForTimeout(650);
+ const middle=Number(await page.locator('.novel-runtime').evaluate(e=>getComputedStyle(e).opacity));
+ assert(middle>first&&middle<1);assert.equal(await page.locator('#novel-text').textContent(),'');
+ await page.waitForFunction(()=>!document.querySelector('[data-ui-arrival]'));
+ await page.waitForFunction(()=>document.querySelector('#novel-text').textContent.length>0);
+ await page.screenshot({path:`${out}/story-${width}.png`});
+ results.push({width,guide:true,map:true,storyFade:{first,middle},base});console.log(results.at(-1));await page.close();
+}fs.writeFileSync(`${out}/results.json`,JSON.stringify(results,null,2));}finally{await browser.close();}

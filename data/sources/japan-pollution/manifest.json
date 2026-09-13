@@ -1,0 +1,619 @@
+{
+  "airYears": [
+    2019,
+    2020,
+    2021,
+    2022,
+    2023
+  ],
+  "waterYears": [
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "retrievedOn": "2026-09-09",
+  "sources": [
+    {
+      "file": "TD20190100.zip",
+      "sha256": "37fc4917cc443c560384a52c555c2be41db748f52d7fd2a4514a46fec0e4647e",
+      "form": {
+        "type": "td",
+        "file": "TD20190100.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20190200.zip",
+      "sha256": "2eb6db5f2176ddf53632e71066eaaab85fe7cfdd17035eb6272475d081ab8256",
+      "form": {
+        "type": "td",
+        "file": "TD20190200.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20190300.zip",
+      "sha256": "4eab3595946d372c7f1dd0c02c178450ec7aea168a34ec8c9559c4878f2948ec",
+      "form": {
+        "type": "td",
+        "file": "TD20190300.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20190400.zip",
+      "sha256": "9b20752820351bb52f54d677b14dec5fa24127199027f5a247014f58b72026dc",
+      "form": {
+        "type": "td",
+        "file": "TD20190400.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20190500.zip",
+      "sha256": "a7670c0dcc118f82b471fc2aa714cadb4ee0821daadf6d4bd6788f74a03bd591",
+      "form": {
+        "type": "td",
+        "file": "TD20190500.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20190600.zip",
+      "sha256": "7ad97ac99a6068e1b574f1f083462c57b78889c2a90d4c7a91df5f52a98e1831",
+      "form": {
+        "type": "td",
+        "file": "TD20190600.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20190700.zip",
+      "sha256": "2c6cac629183f104281ffa401cb90546dc498248b7f196fd9a99df967cf8e2d3",
+      "form": {
+        "type": "td",
+        "file": "TD20190700.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20190800.zip",
+      "sha256": "9b740763952d06286f41dfba9bcb76a921b2704602ee513383061f1018588f23",
+      "form": {
+        "type": "td",
+        "file": "TD20190800.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20190900.zip",
+      "sha256": "bd1d88005d807e02ae6857ad1b8971f3a7f5a8de3f84ca95c09f6d80fd8423fb",
+      "form": {
+        "type": "td",
+        "file": "TD20190900.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20191000.zip",
+      "sha256": "b264bed741c234572751f577b0c4857420c5518d7993ae0c16bb3eb94e76aab0",
+      "form": {
+        "type": "td",
+        "file": "TD20191000.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20191200.zip",
+      "sha256": "82d1e5f2513a0ad6c17d709ad9dd206d1df66272463acfe8e2e794815c1cc914",
+      "form": {
+        "type": "td",
+        "file": "TD20191200.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20200100.zip",
+      "sha256": "1ebbcd03544b6b8ff2ba40b1519bc8228abaa49e0db6fdfdf6b2e4968a7fd298",
+      "form": {
+        "type": "td",
+        "file": "TD20200100.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20200200.zip",
+      "sha256": "658adf904bd5441b53786ec799b97861581677d07b0e7964aac5a968daa75dcb",
+      "form": {
+        "type": "td",
+        "file": "TD20200200.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20200300.zip",
+      "sha256": "dd431f1355e2ee175bf4d8d329eb28b2dbfc7c19eab1a8a4c05fc77c6a0965dd",
+      "form": {
+        "type": "td",
+        "file": "TD20200300.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20200400.zip",
+      "sha256": "e5984af80f90a05e12ace1d5c90d1ab88ce4e814b84e3b02d3b717c4c5b6a9d3",
+      "form": {
+        "type": "td",
+        "file": "TD20200400.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20200500.zip",
+      "sha256": "c273c15b0ef8309446cc0c9e629eec84b18b9d048215f74db04ebd9614a2f3b5",
+      "form": {
+        "type": "td",
+        "file": "TD20200500.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20200600.zip",
+      "sha256": "e385d6322ba8d0adcbfd7f4cca03d9facf5095603309e357f65a5623f3d71aaf",
+      "form": {
+        "type": "td",
+        "file": "TD20200600.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20200700.zip",
+      "sha256": "36a8a60fcbb99a6cac2b82711a31581c34bdabb1b1871dc21317c56f9c6830cc",
+      "form": {
+        "type": "td",
+        "file": "TD20200700.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20200800.zip",
+      "sha256": "c9f84cfe147209f471ce2b7a39ecc082c524db25eaf814a10edbf105261993ad",
+      "form": {
+        "type": "td",
+        "file": "TD20200800.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20200900.zip",
+      "sha256": "e2797f1b0eef52f73a8a1be504ad42b02fe2d74513766cfe1ba77b6f1640b7ac",
+      "form": {
+        "type": "td",
+        "file": "TD20200900.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20201000.zip",
+      "sha256": "908fa184e37745463302d59745e057c21428e1ef6b1a41e44cb92f64a0ba1ce5",
+      "form": {
+        "type": "td",
+        "file": "TD20201000.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20201200.zip",
+      "sha256": "fd37de0e7d5af39195136a670f9559c4fc737d9c147d9f3f7a305f425706545a",
+      "form": {
+        "type": "td",
+        "file": "TD20201200.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20210100.zip",
+      "sha256": "96143adc3f95865c58d607f0d6335fc3291920275674fed38f857de7f71e61c1",
+      "form": {
+        "type": "td",
+        "file": "TD20210100.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20210200.zip",
+      "sha256": "0f00e168d18b33deb49a06b90e8701fb7ec126257315389031089392236f0dbc",
+      "form": {
+        "type": "td",
+        "file": "TD20210200.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20210300.zip",
+      "sha256": "05fa011e45570f665ca876f8fd132008b1a040ff22dedc429fd543b72a9f5b2b",
+      "form": {
+        "type": "td",
+        "file": "TD20210300.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20210400.zip",
+      "sha256": "0ca2a615c671a7afa3ef167531383250532542077223922a6fbbedadd71d0c71",
+      "form": {
+        "type": "td",
+        "file": "TD20210400.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20210500.zip",
+      "sha256": "86d34eea313b7938139d8f70da77b07c7b88d603f2e1fe31ed43a0a7d7c5f096",
+      "form": {
+        "type": "td",
+        "file": "TD20210500.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20210600.zip",
+      "sha256": "756da1480cce947024042e61d8872c47b1a56a42943f66e4f7452a90f5cf2af7",
+      "form": {
+        "type": "td",
+        "file": "TD20210600.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20210700.zip",
+      "sha256": "58055c0286b2dbe206321cac19583811bd817349555384e969b902ffe84bf9eb",
+      "form": {
+        "type": "td",
+        "file": "TD20210700.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20210800.zip",
+      "sha256": "3b9d60b3ea3ddd7c625fe5db63c2e5db455f1dad157b408d9d7919c6ba4a818b",
+      "form": {
+        "type": "td",
+        "file": "TD20210800.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20210900.zip",
+      "sha256": "f7e1b7a5689a59e47034469b5e82f84e1a07ff9e90edd6084dff07e02c436b10",
+      "form": {
+        "type": "td",
+        "file": "TD20210900.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20211000.zip",
+      "sha256": "bb7bbb21d907d6402354ef7f7d05239cb72cf66f934f50b0c44f3375b0f1056d",
+      "form": {
+        "type": "td",
+        "file": "TD20211000.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20211200.zip",
+      "sha256": "24317aad2ac1726e48bed3db4a676a8c2111032b4caf1f366bf8e6b4d2e10112",
+      "form": {
+        "type": "td",
+        "file": "TD20211200.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20220100.zip",
+      "sha256": "6faf61b0603b05676f74651c915c0d0b1b275f1eae08e7a8929df8e9ef5a18c2",
+      "form": {
+        "type": "td",
+        "file": "TD20220100.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20220200.zip",
+      "sha256": "c8ef899ffb06b4b5cf7ce291864112c1ee0530b4c95a4dca104a01cc280c5aee",
+      "form": {
+        "type": "td",
+        "file": "TD20220200.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20220300.zip",
+      "sha256": "f0763a566e328c22adad3c646a42d6298caf35149fb9289faa7c6b10cbeb46e3",
+      "form": {
+        "type": "td",
+        "file": "TD20220300.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20220400.zip",
+      "sha256": "dcd41d0e52ae709554fff3e290d1a0f8cae832c3ef2688fb7ca2e8c94109a882",
+      "form": {
+        "type": "td",
+        "file": "TD20220400.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20220500.zip",
+      "sha256": "d17bcbab2f75b504dd90bf2be48b4c0f9a5ed379a86eb8c22372f39431f82958",
+      "form": {
+        "type": "td",
+        "file": "TD20220500.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20220600.zip",
+      "sha256": "0b3c9fdce14057c4a2b239b4b546796122f10481159b9bc2e6809864d35ee510",
+      "form": {
+        "type": "td",
+        "file": "TD20220600.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20220700.zip",
+      "sha256": "7bbf7314d1b364bae1982ba6c4f00f412c4d35b03685084702f97f5ec24b200d",
+      "form": {
+        "type": "td",
+        "file": "TD20220700.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20220800.zip",
+      "sha256": "fda921559f976e194e50fcd862d9d5db7fc3ef0bb66f23d799796d2e5cfb1d7c",
+      "form": {
+        "type": "td",
+        "file": "TD20220800.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20220900.zip",
+      "sha256": "9be2d05c3be6354c33f28d68071994ec66ff2f589d17c98c3035b96622d8dcc7",
+      "form": {
+        "type": "td",
+        "file": "TD20220900.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20221000.zip",
+      "sha256": "036ce69daefff7512e15b020243b6f8e75fca683ec32012949d04a2f98abd630",
+      "form": {
+        "type": "td",
+        "file": "TD20221000.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20221200.zip",
+      "sha256": "ab46170e439447c01714effd1a9cd29dab55e30df3049b7cdc4716c1fa97de25",
+      "form": {
+        "type": "td",
+        "file": "TD20221200.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20230100.zip",
+      "sha256": "4f15c0db6ae5d5103bab01609f52609642b65dd020c9cf1bc307c641afe83159",
+      "form": {
+        "type": "td",
+        "file": "TD20230100.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20230200.zip",
+      "sha256": "ec6641f53318e6bf9cf60fb52044f98f71633df8b671e82b18db51a034dfc080",
+      "form": {
+        "type": "td",
+        "file": "TD20230200.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20230300.zip",
+      "sha256": "95545fcff23f89293543d3dbce9063e2219a77a131d51864e2680f9ac095c165",
+      "form": {
+        "type": "td",
+        "file": "TD20230300.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20230400.zip",
+      "sha256": "aa07f8e54136c7d98e7f86e5bf4bc3b0d527442c4a9f442fafb2f563824c4e8f",
+      "form": {
+        "type": "td",
+        "file": "TD20230400.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20230500.zip",
+      "sha256": "9450925eb16d22d8f9038e08b7b4ea355155fdc301ef84b6ffe46d485a19a8d2",
+      "form": {
+        "type": "td",
+        "file": "TD20230500.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20230600.zip",
+      "sha256": "f930d6bb6b3d625d4055461a636d5fb1e683b768eb352b9e7d4389ef43f677fa",
+      "form": {
+        "type": "td",
+        "file": "TD20230600.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20230700.zip",
+      "sha256": "4116eb2c45536a3931f38b7e8dcf9f997d33210f4fd537250295710dd506967a",
+      "form": {
+        "type": "td",
+        "file": "TD20230700.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20230800.zip",
+      "sha256": "b8ba9cd9ea0905d9649b5d24efbef5d61270c0178d910c51dadafc6a62ec23fc",
+      "form": {
+        "type": "td",
+        "file": "TD20230800.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20230900.zip",
+      "sha256": "7d6bf7ce5144514d64a2f965ef8f7da1dce40f66d8f842014e85bec7dba58a36",
+      "form": {
+        "type": "td",
+        "file": "TD20230900.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20231000.zip",
+      "sha256": "5912f8d377a68fbf5bd0dd533d653082231097eb55b2875c45db785ef910132d",
+      "form": {
+        "type": "td",
+        "file": "TD20231000.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TD20231200.zip",
+      "sha256": "329b67b6a056a75a92b7c495b61bcc9cbe11b623ea814d8cffb19c660bddb52d",
+      "form": {
+        "type": "td",
+        "file": "TD20231200.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TM20190000.zip",
+      "sha256": "71969458a07fbc66d7ceeab53104adafc5405dfc363da89dd6cdfcebcb637e99",
+      "form": {
+        "type": "tm",
+        "file": "TM20190000.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TM20200000.zip",
+      "sha256": "3e86e60019c9bb8685d0a69a7403b91ec68775b9ee60e30b796750169fe814cb",
+      "form": {
+        "type": "tm",
+        "file": "TM20200000.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TM20210000.zip",
+      "sha256": "07e22794a6c4eef05e23449e721362b80b8fc64d5f4809857b2b8d0be409f13d",
+      "form": {
+        "type": "tm",
+        "file": "TM20210000.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TM20220000.zip",
+      "sha256": "a54946132a253fdb98a934aa7ae599815b129bc7af3a4643f040942bff2ea46b",
+      "form": {
+        "type": "tm",
+        "file": "TM20220000.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "TM20230000.zip",
+      "sha256": "4d21ef0dbd716ed208d7607c14ca1e1541acbeee04720ef00c5670b952b928cf",
+      "form": {
+        "type": "tm",
+        "file": "TM20230000.zip"
+      },
+      "url": "https://tenbou.nies.go.jp/download/api/archivedownload.php"
+    },
+    {
+      "file": "nutrients-2020.zip",
+      "sha256": "f23d8542364d10108059df411bc6baaabc467c5d1b9f007dd8e425e79c368573",
+      "query": {
+        "featureClassName": "p_kosui_y03",
+        "whereClause": "nendo=2020",
+        "extension": "csv"
+      },
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation"
+    },
+    {
+      "file": "nutrients-2021.zip",
+      "sha256": "d49529cca2ff80347de41d23e35455f7c862f573a7a4a785345903a17754fc27",
+      "query": {
+        "featureClassName": "p_kosui_y03",
+        "whereClause": "nendo=2021",
+        "extension": "csv"
+      },
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation"
+    },
+    {
+      "file": "nutrients-2022.zip",
+      "sha256": "82b6e82a6b7259a32bb770cbbbb80a543c7eaebd395680f6782f7d5534dbc02d",
+      "query": {
+        "featureClassName": "p_kosui_y03",
+        "whereClause": "nendo=2022",
+        "extension": "csv"
+      },
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation"
+    },
+    {
+      "file": "nutrients-2023.zip",
+      "sha256": "66854a0ed6c67f5c358efd1690c95db9203e7849107a80c4e398230a8092ad35",
+      "query": {
+        "featureClassName": "p_kosui_y03",
+        "whereClause": "nendo=2023",
+        "extension": "csv"
+      },
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation"
+    },
+    {
+      "file": "nutrients-2024.zip",
+      "sha256": "79256c35a528311854283993fab3edbe4000d50efb8f2962c05e514e71e67dbc",
+      "query": {
+        "featureClassName": "p_kosui_y03",
+        "whereClause": "nendo=2024",
+        "extension": "csv"
+      },
+      "url": "https://water-pub.env.go.jp/water-pub/mizu-site/zip_create/WebService.asmx/StartCreation"
+    },
+    {
+      "file": "TD_manu.pdf",
+      "sha256": "d0d5ca46ddff32cec3c8569d4bda761da434dc676b59b576710adc051637d311",
+      "url": "https://tenbou.nies.go.jp/download/TD_manu.pdf"
+    },
+    {
+      "file": "TM_manu.pdf",
+      "sha256": "a796dd7a6dbb07a00bbd0f8244b714bf824a6bdc0c1d97e7068afcb7b1b0cb78",
+      "url": "https://tenbou.nies.go.jp/download/TM_manu.pdf"
+    }
+  ]
+}

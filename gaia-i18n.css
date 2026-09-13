@@ -1,0 +1,78 @@
+/* Keep language-specific typography and longer labels within existing surfaces. */
+.character-book-localized-word { display: inline-block; white-space: nowrap; }
+html:not([lang="ja"]) :is(.space-data-panel, .gx-data-panel) { background: #030e14; }
+html:not([lang="ja"]) .space-source-entry dl { gap: 14px 18px; color: #c5d9e5; font-size: 14px; line-height: 1.75; }
+html:not([lang="ja"]) .space-source-entry dt { color: #9fbfcf; font-size: 12px; }
+html:not([lang="ja"]) .space-source-entry dd { word-break: normal; overflow-wrap: break-word; }
+html:not([lang="ja"]) .space-source-entry pre { font-size: 11px; }
+html:not([lang="ja"]) .sensor-analysis-stats :is(small, span, b) { font-size: 12px; line-height: 1.6; }
+html:not([lang="ja"]) .sensor-analysis-stats span { grid-column: 1 / -1; color: #bcd7d8; overflow: visible; white-space: normal; }
+html:not([lang="ja"]) .sensor-analysis-stats b { grid-column: 1 / -1; }
+html:not([lang="ja"]) .sensor-analysis-summary { font-size: 13px; }
+html:not([lang="ja"]):has(.project-overview) { --serif: var(--font-ja); }
+html:not([lang="ja"]) [data-concept-passage] { word-break: normal; overflow-wrap: break-word; }
+html[lang="en"] :is(.depth-description, .depth-question, .depth-manifesto) { letter-spacing: .01em; }
+html[lang="en"] .viewer-header { flex-wrap: wrap; }
+html[lang="en"] .viewer-header > div { flex-wrap: wrap; }
+html[lang="en"] {
+  --font-ja: "Yu Mincho", YuMincho, "Baskerville", "Times New Roman", "Liberation Serif", serif;
+}
+html[lang="zh-CN"] {
+  --font-ja: "Songti SC", "STSong", "SimSun", "Noto Serif CJK SC", "Source Han Serif SC", serif;
+}
+.gaia-opening-language [data-gaia-language="ja"] { font-family: "Yu Mincho", YuMincho, "Hiragino Mincho ProN", serif; }
+.gaia-opening-language [data-gaia-language="en"] { font-family: "Yu Mincho", YuMincho, "Baskerville", "Times New Roman", serif; }
+.gaia-opening-language [data-gaia-language="zh-CN"] { font-family: "Songti SC", "STSong", "SimSun", "Noto Serif CJK SC", serif; }
+html:not([lang="ja"]) .gaia-opening-sound-heading > h2,
+html:not([lang="ja"]) .gaia-opening-sound-option-label { font-weight: 400; letter-spacing: .06em; }
+html[lang="en"] .gaia-opening-sound-heading > h2 { letter-spacing: .045em; }
+html:not([lang="ja"]) .gaia-opening-sound-option-copy > small,
+html:not([lang="ja"]) #gaia-opening-sound-description { font-weight: 400; letter-spacing: .02em; }
+html:not([lang="ja"]) #map-stable-navigation button { letter-spacing: 0; }
+html[lang="en"] #japan-layer.has-map-stable-navigation #map-stable-navigation {
+  width: min(clamp(620px, 38vw, 940px), calc(100vw - 32px));
+  grid-template-columns: 1.2fr 1.1fr 1.4fr;
+}
+html[lang="en"] .gaia-opening-sound-option-copy small { white-space: normal; }
+html:not([lang="ja"]) .gaia-vn-character-copy strong { word-break: normal; overflow-wrap: break-word; }
+html[lang="en"] .gaia-vn-prologue-lockup h2 { font-size: clamp(42px, 6vw, 104px); letter-spacing: .01em; }
+html:not([lang="ja"]) .gaia-vn-prologue-copy > span { white-space: normal; word-break: normal; text-wrap: pretty; }
+html:not([lang="ja"]) .gaia-story-prologue-copy { font-family: var(--font-ja); letter-spacing: .025em; }
+html:not([lang="ja"]) .gaia-story-prologue-copy p { overflow-wrap: normal; word-break: normal; }
+html:not([lang="ja"]) .novel-staff-roll-credit-role,
+html:not([lang="ja"]) .novel-staff-roll-credit-name { letter-spacing: .035em; }
+html:not([lang="ja"]) #japan-layer .gaia-estat-prefecture-tooltip {
+  width: max-content; max-width: min(340px, calc(100vw - 32px)); box-sizing: border-box;
+}
+html:not([lang="ja"]) #japan-layer .gaia-estat-prefecture-tooltip > span {
+  flex-direction: column; align-items: flex-start; gap: 6px;
+}
+html:not([lang="ja"]) #japan-layer .gaia-estat-prefecture-tooltip :is(small,strong,b) {
+  line-height: 1.45; word-break: normal; overflow-wrap: break-word;
+}
+html[lang="en"] #japan-layer .gaia-estat-timeline header {
+  flex-wrap: wrap; gap: 4px 12px; letter-spacing: .03em;
+}
+html[lang="en"] #japan-layer .gaia-estat-timeline header > span { white-space: nowrap; }
+html:not([lang="ja"]) :is(.sensor-guide-hero h1, .sensor-terms > h1) {
+  white-space: normal; word-break: normal; overflow-wrap: break-word; text-wrap: balance; line-height: 1.35;
+}
+@media (max-width: 900px) {
+  html:not([lang="ja"]) .gaia-statistics-lab .gaia-statistics-view-tabs button {
+    min-width: 0; white-space: normal; word-break: normal; overflow-wrap: break-word; line-height: 1.4;
+  }
+  html:not([lang="ja"]):has(.project-overview) .site-header { flex-wrap: wrap; gap: 2px; }
+  html:not([lang="ja"]):has(.project-overview) .site-header nav { width: 100%; justify-content: space-between; }
+  html[lang="en"] .gaia-vn-prologue-lockup h2 { font-size: clamp(24px, 7.8vw, 52px); }
+  html[lang="en"] #japan-layer.has-map-stable-navigation #map-stable-navigation {
+    width: calc(100vw - 24px); grid-template-columns: 1.15fr 1fr 1.15fr;
+  }
+  html[lang="en"] #map-stable-navigation button { font-size: 12px; }
+  html[lang="en"] #map-stable-navigation [data-map-stable-step="1"] { font-size: 12px; }
+  html[lang="en"] #map-stable-navigation .map-nav-arrow { display: none; }
+  html[lang="en"] #map-stable-navigation .map-nav-menu-count { font-size: 9px; letter-spacing: 0; }
+}
+@media (max-width: 360px) {
+  html[lang="en"] #map-stable-navigation button { font-size: 10px; padding-inline: 4px; }
+  html[lang="en"] #map-stable-navigation [data-map-stable-step="1"] { font-size: 11px; }
+}

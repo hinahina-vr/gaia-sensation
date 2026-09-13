@@ -1,0 +1,207 @@
+/* Live maps 15–20 use exhibit 21's geographic boundaries, not point markers. */
+.gaia-live-prefecture-regions { position: absolute; inset: 0; z-index: 6; width: 100%; height: 100%; overflow: hidden; pointer-events: none; }
+.gaia-live-prefecture-regions[hidden], .gaia-live-region-tooltip[hidden], .gaia-live-region-status[hidden] { display: none; }
+.gaia-live-prefecture-region { pointer-events: visiblePainted; stroke: #cde3f078; stroke-width: .8px; vector-effect: non-scaling-stroke; cursor: pointer; }
+.gaia-live-prefecture-region:hover, .gaia-live-prefecture-region:focus-visible, .gaia-live-prefecture-region[aria-current="true"] { stroke: #f3fcff; stroke-width: 2px; outline: none; }
+.gaia-live-region-tooltip { position: absolute; z-index: 8; display: grid; gap: 6px; box-sizing: border-box; width: max-content; max-width: min(680px, calc(100% - 24px)); padding: 14px 16px; border: 1px solid #a3d6ec52; border-radius: 8px; color: #effbff; background: #031629e8; box-shadow: 0 6px 24px #0005; font-family: var(--font-ja); pointer-events: none; }
+.gaia-live-region-tooltip :is(strong, b, small) { word-break: keep-all; overflow-wrap: normal; }
+.gaia-live-region-tooltip strong { font-size: clamp(16px, 1.2vw, 28px); }
+.gaia-live-region-tooltip b { font-size: clamp(19px, 1.5vw, 34px); font-weight: 600; }
+.gaia-live-region-tooltip small { font-size: clamp(10px, .7vw, 17px); color: #c1d9e4; }
+.gaia-live-region-tooltip span { font-size: clamp(10px, .7vw, 17px); line-height: 1.6; color: #c1d9e4; }
+@media (max-width: 480px) and (max-height: 640px) {
+  .gaia-live-region-tooltip { padding: 10px; gap: 4px; }
+  .gaia-live-region-tooltip strong { font-size: 14px; }
+  .gaia-live-region-tooltip b { font-size: 16px; }
+  .gaia-live-region-tooltip :is(small, span) { font-size: 9px; line-height: 1.5; }
+}
+.gaia-live-region-status { position: absolute; z-index: 8; top: 40%; left: 50%; transform: translateX(-50%); max-width: calc(100% - 32px); padding: 12px; border-radius: 6px; background: #031629e8; color: #e6f6ff; font: 15px/1.7 var(--font-ja); pointer-events: none; }
+#japan-layer[data-live-map-display="prefecture-choropleth"] :is(.gaia-live-exhibit-canvas, .gaia-live-city-markers, .gaia-live-exhibit-anchor) { display: none; }
+
+/* MAP 01–05 lead with the live-data identity. Measurements remain supporting
+   evidence; observation time and fallback status never hide inside a menu. */
+/* Returning focus from the source drawer must not scroll the scene wrapper.
+   Map panning is controlled by the map camera, not native ancestor scroll. */
+.experience.japan-open:has(#japan-layer.is-firms-exhibit) { overflow: clip; }
+#japan-layer .gaia-realtime-status {
+  --realtime-accent: #a1f4df;
+  display: grid; grid-template-columns: minmax(0, 1fr); align-content: center; gap: 4px; min-width: 0;
+  color: #edfff9; background: radial-gradient(ellipse at 0 50%, #4eac9620, transparent 78%);
+}
+/* FIRMS shares its readout's 80% surface; a second status fill would compound
+   that alpha. Keep text, badges and playback controls at their normal opacity. */
+#japan-layer .gaia-firms-readout > .gaia-realtime-status { background: none; }
+#japan-layer .gaia-realtime-status[data-realtime-state]:not([data-realtime-state="live"]):not([data-realtime-state="loading"]) { --realtime-accent: #f3c68f; }
+#japan-layer .gaia-realtime-status p { margin: 0; min-width: 0; line-height: 1.4; }
+#japan-layer .gaia-realtime-status h3 { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 0; color: #e8fff6; font-size: clamp(22px, 1.5vw, 46px); line-height: 1.35; letter-spacing: .04em; white-space: nowrap; }
+.gaia-broadcast-badge { display: inline-flex; align-items: center; justify-content: center; gap: 6px; flex: none; padding: 5px 8px; border: 1px solid #c5ab724d; border-radius: 5px; color: #dcc698; background: #8f723014; font: 500 11px/1.2 var(--font-ja); letter-spacing: .04em; white-space: nowrap; }
+.gaia-broadcast-badge[hidden] { display: none; }
+/* Reserve a status slot beside the place caption, away from the action tiles.
+   Normal flow keeps every status label readable at narrow/mobile widths. */
+#japan-layer.is-live-exhibit .gaia-live-prefecture-picker > .gaia-live-place-heading {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 6px 12px; min-width: 0;
+}
+#japan-layer .gaia-live-place-heading > .gaia-broadcast-badge { margin-left: auto; padding-block: 2px; }
+.gaia-broadcast-badge::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.gaia-broadcast-badge[data-broadcast-state="live"] { color: #fff5f3; border-color: #ff8581; background: rgba(190, 28, 42, .8); box-shadow: 0 0 14px #e52c3c44, inset 0 1px #ffd0cc33; font-weight: 700; }
+.gaia-broadcast-badge[data-broadcast-state="live"]::before { background: #fff5f3; box-shadow: 0 0 7px #fff1ed99; animation: gaia-live-pulse 2s ease-in-out infinite; }
+@keyframes gaia-live-pulse { 0%, 100% { opacity: 1; } 50% { opacity: .4; } }
+.gaia-broadcast-badge[data-broadcast-state="live"] { border:0; border-radius:3px; background:#a31830; box-shadow:none; font-family:sans-serif !important; animation:gaia-live-pulse 1.8s ease-in-out infinite; }
+.gaia-broadcast-badge[data-broadcast-state="live"]::before { animation:none; box-shadow:none; }
+@media (prefers-reduced-motion: reduce) { .gaia-broadcast-badge[data-broadcast-state="live"] { animation:none; } }
+@media (prefers-reduced-motion: reduce) { .gaia-broadcast-badge[data-broadcast-state="live"]::before { animation: none; } }
+#japan-layer .gaia-realtime-state { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 12px; }
+#japan-layer .gaia-realtime-state b { color: var(--realtime-accent); font-size: clamp(12px, .68vw, 17px); }
+#japan-layer .gaia-realtime-state > span { color: #acc9c4; font-size: clamp(11px, .62vw, 15px); }
+#japan-layer .gaia-realtime-time { display: flex; flex-wrap: wrap; gap: 2px 10px; color: #d4e5e1; font-size: clamp(11px, .65vw, 16px); }
+#japan-layer .gaia-realtime-time > span { color: #9ebdb6; }
+#japan-layer .gaia-realtime-time time { white-space: nowrap; }
+#japan-layer .gaia-realtime-credit[hidden] { display: none !important; }
+#japan-layer.is-firms-exhibit .japan-credits {
+  display: flex !important; flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: flex-end;
+  left: max(20px, env(safe-area-inset-left)); right: max(20px, env(safe-area-inset-right)); gap: 3px 12px;
+}
+#japan-layer .gaia-realtime-credit { white-space: nowrap; }
+#japan-layer :is(.gaia-planet-signals-readout, .gaia-firms-readout) > :is(.gaia-planet-copy, .gaia-firms-copy, .gaia-firms-quality) { display: none !important; }
+
+/* Small, explicitly expandable legends. No second, dominant metric card. */
+#japan-layer .gaia-firms-legend { padding: 0; border: 0; background: none; box-shadow: none; }
+#japan-layer :is(.gaia-firms-legend, .gaia-planet-signals-legend) .gaia-metric-legend-details summary {
+  min-height: 44px; box-sizing: border-box; padding: 11px 14px; font-size: 12px; line-height: 1.6;
+}
+#japan-layer .gaia-planet-signals-legend .gaia-metric-legend { width: 100%; box-sizing: border-box; margin-bottom: 12px; }
+#japan-layer :is(.gaia-firms-legend, .gaia-planet-signals-legend) .gaia-metric-legend-details-body { max-height: min(440px, 55dvh); }
+#japan-layer .gaia-firms-legend .gaia-firms-legend-body { display: grid; gap: 12px; padding-top: 8px; }
+#japan-layer .gaia-firms-legend-body > i { height: 8px; border-radius: 999px; background: linear-gradient(90deg, #4d090d, #b51b14 36%, #f7641e 68%, #ffe092); }
+#japan-layer .gaia-firms-legend-body > :is(header, div:not(.gaia-firms-data-time), p:not(.gaia-firms-legend-caption)) { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px; }
+
+@media (min-width: 901px) {
+  /* A shared two-line rhythm keeps captions, values and action copy on the
+     same rails. Do not let each font size independently center its block. */
+  body.map-grid-desktop #japan-layer :is(.gaia-planet-signals-readout, .gaia-firms-readout) {
+    --realtime-label-size: clamp(11px, .5vw, 14px);
+    --realtime-label-row: calc(var(--realtime-label-size) * 1.4);
+    --realtime-value-row: clamp(30px, 1vw, 36px);
+    --realtime-row-gap: 6px;
+    --realtime-copy-height: calc(var(--realtime-label-row) + var(--realtime-value-row) + var(--realtime-row-gap));
+  }
+  body.map-grid-desktop #japan-layer.is-firms-exhibit:not([data-story-mode]) {
+    /* MAP 01–05: size the strip around its two-line controls, not the
+       viewport width. The shared variable also keeps credits above it. */
+    --map-command-dock-height: clamp(104px, 5.6vw, 124px);
+    --map-chapter-height: calc(var(--map-command-dock-height) - 21px);
+  }
+  body.map-grid-desktop #japan-layer .gaia-planet-signals-readout[data-planet-renderer] {
+    grid-template-columns: var(--map-chapter-width) minmax(280px, 1fr) clamp(126px, 10vw, 300px) clamp(180px, 16vw, 480px) var(--map-exhibit-actions-width);
+    grid-template-areas: "chapter realtime primary metrics actions";
+  }
+  body.map-grid-desktop #japan-layer .gaia-firms-readout {
+    grid-template-columns: var(--map-chapter-width) minmax(280px, 1fr) clamp(150px, 11vw, 320px) minmax(190px, .7fr) var(--map-exhibit-actions-width);
+    grid-template-areas: "chapter realtime primary timeline actions";
+  }
+  body.map-grid-desktop #japan-layer :is(.gaia-planet-chapter, .gaia-firms-chapter) { grid-area: chapter; }
+  body.map-grid-desktop #japan-layer .gaia-realtime-status { grid-area: realtime; padding-inline: clamp(16px, 1.4vw, 48px); row-gap: 4px; }
+  body.map-grid-desktop #japan-layer :is(.gaia-planet-primary, .gaia-firms-primary) { grid-area: primary; align-content: center; grid-template-columns: max-content auto; grid-template-rows: var(--realtime-label-row) var(--realtime-value-row); justify-content: start; gap: var(--realtime-row-gap) 8px; }
+  body.map-grid-desktop #japan-layer :is(.gaia-planet-primary, .gaia-firms-primary) > strong { font-size: clamp(22px, 1vw, 28px); text-align: left; }
+  body.map-grid-desktop #japan-layer .gaia-planet-metrics { grid-area: metrics; gap: 10px; }
+  body.map-grid-desktop #japan-layer .gaia-planet-metrics > span { grid-template-rows: var(--realtime-label-row) var(--realtime-value-row); row-gap: var(--realtime-row-gap); }
+  body.map-grid-desktop #japan-layer .gaia-planet-metrics > span > strong { font-size: clamp(22px, 1vw, 28px); }
+  body.map-grid-desktop #japan-layer :is(.gaia-planet-primary, .gaia-firms-primary) > p,
+  body.map-grid-desktop #japan-layer .gaia-planet-metrics small {
+    margin: 0; font-size: var(--realtime-label-size); line-height: var(--realtime-label-row);
+  }
+  body.map-grid-desktop #japan-layer :is(.gaia-planet-primary, .gaia-firms-primary) > :is(strong, span),
+  body.map-grid-desktop #japan-layer .gaia-planet-metrics > span > strong {
+    align-self: start; padding-block: 0; line-height: var(--realtime-value-row);
+  }
+  body.map-grid-desktop #japan-layer :is(.gaia-planet-chapter, .gaia-firms-chapter).has-map-category > .map-category-eyebrow {
+    top: calc(50% - var(--realtime-copy-height) / 2);
+    margin: 0; font-size: var(--realtime-label-size); line-height: var(--realtime-label-row);
+  }
+  body.map-grid-desktop #japan-layer :is(.gaia-planet-chapter, .gaia-firms-chapter) > div {
+    padding-top: calc(var(--realtime-label-row) + var(--realtime-row-gap));
+  }
+  body.map-grid-desktop #japan-layer :is(.gaia-planet-chapter, .gaia-firms-chapter) .gaia-featured-selector-toggle > span { align-items: center; }
+  body.map-grid-desktop #japan-layer :is(.gaia-planet-chapter, .gaia-firms-chapter) .gaia-featured-selector-toggle :is(b, strong) { line-height: var(--realtime-value-row); }
+  body.map-grid-desktop #japan-layer .gaia-firms-timeline { grid-area: timeline; display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 8px; }
+  body.map-grid-desktop #japan-layer .gaia-firms-timeline header { grid-column: 1 / -1; min-width: 0; }
+  body.map-grid-desktop #japan-layer [data-firms-coverage] { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  body.map-grid-desktop #japan-layer .gaia-firms-count,
+  body.map-grid-desktop #japan-layer .gaia-firms-timeline [data-firms-status] { display: none; }
+  body.map-grid-desktop #japan-layer :is(.gaia-planet-signals-readout, .gaia-firms-readout) > .gaia-map-actions { grid-area: actions; align-self: center; height: calc(var(--realtime-copy-height) + 24px); }
+  /* Source/analysis copy follows the shared 06 action, not metric rows. */
+  body:not(.novel-mode-detour) #japan-layer :is(.gaia-firms-legend, .gaia-planet-signals-legend) { width: clamp(320px, 17vw, 400px); }
+}
+@media (min-width: 901px) and (max-width: 1450px) {
+  /* Fire playback and the epicenter link occupy two rows on narrow PCs. */
+  body.map-grid-desktop #japan-layer.is-firms-exhibit:not([data-story-mode]):has(
+    .gaia-firms-readout:not([hidden]), .gaia-planet-signals-readout[data-planet-renderer="quake"]:not([hidden])
+  ) { --map-command-dock-height: 126px; }
+  body.map-grid-desktop #japan-layer .gaia-planet-signals-readout[data-planet-renderer] {
+    grid-template-columns: var(--map-chapter-width) minmax(270px, 1fr) 132px var(--map-exhibit-actions-width);
+    grid-template-areas: "chapter realtime primary actions";
+  }
+  body.map-grid-desktop #japan-layer .gaia-planet-signals-readout .gaia-planet-metrics { display: none; }
+  body.map-grid-desktop #japan-layer .gaia-firms-readout {
+    grid-template-columns: var(--map-chapter-width) minmax(270px, 1fr) minmax(170px, .65fr) var(--map-exhibit-actions-width);
+    grid-template-rows: auto auto;
+    grid-template-areas: "chapter realtime primary actions" "chapter realtime timeline actions";
+  }
+  body.map-grid-desktop #japan-layer .gaia-firms-primary { gap: 3px 6px; }
+  body.map-grid-desktop #japan-layer .gaia-firms-primary > strong { font-size: 22px; }
+  body.map-grid-desktop #japan-layer .gaia-planet-signals-readout[data-planet-renderer="quake"] {
+    grid-template-rows: auto auto;
+    grid-template-areas: "chapter realtime primary actions" "chapter realtime metrics actions";
+  }
+  body.map-grid-desktop #japan-layer .gaia-planet-signals-readout[data-planet-renderer="quake"] .gaia-planet-metrics { display: grid; grid-template-columns: 1fr; padding-top: 3px; }
+  body.map-grid-desktop #japan-layer .gaia-planet-signals-readout[data-planet-renderer="quake"] .gaia-planet-metrics > span { display: none; }
+  body.map-grid-desktop #japan-layer .gaia-realtime-status { padding-inline: 12px; }
+}
+@media (min-width: 901px) and (max-width: 1150px) {
+  body.map-grid-desktop #japan-layer.is-firms-exhibit:not([data-story-mode]) { --map-command-dock-height: 177px !important; --map-chapter-height: 76px !important; }
+  body.map-grid-desktop #japan-layer :is(.gaia-firms-readout, .gaia-planet-signals-readout[data-planet-renderer]) {
+    height: 177px;
+    grid-template-columns: var(--map-chapter-width) minmax(0, 1fr) var(--map-exhibit-actions-width);
+    grid-template-rows: 80px 76px;
+  }
+  body.map-grid-desktop #japan-layer .gaia-firms-readout { grid-template-areas: "realtime realtime primary" "chapter timeline actions"; }
+  body.map-grid-desktop #japan-layer .gaia-planet-signals-readout[data-planet-renderer] { grid-template-areas: "realtime realtime primary" "chapter metrics actions"; }
+}
+@media (min-width: 1800px) {
+  body.map-grid-desktop #japan-layer .gaia-realtime-status {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: var(--realtime-value-row) var(--realtime-label-row);
+    grid-template-areas: "title time" "state time";
+    column-gap: clamp(24px, 2.3vw, 84px); row-gap: var(--realtime-row-gap);
+  }
+  #japan-layer .gaia-realtime-status h3 { grid-area: title; justify-content: flex-start; font-size: clamp(22px, .85vw, 30px); line-height: var(--realtime-value-row); }
+  #japan-layer .gaia-realtime-state { grid-area: state; align-content: center; line-height: var(--realtime-label-row); }
+  #japan-layer .gaia-realtime-state :is(b, span) { font-size: var(--realtime-label-size); }
+  #japan-layer .gaia-realtime-time { grid-area: time; display: grid; grid-template-rows: var(--realtime-label-row) var(--realtime-value-row); align-content: center; gap: var(--realtime-row-gap); font-size: clamp(14px, .65vw, 24px); }
+  #japan-layer .gaia-realtime-time > span { font-size: var(--realtime-label-size); line-height: var(--realtime-label-row); }
+  #japan-layer .gaia-realtime-time time { line-height: var(--realtime-value-row); }
+}
+@media (max-width: 900px) {
+  #japan-layer.is-mobile-map-shell :is(.gaia-firms-readout, .gaia-planet-signals-readout):not([hidden]) { max-height: min(48dvh, 310px) !important; z-index: 230; }
+  #japan-layer.is-mobile-map-shell.is-firms-exhibit :is(.gaia-firms-readout, .gaia-planet-signals-readout):not([hidden]) {
+    padding-block: 6px !important; row-gap: 4px !important;
+  }
+  #japan-layer.is-mobile-map-shell .gaia-realtime-status { grid-column: 1 / -1; grid-row: 1; padding: 0 0 8px; border: 0; border-bottom: 1px solid #a1f4df22; gap: 3px; }
+  #japan-layer.is-mobile-map-shell .gaia-realtime-status h3 { font-size: clamp(19px, 5.6vw, 24px); letter-spacing: .02em; }
+  #japan-layer.is-mobile-map-shell .gaia-realtime-state { gap: 0 8px; }
+  #japan-layer.is-mobile-map-shell .gaia-realtime-state b { font-size: 12px; }
+  #japan-layer.is-mobile-map-shell .gaia-realtime-state > span { font-size: 10px; }
+  #japan-layer.is-mobile-map-shell .gaia-realtime-time { gap: 0 7px; font-size: 11px; }
+  #japan-layer.is-mobile-map-shell.is-firms-exhibit .gaia-realtime-status { padding-bottom: 4px; row-gap: 2px; }
+  #japan-layer.is-mobile-map-shell.is-firms-exhibit .japan-credits {
+    bottom: var(--mobile-poi-bottom, 240px); left: 12px; right: 12px; gap: 3px 8px; z-index: 245;
+  }
+  #japan-layer.is-mobile-map-shell .gaia-planet-primary { display: flex !important; align-items: baseline; gap: 8px; }
+  #japan-layer.is-mobile-map-shell .gaia-planet-primary > p { margin-right: auto; }
+}
+@media (max-width: 900px) and (max-height: 500px) and (orientation: landscape) {
+  #japan-layer.is-mobile-map-shell :is(.gaia-firms-readout, .gaia-planet-signals-readout):not([hidden]) { max-height: 220px !important; }
+  #japan-layer.is-mobile-map-shell .gaia-realtime-status { gap: 2px; padding-bottom: 5px; }
+  #japan-layer.is-mobile-map-shell .gaia-realtime-status h3 { font-size: 20px; }
+}

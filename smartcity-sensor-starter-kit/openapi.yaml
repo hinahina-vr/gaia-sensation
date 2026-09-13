@@ -1,0 +1,207 @@
+openapi: 3.1.0
+info:
+  title: GAIA SENSEWARE Sensor Device API
+  version: 1.0.0
+  description: >-
+    ESP32をGAIA SENSEWAREへ接続するための公開API。Web管理API、Google OIDC、
+    ユーザー情報、地域マスタ管理は公開Device APIに含まれません。
+servers:
+  - url: https://gaia-senseware.pages.dev/api/v1
+    description: GAIA SENSEWARE production same-origin Pages Functions API.
+tags:
+  - name: Provisioning
+  - name: Telemetry
+paths:
+  /device/pair:
+    post:
+      operationId: pairDevice
+      tags: [Provisioning]
+      summary: One-time Pairing CodeをDevice credentialへ交換する
+      description: Pairing Codeは10分間・一回限り。Device Tokenは成功レスポンスで一度だけ返されます。
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PairRequest'
+            example:
+              pairingCode: H7K2-PQ9M
+      responses:
+        '201':
+          description: Deviceを登録し、256-bit Device Tokenを一度だけ発行した。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PairResponse'
+              example:
+                deviceId: dev_a84f23k2m9q
+                deviceToken: gdt_REPLACE_WITH_ONE_TIME_RESPONSE
+                tokenType: Bearer
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '409':
+          description: Pairing Codeが失効・使用済み・競合した。
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ErrorResponse' }
+              example: { error: { code: PAIRING_CODE_UNAVAILABLE, message: Pairing code is invalid, expired, or already used. } }
+        '413': { $ref: '#/components/responses/PayloadTooLarge' }
+        '415': { $ref: '#/components/responses/UnsupportedMediaType' }
+  /devices/{deviceId}/telemetry:
+    post:
+      operationId: postTelemetry
+      tags: [Telemetry]
+      summary: Device自身の測定値を送信する
+      description: >-
+        seqはDeviceごとに単調増加。同じseq・同じ内容の再送は200、同じseq・異なる内容または
+        最大seqより小さい未登録seqは409。同じBearer TokenでもpathのDevice IDが異なれば401。
+        新しい測定値の保存はDeviceごとに60秒に1件までで、上限超過はRetry-After付きの429。
+        dataのキー、単位、受理範囲はGET /api/public/v1/measurement-typesの計測マスターに従う。
+      security:
+        - deviceBearer: []
+      parameters:
+        - name: deviceId
+          in: path
+          required: true
+          schema: { type: string, pattern: '^dev_[a-z0-9]+$' }
+          example: dev_a84f23k2m9q
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TelemetryRequest'
+            example:
+              seq: 18592
+              observedAt: '2026-08-12T08:21:32.000Z'
+              data:
+                temperature: 28.1
+                humidity: 67.2
+                pm25: 12.8
+                water_temperature: 18.4
+                ph: 7.18
+                turbidity: 2.7
+      responses:
+        '202':
+          description: 新しいseqを保存した。
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/TelemetryAccepted' }
+              example: { accepted: true, duplicate: false, receivedAt: '2026-08-12T08:21:33.000Z' }
+        '200':
+          description: 現在または過去の同じseq・同じ内容を冪等再送した。
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/TelemetryAccepted' }
+              example: { accepted: true, duplicate: true, receivedAt: '2026-08-12T08:21:34.000Z' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401':
+          description: Token不正、Device不一致、またはREVOKED。
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ErrorResponse' }
+              example: { error: { code: INVALID_DEVICE_TOKEN, message: Device authentication failed. } }
+        '409':
+          description: seq後退、同一seq内容競合、または同時更新競合。
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ErrorResponse' }
+        '429':
+          description: 同じDeviceから60秒以内に新しい測定値がすでに保存されている。
+          headers:
+            Retry-After:
+              description: 次の新規測定値を受け付けるまでの秒数。
+              schema: { type: integer, minimum: 1, maximum: 60 }
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ErrorResponse' }
+              example: { error: { code: TELEMETRY_RATE_LIMITED, message: A device may submit at most one new telemetry record per 60 seconds. } }
+        '413': { $ref: '#/components/responses/PayloadTooLarge' }
+        '415': { $ref: '#/components/responses/UnsupportedMediaType' }
+components:
+  securitySchemes:
+    deviceBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: opaque 256-bit Device Token
+      description: Pairing成功時に一度だけ返されたDevice Token。ログやGitへ保存しないでください。
+  schemas:
+    PairRequest:
+      type: object
+      additionalProperties: false
+      required: [pairingCode]
+      properties:
+        pairingCode:
+          type: string
+          pattern: '^[2-9A-HJ-NP-Z]{4}-[2-9A-HJ-NP-Z]{4}$'
+    PairResponse:
+      type: object
+      additionalProperties: false
+      required: [deviceId, deviceToken, tokenType]
+      properties:
+        deviceId: { type: string, pattern: '^dev_[a-z0-9]+$' }
+        deviceToken: { type: string, minLength: 47, description: One-time response secret; server stores only an HMAC-SHA-256 digest. }
+        tokenType: { type: string, const: Bearer }
+    TelemetryRequest:
+      type: object
+      additionalProperties: false
+      required: [seq, data]
+      properties:
+        seq: { type: integer, minimum: 0, maximum: 9007199254740991 }
+        observedAt: { type: [string, 'null'], format: date-time, description: RFC 3339 UTC。秒のみと小数秒を許容し、保存時はUTCミリ秒表記へ正規化。NTP未同期なら省略可。 }
+        data:
+          type: object
+          minProperties: 1
+          maxProperties: 16
+          propertyNames: { pattern: '^[a-z][a-z0-9_]{0,31}$' }
+          additionalProperties: { type: number, description: キーごとの範囲は公開計測マスターを参照。未登録キーは400。 }
+          properties:
+            temperature: { type: number, minimum: -80, maximum: 100, description: Celsius }
+            humidity: { type: number, minimum: 0, maximum: 100, description: Percent }
+            pm25: { type: number, minimum: 0, maximum: 5000, description: µg/m³ }
+            pm10: { type: number, minimum: 0, maximum: 5000, description: µg/m³ }
+            voc: { type: number, minimum: 0, maximum: 100000, description: Sensor-specific ppb/index }
+            nox: { type: number, minimum: 0, maximum: 100000, description: Sensor-specific ppb/index }
+            water_temperature: { type: number, minimum: -20, maximum: 120, description: °C }
+            ph: { type: number, minimum: 0, maximum: 14, description: pH }
+            conductivity: { type: number, minimum: 0, maximum: 200000, description: µS/cm }
+            turbidity: { type: number, minimum: 0, maximum: 10000, description: NTU }
+            dissolved_oxygen: { type: number, minimum: 0, maximum: 100, description: mg/L }
+            water_level: { type: number, minimum: -10000, maximum: 100000, description: cm }
+            flow_rate: { type: number, minimum: 0, maximum: 100000, description: L/min }
+    TelemetryAccepted:
+      type: object
+      additionalProperties: false
+      required: [accepted, duplicate, receivedAt]
+      properties:
+        accepted: { type: boolean, const: true }
+        duplicate: { type: boolean }
+        receivedAt: { type: string, format: date-time }
+    ErrorResponse:
+      type: object
+      additionalProperties: false
+      required: [error]
+      properties:
+        error:
+          type: object
+          additionalProperties: false
+          required: [code, message]
+          properties:
+            code: { type: string }
+            message: { type: string }
+  responses:
+    BadRequest:
+      description: JSON schema、timestamp、range、unknown field、またはseqが不正。
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ErrorResponse' }
+    PayloadTooLarge:
+      description: Body上限を超えた。
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ErrorResponse' }
+    UnsupportedMediaType:
+      description: Content-Typeがapplication/jsonではない。
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ErrorResponse' }

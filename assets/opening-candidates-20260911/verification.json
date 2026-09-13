@@ -1,0 +1,237 @@
+{
+  "scope": "Nine opening candidates after the user hair-end revision; standalone gallery only. No main-app replacement or production validation.",
+  "files": [
+    {
+      "file": "prologue-01.png",
+      "width": 1672,
+      "height": 941,
+      "bytes": 2334980,
+      "sha256": "3525f9edc8d201ae3810a446705ce8384a4e35a8ce237ae5034f5dd5abd72f68"
+    },
+    {
+      "file": "prologue-02.png",
+      "width": 1672,
+      "height": 941,
+      "bytes": 2440457,
+      "sha256": "a7293adcc559944f0333d8e5d6e64f4b4c51280403c1cf1718b101de56f0e11d"
+    },
+    {
+      "file": "prologue-03.png",
+      "width": 1672,
+      "height": 941,
+      "bytes": 2369087,
+      "sha256": "29ea5cb75b15877cde0aa874270ebee149fc326b8b7472b6c00f70702add1a6d"
+    },
+    {
+      "file": "mizu-01.png",
+      "width": 1672,
+      "height": 941,
+      "bytes": 2107641,
+      "sha256": "4099cb298ecff1f350adbe07b5eca65cae525b3c0fa41ebfb969d0dac53ebd12"
+    },
+    {
+      "file": "mizu-02.png",
+      "width": 1672,
+      "height": 941,
+      "bytes": 2172042,
+      "sha256": "888c23e4482483a637bcfa4ac4f0819be69953688abcb1d212b5ebc5d104482d"
+    },
+    {
+      "file": "mizu-03.png",
+      "width": 1672,
+      "height": 941,
+      "bytes": 2053316,
+      "sha256": "bb4982dfe70631d67c9a60c9e6b7263e1865f11310bc647f393d2733ebfceb84"
+    },
+    {
+      "file": "ame-01.png",
+      "width": 1672,
+      "height": 941,
+      "bytes": 2299086,
+      "sha256": "1f296c0d34da6086cc369bb563182392cbb57d7db71600012900398842e34c1e"
+    },
+    {
+      "file": "ame-02.png",
+      "width": 1672,
+      "height": 941,
+      "bytes": 2183773,
+      "sha256": "df7c8f1f6886070ddf6675986048369aaea253a7dfb0ec7cb127f419aed56bf0"
+    },
+    {
+      "file": "ame-03.png",
+      "width": 1672,
+      "height": 941,
+      "bytes": 2169348,
+      "sha256": "caec5118ae215ffcf33dde08b494e7677b59d63bded99938efd094500ccf13d5"
+    }
+  ],
+  "checks": [
+    {
+      "viewport": 1440,
+      "status": "PASS",
+      "exercisedOpeningAndDownload": [
+        "prologue-01",
+        "prologue-02",
+        "prologue-03",
+        "mizu-01",
+        "mizu-02",
+        "mizu-03",
+        "ame-01",
+        "ame-02",
+        "ame-03"
+      ],
+      "localFileOpening": "PASS",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "images": [
+        {
+          "source": "prologue-01.png",
+          "width": 1672,
+          "height": 941,
+          "complete": true,
+          "renderedWidth": 450
+        },
+        {
+          "source": "prologue-02.png",
+          "width": 1672,
+          "height": 941,
+          "complete": true,
+          "renderedWidth": 450
+        },
+        {
+          "source": "prologue-03.png",
+          "width": 1672,
+          "height": 941,
+          "complete": true,
+          "renderedWidth": 450
+        },
+        {
+          "source": "mizu-01.png",
+          "width": 1672,
+          "height": 941,
+          "complete": true,
+          "renderedWidth": 450
+        },
+        {
+          "source": "mizu-02.png",
+          "width": 1672,
+          "height": 941,
+          "complete": true,
+          "renderedWidth": 450
+        },
+        {
+          "source": "mizu-03.png",
+          "width": 1672,
+          "height": 941,
+          "complete": true,
+          "renderedWidth": 450
+        },
+        {
+          "source": "ame-01.png",
+          "width": 1672,
+          "height": 941,
+          "complete": true,
+          "renderedWidth": 450
+        },
+        {
+          "source": "ame-02.png",
+          "width": 1672,
+          "height": 941,
+          "complete": true,
+          "renderedWidth": 450
+        },
+        {
+          "source": "ame-03.png",
+          "width": 1672,
+          "height": 941,
+          "complete": true,
+          "renderedWidth": 450
+        }
+      ]
+    },
+    {
+      "viewport": 390,
+      "status": "PASS",
+      "exercisedOpeningAndDownload": [
+        "prologue-01",
+        "mizu-01",
+        "ame-01"
+      ],
+      "localFileOpening": "PASS",
+      "width": 390,
+      "scrollWidth": 390,
+      "images": [
+        {
+          "source": "prologue-01.png",
+          "width": 1672,
+          "height": 941,
+          "complete": true,
+          "renderedWidth": 360
+        },
+        {
+          "source": "prologue-02.png",
+          "width": 1672,
+          "height": 941,
+          "complete": true,
+          "renderedWidth": 360
+        },
+        {
+          "source": "prologue-03.png",
+          "width": 1672,
+          "height": 941,
+          "complete": true,
+          "renderedWidth": 360
+        },
+        {
+          "source": "mizu-01.png",
+          "width": 1672,
+          "height": 941,
+          "complete": true,
+          "renderedWidth": 360
+        },
+        {
+          "source": "mizu-02.png",
+          "width": 1672,
+          "height": 941,
+          "complete": true,
+          "renderedWidth": 360
+        },
+        {
+          "source": "mizu-03.png",
+          "width": 1672,
+          "height": 941,
+          "complete": true,
+          "renderedWidth": 360
+        },
+        {
+          "source": "ame-01.png",
+          "width": 1672,
+          "height": 941,
+          "complete": true,
+          "renderedWidth": 360
+        },
+        {
+          "source": "ame-02.png",
+          "width": 1672,
+          "height": 941,
+          "complete": true,
+          "renderedWidth": 360
+        },
+        {
+          "source": "ame-03.png",
+          "width": 1672,
+          "height": 941,
+          "complete": true,
+          "renderedWidth": 360
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "status": "PASS",
+  "visualReview": {
+    "status": "PASS",
+    "detail": "主担当が最終9案を目視。毛先の枝分かれ・細い跳ね毛の減少、キャラクターの顔・衣装・髪飾り、場面構図と文字なしを照合。PC／モバイル幅のギャラリースクリーンショットを確認。"
+  },
+  "sourceCopyVerification": "All nine saved PNGs are byte-identical to their final generated outputs."
+}

@@ -1,0 +1,163 @@
+#gaia-food-canvas { position: absolute; inset: 0; z-index: 5; width: 100%; height: 100%; pointer-events: none; }
+#japan-layer.is-map-title-transitioning #gaia-food-canvas { visibility: hidden; }
+.experience.japan-open:has(#japan-layer.is-food-exhibit) { overflow: clip; }
+#gaia-food-canvas[hidden], .gaia-food-readout[hidden], .gaia-food-legend[hidden] { display: none !important; }
+#japan-layer.is-food-exhibit :is(.japan-observation, .map-reading-guide, .signal-console-map, .signal-encoding-legend-dock, .japan-layer-switch, .map-command-dock, .japan-credits) { visibility: hidden !important; pointer-events: none !important; }
+#japan-layer.is-food-exhibit .japan-map > #gaia-canvas { opacity: 0 !important; }
+#japan-layer.is-food-exhibit :is(#japan-data-button, #gaia-statistics-button, .gaia-statistics-quick) { display: none !important; }
+.gaia-food-readout { position: absolute; z-index: 105; box-sizing: border-box; color: #e1eee6; font: 12px/1.5 var(--font-ja); background: linear-gradient(125deg, #15292bce, #102336ce); border: 1px solid #a9d4bb4a; backdrop-filter: blur(12px); }
+.gaia-food-readout p { margin: 0; }
+#japan-layer.japan-data-open :is(.gaia-food-readout, .gaia-food-legend),
+body.gaia-statistics-open :is(.gaia-food-readout, .gaia-food-legend) { visibility: hidden !important; pointer-events: none !important; }
+.gaia-food-readout fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
+.gaia-food-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.gaia-food-readout :is(button, select) { font: inherit; min-height: 36px; border: 1px solid #a5d1bb50; border-radius: 5px; color: #e4f4e9; background: #132d35; cursor: pointer; }
+.gaia-food-readout button:disabled { opacity: .45; cursor: default; }
+.gaia-food-readout :is(button, select, input):focus-visible { outline: 2px solid #ffdf9b; outline-offset: 2px; }
+.gaia-food-chapter > p { font-size: 10px; color: #abd9bf; letter-spacing: .1em; }
+body.map-grid-desktop #japan-layer .gaia-food-chapter.has-map-category > .map-category-eyebrow { position: static; margin: 0 0 5px; }
+.gaia-food-chapter > div { display: grid; grid-template-columns: 25px minmax(0, 1fr) 25px; align-items: center; gap: 5px; }
+.gaia-food-chapter .gaia-featured-selector-toggle { display: flex; align-items: center; gap: 9px; padding: 5px; text-align: left; background: transparent; border: 0; }
+.gaia-food-chapter b { font: 24px/1 var(--font-console); color: #ead798; }
+.gaia-food-chapter strong { font-size: 14px; line-height: 1.4; }
+.gaia-food-pickers { display: grid; gap: 5px; }
+.gaia-food-pickers label { display: grid; grid-template-columns: 4.4em minmax(0, 1fr); align-items: center; gap: 6px; color: #bad4c8; }
+.gaia-food-pickers select { width: 100%; min-width: 0; padding: 4px; }
+.gaia-food-primary { display: grid; align-content: center; gap: 4px; min-width: 0; }
+.gaia-food-primary > span { color: #b5cfc7; font-size: 11px; }
+.gaia-food-primary strong { font: 28px/1.2 Consolas, var(--font-ja); }
+.gaia-food-primary small { font-size: 10px; overflow-wrap: anywhere; }
+.gaia-food-timeline { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; align-content: center; }
+.gaia-food-timeline label { grid-column: 1 / -1; display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 8px; }
+.gaia-food-timeline input { width: 100%; min-width: 0; accent-color: #b0dcc3; }
+.gaia-food-actions.gaia-map-actions { position: static; display: grid; padding: 0; gap: 0; }
+.gaia-food-status, .gaia-food-count { font-size: 10px; color: #adc3c5; }
+.gaia-food-legend { position: absolute; z-index: 110; right: 22px; top: 110px; width: 290px; color: #cde1d8; font: 11px/1.5 var(--font-ja); }
+.gaia-food-key { padding: 12px; border: 1px solid #a5d8c142; border-radius: 8px; background: #142b35d6; }
+.gaia-food-key h3 { margin: 0 0 4px; font-size: 13px; }
+.gaia-food-key p { margin: 4px 0; }
+.gaia-food-key small { font-size: 10px; }
+.gaia-food-scale { height: 7px; border-radius: 5px; margin-top: 9px; }
+[data-food-scale-labels] { text-align: center; font-variant-numeric: tabular-nums; }
+.gaia-food-details { margin-top: 6px; border: 1px solid #9fc4c331; border-radius: 6px; background: #102330eb; }
+.gaia-food-details summary { padding: 9px; cursor: pointer; }
+.gaia-food-guide { padding: 0 12px 12px; max-height: min(43vh, 440px); overflow: auto; line-height: 1.7; }
+.gaia-food-guide a { color: #b4dfef; }
+#map-mobile-sheet .gaia-food-guide { max-height: none; overflow: visible; padding: 0; }
+.map-mode-button[data-food-exhibit] { color: #f0dbab; border-color: #dbc79570; }
+@media (min-width: 901px) {
+  #japan-layer.is-food-exhibit { --map-command-dock-height: 138px; }
+  #japan-layer .gaia-food-readout { display: grid; grid-template-columns: minmax(max-content, .9fr) minmax(215px, 1.15fr) minmax(180px, 1fr) minmax(230px, 1.1fr) var(--map-exhibit-actions-width); align-items: center; left: 18px; right: 18px; bottom: 0; padding: 12px 8px; min-height: 124px; gap: 12px; }
+  #japan-layer .gaia-food-chapter strong { white-space: nowrap; min-width: max-content; }
+  .gaia-food-readout fieldset { display: contents; }
+  .gaia-food-pickers { grid-column: 2; grid-row: 1; }
+  .gaia-food-primary { grid-column: 3; grid-row: 1; }
+  .gaia-food-timeline { grid-column: 4; grid-row: 1; }
+  .gaia-food-actions { grid-column: 5; grid-row: 1; }
+  .gaia-food-status { position: absolute; bottom: calc(100% + 6px); left: 0; }
+  .gaia-food-count { position: absolute; bottom: calc(100% + 6px); right: 0; }
+  [data-food-retry] { position: absolute; bottom: calc(100% + 30px); left: 0; }
+}
+@media (min-width: 901px) and (max-width: 1200px) {
+  #japan-layer .gaia-food-readout { grid-template-columns: max-content minmax(0, 1fr) var(--map-exhibit-actions-width); grid-template-rows: auto auto; gap: 10px; }
+  .gaia-food-chapter { grid-column: 1; grid-row: 2; }
+  .gaia-food-pickers { grid-column: 1 / 3; grid-row: 1; grid-template-columns: 1fr 1fr; }
+  .gaia-food-primary { grid-column: 2; grid-row: 2; }
+  .gaia-food-timeline { grid-column: 3; grid-row: 1; }
+  .gaia-food-actions { grid-column: 3; grid-row: 2; }
+}
+@media (max-width: 900px) {
+  #japan-layer.is-mobile-map-shell .gaia-food-readout { position: fixed; left: var(--mobile-side); right: var(--mobile-side); bottom: var(--mobile-dock-bottom); border-radius: 9px; padding: 8px 10px; max-height: min(270px, 44dvh); overflow: auto; }
+  .gaia-food-chapter, .gaia-food-actions, .gaia-food-count { display: none !important; }
+  .gaia-food-pickers { grid-template-columns: 1.2fr 1fr; gap: 6px; }
+  .gaia-food-pickers label { display: block; font-size: 10px; }
+  .gaia-food-pickers select { min-height: 36px; font-size: 13px; }
+  .gaia-food-status { font-size: 9px; margin-bottom: 3px !important; }
+  .gaia-food-primary { grid-template-columns: 1fr auto; gap: 3px 5px; margin: 5px 0; }
+  .gaia-food-primary strong { grid-row: 1; grid-column: 2; font-size: 22px; }
+  .gaia-food-primary small { grid-column: 1 / -1; font-size: 9px; }
+  .gaia-food-timeline { grid-template-columns: minmax(0, 1fr) 64px 64px; gap: 5px; }
+  .gaia-food-timeline label { grid-column: auto; display: block; font-size: 11px; }
+  .gaia-food-timeline button { min-height: 44px; padding: 3px; font-size: 10px; }
+  .gaia-food-legend { position: fixed; top: var(--mobile-heading-bottom, 108px); right: var(--mobile-side); width: min(240px, calc(100vw - 24px)); }
+  .gaia-food-key { padding: 7px 9px; }
+  .gaia-food-key h3 { font-size: 11px; }
+  .gaia-food-key p, .gaia-food-key small { font-size: 9px; }
+  .gaia-food-details { display: none; }
+}
+@media (max-width: 380px) {
+  #japan-layer.is-food-exhibit #japan-title { font-size: 16px !important; letter-spacing: .04em; }
+}
+/* Keep the legend above the measured readout on short portrait screens.
+   Preserve every caveat, allowing scroll instead of covering the controls. */
+@media (max-width: 900px) and (min-height: 501px) and (max-height: 640px) {
+  #japan-layer.is-mobile-map-shell .gaia-food-legend {
+    max-height: max(72px, calc(100dvh - var(--mobile-poi-bottom, 330px) - var(--mobile-heading-bottom, 108px)));
+    overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; border-radius: 8px;
+  }
+}
+@media (min-width: 2400px) {
+  #japan-layer .gaia-food-readout { font-size: 18px; min-height: 172px; grid-template-columns: minmax(320px, 1fr) minmax(360px, 1.15fr) minmax(300px, 1fr) minmax(340px, 1.1fr) var(--map-exhibit-actions-width); gap: 24px; padding: 16px; }
+  .gaia-food-chapter strong { font-size: 24px; }
+  .gaia-food-chapter b { font-size: 38px; }
+  .gaia-food-primary > span { font-size: 18px; }
+  .gaia-food-primary strong { font-size: 42px; }
+  .gaia-food-primary small { font-size: 16px; }
+  .gaia-food-readout :is(select, button) { min-height: 48px; }
+  .gaia-food-status, .gaia-food-count { font-size: 14px; }
+  .gaia-food-legend { width: 420px; font-size: 16px; top: 145px; }
+  .gaia-food-key h3 { font-size: 19px; }
+  .gaia-food-key small { font-size: 14px; }
+}
+@media (max-width: 900px) and (max-height: 500px) {
+  #japan-layer.is-mobile-map-shell .gaia-food-readout { max-height: 145px; }
+  .gaia-food-readout fieldset { display: grid; grid-template-columns: 1.2fr 1fr; gap: 0 12px; }
+  .gaia-food-timeline { grid-column: 2; grid-row: 1 / 3; }
+  .gaia-food-primary { grid-column: 1; }
+  .gaia-food-legend { width: 225px; right: 80px; top: 12px; }
+}
+/* Match the annual-observation dock (31–69); keep food-specific controls. */
+#japan-layer .gaia-food-readout { background: linear-gradient(145deg, #132a34cc, #051620cc); border-color: #83dfd54a; color: #d9f5ef; }
+#japan-layer .gaia-food-primary strong { font-family: var(--font-ja); font-weight: 400; }
+@media (min-width: 901px) {
+  body.map-grid-desktop #japan-layer.is-food-exhibit { --map-command-dock-height: clamp(104px, 5.6vw, 124px); --map-chapter-height: calc(var(--map-command-dock-height) - 21px); }
+  body.map-grid-desktop #japan-layer .gaia-food-readout { grid-template-columns: minmax(var(--map-chapter-width), max-content) minmax(0, 1.15fr) minmax(0, 1fr) minmax(0, 1.2fr) var(--map-exhibit-actions-width); grid-template-rows: minmax(0, 1fr); align-items: stretch; left: calc(var(--map-chapter-inset) - 1px); right: calc(var(--map-chapter-inset) - 1px); bottom: 0; height: var(--map-command-dock-height); min-height: 0; padding: 9px 0 11px; gap: 0; border-bottom: 0; border-radius: 0; font-size: 12px; }
+  .gaia-food-readout :is(.gaia-food-pickers,.gaia-food-primary,.gaia-food-timeline) { min-width: 0; margin: 0; padding: 0 12px; border-left: 1px solid #83dfd526; align-content: center; }
+  .gaia-food-readout .gaia-food-pickers { gap: 4px; }
+  .gaia-food-readout .gaia-food-pickers label { grid-template-columns: 4em minmax(0,1fr); font-size: clamp(11px,.6vw,15px); }
+  .gaia-food-readout .gaia-food-pickers select { min-height: 32px; height: 32px; font-size: clamp(14px,.8vw,18px); padding: 3px 6px; }
+  .gaia-food-readout .gaia-food-primary strong { font-size: clamp(24px,1.4vw,34px); line-height: 1.25; white-space: nowrap; }
+  .gaia-food-readout .gaia-food-primary :is(small,span) { font-size: clamp(11px,.6vw,15px); line-height: 1.4; }
+  .gaia-food-readout .gaia-food-timeline label { font-size: clamp(14px,.8vw,18px); }
+  .gaia-food-readout .gaia-food-timeline button { font-size: clamp(12px,.7vw,16px); padding: 3px; }
+  .gaia-food-readout .gaia-food-status { left: 14px; }
+  .gaia-food-readout .gaia-food-count { right: 14px; }
+}
+@media (min-width: 901px) and (max-width: 1399px) {
+  body.map-grid-desktop #japan-layer .gaia-food-readout { grid-template-columns: minmax(var(--map-chapter-width), max-content) minmax(0,1fr) minmax(0,1fr) var(--map-exhibit-actions-width); height: auto; min-height: calc(var(--map-command-dock-height) + 76px); grid-template-rows: 66px minmax(var(--map-chapter-height),auto); row-gap: 10px; }
+  .gaia-food-readout .gaia-food-chapter { grid-column: 1; grid-row: 2; }
+  .gaia-food-readout .gaia-food-pickers { grid-column: 1 / 3; grid-row: 1; grid-template-columns: 1fr 1.6fr; }
+  .gaia-food-readout .gaia-food-primary { grid-column: 2 / 4; grid-row: 2; }
+  .gaia-food-readout .gaia-food-timeline { grid-column: 3 / 5; grid-row: 1; }
+  .gaia-food-readout .gaia-food-actions { grid-column: 4; grid-row: 2; }
+}
+@media (max-width: 900px) {
+  #japan-layer.is-mobile-map-shell .gaia-food-readout { border-radius: 10px; max-height: min(250px,43dvh); }
+}
+@media (min-width: 901px) {
+  body.map-grid-desktop #japan-layer.is-food-exhibit { --map-command-dock-height: 108px; --map-chapter-width: clamp(360px, 15.5vw, 480px); }
+  body.map-grid-desktop #japan-layer .gaia-food-readout { padding-block: 6px; }
+  body.map-grid-desktop #japan-layer .gaia-food-chapter { display: flex; flex-direction: column; justify-content: center; align-self: stretch; height: auto; gap: 3px; padding: 0 46px; }
+  body.map-grid-desktop #japan-layer .gaia-food-chapter > .map-category-eyebrow { position: static; margin: 0; }
+  body.map-grid-desktop #japan-layer .gaia-food-chapter > div { height: auto; padding: 0; }
+  body.map-grid-desktop #japan-layer .gaia-food-chapter .gaia-featured-selector-toggle { align-items: center; padding: 0; gap: 8px; }
+  body.map-grid-desktop #japan-layer .gaia-food-chapter strong { font-size: 14px; line-height: 1.18; }
+  body.map-grid-desktop #japan-layer .gaia-food-chapter b { font: 24px/1.2 var(--font-console); color: #a5ecdb; }
+}
+@media (min-width: 901px) and (max-width: 1399px) {
+  body.map-grid-desktop #japan-layer.is-food-exhibit { --map-chapter-width: 360px; }
+  body.map-grid-desktop #japan-layer .gaia-food-readout { grid-template-columns: minmax(var(--map-chapter-width), max-content) minmax(0,1fr) var(--map-exhibit-actions-width); grid-template-rows: 64px 76px; height: auto; min-height: 0; row-gap: 6px; }
+  .gaia-food-readout .gaia-food-primary { grid-column: 2; grid-row: 2; }
+  .gaia-food-readout .gaia-food-timeline { grid-column: 3; grid-row: 1; }
+  .gaia-food-readout .gaia-food-actions { grid-column: 3; grid-row: 2; }
+}
