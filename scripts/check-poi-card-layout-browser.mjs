@@ -61,7 +61,12 @@ try {
       };
     });
     await page.screenshot({ path: path.join(output, `${width}-${saved ? "saved" : "wind"}.png`) });
-    assert(scan.overflowX <= 1 && scan.overflowY <= 1 && scan.sourceFits && scan.sourceClickable, JSON.stringify(scan));
+    assert(scan.overflowX <= 1 && (width < 900 || scan.overflowY <= 1) && scan.sourceFits && scan.sourceClickable, JSON.stringify(scan));
+    if(width < 900) {
+      assert(await card.locator('.japan-credits').count(), 'Mobile attribution belongs to the card flow');
+      assert(await card.evaluate(n=>n.scrollTop===0),'Card starts at its upper edge');
+      assert(await card.evaluate(n=>n.querySelector('.map-poi-credits-disclosure').getBoundingClientRect().top>=n.querySelector('.japan-poi-source').getBoundingClientRect().bottom+8),'Source and credit toggle must not overlap');
+    }
     assert(scan.rect.top >= 0 && scan.rect.bottom <= height && scan.rect.left >= 0 && scan.rect.right <= width);
     assert.equal(scan.values.length, 4);
     if (!saved) assert.deepEqual(scan.values, ["9.3 m/s", "89°", "1,001.8 hPa", "90%"]);
@@ -72,7 +77,7 @@ try {
     await page.locator("#japan-poi-close").click();
     assert.equal(await card.isVisible(), false);
     report.checks.push({ ...scan, saved });
-    console.log(`PASS ${width} × ${height}: all four metrics and source fit without scrolling`);
+    console.log(`PASS ${width} × ${height}: metrics and source accessible; mobile attribution scrolls below`);
     await context.close();
   }
   assert.deepEqual(report.errors, []);

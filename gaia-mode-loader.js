@@ -59,7 +59,7 @@
         "./map-dock-motion.js?v=gaia-map-dock-motion-1-marine-cod-1-fao-food-1",
         "./map-stable-navigation.js?v=stable-next-20260912-exhibit-navigation-20260912-i18n-20260913-picker-depth-focus-20260913-fixed-nav-dock15-20260913-nav-triangles-20260913",
         "./particles-v9.js?v=gaia-light-surface-fps-1",
-        "./map-responsive-layout.js?v=responsive-audit-20260913-responsive-followup-1",
+        "./map-responsive-layout.js?v=mobile-credit-disclosure-top-20260913",
       ],
       modules: [
         "./src/exploration/index.js?v=gaia-poi-manual-1-map-polish-1-live-red-1-footer-credit-1-credit-clearance-1-marine-cod-1-status-place-20260909-cod-ui-20260909-japan-sensor-open-1-pollution-1-title-poi-20260909-perf-high-20260909-prtr-biology-1-fao-food-1-food-country-fill-20260910-hourly-20260912-prefecture-fill-20260912-theme-background-20260912-unified-playback-20260912-exhibit-links-20260912-i18n-20260913-wind-strength-color-20260913-status-right-20260913",
@@ -175,7 +175,7 @@
   });
 
   for (const name of ['exploration', 'statistics', 'character', 'sound']) {
-    groups[name].styles.push('./responsive-audit-fixes.css?v=responsive-audit-20260913-responsive-followup-1');
+    groups[name].styles.push('./responsive-audit-fixes.css?v=mobile-credit-disclosure-top-20260913');
   }
   const assetPromises = new Map();
   const groupPromises = new Map();

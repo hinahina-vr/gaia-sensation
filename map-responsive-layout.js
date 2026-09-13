@@ -1,6 +1,12 @@
 /** 概要: 画面サイズに応じた地図の配置調整。低い画面では観測データを開閉式にし、操作部品の重なりを避ける。 */
 (() => {
   const layer=document.querySelector('#japan-layer');if(!layer)return;
+  const credits=layer.querySelector('.japan-credits');
+  const creditHome=document.createComment('map credits home');credits.before(creditHome);
+  const osmAttribution=credits.querySelector('.japan-attribution').cloneNode(true);
+  osmAttribution.className='map-mobile-osm-attribution';osmAttribution.textContent='© OpenStreetMap contributors';osmAttribution.hidden=true;layer.append(osmAttribution);
+  const creditDisclosure=document.createElement('details');creditDisclosure.className='map-poi-credits-disclosure';
+  const creditSummary=document.createElement('summary');creditSummary.textContent='地図のクレジット';creditDisclosure.append(creditSummary);
   const selector='.gaia-live-exhibit-readout,.gaia-estat-readout,.gaia-firms-readout,.gaia-planet-signals-readout,.gaia-marine-cod-readout,.gaia-food-readout,.signal-console-map';
   const compact=matchMedia('(max-width:900px) and (max-height:700px)');
   const drawer=document.createElement('details');drawer.id='map-responsive-data';drawer.hidden=true;
@@ -95,6 +101,15 @@
   const sizes=new ResizeObserver(schedule);
   function sync(){
     frame=0;
+    const tiles=layer.querySelector('#japan-tiles');
+    const needsOsm=layer.classList.contains('is-mobile-map-shell')&&tiles&&!tiles.hidden;
+    if(osmAttribution.hidden===Boolean(needsOsm))osmAttribution.hidden=!needsOsm;
+    // On phones the observation card and floating attribution used the same
+    // bottom lane. Keep attribution in the card's scroll flow while it is open.
+    const poi=layer.querySelector('#japan-poi-card');
+    const inlineCredits=layer.classList.contains('is-mobile-map-shell')&&poi&&!poi.hidden;
+    if(inlineCredits&&credits.parentElement!==creditDisclosure){creditDisclosure.open=false;creditDisclosure.append(credits);poi.append(creditDisclosure);poi.scrollTop=0;}
+    else if(!inlineCredits&&credits.parentElement!==layer){creditHome.after(credits);creditDisclosure.remove();}
     const enabled=compact.matches&&layer.classList.contains('is-mobile-map-shell')&&!document.body.classList.contains('novel-mode-detour');
     if(drawer.hidden===enabled)drawer.hidden=!enabled;layer.classList.toggle('has-compact-observation',enabled);
     for(const node of layer.querySelectorAll(selector)){

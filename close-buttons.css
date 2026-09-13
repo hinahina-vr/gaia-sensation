@@ -16,3 +16,14 @@
   mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='m5 5 14 14M19 5 5 19' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") center/contain no-repeat;
 }
 :is(#japan-poi-close,#japan-data-close,#gaia-statistics-close,#gaia-statistics-menu-close,#gx-data-close,[data-mobile-sheet-close],[data-close-sources],.gaia-feature-close,.sensor-dialog-close,.sensor-map-card-close,#concept-close,[data-record-close],[data-terms-close]):focus-visible { outline:2px solid currentColor; outline-offset:3px; }
+
+/* A lightweight dismiss action, not a second prominent card in the heading. */
+#japan-layer #japan-poi-close {
+  width:44px !important; height:44px !important; min-width:44px !important; min-height:44px !important;
+  max-width:44px !important; max-height:44px !important; flex-basis:44px !important;
+  border:0 !important; border-radius:8px !important; background:transparent !important;
+}
+#japan-layer #japan-poi-close::after { width:18px !important; height:18px !important; }
+#japan-layer #japan-poi-close:hover { background:#adcbd514 !important; }
+#japan-layer.is-mobile-map-shell #japan-poi-card #japan-poi-close { margin:-6px -4px 0 0; }
+#japan-layer.is-mobile-map-shell #japan-poi-card .japan-poi-type { margin-right:48px; }

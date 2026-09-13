@@ -1,6 +1,6 @@
 # v1.0 release provenance
 
-Source development commit: `20f0e5d3f84e56b1c97303c283fc80abd495b3f1`.
+Source development commit: `a410248` (v1.0 submission content).
 
 This is a history-free publication copy. Original media dates and content hashes are preserved in `media-origin-snapshot.json`; no development history is represented as new production history.
 

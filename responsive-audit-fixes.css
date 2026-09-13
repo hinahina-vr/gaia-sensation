@@ -41,6 +41,36 @@
 #japan-layer #map-responsive-data :is(.gaia-cod-annotations,.gaia-cod-status,.gaia-cod-count,.gaia-food-status,.gaia-food-count) { position:static !important; max-width:100%; }
 #japan-layer #map-responsive-data .gaia-cod-annotations { text-align:left; align-items:flex-start; }
 #japan-layer#japan-layer.has-map-stable-navigation .japan-credits { bottom:var(--responsive-credit-bottom,120px) !important; max-width:calc(100% - 28px); max-height:32px; overflow:auto; }
+#japan-layer#japan-layer.is-mobile-map-shell #japan-poi-card .japan-credits {
+  display:flex !important; position:static !important; inset:auto !important;
+  transform:none !important; translate:none !important; width:auto !important;
+  max-width:100% !important; max-height:none !important; overflow:visible !important;
+  flex-wrap:wrap; gap:6px 12px; margin:16px 0 0 !important; padding:10px !important;
+}
+#japan-layer#japan-layer.is-mobile-map-shell #japan-poi-card .japan-credits a {
+  font-size:11px !important; line-height:1.5 !important; overflow-wrap:anywhere;
+}
+#japan-layer.is-mobile-map-shell .map-poi-credits-disclosure { margin-top:12px; }
+#japan-layer.is-mobile-map-shell .map-poi-credits-disclosure > summary {
+  padding:10px 12px; min-height:44px; box-sizing:border-box; cursor:pointer;
+  border:1px solid #aec9d533; border-radius:8px; color:#c5dedd; font:14px/1.6 var(--font-ja);
+}
+#japan-layer#japan-layer.is-mobile-map-shell .japan-credits {
+  align-items:flex-start !important; align-content:flex-start !important;
+  justify-content:flex-start !important;
+}
+#japan-layer#japan-layer.is-mobile-map-shell .gaia-live-weather-credit {
+  align-items:flex-start !important; align-content:flex-start !important;
+}
+#japan-layer#japan-layer.is-mobile-map-shell > .japan-credits { display:none !important; }
+.map-mobile-osm-attribution { position:fixed; right:12px; bottom:var(--responsive-credit-bottom,90px); z-index:281; padding:3px 6px; color:#d9e8e7; background:#071923e8; font:11px/1.5 sans-serif; }
+.map-mobile-osm-attribution[hidden] { display:none !important; }
+#japan-layer#japan-layer.is-mobile-map-shell #japan-poi-card:not([hidden]) {
+  top:var(--mobile-heading-bottom,100px) !important; bottom:auto !important;
+  max-height:max(100px,calc(100dvh - var(--mobile-heading-bottom,100px) - var(--mobile-poi-bottom,290px))) !important;
+  align-content:start !important; overflow-y:auto !important; scroll-padding-top:12px;
+  z-index:280 !important;
+}
 #japan-layer.has-map-stable-navigation .map-dock-context { left:auto !important; right:16px !important; bottom:calc(100% + 74px) !important; }
 body:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation #gaia-map-zoom-controls { left:12px !important; right:auto !important; top:160px !important; bottom:auto !important; transform:none !important; translate:none !important; }
 @media(min-width:901px) and (max-width:1399px) {
