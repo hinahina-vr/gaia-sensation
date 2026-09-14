@@ -15,7 +15,7 @@ for (const file of ["index.html", "sensors/index.html", "concept/index.html"]) {
 }
 // User-selected BYOK destinations need HTTPS connect-src. No arbitrary remote
 // script execution; executable inline scripts are bound to exact build hashes.
-const policy = ["default-src 'self'", `script-src 'self' ${[...hashes].sort().join(" ")}`,
+const policy = ["default-src 'self'", `script-src 'self' https://www.googletagmanager.com ${[...hashes].sort().join(" ")}`,
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com", "font-src 'self' data: https://fonts.gstatic.com",
   "img-src 'self' data: blob: https:", "media-src 'self' blob:",
   "connect-src 'self' https: wss: http://localhost:* http://127.0.0.1:*",

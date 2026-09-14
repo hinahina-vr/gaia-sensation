@@ -1,0 +1,15 @@
+#gaia-analytics-consent {
+  box-sizing: border-box; width: min(460px, calc(100% - 32px));
+  max-height: calc(100dvh - 32px); overflow: auto; padding: 24px;
+  border: 1px solid #709ba8; border-radius: 14px;
+  background: #0b202d; color: #edf7fa; font: 15px/1.65 system-ui, sans-serif;
+}
+#gaia-analytics-consent::backdrop { background: #00121b80; }
+#gaia-analytics-consent h2 { margin: 0 0 12px; font: 600 19px/1.4 system-ui, sans-serif; color: inherit; }
+#gaia-analytics-consent p { margin: 12px 0; font: inherit; color: inherit; }
+#gaia-analytics-consent a { color: #ace4ee; text-decoration: underline; }
+.gaia-analytics-actions { display: flex; gap: 12px; margin-top: 20px; }
+#gaia-analytics-consent button { flex: 1; min-height: 44px; padding: 8px; border: 1px solid #709ba8; border-radius: 8px; background: #183b49; color: #edf7fa; font: 600 15px/1.4 system-ui, sans-serif; cursor: pointer; }
+#gaia-analytics-consent button:disabled { opacity: .5; cursor: default; }
+#gaia-analytics-settings { position: fixed; z-index: 2147483646; left: 8px; bottom: max(8px, env(safe-area-inset-bottom)); width: auto; height: auto; min-height: 32px; padding: 5px 9px; border: 1px solid #709ba8; border-radius: 6px; background: #0b202dee; color: #edf7fa; font: 12px/1.5 system-ui, sans-serif; cursor: pointer; }
+#gaia-analytics-consent :focus-visible, #gaia-analytics-settings:focus-visible { outline: 2px solid #ace4ee; outline-offset: 3px; }
