@@ -9009,6 +9009,7 @@ h1 {
   font-weight: 600;
   letter-spacing: 0.025em;
   line-height: 1.35;
+  min-width: 0;
   word-break: keep-all;
   white-space: nowrap;
 }
@@ -9022,6 +9023,8 @@ h1 {
   margin: 9px 0 0;
   font-size: clamp(10px, 0.72vw, 12px);
   line-height: 1.5;
+  min-width: 0;
+  max-width: 100%;
   word-break: keep-all;
   white-space: nowrap;
 }
@@ -9702,4 +9705,20 @@ h1 {
   }
   .intro-entry-guide-echo { display: none; }
   .intro-entry-guide.is-presented .intro-entry-guide-bubble .intro-entry-guide-surface::after { animation: none; }
+}
+
+/* Keep exploration labels on one line at their actual card width. */
+@media (max-width: 1000px) {
+  .intro-lp-hero .intro-path-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+.intro-lp-hero .intro-path-card { container-type: inline-size; }
+.intro-lp-hero .intro-path-card > strong,
+.intro-lp-hero .intro-path-card:not(.intro-path-card--featured) > strong {
+  font-size: min(17px, calc((100cqi - 42px) / 8.4));
+  white-space: nowrap;
+}
+.intro-lp-hero .intro-path-card > p,
+.intro-lp-hero .intro-path-card:not(.intro-path-card--featured) > p {
+  font-size: min(11px, 5.1cqi);
+  white-space: nowrap;
 }

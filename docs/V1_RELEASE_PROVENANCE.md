@@ -1,6 +1,6 @@
 # v1.0 release provenance
 
-Source development commit: `0aa94d5` (regional GA4 consent), with retained owner-requested README edits and production-only transformations below. Version remains v1.0.
+Source development commit: `3249b243341d46baffdeca1a07ef72ba0829e663` (exploration card text fitting), with retained owner-requested README edits, regional GA4 consent and production-only transformations below. Version remains v1.0.
 
 The added `assets/guide-previews/story.jpg` is the owner's application screenshot, resized without cropping or redrawing. Its original development timestamp and adoption record are retained in the material ledger. Scope maintenance adds only that screenshot; previous asset records, data, dependencies and permission decisions are unchanged.
 

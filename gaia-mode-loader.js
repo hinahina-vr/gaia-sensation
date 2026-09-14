@@ -4,7 +4,7 @@
 (() => {
   "use strict";
 
-  const sharedStylesheet = "./styles.css?v=gaia-recycling-country-fill-1-intro-face-clearance-1-mincho-20260912";
+  const sharedStylesheet = "./styles.css?v=gaia-recycling-country-fill-1-intro-face-clearance-1-mincho-20260912-card-text-fit-20260915";
 
   const groups = Object.freeze({
     exploration: {
