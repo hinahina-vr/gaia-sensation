@@ -2,13 +2,14 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import {chromium} from 'playwright-core';
 const browser=await chromium.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true});
-const out='artifacts/analytics-regional-consent-20260915';await fs.mkdir(out,{recursive:true});
+const out=process.env.GAIA_ANALYTICS_OUTPUT||'artifacts/analytics-regional-consent-20260915';await fs.mkdir(out,{recursive:true});
+const base=process.env.GAIA_PREVIEW_URL||'http://127.0.0.1:4492';
 const origin='https://gaia-senseware.pages.dev';
 const choiceKey='gaia-analytics-choice-v2';
 try {
- for(const variant of [{country:'JP',width:1440},{country:'JP',width:390},{country:'DE',width:1440},{country:'US',width:390},{country:'GB',width:390,path:'/'},{country:'XX'},{country:'fail'},{country:'timeout'},{country:'JP',denied:true},{country:'US',gpc:true},{country:'US',dnt:true},{country:'DE',saved:'granted'},{country:'DE',saved:'denied'},{country:'DE',saved:'granted',expired:true}]) {
+ for(const variant of [{country:'JP',width:1440},{country:'JP',width:390},{country:'DE',width:1440},{country:'US',width:390},{country:'GB',width:390,path:'/'},{country:'XX'},{country:'fail'},{country:'timeout'},{country:'JP',denied:true},{country:'US',gpc:true},{country:'US',dnt:true},{country:'DE',saved:'granted'},{country:'DE',saved:'denied'},{country:'DE',saved:'granted',expired:true},{country:'JP',delayed:true}]) {
   const context=await browser.newContext({viewport:{width:variant.width||390,height:900},locale:'ja-JP'});
-  let tags=0,traces=0;
+  let tags=0,traces=0,releaseRegion;
   await context.addInitScript(({v,key})=>{
     if(v.denied)localStorage.setItem('gaia-analytics-consent-v1','denied');
     if(v.saved&&!sessionStorage.getItem('seeded')) {localStorage.setItem(key,JSON.stringify({value:v.saved,at:Date.now()-(v.expired?181*86400000:0)}));sessionStorage.setItem('seeded','1');}
@@ -20,14 +21,21 @@ try {
     if(url.hostname==='www.googletagmanager.com'){tags++;return route.fulfill({contentType:'text/javascript',body:'/* Google stub; no actual GA collection */'});}
     if(url.pathname==='/cdn-cgi/trace') {
       traces++;
+      if(variant.delayed)await new Promise(resolve=>{releaseRegion=resolve;});
       if(variant.country==='timeout'){await new Promise(r=>setTimeout(r,4300));return route.abort().catch(()=>{});}
       return variant.country==='fail'?route.abort():route.fulfill({body:'loc='+variant.country+'\n'});
     }
-    if(url.hostname==='gaia-senseware.pages.dev')return route.fulfill({response:await context.request.get('http://127.0.0.1:4492'+url.pathname+url.search)});
+    if(url.hostname==='gaia-senseware.pages.dev')return route.fulfill({response:await context.request.get(base+url.pathname+url.search)});
     return route.abort();
   });
   const page=await context.newPage();
   await page.goto(origin+(variant.path||'/concept/'));
+  if(variant.delayed) {
+    assert.equal(tags,0,'No tag before country lookup finishes');
+    assert.equal(await page.locator('#gaia-analytics-consent').count(),0);
+    assert.equal(typeof releaseRegion,'function');
+    releaseRegion();
+  }
   await page.waitForTimeout(variant.country==='timeout'?4600:1000);
   const protectedByPreference=variant.denied||variant.gpc||variant.dnt||variant.saved==='denied';
   const expected=!protectedByPreference&&(variant.country==='JP'||(variant.saved==='granted'&&!variant.expired));
@@ -70,11 +78,37 @@ try {
       await page.locator('#gaia-analytics-settings').click();
       await page.keyboard.press('Escape');
       assert.equal(await page.evaluate(()=>window['ga-disable-G-GY90YZSS4D']),true);
+      if(variant.country==='DE'&&variant.width===1440) {
+        // Real storage events between two tabs, not a synthetic same-tab event.
+        const other=await context.newPage();
+        await other.goto(origin+'/concept/');
+        await other.locator('#gaia-analytics-settings').waitFor();
+        await other.locator('#gaia-analytics-settings').click();
+        await other.locator('[data-ga-accept]').click();
+        await page.waitForFunction(()=>window['ga-disable-G-GY90YZSS4D']===false);
+        await page.evaluate(()=>{
+          document.cookie='_ga=fixture; Path=/';
+          document.cookie='_ga_GY90YZSS4D=fixture; Path=/';
+          document.cookie='gaia_test_preference=keep; Path=/';
+        });
+        await other.locator('#gaia-analytics-settings').click();
+        await other.locator('[data-ga-reject]').click();
+        await page.waitForFunction(()=>window['ga-disable-G-GY90YZSS4D']===true);
+        const cookies=await context.cookies();
+        assert(!cookies.some(cookie=>/^_ga(?:_|$)/.test(cookie.name)));
+        assert(cookies.some(cookie=>cookie.name==='gaia_test_preference'),'Unrelated cookies survive withdrawal');
+        const count=await page.evaluate(()=>window.dataLayer.length);
+        await page.evaluate(()=>history.replaceState(null,'','/#character'));
+        await page.waitForTimeout(50);
+        assert.equal(await page.evaluate(()=>window.dataLayer.length),count,'Another tab can stop navigation tracking');
+        await other.close();
+        console.log('PASS cross-tab consent, withdrawal, GA-only cookie removal');
+      }
     }
   }
   console.log('PASS',JSON.stringify(variant));await context.close();
  }
- const page=await browser.newPage();await page.goto('http://127.0.0.1:4492/concept/');
+ const page=await browser.newPage();await page.goto(base+'/concept/');
  assert.equal(await page.locator('script[src*="googletagmanager"],#gaia-analytics-consent,#gaia-analytics-settings').count(),0);
  console.log('PASS localhost excluded');
 } finally {await browser.close();}

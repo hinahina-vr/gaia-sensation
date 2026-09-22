@@ -2,12 +2,13 @@ import {chromium} from 'playwright-core';
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 const baseline=process.argv.includes('--baseline');
-const out='artifacts/intro-card-text';await fs.mkdir(out,{recursive:true});
+const out=process.env.GAIA_CARD_TEXT_OUTPUT||'artifacts/intro-card-text';await fs.mkdir(out,{recursive:true});
+const base=process.env.GAIA_PREVIEW_URL||'http://127.0.0.1:4492';
 const browser=await chromium.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true});
 try {
 for(const width of (baseline?[390]:[360,390,412,768,1440])) {
  const page=await browser.newPage({viewport:{width,height:900},isMobile:width<768,hasTouch:width<768});
- await page.goto('http://127.0.0.1:4492/');
+ await page.goto(base+'/');
  await page.locator('#gaia-opening-sound-off').click();
  await page.locator('#gaia-opening-skip').click();
  await page.locator('#gaia-opening-route-other').click();
@@ -24,7 +25,7 @@ for(const width of (baseline?[390]:[360,390,412,768,1440])) {
  }));
  await page.screenshot({path:`${out}/${baseline?'before':'after'}-${width}.png`});
  console.log(width,JSON.stringify(result));
-    if(!baseline)assert(result.every(c=>c.children.every(t=>!t.overflow&&t.whiteSpace==='nowrap')),'All button text must fit on one line');
+ if(!baseline)assert(result.every(c=>c.children.every(t=>!t.overflow&&t.whiteSpace==='nowrap')),'All button text must fit on one line');
  await page.close();
 }
 }finally{await browser.close();}

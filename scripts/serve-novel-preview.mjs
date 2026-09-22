@@ -9,6 +9,13 @@ const host = process.env.GAIA_PREVIEW_HOST || "127.0.0.1";
 const port = Number(process.env.GAIA_PREVIEW_PORT || process.argv[2] || 4173);
 // Opt-in transport simulation for performance QA; the default stays raw.
 const useBrotli = process.env.GAIA_PREVIEW_COMPRESSION === "br";
+// Read-only overlay for before/after performance QA; assets not captured in the
+// snapshot still come from this workspace. Never changes the served files.
+const baselineRoot = process.env.GAIA_PREVIEW_BASELINE
+  ? path.resolve(root, process.env.GAIA_PREVIEW_BASELINE) : null;
+if (baselineRoot && !baselineRoot.startsWith(`${root}${path.sep}`)) {
+  throw new Error('GAIA_PREVIEW_BASELINE must be inside the workspace');
+}
 const compressedFiles = new Map();
 const compressible = new Set([".html", ".js", ".mjs", ".css", ".json", ".svg", ".topojson", ".geojson"]);
 const mime = new Map([
@@ -38,7 +45,11 @@ const server = http.createServer((request, response) => {
     response.end();
     return;
   }
-  const file = resolveRequest(request.url || "/");
+  let file = resolveRequest(request.url || "/");
+  if (file && baselineRoot) {
+    const saved = path.join(baselineRoot, path.relative(root, file));
+    if (fs.existsSync(saved) && fs.statSync(saved).isFile()) file = saved;
+  }
   if (!file) {
     response.writeHead(404, { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "no-store" });
     response.end("Not found");

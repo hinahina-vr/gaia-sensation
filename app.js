@@ -3,14 +3,19 @@
  */
 (async () => {
   "use strict";
-  const { japanPrefectureView } = await import('./src/exploration/japan-prefecture-view.js');
-  const { animateMetricText } = await import("./src/shared/animated-metric.js");
-
-  const { renderPoiPreviewReadings, renderPoiPreviewTitle } = await import("./src/exploration/poi-preview-readings.js?v=large-values-20260912-i18n-20260913");
-  const { formatCoordinatesJa } = await import("./src/shared/coordinates.js");
-
-  const { createSnapshotStore } = await import("./src/data/snapshot-store.js?v=gaia-hardening-1-perf-high-20260909");
-  const { recyclingSourceId, recyclingSourceLabel, recyclingDefinition, recyclingScope, recyclingYearNote, recyclingDetails, RECYCLING_COMPARABILITY } = await import("./src/data/recycling-provenance.js?v=recycling-coverage-1");
+  const [
+    { japanPrefectureView }, { animateMetricText },
+    { renderPoiPreviewReadings, renderPoiPreviewTitle }, { formatCoordinatesJa },
+    { createSnapshotStore },
+    { recyclingSourceId, recyclingSourceLabel, recyclingDefinition, recyclingScope, recyclingYearNote, recyclingDetails, RECYCLING_COMPARABILITY },
+  ] = await Promise.all([
+    import('./src/exploration/japan-prefecture-view.js?v=gaia-prefecture-gis-view-1'),
+    import('./src/shared/animated-metric.js'),
+    import('./src/exploration/poi-preview-readings.js?v=large-values-20260912-i18n-20260913'),
+    import('./src/shared/coordinates.js'),
+    import('./src/data/snapshot-store.js?v=gaia-hardening-1-perf-high-20260909'),
+    import('./src/data/recycling-provenance.js?v=recycling-coverage-1'),
+  ]);
   const snapshotStore = createSnapshotStore({ manifestUrl: new URL("./data/runtime/gaia-manifest.json?v=recycling-coverage-1", document.baseURI).href });
   let snapshotOwnerDisposed = false;
   window.addEventListener("pagehide", event => {
@@ -592,6 +597,8 @@
     });
     window.dispatchEvent(new CustomEvent("gaia:map-adapter-ready", { detail: { fallback: true } }));
     document.documentElement.dataset.gaiaAppReady = "fallback";
+    document.documentElement.dataset.gaiaEntryReady = "fallback";
+    window.dispatchEvent(new CustomEvent("gaia:entry-ready", { detail: { fallback: true } }));
     window.dispatchEvent(new CustomEvent("gaia:app-ready", { detail: { fallback: true } }));
     return;
   }
@@ -818,46 +825,48 @@
     return nextProgram;
   };
 
-  let program;
+  let program, fullscreenTriangle, uniforms;
+  // Compile in parallel with DOM/event setup. Entry controls do not use this
+  // shader; actual map/source entry still waits for gaia:app-ready below.
+  const rendererReady = createProgram().then((compiledProgram) => {
+    program = compiledProgram;
+    fullscreenTriangle = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, fullscreenTriangle);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
 
-  try {
-    program = await createProgram();
-  } catch (error) {
+    const positionLocation = gl.getAttribLocation(program, "aPosition");
+    gl.enableVertexAttribArray(positionLocation);
+    gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
+
+    uniforms = {
+      resolution: gl.getUniformLocation(program, "uResolution"),
+      time: gl.getUniformLocation(program, "uTime"),
+      pointer: gl.getUniformLocation(program, "uPointer"),
+      velocity: gl.getUniformLocation(program, "uVelocity"),
+      trail: gl.getUniformLocation(program, "uTrail[0]"),
+      trailActive: gl.getUniformLocation(program, "uTrailActive"),
+      modeMemory: gl.getUniformLocation(program, "uModeMemory[0]"),
+      modeFrom: gl.getUniformLocation(program, "uModeFrom"),
+      modeTo: gl.getUniformLocation(program, "uModeTo"),
+      transition: gl.getUniformLocation(program, "uTransition"),
+      signal: gl.getUniformLocation(program, "uSignal"),
+      sourceSignals: gl.getUniformLocation(program, "uSourceSignals[0]"),
+      currentSamples: gl.getUniformLocation(program, "uCurrentSamples[0]"),
+      currentSampleCount: gl.getUniformLocation(program, "uCurrentSampleCount"),
+      currentVectorField: gl.getUniformLocation(program, "uCurrentVectorField"),
+      currentWeave: gl.getUniformLocation(program, "uCurrentWeave"),
+      currentGeoView: gl.getUniformLocation(program, "uCurrentGeoView"),
+      currentWeaveReady: gl.getUniformLocation(program, "uCurrentWeaveReady"),
+    };
+    return true;
+  }).catch((error) => {
+    program = null;
     console.error(error);
     errorPanel.querySelector("p").textContent = "シェーダーの初期化に失敗しました。";
     errorPanel.querySelector("small").textContent = error.message;
     errorPanel.hidden = false;
-    return;
-  }
-
-  const fullscreenTriangle = gl.createBuffer();
-  gl.bindBuffer(gl.ARRAY_BUFFER, fullscreenTriangle);
-  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
-
-  const positionLocation = gl.getAttribLocation(program, "aPosition");
-  gl.enableVertexAttribArray(positionLocation);
-  gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
-
-  const uniforms = {
-    resolution: gl.getUniformLocation(program, "uResolution"),
-    time: gl.getUniformLocation(program, "uTime"),
-    pointer: gl.getUniformLocation(program, "uPointer"),
-    velocity: gl.getUniformLocation(program, "uVelocity"),
-    trail: gl.getUniformLocation(program, "uTrail[0]"),
-    trailActive: gl.getUniformLocation(program, "uTrailActive"),
-    modeMemory: gl.getUniformLocation(program, "uModeMemory[0]"),
-    modeFrom: gl.getUniformLocation(program, "uModeFrom"),
-    modeTo: gl.getUniformLocation(program, "uModeTo"),
-    transition: gl.getUniformLocation(program, "uTransition"),
-    signal: gl.getUniformLocation(program, "uSignal"),
-    sourceSignals: gl.getUniformLocation(program, "uSourceSignals[0]"),
-    currentSamples: gl.getUniformLocation(program, "uCurrentSamples[0]"),
-    currentSampleCount: gl.getUniformLocation(program, "uCurrentSampleCount"),
-    currentVectorField: gl.getUniformLocation(program, "uCurrentVectorField"),
-    currentWeave: gl.getUniformLocation(program, "uCurrentWeave"),
-    currentGeoView: gl.getUniformLocation(program, "uCurrentGeoView"),
-    currentWeaveReady: gl.getUniformLocation(program, "uCurrentWeaveReady"),
-  };
+    return false;
+  });
 
   // Geographic textures are generated once per data snapshot in a worker.
   // Pan, zoom and the date slider only change uniforms; they never rebuild it.
@@ -11603,6 +11612,9 @@ for (const country of countryValues) {
     showIntroStage("path");
   });
   window.addEventListener("hashchange", () => {
+    // Initial map/source routes are applied below, after rendererReady. Entry
+    // controls can already be used while compilation is still in progress.
+    if (!program) return;
     if (window.location.hash === "#source") {
       closeIntro({ restoreFocus: false });
       closeJapan({ restoreFocus: false, updateHash: false });
@@ -11832,6 +11844,10 @@ for (const country of countryValues) {
   };
 
   const render = (now) => {
+    if (!program) {
+      animationFrame = requestAnimationFrame(render);
+      return;
+    }
     // The geographic base must keep following the shared projection in every
     // chapter. Live chapters render their own data canvas, but the coastlines
     // still need to redraw after wheel, pinch, drag, and control-button input.
@@ -12057,6 +12073,16 @@ for (const country of countryValues) {
         && !document.body.classList.contains("novel-mode-detour");
       if (!coveredByNovel) startRendering();
     }, { once: true });
+  }
+  document.documentElement.dataset.gaiaEntryReady = "true";
+  if (openingLayer?.hidden && ["#top", "#character"].includes(window.location.hash)) {
+    openIntro({ restoreFocusOnClose: false });
+    requestAnimationFrame(() => document.body.classList.remove("gaia-route-handoff"));
+  }
+  window.dispatchEvent(new CustomEvent("gaia:entry-ready"));
+  if (!await rendererReady) {
+    stopRendering();
+    return;
   }
   document.documentElement.dataset.gaiaAppReady = "true";
   window.dispatchEvent(new CustomEvent("gaia:app-ready"));

@@ -84,7 +84,7 @@ assert.equal(indexHtml.includes('id="character-book-master"'), false, "Removed c
 assert.equal(indexHtml.includes("01-three-ecologies-character-master.png"), false, "Removed reference image must not be requested by the page");
 assert.equal(modeLoader.includes('interceptClick("[data-character-gallery-open]", "character")'), true, "Character viewer is not lazy-loaded");
 assert.equal(modeLoader.includes('interceptClick("[data-sound-gallery-open]", "sound")'), true, "Sound archive is not lazy-loaded");
-assert.equal(modeLoader.includes('event.target.closest("[data-sound-gallery-open]")'), true, "Sound archive is not warmed on pointer or keyboard intent");
+assert.equal(modeLoader.includes('warmOnIntent("[data-sound-gallery-open]", "sound")'), true, "Sound archive is not warmed on pointer or keyboard intent");
 assert.equal(openingRuntime.includes('GaiaModeLoader?.load?.("sound")'), true, "Sound archive is not warmed during the menu handoff");
 assert.equal((modeLoader.match(/\.\/styles\.css\?v=[\w-]+/gu) || []).length, 1, "Shared UI styles must use one cache URL across mode groups");
 assert.match(modeLoader, /sound:\s*\{[\s\S]{0,120}parallel: true,/u, "Sound archive assets are not fetched in parallel");

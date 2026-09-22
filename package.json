@@ -5,7 +5,12 @@
   "type": "module",
   "description": "惑星の放課後 — GAIA SENSATION — pure HTML/CSS/JavaScript installation",
   "scripts": {
-    "check:i18n": "node scripts/check-i18n-catalog.mjs && node scripts/check-i18n-core-browser.mjs",
+    "check:mode-loader": "node scripts/check-mode-loader-prefetch.mjs && node --experimental-vm-modules scripts/check-mode-loader-lifecycle.mjs",
+    "check:mode-loader:browser": "node scripts/check-mode-loader-browser.mjs",
+    "measure:entry-performance": "node scripts/measure-entry-performance.mjs",
+    "check:performance-compatibility": "node scripts/build-ui-locale-bundles.mjs --check && node scripts/check-performance-compatibility-browser.mjs",
+    "build:ui-locales": "node scripts/build-ui-locale-bundles.mjs",
+    "check:i18n": "node scripts/build-ui-locale-bundles.mjs --check && node scripts/check-i18n-catalog.mjs && node scripts/check-i18n-core-browser.mjs",
     "check:i18n:guides": "node scripts/check-i18n-reported-surfaces-browser.mjs && node scripts/check-i18n-guides-browser.mjs && node scripts/check-i18n-concept-browser.mjs",
     "check:i18n:story": "node scripts/check-i18n-story-browser.mjs && node scripts/check-i18n-log-export-browser.mjs && node scripts/check-i18n-true-end-full-browser.mjs",
     "check:i18n:modes": "node scripts/check-i18n-character-browser.mjs && node scripts/check-i18n-secondary-modes-browser.mjs && node scripts/check-i18n-ending-music-browser.mjs && node scripts/check-i18n-sound-glyphs-browser.mjs",

@@ -161,7 +161,9 @@
     }
     templateList = [...templates].sort(([left], [right]) => right.replace(/\{\w+\}/g, '').length - left.replace(/\{\w+\}/g, '').length);
     translationCache.clear();
-    refresh();
+    // New translations cannot change Japanese presentation. Language changes
+    // still refresh synchronously, including restoration of original text.
+    if (language !== 'ja') refresh();
   };
   const registerStory = (story, entries) => {
     const steps = new Map(story.scenes.flatMap(scene => scene.steps).map(step => [step.id, step]));

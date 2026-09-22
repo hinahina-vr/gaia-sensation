@@ -988,9 +988,9 @@
       }
       frame = requestAnimationFrame(draw);
     };
-    const resize = () => {
-      width = Math.max(1, soundModal.clientWidth);
-      height = Math.max(1, soundModal.clientHeight);
+    const resize = (nextWidth, nextHeight) => {
+      width = Math.max(1, Math.round(nextWidth));
+      height = Math.max(1, Math.round(nextHeight));
       const ratio = Math.min(devicePixelRatio || 1, 1.25, Math.sqrt(1100000 / (width * height)));
       canvas.width = Math.max(1, Math.floor(width * ratio));
       canvas.height = Math.max(1, Math.floor(height * ratio));
@@ -1020,17 +1020,35 @@
       pointer.targetX = event.clientX / width;
       pointer.targetY = event.clientY / height;
     };
+    // The absolute 100% canvas has the modal's client dimensions. Observe its
+    // laid-out size rather than forcing layout immediately after revealing it.
+    // Paint the same first frame before releasing the boot cover.
+    let resolveFirstSize;
+    const measureFallback = () => resize(soundModal.clientWidth, soundModal.clientHeight);
+    const sizeObserver = typeof ResizeObserver === "function" ? new ResizeObserver(([entry]) => {
+      if (!active || !entry?.contentRect.width || !entry.contentRect.height) return;
+      resize(entry.contentRect.width, entry.contentRect.height);
+      if (resolveFirstSize) {
+        resume();
+        resolveFirstSize();
+        resolveFirstSize = null;
+      }
+    }) : null;
     return {
       start() {
         if (active) return;
         active = true;
         startedAt = performance.now();
         lastPaint = 0;
-        window.addEventListener("resize", resize, { passive: true });
+        if (!sizeObserver) window.addEventListener("resize", measureFallback, { passive: true });
         document.addEventListener("visibilitychange", resume);
         motion.addEventListener("change", resume);
         soundModal.addEventListener("pointermove", followPointer, { passive: true });
-        resize();
+        if (sizeObserver) return new Promise(resolve => {
+          resolveFirstSize = resolve;
+          sizeObserver.observe(canvas);
+        });
+        measureFallback();
         resume();
       },
       stop() {
@@ -1039,7 +1057,10 @@
         frame = 0;
         canvas.dataset.state = "stopped";
         soundModal.classList.add("is-atmosphere-paused");
-        window.removeEventListener("resize", resize);
+        sizeObserver?.disconnect();
+        resolveFirstSize?.();
+        resolveFirstSize = null;
+        window.removeEventListener("resize", measureFallback);
         document.removeEventListener("visibilitychange", resume);
         motion.removeEventListener("change", resume);
         soundModal.removeEventListener("pointermove", followPointer);
@@ -1216,9 +1237,10 @@
       const selectedButton = pendingSoundEnabled ? soundOnButton : soundOffButton;
       selectedButton?.focus({ preventScroll: true });
     };
-    requestAnimationFrame(() => {
+    requestAnimationFrame(async () => {
       soundModal.classList.add("is-visible");
-      soundAtmosphere.start();
+      await soundAtmosphere.start();
+      if (!soundModalOpen) return;
       signalInitialViewReady();
       window.clearTimeout(openingArtWarmTimer);
       const warmOpeningArtAfterHandoff = () => {
@@ -1246,7 +1268,7 @@
           await window.GaiaModeLoader?.load?.("exploration");
           await window.GaiaModeLoader?.load?.("tour");
         })()
-      : Promise.resolve(window.GaiaModeLoader?.load?.(destination === "story" ? "story" : "exploration"));
+      : Promise.resolve(window.GaiaModeLoader?.load?.(destination === "story" ? "story" : "entry"));
     const destinationReady = destination === "story"
       ? Promise.resolve(routeReady).then(async () => {
           for (let frame = 0; frame < 120 && !window.GaiaNovel?.prepareEntry; frame += 1) {

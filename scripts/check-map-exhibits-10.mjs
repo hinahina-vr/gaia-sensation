@@ -340,7 +340,7 @@ assert.doesNotMatch(liveExhibitsSource, /fillRect\(x - 2, y - 1/u, "wind field m
 assert.doesNotMatch(html, /01—10|01〜10|10の観測展示|10番目の展示/u);
 assert.doesNotMatch(html, /01—20|01〜20|20の感覚器|20の展示|10テーマ・20演出/u);
 assert.doesNotMatch(html, /class="map-scope-switch"|MAP SCALE/u);
-assert.match(html, /gaia-mode-loader\.js\?v=gaia-hardening-1/u);
+assert.match(html, /gaia-mode-loader\.js\?v=20260922-entry-ready-1/u);
 assert.equal(ESTAT_EXHIBITS.find(exhibit => exhibit.key === "lodging").unit, "人");
 assert.match(liveExhibitsSource, /この地図で確かめること/u);
 assert.equal(LIVE_EXHIBITS.filter(exhibit => typeof exhibit.question === "string" && exhibit.question.length).length, 6);
@@ -358,7 +358,7 @@ assert.match(modeLoaderSource, /map-ui-grid-polish\.js\?v=entry-bottom-menu-2026
 assert.match(modeLoaderSource, /map-exhibit-categories\.css\?v=gaia-exhibit-profile-1/u);
 assert.match(modeLoaderSource, /map-exhibit-categories\.js\?v=gaia-exhibit-profile-1/u);
 assert.match(modeLoaderSource, /app-content\.js\?v=gaia-recycling-coverage-1/u);
-assert.match(modeLoaderSource, /app\.js\?v=entry-bottom-menu-20260914-gaia-hardening-1/u);
+assert.match(modeLoaderSource, /app\.js\?v=entry-ready-20260922-entry-bottom-menu-20260914-gaia-hardening-1/u);
 assert.match(modeLoaderSource, /map-observation-panels\.css\?v=gaia-observation-panels-jst-1/u);
 assert.match(modeLoaderSource, /map-legend-drag\.js\?v=gaia-story-map-left-ui-1/u);
 assert.match(modeLoaderSource, /map-legend-drag\.css\?v=gaia-movable-legends-1/u);

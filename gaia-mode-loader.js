@@ -4,7 +4,7 @@
 (() => {
   "use strict";
 
-  const sharedStylesheet = "./styles.css?v=gaia-recycling-country-fill-1-intro-face-clearance-1-mincho-20260912-card-text-fit-20260915";
+  const sharedStylesheet = "./styles.css?v=gaia-recycling-country-fill-1-intro-face-clearance-1-mincho-20260912-card-text-fit-20260919-refactor";
 
   const groups = Object.freeze({
     exploration: {
@@ -51,7 +51,7 @@
         "./app-content.js?v=gaia-recycling-coverage-1-population-style-1-marine-cod-1-prefecture-fill-20260912-i18n-20260913",
         "./ecologies-exhibit.js?v=gaia-country-coverage-1-extended-handoff-20260912",
         "./map-exhibit-categories.js?v=gaia-exhibit-profile-1-marine-cod-1-cod-ui-20260909-japan-sensor-open-1-pollution-1-prtr-biology-1-fao-food-1-scope-groups-20260910-periodic-tiles-20260912-exhibit-links-20260912-i18n-20260913-picker-depth-focus-20260913",
-        "./app.js?v=entry-bottom-menu-20260914-gaia-hardening-1-unified-navigation-1-map-polish-1-feature-intro-mizu-ame-2-recycling-coverage-1-hover-inline-1-population-style-1-marine-cod-1-separator-hold-20260909-cod-ui-20260909-japan-sensor-open-1-character-concept-20260909-perf-high-20260909-owner-dispose-20260909-observation-portal-20260909-tail-20260909-fao-food-1-calm-repeat-20260910-food-country-fill-20260910-title-return-dissolve-20260910-story-temperature-20260910-completion-gate-20260910-temperature-autoplay-20260911-periodic-tiles-20260912-unified-dock-20260912-shared-glint-20260912-mincho-20260912-prefecture-fill-20260912-unified-playback-20260912-ending-return-20260912-exhibit-links-20260912-exhibit-navigation-20260912-i18n-20260913-previews-20260913",
+        "./app.js?v=entry-ready-20260922-entry-bottom-menu-20260914-gaia-hardening-1-unified-navigation-1-map-polish-1-feature-intro-mizu-ame-2-recycling-coverage-1-hover-inline-1-population-style-1-marine-cod-1-separator-hold-20260909-cod-ui-20260909-japan-sensor-open-1-character-concept-20260909-perf-high-20260909-owner-dispose-20260909-observation-portal-20260909-tail-20260909-fao-food-1-calm-repeat-20260910-food-country-fill-20260910-title-return-dissolve-20260910-story-temperature-20260910-completion-gate-20260910-temperature-autoplay-20260911-periodic-tiles-20260912-unified-dock-20260912-shared-glint-20260912-mincho-20260912-prefecture-fill-20260912-unified-playback-20260912-ending-return-20260912-exhibit-links-20260912-exhibit-navigation-20260912-i18n-20260913-previews-20260913",
         "./map-ui-grid-polish.js?v=entry-bottom-menu-20260914-gaia-story-map-dock-1-map-polish-1-scope-groups-20260910-exhibit-navigation-20260912-i18n-20260913-picker-depth-focus-20260913-fixed-nav-dock15-20260913",
         "./map-legend-drag.js?v=gaia-story-map-left-ui-1-perf-high-20260909-fao-food-1",
         "./map-mobile-shell.js?v=gaia-mobile-collection-1-marine-cod-1-cod-ui-20260909-japan-sensor-open-1-fao-food-1-scope-groups-20260910-periodic-tiles-20260912-unified-playback-20260912-exhibit-navigation-20260912-i18n-20260913-picker-cascade-20260913-responsive-audit",
@@ -241,49 +241,51 @@
     template.replaceWith(template.content);
   };
 
-  const loadStyle = (href) => {
-    const absolute = new URL(href, document.baseURI).href;
+  // Styles and classic scripts share a request lifecycle, but not insertion
+  // points or ordering. Keep those differences explicit at the call sites.
+  const loadElementAsset = (url, { existing, create, parent, label }) => {
+    const absolute = new URL(url, document.baseURI).href;
     if (assetPromises.has(absolute)) return assetPromises.get(absolute);
-    const existing = Array.from(document.styleSheets).find((sheet) => sheet.href === absolute);
-    if (existing) return Promise.resolve();
+    if (existing(absolute)) return Promise.resolve();
     const promise = new Promise((resolve, reject) => {
-      const link = document.createElement("link");
-      link.rel = "stylesheet";
-      link.href = href;
-      link.dataset.gaiaLazyAsset = "style";
-      link.onload = () => resolve();
-      link.onerror = () => {
+      const element = create(url);
+      element.onload = () => resolve();
+      element.onerror = () => {
         assetPromises.delete(absolute);
-        link.remove();
-        reject(new Error(`Stylesheet failed: ${href}`));
+        element.remove();
+        reject(new Error(`${label} failed: ${url}`));
       };
-      document.head.append(link);
+      parent.append(element);
     });
     assetPromises.set(absolute, promise);
     return promise;
   };
 
-  const loadScript = (src) => {
-    const absolute = new URL(src, document.baseURI).href;
-    if (assetPromises.has(absolute)) return assetPromises.get(absolute);
-    const existing = Array.from(document.scripts).find((script) => script.src === absolute);
-    if (existing) return Promise.resolve();
-    const promise = new Promise((resolve, reject) => {
+  const loadStyle = (href) => loadElementAsset(href, {
+    existing: (absolute) => Array.from(document.styleSheets).some((sheet) => sheet.href === absolute),
+    create: (url) => {
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = url;
+      link.dataset.gaiaLazyAsset = "style";
+      return link;
+    },
+    parent: document.head,
+    label: "Stylesheet",
+  });
+
+  const loadScript = (src) => loadElementAsset(src, {
+    existing: (absolute) => Array.from(document.scripts).some((script) => script.src === absolute),
+    create: (url) => {
       const script = document.createElement("script");
-      script.src = src;
+      script.src = url;
       script.async = false;
       script.dataset.gaiaLazyAsset = "script";
-      script.onload = () => resolve();
-      script.onerror = () => {
-        assetPromises.delete(absolute);
-        script.remove();
-        reject(new Error(`Script failed: ${src}`));
-      };
-      document.body.append(script);
-    });
-    assetPromises.set(absolute, promise);
-    return promise;
-  };
+      return script;
+    },
+    parent: document.body,
+    label: "Script",
+  });
 
   const preloadScript = (src) => {
     const absolute = new URL(src, document.baseURI).href;
@@ -306,45 +308,51 @@
   };
 
   const waitForGroupReady = (name) => {
-    if (name !== "exploration" || ["true", "fallback"].includes(document.documentElement.dataset.gaiaAppReady)) {
+    const readiness = name === "entry" ? ["gaiaEntryReady", "gaia:entry-ready"]
+      : name === "exploration" ? ["gaiaAppReady", "gaia:app-ready"] : null;
+    if (!readiness || ["true", "fallback"].includes(document.documentElement.dataset[readiness[0]])) {
       return Promise.resolve();
     }
     return new Promise((resolve, reject) => {
       const timeout = window.setTimeout(() => {
-        window.removeEventListener("gaia:app-ready", onReady);
-        reject(new Error("GAIA exploration runtime did not become ready"));
+        window.removeEventListener(readiness[1], onReady);
+        reject(new Error(`GAIA ${name} runtime did not become ready`));
       }, 15_000);
       const onReady = () => {
         window.clearTimeout(timeout);
         resolve();
       };
-      window.addEventListener("gaia:app-ready", onReady, { once: true });
+      window.addEventListener(readiness[1], onReady, { once: true });
     });
+  };
+
+  const loadGroupAssets = async ({ styles, scripts, modules = [], parallel }) => {
+    if (parallel) {
+      await Promise.all([
+        ...styles.map(loadStyle),
+        ...modules.map(loadModule),
+        ...scripts.map(loadScript),
+      ]);
+      return;
+    }
+    // Fetch classic scripts concurrently; evaluate only after styles/modules,
+    // and in manifest order. Several modes depend on this exact sequence.
+    scripts.forEach(preloadScript);
+    await Promise.all(styles.map(loadStyle));
+    await Promise.all(modules.map(loadModule));
+    for (const script of scripts) await loadScript(script);
   };
 
   const load = (name) => {
     if (loadedGroups.has(name)) return Promise.resolve();
     if (groupPromises.has(name)) return groupPromises.get(name);
-    const group = groups[name];
+    const group = groups[name === "entry" ? "exploration" : name];
     if (!group) return Promise.reject(new Error(`Unknown GAIA mode group: ${name}`));
 
     const promise = (async () => {
       performance.mark(`gaia:${name}-load-start`);
       group.templates.forEach(mountTemplate);
-      if (group.parallel) {
-        await Promise.all([
-          ...group.styles.map(loadStyle),
-          ...(group.modules || []).map(loadModule),
-          ...group.scripts.map(loadScript),
-        ]);
-      } else {
-        // Fetch the requested group's classic scripts concurrently, but retain
-        // the original evaluation/dependency order and load-error handling.
-        group.scripts.forEach(preloadScript);
-        await Promise.all(group.styles.map(loadStyle));
-        await Promise.all((group.modules || []).map(loadModule));
-        for (const script of group.scripts) await loadScript(script);
-      }
+      await loadGroupAssets(group);
       await waitForGroupReady(name);
       loadedGroups.add(name);
       performance.mark(`gaia:${name}-load-end`);
@@ -359,6 +367,16 @@
     return promise;
   };
 
+  const setTriggerPending = (trigger, pending) => {
+    if (pending) {
+      trigger.dataset.gaiaLazyPending = "true";
+      trigger.setAttribute("aria-busy", "true");
+    } else {
+      delete trigger.dataset.gaiaLazyPending;
+      trigger.removeAttribute("aria-busy");
+    }
+  };
+
   const interceptClick = (selector, group) => {
     document.addEventListener("click", (event) => {
       const trigger = event.target instanceof Element ? event.target.closest(selector) : null;
@@ -366,17 +384,14 @@
       event.preventDefault();
       event.stopImmediatePropagation();
       if (trigger.dataset.gaiaLazyPending === "true") return;
-      trigger.dataset.gaiaLazyPending = "true";
-      trigger.setAttribute("aria-busy", "true");
+      setTriggerPending(trigger, true);
       if (group === "character") setCharacterPreloader(true);
       void load(group).then(() => {
-        delete trigger.dataset.gaiaLazyPending;
-        trigger.removeAttribute("aria-busy");
+        setTriggerPending(trigger, false);
         trigger.click();
         if (group === "character") void waitForCharacterReady().then(() => setCharacterPreloader(false));
       }).catch(() => {
-        delete trigger.dataset.gaiaLazyPending;
-        trigger.removeAttribute("aria-busy");
+        setTriggerPending(trigger, false);
         if (group === "character") {
           setCharacterPreloader(true, { error: true });
           window.setTimeout(() => setCharacterPreloader(false), 1200);
@@ -398,6 +413,7 @@
   };
 
   // The data-page footer exists before novel-mode registers its click handler.
+  interceptClick('[data-intro-path="map"]', "exploration");
   interceptClick("[data-novel-open]", "story");
   interceptClick("[data-sound-gallery-open]", "sound");
   interceptClick("[data-character-gallery-open]", "character");
@@ -408,23 +424,19 @@
   interceptEvent("gaia:space-open-at-mode", () => "space");
   interceptEvent("gaia:novel-open-at-mode", () => "story");
   interceptEvent("gaia:story-mode-open", () => "exploration");
-  interceptEvent("gaia:return-to-intro", () => "exploration");
+  interceptEvent("gaia:return-to-intro", () => "entry");
 
-  const warmCharacterArchive = (event) => {
-    if (loadedGroups.has("character")) return;
-    const trigger = event.target instanceof Element ? event.target.closest("[data-character-gallery-open]") : null;
-    if (trigger) void load("character").catch(() => {});
+  const warmOnIntent = (selector, group) => {
+    const warm = (event) => {
+      if (loadedGroups.has(group)) return;
+      const trigger = event.target instanceof Element ? event.target.closest(selector) : null;
+      if (trigger) void load(group).catch(() => {});
+    };
+    document.addEventListener("pointerover", warm, { passive: true });
+    document.addEventListener("focusin", warm);
   };
-  document.addEventListener("pointerover", warmCharacterArchive, { passive: true });
-  document.addEventListener("focusin", warmCharacterArchive);
-
-  const warmSoundArchive = (event) => {
-    if (loadedGroups.has("sound")) return;
-    const trigger = event.target instanceof Element ? event.target.closest("[data-sound-gallery-open]") : null;
-    if (trigger) void load("sound").catch(() => {});
-  };
-  document.addEventListener("pointerover", warmSoundArchive, { passive: true });
-  document.addEventListener("focusin", warmSoundArchive);
+  warmOnIntent("[data-character-gallery-open]", "character");
+  warmOnIntent("[data-sound-gallery-open]", "sound");
   window.addEventListener("gaia:return-to-intro", () => {
     void load("sound").catch(() => {});
   });
@@ -434,28 +446,30 @@
     isLoaded: (name) => loadedGroups.has(name),
   });
 
+  // Stages run in sequence; groups within one stage run concurrently. In
+  // particular, the tour must not initialize before exploration is ready.
+  const routeStages = new Map([
+    ["#top", [["entry"]]],
+    ["#sound", [["sound"]]],
+    ["#character", [["entry", "character"]]],
+    ["#tour", [["exploration"], ["tour"]]],
+    ...["#source", "#concept", "#earth", "#japan", "#data"].map((hash) => [hash, [["exploration"]]]),
+  ]);
+
+  const resolveRouteStages = ({ hash, pathname, search }) => {
+    if (hash === "#story" || /\/story\/?$/iu.test(pathname)) return [["story"]];
+    if (globalThis.GaiaMapRoute.isMapHash(hash)) return [["exploration"]];
+    if (routeStages.has(hash)) return routeStages.get(hash);
+    return new URLSearchParams(search).has("space") ? [["exploration", "space"]] : [];
+  };
+
   const directRouteLoad = async () => {
-    const hash = window.location.hash;
-    const query = new URLSearchParams(window.location.search);
-    if (hash === "#story" || /\/story\/?$/iu.test(window.location.pathname)) {
-      await load("story");
-    } else if (hash === "#top") {
-      await load("exploration");
-    } else if (globalThis.GaiaMapRoute.isMapHash(hash)) {
-      await load("exploration");
-    } else if (hash === "#sound") {
-      await load("sound");
-    } else if (hash === "#character") {
-      await Promise.all([load("exploration"), load("character")]);
-    } else if (hash === "#tour") {
-      await load("exploration");
-      await load("tour");
-    } else if (["#source", "#concept", "#earth", "#japan", "#data"].includes(hash)) {
-      await load("exploration");
-    } else if (query.has("space")) {
-      await Promise.all([load("exploration"), load("space")]);
-    } else {
-      return;
+    const stages = resolveRouteStages(window.location);
+    if (!stages.length) return;
+    for (const stage of stages) {
+      // Preserve the direct await for single-group routes as well as order.
+      if (stage.length === 1) await load(stage[0]);
+      else await Promise.all(stage.map(load));
     }
     globalThis.__gaiaInitialViewReady = true;
     globalThis.__gaiaBootCheck?.();

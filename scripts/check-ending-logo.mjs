@@ -20,7 +20,7 @@ assert.doesNotMatch(runtime, /track\.append\(heading, creditsHeading/u);
 assert.match(css, /\.novel-staff-roll\.is-reduced-motion \.novel-staff-roll-title\s*\{\s*position: relative;\s*inset: auto;\s*opacity: 1;\s*filter: none;\s*animation: none;/u);
 assert(read("gaia-mode-loader.js").includes("novel-mode.css?v=gaia-separator-plus-two-1"));
 assert(read("gaia-mode-loader.js").includes("novel-mode.js?v=gaia-separator-plus-two-1"));
-assert(read("index.html").includes("gaia-mode-loader.js?v=gaia-hardening-1"));
+assert(read("index.html").includes("gaia-mode-loader.js?v=20260922-entry-ready-1"));
 const finaleRuntime = read("true-end-mode.js");
 const finaleCss = read("true-end.css");
 assert.match(finaleRuntime, /const FINALE_EXIT_COVER_MS = 2_400;/u);

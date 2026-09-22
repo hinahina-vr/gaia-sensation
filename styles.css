@@ -9005,7 +9005,6 @@ h1 {
   grid-row: 1;
   grid-column: 1;
   margin: 0;
-  font-size: clamp(15px, 1.12vw, 19px);
   font-weight: 600;
   letter-spacing: 0.025em;
   line-height: 1.35;
@@ -9021,7 +9020,6 @@ h1 {
   grid-column: 1 / 3;
   align-self: end;
   margin: 9px 0 0;
-  font-size: clamp(10px, 0.72vw, 12px);
   line-height: 1.5;
   min-width: 0;
   max-width: 100%;
@@ -9036,7 +9034,6 @@ h1 {
 .intro-lp-hero .intro-path-card--character > p {
   grid-column: 1 / 3;
   overflow: hidden;
-  font-size: clamp(9px, 0.68vw, 11px);
   letter-spacing: 0.02em;
   text-overflow: clip;
   white-space: nowrap;
@@ -9072,10 +9069,6 @@ h1 {
   .intro-lp-hero .intro-path-card .intro-path-glyph--character {
     width: 32px;
     height: 24px;
-  }
-
-  .intro-lp-hero .intro-path-card > strong {
-    font-size: clamp(14px, 1vw, 17px);
   }
 
 }
@@ -9167,7 +9160,6 @@ h1 {
   .intro-lp-hero .intro-path-card > strong,
   .intro-lp-hero .intro-path-card:not(.intro-path-card--featured) > strong,
   .intro-lp-hero .intro-path-card.intro-path-card--featured > strong {
-    font-size: 15px;
     line-height: 1.35;
   }
 
@@ -9175,7 +9167,6 @@ h1 {
   .intro-lp-hero .intro-path-card:not(.intro-path-card--featured) > p,
   .intro-lp-hero .intro-path-card.intro-path-card--featured > p {
     display: block;
-    font-size: 11px;
     line-height: 1.55;
   }
 }
@@ -9711,14 +9702,17 @@ h1 {
 @media (max-width: 1000px) {
   .intro-lp-hero .intro-path-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
-.intro-lp-hero .intro-path-card { container-type: inline-size; }
+.intro-lp-hero .intro-path-card {
+  container-type: inline-size;
+  /* Shared by all four cards: reserve the glyph column before fitting titles. */
+  --intro-card-title-size: min(17px, calc((100cqi - 42px) / 8.4));
+  --intro-card-description-size: min(11px, 5.1cqi);
+}
 .intro-lp-hero .intro-path-card > strong,
 .intro-lp-hero .intro-path-card:not(.intro-path-card--featured) > strong {
-  font-size: min(17px, calc((100cqi - 42px) / 8.4));
-  white-space: nowrap;
+  font-size: var(--intro-card-title-size);
 }
 .intro-lp-hero .intro-path-card > p,
 .intro-lp-hero .intro-path-card:not(.intro-path-card--featured) > p {
-  font-size: min(11px, 5.1cqi);
-  white-space: nowrap;
+  font-size: var(--intro-card-description-size);
 }
