@@ -106,7 +106,7 @@ assert.doesNotMatch(loader, /observation-notebook|#observation=|"notebook"/u);
 assert.doesNotMatch(opening, /#observation=/u);
 assert.doesNotMatch(sensorsIndex, /observation-notebook/u);
 assert.doesNotMatch(sensorPlatform, /GaiaObservation|観測ノート|gaia-observation-capture/u);
-assert.match(loader, /hash === "#tour"/u);
+assert.equal(loader.includes('["#tour", [["exploration"], ["tour"]]]'), true, "Tour route must load exploration before the tour");
 assert.doesNotMatch(index, /<script[^>]+src="https?:\/\//iu, "外部ランタイムscriptを読み込んでいます");
 
 console.log(JSON.stringify({ status: "passed", guide: "docs/CONTEST_2026_SUBMISSION.md", architecture: "docs/ARCHITECTURE.md", dataSources: "docs/DATA_SOURCES.md", workflow: ".github/workflows/contest-checks.yml", dataAccessCopy: "passed" }, null, 2));
