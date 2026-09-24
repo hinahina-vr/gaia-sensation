@@ -1,6 +1,6 @@
 # v1.0 release provenance
 
-Source development commit: `01fab3746df3360787fe860c7ca0d3e2a30efa5e` (map tooltip stability and exhibit order), with retained owner-requested README edits, regional GA4 consent and production-only transformations below. Version remains v1.0.
+Source development commit: `3b8a0f12b8844094101dd8d578c30ef40778b01b` (build identity and direct title-to-world navigation), with retained owner-requested README edits, regional GA4 consent and production-only transformations below. Version remains v1.0.
 
 The added `assets/guide-previews/story.jpg` is the owner's application screenshot, resized without cropping or redrawing. Its original development timestamp and adoption record are retained in the material ledger. Scope maintenance adds only that screenshot; previous asset records, data, dependencies and permission decisions are unchanged.
 

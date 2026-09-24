@@ -65,24 +65,27 @@ try {
       }));
     }
     if (sample === 0) await page.screenshot({ path: `${output}/${mobile ? 'mobile' : 'pc'}-sound-choice.png` });
-    // Measure a real transition to the data menu once per profile. Keep its
+    // Measure a real transition directly to the map once per profile. Keep its
     // interaction costs separate from cold boot and from field Web Vitals.
     if (sample === 0) {
       await page.locator('#gaia-opening-sound-off').click();
       await page.locator('#gaia-opening-skip').click();
       const start = await page.evaluate(() => performance.now());
       await page.locator('#gaia-opening-route-other').click();
-      await page.locator('.intro-path-card').first().waitFor({ state: 'visible' });
-      row.dataMenu = await page.evaluate(start => ({ elapsed: performance.now() - start,
+      // Older comparison snapshots still lead to the intermediate menu.
+      await page.waitForFunction(() => document.querySelector('#japan-layer')?.getAttribute('aria-hidden') === 'false'
+        || document.querySelector('#intro-layer')?.getAttribute('aria-hidden') === 'false');
+      const destination = await page.evaluate(() => document.querySelector('#japan-layer')?.getAttribute('aria-hidden') === 'false' ? 'map' : 'menu');
+      row[destination === 'map' ? 'dataMap' : 'dataMenu'] = await page.evaluate(start => ({ elapsed: performance.now() - start,
         measures: performance.getEntriesByType('measure').map(entry => ({ name: entry.name, duration: entry.duration })),
         interactions: __entryPerf.interactions,
         resources: performance.getEntriesByType('resource').filter(entry => entry.startTime >= start).map(entry => ({ url: entry.name, bytes: entry.encodedBodySize, transfer: entry.transferSize })),
       }), start);
-      await page.screenshot({ path: `${output}/${mobile ? 'mobile' : 'pc'}-data-menu.png` });
+      await page.screenshot({ path: `${output}/${mobile ? 'mobile' : 'pc'}-data-${destination}.png` });
     }
     report.samples.push(row);
     fs.writeFileSync(`${output}/report.json`, JSON.stringify(report, null, 2));
-    console.log(JSON.stringify({ mobile, sample, ready: row.ready, lcp: row.lcp, cls: row.cls, fcp: row.fcp, menu: row.dataMenu?.elapsed }));
+    console.log(JSON.stringify({ mobile, sample, ready: row.ready, lcp: row.lcp, cls: row.cls, fcp: row.fcp, map: row.dataMap?.elapsed, menu: row.dataMenu?.elapsed }));
     await context.close();
     // The faster menu can close while its background requests are still being
     // compressed by the local server. Let that work drain before the next run.

@@ -3,6 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { brotliCompressSync, constants } from "node:zlib";
+import { readBuildInfo } from './lib/build-info.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const host = process.env.GAIA_PREVIEW_HOST || "127.0.0.1";
@@ -43,6 +44,18 @@ const server = http.createServer((request, response) => {
   if (!["GET", "HEAD"].includes(request.method || "")) {
     response.writeHead(405, { Allow: "GET, HEAD" });
     response.end();
+    return;
+  }
+  if (process.env.GAIA_PREVIEW_BUILD_INFO !== 'static'
+    && new URL(request.url || '/', `http://${host}:${port}`).pathname === '/build-info.json') {
+    // Refresh on request so edits/commits cannot leave a stale local identity.
+    // A mixed baseline overlay cannot truthfully be labeled as current HEAD.
+    const info = baselineRoot
+      ? { schemaVersion: 1, commit: null, shortCommit: null, worktree: 'unknown', source: 'unavailable', context: 'preview' }
+      : readBuildInfo(root, { env: {}, context: 'preview' });
+    const body = JSON.stringify(info);
+    response.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store', 'Content-Length': Buffer.byteLength(body) });
+    response.end(request.method === 'HEAD' ? undefined : body);
     return;
   }
   let file = resolveRequest(request.url || "/");
@@ -97,4 +110,4 @@ const server = http.createServer((request, response) => {
   else fs.createReadStream(file).pipe(response);
 });
 
-server.listen(port, host, () => console.log(`GAIA SENSATION preview: http://${host}:${port}/story`));
+server.listen(port, host, () => console.log(`GAIA SENSATION preview: http://${host}:${server.address().port}/story`));

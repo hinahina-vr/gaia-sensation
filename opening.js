@@ -1268,7 +1268,7 @@
           await window.GaiaModeLoader?.load?.("exploration");
           await window.GaiaModeLoader?.load?.("tour");
         })()
-      : Promise.resolve(window.GaiaModeLoader?.load?.(destination === "story" ? "story" : "entry"));
+      : Promise.resolve(window.GaiaModeLoader?.load?.(destination === "story" ? "story" : destination === "world" ? "exploration" : "entry"));
     const destinationReady = destination === "story"
       ? Promise.resolve(routeReady).then(async () => {
           for (let frame = 0; frame < 120 && !window.GaiaNovel?.prepareEntry; frame += 1) {
@@ -1316,7 +1316,7 @@
       // Decode the first story background before beginning the outgoing fade.
       // The opening artwork therefore remains the visible surface during slow
       // loads instead of revealing a black or unpainted story layer.
-      if (destination === "story") await Promise.all([destinationReady, soundtrackReady]);
+      if (destination === "story" || destination === "world") await Promise.all([destinationReady, soundtrackReady]);
       // Lazy route assets can finish before or after the opening dissolve. Hide
       // the abstract WebGL base for that entire interval, not only after loading.
       document.body.classList.add("gaia-route-handoff");
@@ -1363,10 +1363,12 @@
         const notice = document.createElement("p");
         notice.id = "gaia-story-entry-error";
         notice.setAttribute("role", "status");
-        notice.textContent = "物語を読み込めませんでした。通信を確認して、もう一度お試しください。";
+        notice.textContent = destination === "world"
+          ? "地図を読み込めませんでした。通信を確認して、もう一度お試しください。"
+          : "物語を読み込めませんでした。通信を確認して、もう一度お試しください。";
         finalMenu.append(notice);
       }
-      requestAnimationFrame(() => finalStoryButton?.focus({ preventScroll: true }));
+      requestAnimationFrame(() => (destination === "world" ? finalOtherButton : finalStoryButton)?.focus({ preventScroll: true }));
       return;
     }
     if (destination === "story") {
@@ -1376,6 +1378,9 @@
       history.replaceState(null, "", `${window.location.pathname}${window.location.search}#top`);
     }
     if (destination === "tour") history.replaceState(null, "", `${window.location.pathname}${window.location.search}#tour`);
+    // Reuse the normal hash route so cold and already-loaded map entries agree.
+    // Replace the title history entry, as the previous menu handoff did.
+    if (destination === "world") window.location.replace(`${window.location.pathname}${window.location.search}#world`);
     window.dispatchEvent(new CustomEvent("gaia:opening-complete", { detail: { destination } }));
     if (storyOpenedDirectly) {
       await new Promise((resolve) => {
@@ -1632,7 +1637,7 @@
 
   skipButton?.addEventListener("click", skipToFinalMenu);
   finalStoryButton?.addEventListener("click", () => void finish("story"));
-  finalOtherButton?.addEventListener("click", () => void finish("menu"));
+  finalOtherButton?.addEventListener("click", () => void finish("world"));
   soundOnButton?.addEventListener("click", () => void confirmSoundSetup(true));
   soundOffButton?.addEventListener("click", () => void confirmSoundSetup(false));
   // Restart on every intentional entry, including hover while focus remains.

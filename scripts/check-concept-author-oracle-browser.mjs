@@ -70,7 +70,7 @@ try {
     assert.doesNotMatch(await page.locator("main").innerText(), /本作は大学の公式作品ではなく|制作・監修・公認|物語はフィクション/);
     const disclaimer = await page.locator(".work-disclaimer").innerText();
     for (const text of ["ZEN大学", "個人による", "制作・監修・公認", "フィクション"]) assert(disclaimer.includes(text));
-    assert.equal(await page.locator(".site-footer > :last-child").getAttribute("class"), "work-disclaimer");
+    assert.equal(await page.locator(".site-footer > .work-disclaimer + .build-info:last-child").count(), 1, "Keep the disclaimer intact, followed only by the build identity");
     assert.deepEqual(await page.locator(".learning-courses h3").allTextContents(), ["共創地球論", "人新世の人類学", "リテラシーと応用のための物語理論", "統計学入門"]);
     for (const [index, course] of (await page.locator(".learning-courses > li").all()).entries()) {
       assert.deepEqual(await course.locator("p").allTextContents(), conceptEditorialCopy.learning.courses[index], "Keep exactly the two retained paragraphs per course");

@@ -86,12 +86,9 @@ const runStoryRoute = async (page, viewport) => {
 const runMapRoute = async (page, viewport) => {
   const action = await assertActionable(page, page.locator("#gaia-opening-route-other"), `${viewport.name} map route`);
   await activate(page.locator("#gaia-opening-route-other"), viewport.mobile);
-  await page.locator("#intro-layer").waitFor({ state: "visible", timeout: 20_000 });
-  assert.equal(new URL(page.url()).hash, "#top", `${viewport.name}: exploration hash was not selected`);
-  const mapCard = page.locator('[data-intro-path="map"]');
-  await assertActionable(page, mapCard, `${viewport.name} intro map card`);
-  await activate(mapCard, viewport.mobile);
   await page.waitForFunction(() => document.querySelector("#japan-layer")?.getAttribute("aria-hidden") === "false", null, { timeout: 20_000 });
+  assert.match(new URL(page.url()).hash, /^#world(?:-01)?$/, `${viewport.name}: data button must open the world directly`);
+  assert.equal(await page.locator("#intro-layer").getAttribute("aria-hidden"), "true");
   await page.waitForFunction(() => document.querySelectorAll('.map-mode-bank .map-mode-button').length >= 12
     && document.querySelector('.map-mode-bank .map-mode-button[aria-current="true"]'), null, { timeout: 20_000 });
   const mapState = await page.evaluate(() => ({

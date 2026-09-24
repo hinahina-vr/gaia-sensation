@@ -681,6 +681,9 @@ body[data-enhanced] .process-panels { min-height: 236px; }
 .site-footer .footer-bottom { margin-top: 0; }
 .work-disclaimer { max-width: 1060px; margin-top: 24px; color: #a8b9be; font: 12px/2 var(--sans); letter-spacing: .015em; }
 .work-disclaimer .disclaimer-sentence { display: block; }
+.build-info { margin-top: 20px; color: #a8b9be; font: 12px/1.8 var(--sans); letter-spacing: 0; }
+.build-info p { margin: 0; }
+.build-info code { font: inherit; font-family: ui-monospace, monospace; overflow-wrap: anywhere; user-select: text; }
 .author-colophon { margin-bottom: 28px; color: #bdced1; font: 13px/2 var(--sans); letter-spacing: .01em; }
 .author-colophon strong { color: #e0e9e8; font-weight: 500; }
 .author-colophon a { display: inline-block; min-height: 44px; margin-inline-start: .75em; padding-block: 9px; color: #d1e5e7; text-decoration: underline; text-underline-offset: 4px; }

@@ -103,6 +103,10 @@ try {
     await run('title-data-footer-story', spec, async page => {
       await title(page, spec);
       await press(page, '#gaia-opening-route-other', spec);
+      await page.waitForFunction(() => document.querySelector('#japan-layer')?.getAttribute('aria-hidden') === 'false');
+      await press(page, '[data-feature-start]', spec);
+      await page.locator('#gaia-mode-entry-guide').waitFor({ state: 'hidden' });
+      await press(page, '#japan-close', spec);
       await page.locator('#intro-path-stage').waitFor({ state: 'visible' });
       await page.waitForTimeout(2600); await dismissIntroGuide(page);
       assert.equal(await page.evaluate(() => GaiaModeLoader.isLoaded('story')), false);

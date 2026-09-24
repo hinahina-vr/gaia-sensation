@@ -1,4 +1,6 @@
 # Local visual QA captures
+# Build identity is generated from the checkout; never commit a fixed SHA.
+/build-info.json
 desktop*.png
 mobile*.png
 gaia-*.png
