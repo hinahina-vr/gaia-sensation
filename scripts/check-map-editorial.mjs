@@ -12,6 +12,10 @@ const content = sandbox.window.GaiaAppContent;
 const fixture = [...JSON.parse(read("docs/design/map-editorial-20260907/copy.json")).exhibits,
   JSON.parse(read("docs/design/marine-cod-20260908.json"))];
 const recyclingRevision = JSON.parse(read("docs/design/recycling-map-20260907.json"));
+// The approved copy is unchanged; only the first exhibits moved on 2026-09-25.
+const renumber = { "01": "04", "02": "01", "04": "02" };
+for (const row of fixture) row.number = renumber[row.number] || row.number;
+fixture.sort((a, b) => a.number.localeCompare(b.number));
 const liveRevision = JSON.parse(read("docs/design/live-prefecture-fill-20260912.json")).exhibits;
 const annualRevision = JSON.parse(read("docs/design/annual-picker-copy-20260912.json")).exhibits;
 const annualSeries = JSON.parse(read("data/estat-prefecture-series.json"));
@@ -54,9 +58,9 @@ assert.match(liveRuntime, /data-live-deck-source/u);
 assert.match(liveRuntime, /https:\/\/open-meteo\.com\//u);
 assert.match(liveRuntime, /https:\/\/ads\.atmosphere\.copernicus\.eu\//u);
 for (const [number, pattern] of [
-  ["01", /熱異常.*焼失面積.*被害.*原因は分かりません/u],
+  ["04", /熱異常.*焼失面積.*被害.*原因は分かりません/u],
   ["03", /モデル.*曝露量.*健康被害は分かりません/u],
-  ["04", /波紋は演出.*予測ではありません/u],
+  ["02", /波紋は演出.*予測ではありません/u],
   ["06", /再構成.*試算.*因果関係を示す展示ではありません/u],
   ["07", /変わらない.*予報ではありません/u],
   ["08", /因果関係は計算していません/u],

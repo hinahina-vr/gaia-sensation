@@ -39,7 +39,7 @@
   // These are measured quantities or concise exhibit subjects, not invented
   // element symbols. Small qualifiers distinguish otherwise identical tiles.
   const tileDefinitions = Object.freeze([
-    ["火災"], ["風速"], ["PM2.5"], ["地震"], ["雲量"],
+    ["風速"], ["地震"], ["PM2.5"], ["火災"], ["雲量"],
     ["CO₂"], ["海流"], ["森林"], ["再生", "資源"], ["CO₂", "排出量"],
     ["地震", "記録"], ["生態", "3つの層"], ["電力", "再エネ率"], ["人口"],
     ["風速"], ["CO₂"], ["降水"], ["気温"], ["雲量"], ["PM2.5"],
@@ -278,7 +278,11 @@
       if (!category) continue;
       const profile = getProfile(button.textContent.trim());
       const grid = sections.get(`${profile.scope}-${category.id}`).querySelector(".map-category-list");
-      if (button.parentElement !== grid) grid.append(button);
+      if (button.parentElement !== grid) {
+        // Lazy providers can mount out of exhibit order (fire before wind).
+        const next = [...grid.children].find(item => Number(item.textContent.trim()) > Number(button.textContent.trim()));
+        grid.insertBefore(button, next || null);
+      }
       if (button.dataset.mapCategory !== category.id) button.dataset.mapCategory = category.id;
       decorateTile(button, Number(button.textContent.trim()));
       if (profile) {

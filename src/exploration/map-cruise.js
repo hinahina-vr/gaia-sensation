@@ -50,20 +50,22 @@ export function mountMapCruise() {
     || Boolean(layer.querySelector('#map-mobile-sheet[open]'));
   const inspect = () => {
     const n = current(), g = globalThis;
-    const provider = n === 1 ? g.GaiaFirmsExhibit : n <= 5 ? g.GaiaPlanetSignals : n <= 14 ? g.GaiaMapObservationAdapter
+    const isFire = n === Number(g.GaiaFirmsExhibit?.definition.number);
+    const isPlanet = Boolean(g.GaiaPlanetSignals?.definitions.some(item => Number(item.number) === n));
+    const provider = isFire ? g.GaiaFirmsExhibit : isPlanet ? g.GaiaPlanetSignals : n <= 14 ? g.GaiaMapObservationAdapter
       : n <= 20 ? g.GaiaLiveExhibits : n <= 30 ? g.GaiaEstatExhibits : n <= 69 ? g.GaiaMarineCod : g.GaiaFoodExhibits;
-    const ready = n >= 2 && n <= 5 ? provider?.getState().pointCount > 0 : provider?.getPlaybackState?.().ready;
+    const ready = isPlanet ? provider?.getState().pointCount > 0 : provider?.getPlaybackState?.().ready;
     if (!ready) return {number:n, ready:false};
-    if (n === 1 && provider.seekCruise) {
+    if (isFire && provider.seekCruise) {
       return {number:n, ready:true, kind:'slider', duration:provider.getCruiseDuration(), seek:provider.seekCruise};
     }
-    const selector = n === 1 ? '[data-firms-progress]' : n <= 5 ? null : n <= 14 ? '.signal-console-map [data-signal-time]'
+    const selector = isFire ? '[data-firms-progress]' : isPlanet ? null : n <= 14 ? '.signal-console-map [data-signal-time]'
       : n <= 20 ? '#gaia-live-time' : n <= 30 ? '[data-estat-month]' : n <= 69 ? '[data-cod-year]' : '[data-food-year]';
     const slider = selector && layer.querySelector(selector);
     if (slider && !slider.disabled && Number(slider.max) > Number(slider.min)) {
       const min = Number(slider.min), max = Number(slider.max), originalStep = slider.step, step = Number(originalStep) || 1;
       let last = NaN;
-      const duration = n === 1 ? 30000 : n <= 14 ? g.GaiaMapObservationAdapter.getTimelineDuration() : (max - min) / step * 4000;
+      const duration = isFire ? 30000 : n <= 14 ? g.GaiaMapObservationAdapter.getTimelineDuration() : (max - min) / step * 4000;
       return {number:n, ready:true, kind:'slider', duration:Math.max(4000,duration), dispose: () => {
         slider.step = originalStep; if (Number.isFinite(last)) slider.value = String(last);
       }, seek: progress => {

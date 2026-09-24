@@ -16,13 +16,13 @@ export function mediaDataSources(root, providers) {
     rows.push({ section, id, provider, datasetId, sourceUrl, retrievalPolicy, evidence, termsUrl: null, ...extra });
   };
   const section = 'ライブ・モデル取得';
-  add(section, 'firms-live', 'NASA LANCE FIRMS', 'MAP 01 / MODIS C6.1 NRT 火災・熱異常',
+  add(section, 'firms-live', 'NASA LANCE FIRMS', 'MAP 04 / MODIS C6.1 NRT 火災・熱異常',
     'https://firms.modaps.eosdis.nasa.gov/active_fire/', 'サイトAPI経由・15分キャッシュ。直近24時間を抽出。失敗時は保存値。火災の境界ではない。', 'sensor-platform/src/live-senseware.ts');
-  add(section, 'weather-live', 'Open-Meteo', 'MAP 02・05・15・17–19 / 風・気象・雲',
+  add(section, 'weather-live', 'Open-Meteo', 'MAP 01・05・15・17–19 / 風・気象・雲',
     'https://open-meteo.com/en/docs', '全球はブラウザ取得・5分タブ内キャッシュ。日本はサイトAPI経由。保存値・演出用サンプルを現在値と区別。', 'src/exploration/live-exhibits.js');
   add(section, 'air-live', 'Open-Meteo / CAMS', 'MAP 03・16・20 / 大気質・格子CO₂・PM2.5',
     'https://open-meteo.com/en/docs/air-quality-api', '予報モデルの格子値。全球はブラウザ取得、日本はサイトAPI経由。地上観測の実測とは区別。', 'sensor-platform/src/live-senseware.ts');
-  add(section, 'usgs-live', 'USGS', 'MAP 04 / All Earthquakes Past Day',
+  add(section, 'usgs-live', 'USGS', 'MAP 02 / All Earthquakes Past Day',
     'https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php', 'ブラウザ取得・5分タブ内キャッシュ。波紋は被害範囲や震度分布ではない。', 'src/exploration/live-exhibits.js');
 
   const gaia = read('data/gaia-signals.json');

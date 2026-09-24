@@ -14,10 +14,10 @@
 
 | 分野・展示 | 提供元 | 使用内容 |
 |---|---|---|
-| 01 火災・熱異常 | [NASA LANCE FIRMS](https://firms.modaps.eosdis.nasa.gov/active_fire/) | MODIS C6.1 NRTの直近24時間。サイトAPI経由で抽出 |
-| 02・05・15・17–19 気象 | [Open-Meteo Forecast](https://open-meteo.com/en/docs) | 風、気圧、気温、降水、雲、日射のモデル値 |
+| 04 火災・熱異常 | [NASA LANCE FIRMS](https://firms.modaps.eosdis.nasa.gov/active_fire/) | MODIS C6.1 NRTの直近24時間。サイトAPI経由で抽出 |
+| 01・05・15・17–19 気象 | [Open-Meteo Forecast](https://open-meteo.com/en/docs) | 風、気圧、気温、降水、雲、日射のモデル値 |
 | 03・16・20 大気質 | [Open-Meteo / CAMS](https://open-meteo.com/en/docs/air-quality-api) | PM2.5、格子CO₂等のモデル値 |
-| 04・11 地震 | [USGS](https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php)、[気象庁](https://www.data.jma.go.jp/eqdb/data/shindo/) | 直近イベント、世界の保存履歴、国内の代表地震の震度記録 |
+| 02・11 地震 | [USGS](https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php)、[気象庁](https://www.data.jma.go.jp/eqdb/data/shindo/) | 直近イベント、世界の保存履歴、国内の代表地震の震度記録 |
 | 06 CO₂・気温 | [GOSAT / JAXA・NIES・環境省](https://data2.gosat.nies.go.jp/gallery/fts_l3_swir_co2_gallery_en.html)、[NOAA GML](https://gml.noaa.gov/ccgg/trends/data.html)、[NASA GISS](https://data.giss.nasa.gov/gistemp/)、[気象庁](https://www.data.jma.go.jp/ghg/kanshi/obs/co2_yearave.csv) | XCO₂分布、月平均・年平均CO₂、全球気温偏差。近似復元・補完・未来試算は原値と区別 |
 | 補助オーロラ層 | [NOAA SWPC](https://www.swpc.noaa.gov/products/aurora-30-minute-forecast) | OVATION予報。失敗時は保存スナップショット |
 | 07 海流 | [NOAA CoastWatch](https://coastwatch.noaa.gov/cwn/products/noaacwblendednrtcurrentsdaily.html)、[NASA POWER](https://power.larc.nasa.gov/) | 保存海面流速と代表地点の風の気候値。移動距離は一定流速を仮定した独自計算 |

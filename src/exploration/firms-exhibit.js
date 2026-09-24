@@ -20,7 +20,7 @@ const MAX_CANVAS_PIXELS = 1_600_000;
 
 const DEFINITION = Object.freeze({
   id: "nasa-firms-active-fire",
-  number: "01",
+  number: "04",
   shortTitle: "火と暮らしの境界",
   title: "火と暮らしの境界 — ACTIVE FIRE",
   signalLabel: "火災・熱異常",
@@ -763,7 +763,7 @@ const mount = () => {
   readout.innerHTML = `
     <div class="gaia-firms-chapter">
       <p>世界の火災 / NASA FIRMS · 24時間</p>
-      <div><button type="button" data-firms-step="-1" aria-label="前の展示、31 沿岸に残る、水の記録へ">‹</button><button type="button" class="gaia-featured-selector-toggle" data-map-bank-toggle aria-expanded="false" aria-controls="map-dock-bank-popover" aria-label="${DEFINITION.number} ${DEFINITION.shortTitle}。展示一覧を開く"><span><b>${DEFINITION.number}</b><strong>${DEFINITION.shortTitle}</strong></span></button><button type="button" data-firms-step="1" aria-label="次の展示、02 風がつなぐ世界へ">›</button></div>
+      <div><button type="button" data-firms-step="-1" aria-label="前の展示、03 見えない空気の行方へ">‹</button><button type="button" class="gaia-featured-selector-toggle" data-map-bank-toggle aria-expanded="false" aria-controls="map-dock-bank-popover" aria-label="${DEFINITION.number} ${DEFINITION.shortTitle}。展示一覧を開く"><span><b>${DEFINITION.number}</b><strong>${DEFINITION.shortTitle}</strong></span></button><button type="button" data-firms-step="1" aria-label="次の展示、05 雲と光の分け前へ">›</button></div>
     </div>
     <div class="gaia-firms-count"><p>衛星観測 / 取得時刻の順に表示</p><strong><b data-firms-visible>0</b><span> / <i data-firms-total>—</i> 表示点</span></strong><small data-firms-time>観測待機</small></div>
     <div class="gaia-firms-primary"><p>最大 火災放射パワー</p><strong data-firms-max-frp>—</strong><span>MW</span></div>

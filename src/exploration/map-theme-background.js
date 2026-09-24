@@ -1,4 +1,4 @@
-import {mapBackgroundTheme, MAP_BACKGROUND_NOTE} from './map-theme-catalog.js?v=theme-background-20260912';
+import {mapBackgroundTheme, MAP_BACKGROUND_NOTE} from './map-theme-catalog.js?v=theme-background-20260912-wind-first-tooltip-20260925';
 import {MAP_THEME_VERTEX, MAP_THEME_FRAGMENT} from './map-theme-shaders.js?v=rain-downward-20260912';
 import {createOceanMask} from './estat-ocean.js?v=gaia-estat-ocean-1';
 import {earthBaseScale} from './world-projection.js?v=gaia-japan-center-1';

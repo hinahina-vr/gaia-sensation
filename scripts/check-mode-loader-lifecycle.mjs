@@ -6,8 +6,8 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 
 const source = fs.readFileSync(new URL('../gaia-mode-loader.js', import.meta.url), 'utf8');
-// Only app.js's cache revision changes; every actual asset and its order must
-// still match the previous loader. Entry readiness is tested separately below.
+// Cache revisions may change for subsequent fixes; actual assets and their
+// order must still match. Entry readiness is tested separately below.
 const baseline = readStartupBaseline('gaia-mode-loader.js')
   .replace('app.js?v=entry-bottom', 'app.js?v=entry-ready-20260922-entry-bottom');
 const routeSource = fs.readFileSync(new URL('../map-exhibit-route.js', import.meta.url), 'utf8');
@@ -100,9 +100,10 @@ function fire(host, type, target, detail) {
   return event;
 }
 
+const withoutCacheRevisions = value => JSON.parse(JSON.stringify(value).replace(/\?v=[\w-]+/gu, ''));
 const originalManifest = JSON.parse(JSON.stringify(fixture(baseline).context.manifest));
-assert.deepEqual(JSON.parse(JSON.stringify(fixture().context.manifest)), originalManifest,
-  'All asset URLs, template lists, shared CSS and evaluation order must remain unchanged');
+assert.deepEqual(withoutCacheRevisions(fixture().context.manifest), withoutCacheRevisions(originalManifest),
+  'All asset paths, template lists, shared CSS and evaluation order must remain unchanged');
 
 let checks = 1;
 for (const group of Object.keys(originalManifest)) {
@@ -118,7 +119,7 @@ for (const group of Object.keys(originalManifest)) {
     assert.equal(f.events.length, count, 'Loaded groups never remount or reload');
     logs.push(f.events);
   }
-  assert.deepEqual(logs[1], logs[0], `${group}: observable asset lifecycle must match baseline`);
+  assert.deepEqual(withoutCacheRevisions(logs[1]), withoutCacheRevisions(logs[0]), `${group}: observable asset lifecycle must match baseline`);
   checks++;
 }
 

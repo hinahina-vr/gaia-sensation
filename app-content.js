@@ -367,10 +367,10 @@
   // Why enter this exhibition? Shared by the chapter separator and map header.
   // Data sources, measurements and limits belong in the picker and full body.
   const MAP_TITLE_SUBTITLES = Object.freeze({
-    "01": "生きもののすみかと暮らしを脅かす火を、観測から考える",
-    "02": "熱や水を運ぶ風が、遠くの空と暮らしをつなぐ",
+    "01": "熱や水を運ぶ風が、遠くの空と暮らしをつなぐ",
+    "02": "足もとの変動を知り、揺れに備える暮らしを考える",
     "03": "空を漂う微粒子は、吸う空気と届く光に関わる",
-    "04": "足もとの変動を知り、揺れに備える暮らしを考える",
+    "04": "生きもののすみかと暮らしを脅かす火を、観測から考える",
     "05": "雲が変える日差しは、地上の暖かさと生命に関わる",
     "06": "空気に残る炭素は、私たちが暮らす気候に関わる",
     "07": "熱や生きものを運ぶ海流が、遠くの海をつなぐ",

@@ -9598,13 +9598,27 @@ for (const country of countryValues) {
     }
   };
 
+  let mapModePreviewPositionFrame = 0;
+  let mapModePreviewPositionTimer = 0;
+  const cancelMapModeTooltipPosition = () => {
+    cancelAnimationFrame(mapModePreviewPositionFrame);
+    clearTimeout(mapModePreviewPositionTimer);
+    mapModePreviewPositionFrame = 0;
+    mapModePreviewPositionTimer = 0;
+  };
   const scheduleMapModeTooltipPosition = (tooltip, button = mapModePreviewAnchor) => {
-    const position = () => positionMapModeTooltip(tooltip, button);
-    requestAnimationFrame(() => {
+    cancelMapModeTooltipPosition();
+    const position = () => {
+      if (button === mapModePreviewAnchor && tooltip.classList.contains("is-open")) positionMapModeTooltip(tooltip, button);
+    };
+    // Place before the first visible paint. A previous tile's delayed layout
+    // correction must never pull the current tooltip back to its old anchor.
+    position();
+    mapModePreviewPositionFrame = requestAnimationFrame(() => {
       position();
-      requestAnimationFrame(position);
+      mapModePreviewPositionFrame = requestAnimationFrame(position);
     });
-    window.setTimeout(position, 260);
+    mapModePreviewPositionTimer = window.setTimeout(position, 260);
   };
 
   const syncMapModePreviewContainer = () => {
@@ -9674,6 +9688,7 @@ for (const country of countryValues) {
 
   const setMapModePreviewOpen = (open, button = null) => {
     if (open) {
+      if (button === mapModePreviewAnchor && mapModePreview.classList.contains("is-open")) return;
       const content = getMapModePreviewContent(button);
       if (!content) return;
       mapModePreviewAnchor = button;
@@ -9681,6 +9696,7 @@ for (const country of countryValues) {
       mapModePreviewLabel.textContent = content.label;
       mapModePreviewCopy.textContent = content.copy;
     } else {
+      cancelMapModeTooltipPosition();
       mapModePreviewAnchor = null;
     }
     mapModePreview.classList.toggle("is-open", Boolean(open));
@@ -9696,8 +9712,10 @@ for (const country of countryValues) {
   };
 
   const closeMapModePreview = () => setMapModePreviewOpen(false);
+  let mapModePreviewIntentFrame = 0;
   const syncMapModePreviewIntent = (scope) => {
-    requestAnimationFrame(() => {
+    cancelAnimationFrame(mapModePreviewIntentFrame);
+    mapModePreviewIntentFrame = requestAnimationFrame(() => {
       const keyboardButton = scope?.querySelector?.(".map-mode-button:focus-visible");
       const hoverButton = supportsHover
         ? scope?.querySelector?.(".map-mode-button:hover")
@@ -9806,7 +9824,7 @@ for (const country of countryValues) {
   japanModeBank.addEventListener("pointerover", (event) => {
     if (!supportsHover) return;
     const button = event.target.closest?.(".map-mode-button");
-    if (button) setMapModePreviewOpen(true, button);
+    if (button) syncMapModePreviewIntent(japanModeBank);
   });
   japanModeBank.addEventListener("pointerout", () => syncMapModePreviewIntent(japanModeBank));
   japanModeBank.addEventListener("focusin", () => syncMapModePreviewIntent(japanModeBank));

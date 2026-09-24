@@ -22,7 +22,7 @@ const GLOBAL_OBSERVATION_POINTS = Object.freeze(Array.from({ length: GLOBAL_SAMP
 const DEFINITIONS = Object.freeze([
   Object.freeze({
     id: "global-wind-pressure",
-    number: "02",
+    number: "01",
     shortTitle: "風がつなぐ世界",
     title: "風がつなぐ世界 — WIND / PRESSURE",
     signalLabel: "風速・風向・気圧",
@@ -56,7 +56,7 @@ const DEFINITIONS = Object.freeze([
   }),
   Object.freeze({
     id: "usgs-earthquake-ripples",
-    number: "04",
+    number: "02",
     shortTitle: "揺れる星に暮らす",
     title: "揺れる星に暮らす — EARTHQUAKES",
     signalLabel: "全規模・直近24時間",

@@ -48,10 +48,10 @@
         "./scene-transition.js?v=gaia-66",
         "./data-ledger.js?v=gaia-hardening-1",
         "./data-journey.js?v=gaia-01-header-cleanup-1",
-        "./app-content.js?v=gaia-recycling-coverage-1-population-style-1-marine-cod-1-prefecture-fill-20260912-i18n-20260913",
+        "./app-content.js?v=gaia-recycling-coverage-1-population-style-1-marine-cod-1-prefecture-fill-20260912-i18n-20260913-wind-first-tooltip-20260925",
         "./ecologies-exhibit.js?v=gaia-country-coverage-1-extended-handoff-20260912",
-        "./map-exhibit-categories.js?v=gaia-exhibit-profile-1-marine-cod-1-cod-ui-20260909-japan-sensor-open-1-pollution-1-prtr-biology-1-fao-food-1-scope-groups-20260910-periodic-tiles-20260912-exhibit-links-20260912-i18n-20260913-picker-depth-focus-20260913",
-        "./app.js?v=entry-ready-20260922-entry-bottom-menu-20260914-gaia-hardening-1-unified-navigation-1-map-polish-1-feature-intro-mizu-ame-2-recycling-coverage-1-hover-inline-1-population-style-1-marine-cod-1-separator-hold-20260909-cod-ui-20260909-japan-sensor-open-1-character-concept-20260909-perf-high-20260909-owner-dispose-20260909-observation-portal-20260909-tail-20260909-fao-food-1-calm-repeat-20260910-food-country-fill-20260910-title-return-dissolve-20260910-story-temperature-20260910-completion-gate-20260910-temperature-autoplay-20260911-periodic-tiles-20260912-unified-dock-20260912-shared-glint-20260912-mincho-20260912-prefecture-fill-20260912-unified-playback-20260912-ending-return-20260912-exhibit-links-20260912-exhibit-navigation-20260912-i18n-20260913-previews-20260913",
+        "./map-exhibit-categories.js?v=gaia-exhibit-profile-1-marine-cod-1-cod-ui-20260909-japan-sensor-open-1-pollution-1-prtr-biology-1-fao-food-1-scope-groups-20260910-periodic-tiles-20260912-exhibit-links-20260912-i18n-20260913-picker-depth-focus-20260913-wind-first-tooltip-20260925",
+        "./app.js?v=entry-ready-20260922-entry-bottom-menu-20260914-gaia-hardening-1-unified-navigation-1-map-polish-1-feature-intro-mizu-ame-2-recycling-coverage-1-hover-inline-1-population-style-1-marine-cod-1-separator-hold-20260909-cod-ui-20260909-japan-sensor-open-1-character-concept-20260909-perf-high-20260909-owner-dispose-20260909-observation-portal-20260909-tail-20260909-fao-food-1-calm-repeat-20260910-food-country-fill-20260910-title-return-dissolve-20260910-story-temperature-20260910-completion-gate-20260910-temperature-autoplay-20260911-periodic-tiles-20260912-unified-dock-20260912-shared-glint-20260912-mincho-20260912-prefecture-fill-20260912-unified-playback-20260912-ending-return-20260912-exhibit-links-20260912-exhibit-navigation-20260912-i18n-20260913-previews-20260913-wind-first-tooltip-20260925",
         "./map-ui-grid-polish.js?v=entry-bottom-menu-20260914-gaia-story-map-dock-1-map-polish-1-scope-groups-20260910-exhibit-navigation-20260912-i18n-20260913-picker-depth-focus-20260913-fixed-nav-dock15-20260913",
         "./map-legend-drag.js?v=gaia-story-map-left-ui-1-perf-high-20260909-fao-food-1",
         "./map-mobile-shell.js?v=gaia-mobile-collection-1-marine-cod-1-cod-ui-20260909-japan-sensor-open-1-fao-food-1-scope-groups-20260910-periodic-tiles-20260912-unified-playback-20260912-exhibit-navigation-20260912-i18n-20260913-picker-cascade-20260913-responsive-audit",
@@ -62,7 +62,7 @@
         "./map-responsive-layout.js?v=mobile-credit-disclosure-top-20260913",
       ],
       modules: [
-        "./src/exploration/index.js?v=gaia-firms-cruise-animation-20260914",
+        "./src/exploration/index.js?v=gaia-firms-cruise-animation-20260914-wind-first-tooltip-20260925",
       ],
     },
     statistics: {

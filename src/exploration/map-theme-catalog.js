@@ -3,7 +3,7 @@
 export const MAP_BACKGROUND_NOTE = '背景の流れ・模様はテーマを表すWebGL演出です。観測値の分布、汚染・生息範囲、実際の移動経路を示すものではありません。';
 
 const rows = [
-  [1,'nasa-firms-active-fire',0,'熱のゆらぎ','#ec713b','#edb881'],
+  [4,'nasa-firms-active-fire',0,'熱のゆらぎ','#ec713b','#edb881'],
   [15,'wind-field',8,'風をイメージした光の流れ','#7acfd0','#b0d6da'],
   [16,'carbon-pulse',10,'大気をイメージした薄い層','#c5b888','#91bbc0'],
   [17,'rain-chorus',7,'雨をイメージした筋と波','#78b1dc','#a8d6e0'],
@@ -56,7 +56,7 @@ const rgb = hex => Object.freeze(hex.slice(1).match(/../g).map(value=>parseInt(v
 export const MAP_BACKGROUND_THEMES = Object.freeze(rows.map(([number,id,pattern,label,accent,secondary])=>Object.freeze({
   number, id, pattern, label, accent:rgb(accent), secondary:rgb(secondary),
   // Live rainfall (17) uses the same rain arrangement and land mask as 41.
-  seed:(number===17?41:number)*.173, oceanOnly:number===17||number>=31,
+  seed:(id==='nasa-firms-active-fire'?1:number===17?41:number)*.173, oceanOnly:number===17||number>=31,
   speed:pattern===7?.7:pattern===8?.8:pattern===15?.65:.48,
 })));
 export const mapBackgroundTheme = id => MAP_BACKGROUND_THEMES.find(theme=>theme.id===id)||null;

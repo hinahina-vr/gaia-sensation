@@ -5,6 +5,7 @@
   "type": "module",
   "description": "惑星の放課後 — GAIA SENSATION — pure HTML/CSS/JavaScript installation",
   "scripts": {
+    "check:map-tooltip-order": "node scripts/check-map-tooltip-order-browser.mjs",
     "check:mode-loader": "node scripts/check-mode-loader-prefetch.mjs && node --experimental-vm-modules scripts/check-mode-loader-lifecycle.mjs",
     "check:mode-loader:browser": "node scripts/check-mode-loader-browser.mjs",
     "measure:entry-performance": "node scripts/measure-entry-performance.mjs",

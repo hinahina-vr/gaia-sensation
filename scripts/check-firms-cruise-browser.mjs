@@ -3,14 +3,15 @@ import fs from 'node:fs/promises';
 import {chromium} from 'playwright-core';
 
 const base = process.argv[2] || 'http://127.0.0.1:4492';
-const out = 'artifacts/firms-cruise-20260914';
+const out = process.argv[3] || 'artifacts/firms-cruise-20260925';
 await fs.mkdir(out, {recursive:true});
 const browser = await chromium.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe', headless:true});
 const results = [];
 try {
   for (const width of [1440, 390]) {
     const page = await browser.newPage({viewport:{width, height:900}});
-    await page.goto(`${base}/#world-01`);
+    await page.route('https://**', route => route.abort());
+    await page.goto(`${base}/#world-04`, { waitUntil: 'domcontentloaded' });
     await page.locator('#gaia-boot').waitFor({state:'hidden',timeout:60000});
     await page.evaluate(()=>GaiaModeEntryGuide.close('map',{restoreFocus:false}));
     await page.waitForFunction(()=>globalThis.GaiaFirmsExhibit?.getPlaybackState().ready);
@@ -31,11 +32,11 @@ try {
     await page.screenshot({path:`${out}/${width}-igniting.png`});
     await page.waitForFunction(()=>document.querySelector('#gaia-firms-canvas').dataset.firmsPlaybackPhase==='extinguishing', null, {timeout:40000});
     const extinguishing = await read();
-    await page.waitForFunction(()=>document.querySelector('#japan-mode-number').textContent.trim()==='02', null, {timeout:20000});
+    await page.waitForFunction(()=>document.querySelector('#japan-mode-number').textContent.trim()==='05', null, {timeout:20000});
     assert.equal(await page.evaluate(()=>GaiaMapCruise.getState().active), true);
-    // Return to 01 and exercise the separate automatic-playback transport.
-    await page.goto(`${base}/#world-01`);
-    await page.reload();
+    // Return to fire (04) and exercise the separate automatic-playback transport.
+    await page.goto(`${base}/#world-04`, { waitUntil: 'domcontentloaded' });
+    await page.reload({ waitUntil: 'domcontentloaded' });
     await page.locator('#gaia-boot').waitFor({state:'hidden',timeout:60000});
     await page.evaluate(()=>GaiaModeEntryGuide.close('map',{restoreFocus:false}));
     await page.waitForFunction(()=>globalThis.GaiaFirmsExhibit?.getPlaybackState().playing);
@@ -53,8 +54,8 @@ try {
     await togglePlayback();
     await page.waitForFunction(()=>GaiaFirmsExhibit.getPlaybackState().playing);
     await page.waitForFunction(()=>Number(document.querySelector('#gaia-firms-canvas').dataset.firmsActiveColumns)>0, null, {timeout:15000});
-    results.push({width, first, next, extinguishing, advancedTo:'02'});
-    console.log(`PASS ${width}: cruise click → flames → extinguishing → exhibit 02`);
+    results.push({width, first, next, extinguishing, advancedTo:'05'});
+    console.log(`PASS ${width}: cruise click → flames → extinguishing → exhibit 05`);
     await page.close();
   }
 } finally {

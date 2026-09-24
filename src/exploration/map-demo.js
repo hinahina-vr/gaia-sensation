@@ -1,6 +1,6 @@
 import { createMapDemoController } from "./map-demo-controller.js?v=gaia-map-demo-1-perf-high-20260909";
-import { mountMapPlayback } from './map-playback.js?v=unified-playback-20260912-i18n-20260913';
-import { mountMapCruise } from './map-cruise.js?v=firms-animation-20260914';
+import { mountMapPlayback } from './map-playback.js?v=unified-playback-20260912-i18n-20260913-wind-first-tooltip-20260925';
+import { mountMapCruise } from './map-cruise.js?v=firms-animation-20260914-wind-first-tooltip-20260925';
 
 function mountMapDemo() {
   const layer = document.querySelector("#japan-layer");

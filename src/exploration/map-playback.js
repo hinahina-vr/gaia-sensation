@@ -21,7 +21,7 @@ export function mountMapPlayback() {
   const current = () => Number(layer.querySelector('#japan-mode-number')?.textContent);
   const provider = () => {
     const n = current();
-    if (n === 1) return globalThis.GaiaFirmsExhibit;
+    if (n === Number(globalThis.GaiaFirmsExhibit?.definition.number)) return globalThis.GaiaFirmsExhibit;
     if (n >= 6 && n <= 14) return globalThis.GaiaMapObservationAdapter;
     if (n >= 15 && n <= 20) return globalThis.GaiaLiveExhibits;
     if (n >= 21 && n <= 30) return globalThis.GaiaEstatExhibits;

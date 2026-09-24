@@ -1,5 +1,11 @@
 {
   "schemaVersion": 1,
+  "mapOrderScopeMaintenance": {
+    "date": "2026-09-25",
+    "previousScopeSha256": "f8354b8be3540865c285438ae110e8c521188040c658dcf865d61f7d64785545",
+    "currentScopeSha256": "c5517774e137ad3211463efcd62eb8d3025f43293b7a51c4e6468e8cb886ff54",
+    "basis": "展示の並べ替えに伴い、出典台帳のfirms-live、weather-live、usgs-liveのdatasetId内の表示番号のみ更新。基点9a926d5とのJSON差分はこの3文字列のみ。素材・観測データ・提供元URL・取得方針・依存ライブラリは不変。既存の決定日時、理由、提供元許諾確認状態は変更せず、新しい許諾判断は行っていない。"
+  },
   "reviewedAt": "2026-09-07",
   "scope": "非営利でのWeb公開・展示。現状の素材を維持し、提供元の条件確認と製作者による利用継続判断を区別する。製作者判断を記録した項目は公開保留を解除し、未解決の別項目は変更しない。公開中という事実を許諾根拠にしない。",
   "scopeMaintenance": {
@@ -31,7 +37,7 @@
       "decisionEvidence": "docs/GOSAT_OWNER_DECISION_2026-09-07.md",
       "decisionBasis": "非営利の作品公開・展示による公益性を鑑み、現行のGOSAT由来データの可視化と表示用加工JSONの配信に問題ないと製作者が判断し、利用継続と公開保留解除を指示した。",
       "providerPermissionVerified": false,
-      "scopeSha256": "f8354b8be3540865c285438ae110e8c521188040c658dcf865d61f7d64785545"
+      "scopeSha256": "c5517774e137ad3211463efcd62eb8d3025f43293b7a51c4e6468e8cb886ff54"
     },
     {
       "id": "unesco",
@@ -43,7 +49,7 @@
       "decisionEvidence": "docs/UNESCO_OWNER_DECISION_2026-09-07.md",
       "decisionBasis": "世界遺産24地点の名称・座標・分類を紹介する実装で、WHCの説明文や写真を転載するものではないとの説明を受け、製作者が現行利用の継続を了承した。",
       "providerPermissionVerified": false,
-      "scopeSha256": "f8354b8be3540865c285438ae110e8c521188040c658dcf865d61f7d64785545"
+      "scopeSha256": "c5517774e137ad3211463efcd62eb8d3025f43293b7a51c4e6468e8cb886ff54"
     },
     {
       "id": "gbif",
@@ -55,7 +61,7 @@
       "decisionEvidence": "docs/PUBLICATION_OWNER_DECISION_2026-09-08.md",
       "decisionBasis": "GBIFと残余データ・ソフトウェアの未確認リスクを説明し、出典・利用条件を維持する非営利公開として続行するか確認した直後、製作者が「デプロイ」と回答。今回版を説明済みの条件で公開する指示として記録した。",
       "providerPermissionVerified": false,
-      "scopeSha256": "f8354b8be3540865c285438ae110e8c521188040c658dcf865d61f7d64785545"
+      "scopeSha256": "c5517774e137ad3211463efcd62eb8d3025f43293b7a51c4e6468e8cb886ff54"
     },
     {
       "id": "jaxa-fnf-image",
@@ -68,7 +74,7 @@
       "excludedPaths": [
         "assets/data/jaxa-fnf-riau.png"
       ],
-      "scopeSha256": "f8354b8be3540865c285438ae110e8c521188040c658dcf865d61f7d64785545"
+      "scopeSha256": "c5517774e137ad3211463efcd62eb8d3025f43293b7a51c4e6468e8cb886ff54"
     },
     {
       "id": "generated-images-music",
@@ -80,7 +86,7 @@
       "decisionEvidence": "docs/MEDIA_OWNER_DECISION_2026-09-07.md",
       "decisionBasis": "製作者指示により、生成素材は制作元と出典の記録に整理し、現行素材の利用を継続する。",
       "providerPermissionVerified": false,
-      "scopeSha256": "f8354b8be3540865c285438ae110e8c521188040c658dcf865d61f7d64785545"
+      "scopeSha256": "c5517774e137ad3211463efcd62eb8d3025f43293b7a51c4e6468e8cb886ff54"
     },
     {
       "id": "remaining-data-and-software",
@@ -92,7 +98,7 @@
       "decisionEvidence": "docs/PUBLICATION_OWNER_DECISION_2026-09-08.md",
       "decisionBasis": "GBIFと残余データ・ソフトウェアの未確認リスクを説明し、出典・利用条件を維持する非営利公開として続行するか確認した直後、製作者が「デプロイ」と回答。追加世界銀行資料を含む今回版を説明済みの条件で公開する指示として記録した。",
       "providerPermissionVerified": false,
-      "scopeSha256": "f8354b8be3540865c285438ae110e8c521188040c658dcf865d61f7d64785545"
+      "scopeSha256": "c5517774e137ad3211463efcd62eb8d3025f43293b7a51c4e6468e8cb886ff54"
     }
   ],
   "scopeMaintenance20260913": {

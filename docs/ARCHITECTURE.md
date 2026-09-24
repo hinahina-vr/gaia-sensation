@@ -61,8 +61,8 @@ flowchart LR
 
 | 番号 | 主な実装（src/exploration/ 配下） | データ経路 |
 |---|---|---|
-| 01 | `firms-exhibit.js` | `/api/live/v1/firms`。NASA FIRMS、保存スナップショット |
-| 02—05 | `planet-signals-exhibit.js` | Open-Meteo / USGSへ直接接続。キャッシュ・参考値あり |
+| 04 | `firms-exhibit.js` | `/api/live/v1/firms`。NASA FIRMS、保存スナップショット |
+| 01–03・05 | `planet-signals-exhibit.js` | Open-Meteo / USGSへ直接接続。キャッシュ・参考値あり |
 | 06—14 | ルートの `app.js`・`app-content.js` | 同梱の `data/gaia-signals.json` 等。補助層に外部取得も使用 |
 | 15—20 | `live-exhibits.js`・`live-data.js` | `/api/live/v1/snapshot`・`/stream`・`/wind-field` 等 |
 | 21—30 | `estat-exhibits.js`・`estat-exhibit-catalog.js` | `data/estat-prefecture-series.json` の年次系列 |
@@ -73,7 +73,7 @@ flowchart LR
 
 MAP 21—30の年次期間・母集団は[データ出典](DATA_SOURCES.md)を参照してください。分析は選択中の県・観測地点の年系列を受け取り、欠測年を除外します。MAP 31—69は年次・年度別の圧縮JSONを必要時に読み込み、観測地点の記録を使用します。
 
-MAP 01・15—20のPages APIはCloudflare Cache APIを使用し、D1へこれらの観測値を保存しません。MAP 02—05は5分のタブ内キャッシュ（`sessionStorage`）を使い、外部取得値をファイルへ書き出しません。
+MAP 04・15—20のPages APIはCloudflare Cache APIを使用し、D1へこれらの観測値を保存しません。MAP 01–03・05は5分のタブ内キャッシュ（`sessionStorage`）を使い、外部取得値をファイルへ書き出しません。
 
 ### 取得状態の読み方
 
@@ -84,9 +84,9 @@ MAP 01・15—20のPages APIはCloudflare Cache APIを使用し、D1へこれら
 | 基礎展示の補助オーロラ層 | NOAA SWPCへ直接取得。5分間隔で再取得を試行 | 同梱のOVATIONスナップショット。これも読めなければ利用不可 |
 | MAP 15—20 ライブ／保存・取得状態 | サイト側APIから都市別の値を取得。天気30分、大気質3時間、風速場5分を基準にサーバーでキャッシュ。SSE接続自体は新しい観測の保証ではない | 最後の取得値、対応地点の同梱保存値、または欠測。東京用保存値を他都市の実測として流用しない |
 | MAP 01 `LIVE CACHE` | APIが返す `source: nasa-firms-modis`。新規取得と15分以内のサーバーキャッシュを同じ表示で扱う。ブラウザは読込済みの値を保持するため、15分ごとの画面更新を保証しない | `source: stale-cache` または `snapshot` を `SAVED SNAPSHOT` と表示 |
-| MAP 02—05 `LIVE` | APIへの直接取得に成功 | 有効なキャッシュがなく取得にも失敗した場合は下記のサンプル値 |
-| MAP 02—05 `LIVE CACHE` | 取得後5分以内のタブ内キャッシュを再利用。展示選択時に有効期限を判定し、常時ポーリングしない | 期限切れなら再取得を試行 |
-| MAP 02—05 `SAVED VALUES` | コード内の演出用サンプル。過去の実測を保存したデータではない | サンプルは統計分析の対象外 |
+| MAP 01–03・05 `LIVE` | APIへの直接取得に成功 | 有効なキャッシュがなく取得にも失敗した場合は下記のサンプル値 |
+| MAP 01–03・05 `LIVE CACHE` | 取得後5分以内のタブ内キャッシュを再利用。展示選択時に有効期限を判定し、常時ポーリングしない | 期限切れなら再取得を試行 |
+| MAP 01–03・05 `SAVED VALUES` | コード内の演出用サンプル。過去の実測を保存したデータではない | サンプルは統計分析の対象外 |
 
 MAP 01の `SAVED SNAPSHOT` は、期限切れAPIキャッシュと版管理スナップショットを表示名だけでは区別できません。API応答の `source` / `fallbackReason` で区別し、画面ではデータ時刻と経過時間も確認します。現在のラベルを、すべての取得状態を一対一に区別するものとは説明しません。
 
@@ -147,7 +147,7 @@ MAP 01〜05は下部ドックの共通「リアルタイム展示」表示を主
 | `gaia:live-exhibit-change` | MAP 15—20の選択変更 |
 | `gaia:estat-exhibit-change` | MAP 21—30の選択変更 |
 | `gaia:firms-exhibit-change` | MAP 01の開始／終了 |
-| `gaia:planet-signals-change` | MAP 02—05の選択と取得状態の変更 |
+| `gaia:planet-signals-change` | MAP 01–03・05の選択と取得状態の変更 |
 | `gaia:space-open-at-mode` / `gaia:space-close` | ORBITALの開始／破棄 |
 | `gaia:lodchange` | `high / medium / low / static` の描画品質変更 |
 

@@ -17,10 +17,10 @@
 
 | 提供者・出典 | データ・収録期間 | 取得・加工・退避方針 | ローカル根拠 |
 |---|---|---|---|
-| [NASA LANCE FIRMS](https://firms.modaps.eosdis.nasa.gov/active_fire/) | MAP 01 / MODIS C6.1 NRT 火災・熱異常 | サイトAPI経由・15分キャッシュ。直近24時間を抽出。失敗時は保存値。火災の境界ではない。 | [記録](../sensor-platform/src/live-senseware.ts) |
-| [Open-Meteo](https://open-meteo.com/en/docs) | MAP 02・05・15・17–19 / 風・気象・雲 | 全球はブラウザ取得・5分タブ内キャッシュ。日本はサイトAPI経由。保存値・演出用サンプルを現在値と区別。 | [記録](../src/exploration/live-exhibits.js) |
+| [NASA LANCE FIRMS](https://firms.modaps.eosdis.nasa.gov/active_fire/) | MAP 04 / MODIS C6.1 NRT 火災・熱異常 | サイトAPI経由・15分キャッシュ。直近24時間を抽出。失敗時は保存値。火災の境界ではない。 | [記録](../sensor-platform/src/live-senseware.ts) |
+| [Open-Meteo](https://open-meteo.com/en/docs) | MAP 01・05・15・17–19 / 風・気象・雲 | 全球はブラウザ取得・5分タブ内キャッシュ。日本はサイトAPI経由。保存値・演出用サンプルを現在値と区別。 | [記録](../src/exploration/live-exhibits.js) |
 | [Open-Meteo / CAMS](https://open-meteo.com/en/docs/air-quality-api) | MAP 03・16・20 / 大気質・格子CO₂・PM2.5 | 予報モデルの格子値。全球はブラウザ取得、日本はサイトAPI経由。地上観測の実測とは区別。 | [記録](../sensor-platform/src/live-senseware.ts) |
-| [USGS](https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php) | MAP 04 / All Earthquakes Past Day | ブラウザ取得・5分タブ内キャッシュ。波紋は被害範囲や震度分布ではない。 | [記録](../src/exploration/live-exhibits.js) |
+| [USGS](https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php) | MAP 02 / All Earthquakes Past Day | ブラウザ取得・5分タブ内キャッシュ。波紋は被害範囲や震度分布ではない。 | [記録](../src/exploration/live-exhibits.js) |
 
 ### 世界展示・基礎データ
 
