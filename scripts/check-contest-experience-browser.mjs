@@ -502,12 +502,14 @@ try {
   report.entry.directRoutes = "passed";
   await directPage.goto(new URL("/#earth", baseUrl).href, { waitUntil: "domcontentloaded", timeout: 90_000 });
   await directPage.waitForFunction(() => Boolean(globalThis.GaiaMapObservationAdapter), null, { timeout: 30_000 });
-  await directPage.evaluate(() => { location.hash = "#japan"; });
-  await directPage.waitForFunction(() => location.hash === "#japan");
+  // Use the canonical route: the legacy #japan alias is normalized to #world-01.
+  await directPage.evaluate(() => { location.hash = "#world-01"; });
+  await directPage.waitForFunction(() => location.hash === "#world-01"
+    && document.querySelector("#japan-layer")?.getAttribute("aria-hidden") === "false");
   await directPage.goBack({ waitUntil: "domcontentloaded" });
   assert.equal(await directPage.evaluate(() => location.hash), "#earth");
   await directPage.goForward({ waitUntil: "domcontentloaded" });
-  assert.equal(await directPage.evaluate(() => location.hash), "#japan");
+  assert.equal(await directPage.evaluate(() => location.hash), "#world-01");
   await directPage.reload({ waitUntil: "domcontentloaded" });
   await directPage.waitForFunction(() => Boolean(globalThis.GaiaMapObservationAdapter), null, { timeout: 30_000 });
   await completeMapEntry(directPage);
