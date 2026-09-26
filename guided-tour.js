@@ -215,6 +215,9 @@
     const candidates = [
       { placement: "below", left: centerX - width / 2, top: target.bottom + gap, priority: 0 },
       { placement: "above", left: centerX - width / 2, top: target.top - height - gap, priority: 6 },
+      // A bottom target can sit beside the controls. Keep its bubble close
+      // while moving it horizontally clear of that panel.
+      { placement: "above", left: Math.max(centerX - width / 2, controlsBounds.right + controlsClearance), top: target.top - height - gap, priority: 7 },
       { placement: "right", left: target.right + gap, top: centerY - height / 2, priority: 12 },
       { placement: "left", left: target.left - width - gap, top: centerY - height / 2, priority: 18 },
       { placement: "inside-top", left: centerX - width / 2, top: target.top + gap, priority: 42 },

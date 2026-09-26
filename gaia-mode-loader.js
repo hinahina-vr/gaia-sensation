@@ -171,7 +171,7 @@
     tour: {
       templates: [],
       styles: ["./guided-tour.css?v=gaia-tour-compact-safe-area-2-mincho-20260912"],
-      scripts: ["./guided-tour.js?v=gaia-tour-compact-safe-area-2-early-pause-20260909"],
+      scripts: ["./guided-tour.js?v=gaia-tour-controls-clearance-20260926"],
     },
   });
 

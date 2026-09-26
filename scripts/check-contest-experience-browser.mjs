@@ -68,6 +68,17 @@ assert.equal(warmupResponse.ok, true, `QA server warmup ${warmupResponse.status}
 await warmupResponse.arrayBuffer();
 
 const monitor = (page, name, { allowExpectedAbort = false } = {}) => {
+  page.setDefaultTimeout(30_000);
+  if (!baseUrlArgument) {
+    // Exercise bundled fallback data deterministically; this is not a live API test.
+    void page.route(/^https:\/\/(?:api\.open-meteo\.com|services\.swpc\.noaa\.gov)\//, route =>
+      route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ error: true, reason: "CI: upstream unavailable; use saved observations" }) }));
+    report.networkMode = "Local server; Open-Meteo/NOAA unavailable-response fixtures and real bundled fallbacks";
+  }
+  page.on("requestfailed", request => {
+    report.failedRequests ??= [];
+    report.failedRequests.push({ name, url: request.url(), error: request.failure()?.errorText });
+  });
   void page.addInitScript(() => {
     addEventListener("unhandledrejection", (event) => {
       const reason = event.reason instanceof Error ? event.reason.stack || event.reason.message : String(event.reason);
@@ -84,7 +95,7 @@ const monitor = (page, name, { allowExpectedAbort = false } = {}) => {
   page.on("response", (response) => { if (response.status() === 404) report.responses404.push(`${name}: ${response.url()}`); });
 };
 
-const startBaseExposureProbe = (page) => page.evaluate(() => {
+const startBaseExposureProbe = (page, allowIntegratedMap = false) => page.evaluate((allowIntegratedMap) => {
   const samples = [];
   let active = true;
   let frame = 0;
@@ -102,8 +113,13 @@ const startBaseExposureProbe = (page) => page.evaluate(() => {
     const style = getComputedStyle(canvas);
     const visible = style.display !== "none"
       && style.visibility !== "hidden"
-      && Number.parseFloat(style.opacity || "1") > 0.01;
-    if (visible) {
+      && Number.parseFloat(style.opacity || "1") > 0.01
+      && canvas.checkVisibility({ opacityProperty: true, visibilityProperty: true });
+    const integratedMap = allowIntegratedMap
+      && document.querySelector("#japan-layer")?.getAttribute("aria-hidden") === "false"
+      && canvas.dataset.integratedMapMode
+      && canvas.parentElement?.id === "japan-map";
+    if (visible && !integratedMap) {
       samples.push({
         reason,
         at: performance.now(),
@@ -112,8 +128,8 @@ const startBaseExposureProbe = (page) => page.evaluate(() => {
       });
     }
   };
-  const observer = new MutationObserver(() => inspect("mutation"));
-  observer.observe(document.body, { attributes: true, childList: true, subtree: true });
+  // DOM mutation callbacks can observe an intermediate state that is replaced
+  // within the same frame. Only sample the state Chrome can actually paint.
   const tick = () => {
     inspect("animation-frame");
     if (active) frame = requestAnimationFrame(tick);
@@ -124,11 +140,10 @@ const startBaseExposureProbe = (page) => page.evaluate(() => {
     stop() {
       active = false;
       cancelAnimationFrame(frame);
-      observer.disconnect();
       return [...samples];
     },
   };
-});
+}, allowIntegratedMap);
 const stopBaseExposureProbe = (page) => page.evaluate(() => globalThis.__gaiaBaseExposureProbe?.stop?.() || []);
 
 const browser = await chromium.launch({ headless: true, executablePath });
@@ -421,16 +436,19 @@ try {
   await guideEntryPage.locator("#gaia-opening-sound-modal").waitFor({ state: "hidden", timeout: 20_000 });
   await guideEntryPage.locator("#gaia-opening-skip").click();
   await guideEntryPage.waitForSelector("#gaia-opening-final-menu.is-visible", { timeout: 20_000 });
-  await startBaseExposureProbe(guideEntryPage);
+  await guideEntryPage.locator("#gaia-boot").waitFor({ state: "hidden", timeout: 60_000 });
+  await startBaseExposureProbe(guideEntryPage, true);
   await guideEntryPage.locator("#gaia-opening-route-other").click();
-  await guideEntryPage.waitForFunction(() => globalThis.GaiaIntroEntryGuide?.getState?.().active === true, null, { timeout: 30_000 });
+  await guideEntryPage.waitForFunction(() => document.querySelector("#japan-layer")?.getAttribute("aria-hidden") === "false"
+    && document.querySelector("#japan-mode-number")?.textContent === "01", null, { timeout: 60_000 });
+  await guideEntryPage.locator("#gaia-opening").waitFor({ state: "hidden" });
   await guideEntryPage.waitForTimeout(500);
   const forbiddenBaseExposure = await stopBaseExposureProbe(guideEntryPage);
   assert.deepEqual(forbiddenBaseExposure, [], "Breathing Earth base must never enter the paint tree during the opening-to-data-guide handoff");
-  assert.equal(await guideEntryPage.locator("[data-intro-guide]").count(), 4);
-  assert.equal(await guideEntryPage.evaluate(() => location.hash), "#top");
+  assert.equal(await guideEntryPage.locator("#intro-layer").getAttribute("aria-hidden"), "true", "Data entry must not open the retired intermediate menu");
+  assert.match(await guideEntryPage.evaluate(() => location.hash), /^#world(?:-01)?$/);
   await guideEntryPage.screenshot({ path: path.join(outputDir, "opening-data-entry-guide.png"), animations: "disabled" });
-  await guideEntryPage.evaluate(() => globalThis.GaiaIntroEntryGuide.close());
+  await completeMapEntry(guideEntryPage);
   report.entry.noBreathingEarthFlash = "passed";
   report.entry.guideCard = "passed";
   await guideEntryContext.close();
@@ -448,12 +466,12 @@ try {
   await spaceEntryPage.locator("#gaia-opening-sound-modal").waitFor({ state: "hidden", timeout: 20_000 });
   await spaceEntryPage.locator("#gaia-opening-skip").click();
   await spaceEntryPage.waitForSelector("#gaia-opening-final-menu.is-visible", { timeout: 20_000 });
+  await spaceEntryPage.locator("#gaia-boot").waitFor({ state: "hidden", timeout: 60_000 });
   await spaceEntryPage.locator("#gaia-opening-route-other").click();
-  await spaceEntryPage.waitForFunction(() => document.querySelector("#intro-layer")?.getAttribute("aria-hidden") === "false", null, { timeout: 30_000 });
-  await spaceEntryPage.waitForFunction(() => globalThis.GaiaIntroEntryGuide?.getState?.().active === true, null, { timeout: 30_000 });
-  await spaceEntryPage.evaluate(() => globalThis.GaiaIntroEntryGuide.close({ restoreFocus: false }));
-  await spaceEntryPage.waitForTimeout(500);
-  await spaceEntryPage.locator("[data-intro-path='map']").click();
+  await completeMapEntry(spaceEntryPage);
+  // CO2 is exhibit 06; its abstract renderer still uses internal mode 01.
+  // The title now opens the dedicated wind exhibit instead.
+  await spaceEntryPage.evaluate(() => { location.hash = "#world-06"; });
   await spaceEntryPage.waitForFunction(() => document.querySelector("#japan-layer")?.getAttribute("aria-hidden") === "false" && !document.body.classList.contains("scene-transitioning"), null, { timeout: 20_000 });
   await spaceEntryPage.waitForFunction(() => document.querySelector("#japan-layer")?.classList.contains("has-integrated-map-light")
     && document.querySelector("#gaia-canvas")?.dataset.integratedMapMode === "01"
@@ -504,170 +522,103 @@ try {
   const bankScreenshot = path.join(outputDir, "map-bank-without-bee.png");
   await directPage.screenshot({ path: bankScreenshot, fullPage: false });
   report.entry.mapBankScreenshot = bankScreenshot;
-  const liveExhibitContracts = new Map([
-    ["15", { id: "wind-field", key: "weatherWindSpeed", title: "街を通る風", caption: /^Open-Meteoの47都道府県代表都市の風速モデル値を、同じ色尺度で比べます。光の線の色と太さが速さを表し、線の向きは風向ではありません。$/u, anchor: /Open-Meteo/u }],
-    ["16", { id: "carbon-pulse", key: "forecastCo2", title: "街の空気にある炭素", caption: /^CAMSの東京に対応する格子のCO₂濃度予測です。光の輪は濃度を表す演出で、東京の排出量、室内濃度、個人が吸った量を示しません。$/u, anchor: /CAMSモデル/u }],
-    ["17", { id: "rain-chorus", key: "weatherPrecipitation", title: "雨と暮らす街", caption: /^Open-Meteoの東京の降水量モデル値を、雨粒と波紋で表します。値の対象時刻と単位を確かめてください。雨の筋や波紋は浸水域や洪水の予測ではありません。$/u, anchor: /Open-Meteo/u }],
-    ["18", { id: "temperature-field", key: "weatherTemperature", title: "街の暑さ、街の寒さ", caption: /^Open-Meteoの東京の地上2m気温のモデル値を、色と揺らぎで表します。室内温度、体感温度、個人の熱中症リスクを示す値ではありません。$/u, anchor: /Open-Meteo/u }],
-    ["19", { id: "cloud-drift", key: "cloudCover", title: "今日の空の覆い", caption: /^Open-Meteoの東京の総雲量を、空を覆う割合（0〜100%）として読みます。雲の重なりは演出で、衛星画像や日射量そのものではありません。$/u, anchor: /Open-Meteo/u }],
-    ["20", { id: "pm25-haze", key: "pm25", title: "吸い込む空気", caption: /^CAMSの東京に対応する格子のPM2.5濃度予測です。霞は値に応じた演出で、実測の煙、汚染源、個人の曝露量や健康被害を示しません。$/u, anchor: /CAMSモデル/u }],
-  ]);
-  let liveExhibitIndex = 0;
-  for (const [number, contract] of liveExhibitContracts) {
-    if (liveExhibitIndex === 0) {
-      await directPage.locator(".map-dock-bank-trigger:visible, [data-map-bank-toggle]:visible").first().click();
-      await directPage.locator('.map-mode-bank [role="tab"][data-map-scope="japan"]').click();
-      await directPage.locator(`.map-mode-bank [data-live-exhibit]`, { hasText: number }).click();
-    } else {
-      await directPage.locator(".gaia-live-deck-chapter [data-live-deck-step='1']").click();
-    }
-    await directPage.waitForFunction((expected) => document.querySelector("#japan-mode-number")?.textContent === expected, number);
-    await directPage.evaluate(() => { GaiaLiveExhibits.selectObservationPoint("tokyo"); GaiaLiveExhibits.pausePoiAutoplay(); });
-    await directPage.waitForFunction(() => document.querySelector("#gaia-live-exhibit-canvas")?.dataset.observationCity === "tokyo"
-      && document.querySelector("#japan-layer")?.dataset.livePoiTransition === "settled");
-    assert.equal(await directPage.locator("#gaia-live-exhibit-canvas").isVisible(), true, `${number}: live exhibit canvas hidden`);
-    assert.equal(await directPage.locator(".gaia-live-exhibit-readout").isVisible(), true, `${number}: live exhibit readout hidden`);
-    assert.equal(await directPage.locator("#japan-mode-number").textContent(), number, `${number}: bank heading mismatch`);
-    const question = await directPage.evaluate((id) => GaiaLiveExhibits.definitions.find(definition => definition.id === id).question, contract.id);
-    assert.equal(await directPage.locator("#japan-title").textContent(), contract.title, `${number}: main heading mismatch`);
-    assert.equal(await directPage.locator("[data-live-deck-question]").textContent(), question, `${number}: observation question mismatch`);
-    assert.equal(await directPage.locator("[data-live-deck-question]").isVisible(), true, `${number}: observation question hidden`);
-    assert.match(await directPage.locator("[data-live-exhibit-caption]").textContent(), contract.caption, `${number}: explanatory contract changed`);
-    assert.equal(await directPage.locator(".gaia-live-deck-wave, [data-live-wave-bar]").count(), 0, `${number}: retired decorative waveform returned`);
-    assert.equal(await directPage.locator("[data-live-exhibit-feed-state]").isVisible(), true, `${number}: live/snapshot state is not visible`);
-    assert.match(await directPage.locator("[data-live-exhibit-feed-state]").textContent(), /最新モデル値|公開観測値|保存データを再現中|データを更新中/u, `${number}: live/snapshot state is ambiguous`);
-    assert.match(await directPage.locator("[data-live-exhibit-feed-time]").textContent(), /(?:JST|観測時刻なし)$/u, `${number}: data time or missing-time state is ambiguous`);
-    assert.match(await directPage.locator("[data-live-exhibit-feed-copy]").textContent(), /自動更新|5分ごと|保存済み(?:観測|モデル)|キャッシュ/u, `${number}: live or saved-data behavior is not explained`);
-    assert.equal(await directPage.locator(".gaia-live-exhibit-touch-hint").count(), 0, `${number}: retired touch hint returned`);
-    assert.equal(await directPage.locator(".gaia-live-exhibit-path li").count(), 3, `${number}: observation-to-light path must have three stages`);
-    for (const selector of ["[data-live-exhibit-input]", "[data-live-exhibit-location]", "[data-live-exhibit-visual-map]"]) {
-      assert((await directPage.locator(selector).textContent()).trim().length >= 12, `${number}: ${selector} explanation is missing`);
-    }
-    assert.equal(await directPage.locator(".gaia-live-exhibit-anchor").isVisible(), true, `${number}: geographic observation anchor hidden`);
-    assert.match(await directPage.locator("[data-live-anchor-label]").textContent(), /東京/u, `${number}: selected observation city mismatch`);
-    assert.equal(await directPage.locator(".gaia-live-exhibit-readout [data-live-sound-toggle]").count(), 0, `${number}: retired generated sound control is still present`);
-    assert.equal(await directPage.locator(".gaia-live-exhibit-readout").getByText(/展示音|BPM/u).count(), 0, `${number}: retired generated sound copy is still present`);
-    const standardOverlayStyle = await directPage.locator("#japan-overlay").evaluate((overlay) => ({
-      opacity: getComputedStyle(overlay).opacity,
-      visibility: getComputedStyle(overlay).visibility,
-      liveBackdrop: overlay.dataset.liveBackdrop,
-    }));
-    assert(Number(standardOverlayStyle.opacity) >= 0.58, `${number}: reference world map is too faint`);
-    assert.equal(standardOverlayStyle.visibility, "visible", `${number}: reference world map is hidden`);
-    assert.equal(standardOverlayStyle.liveBackdrop, "reference-map-only", `${number}: live backdrop leaked a standard exhibit layer`);
-    await directPage.waitForFunction((expectedMode) => (
-      document.querySelector("#gaia-live-exhibit-canvas")?.dataset.webglMode === String(expectedMode)
-    ), liveExhibitIndex);
-    const liveGeography = await directPage.locator("#gaia-live-exhibit-canvas").evaluate((canvas) => ({
-      anchorLongitude: Number(canvas.dataset.anchorLongitude),
-      anchorLatitude: Number(canvas.dataset.anchorLatitude),
-      anchorX: Number(canvas.dataset.anchorNormalizedX),
-      anchorY: Number(canvas.dataset.anchorNormalizedY),
-      signalStrength: Number(canvas.dataset.signalStrength),
-      signalKey: canvas.dataset.signalKey,
-      lightTouchIntegration: canvas.dataset.lightTouchIntegration,
-    }));
-    assert(liveGeography.anchorLongitude >= 122 && liveGeography.anchorLongitude <= 154, `${number}: observation longitude left Japan`);
-    assert(liveGeography.anchorLatitude >= 20 && liveGeography.anchorLatitude <= 46, `${number}: observation latitude left Japan`);
-    assert(liveGeography.anchorX >= 0 && liveGeography.anchorX <= 1 && liveGeography.anchorY >= 0 && liveGeography.anchorY <= 1, `${number}: Tokyo anchor is outside the visible map`);
-    assert(liveGeography.signalStrength >= 0 && liveGeography.signalStrength <= 1, `${number}: normalized signal strength is invalid`);
-    assert.equal(liveGeography.signalKey, contract.key, `${number}: visual field is not bound to its measurement key`);
-    assert.equal(liveGeography.lightTouchIntegration, "abstract-light-touch");
-    if (number === "15") {
-      const openData = directPage.locator("[data-live-deck-source]");
-      assert.equal(await openData.isVisible(), true, "10: live SOURCE action is not visible");
-      await openData.click();
-      await directPage.waitForFunction(() => document.querySelector("#japan-data-panel")?.getAttribute("aria-hidden") === "false");
-      assert.match(await directPage.locator("#data-ledger-mode-title").textContent(), /^15 街を通る風/u, "15: live source panel shows a standard exhibit ledger");
-      assert.match(await directPage.locator("#data-ledger-updated").textContent(), /(?:JST|取得日時：—)$/u, "10: source retrieval time or missing-time state is ambiguous");
-      assert.match(await directPage.locator("#data-ledger-sources").textContent(), /Open-Meteo/u, "10: source provider is absent from the ledger");
-      assert.match(
-        await directPage.locator("#data-ledger-sources a").first().getAttribute("href"),
-        /(?:open-meteo\.com|live-observation-fallback-v1\.json)/u,
-        "10: active API or saved-snapshot source link is missing",
-      );
-      await directPage.locator("#japan-data-close").click();
-    }
-    assert.equal(await directPage.locator("[data-live-light-touch]").count(), 0, `${number}: retired light-touch button remains`);
-    assert.deepEqual(await directPage.locator(".gaia-live-deck-actions strong").allTextContents(), ["データの出典", "統計分析"]);
-    assert.equal(await directPage.evaluate(() => typeof globalThis.GaiaProceduralAudio), "undefined", `${number}: retired generated sound runtime was loaded`);
-    assert.equal(await directPage.evaluate(() => globalThis.GaiaOpeningAudio.getState().mixGain), 1, `${number}: map BGM was altered by the retired exhibit sound path`);
-    await directPage.screenshot({ path: path.join(outputDir, `live-exhibit-${number}.png`), animations: "disabled" });
-    const beforeSurfaceTouch = Number(await directPage.locator("#gaia-live-exhibit-canvas").getAttribute("data-light-touch-count") || 0);
-    await directPage.waitForTimeout(120);
-    const liveMapPoint = await directPage.evaluate(() => {
-      const map = document.querySelector("#japan-map");
-      if (!(map instanceof HTMLElement)) return null;
-      for (let y = 18; y < innerHeight - 18; y += 18) {
-        for (let x = 18; x < innerWidth - 18; x += 18) {
-          const target = document.elementFromPoint(x, y);
-          if (target === map || map.contains(target)) return { x, y };
-        }
-      }
-      return null;
-    });
-    assert(liveMapPoint, `${number}: live map has no unobstructed hit target`);
-    await directPage.mouse.click(liveMapPoint.x, liveMapPoint.y);
-    await directPage.waitForFunction((previousTouchCount) => Number(document.querySelector("#gaia-live-exhibit-canvas")?.dataset.lightTouchCount || 0) > previousTouchCount, beforeSurfaceTouch);
-    assert.equal(await directPage.locator("#japan-poi-card").isVisible(), false, `${number}: light touch leaked into the underlying map POI interaction`);
-    const lightTouchesAfterMap = Number(await directPage.locator("#gaia-live-exhibit-canvas").getAttribute("data-light-touch-count") || 0);
-    report.entry.liveVisual ??= [];
-    report.entry.liveVisual.push({
-      number,
-      beforeSurfaceTouch,
-      lightTouchesAfterMap,
-      longitude: liveGeography.anchorLongitude,
-      latitude: liveGeography.anchorLatitude,
-      signalStrength: liveGeography.signalStrength,
-    });
-    await directPage.screenshot({ path: path.join(outputDir, `live-exhibit-${number}-touch.png`), animations: "disabled" });
-    liveExhibitIndex += 1;
-  }
-  const liveCanvas = await directPage.evaluate(() => {
-    const canvas = document.querySelector("#gaia-live-exhibit-canvas");
-    globalThis.GaiaLiveExhibits.redraw();
-    const gl = canvas.getContext("webgl");
-    const sampleWidth = Math.min(128, canvas.width);
-    const sampleHeight = Math.min(128, canvas.height);
-    const sample = new Uint8Array(sampleWidth * sampleHeight * 4);
-    gl.finish();
-    gl.readPixels(
-      Math.max(0, Math.floor((canvas.width - sampleWidth) / 2)),
-      Math.max(0, Math.floor((canvas.height - sampleHeight) / 2)),
-      sampleWidth,
-      sampleHeight,
-      gl.RGBA,
-      gl.UNSIGNED_BYTE,
-      sample,
-    );
-    return {
-      width: canvas.width,
-      height: canvas.height,
-      engine: canvas.dataset.renderEngine,
-      visualLanguage: canvas.dataset.visualLanguage,
-      webglState: canvas.dataset.webglState,
-      frame: Number(canvas.dataset.webglFrame),
-      painted: sample.some((value, index) => index % 4 === 3 && value > 8),
-      error: gl.getError(),
-    };
-  });
-  assert(liveCanvas.width > 0 && liveCanvas.height > 0 && liveCanvas.painted, "live exhibit canvas was not painted");
-  assert.equal(liveCanvas.engine, "webgl-aiva-field");
-  assert.equal(liveCanvas.visualLanguage, "continuous-signal-field");
-  assert.equal(liveCanvas.webglState, "active");
-  assert(liveCanvas.frame > 0, "live WebGL field did not advance");
-  assert.equal(liveCanvas.error, 0, "live WebGL field reported an error");
-  assert.equal(await directPage.locator("[data-live-deck-source]").isVisible(), true, "live exhibit lost the visible SOURCE action");
-  await directPage.locator(".gaia-live-deck-selector-toggle").click();
-  await directPage.locator('.map-mode-bank [role="tab"][data-map-scope="world"]').click();
-  await directPage.locator('.map-mode-bank [data-map-standard-index="0"]').click();
-  await directPage.waitForFunction(() => !document.querySelector("#japan-layer")?.classList.contains("is-live-exhibit"));
-  assert.equal(await directPage.locator("#gaia-live-exhibit-canvas").isVisible(), false, "standard exhibit did not close live canvas");
-  assert.equal(await directPage.evaluate(() => typeof globalThis.GaiaProceduralAudio), "undefined", "retired generated sound runtime loaded after leaving live exhibits");
-  assert.equal(await directPage.evaluate(() => globalThis.GaiaOpeningAudio.getState().mixGain), 1, "BGM ducking stayed active after leaving live exhibits");
-  report.entry.liveExhibits = "passed";
   report.entry.history = "passed";
   await directContext.close();
+
+  // Exhibits 15–20 now render actual prefecture boundaries, not the retired
+  // particle canvas. Test their visible data binding and real selection flow.
+  report.entry.liveExhibits = [];
+  for (const spec of [
+    { name: "desktop", width: 1280, height: 820 },
+    { name: "4k", width: 3840, height: 1960 },
+    { name: "mobile", width: 390, height: 844 },
+  ]) {
+    const mobile = spec.name === "mobile";
+    const context = await browser.newContext({ viewport: { width: spec.width, height: spec.height }, isMobile: mobile, hasTouch: mobile });
+    const page = await context.newPage();
+    monitor(page, `live-${spec.name}`);
+    await page.goto(new URL("/#japan", baseUrl).href, { waitUntil: "domcontentloaded", timeout: 90_000 });
+    await completeMapEntry(page);
+    if (mobile) {
+      await page.locator('[data-map-menu-toggle]').tap();
+      await page.locator('#map-mobile-sheet [role="tab"][data-map-scope="japan"]').click();
+      await page.locator('#map-mobile-sheet [data-mobile-exhibit="15"]').click();
+    } else {
+      await page.locator(".map-dock-bank-trigger:visible, [data-map-bank-toggle]:visible").first().click();
+      await page.locator('.map-mode-bank [role="tab"][data-map-scope="japan"]').click();
+      await page.locator('.map-mode-bank [data-live-exhibit="wind-field"]').click();
+    }
+    for (let number = 15; number <= 20; number += 1) {
+      await page.waitForFunction(n => document.querySelector("#japan-mode-number")?.textContent === String(n), number);
+      await page.waitForFunction(() => document.querySelectorAll("[data-live-prefecture]").length === 47);
+      await page.locator('[data-live-prefecture="13"]').focus();
+      await page.keyboard.press("Enter");
+      await page.waitForFunction(() => GaiaLiveData.getCity() === "tokyo"
+        && document.querySelector("#japan-layer")?.dataset.livePoiTransition === "settled");
+      await page.waitForFunction(() => document.querySelector('.gaia-live-exhibit-readout')?.dataset.requestState !== "loading");
+      await page.waitForTimeout(1800); // Measure settled geometry, not the entrance transform.
+      const state = await page.evaluate(n => {
+        const definition = GaiaLiveExhibits.definitions.find(e => e.number === String(n));
+        const regions = [...document.querySelectorAll("[data-live-prefecture]")];
+        const rect = document.querySelector(".gaia-live-exhibit-readout").getBoundingClientRect();
+        return {
+          number: n, definition: { id: definition.id, key: definition.key, question: definition.question },
+          exhibit: document.querySelector(".gaia-live-exhibit-readout").dataset.exhibit,
+          display: document.querySelector("#japan-layer").dataset.liveMapDisplay,
+          visible: document.querySelector(".gaia-live-prefecture-regions").checkVisibility(),
+          selected: document.querySelector('[data-live-prefecture="13"]').getAttribute("aria-current"),
+          selectedValue: document.querySelector('[data-live-prefecture="13"]').dataset.value,
+          measurement: GaiaLiveData.getState().measurements[definition.key]?.value ?? null,
+          regionCount: regions.length,
+          regions: regions.map(e => ({ code: e.dataset.livePrefecture, value: e.dataset.value, missing: e.dataset.missing, fill: e.getAttribute("fill"), path: e.getAttribute("d").length })),
+          question: document.querySelector("[data-live-deck-question]").textContent,
+          value: document.querySelector("[data-live-exhibit-value]").textContent,
+          caption: document.querySelector("[data-live-exhibit-caption]").textContent,
+          location: document.querySelector("[data-live-deck-location]").textContent,
+          rect: rect.toJSON(), overflow: document.documentElement.scrollWidth - innerWidth,
+        };
+      }, number);
+      assert.equal(state.display, "prefecture-choropleth");
+      assert.equal(state.visible, true);
+      assert.equal(state.exhibit, state.definition.id);
+      assert.equal(state.selected, "true");
+      if (state.measurement !== null) assert.equal(Number(state.selectedValue), state.measurement, "Selected prefecture must use the active measurement");
+      assert.equal(state.regionCount, 47);
+      assert(state.regions.every(r => r.path > 20 && /^#[0-9a-f]{6}$/i.test(r.fill)
+        && (r.missing === "true" ? r.value === "missing" && r.fill === "#344354" : Number.isFinite(Number(r.value)))));
+      assert(state.regions.some(r => r.missing === "false"), "Saved data must paint real measurements, not an empty map");
+      assert.equal(state.question, state.definition.question);
+      assert.match(state.location, /東京/u);
+      assert.match(state.caption, /代表都市|CAMS/u);
+      assert(state.value.trim().length > 0);
+      assert(state.rect.left >= -1 && state.rect.right <= spec.width + 1 && state.rect.top >= 0 && state.rect.bottom <= spec.height + 1, `${spec.name}/${number}: readout outside viewport`);
+      assert(state.rect.height <= spec.height * 0.35, `${spec.name}/${number}: readout obscures map`);
+      assert(state.overflow <= 1, `${spec.name}/${number}: horizontal overflow`);
+      assert.equal(await page.locator("#gaia-live-exhibit-canvas").count(), 0, "Retired particle canvas must not return");
+      assert.equal(await page.evaluate(() => typeof globalThis.GaiaProceduralAudio), "undefined");
+      assert.equal(await page.evaluate(() => GaiaOpeningAudio.getState().mixGain), 1);
+      await page.screenshot({ path: path.join(outputDir, `live-exhibit-${number}-${spec.name}.png`), animations: "disabled" });
+      report.entry.liveExhibits.push({ viewport: spec.name, ...state });
+      if (number < 20) {
+        await page.locator('[data-map-stable-step="1"]').click();
+      }
+    }
+    if (mobile) {
+      await page.locator('[data-mobile-sheet="reading"]').click();
+      await page.waitForFunction(() => document.querySelector("#map-mobile-sheet")?.open);
+      assert((await page.locator("#map-mobile-sheet .map-mobile-sheet-body").innerText()).trim().length > 30);
+      await page.screenshot({ path: path.join(outputDir, "live-mobile-reading.png") });
+      await page.keyboard.press("Escape");
+      assert.equal(await page.locator("#map-mobile-sheet").evaluate(e => e.open), false);
+    } else {
+      await page.locator("[data-live-deck-source]").click();
+      await page.locator("#japan-data-panel").waitFor({ state: "visible" });
+      assert.match(await page.locator("#data-ledger-mode-title").textContent(), /^20 /u);
+      assert.match(await page.locator("#data-ledger-sources").textContent(), /Open-Meteo|CAMS/u);
+      await page.locator("#japan-data-close").click();
+    }
+    await context.close();
+  }
 
   // Keep the reported cold footer entry in the normal CI browser gate. Loading
   // /story first would register its handler and hide this regression.
@@ -714,155 +665,6 @@ try {
     }
   }
 
-  const live4kContext = await browser.newContext({ viewport: { width: 3840, height: 1960 } });
-  const live4kPage = await live4kContext.newPage();
-  await live4kPage.addInitScript(() => sessionStorage.setItem("gaia:mode-entry-guide:map:v5", "seen"));
-  monitor(live4kPage, "live-4k");
-  await live4kPage.goto(new URL("/#japan", baseUrl).href, { waitUntil: "domcontentloaded", timeout: 90_000 });
-  await completeMapEntry(live4kPage);
-  await live4kPage.waitForFunction(() => document.querySelectorAll(".map-mode-bank [data-live-exhibit]").length === 6, null, { timeout: 30_000 });
-  await live4kPage.locator(".map-dock-bank-trigger:visible, [data-map-bank-toggle]:visible").first().click();
-  await live4kPage.locator('.map-mode-bank [role="tab"][data-map-scope="japan"]').click();
-  await live4kPage.locator('.map-mode-bank [data-live-exhibit="wind-field"]').click();
-  await live4kPage.waitForFunction(() => document.querySelector("#gaia-live-exhibit-canvas")?.dataset.webglMode === "0");
-  await live4kPage.evaluate(() => { GaiaLiveExhibits.selectObservationPoint("tokyo"); GaiaLiveExhibits.pausePoiAutoplay(); });
-  await live4kPage.waitForFunction(() => document.querySelector("#gaia-live-exhibit-canvas")?.dataset.observationCity === "tokyo"
-    && document.querySelector("#japan-layer")?.dataset.livePoiTransition === "settled");
-  const live4kVisualContract = await live4kPage.evaluate(() => {
-    const fontSize = (selector) => Number.parseFloat(getComputedStyle(document.querySelector(selector)).fontSize);
-    const readout = document.querySelector(".gaia-live-exhibit-readout").getBoundingClientRect();
-    const heading = document.querySelector(".japan-heading");
-    const headingRect = heading.getBoundingClientRect();
-    const hiddenDetails = [...document.querySelectorAll(".gaia-live-exhibit-a11y")].map((node) => node.getBoundingClientRect());
-    return {
-      readout: { left: readout.left, right: readout.right, top: readout.top, bottom: readout.bottom, width: readout.width, height: readout.height },
-      titleOnlyHeader: {
-        width: headingRect.width,
-        height: headingRect.height,
-        fontSize: fontSize("#japan-title"),
-        titleFits: document.querySelector("#japan-title").scrollWidth <= document.querySelector("#japan-title").clientWidth,
-        kickerHidden: getComputedStyle(heading.querySelector(".japan-kicker")).display === "none",
-        descriptionHidden: heading.querySelector("#japan-description").getBoundingClientRect().width <= 1,
-        dataButtonVisible: [...heading.querySelectorAll(".japan-data-button")].some((node) => node.getBoundingClientRect().width > 1),
-      },
-      titleFont: fontSize(".gaia-live-exhibit-primary h3"),
-      valueFont: fontSize(".gaia-live-exhibit-primary > strong"),
-      stageCueFont: fontSize(".gaia-live-exhibit-path li > em"),
-      actionFont: fontSize(".gaia-live-exhibit-actions button"),
-      bankButtonFont: fontSize(".map-mode-button"),
-      standardBankButtonFont: fontSize(".map-mode-button:not([data-live-exhibit])"),
-      anchorFont: fontSize(".gaia-live-exhibit-anchor strong"),
-      symbolWidth: document.querySelector(".gaia-live-stage-symbol").getBoundingClientRect().width,
-      symbolCount: document.querySelectorAll(".gaia-live-stage-symbol svg").length,
-      hiddenDetails: hiddenDetails.every((rect) => rect.width <= 1 && rect.height <= 1),
-      visibleParagraphCards: [...document.querySelectorAll(".gaia-live-exhibit-path p")].some((node) => node.getBoundingClientRect().width > 1),
-      stageLabels: [...document.querySelectorAll(".gaia-live-exhibit-path li > b")].map((node) => node.textContent.trim()),
-      stageCues: [...document.querySelectorAll(".gaia-live-exhibit-path li > em")].map((node) => node.textContent.trim()),
-      explanationVisible: document.querySelector(".gaia-live-exhibit-explanation").getBoundingClientRect().height > 40,
-      explanationFont: fontSize(".gaia-live-exhibit-summary"),
-      sourceActionVisible: document.querySelector("[data-live-deck-source]").getBoundingClientRect().width > 1,
-      feedState: document.querySelector("[data-live-exhibit-feed-state]").textContent.trim(),
-    };
-  });
-  assert(live4kVisualContract.readout.left >= 0 && live4kVisualContract.readout.right <= 3840 && live4kVisualContract.readout.bottom <= 1960, "4K live panel overflows the viewport");
-  assert(live4kVisualContract.readout.width >= 3648 && live4kVisualContract.readout.height >= 100 && live4kVisualContract.readout.height <= 128, `4K compact question deck dimensions changed: ${live4kVisualContract.readout.width}×${live4kVisualContract.readout.height}`);
-  assert(live4kVisualContract.titleOnlyHeader.width >= 200 && live4kVisualContract.titleOnlyHeader.width <= 960 && live4kVisualContract.titleOnlyHeader.titleFits, "4K content-sized heading must fit its title without a fixed blank panel");
-  assert(live4kVisualContract.titleOnlyHeader.height >= 44 && live4kVisualContract.titleOnlyHeader.height <= 72, "4K heading retains a readable single-row layout");
-  assert(live4kVisualContract.titleOnlyHeader.fontSize >= 30 && live4kVisualContract.titleOnlyHeader.fontSize <= 32, "4K live heading does not use the standard map title size");
-  assert.equal(live4kVisualContract.titleOnlyHeader.kickerHidden, true, "live heading still displays its kicker");
-  assert.equal(live4kVisualContract.titleOnlyHeader.descriptionHidden, true, "live heading still displays explanatory prose");
-  assert.equal(live4kVisualContract.titleOnlyHeader.dataButtonVisible, false, "legacy heading OPEN DATA action remains visible");
-  assert.equal(live4kVisualContract.sourceActionVisible, true, "live deck does not expose SOURCE");
-  assert(live4kVisualContract.titleFont >= 30 && live4kVisualContract.titleFont <= 32, `4K live title size changed: ${live4kVisualContract.titleFont}px`);
-  assert(live4kVisualContract.valueFont >= 46 && live4kVisualContract.valueFont <= 50, `4K live value size changed: ${live4kVisualContract.valueFont}px`);
-  assert(live4kVisualContract.stageCueFont >= 10 && live4kVisualContract.stageCueFont <= 12, `4K stage cue is not compact: ${live4kVisualContract.stageCueFont}px`);
-  assert(live4kVisualContract.actionFont >= 11 && live4kVisualContract.actionFont <= 13, `4K action is not compact: ${live4kVisualContract.actionFont}px`);
-  assert.equal(live4kVisualContract.bankButtonFont, live4kVisualContract.standardBankButtonFont, "live exhibit bank controls no longer match exhibits 01–09");
-  assert(live4kVisualContract.anchorFont >= 17, `4K map anchor remains too small: ${live4kVisualContract.anchorFont}px`);
-  assert.equal(live4kVisualContract.symbolWidth, 0, "hidden transformation details occupy the 4K live deck");
-  assert.equal(live4kVisualContract.symbolCount, 3, "visual transformation semantics are incomplete");
-  assert.equal(live4kVisualContract.explanationVisible, false, "legacy explanation panel remains visible in the 4K live deck");
-  assert.match(live4kVisualContract.feedState, /最新モデル値|公開観測値|保存データを再現中|データを更新中/u, "4K live/snapshot state is ambiguous");
-  assert.equal(live4kVisualContract.hiddenDetails, true, "long explanations must remain assistive-only");
-  assert.equal(live4kVisualContract.visibleParagraphCards, false, "paragraph explanation cards remain visible");
-  assert.deepEqual(live4kVisualContract.stageLabels, ["観測", "地図", "光"]);
-  assert(live4kVisualContract.stageCues.every((value) => value.length >= 2), "visual transformation cues are incomplete");
-  const live4kScreenshot = path.join(outputDir, "live-exhibit-15-4k.png");
-  await live4kPage.screenshot({ path: live4kScreenshot, animations: "disabled" });
-  report.entry.liveExhibit4k = { screenshot: live4kScreenshot, ...live4kVisualContract };
-  await live4kContext.close();
-
-  const liveMobileContext = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
-  const liveMobilePage = await liveMobileContext.newPage();
-  await liveMobilePage.addInitScript(() => sessionStorage.setItem("gaia:mode-entry-guide:map:v5", "seen"));
-  monitor(liveMobilePage, "live-mobile");
-  await liveMobilePage.goto(new URL("/#japan", baseUrl).href, { waitUntil: "domcontentloaded", timeout: 90_000 });
-  await completeMapEntry(liveMobilePage);
-  await liveMobilePage.waitForFunction(() => document.querySelectorAll(".map-mode-bank [data-live-exhibit]").length === 6, null, { timeout: 30_000 });
-  await liveMobilePage.waitForFunction(() => document.querySelector("#japan-layer")?.classList.contains("is-mobile-map-shell"));
-  await liveMobilePage.locator('[data-mobile-sheet="exhibits"]').click();
-  assert.equal(await liveMobilePage.locator("#map-mobile-sheet [data-mobile-exhibit]").count(), expectedExhibitCount);
-  await liveMobilePage.locator('#map-mobile-sheet [role="tab"][data-map-scope="japan"]').click();
-  await liveMobilePage.locator('#map-mobile-sheet [data-mobile-exhibit="15"]').click();
-  await liveMobilePage.waitForFunction(() => document.querySelector("#gaia-live-exhibit-canvas")?.dataset.webglMode === "0");
-  const mobileReadout = await liveMobilePage.locator(".gaia-live-exhibit-readout").boundingBox();
-  const mobileVisualContract = await liveMobilePage.evaluate(() => {
-    const titleRect = document.querySelector(".japan-heading h2").getBoundingClientRect();
-    const descriptionRect = document.querySelector("#japan-description").getBoundingClientRect();
-    const headingRect = document.querySelector(".japan-heading").getBoundingClientRect();
-    return {
-      titleContained: titleRect.left >= 0 && titleRect.right <= innerWidth,
-      descriptionHidden: descriptionRect.width <= 1 && descriptionRect.height <= 1,
-      englishTitleHidden: getComputedStyle(document.querySelector("[data-live-exhibit-title-en]")).display === "none",
-      compactHeader: headingRect.height <= 130,
-      bankCollapsed: !document.querySelector("#map-mobile-sheet").open,
-      toolbar: [...document.querySelectorAll("#map-mobile-toolbar button")].map(node => ({ text: node.textContent.trim(), height: node.getBoundingClientRect().height })),
-      detailsToggleVisible: document.querySelector('[data-mobile-sheet="reading"]').getBoundingClientRect().height >= 44,
-      detailsExpanded: document.querySelector('[data-mobile-sheet="reading"]').getAttribute("aria-expanded") === "true",
-      explanationHidden: document.querySelector(".gaia-live-exhibit-explanation").getBoundingClientRect().height <= 1,
-      valueFont: Number.parseFloat(getComputedStyle(document.querySelector(".gaia-live-exhibit-primary > strong")).fontSize),
-    };
-  });
-  assert(mobileReadout && mobileReadout.x >= 0 && mobileReadout.x + mobileReadout.width <= 390, "mobile live readout overflows horizontally");
-  assert(mobileReadout.y >= 80 && mobileReadout.y + mobileReadout.height <= 844, "mobile live readout does not preserve a visible map area");
-  assert(mobileReadout.height <= 210, `mobile observation dock is not compact: ${mobileReadout.height}px`);
-  assert.equal(mobileVisualContract.titleContained, true, "mobile exhibit title clips outside its readout");
-  assert.equal(mobileVisualContract.descriptionHidden, true, "mobile live exhibit still displays instructional prose");
-  assert.equal(mobileVisualContract.englishTitleHidden, true, "mobile exhibit title retains a space-consuming English subtitle");
-  assert.equal(mobileVisualContract.compactHeader, true, "mobile live header still reserves space for hidden text controls");
-  assert.equal(mobileVisualContract.bankCollapsed, true, "mobile exhibit bank does not collapse after selection");
-  assert.equal(mobileVisualContract.detailsToggleVisible, true, "mobile exhibit details control is not touchable");
-  assert.equal(mobileVisualContract.detailsExpanded, false, "mobile exhibit details must start collapsed");
-  assert.equal(mobileVisualContract.explanationHidden, true, "mobile exhibit explanation still hides the map when collapsed");
-  assert(mobileVisualContract.valueFont >= 20, "mobile live value is too small");
-  assert.deepEqual(mobileVisualContract.toolbar.map(button => button.text), ["前へ", "展示一覧", "読み方・凡例", "操作", "次へ"]);
-  assert(mobileVisualContract.toolbar.every(button => button.height >= 44), "mobile toolbar controls are not touchable");
-  const liveMobileScreenshot = path.join(outputDir, "live-exhibit-15-mobile.png");
-  await liveMobilePage.screenshot({ path: liveMobileScreenshot, animations: "disabled" });
-  await liveMobilePage.locator('[data-mobile-sheet="reading"]').click();
-  await liveMobilePage.waitForFunction(() => document.querySelector("#map-mobile-sheet")?.open && document.querySelector("#map-mobile-sheet")?.dataset.panel === "reading");
-  const mobileExpandedContract = await liveMobilePage.evaluate(() => ({
-    explanationVisible: document.querySelector("#map-mobile-sheet .map-mobile-sheet-body").getBoundingClientRect().height > 70,
-    explanationFont: Number.parseFloat(getComputedStyle(document.querySelector("#map-mobile-sheet .map-mobile-sheet-body")).fontSize),
-    readingText: document.querySelector("#map-mobile-sheet .map-mobile-sheet-body").textContent,
-    legacyToggleHidden: document.querySelector("#gaia-live-mobile-toggle").getBoundingClientRect().height === 0,
-  }));
-  assert(mobileExpandedContract.explanationVisible && mobileExpandedContract.explanationFont >= 13, "mobile exhibit explanation is missing or too small when expanded");
-  assert.match(mobileExpandedContract.readingText, /このパネルを開いた時点/u, "reading panel must identify its snapshot timing");
-  assert.match(mobileExpandedContract.readingText, /単位|m\/s|風速/u, "reading panel lost the observation legend");
-  assert.equal(mobileExpandedContract.legacyToggleHidden, true, "legacy details toggle duplicates the shared reading action");
-  const liveMobileExpandedScreenshot = path.join(outputDir, "live-exhibit-15-mobile-expanded.png");
-  await liveMobilePage.screenshot({ path: liveMobileExpandedScreenshot, animations: "disabled" });
-  await liveMobilePage.keyboard.press("Escape");
-  assert.equal(await liveMobilePage.locator("#map-mobile-sheet").evaluate(node => node.open), false);
-  assert.equal(await liveMobilePage.locator('[data-mobile-sheet="reading"]').evaluate(node => node === document.activeElement), true);
-  report.entry.liveExhibitMobile = {
-    screenshot: liveMobileScreenshot,
-    expandedScreenshot: liveMobileExpandedScreenshot,
-    ...mobileVisualContract,
-    ...mobileExpandedContract,
-  };
-  await liveMobileContext.close();
 
   const tourContext = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
   const tourPage = await tourContext.newPage();
@@ -1322,6 +1124,7 @@ try {
   monitor(lifecyclePage, "lifecycle");
   await lifecyclePage.goto(new URL("/#earth", baseUrl).href, { waitUntil: "domcontentloaded", timeout: 90_000 });
   await lifecyclePage.waitForFunction(() => Boolean(globalThis.GaiaMapObservationAdapter), null, { timeout: 30_000 });
+  await lifecyclePage.waitForFunction(() => document.documentElement.dataset.gaiaAppReady === "true");
   const lifecycle = await lifecyclePage.evaluate(async () => {
     const initialCanvasCount = document.querySelectorAll("canvas").length;
     const initialSpaceCanvasCount = document.querySelectorAll("#space-canvas").length;
@@ -1346,6 +1149,9 @@ try {
       document.querySelector("#sound-close").click();
     }
     await new Promise((resolve) => setTimeout(resolve, 320));
+    // Closing sound restores its previous route (which can reopen the map).
+    // Explicitly close that restored map before checking renderer teardown.
+    GaiaMapObservationAdapter.closeMap();
     return {
       initialCanvasCount,
       finalCanvasCount: document.querySelectorAll("canvas").length,
@@ -1431,6 +1237,11 @@ try {
   fs.writeFileSync(path.join(outputDir, "report.json"), JSON.stringify(report, null, 2));
   console.log(JSON.stringify(report, null, 2));
 } catch (error) {
+  for (const [index, context] of browser.contexts().entries()) {
+    for (const [pageIndex, page] of context.pages().entries()) {
+      await page.screenshot({ path: path.join(outputDir, `failure-${index}-${pageIndex}.png`) }).catch(() => {});
+    }
+  }
   report.status = "failed";
   report.failure = error instanceof Error ? { message: error.message, stack: error.stack } : { message: String(error) };
   fs.writeFileSync(path.join(outputDir, "report.json"), JSON.stringify(report, null, 2));

@@ -8,6 +8,8 @@ The added `assets/guide-previews/story.jpg` is the owner's application screensho
 
 This is a history-free publication copy. Original media dates and content hashes are preserved in `media-origin-snapshot.json`; no development history is represented as new production history.
 
+Follow-up development commit `842bb3348f31dfd302ccf6f85c7d3af2f7fe1447` updates the end-to-end checks to the current entry, prefecture map and navigation, and fixes a reproduced guide-card/control overlap at 1280px. This follow-up includes runtime changes and updated cache URLs; it supersedes the no-deployment statement for the earlier budget-only change. Version remains 1.0.0. Full local static/contest/Chrome checks passed; CI and deployment results are recorded separately.
+
 Release transformations:
 
 - Repository links point to `hinahina-vr/gaia-sensation`.
