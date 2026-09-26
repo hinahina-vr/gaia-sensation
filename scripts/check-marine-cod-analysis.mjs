@@ -1,8 +1,13 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import { analyzeDiscovery } from "../statistics-discovery.js";
+import { readAnnualPart } from './lib/annual-snapshot.mjs';
 const source = JSON.parse(fs.readFileSync(new URL("../data/japan-marine-cod.json", import.meta.url), "utf8"));
-const rows = source.periods.map(period => {
+// Retain the original five-year analysis fixture after annual files were split.
+const periods = source.periods.filter(period => period.year >= 2020 && period.year <= 2024)
+  .map(period => period.file ? readAnnualPart(period.file) : period);
+assert.equal(periods.length, 5);
+const rows = periods.map(period => {
   const value = period.stations.find(point => point.id === "1360101").cod.value;
   return { id: String(period.year), label: `${period.year}年度`, x: period.year, y: value, value, provenance: "SOURCE" };
 });

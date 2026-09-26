@@ -1,6 +1,6 @@
 # v1.0 release provenance
 
-Source development commit: `747b94a0f95fe668348037ca9717649652e902a5` (map explanations, unified panels and initial annual observation year), with retained owner-requested README edits, regional GA4 consent and production-only transformations below. Version remains v1.0.
+Source development commit: `4b1ff0998523813a9d73cdfd11434f2be3f6b167` (bounded annual POI crossfade), with retained owner-requested README edits, regional GA4 consent and production-only transformations below. Version remains v1.0.
 
 The added `assets/guide-previews/story.jpg` is the owner's application screenshot, resized without cropping or redrawing. Its original development timestamp and adoption record are retained in the material ledger. Scope maintenance adds only that screenshot; previous asset records, data, dependencies and permission decisions are unchanged.
 

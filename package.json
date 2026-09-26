@@ -5,6 +5,8 @@
   "type": "module",
   "description": "惑星の放課後 — GAIA SENSATION — pure HTML/CSS/JavaScript installation",
   "scripts": {
+    "check:poi-year-crossfade": "node --test scripts/check-poi-year-crossfade.test.mjs",
+    "check:poi-year-crossfade:browser": "node scripts/check-poi-year-crossfade-browser.mjs && node scripts/check-poi-year-crossfade-picking-browser.mjs",
     "check:initial-observation-year": "node scripts/check-initial-observation-year.mjs",
     "check:initial-observation-year:browser": "node scripts/check-initial-observation-year-browser.mjs && node scripts/check-initial-observation-year-browser.mjs --paint-only && node scripts/check-initial-year-entry-paths-browser.mjs",
     "check:map-action-icons:browser": "node scripts/check-map-action-icons-browser.mjs",
@@ -90,7 +92,7 @@
     "check:japan-pollution:browser": "node scripts/check-japan-pollution-browser.mjs",
     "check:japan-sensor-open": "node --check src/exploration/japan-sensor-open-catalog.js && node --check src/exploration/marine-cod-exhibit.js && node scripts/check-japan-sensor-open.mjs",
     "check:japan-sensor-open:browser": "node scripts/check-japan-sensor-open-browser.mjs",
-    "check:marine-cod": "node --check src/exploration/marine-cod-catalog.js && node --check src/exploration/marine-cod-exhibit.js && node --check scripts/check-marine-cod-browser.mjs && node --check scripts/check-marine-cod-ui-browser.mjs && node --check scripts/fetch-japan-marine-cod.mjs && node scripts/check-marine-cod-analysis.mjs",
+    "check:marine-cod": "node --check src/exploration/marine-cod-catalog.js && node --check src/exploration/marine-cod-exhibit.js && node --check scripts/check-marine-cod-browser.mjs && node --check scripts/check-marine-cod-ui-browser.mjs && node --check scripts/fetch-japan-marine-cod.mjs && node scripts/check-marine-cod-analysis.mjs && npm run check:poi-year-crossfade",
     "check:marine-cod-ui:browser": "node scripts/check-marine-cod-ui-browser.mjs",
     "check:marine-cod:browser": "node scripts/check-marine-cod-browser.mjs",
     "security:build": "node scripts/build-browser-security.mjs",

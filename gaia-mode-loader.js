@@ -63,7 +63,7 @@
         "./map-responsive-layout.js?v=mobile-credit-disclosure-top-20260913",
       ],
       modules: [
-        "./src/exploration/index.js?v=gaia-firms-cruise-animation-20260914-wind-first-tooltip-20260925-action-icons-ready-20260926-initial-year-2016-20260926",
+        "./src/exploration/index.js?v=gaia-firms-cruise-animation-20260914-wind-first-tooltip-20260925-action-icons-ready-20260926-initial-year-2016-20260926-annual-crossfade-20260926",
       ],
     },
     statistics: {
