@@ -30,6 +30,8 @@ jobs:
         id: chrome
         shell: bash
         run: echo "path=$(command -v google-chrome || command -v google-chrome-stable)" >> "$GITHUB_OUTPUT"
+      - name: Install Japanese screenshot fonts
+        run: sudo apt-get update && sudo apt-get install -y fonts-noto-cjk
       - name: Real Chrome contest experience
         # GitHub's virtual display caps headless Chrome near 30fps. Release runs
         # omit this override and retain the script's 55fps physical-device gate.

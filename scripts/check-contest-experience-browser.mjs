@@ -512,7 +512,11 @@ try {
   assert.equal(await directPage.evaluate(() => location.hash), "#world-01");
   await directPage.reload({ waitUntil: "domcontentloaded" });
   await directPage.waitForFunction(() => Boolean(globalThis.GaiaMapObservationAdapter), null, { timeout: 30_000 });
-  await completeMapEntry(directPage);
+  // Numbered exhibit deep links intentionally skip the welcome guide.
+  await directPage.waitForFunction(() => document.documentElement.dataset.gaiaAppReady === "true"
+    && document.querySelector("#japan-mode-number")?.textContent === "01");
+  await directPage.evaluate(() => globalThis.GaiaMapDemo?.stop());
+  assert.equal(await directPage.locator('#gaia-mode-entry-guide[data-phase="features"]').isVisible(), false);
   assert.equal(await directPage.locator(".gaia-observation-launcher, .gaia-observation-drawer, [data-observation-capture-map]").count(), 0, "retired observation notebook UI was mounted");
   assert.equal(await directPage.evaluate(() => typeof globalThis.GaiaObservationNotebook), "undefined", "retired observation notebook runtime was loaded");
   assert.equal(await directPage.evaluate(() => performance.getEntriesByType("resource").some(({ name }) => /observation-notebook/u.test(name))), false, "retired observation notebook assets were requested");
