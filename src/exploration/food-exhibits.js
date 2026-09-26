@@ -2,11 +2,12 @@ import { animateMetricText } from '../shared/animated-metric.js';
 import { earthBaseScale, earthLongitudeToMapX } from './world-projection.js?v=gaia-japan-center-1';
 import { japanPrefectureView } from './japan-prefecture-view.js?v=gaia-prefecture-gis-view-1';
 import { pickProjectedPoi } from './poi-hit-test.js?v=gaia-japan-center-1';
-import { decorateMapActions } from './map-exhibit-actions.js?v=gaia-map-polish-1';
+import { decorateMapActions } from './map-exhibit-actions.js?v=action-icons-ready-20260926';
 import { FOOD_EXHIBITS, foodValue, foodFormat, foodAppearance, foodGuide, foodRowSource, foodFlagText, buildFoodStatisticsDataset } from './food-catalog.js?v=food-history-20260912';
 import { drawFoodMark } from './food-drawing.js?v=fao-food-1';
 import { drawFoodCountryFill, pickFoodCountry } from './food-country-fill.js?v=fao-food-country-fill-1';
 import { poiArrival, poiArrivalDuration } from './annual-poi-arrival.js?v=gaia-annual-pop-20260909';
+import { initialObservationIndex } from './initial-observation-year.js?v=2016-20260926';
 
 const cache = new Map(), requests = new Map(), buttons = new Map(), saved = new Map();
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
@@ -135,7 +136,10 @@ const selectCountry = (id, { focus = true } = {}) => {
 const setSeries = id => {
   if (!data?.series.some(s => s.id === id) || dataState !== 'ready') return false;
   seriesId = id;
-  if (!series().periods.some(p => p.key === periodKey)) periodKey = series().periods.at(-1).key;
+  if (!series().periods.some(p => p.key === periodKey)) {
+    // Three-year averages use their source midpoint (2015–2017 => 2016).
+    periodKey = series().periods[initialObservationIndex(series().periods, p => p.year)].key;
+  }
   q('[data-food-year]').max = String(series().periods.length - 1);
   setPlaying(false); globalThis.GaiaMapObservationAdapter?.closePoi?.(); renderGuide(); render(); return true;
 };

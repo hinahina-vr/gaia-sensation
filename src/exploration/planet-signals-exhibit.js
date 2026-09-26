@@ -3,7 +3,7 @@ import { formatJapaneseNumber } from "../shared/number-format.js";
 import { formatCoordinatesJa } from "../shared/coordinates.js";
 import { pickProjectedPoi } from "./poi-hit-test.js?v=gaia-japan-center-1";
 import { earthBaseScale, earthLongitudeToMapX as mapLongitude } from "./world-projection.js?v=gaia-japan-center-1";
-import { decorateMapActions } from "./map-exhibit-actions.js?v=gaia-map-polish-1";
+import { decorateMapActions } from "./map-exhibit-actions.js?v=action-icons-ready-20260926";
 import { createAtmosphereRenderer } from "./atmosphere-webgl.js?v=wind-strength-color-20260913";
 import { createPoiArrival, drawPoiArrivals } from "./poi-arrival.js?v=gaia-luminous-veil-1";
 import { createMetricLegend, updateMetricLegend } from "./metric-legend.js?v=gaia-observation-mincho-1-i18n-20260913";

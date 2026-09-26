@@ -5,9 +5,10 @@ import { formatPrefecturePlace } from "./observation-place-label.js?v=gaia-place
 import { EARTH_CENTER_LONGITUDE, earthBaseScale, earthLongitudeToMapX } from "./world-projection.js?v=gaia-japan-center-1";
 import { japanPrefectureView } from "./japan-prefecture-view.js?v=gaia-prefecture-gis-view-1";
 import { ESTAT_EXHIBITS as EXHIBITS } from "./estat-exhibit-catalog.js?v=gaia-poi-manual-1";
-import { decorateMapActions } from "./map-exhibit-actions.js?v=gaia-map-polish-1";
+import { decorateMapActions } from "./map-exhibit-actions.js?v=action-icons-ready-20260926";
 import { ESTAT_OCEAN_GLSL, createOceanMask } from "./estat-ocean.js?v=gaia-estat-ocean-1";
 import { createMetricLegend, updateMetricLegend, metricLegendProgress } from "./metric-legend.js?v=gaia-lodging-color-1-i18n-20260913";
+import { initialObservationIndex } from './initial-observation-year.js?v=2016-20260926';
 
 const SERIES_URL = new URL("../../data/estat-prefecture-series.json?v=gaia-annual-history-1", import.meta.url);
 const PREFECTURE_TOPOLOGY_URL = new URL("../../data/japan-prefectures.topojson?v=gaia-estat-choropleth-1", import.meta.url);
@@ -1644,8 +1645,8 @@ const select = async (index) => {
   // A different exhibit may have been chosen while this first-use load ran.
   if (activeIndex !== requested) return;
   const regionMode = usesPrefectureRegions();
-  periodIndex = 0;
-  previousPeriodIndex = 0;
+  periodIndex = Math.max(0, initialObservationIndex(periodsFor()));
+  previousPeriodIndex = periodIndex;
   transitionStartedAt = performance.now();
   layer.classList.add("is-estat-exhibit");
   layer.dataset.estatExhibit = currentExhibit().key;

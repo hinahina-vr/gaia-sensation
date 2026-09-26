@@ -9,7 +9,9 @@ const source = fs.readFileSync(new URL('../gaia-mode-loader.js', import.meta.url
 // Cache revisions may change for subsequent fixes; actual assets and their
 // order must still match. Entry readiness is tested separately below.
 const baseline = readStartupBaseline('gaia-mode-loader.js')
-  .replace('app.js?v=entry-bottom', 'app.js?v=entry-ready-20260922-entry-bottom');
+  .replace('app.js?v=entry-bottom', 'app.js?v=entry-ready-20260922-entry-bottom')
+  // The catalog is intentionally inserted before app.js consumes it.
+  .replace(/("\.\/app-content\.js[^"\n]*",)/u, '$1\n        "./src/exploration/map-data-intro-catalog.js",');
 const routeSource = fs.readFileSync(new URL('../map-exhibit-route.js', import.meta.url), 'utf8');
 const turn = () => new Promise(resolve => setImmediate(resolve));
 const until = async predicate => {
@@ -223,10 +225,10 @@ for (const eventType of ['pointerover', 'focusin']) {
 }
 {
   const f = fixture();
-  for (const url of originalManifest.sound.styles) {
+  for (const url of f.context.manifest.sound.styles) {
     const node = f.document.createElement('link'); node.rel = 'stylesheet'; node.href = url; f.nodes.push(node);
   }
-  for (const url of originalManifest.sound.scripts) {
+  for (const url of f.context.manifest.sound.scripts) {
     const node = f.document.createElement('script'); node.src = url; f.nodes.push(node);
   }
   await f.loader.load('sound');

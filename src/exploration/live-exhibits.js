@@ -3,7 +3,7 @@ import { formatJapaneseNumber } from "../shared/number-format.js";
 import { STATUS_LABELS } from "./transforms.js?v=gaia-live-loading-1";
 import { earthBaseScale, earthLongitudeToMapX } from "./world-projection.js?v=gaia-japan-center-1";
 import { japanPrefectureView } from "./japan-prefecture-view.js?v=gaia-prefecture-gis-view-1";
-import { decorateMapActions } from "./map-exhibit-actions.js?v=gaia-map-polish-1";
+import { decorateMapActions } from "./map-exhibit-actions.js?v=action-icons-ready-20260926";
 import { LIVE_EXHIBITS as EXHIBITS } from "./live-exhibit-catalog.js?v=gaia-prefecture-fill-20260912";
 import { createLivePrefectureMap } from "./live-prefecture-map.js?v=gaia-prefecture-fill-20260912";
 import { OBSERVATION_CITIES, findObservationCity, adjacentObservationCity } from "./observation-cities.js?v=gaia-exhibit-catalog-1";

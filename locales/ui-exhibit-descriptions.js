@@ -1,4 +1,12 @@
 GaiaI18n.register([
+  ["展示データの解説","About this visualization","展示数据说明"],
+  ["世界各地の地上10mで、風がどちらへ、どれくらいの速さで吹いているか。","Which way is the wind blowing, and how fast, 10 metres above the ground around the world?","世界各地距地面10米处，风吹向何方，速度有多快？"],
+  ["気象予測モデルのデータをもとに、その様子を光の流れで表しています。","Streams of light show these winds using data from weather prediction models.","我们根据气象预测模型的数据，用流动的光展现风的样子。"],
+  ["風速・風向｜気象モデル値｜Open-Meteo／DWD・ECMWFほか","Wind speed & direction | Weather-model values | Open-Meteo / DWD, ECMWF and others","风速·风向｜气象模型值｜Open-Meteo／DWD·ECMWF等"],
+  ["現在は演出用の参考値を表示しています。実際の気象モデル値ではありません。","Illustrative sample values are currently shown, not actual weather-model values.","当前显示的是用于演示的参考值，并非实际气象模型值。"],
+  ["保存済みのデータを表示しています。","Saved data are currently shown.","当前显示已保存的数据。"],
+  ["取得済みのデータを表示しています。","Previously retrieved data are currently shown.","当前显示之前获取的数据。"],
+  ["気象データを取得しています。","Loading weather data.","正在获取气象数据。"],
   ["森と雨の関係は、水と生きものの居場所を考える手がかりです。森林分布と世界の参照地点の雨量を比較します。この重なりだけで因果は分かりません。","The relationship between forests and rain offers clues to water and habitats. Compare forest distribution with rainfall at reference sites around the world. Their overlap alone does not establish causation.","森林与雨的关系，是思考水和栖息地的线索。比较森林分布与全球参考地点降雨量，单凭重叠不能判断因果。"],
   ["使い終えたものを、次の資源へ戻せるか。国連91地域に世界銀行54地域を補足。年度・対象・分母の違いに注意し、未収録はゼロや推定値で埋めません。","Can used things become the next resource? Data for 91 UN regions are supplemented by 54 World Bank regions. Mind differences in years, coverage, and denominators; missing entries are not filled with zeros or estimates.","用过的物品能否成为下一份资源？联合国91个地区的数据由世界银行54个地区补充。注意年份、对象与分母差异；未收录地区不以零或估算填补。"],
   ["街の明かりを支える暮らしと、積み重なった排出。1945年からの国別CO₂と2016年の夜間光を比べます。明るさを排出量へ換算する地図ではありません。","Life supported by city lights, and accumulated emissions. Compare national CO₂ from 1945 onward with nighttime lights from 2016. This map does not convert brightness into emissions.","支撑城市灯光的生活，以及不断累积的排放。比较1945年以来各国CO₂与2016年夜间灯光。本地图不将亮度换算为排放量。"],

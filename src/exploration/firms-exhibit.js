@@ -3,7 +3,7 @@ import { formatJapaneseNumber } from "../shared/number-format.js";
 import { formatCoordinatesJa } from "../shared/coordinates.js";
 import { pickProjectedPoi } from "./poi-hit-test.js?v=gaia-japan-center-1";
 import { earthBaseScale, earthLongitudeToMapX } from "./world-projection.js?v=gaia-japan-center-1";
-import { decorateMapActions } from "./map-exhibit-actions.js?v=gaia-map-polish-1";
+import { decorateMapActions } from "./map-exhibit-actions.js?v=action-icons-ready-20260926";
 import { createRealtimeStatus, updateRealtimeStatus } from "./realtime-exhibit-status.js?v=gaia-map-polish-1-live-red-1-footer-credit-1";
 import { FIRE_REVEAL_EDGE, FIRE_COLUMN_LIFETIME, FIRE_COLUMN_LIMIT, FIRE_COLUMN_MOBILE_LIMIT,
   fireSequence, inverseFireEase, FIRE_COLUMN_VERTEX, FIRE_COLUMN_FRAGMENT } from "./fire-ignition.js?v=gaia-fire-columns-1";

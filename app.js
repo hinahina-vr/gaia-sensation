@@ -7,6 +7,7 @@
     { japanPrefectureView }, { animateMetricText },
     { renderPoiPreviewReadings, renderPoiPreviewTitle }, { formatCoordinatesJa },
     { createSnapshotStore },
+    { INITIAL_OBSERVATION_YEAR, initialObservationIndex },
     { recyclingSourceId, recyclingSourceLabel, recyclingDefinition, recyclingScope, recyclingYearNote, recyclingDetails, RECYCLING_COMPARABILITY },
   ] = await Promise.all([
     import('./src/exploration/japan-prefecture-view.js?v=gaia-prefecture-gis-view-1'),
@@ -14,6 +15,7 @@
     import('./src/exploration/poi-preview-readings.js?v=large-values-20260912-i18n-20260913'),
     import('./src/shared/coordinates.js'),
     import('./src/data/snapshot-store.js?v=gaia-hardening-1-perf-high-20260909'),
+    import('./src/exploration/initial-observation-year.js?v=2016-20260926'),
     import('./src/data/recycling-provenance.js?v=recycling-coverage-1'),
   ]);
   const snapshotStore = createSnapshotStore({ manifestUrl: new URL("./data/runtime/gaia-manifest.json?v=recycling-coverage-1", document.baseURI).href });
@@ -1079,6 +1081,7 @@
   let japanPrefectureBoundaryArcs = [];
   const japanPrefectureBoundaryPathCache = new Map();
   let signalTimePosition = 100;
+  let pendingInitialTimelineMode = null;
   let co2TimelineStartedAt = performance.now();
   let co2TimelinePausedUntil = 0;
   let co2TimelineLastStep = -1;
@@ -6690,17 +6693,65 @@
   let mapEntryGuidePending = true;
   let pendingMapTitle = null;
   let mapTitleTransitionEnd = null;
+  const mapDataIntro = document.querySelector("#map-data-intro");
+  const mapDataIntroStatus = document.querySelector("#map-data-intro-status");
+  let mapDataIntroTimer = 0;
+  const hideMapDataIntro = () => {
+    window.clearTimeout(mapDataIntroTimer);
+    mapDataIntroTimer = 0;
+    if (mapDataIntro) mapDataIntro.hidden = true;
+    japanLayer.classList.remove("is-map-data-intro");
+  };
+  const updateMapDataIntroStatus = () => {
+    if (!mapDataIntro || mapDataIntro.hidden || !mapDataIntroStatus) return;
+    const text = globalThis.GaiaMapDataIntro?.status(mapDataIntro.dataset.exhibitNumber) || "";
+    mapDataIntroStatus.textContent = globalThis.GaiaI18n?.t(text) || text;
+  };
+  const showMapDataIntro = () => {
+    // Explanations share the title band, but never its plot/playback gate.
+    const number = japanTitle.dataset.exhibitNumber;
+    const entry = globalThis.GaiaMapDataIntro?.entries[number];
+    if (!mapDataIntro || !japanIsOpen || !entry) return;
+    hideMapDataIntro();
+    mapDataIntro.dataset.exhibitNumber = number;
+    mapDataIntro.querySelector('[data-intro-subject]').textContent = entry.subject;
+    mapDataIntro.querySelector('[data-intro-reading]').textContent = entry.reading;
+    mapDataIntro.querySelector('[data-intro-source]').textContent = entry.source;
+    globalThis.GaiaI18n?.translate(mapDataIntro);
+    mapDataIntro.hidden = false;
+    japanLayer.classList.add("is-map-data-intro");
+    updateMapDataIntroStatus();
+    mapDataIntroTimer = window.setTimeout(hideMapDataIntro, 7000);
+  };
+  mapDataIntro?.addEventListener("animationend", event => {
+    if (event.target === mapDataIntro) hideMapDataIntro();
+  });
+  for (const event of ["gaia:planet-signals-change", "gaia:firms-exhibit-change", "gaia:live-update",
+    "gaia:live-prefecture-field", "gaia:live-city-change", "gaia:marine-cod-ready", "gaia:marine-cod-error", "gaia:food-ready", "gaia:food-error"]) {
+    window.addEventListener(event, updateMapDataIntroStatus);
+  }
+  new MutationObserver(updateMapDataIntroStatus).observe(japanLayer, {
+    subtree: true, attributes: true, attributeFilter: ["data-realtime-state"],
+  });
+  // A user gesture dismisses the copy without consuming the gesture itself.
+  for (const type of ["pointerdown", "keydown", "wheel"]) {
+    japanLayer.addEventListener(type, hideMapDataIntro, { capture: true, passive: true });
+  }
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) hideMapDataIntro();
+  });
   const getMapTitleSubtitle = number => MAP_TITLE_SUBTITLES[number]
     || globalThis.GaiaMarineCod?.definitions?.find(item => item.number === number)?.subtitle
     || globalThis.GaiaFoodExhibits?.definitions?.find(item => item.number === number)?.subtitle || "";
   let mapTitleTransitionTitle = `${japanTitle.dataset.exhibitNumber}　${japanTitle.textContent}`;
   const cancelMapTitleTransition = () => {
+    hideMapDataIntro();
     window.clearTimeout(mapTitleTransitionTimer);
     mapTitleTransitionTimer = 0;
     if (mapTitleTransitionEnd) mapTitleTransition.removeEventListener("animationend", mapTitleTransitionEnd);
     mapTitleTransitionEnd = null;
     mapPlotRevealBlockedUntil = 0;
-    japanLayer.classList.remove("is-map-title-transitioning");
+    japanLayer.classList.remove("is-map-title-transitioning", "has-map-data-intro");
     if (japanOverlay.dataset.titleSeparatorState === "running") {
       japanOverlay.dataset.titleSeparatorState = "cancelled";
     }
@@ -6715,6 +6766,8 @@
     if (mapTitleTransitionTitle === title) return;
     mapTitleTransitionTitle = title;
     cancelMapTitleTransition();
+    const hasDataIntro = Boolean(mapDataIntro && globalThis.GaiaMapDataIntro?.entries[japanTitle.dataset.exhibitNumber]);
+    japanLayer.classList.toggle("has-map-data-intro", hasDataIntro);
     const separatorStartedAt = performance.now();
     const separatorDuration = reducedMotion
       ? MAP_TITLE_SEPARATOR_REDUCED_DURATION_MS
@@ -6745,10 +6798,13 @@
       japanLayer.classList.remove("is-map-title-transitioning");
       japanOverlay.dataset.titleSeparatorState = "complete";
       japanOverlay.dataset.titleSeparatorCompletedAt = performance.now().toFixed(1);
+      showMapDataIntro();
     };
     mapTitleTransitionEnd = event => {
       if (event.target !== mapTitleTransition || event.pseudoElement) return;
-      if (event.animationName !== (reducedMotion ? "map-title-separator-still" : "map-title-separator-crossfade")) return;
+      const animationName = hasDataIntro ? "map-title-data-handoff"
+        : reducedMotion ? "map-title-separator-still" : "map-title-separator-crossfade";
+      if (event.animationName !== animationName) return;
       finish();
     };
     mapTitleTransition.addEventListener("animationend", mapTitleTransitionEnd);
@@ -8454,9 +8510,26 @@
     }, finalFrameMs);
   };
 
-  const restartCo2Timeline = (position = 0) => {
+  const initialHistoricalTimelinePosition = (signalMode, id) => {
+    if (id === 'breathing-earth') return (INITIAL_OBSERVATION_YEAR - CO2_TIMELINE_START_YEAR)
+      / (CO2_TIMELINE_END_YEAR - CO2_TIMELINE_START_YEAR) * 100;
+    const rows = id === 'anthropocene-scar' ? signalMode?.signals?.emissions
+      : id === 'population-tide' ? signalMode?.signals?.population : null;
+    const years = rows ? getPopulationYearIndex(rows).years
+      : id === 'rhythm-of-disaster' ? getGlobalEarthquakePlaybackSchedule(signalMode?.signals?.globalEvents || []).years : [];
+    if (!['anthropocene-scar', 'population-tide', 'rhythm-of-disaster'].includes(id)) return undefined;
+    if (!years.length) return null; // Seed after the lazy snapshot arrives.
+    // Use the interior of the bin, avoiding floating-point rounding to last year.
+    return (initialObservationIndex(years) + .001) / years.length * 100;
+  };
+
+  const restartCo2Timeline = (position) => {
     const now = performance.now();
-    const activeId = getActiveSignalMode()?.id;
+    const activeSignalMode = getActiveSignalMode();
+    const activeId = activeSignalMode?.id || modes[modeToIndex].dataModeId || modes[modeToIndex].id;
+    const initialPosition = position === undefined && !storyModeDetour
+      ? initialHistoricalTimelinePosition(activeSignalMode, activeId) : undefined;
+    pendingInitialTimelineMode = initialPosition === null ? activeId : null;
     const reducedMotionPosition = activeId === "breathing-earth"
       ? ((2025.9 - CO2_TIMELINE_START_YEAR) /
           (CO2_TIMELINE_END_YEAR - CO2_TIMELINE_START_YEAR)) *
@@ -8464,8 +8537,7 @@
       : activeId === "blue-circulation"
         ? 50
         : 0;
-    signalTimePosition = clamp(reducedMotion ? reducedMotionPosition : position, 0, 100);
-    const activeSignalMode = getActiveSignalMode();
+    signalTimePosition = clamp(initialPosition ?? (reducedMotion ? reducedMotionPosition : position ?? 0), 0, 100);
     if (activeId === "three-ecologies") {
       ecologiesPlaying = false;
       ecologiesExhibit?.reset();
@@ -8755,6 +8827,7 @@ for (const country of countryValues) {
       gaiaSnapshot = { ...snapshot, modes: [...gaiaModeById.values()] };
       if (all) gaiaAllSignalsLoaded = true;
       if (all || modeId === (modes[modeToIndex].dataModeId || modes[modeToIndex].id)) {
+        if (japanIsOpen && !storyModeDetour && pendingInitialTimelineMode === getActiveSignalMode()?.id) restartCo2Timeline();
         updateModeInterface();
         window.dispatchEvent(new CustomEvent("gaia:signals-ready", { detail: { modeId, all } }));
       }
@@ -8967,6 +9040,7 @@ for (const country of countryValues) {
       if (!storyModeDetour && ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Home", "End", "PageUp", "PageDown"].includes(event.key)) pauseMapTimeline();
     });
     input.addEventListener("input", () => {
+      pendingInitialTimelineMode = null;
       const activeSignalMode = getActiveSignalMode();
       const isWasteCountrySelector = activeSignalMode?.id === "nothing-is-waste";
       if (isWasteCountrySelector) {
@@ -9480,7 +9554,7 @@ for (const country of countryValues) {
       updateModeInterface();
       if (japanIsOpen) {
         restartMapPlotReveal("mode-reselect");
-        restartCo2Timeline(0);
+        restartCo2Timeline();
         if (isTheme(5, normalizedIndex)) setJapanDataLayer("snapshot");
         animateEarthViewForMode(normalizedIndex);
       }
@@ -9499,7 +9573,7 @@ for (const country of countryValues) {
     updateModeInterface();
     if (japanIsOpen) {
       restartMapPlotReveal("mode-change");
-      restartCo2Timeline(0);
+      restartCo2Timeline();
       if (isTheme(5, normalizedIndex)) setJapanDataLayer("snapshot");
       animateEarthViewForMode(normalizedIndex);
     }
@@ -10599,7 +10673,7 @@ for (const country of countryValues) {
     const mapParameters = new URLSearchParams(window.location.search);
     const requestedDataLayer = mapParameters.get("layer");
     const requestedMode = Number(mapParameters.get("mode"));
-    const requestedTimelinePosition = Number(mapParameters.get("time"));
+    const requestedTimelinePosition = mapParameters.has("time") ? Number(mapParameters.get("time")) : Number.NaN;
     if (
       respectUrlMode &&
       Number.isInteger(requestedMode) &&
@@ -10614,7 +10688,7 @@ for (const country of countryValues) {
     restartCo2Timeline(
       Number.isFinite(requestedTimelinePosition)
         ? clamp(requestedTimelinePosition, 0, 100)
-        : 0,
+        : undefined,
     );
     if (requestedDataLayer === "history" || requestedDataLayer === "snapshot") {
       setJapanDataLayer(requestedDataLayer);
@@ -11249,6 +11323,7 @@ for (const country of countryValues) {
       return true;
     },
     setSignalTime: (position) => {
+      pendingInitialTimelineMode = null;
       signalTimePosition = clamp(Number(position) || 0, 0, 100);
       if (storyModeDetour) {
         co2TimelineHeld = false;

@@ -1,4 +1,6 @@
 let iconSerial = 0;
+const pendingIcons = new Map();
+let iconObserver = null;
 let unavailableTooltip = null;
 const REALTIME_ANALYSIS_REASON = "リアルタイム表示では統計分析を利用できません。時系列・比較データの展示でご利用ください。";
 
@@ -44,7 +46,39 @@ const disableRealtimeAnalysis = button => {
   }, { capture: true });
 };
 
-// Reuse the canonical 01–09 dock icons, including their gradient fills.
+const populateIcon = (icon, canonicalKind) => {
+  const svg = document.querySelector(`.map-command-dock > .map-dock-action--${canonicalKind} svg`)?.cloneNode(true);
+  if (!svg) return false;
+  for (const definition of svg.querySelectorAll("[id]")) {
+    const oldId = definition.id;
+    definition.id = `map-exhibit-icon-${++iconSerial}`;
+    for (const shape of svg.querySelectorAll("[fill]")) {
+      if (shape.getAttribute("fill") === `url(#${oldId})`) shape.setAttribute("fill", `url(#${definition.id})`);
+    }
+  }
+  icon.replaceChildren(svg);
+  return true;
+};
+
+const mountIcon = (icon, canonicalKind) => {
+  if (populateIcon(icon, canonicalKind)) return;
+  // Providers can mount on adapter-ready before the classic dock script runs.
+  // Wait for its canonical SVGs, then release the observer once all are filled.
+  pendingIcons.set(icon, canonicalKind);
+  if (iconObserver) return;
+  iconObserver = new MutationObserver(() => {
+    for (const [target, kind] of pendingIcons) {
+      if (populateIcon(target, kind)) pendingIcons.delete(target);
+    }
+    if (!pendingIcons.size) {
+      iconObserver.disconnect();
+      iconObserver = null;
+    }
+  });
+  iconObserver.observe(document.querySelector('#japan-layer') || document.body, { childList: true, subtree: true });
+};
+
+// Reuse the canonical dock icons, including their gradient fills.
 // All source actions open the in-page ledger; external links live inside it.
 export const decorateMapActions = (container, source, analysis) => {
   container.classList.add("gaia-map-actions");
@@ -56,17 +90,7 @@ export const decorateMapActions = (container, source, analysis) => {
     button.className = `gaia-map-action gaia-map-action--${kind}`;
     const icon = document.createElement("i");
     icon.setAttribute("aria-hidden", "true");
-    const svg = document.querySelector(`.map-command-dock > .map-dock-action--${canonicalKind} svg`)?.cloneNode(true);
-    if (svg) {
-      for (const definition of svg.querySelectorAll("[id]")) {
-        const oldId = definition.id;
-        definition.id = `map-exhibit-icon-${++iconSerial}`;
-        for (const shape of svg.querySelectorAll("[fill]")) {
-          if (shape.getAttribute("fill") === `url(#${oldId})`) shape.setAttribute("fill", `url(#${definition.id})`);
-        }
-      }
-      icon.append(svg);
-    }
+    mountIcon(icon, canonicalKind);
     const copy = document.createElement("span");
     const small = document.createElement("small");
     small.textContent = kicker;

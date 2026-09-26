@@ -206,6 +206,68 @@ body.map-grid-desktop .map-grid-intro #japan-title {
   isolation: isolate;
 }
 
+.map-data-intro {
+  position: absolute;
+  z-index: 120;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  animation: map-data-intro-fade 7000ms ease both;
+}
+
+.map-data-intro[hidden] { display: none; }
+
+.map-data-intro-copy {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 12px clamp(20px, 6vw, 120px);
+  color: #dcf0f5;
+  font: 400 clamp(16px, 1.55vw, 25px)/1.6 var(--font-ja);
+  text-align: center;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+
+.map-data-intro-copy p { margin: 0; }
+.map-data-intro-copy small {
+  display: block;
+  margin-top: 12px;
+  color: #a9cbd3;
+  font: 400 clamp(11px, 0.85vw, 14px)/1.5 var(--font-ja);
+}
+.map-data-intro-copy #map-data-intro-status { margin-top: 4px; color: #ebd4a3; }
+.map-data-intro-copy #map-data-intro-status:empty { display: none; }
+
+@media (max-width: 720px) {
+  .map-data-intro-copy {
+    padding-block: 8px;
+    font-size: clamp(12px, 3.45vw, 14px);
+    line-height: 1.5;
+    text-wrap: pretty;
+  }
+  .map-data-intro-copy small { margin-top: 8px; font-size: 10.5px; line-height: 1.4; }
+}
+
+@media (max-width: 360px) {
+  .map-data-intro-copy {
+    /* Leave room for the left zoom rail on the narrowest phones. */
+    padding-inline: 60px 16px;
+    font-size: 12px;
+  }
+  .map-data-intro-copy p { display: inline; }
+  .map-data-intro-copy small { font-size: 10px; }
+}
+
+@keyframes map-data-intro-fade {
+  0%, 100% { opacity: 0; }
+  12%, 88% { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .map-data-intro { animation: none; }
+}
+
 .map-title-transition::before {
   position: absolute;
   z-index: -1;
@@ -387,6 +449,41 @@ body.map-grid-desktop .map-grid-intro #japan-title {
   .japan-layer.is-map-title-transitioning #map-title-transition-text {
     transform: none !important;
   }
+}
+
+/* Titles and explanations share the original band without an exit/re-entry. */
+.japan-layer.is-map-title-transitioning.has-map-data-intro .map-title-transition {
+  animation-name: map-title-data-handoff;
+}
+.japan-layer.is-map-title-transitioning.has-map-data-intro .map-title-transition::before {
+  animation-name: map-title-data-band-hold;
+}
+.japan-layer.is-map-data-intro .map-title-transition {
+  visibility: visible;
+  background: rgba(0, 5, 12, 0.28);
+  animation: map-data-band-out 7000ms ease both;
+}
+.japan-layer.is-map-data-intro .map-title-transition::before {
+  opacity: 1;
+  transform: translateY(-50%);
+}
+.japan-layer.is-map-data-intro .map-title-transition-copy { visibility: hidden; }
+
+@keyframes map-title-data-handoff {
+  0% { opacity: 0; background: rgba(0, 5, 12, 0); }
+  3%, 100% { opacity: 1; background: rgba(0, 5, 12, 0.28); }
+}
+@keyframes map-title-data-band-hold {
+  0% { opacity: 0; transform: translateY(-50%) scaleX(0); }
+  2% { opacity: 1; }
+  20%, 100% { opacity: 1; transform: translateY(-50%) scaleX(1); }
+}
+@keyframes map-data-band-out {
+  0%, 88% { opacity: 1; }
+  100% { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .japan-layer.is-map-data-intro .map-title-transition { animation: none; opacity: 1; }
 }
 
 body.map-grid-desktop .map-grid-intro #japan-description {
@@ -1584,29 +1681,26 @@ body.map-grid-desktop:has(.gaia-audio-dock.is-expanded) .signal-encoding-legend-
       var(--map-dock-action-width);
     gap: 0;
     height: var(--map-command-dock-height);
-    padding: 9px clamp(10px, 0.8vw, 20px) 11px;
+    padding: 9px 0 11px;
     color: rgba(233, 250, 252, 0.9);
-    border-top: 1px solid rgba(115, 205, 226, 0.25);
+    border: 1px solid rgba(99, 243, 255, 0.34);
+    border-bottom: 0;
     background:
       linear-gradient(90deg, rgba(6, 29, 46, 0.98), rgba(3, 17, 35, 0.985) 54%, rgba(7, 24, 43, 0.98)),
       #041426;
     box-shadow:
-      0 -18px 46px rgba(0, 7, 20, 0.38),
-      inset 0 1px rgba(182, 240, 248, 0.035);
-    backdrop-filter: blur(18px) saturate(112%);
-    -webkit-backdrop-filter: blur(18px) saturate(112%);
+      0 -20px 65px rgba(0, 0, 0, 0.5),
+      inset 0 1px rgba(236, 253, 255, 0.05);
+    backdrop-filter: blur(18px) saturate(1.24);
+    -webkit-backdrop-filter: blur(18px) saturate(1.24);
     isolation: isolate;
   }
 
-  body.map-grid-desktop .map-command-dock::before {
-    position: absolute;
-    z-index: -1;
-    inset: 9px clamp(10px, 0.8vw, 20px) 11px;
-    border: 1px solid rgba(106, 205, 220, 0.22);
-    border-radius: 5px;
-    content: "";
-    pointer-events: none;
-    background: linear-gradient(180deg, rgba(8, 32, 51, 0.58), rgba(2, 14, 29, 0.34));
+  body.map-grid-desktop .map-command-dock::before,
+  body.map-grid-desktop .map-command-dock > .map-grid-polish::before,
+  body.map-grid-desktop .map-command-dock > .map-grid-polish::after {
+    /* Match 05's single glass strip, without inset cards around any cell. */
+    content: none;
   }
 
   body.map-grid-desktop .japan-layer #japan-title::before {

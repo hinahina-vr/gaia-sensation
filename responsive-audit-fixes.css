@@ -73,10 +73,7 @@
 }
 #japan-layer.has-map-stable-navigation .map-dock-context { left:auto !important; right:16px !important; bottom:calc(100% + 74px) !important; }
 body:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation #gaia-map-zoom-controls { left:12px !important; right:auto !important; top:160px !important; bottom:auto !important; transform:none !important; translate:none !important; }
-@media(min-width:901px) and (max-width:1399px) {
-  body.map-grid-desktop #japan-layer.has-map-stable-navigation.is-food-exhibit { --map-unified-height:161px; }
-  body.map-grid-desktop #japan-layer.has-map-stable-navigation .gaia-food-readout { grid-template-columns:minmax(300px,1.3fr) minmax(0,1fr) var(--map-exhibit-actions-width) !important; grid-template-rows:64px 76px !important; gap:0 !important; --map-chapter-height:76px !important; }
-}
+/* Food dock sizing and its 1200px breakpoint live in map-unified-dock.css. */
 @media(min-width:901px) {
   /* Header, persistent navigation and legends have separate occupied rows. */
   #japan-layer.has-map-stable-navigation :is(.signal-encoding-legend-dock,.gaia-estat-heat-legend,.gaia-food-legend,.gaia-marine-cod-legend,.gaia-firms-legend,.gaia-planet-signals-legend):not(.is-user-positioned) { top:var(--responsive-legend-top,154px) !important; }

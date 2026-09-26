@@ -149,19 +149,19 @@
 }
 /* A narrow desktop cannot fit a full chapter, measurement, time control,
    explanation and actions in one row. Keep the reading and time together. */
-@media (min-width: 901px) and (max-width: 1400px) {
-  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer .map-command-dock:has(.has-dock-metric) {
-    --map-command-dock-height: 167px;
-    --map-chapter-height: 70px;
+@media (min-width: 901px) and (max-width: 1200px) {
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer .map-command-dock {
+    --map-command-dock-height: 161px;
+    --map-chapter-height: 76px;
     grid-template-columns: var(--map-chapter-width) minmax(0, 1fr) 110px 110px;
-    grid-template-rows: 76px 70px;
+    grid-template-rows: 64px 76px;
   }
-  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer .map-command-dock:has(.has-dock-metric) > .signal-console-map {
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer .map-command-dock > .signal-console-map {
     grid-column: 1 / -1;
     grid-row: 1;
     border-bottom: 1px solid rgba(113, 207, 221, .18) !important;
   }
-  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer .map-command-dock:has(.has-dock-metric) > :is(.map-mode-bank, .map-reading-guide, .map-dock-action) {
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer .map-command-dock > :is(.map-mode-bank, .map-reading-guide, .map-dock-action) {
     grid-row: 2;
   }
 }
@@ -404,4 +404,172 @@
 }
 @media (min-width: 2400px) {
   body.map-grid-desktop #japan-layer.has-map-stable-navigation { --map-unified-height: 124px; }
+}
+
+/* All desktop chapter headings follow 05's type scale and two-line rhythm.
+   Keep provider controls and the story/mobile layouts independent. */
+@media (min-width: 901px) {
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation {
+    --map-dock-title-size: clamp(19px, 1.04vw, 27px);
+    --realtime-label-size: clamp(11px, .5vw, 14px);
+    --realtime-label-row: calc(var(--realtime-label-size) * 1.4);
+    --realtime-value-row: clamp(30px, 1vw, 36px);
+    --realtime-row-gap: 6px;
+    --realtime-copy-height: calc(var(--realtime-label-row) + var(--realtime-value-row) + var(--realtime-row-gap));
+  }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation .map-dock-bank-copy {
+    grid-template-rows: var(--realtime-label-row) var(--realtime-value-row);
+    gap: var(--realtime-row-gap);
+  }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation .map-dock-bank-copy > span {
+    align-items: center;
+    gap: 9px;
+  }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation :is(.gaia-live-deck-chapter, .gaia-estat-chapter, .gaia-marine-cod-chapter, .gaia-food-chapter) {
+    position: relative;
+    display: block;
+    align-self: end;
+    box-sizing: border-box;
+    height: var(--map-chapter-height);
+    margin: 0;
+    padding: 0;
+  }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation .gaia-marine-cod-readout.is-record-exhibit {
+    padding-block: 9px 11px;
+  }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation :is(.gaia-live-deck-chapter, .gaia-estat-chapter, .gaia-marine-cod-chapter, .gaia-food-chapter) > div {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    height: 100%;
+    margin: 0;
+    padding: calc(var(--realtime-label-row) + var(--realtime-row-gap)) 50px 0 !important;
+  }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation :is(.gaia-live-deck-chapter, .gaia-estat-chapter, .gaia-marine-cod-chapter, .gaia-food-chapter).has-map-category > .map-category-eyebrow {
+    position: absolute;
+    top: calc(50% - var(--realtime-copy-height) / 2);
+    left: 50px;
+    right: 50px;
+    margin: 0;
+  }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation :is(.map-dock-bank-copy, .gaia-live-deck-chapter, .gaia-estat-chapter, .gaia-marine-cod-chapter, .gaia-food-chapter) .map-category-eyebrow {
+    font-family: var(--font-ja) !important;
+    font-weight: 400 !important;
+    font-size: var(--realtime-label-size);
+    line-height: var(--realtime-label-row);
+    letter-spacing: .04em;
+  }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation :is(.gaia-live-deck-chapter, .gaia-estat-chapter, .gaia-marine-cod-chapter, .gaia-food-chapter) :is(.gaia-featured-selector-toggle, .gaia-estat-selector-toggle, .gaia-live-deck-selector-toggle) {
+    display: flex;
+    align-items: center;
+    height: 44px;
+    min-height: 44px;
+    padding: 0;
+    gap: 9px;
+  }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation :is(.gaia-live-deck-selector-toggle > span, .gaia-estat-selector-toggle > b, .gaia-marine-cod-chapter b, .gaia-food-chapter b) {
+    flex-shrink: 0;
+    font-family: var(--font-ja) !important;
+    font-weight: 400 !important;
+    font-size: var(--map-dock-number-size) !important;
+    line-height: var(--realtime-value-row);
+    letter-spacing: 0;
+  }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation :is(.gaia-live-deck-chapter, .gaia-estat-chapter, .gaia-marine-cod-chapter, .gaia-food-chapter) strong {
+    font-family: var(--font-ja) !important;
+    font-weight: 400 !important;
+    font-size: var(--map-dock-title-size) !important;
+    line-height: var(--realtime-value-row);
+    letter-spacing: 0;
+    white-space: nowrap;
+    text-wrap: nowrap;
+  }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation .map-dock-bank-copy :is(em, strong) {
+    line-height: var(--realtime-value-row);
+  }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation :is([data-map-dock-title], [data-food-title]),
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation:has(#japan-title[data-exhibit-number="15"]) [data-live-deck-title] {
+    color: #f4fdff;
+  }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation :is([data-map-dock-number], [data-food-number]),
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation:has(#japan-title[data-exhibit-number="15"]) [data-live-deck-number] {
+    color: #63f3ff;
+  }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation .gaia-food-readout,
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation:has(#japan-title[data-exhibit-number="15"]) .gaia-live-exhibit-readout {
+    box-shadow: 0 -20px 65px rgba(0, 0, 0, .5), inset 0 1px rgba(236, 253, 255, .05);
+    backdrop-filter: blur(18px) saturate(1.24);
+    -webkit-backdrop-filter: blur(18px) saturate(1.24);
+  }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation:has(#japan-title[data-exhibit-number="15"]) .gaia-live-exhibit-readout::before,
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation:has(#japan-title[data-exhibit-number="15"]) .gaia-live-exhibit-readout::after {
+    content: none;
+  }
+
+  /* Food keeps its own inputs, but uses the same continuous instrument strip
+     and chapter / controls / reading / time / actions hierarchy as 05. */
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation.is-food-exhibit .gaia-food-readout {
+    grid-template-columns: var(--map-chapter-width) minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, 1.2fr) var(--map-exhibit-actions-width);
+    grid-template-rows: minmax(0, 1fr);
+    grid-template-areas: "chapter pickers primary timeline actions";
+    gap: 0;
+    padding: 9px 0 11px;
+    color: #effcff;
+    border: 1px solid rgba(99, 243, 255, .34);
+    border-bottom: 0;
+  }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation.is-food-exhibit .gaia-food-chapter { grid-area: chapter; }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation.is-food-exhibit .gaia-food-pickers { grid-area: pickers; grid-template-columns: minmax(0, 1fr); }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation.is-food-exhibit .gaia-food-primary {
+    grid-area: primary;
+    grid-template-rows: auto auto minmax(0, 1fr);
+    gap: 2px;
+    min-height: 0;
+  }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation.is-food-exhibit .gaia-food-timeline { grid-area: timeline; }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation.is-food-exhibit .gaia-food-actions { grid-area: actions; }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation.is-food-exhibit :is(.gaia-food-pickers, .gaia-food-primary, .gaia-food-timeline, .gaia-food-actions) {
+    border-left: 1px solid rgba(99, 243, 255, .12);
+  }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation.is-food-exhibit :is(.gaia-food-pickers label, .gaia-food-primary > span, .gaia-food-primary > small) {
+    font-size: var(--realtime-label-size);
+    line-height: 1.4;
+  }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation.is-food-exhibit .gaia-food-primary > small {
+    min-height: 0;
+    overflow: auto;
+    font-size: clamp(10px, .45vw, 12px);
+    line-height: 1.2;
+  }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation.is-food-exhibit .gaia-food-timeline button {
+    min-height: 28px;
+    font-size: var(--realtime-label-size);
+    line-height: 1.4;
+  }
+}
+@media (min-width: 901px) and (max-width: 1200px) {
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation .gaia-live-exhibit-readout {
+    --map-chapter-height: 76px !important;
+  }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation.is-food-exhibit .gaia-food-readout {
+    grid-template-columns: var(--map-chapter-width) minmax(0, 1fr) var(--map-exhibit-actions-width);
+    grid-template-rows: 64px minmax(0, 1fr);
+    grid-template-areas: "pickers pickers timeline" "chapter primary actions";
+  }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation.is-food-exhibit .gaia-food-pickers { grid-template-columns: 1fr 1fr; }
+}
+/* Annual/record providers used to switch to two rows at 1400px. Match the
+   shared dock's 1200px breakpoint so headings cannot fall below its height. */
+@media (min-width: 1201px) and (max-width: 1399px) {
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation .gaia-marine-cod-readout {
+    grid-template-columns: var(--map-chapter-width) minmax(0, 1.15fr) minmax(0, 1fr) minmax(0, 1.2fr) var(--map-exhibit-actions-width);
+    grid-template-rows: minmax(0, 1fr);
+    grid-template-areas: "chapter pickers primary timeline actions";
+    row-gap: 0;
+  }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation .gaia-marine-cod-chapter { grid-area: chapter; }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation .gaia-cod-pickers { grid-area: pickers; grid-template-columns: minmax(0, 1fr); }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation .gaia-cod-primary { grid-area: primary; }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation .gaia-cod-timeline { grid-area: timeline; }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation .gaia-cod-actions { grid-area: actions; }
 }

@@ -3,7 +3,7 @@ import { createMetricLegend, updateMetricLegend } from './metric-legend.js?v=gai
 import { earthBaseScale, earthLongitudeToMapX } from "./world-projection.js?v=gaia-japan-center-1";
 import { japanPrefectureView } from './japan-prefecture-view.js?v=gaia-prefecture-gis-view-1';
 import { pickProjectedPoi } from "./poi-hit-test.js?v=gaia-japan-center-1";
-import { decorateMapActions } from "./map-exhibit-actions.js?v=gaia-map-polish-1";
+import { decorateMapActions } from "./map-exhibit-actions.js?v=action-icons-ready-20260926";
 import { MARINE_COD_EXHIBIT } from "./marine-cod-catalog.js?v=gaia-marine-cod-1";
 import { JAPAN_SENSOR_OPEN_EXHIBITS, sensorObservationAppearance } from "./japan-sensor-open-catalog.js?v=gaia-japan-sensor-open-1";
 import { JAPAN_POLLUTION_EXHIBITS } from "./japan-pollution-catalog.js?v=gaia-pollution-1";
@@ -12,6 +12,7 @@ import { drawRecordMarker } from "./prtr-biology-drawing.js?v=prtr-biology-1";
 import { poiArrival, poiArrivalDuration } from "./annual-poi-arrival.js?v=gaia-annual-pop-20260909";
 import { validateAnnualManifest, loadAnnualPeriod, loadAnnualHistory } from "./annual-observation-store.js?v=history-20260912";
 import { buildAnnualStatisticsDataset } from "./annual-statistics.js?v=history-20260912-i18n-20260913";
+import { INITIAL_OBSERVATION_YEAR, initialObservationIndex } from './initial-observation-year.js?v=2016-20260926';
 
 const definitions = Object.freeze([Object.freeze({ ...MARINE_COD_EXHIBIT, dataFile: "japan-marine-cod.json", unit: "mg/L",
   metricLabel: "COD 年度平均値", secondaryLabel: "COD75（75%値）", periodUnit: "年度", organisation: "環境省", category: "water" }), ...JAPAN_SENSOR_OPEN_EXHIBITS, ...JAPAN_POLLUTION_EXHIBITS, ...PRTR_BIOLOGY_EXHIBITS]);
@@ -24,7 +25,7 @@ const yearsFor = target => cache.get(target.dataFile)?.periods.map(p => p.year) 
 const yearRange = (separator = "〜") => `${yearsFor(definition)[0]}${yearsFor(definition).length > 1 ? `${separator}${yearsFor(definition).at(-1)}` : ""}${definition.periodUnit}`;
 const retrievalDates = () => [...new Set([...(data?.sourceRetrievalDates || [data?.retrievedOn]), data?.historyRetrievedOn].filter(Boolean))].join('・') || '取得日はデータ読込後に表示';
 let layer, map, canvas, context, readout, legend, button, data, selectionHelp;
-let active = false, frame = 0, lastDraw = 0, year = 2024, selectedId = "", prefecture = "all";
+let active = false, frame = 0, lastDraw = 0, year = INITIAL_OBSERVATION_YEAR, selectedId = "", prefecture = "all";
 let currentPeriod = null, selectedHistory = {}, historyState = 'idle', yearGeneration = 0;
 let dataState = "idle";
 let playing = false, lastYearAt = 0, motionTime = 0;
@@ -530,7 +531,7 @@ const select = async (id = MARINE_COD_EXHIBIT.id) => {
   canvas.dataset.codArrivalStartedAt = "";
   canvas.dataset.codArrivalVisibleCount = "0";
   canvas.dataset.codArrivalGeneration = String(generation);
-  if (definition.id !== id) { selectedId = ""; prefecture = "all"; year = yearsFor(target).at(-1); }
+  if (definition.id !== id) { selectedId = ""; prefecture = "all"; year = INITIAL_OBSERVATION_YEAR; }
   definition = target; SOURCE_URL = target.source; button = buttonsById.get(id); data = cache.get(target.dataFile); currentPeriod = null;
   for (const provider of [globalThis.GaiaLiveExhibits, globalThis.GaiaEstatExhibits, globalThis.GaiaFirmsExhibit, globalThis.GaiaPlanetSignals, globalThis.GaiaFoodExhibits]) provider?.deactivate?.();
   active = true;
@@ -558,7 +559,8 @@ const select = async (id = MARINE_COD_EXHIBIT.id) => {
   let payload, initialPeriod;
   try {
     payload = await load(target);
-    const initialYear = payload.periods.some(p => p.year === year) ? year : payload.periods.at(-1).year;
+    const initialYear = payload.periods.some(p => p.year === year) ? year
+      : payload.periods[initialObservationIndex(payload.periods, p => p.year)].year;
     initialPeriod = await loadAnnualPeriod(payload, initialYear);
   }
   catch (error) {

@@ -5,6 +5,11 @@
   "type": "module",
   "description": "惑星の放課後 — GAIA SENSATION — pure HTML/CSS/JavaScript installation",
   "scripts": {
+    "check:initial-observation-year": "node scripts/check-initial-observation-year.mjs",
+    "check:initial-observation-year:browser": "node scripts/check-initial-observation-year-browser.mjs && node scripts/check-initial-observation-year-browser.mjs --paint-only && node scripts/check-initial-year-entry-paths-browser.mjs",
+    "check:map-action-icons:browser": "node scripts/check-map-action-icons-browser.mjs",
+    "check:map-data-intros": "node scripts/check-map-data-intro-catalog.mjs",
+    "check:map-data-intros:browser": "node scripts/check-wind-data-intro-browser.mjs && node scripts/check-wind-data-intro-browser.mjs --languages && node scripts/check-map-data-intros-browser.mjs",
     "check:title-direct-world:browser": "node scripts/check-title-direct-world-browser.mjs",
     "build:info": "node scripts/build-info.mjs",
     "check:build-info": "node --test scripts/check-build-info.test.mjs",
