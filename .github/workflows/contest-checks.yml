@@ -22,9 +22,7 @@ jobs:
           cache: npm
       - run: npm ci
       - name: Contest contract
-        env:
-          # Owner-accepted v1.0 size exception, not a waiver of other checks.
-          GAIA_ACCEPT_ENTRY_BUDGET: '1'
+        # Static and Chrome checks enforce the same 2,000,000-byte limit.
         run: npm run check:contest
       - name: Full static and data checks
         run: npm run check

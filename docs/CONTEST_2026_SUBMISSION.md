@@ -86,6 +86,8 @@ node scripts/serve-novel-preview.mjs 4173
 
 検査コマンドは `npm run check`、`npm run check:contest`、`npm run check:rights` です。CI設定と実行結果はリポジトリのActionsで確認できます。コマンドの掲載は全項目合格を意味しません。
 
+初期読込量の内部上限は **2 MB（2,000,000 bytes）** です。静的検査の未圧縮合計とChrome検査のencoded body合計を、`scripts/lib/contest-entry-budget.mjs` の共通上限と比較します。集計対象・圧縮によって両者の値は異なります。2 MBちょうどは許容し、1 byteでも超えれば失敗します。遅延読込・LCP・CLSなどの既存条件は維持しています。コンテストの公式容量制限ではありません。
+
 2026-09-13の画面検証はローカルChromeのviewport設定で実施したものです。実機Safari・Firefox、実AI通信、全曲・全ストーリー・全周巡回、公開版の動作を網羅した検証ではありません。その後の変更もあるため、この結果を現在の全機能の合格として扱わないでください。
 
 ## 利用上の注意

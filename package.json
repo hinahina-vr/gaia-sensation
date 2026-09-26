@@ -223,7 +223,7 @@
     "check:intro-scrollbar": "node --check scripts/check-intro-scrollbar-browser.mjs",
     "check:gx-auto-return": "node --check scripts/check-gx-auto-return-browser.mjs && node scripts/check-gx-auto-return.mjs",
     "precheck": "npm run check:story-section-entry && npm run check:story-plume && npm run check:sound-lock && npm run check:ending-glitch && node --check guided-tour.js && node --check scripts/check-contest-entry-budget.mjs && node --check scripts/check-contest-submission.mjs && node --check true-end-webgl.js && node --check scripts/check-novel-title-gate-browser.mjs && node --check scripts/check-novacene-release-gate-browser.mjs && node --check scripts/check-true-end-reach-gate-browser.mjs && node --check scripts/check-dialogue-page-reveal-browser.mjs",
-    "check:contest": "node --check scripts/check-contest-experience-browser.mjs && node scripts/check-contest-entry-budget.mjs && node scripts/check-contest-submission.mjs && npm run check:rights",
+    "check:contest": "node --test scripts/check-contest-entry-budget.test.mjs && node --check scripts/check-contest-experience-browser.mjs && node scripts/check-contest-entry-budget.mjs && node scripts/check-contest-submission.mjs && npm run check:rights",
     "rights:build": "node scripts/build-media-rights-ledger.mjs",
     "check:rights": "node scripts/build-media-rights-ledger.mjs --check",
     "check:character": "node --check character-mode.js && node --check scripts/check-character-setting-mode-browser.mjs",

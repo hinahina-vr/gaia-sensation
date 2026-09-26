@@ -5,6 +5,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { chromium } from "playwright-core";
 import { enforceBrowserSecurity } from "./lib/browser-security-qa.mjs";
+import { ENTRY_BUDGET_BYTES, assertEntryBudget } from "./lib/contest-entry-budget.mjs";
 import { MARINE_COD_EXHIBIT } from "../src/exploration/marine-cod-catalog.js";
 import { JAPAN_SENSOR_OPEN_EXHIBITS } from "../src/exploration/japan-sensor-open-catalog.js";
 import { JAPAN_POLLUTION_EXHIBITS } from "../src/exploration/japan-pollution-catalog.js";
@@ -183,8 +184,9 @@ try {
       cls: globalThis.__gaiaContestVitals.cls,
     };
   });
+  report.performance.limitBytes = ENTRY_BUDGET_BYTES;
   fs.writeFileSync(path.join(outputDir, "performance.json"), JSON.stringify(report.performance, null, 2));
-  assert(report.performance.encodedBytes <= 1_000_000, `initial payload ${report.performance.encodedBytes} bytes`);
+  assertEntryBudget(report.performance.encodedBytes, "initial payload (encoded body)");
   assert(report.performance.lcp < 2500, `LCP ${report.performance.lcp}ms`);
   assert(report.performance.cls < 0.1, `CLS ${report.performance.cls}`);
   for (const pattern of [/\.mp3$/u, /gaia-signals\.json/u, /space-signals\.json/u, /novel-/u, /guided-tour/u, /observation-notebook/u]) {

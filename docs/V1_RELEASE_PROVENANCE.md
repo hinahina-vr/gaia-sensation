@@ -2,6 +2,8 @@
 
 Source development commit: `4b1ff0998523813a9d73cdfd11434f2be3f6b167` (bounded annual POI crossfade), with retained owner-requested README edits, regional GA4 consent and production-only transformations below. Version remains v1.0.
 
+CI-only maintenance from development commit `2540997aa667fbdcfe4c970a3a0ccfb718a84fef` updates the initial-load budget to 2,000,000 bytes. It does not change runtime assets and does not require a site deployment. The site's displayed build SHA continues to identify the actual deployed runtime, not this repository-only maintenance.
+
 The added `assets/guide-previews/story.jpg` is the owner's application screenshot, resized without cropping or redrawing. Its original development timestamp and adoption record are retained in the material ledger. Scope maintenance adds only that screenshot; previous asset records, data, dependencies and permission decisions are unchanged.
 
 This is a history-free publication copy. Original media dates and content hashes are preserved in `media-origin-snapshot.json`; no development history is represented as new production history.
@@ -17,6 +19,6 @@ Release transformations:
 
 The owner requested this v1.0 push and deployment after completing the development commit. Existing rights decisions remain unchanged; migration bookkeeping is not a new provider permission.
 
-The project-specific 1 MB conservative entry budget is an owner-accepted known exception, not a contest size rule. Other checks remain required. Real-device, Safari, complete-story and live AI-provider coverage are not claimed by the release smoke test.
+The owner-approved initial-entry budget is 2,000,000 bytes for both static and browser checks, not a contest size rule. The previous 1 MB exception and its CI bypass have been removed. Other checks remain required. Real-device, Safari, complete-story and live AI-provider coverage are not claimed by the release smoke test.
 
 Production remains `https://gaia-senseware.pages.dev`. No production database initialization or migration is part of this release.
