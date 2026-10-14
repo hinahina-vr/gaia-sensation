@@ -10,8 +10,11 @@ const source = fs.readFileSync(new URL('../gaia-mode-loader.js', import.meta.url
 // order must still match. Entry readiness is tested separately below.
 const baseline = readStartupBaseline('gaia-mode-loader.js')
   .replace('app.js?v=entry-bottom', 'app.js?v=entry-ready-20260922-entry-bottom')
-  // The catalog is intentionally inserted before app.js consumes it.
-  .replace(/("\.\/app-content\.js[^"\n]*",)/u, '$1\n        "./src/exploration/map-data-intro-catalog.js",');
+  // Intentional addition: the data-intro catalog must load after content and
+  // before app.js consumes it; all other ordering still matches the baseline.
+  .replace(/("\.\/app-content\.js[^"\n]*",)/u, '$1\n        "./src/exploration/map-data-intro-catalog.js",')
+  // The accepted NOAA additions share the existing mobile dock.
+  .replace(/("\.\/map-mobile-shell\.css[^"\n]*",)/u, '$1\n        "./climate-history-exhibits.css",');
 const routeSource = fs.readFileSync(new URL('../map-exhibit-route.js', import.meta.url), 'utf8');
 const turn = () => new Promise(resolve => setImmediate(resolve));
 const until = async predicate => {
@@ -225,6 +228,7 @@ for (const eventType of ['pointerover', 'focusin']) {
 }
 {
   const f = fixture();
+  // Reuse requires the current revision, not a stale baseline cache URL.
   for (const url of f.context.manifest.sound.styles) {
     const node = f.document.createElement('link'); node.rel = 'stylesheet'; node.href = url; f.nodes.push(node);
   }

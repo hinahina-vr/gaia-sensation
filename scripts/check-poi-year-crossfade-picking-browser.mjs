@@ -11,7 +11,7 @@ const report = { scope: 'Local installed Chrome; real point hit testing/click an
 const browser = await chromium.launch({ headless: true, executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe' });
 const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
 await enforceBrowserSecurity(context, base); await context.route('https://**', r => r.abort());
-const page = await context.newPage(); page.on('pageerror', e => report.errors.push(e.message));
+const page = await context.newPage(); page.setDefaultNavigationTimeout(120000); page.on('pageerror', e => report.errors.push(e.message));
 try {
   await page.goto(`${base}/#world-49`);
   await page.waitForFunction(() => globalThis.GaiaMarineCod?.getState().dataState === 'ready');

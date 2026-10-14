@@ -1,5 +1,11 @@
 # v1.0 release provenance
 
+Current refresh (2026-10-14): development commit `e2fba351d8d894d4a2df6ff65525dc61be876972`, integrated on production main `41c6259d23622f956e2deeff3bf6f787010ebc5c`. Uncommitted development files are excluded. The dedicated `/world` map entry, bounded shader startup, annual observation renderer and NOAA climate exhibits are included. Application version remains 1.0.0; no new tag or GitHub Release is created.
+
+Production repository links, the owner's concise README, excluded GeoTIFF dependencies and independent regression baselines are retained. All 341 adopted material hashes and both production lockfiles are unchanged. Current immutable media origin dates come from the development commit. NOAA source additions and unchanged owner decisions are reconciled in `RELEASE_SCOPE_2026-10-14.json`; scope maintenance does not claim newly obtained provider permission.
+
+The local integration resolves older production-only test assumptions against the current committed source. The Chrome CI server now serves `/world` and `/world/` as the dedicated map document. Exact publication commit, verification, push, deployment and production smoke results are recorded separately after each stage. The earlier release notes below describe historical work, not the current deployed commit.
+
 Source development commit: `4b1ff0998523813a9d73cdfd11434f2be3f6b167` (bounded annual POI crossfade), with retained owner-requested README edits, regional GA4 consent and production-only transformations below. Version remains v1.0.
 
 CI-only maintenance from development commit `2540997aa667fbdcfe4c970a3a0ccfb718a84fef` updates the initial-load budget to 2,000,000 bytes. It does not change runtime assets and does not require a site deployment. The site's displayed build SHA continues to identify the actual deployed runtime, not this repository-only maintenance.

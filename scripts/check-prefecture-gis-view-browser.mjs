@@ -108,7 +108,7 @@ const makePage = async (width, reducedMotion) => {
   page.on("pageerror", error => report.errors.push(`${width}/${reducedMotion}: ${error.message}`));
   await page.goto(`${base}/?exhibit=21&preview=prefecture-gis-view#world`, { waitUntil: "domcontentloaded" });
   await page.locator('[data-feature-start]').click();
-  await page.waitForFunction(() => globalThis.GaiaMapCategories?.buttons().length === 71 && globalThis.GaiaMapDemo);
+  await page.waitForFunction(() => globalThis.GaiaMapCategories?.buttons().length === GaiaMapCategories.exhibitCount && globalThis.GaiaMapDemo);
   await page.evaluate(async () => {
     await GaiaMapObservationAdapter.waitSignalsReady();
     GaiaModeEntryGuide.close("map", { restoreFocus: false });

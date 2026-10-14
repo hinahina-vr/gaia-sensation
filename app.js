@@ -614,7 +614,10 @@
     }
   `;
 
-  const fragmentSource = `#version 300 es
+  const shaderFunctions = ["modeBreathingEarth", "modeBlueCirculation", "modeForestCloudEngine", "modeNothingIsWaste", "modeAnthropoceneScar", "modeRhythmOfDisaster", "modeThreeEcologies", "modeEarthOrgan", "modePopulationTide"];
+  const requestedShaderMode = Number.parseInt(new URLSearchParams(location.search).get("mode"), 10);
+  const initialShaderMode = Number.isFinite(requestedShaderMode) ? Math.min(MODE_COUNT - 1, Math.max(0, requestedShaderMode - 1)) : 0;
+  const fragmentSource = (indices) => `#version 300 es
     precision highp float;
     precision highp int;
 
@@ -731,18 +734,11 @@
       return vec2(bloomField, ringField);
     }
 
-    ${modes.map((mode) => mode.source).join("\n\n    ")}
+    ${indices.map((index) => modes[index].source).join("\n\n    ")}
 
     vec3 evaluateMode(int mode, vec2 p, float t, vec2 response) {
-      if (mode == 0) return modeBreathingEarth(p, t, response, uModeMemory[0]);
-      if (mode == 1) return modeBlueCirculation(p, t, response, uModeMemory[1]);
-      if (mode == 2) return modeForestCloudEngine(p, t, response, uModeMemory[2]);
-      if (mode == 3) return modeNothingIsWaste(p, t, response, uModeMemory[3]);
-      if (mode == 4) return modeAnthropoceneScar(p, t, response, uModeMemory[4]);
-      if (mode == 5) return modeRhythmOfDisaster(p, t, response, uModeMemory[5]);
-      if (mode == 6) return modeThreeEcologies(p, t, response, uModeMemory[6]);
-      if (mode == 7) return modeEarthOrgan(p, t, response, uModeMemory[7]);
-      return modePopulationTide(p, t, response, uModeMemory[8]);
+      ${indices.map(index => `if (mode == ${index}) return ${shaderFunctions[index]}(p, t, response, uModeMemory[${index}]);`).join("\n      ")}
+      return ${shaderFunctions[indices[0]]}(p, t, response, uModeMemory[${indices[0]}]);
     }
 
     void main() {
@@ -784,9 +780,9 @@
     return shader;
   };
 
-  const createProgram = async () => {
+  const createProgram = async (indices) => {
     const vertexShader = compileShader(gl.VERTEX_SHADER, vertexSource);
-    const fragmentShader = compileShader(gl.FRAGMENT_SHADER, fragmentSource);
+    const fragmentShader = compileShader(gl.FRAGMENT_SHADER, fragmentSource(indices));
     const nextProgram = gl.createProgram();
 
     gl.attachShader(nextProgram, vertexShader);
@@ -794,12 +790,19 @@
     gl.linkProgram(nextProgram);
 
     // Querying COMPILE_STATUS or LINK_STATUS immediately forces Chromium to
-    // wait for the GPU process. The full ten-mode shader can take seconds on
-    // software or older GPUs, freezing the sound prompt before first input.
+    // wait for the GPU process. Compile only the visible transition's modes;
+    // unrelated exhibits must not consume GPU resources during entry.
     // KHR_parallel_shader_compile lets the browser finish in the background;
     // yielding a timer turn also keeps parsing, layout, and input responsive.
     if (parallelShaderCompile) {
+      const deadline = performance.now() + 15000;
       while (!gl.getProgramParameter(nextProgram, parallelShaderCompile.COMPLETION_STATUS_KHR)) {
+        if (gl.isContextLost() || performance.now() >= deadline) {
+          gl.deleteShader(vertexShader);
+          gl.deleteShader(fragmentShader);
+          gl.deleteProgram(nextProgram);
+          throw new Error("Shader initialization interrupted or timed out");
+        }
         await new Promise((resolve) => window.setTimeout(resolve, 16));
       }
     }
@@ -827,14 +830,27 @@
     return nextProgram;
   };
 
-  let program, fullscreenTriangle, uniforms;
-  // Compile in parallel with DOM/event setup. Entry controls do not use this
-  // shader; actual map/source entry still waits for gaia:app-ready below.
-  const rendererReady = createProgram().then((compiledProgram) => {
+  let program, fullscreenTriangle, uniforms, uniformSizes = {};
+  let programIndices = [initialShaderMode], programRequest = 0;
+  const programCache = new Map();
+  const programLoads = new Map();
+  const installProgram = (compiledProgram, indices) => {
     program = compiledProgram;
-    fullscreenTriangle = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, fullscreenTriangle);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+    programIndices = indices;
+    canvas.dataset.baseShaderModes = indices.join(",");
+    canvas.dataset.baseShaderState = "ready";
+    canvas.dataset.baseShaderBytes = String(fragmentSource(indices).length);
+    canvas.dataset.baseShaderCacheSize = String(programCache.size);
+    if (!fullscreenTriangle) {
+      fullscreenTriangle = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, fullscreenTriangle);
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+    } else gl.bindBuffer(gl.ARRAY_BUFFER, fullscreenTriangle);
+    uniformSizes = {};
+    for (let index = 0; index < gl.getProgramParameter(program, gl.ACTIVE_UNIFORMS); index++) {
+      const uniform = gl.getActiveUniform(program, index);
+      uniformSizes[uniform.name.replace(/\[0\]$/, "")] = uniform.size;
+    }
 
     const positionLocation = gl.getAttribLocation(program, "aPosition");
     gl.enableVertexAttribArray(positionLocation);
@@ -860,6 +876,11 @@
       currentGeoView: gl.getUniformLocation(program, "uCurrentGeoView"),
       currentWeaveReady: gl.getUniformLocation(program, "uCurrentWeaveReady"),
     };
+  };
+  // Keep startup independent of the eight unselected base effects.
+  const rendererReady = createProgram([initialShaderMode]).then((compiledProgram) => {
+    programCache.set(String(initialShaderMode), compiledProgram);
+    installProgram(compiledProgram, [initialShaderMode]);
     return true;
   }).catch((error) => {
     program = null;
@@ -869,6 +890,46 @@
     errorPanel.hidden = false;
     return false;
   });
+  const prepareModeProgram = async () => {
+    const request = ++programRequest;
+    const target = modeToIndex;
+    const from = programIndices.includes(modeFromIndex) ? modeFromIndex : programIndices[0];
+    if (!await rendererReady || request !== programRequest) return;
+    if (programIndices.includes(target)) {
+      canvas.dataset.baseShaderState = "ready";
+      return;
+    }
+    const indices = [...new Set([from, target])].sort((a, b) => a - b);
+    const key = indices.join(",");
+    canvas.dataset.baseShaderState = "loading";
+    try {
+      if (!programCache.has(key)) {
+        if (!programLoads.has(key)) programLoads.set(key, createProgram(indices));
+        const compiled = await programLoads.get(key);
+        programLoads.delete(key);
+        programCache.set(key, compiled);
+      }
+      if (request === programRequest) {
+        installProgram(programCache.get(key), indices);
+        modeFromIndex = from;
+        transitionStartedAt = performance.now();
+      }
+      // Bound retained GPU programs, including rapid/repeated selections.
+      for (const [cachedKey, cachedProgram] of programCache) {
+        if (programCache.size <= 3) break;
+        if (cachedProgram === program) continue;
+        gl.deleteProgram(cachedProgram);
+        programCache.delete(cachedKey);
+      }
+      canvas.dataset.baseShaderCacheSize = String(programCache.size);
+    } catch (error) {
+      programLoads.delete(key);
+      if (request !== programRequest) return;
+      canvas.dataset.baseShaderState = "error";
+      console.error(error);
+      errorPanel.hidden = false;
+    }
+  };
 
   // Geographic textures are generated once per data snapshot in a worker.
   // Pan, zoom and the date slider only change uniforms; they never rebuild it.
@@ -6208,14 +6269,15 @@
     const firmsBackdropOnly = japanLayer.classList.contains("is-firms-exhibit");
     const marineCodBackdropOnly = japanLayer.classList.contains("is-marine-cod-exhibit");
     const foodBackdropOnly = japanLayer.classList.contains("is-food-exhibit");
-    const referenceBackdropOnly = liveBackdropOnly || estatBackdropOnly || firmsBackdropOnly || marineCodBackdropOnly || foodBackdropOnly;
+    const climateBackdropOnly = japanLayer.classList.contains("is-climate-history-exhibit");
+    const referenceBackdropOnly = liveBackdropOnly || estatBackdropOnly || firmsBackdropOnly || marineCodBackdropOnly || foodBackdropOnly || climateBackdropOnly;
     japanOverlay.dataset.liveBackdrop = liveBackdropOnly
       ? "reference-map-only"
       : estatBackdropOnly
         ? "estat-reference-map-only"
         : firmsBackdropOnly
           ? "firms-reference-map-only"
-          : marineCodBackdropOnly ? "marine-cod-reference-map-only" : foodBackdropOnly ? "food-reference-map-only" : "standard-mode";
+          : marineCodBackdropOnly ? "marine-cod-reference-map-only" : foodBackdropOnly ? "food-reference-map-only" : climateBackdropOnly ? "climate-reference-map-only" : "standard-mode";
     if (referenceBackdropOnly) {
       globalThis.GaiaMapLegendDrag?.beginFrame();
       globalThis.GaiaMapLegendDrag?.endFrame();
@@ -6441,6 +6503,7 @@
     "gaia:planet-signals-change",
     "gaia:marine-cod-change",
     "gaia:food-change",
+    "gaia:climate-change",
   ].forEach((eventName) => window.addEventListener(eventName, syncExclusiveMapExhibit));
   window.addEventListener("gaia:signals-ready", () => {
     if (japanIsOpen) restartMapPlotReveal("data-ready");
@@ -6727,7 +6790,7 @@
     if (event.target === mapDataIntro) hideMapDataIntro();
   });
   for (const event of ["gaia:planet-signals-change", "gaia:firms-exhibit-change", "gaia:live-update",
-    "gaia:live-prefecture-field", "gaia:live-city-change", "gaia:marine-cod-ready", "gaia:marine-cod-error", "gaia:food-ready", "gaia:food-error"]) {
+    "gaia:live-prefecture-field", "gaia:live-city-change", "gaia:marine-cod-ready", "gaia:marine-cod-error", "gaia:food-ready", "gaia:food-error", "gaia:climate-ready", "gaia:climate-error"]) {
     window.addEventListener(event, updateMapDataIntroStatus);
   }
   new MutationObserver(updateMapDataIntroStatus).observe(japanLayer, {
@@ -6742,7 +6805,8 @@
   });
   const getMapTitleSubtitle = number => MAP_TITLE_SUBTITLES[number]
     || globalThis.GaiaMarineCod?.definitions?.find(item => item.number === number)?.subtitle
-    || globalThis.GaiaFoodExhibits?.definitions?.find(item => item.number === number)?.subtitle || "";
+    || globalThis.GaiaFoodExhibits?.definitions?.find(item => item.number === number)?.subtitle
+    || globalThis.GaiaClimateHistory?.definitions?.find(item => item.number === number)?.subtitle || "";
   let mapTitleTransitionTitle = `${japanTitle.dataset.exhibitNumber}　${japanTitle.textContent}`;
   const cancelMapTitleTransition = () => {
     hideMapDataIntro();
@@ -7305,6 +7369,10 @@
   };
 
   const openJapanPoi = (poi, clientX, clientY) => {
+    if (globalThis.GaiaClimateHistory?.definitions?.some(item => item.id === poi.record?.exhibitId)) {
+      globalThis.GaiaClimateHistory.selectPoint(poi.record.id, { focus: false });
+      return;
+    }
     if (globalThis.GaiaFoodExhibits?.definitions?.some(item => item.id === poi.record?.exhibitId)) {
       globalThis.GaiaFoodExhibits?.selectCountry?.(poi.record.id, { focus: false });
     }
@@ -7432,6 +7500,7 @@
   ) => {
     // Exclusive exhibits must pick their own rendered data, never the base
     // chapter's invisible POIs or CO2 grid fallback.
+    if (japanLayer.classList.contains("is-climate-history-exhibit")) return globalThis.GaiaClimateHistory?.findPoiAt?.(clientX, clientY, pointerType) || null;
     if (japanLayer.classList.contains("is-food-exhibit")) {
       return globalThis.GaiaFoodExhibits?.findPoiAt?.(clientX, clientY, pointerType) || null;
     }
@@ -8541,7 +8610,7 @@
     if (activeId === "three-ecologies") {
       ecologiesPlaying = false;
       ecologiesExhibit?.reset();
-      const rows = getThreeEcologiesComparison(activeSignalMode.signals)?.rows || [];
+      const rows = getThreeEcologiesComparison(activeSignalMode?.signals || {})?.rows || [];
       const japanIndex = Math.max(0, rows.findIndex(row => row.iso3 === "JPN"));
       signalTimePosition = ((japanIndex + .5) / Math.max(1, rows.length)) * 100;
     }
@@ -9334,7 +9403,7 @@ for (const country of countryValues) {
   const updateModeInterface = () => {
     const mode = modes[modeToIndex];
     const selectedMapMode = modes[mapModeIndex];
-    const extensionOwnsMap = japanLayer.matches(".is-live-exhibit, .is-estat-exhibit, .is-firms-exhibit, .is-planet-signals-exhibit, .is-marine-cod-exhibit, .is-food-exhibit");
+    const extensionOwnsMap = japanLayer.matches(".is-live-exhibit, .is-estat-exhibit, .is-firms-exhibit, .is-planet-signals-exhibit, .is-marine-cod-exhibit, .is-food-exhibit, .is-climate-history-exhibit");
     modeNumber.textContent = formatModeNumber(modeToIndex);
     modeTitle.textContent = mode.title;
     modeTitleJa.textContent = mode.titleJa;
@@ -9541,6 +9610,7 @@ for (const country of countryValues) {
     globalThis.GaiaPlanetSignals?.deactivate?.();
     globalThis.GaiaMarineCod?.deactivate?.();
     globalThis.GaiaFoodExhibits?.deactivate?.();
+    globalThis.GaiaClimateHistory?.deactivate?.();
     const normalizedIndex = (index + MODE_COUNT) % MODE_COUNT;
     void loadGaiaSignals({ modeId: modes[normalizedIndex].dataModeId || modes[normalizedIndex].id });
     if (modes[normalizedIndex].id === "breathing-earth" && !ovationAuroraReloadTimer && ovationAuroraState.source === "pending") {
@@ -9567,6 +9637,7 @@ for (const country of countryValues) {
     modeFromIndex = modeToIndex;
     modeToIndex = normalizedIndex;
     transitionStartedAt = performance.now();
+    void prepareModeProgram();
     if (resetAutoTimer) {
       nextAutoAt = transitionStartedAt + AUTO_INTERVAL;
     }
@@ -9705,6 +9776,10 @@ for (const country of countryValues) {
   syncMapModePreviewContainer();
 
   const getMapModePreviewContent = (button) => {
+    if (button?.dataset.climateExhibit) {
+      const exhibit = globalThis.GaiaClimateHistory?.definitions?.find(item => item.id === button.dataset.climateExhibit);
+      return exhibit ? { number: `${exhibit.number} / ${exhibit.signalLabel}`, label: exhibit.shortTitle, copy: exhibit.picker } : null;
+    }
     if (button?.dataset.foodExhibit) {
       const exhibit = globalThis.GaiaFoodExhibits?.definitions?.find(item => item.id === button.dataset.foodExhibit);
       return exhibit ? { number: `${exhibit.number} / ${exhibit.signalLabel}`, label: exhibit.shortTitle, copy: exhibit.picker } : null;
@@ -9818,7 +9893,7 @@ for (const country of countryValues) {
     const active = japanIsOpen
       && !japanLayer.classList.contains("is-live-exhibit")
       && !japanLayer.classList.contains("is-estat-exhibit")
-      && !japanLayer.matches(".is-firms-exhibit, .is-marine-cod-exhibit, .is-food-exhibit");
+      && !japanLayer.matches(".is-firms-exhibit, .is-marine-cod-exhibit, .is-food-exhibit, .is-climate-history-exhibit");
     japanLayer.classList.toggle("has-integrated-map-light", active);
     japanModeBank.dataset.mapSurface = "map";
     japanModeBank.dataset.lightIntegration = active ? "mode-matched" : "off";
@@ -9877,6 +9952,7 @@ for (const country of countryValues) {
   mapMobileHeadingToggle?.addEventListener("click", () => {
     setMobileMapHeadingExpanded(mapMobileHeadingToggle.getAttribute("aria-expanded") !== "true");
   });
+  window.addEventListener("gaia:climate-change", () => { setMobileMapBankExpanded(false); syncIntegratedMapLight(); });
   mapMobileBankToggle?.addEventListener("click", () => {
     setMobileMapBankExpanded(mapMobileBankToggle.getAttribute("aria-expanded") !== "true");
   });
@@ -10216,7 +10292,7 @@ for (const country of countryValues) {
         !japanView.dragged &&
         !japanView.gesture &&
         isTheme(4) &&
-        !japanLayer.matches(".is-firms-exhibit, .is-marine-cod-exhibit, .is-food-exhibit") &&
+        !japanLayer.matches(".is-firms-exhibit, .is-marine-cod-exhibit, .is-food-exhibit, .is-climate-history-exhibit") &&
         pressDuration >= 650
       ) {
         anthropocenePeelUntil = performance.now() + 6000;
@@ -10224,7 +10300,7 @@ for (const country of countryValues) {
       } else if (createPulse && !japanView.dragged && !japanView.gesture) {
         const exclusiveExhibit = japanLayer.classList.contains("is-live-exhibit")
           || japanLayer.classList.contains("is-estat-exhibit")
-          || japanLayer.matches(".is-firms-exhibit, .is-marine-cod-exhibit, .is-food-exhibit");
+          || japanLayer.matches(".is-firms-exhibit, .is-marine-cod-exhibit, .is-food-exhibit, .is-climate-history-exhibit");
         const poi = findJapanPoiAt(event.clientX, event.clientY, event.pointerType);
         if (poi) {
           openJapanPoi(poi, event.clientX, event.clientY);
@@ -10561,7 +10637,7 @@ for (const country of countryValues) {
     }
     const activeLiveId = japanLayer.dataset.liveExhibit;
     const liveExhibit = globalThis.GaiaLiveExhibits?.definitions?.find?.((candidate) => candidate.id === activeLiveId);
-    const exhibitSources = globalThis.GaiaFoodExhibits?.getSourceInfo?.() || globalThis.GaiaMarineCod?.getSourceInfo?.()
+    const exhibitSources = globalThis.GaiaClimateHistory?.getSourceInfo?.() || globalThis.GaiaFoodExhibits?.getSourceInfo?.() || globalThis.GaiaMarineCod?.getSourceInfo?.()
       || globalThis.GaiaEstatExhibits?.getSourceInfo?.()
       || globalThis.GaiaFirmsExhibit?.getSourceInfo?.()
       || globalThis.GaiaPlanetSignals?.getSourceInfo?.();
@@ -10658,6 +10734,9 @@ for (const country of countryValues) {
 
     window.clearTimeout(japanCloseTimer);
     japanIsOpen = true;
+    // A same-document map link can retire the title without emitting
+    // opening-complete. Resume the base map loop for that entry path too.
+    if (!renderingEnabled) startRendering();
     japanRestoreFocus = restoreFocusOnClose;
     japanLayer.hidden = false;
     japanLayer.inert = false;
@@ -10727,7 +10806,7 @@ for (const country of countryValues) {
     window.dispatchEvent(new CustomEvent("gaia:japan-open", { detail: { skipGuide: hashExhibit !== null } }));
     requestAnimationFrame(() => {
       renderJapanTiles();
-      if (!japanLayer.matches(".is-marine-cod-exhibit, .is-food-exhibit")) animateEarthViewForMode(modeToIndex);
+      if (!japanLayer.matches(".is-marine-cod-exhibit, .is-food-exhibit, .is-climate-history-exhibit")) animateEarthViewForMode(modeToIndex);
       if (document.body.classList.contains("gaia-tour-open")) return;
       if (new URLSearchParams(window.location.search).get("panel") === "data") {
         openJapanData();
@@ -11876,7 +11955,7 @@ for (const country of countryValues) {
     if (
       !japanIsOpen
       || japanLayer.classList.contains("is-live-exhibit")
-      || japanLayer.matches(".is-firms-exhibit, .is-marine-cod-exhibit, .is-food-exhibit")
+      || japanLayer.matches(".is-firms-exhibit, .is-marine-cod-exhibit, .is-food-exhibit, .is-climate-history-exhibit")
       || getActiveSignalMode()?.id !== "blue-circulation"
     ) {
       delete canvas.dataset.currentVisiblePoiCount;
@@ -12036,7 +12115,7 @@ for (const country of countryValues) {
     const transitionDuration = reducedMotion ? 30 : TRANSITION_DURATION;
     const transition = clamp((now - transitionStartedAt) / transitionDuration, 0, 1);
 
-    if (transition >= 1) {
+    if (transition >= 1 && programIndices.includes(modeToIndex)) {
       modeFromIndex = modeToIndex;
     }
 
@@ -12068,15 +12147,18 @@ for (const country of countryValues) {
     gl.uniform4fv(uniforms.trail, trailData);
     const trailActive = pointer.down || trail.some((point) => point.strength > 0.001 && now - point.bornAt < 3_100);
     gl.uniform1f(uniforms.trailActive, trailActive ? 1 : 0);
-    gl.uniform1fv(uniforms.modeMemory, modeMemory);
-    gl.uniform1i(uniforms.modeFrom, modeFromIndex);
-    gl.uniform1i(uniforms.modeTo, modeToIndex);
+    gl.uniform1fv(uniforms.modeMemory, modeMemory.subarray(0, uniformSizes.uModeMemory));
+    const shaderFrom = programIndices.includes(modeFromIndex) ? modeFromIndex : programIndices[0];
+    gl.uniform1i(uniforms.modeFrom, shaderFrom);
+    gl.uniform1i(uniforms.modeTo, programIndices.includes(modeToIndex) ? modeToIndex : shaderFrom);
     gl.uniform1f(uniforms.transition, transition);
     const signalVector = getShaderSignalVector(modeToIndex);
     gl.uniform4f(uniforms.signal, signalVector[0], signalVector[1], signalVector[2], signalVector[3]);
-    gl.uniform1fv(uniforms.sourceSignals, getSourceSignalVector());
+    gl.uniform1fv(uniforms.sourceSignals, getSourceSignalVector().slice(0, uniformSizes.uSourceSignals));
     const currentField = getCurrentFieldUniformData();
-    gl.uniform4fv(uniforms.currentSamples, currentField.data);
+    if (uniforms.currentSamples !== null) {
+      gl.uniform4fv(uniforms.currentSamples, currentField.data.subarray(0, uniformSizes.uCurrentSamples * 4));
+    }
     gl.uniform1i(uniforms.currentSampleCount, currentField.count);
     gl.activeTexture(gl.TEXTURE0);
     gl.bindTexture(gl.TEXTURE_2D, currentVectorTexture);

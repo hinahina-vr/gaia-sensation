@@ -21,6 +21,8 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
+      - name: Dedicated map page matches the application shell
+        run: npm run check:map-page
       - name: Contest contract
         # Static and Chrome checks enforce the same 2,000,000-byte limit.
         run: npm run check:contest
@@ -36,12 +38,18 @@ jobs:
         # GitHub's virtual display caps headless Chrome near 30fps. Release runs
         # omit this override and retain the script's 55fps physical-device gate.
         run: node scripts/check-contest-experience-browser.mjs --browser "${{ steps.chrome.outputs.path }}" --output artifacts/contest-experience-browser --min-fps 24
+      - name: Annual POI pixel equivalence
+        env:
+          GAIA_BROWSER_PATH: ${{ steps.chrome.outputs.path }}
+        run: npm run check:annual-poi-renderer:browser
       - name: Upload Chrome evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: contest-experience-browser
-          path: artifacts/contest-experience-browser
+          path: |
+            artifacts/contest-experience-browser
+            artifacts/annual-poi-renderer
           retention-days: 14
 
   sensor-extension:

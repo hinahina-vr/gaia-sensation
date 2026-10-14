@@ -455,11 +455,11 @@ if (!lab || !openButton) {
   const applySavedView = async () => {
     const view = state.savedViews.find((candidate) => candidate.id === ui.savedView.value);
     let dataset = state.datasets.find((candidate) => candidate.id === view?.datasetId);
-    if (!dataset && /^(?:food-(?:balances|security)-\d+-\d{3}|japan-.+)$/.test(view?.datasetId || "")) {
+    if (!dataset && /^(?:food-(?:balances|security)-\d+-\d{3}|japan-.+|climate-(?:cyclones|coral)-[a-zA-Z0-9_]+)$/.test(view?.datasetId || "")) {
       const requestedView = ui.savedView.value;
       let restored;
       try {
-        const provider = view.datasetId.startsWith('food-') ? globalThis.GaiaFoodExhibits : globalThis.GaiaMarineCod;
+        const provider = view.datasetId.startsWith('climate-') ? globalThis.GaiaClimateHistory : view.datasetId.startsWith('food-') ? globalThis.GaiaFoodExhibits : globalThis.GaiaMarineCod;
         restored = await provider?.restoreStatisticsDataset?.(view.datasetId);
       } catch {
         if (state.open && ui.savedView.value === requestedView) ui.status.textContent = "保存したデータを読み込めません。再試行してください。";

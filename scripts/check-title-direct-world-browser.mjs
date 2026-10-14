@@ -8,7 +8,7 @@ import { enforceBrowserSecurity } from './lib/browser-security-qa.mjs';
 
 const before = process.argv.includes('--before');
 const base = process.env.GAIA_BASE_URL || 'http://127.0.0.1:4492';
-const output = path.resolve('artifacts/title-direct-world-2026-09-25', before ? 'before' : 'after');
+const output = path.resolve('artifacts/title-direct-world-2026-09-25', before ? 'before' : 'dedicated-page-20261014');
 fs.mkdirSync(output, { recursive: true });
 const report = { status: 'running', commit: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(), worktree: 'uncommitted changes', before,
   environment: 'Installed Chrome, local HTTP with production CSP; desktop/touch emulation. External network blocked; saved data, not live-feed or production verification.', checks: [], errors: [] };
@@ -51,6 +51,7 @@ try {
     page.on('pageerror', error => report.errors.push(error.message));
     await title(page, mobile);
     await page.locator('#gaia-opening-route-other').screenshot({ path: path.join(output, `button-${width}.png`) });
+    if (await page.locator('#gaia-opening-route-guide').isVisible()) await page.keyboard.press('Escape');
     await press(page, '#gaia-opening-route-other', mobile);
     if (before) {
       await page.waitForFunction(() => location.hash === '#top' && document.querySelector('#intro-layer')?.getAttribute('aria-hidden') === 'false');
@@ -60,7 +61,7 @@ try {
       const state = await page.evaluate(() => ({ hash: location.hash, hashes: __mapHashes, introOpened: __introOpened,
         introHidden: document.querySelector('#intro-layer').getAttribute('aria-hidden'), title: document.querySelector('#japan-mode-title').textContent,
         soundtrack: GaiaOpeningAudio.getState().track, storyLoaded: GaiaModeLoader.isLoaded('story') }));
-      assert(state.hashes.includes('#world'), 'Use the actual #world route');
+      assert.equal(new URL(page.url()).pathname, '/world', 'Use the dedicated map document');
       assert.match(state.hash, /^#world(?:-01)?$/);
       assert.equal(state.introOpened, false, 'Do not flash or open the intermediate menu');
       assert.equal(state.introHidden, 'true');

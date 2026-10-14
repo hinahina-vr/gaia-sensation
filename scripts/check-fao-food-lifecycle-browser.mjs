@@ -72,7 +72,7 @@ try {
   const seen = new Promise(resolve => { requested = resolve; });
   await context.route('**/data/fao-food-balances.json*', async route => { requested(); await delayed; await route.continue(); });
   await page.goto(`${base}/?exhibit=70#world`, { waitUntil: 'domcontentloaded' }); await seen; await dismissWelcome();
-  await page.waitForFunction(() => globalThis.GaiaMapCategories?.buttons().length === 71 && globalThis.GaiaMapDemo);
+  await page.waitForFunction(() => globalThis.GaiaMapCategories?.buttons().length === GaiaMapCategories.exhibitCount && globalThis.GaiaMapDemo);
   await page.evaluate(() => GaiaMapDemo.stop()); await select(71); await ready('food-security');
   const response = page.waitForResponse(r => r.url().includes('/data/fao-food-balances.json'));
   release(); await response; await page.waitForTimeout(250);

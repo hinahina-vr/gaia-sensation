@@ -1026,9 +1026,9 @@
     {
       "path": "assets/guide-previews/story.jpg",
       "sha256": "41d1f1dd1984426f0c2dd00ebada31a82bb99e3714aa293fe367fc20079d214e",
-      "generationService": "GAIA SENSEWARE application screenshot supplied by owner",
+      "generationService": "GAIA SENSEWARE screenshot supplied by the project owner",
       "firstRepositoryEvidenceAt": "2026-09-14T03:37:54+09:00",
-      "processing": "Owner-supplied application screenshot resized to 960x540 JPEG, without cropping or redrawing; source development commit f6bed3c. See sourceLedger for adoption evidence.",
+      "processing": "2026-09-14作者指定の画面キャプチャをSharpで960×540 JPEGに縮小。全画角を保持し、生成・描き直し・トリミングなし。docs/QA_OPENING_ROUTE_PREVIEWS_20260914.mdの既存採用記録に基づく追記。今回、権利や公開許可の再判定は行っていません。",
       "sourceLedger": "docs/QA_OPENING_ROUTE_PREVIEWS_20260914.md",
       "officialTermsUrl": null,
       "publicationStatus": "public"
@@ -4786,6 +4786,32 @@
       "period": "2018-07-01",
       "retrievedAt": "2026-08-02T09:55:06.588Z",
       "transformation": "公式CSVの列名と先頭80行をそのまま保存しました。"
+    },
+    {
+      "section": "世界の気候記録（MAP 72–73）",
+      "id": "cyclones",
+      "provider": "NOAA NCEI / IBTrACS",
+      "datasetId": "MAP 72 / 熱帯低気圧の経路・最大風速",
+      "sourceUrl": "https://www.ncei.noaa.gov/products/international-best-track-archive",
+      "retrievalPolicy": "公式公開データから抽出・年別集計した保存値。展示選択時に遅延読込。欠測はゼロ補完しない。",
+      "evidence": "data/climate-history/cyclones.json",
+      "termsUrl": "https://www.ncei.noaa.gov/access/metadata/landing-page/bin/iso?id=gov.noaa.ncdc:C01552",
+      "retrievedAt": "2026-10-13T03:20:53.904Z",
+      "transformation": "MAIN tracks only; source SEASON (not calendar year). USA_WIND in knots, 1-minute sustained wind; missing wind remains null. Archive positions include interpolated times. Basin is the first recorded basin.",
+      "sourceSha256": "3043896e25fead6114f29bf85be987104abb2865db9f816edff0562b1c31820d"
+    },
+    {
+      "section": "世界の気候記録（MAP 72–73）",
+      "id": "coral",
+      "provider": "NOAA Coral Reef Watch",
+      "datasetId": "MAP 73 / サンゴ礁監視海域の熱ストレス",
+      "sourceUrl": "https://coralreefwatch.noaa.gov/product/vs/data.php",
+      "retrievalPolicy": "公式公開データから抽出・年別集計した保存値。展示選択時に遅延読込。欠測はゼロ補完しない。",
+      "evidence": "data/climate-history/coral.json",
+      "termsUrl": "https://coralreefwatch.noaa.gov/satellite/docs/recommendations_crw_citation.php",
+      "retrievedAt": "2026-10-13T03:20:53.904Z",
+      "transformation": "DHW_from_90th_HS>1: 84-day accumulation of regional daily 90th-percentile HotSpot above 1°C, in °C-weeks. Regional reef pixels include a 20 km buffer. Coordinates are polygon midpoints, not point observations. Annual maxima and threshold-day counts use valid daily values; no spatial interpolation.",
+      "sourceSha256": null
     },
     {
       "section": "ORBITAL・STORY・GX",

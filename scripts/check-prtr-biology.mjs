@@ -44,7 +44,7 @@ const sandbox = {
   matchMedia: () => ({ matches: true, addEventListener() {} }),
 };
 vm.runInNewContext(fs.readFileSync('map-exhibit-categories.js', 'utf8'), sandbox);
-assert.equal(sandbox.GaiaMapCategories.exhibitCount, 71);
+assert.equal(sandbox.GaiaMapCategories.exhibitCount, 73);
 assert.equal(sandbox.GaiaMapCategories.get(65).id, 'chemicals');
 assert.equal(sandbox.GaiaMapCategories.get(69).id, 'biology');
 assert.equal(sandbox.GaiaMapCategories.getProfile(65).time, 'comparison');

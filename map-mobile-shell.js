@@ -67,7 +67,7 @@
   let exhibitPicker = null;
   const enabled = () => media.matches && !layer.hidden && layer.getAttribute("aria-hidden") !== "true"
     && !document.body.classList.contains("novel-mode-detour") && !layer.dataset.storyMode;
-  const activeReadout = () => [...layer.querySelectorAll(".gaia-live-exhibit-readout, .gaia-estat-readout, .gaia-firms-readout, .gaia-planet-signals-readout, .gaia-marine-cod-readout, .gaia-food-readout")]
+  const activeReadout = () => [...layer.querySelectorAll(".gaia-live-exhibit-readout, .gaia-estat-readout, .gaia-firms-readout, .gaia-planet-signals-readout, .gaia-marine-cod-readout, .gaia-food-readout, .gaia-climate-readout")]
     .find(node => !node.hidden && getComputedStyle(node).display !== "none");
   const close = (restoreFocus = true) => {
     exhibitPicker?.cancelReveal(); exhibitPicker = null;
@@ -126,10 +126,16 @@
       attribution.append(clone);
     }
     content.append(attribution);
-    if (!layer.matches(".is-marine-cod-exhibit, .is-food-exhibit")) addCopy(layer.querySelector("#japan-description")?.textContent);
+    if (!layer.matches(".is-marine-cod-exhibit, .is-food-exhibit, .is-climate-history-exhibit")) addCopy(layer.querySelector("#japan-description")?.textContent);
     addCopy("数値はこのパネルを開いた時点の表示です。");
     const readout = activeReadout();
     if (readout) {
+      if (readout.classList.contains("gaia-climate-readout")) {
+        copy(layer.querySelector(".gaia-climate-key"));
+        copy(layer.querySelector(".gaia-climate-insight"));
+        copy(layer.querySelector(".gaia-climate-guide"));
+        return;
+      }
       if (readout.classList.contains("gaia-food-readout")) {
         copy(layer.querySelector(".gaia-food-key"));
         copy(layer.querySelector(".gaia-food-guide"));
@@ -215,6 +221,7 @@
           globalThis.GaiaFirmsExhibit?.definition,
           ...(globalThis.GaiaMarineCod?.definitions || []),
           ...(globalThis.GaiaFoodExhibits?.definitions || []),
+          ...(globalThis.GaiaClimateHistory?.definitions || []),
           ...(globalThis.GaiaPlanetSignals?.definitions || []),
         ].find(item => item && Number(item.mapNumber || item.number) === number);
         const publicNumber = String(number).padStart(2, "0");
@@ -380,13 +387,13 @@
   };
   const sizeObserver = new ResizeObserver(scheduleLayout);
   const watchReadouts = () => {
-    for (const node of layer.querySelectorAll(".japan-heading, .signal-console-map, .gaia-live-exhibit-readout, .gaia-estat-readout, .gaia-firms-readout, .gaia-planet-signals-readout, .gaia-marine-cod-readout, .gaia-food-readout, .map-mobile-ecology-summary")) sizeObserver.observe(node);
+    for (const node of layer.querySelectorAll(".japan-heading, .signal-console-map, .gaia-live-exhibit-readout, .gaia-estat-readout, .gaia-firms-readout, .gaia-planet-signals-readout, .gaia-marine-cod-readout, .gaia-food-readout, .gaia-climate-readout, .map-mobile-ecology-summary")) sizeObserver.observe(node);
     scheduleLayout();
   };
   new MutationObserver(watchReadouts).observe(layer, { childList: true });
   addEventListener("resize", scheduleLayout);
   const onMode = () => { metric = null; close(); sync(); };
-  for (const name of ["gaia:japan-mode-change", "gaia:live-exhibit-change", "gaia:estat-exhibit-change", "gaia:firms-change", "gaia:planet-signals-change", "gaia:marine-cod-change", "gaia:food-change"]) addEventListener(name, onMode);
+  for (const name of ["gaia:japan-mode-change", "gaia:live-exhibit-change", "gaia:estat-exhibit-change", "gaia:firms-change", "gaia:planet-signals-change", "gaia:marine-cod-change", "gaia:food-change", "gaia:climate-change", "gaia:climate-ready"]) addEventListener(name, onMode);
   new MutationObserver(sync).observe(layer, { attributes: true, attributeFilter: ["hidden", "aria-hidden", "data-story-mode"] });
   new MutationObserver(sync).observe(document.body, { attributes: true, attributeFilter: ["class"] });
   media.addEventListener("change", sync);

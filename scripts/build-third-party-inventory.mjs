@@ -20,6 +20,14 @@ for (const name of ['balances', 'security']) {
     usageSurfaces: ['on-screen transformed display', 'directly served bundled JSON', 'participant-selected analysis fields may be sent to BYOK AI after consent'] });
 }
 const storyTemperature = JSON.parse(read('data/story-temperature-annual.json'));
+for (const id of ['cyclones', 'coral']) {
+  const data = JSON.parse(read(`data/climate-history/${id}.json`));
+  dataSources.push({ modeId: id, id: `noaa-${id}`, title: id === 'cyclones' ? 'IBTrACS v4r01 MAIN tracks' : 'Coral Reef Watch Regional Virtual Stations annual summaries',
+    organisation: id === 'cyclones' ? 'NOAA NCEI' : 'NOAA Coral Reef Watch', sourceUrl: data.source,
+    termsUrl: data.rights || 'https://www.ncei.noaa.gov/access/metadata/landing-page/bin/iso?id=gov.noaa.ncdc:C01552',
+    retrievedAt: data.retrievedAt, sourceSha256: data.sha256 || null, transformation: data.selection || data.method,
+    usageSurfaces: ['on-screen transformed display', 'directly served bundled JSON', 'participant-selected analysis fields may be sent to BYOK AI after consent'] });
+}
 dataSources.push({modeId: 'story-map01-temperature', id: 'nasa-gistemp-regional-annual',
   title: storyTemperature.dataset, organisation: storyTemperature.provider,
   sourceUrl: storyTemperature.sourceUrl, documentationUrl: storyTemperature.documentationUrl,

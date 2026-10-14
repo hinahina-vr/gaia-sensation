@@ -51,6 +51,8 @@ const rows = [
   [69,'japan-river-fish',15,'泳ぎを象徴する光の群れ','#83c6cc','#b1d8c4'],
   [70,'food-balances',16,'収穫を象徴する金と緑の畝','#cbbb7a','#90b997'],
   [71,'food-security',17,'食卓を支える織り目','#b7a5d0','#8bc1ba'],
+  [72,'cyclones',6,'空気の重なり','#79b9c9','#abcbd9'],
+  [73,'coral',3,'水に溶ける光','#8bbdc8','#bda7ba'],
 ];
 const rgb = hex => Object.freeze(hex.slice(1).match(/../g).map(value=>parseInt(value,16)/255));
 export const MAP_BACKGROUND_THEMES = Object.freeze(rows.map(([number,id,pattern,label,accent,secondary])=>Object.freeze({

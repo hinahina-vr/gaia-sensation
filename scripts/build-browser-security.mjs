@@ -6,7 +6,7 @@ import path from "node:path";
 const root = path.resolve(import.meta.dirname, "..");
 const check = process.argv.includes("--check");
 const hashes = new Set();
-for (const file of ["index.html", "sensors/index.html", "concept/index.html"]) {
+for (const file of ["index.html", "world.html", "sensors/index.html", "concept/index.html"]) {
   const html = fs.readFileSync(path.join(root, file), "utf8").replace(/\r\n?/g, "\n");
   for (const [, attrs, body] of html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)) {
     if (/\bsrc\s*=/i.test(attrs) || /\btype\s*=\s*["']application\/ld\+json/i.test(attrs)) continue;

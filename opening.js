@@ -1255,6 +1255,12 @@
   const finish = async (destination = "menu") => {
     if (finished || finishRequested || titleReturnRunning) return;
     if (typeof destination !== "string") destination = "menu";
+    if (destination === "world") {
+      const target = new URL("./world", document.baseURI);
+      target.search = window.location.search;
+      window.location.assign(target.href);
+      return;
+    }
     closeRouteGuide({ remember: true, restoreFocus: false });
     finishRequested = true;
     document.querySelector("#gaia-story-entry-error")?.remove();

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "sourceCommit": "20f0e5d3f84e56b1c97303c283fc80abd495b3f1",
-  "sourceLedgerSha256": "07f188faf6fbe1ccd9d837d38113b398dda84e293df2f9eb0bee29f00cac033d",
+  "sourceCommit": "e2fba351d8d894d4a2df6ff65525dc61be876972",
+  "sourceLedgerSha256": "67224c9bbf6a80205ca3f3c4ea1e35847126968f6b7c2c5e815854587a069b65",
   "assets": [
     {
       "path": "assets/architecture/gaia-field-sensor-whiteboard-20260912.png",
@@ -512,6 +512,11 @@
       "path": "assets/guide-previews/sound.jpg",
       "sha256": "68ca462b612128548f9418981ea38b7b4845d78418c095d7a427f1de257266e2",
       "firstRepositoryEvidenceAt": "2026-08-31T16:03:03+09:00"
+    },
+    {
+      "path": "assets/guide-previews/story.jpg",
+      "sha256": "41d1f1dd1984426f0c2dd00ebada31a82bb99e3714aa293fe367fc20079d214e",
+      "firstRepositoryEvidenceAt": "2026-09-14T03:37:54+09:00"
     },
     {
       "path": "assets/maps/nasa-blue-marble-clouds-2048.jpg",

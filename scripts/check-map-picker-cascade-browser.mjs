@@ -14,7 +14,7 @@ try {
     await context.route('https://**', r => r.abort());
     page = await context.newPage(); page.on('pageerror', e => report.errors.push(e.message));
     await page.goto('http://127.0.0.1:4492/#world-08');
-    await page.waitForFunction(() => globalThis.GaiaMapCategories?.buttons().length === 71 && Number(document.querySelector('#japan-mode-number')?.textContent) === 8 && document.querySelector('[data-map-menu-toggle]')?.disabled === false);
+    await page.waitForFunction(() => globalThis.GaiaMapCategories?.buttons().length === GaiaMapCategories.exhibitCount && Number(document.querySelector('#japan-mode-number')?.textContent) === 8 && document.querySelector('[data-map-menu-toggle]')?.disabled === false);
     const menu = page.locator('[data-map-menu-toggle]');
     const selector = width > 900 ? '#map-dock-bank-popover' : '#map-mobile-sheet';
     const picker = page.locator(selector), tab = scope => picker.locator(`[role="tab"][data-map-scope="${scope}"]`);

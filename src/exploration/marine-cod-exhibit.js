@@ -7,9 +7,9 @@ import { decorateMapActions } from "./map-exhibit-actions.js?v=action-icons-read
 import { MARINE_COD_EXHIBIT } from "./marine-cod-catalog.js?v=gaia-marine-cod-1";
 import { JAPAN_SENSOR_OPEN_EXHIBITS, sensorObservationAppearance } from "./japan-sensor-open-catalog.js?v=gaia-japan-sensor-open-1";
 import { JAPAN_POLLUTION_EXHIBITS } from "./japan-pollution-catalog.js?v=gaia-pollution-1";
-import { PRTR_BIOLOGY_EXHIBITS, recordAppearance, displayFraction } from "./prtr-biology-catalog.js?v=prtr-biology-1-i18n-20260913";
-import { drawRecordMarker } from "./prtr-biology-drawing.js?v=prtr-biology-1";
-import { poiArrival, poiArrivalDuration } from "./annual-poi-arrival.js?v=gaia-annual-pop-20260909";
+import { PRTR_BIOLOGY_EXHIBITS, recordAppearance, displayFraction } from "./prtr-biology-catalog.js?v=prtr-biology-1-i18n-20260913-palette-20261013";
+import { poiArrivalDuration } from "./annual-poi-arrival.js?v=gaia-annual-pop-20260909";
+import { createAnnualPoiRenderer } from './annual-poi-renderer.js?v=vector-cache-20261013';
 import { createPoiYearCrossfade } from './poi-year-crossfade.js?v=annual-crossfade-20260926';
 import { validateAnnualManifest, loadAnnualPeriod, loadAnnualHistory } from "./annual-observation-store.js?v=history-20260912";
 import { buildAnnualStatisticsDataset } from "./annual-statistics.js?v=history-20260912-i18n-20260913";
@@ -38,7 +38,16 @@ const media = matchMedia("(prefers-reduced-motion: reduce)");
 const prefectures = "北海道 青森県 岩手県 宮城県 秋田県 山形県 福島県 茨城県 栃木県 群馬県 埼玉県 千葉県 東京都 神奈川県 新潟県 富山県 石川県 福井県 山梨県 長野県 岐阜県 静岡県 愛知県 三重県 滋賀県 京都府 大阪府 兵庫県 奈良県 和歌山県 鳥取県 島根県 岡山県 広島県 山口県 徳島県 香川県 愛媛県 高知県 福岡県 佐賀県 長崎県 熊本県 大分県 宮崎県 鹿児島県 沖縄県".split(" ");
 const prefName = code => definition.regionNames?.[code] || prefectures[Number(code) - 1] || code;
 const period = () => currentPeriod;
-const station = () => period()?.stations.find(item => item.id === selectedId);
+const selectedStations = new WeakMap();
+const station = () => {
+  const current = period();
+  if (!selectedId || !current) return undefined;
+  const cached = selectedStations.get(current);
+  if (cached?.id === selectedId) return cached.point;
+  const point = current.stations.find(item => item.id === selectedId);
+  selectedStations.set(current, { id: selectedId, point });
+  return point;
+};
 const stationName = point => point?.name || '地点名未記載';
 const sourcePlace = point => [point.water, point.name].filter(Boolean).join(' / ');
 const showSourcePlace = (node, point) => {
@@ -86,6 +95,7 @@ const renderPointStyle = point => {
   });
   return renderedPointStyles.get(point);
 };
+const poiRenderer = createAnnualPoiRenderer({ style: renderPointStyle, readValue: point => reading(point).value });
 const projection = () => {
   const rect = globalThis.GaiaMapObservationAdapter?.getViewportRect?.() || map.getBoundingClientRect();
   const overlay = document.querySelector("#japan-overlay");
@@ -328,9 +338,6 @@ const draw = time => {
   const ratio = Math.min(devicePixelRatio || 1, 1.5, Math.sqrt(1600000 / (rect.width * rect.height)));
   const width = Math.max(1, Math.round(rect.width * ratio)), height = Math.max(1, Math.round(rect.height * ratio));
   if (canvas.width !== width || canvas.height !== height) { canvas.width = width; canvas.height = height; }
-  context.setTransform(ratio, 0, 0, ratio, 0, 0);
-  context.clearRect(0, 0, rect.width, rect.height);
-  renderedPoiIds.clear();
   const overlay = document.querySelector("#japan-overlay");
   const separatorVisible = layer.classList.contains("is-map-title-transitioning");
   // Start on the first drawable frame, not on a timer set when fetch began.
@@ -341,37 +348,20 @@ const draw = time => {
   const rows = period().stations;
   canvas.dataset.codArrivalState = arrivalElapsed < 0 ? "waiting" : media.matches || arrivalElapsed >= poiArrivalDuration(rows.length) ? "complete" : "running";
   canvas.dataset.codArrivalStartedAt = arrivalStartedAt === null ? "" : arrivalStartedAt.toFixed(1);
-  let visible = 0, detailedMarks = 0;
-  for (const [index, point] of rows.entries()) {
-    const { color, radius, mapX, mapY } = renderPointStyle(point);
-    const x = view.originX + mapX * view.scale, y = view.originY + mapY * view.scale;
-    if (x < -30 || y < -30 || x > rect.width + 30 || y > rect.height + 30) continue;
-    const arrival = poiArrival(index, rows.length, arrivalElapsed, media.matches);
-    if (arrival.alpha === 0) continue;
-    visible++;
-    renderedPoiIds.add(point.id);
-    const value = reading(point).value;
-    const highlighted = point.id === selectedId;
-    context.globalAlpha = (prefecture === "all" || point.prefCode === prefecture ? .85 : .25) * arrival.alpha;
-    if (definition.animation) {
-      const detailed = highlighted || (detailedMarks < 140 && (view.scale > 80 || index % Math.max(1, Math.ceil(rows.length / 140)) === 0));
-      drawRecordMarker(context, { x, y, radius, color, animation: definition.animation, time: motionTime, index,
-        selected: highlighted, arrival, reduced: media.matches, value, detailed });
-      if (detailed && value > 0 && arrival.progress === 1) detailedMarks++;
-      continue;
-    }
-    context.fillStyle = color;
-    context.beginPath(); context.arc(x, y, radius * arrival.scale, 0, Math.PI * 2);
-    if (value === null) { context.strokeStyle = color; context.lineWidth = arrival.scale; context.stroke(); }
-    else context.fill();
-    // Sparse rings only at measured stations; never a filled/interpolated sea.
-    if (arrival.progress === 1 && value !== null && (highlighted || index % 13 === 0)) {
-      const phase = media.matches ? .3 : (motionTime / 3800 + index * .618) % 1;
-      context.globalAlpha *= (1 - phase) * .42;
-      context.strokeStyle = color; context.lineWidth = 1;
-      context.beginPath(); context.arc(x, y, radius + 3 + phase * 13, 0, Math.PI * 2); context.stroke();
-    }
+  const viewKey = poiViewKey(view);
+  const frameOptions = {
+    rows, definition, view, key: viewKey, ratio, prefecture, selectedId,
+    elapsed: arrivalElapsed, reduced: media.matches, time: motionTime, renderedIds: renderedPoiIds,
+  };
+  // Reduced-motion points, rings and glyphs are frozen. Preserve the already
+  // correct pixels instead of repainting thousands of identical marks at 24 Hz.
+  if (!yearFade.getState().active && poiRenderer.canReuseFrame(frameOptions)) {
+    canvas.dataset.codDrawMs = (performance.now() - drawStarted).toFixed(2);
+    frame = requestAnimationFrame(draw); return;
   }
+  context.setTransform(ratio, 0, 0, ratio, 0, 0);
+  context.clearRect(0, 0, rect.width, rect.height);
+  const { visible, detailedMarks } = poiRenderer.paint(context, frameOptions);
   const selected = station();
   if (selected && renderedPoiIds.has(selected.id)) {
     const { x, y } = pointAt(selected, view);
@@ -379,7 +369,7 @@ const draw = time => {
     context.beginPath(); context.arc(x, y, 12, 0, Math.PI * 2); context.stroke();
   }
   context.globalAlpha = 1;
-  lastPoiViewKey = poiViewKey(view);
+  lastPoiViewKey = viewKey;
   yearFade.paint(context, lastPoiViewKey, time, media.matches || separatorVisible);
   canvas.dataset.codVisibleCount = String(visible);
   canvas.dataset.recordAnimation = definition.animation || "observation-rings";
@@ -489,6 +479,7 @@ const restoreStatisticsDataset = async id => {
   return buildAnnualStatisticsDataset({ data: payload, definition: target, selectedId: suffix, history: await loadAnnualHistory(payload, suffix) });
 };
 const deactivate = () => {
+  poiRenderer.reset();
   yearFade.reset(); lastPoiViewKey = null;
   if (selectionHelp) selectionHelp.hidden = true;
   if (!active) return;
@@ -535,6 +526,7 @@ const configureDefinition = () => {
 const select = async (id = MARINE_COD_EXHIBIT.id) => {
   const target = definitions.find(item => item.id === id);
   if (!target) return;
+  poiRenderer.reset();
   yearFade.reset(); lastPoiViewKey = null;
   const generation = ++selectionGeneration;
   dataState = "loading";
@@ -622,7 +614,7 @@ const mount = () => {
   // A dock may clip overflowing children, particularly on phones. Keep the
   // instruction in a viewport layer and position it next to the real picker.
   document.body.append(selectionHelp);
-  addEventListener('gaia:japan-close', () => { selectionHelp.hidden = true; yearFade.reset(); lastPoiViewKey = null; });
+  addEventListener('gaia:japan-close', () => { selectionHelp.hidden = true; yearFade.reset(); lastPoiViewKey = null; poiRenderer.reset(); });
   addEventListener('resize', () => { selectionHelp.hidden = true; });
   addEventListener('pointerdown', event => {
     if (!selectionHelp.hidden && event.target instanceof Element && !event.target.closest('.gaia-cod-pickers, [data-cod-analysis]')) selectionHelp.hidden = true;
@@ -667,7 +659,7 @@ const mount = () => {
     if (globalThis.GaiaStatisticsLab?.open) open(); else addEventListener("gaia:statistics-lab-ready", open, { once: true });
   });
   const resume = () => { if (active && currentPeriod && !frame && !document.hidden) { lastDraw = performance.now(); lastYearAt = lastDraw; frame = requestAnimationFrame(draw); } };
-  document.addEventListener("visibilitychange", () => { if (document.hidden) { yearFade.reset(); lastPoiViewKey = null; cancelAnimationFrame(frame); frame = 0; } else resume(); });
+  document.addEventListener("visibilitychange", () => { if (document.hidden) { yearFade.reset(); lastPoiViewKey = null; poiRenderer.reset(); cancelAnimationFrame(frame); frame = 0; } else resume(); });
   media.addEventListener('change', () => { if (media.matches) yearFade.reset(); });
   addEventListener("gaia:japan-open", resume);
   dispatchEvent(new CustomEvent("gaia:marine-cod-mounted"));
@@ -680,7 +672,7 @@ globalThis.GaiaMarineCod = Object.freeze({ get definition() { return definition;
     detail: '収録年度を順に表示します。', reason: yearsFor(definition).length > 1 ? '' : '収録データは1年分のみです。時間再生の対象外です。' }),
   getStatisticsDataset: statisticsDataset, restoreStatisticsDataset,
   requestStatisticsSelection,
-  getState: () => ({ active, id: definition.id, year, selectedId, playing, dataState, count: period()?.stations.length || 0, yearFade: yearFade.getState() }),
+  getState: () => ({ active, id: definition.id, year, selectedId, playing, dataState, count: period()?.stations.length || 0, yearFade: yearFade.getState(), renderer: poiRenderer.getState() }),
   getSourceInfo: () => active ? { number: definition.number, shortTitle: definition.shortTitle,
     datasets: [{ id: definition.id, title: `${isCod() ? "海域のCOD 年度平均値" : definition.metricLabel} / ${yearRange()}`, organisation: definition.organisation, url: station()?.sourceUrl || SOURCE_URL,
       attributionNote: [...new Set(`${definition.caption} ${definition.explanation || ''} ${definition.animationNote || ''} ${data?.attribution || `${definition.organisation}データをGAIA SENSEWAREが抽出・加工`}。原資料取得日 ${retrievalDates()}。${definition.comparisonNote || ""} ${data?.historyNote || ''}`.split(/(?<=。)/u).map(text=>text.trim()).filter(text=>text&&!text.includes('ESP32')))].join('') }] } : null });

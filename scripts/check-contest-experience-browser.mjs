@@ -11,8 +11,9 @@ import { JAPAN_SENSOR_OPEN_EXHIBITS } from "../src/exploration/japan-sensor-open
 import { JAPAN_POLLUTION_EXHIBITS } from "../src/exploration/japan-pollution-catalog.js";
 import { PRTR_BIOLOGY_EXHIBITS } from "../src/exploration/prtr-biology-catalog.js";
 import { FOOD_EXHIBITS } from "../src/exploration/food-catalog.js";
+import { CLIMATE_EXHIBITS } from "../src/exploration/climate-history-model.js";
 
-const expectedExhibitCount = Math.max(...[MARINE_COD_EXHIBIT, ...JAPAN_SENSOR_OPEN_EXHIBITS, ...JAPAN_POLLUTION_EXHIBITS, ...PRTR_BIOLOGY_EXHIBITS, ...FOOD_EXHIBITS].map(exhibit => Number(exhibit.number)));
+const expectedExhibitCount = Math.max(...[MARINE_COD_EXHIBIT, ...JAPAN_SENSOR_OPEN_EXHIBITS, ...JAPAN_POLLUTION_EXHIBITS, ...PRTR_BIOLOGY_EXHIBITS, ...FOOD_EXHIBITS, ...CLIMATE_EXHIBITS].map(exhibit => Number(exhibit.number)));
 
 const rawArguments = process.argv.slice(2);
 const option = (name) => {
@@ -35,7 +36,8 @@ let qaServer = null;
 const startLocalServer = () => new Promise((resolve) => {
   qaServer = http.createServer((request, response) => {
     const pathname = decodeURIComponent(new URL(request.url || "/", "http://127.0.0.1").pathname);
-    const relative = pathname === "/" || pathname === "/story" || pathname === "/story/" ? "index.html" : pathname.replace(/^\/+/, "");
+    const relative = pathname === "/world" || pathname === "/world/" ? "world.html"
+      : pathname === "/" || pathname === "/story" || pathname === "/story/" ? "index.html" : pathname.replace(/^\/+/, "");
     const file = path.resolve(sourceRoot, relative);
     if (file !== sourceRoot && !file.startsWith(`${sourceRoot}${path.sep}`)) { response.writeHead(403).end(); return; }
     try {

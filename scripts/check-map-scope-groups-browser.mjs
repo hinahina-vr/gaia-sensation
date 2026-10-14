@@ -28,7 +28,7 @@ try {
     await page.evaluate(() => GaiaMapDemo.stop());
     const idle = number => page.waitForFunction(n => Number(document.querySelector('#japan-mode-number').textContent) === n && !document.querySelector('#japan-layer').classList.contains('is-map-title-transitioning'), number);
     await idle(66);
-    await page.waitForFunction(() => GaiaMapCategories.buttons().length === 71);
+    await page.waitForFunction(() => GaiaMapCategories.buttons().length === GaiaMapCategories.exhibitCount);
     const open = async () => {
       if (mobile) await page.locator('[data-mobile-sheet="exhibits"]').click();
       else {
@@ -40,7 +40,7 @@ try {
     const allButtons = mobile ? '[data-mobile-exhibit]' : '.map-category-group .map-mode-button';
     await open(); await menu.waitFor({ state: 'visible' });
     const numbers = await page.evaluate(() => GaiaMapCategories.buttons().map(b => Number(b.textContent)));
-    assert.deepEqual(numbers, Array.from({ length: 71 }, (_, i) => i + 1));
+    assert.deepEqual(numbers, Array.from({ length: before ? 71 : 73 }, (_, i) => i + 1));
     if (before) {
       assert.equal(await menu.locator('[role="tab"]').count(), 0);
       assert.equal(await menu.locator(allButtons).count(), 71);

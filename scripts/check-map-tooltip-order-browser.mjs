@@ -54,7 +54,7 @@ async function createPage(width, height) {
   const page = await context.newPage();
   page.on('pageerror', error => report.errors.push(error.message));
   await page.goto(`${base}/#world`, { waitUntil: 'domcontentloaded' });
-  await page.waitForFunction(() => globalThis.GaiaMapCategories?.buttons().length === 71 && globalThis.GaiaMapCruise
+  await page.waitForFunction(() => globalThis.GaiaMapCategories?.buttons().length === GaiaMapCategories.exhibitCount && globalThis.GaiaMapCruise
     && document.documentElement.dataset.gaiaAppReady === 'true' && document.querySelector('#japan-layer').getAttribute('aria-hidden') === 'false');
   await page.locator('#gaia-boot').waitFor({ state: 'hidden', timeout: 60000 });
   await page.locator('[data-feature-start]').click();

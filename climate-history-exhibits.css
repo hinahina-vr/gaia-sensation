@@ -1,0 +1,79 @@
+/* NOAA historical exhibits share the surrounding map; only their data layer changes. */
+#gaia-climate-canvas { position:absolute; inset:0; z-index:5; width:100%; height:100%; pointer-events:none; }
+.experience.japan-open:has(#japan-layer.is-climate-history-exhibit) { overflow:clip; }
+#gaia-climate-canvas[hidden], .gaia-climate-readout[hidden], .gaia-climate-legend[hidden] { display:none!important; }
+#japan-layer.is-map-title-transitioning #gaia-climate-canvas { visibility:hidden; }
+#japan-layer.is-climate-history-exhibit :is(.japan-observation,.map-reading-guide,.signal-console-map,.signal-encoding-legend-dock,.japan-layer-switch,.map-command-dock,.japan-credits) { visibility:hidden!important; pointer-events:none!important; }
+#japan-layer.is-climate-history-exhibit .japan-map > #gaia-canvas { opacity:0!important; }
+#japan-layer.is-climate-history-exhibit :is(#japan-data-button,#gaia-statistics-button,.gaia-statistics-quick) { display:none!important; }
+#japan-layer.is-climate-history-exhibit #map-responsive-data .signal-console-map { display:none!important; }
+#japan-layer.japan-data-open :is(.gaia-climate-readout,.gaia-climate-legend),body.gaia-statistics-open :is(.gaia-climate-readout,.gaia-climate-legend) { visibility:hidden!important; pointer-events:none!important; }
+.gaia-climate-readout { position:absolute; z-index:105; box-sizing:border-box; color:#d9ecef; font:12px/1.5 var(--font-ja); background:linear-gradient(125deg,#10282ce8,#0a1c29ed); border:1px solid #a9d4bb42; backdrop-filter:blur(12px); }
+.gaia-climate-readout p { margin:0; }
+.gaia-climate-readout fieldset { border:0; padding:0; margin:0; min-width:0; }
+.gaia-climate-sr { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); }
+.gaia-climate-readout :is(button,select) { font:inherit; min-height:36px; border:1px solid #a5d1bb50; border-radius:5px; color:#e4f4e9; background:#102a35; cursor:pointer; }
+.gaia-climate-readout :is(button,select,input):focus-visible { outline:2px solid #ffdf9b; outline-offset:2px; }
+.gaia-climate-readout button:disabled { opacity:.45;cursor:default; }
+.gaia-climate-chapter > p { font-size:var(--map-dock-label-size,12px); color:#88b9c3; margin-bottom:4px; }
+.gaia-climate-chapter > button { display:flex; gap:9px; align-items:baseline; padding:0; border:0; background:none; text-align:left; }
+.gaia-climate-chapter b { font:var(--map-dock-number-size,30px)/1.2 var(--font-ja); color:#80d4dd; font-weight:400; }
+.gaia-climate-chapter strong { font:var(--map-dock-title-size,24px)/1.3 var(--font-ja); white-space:nowrap; }
+.gaia-climate-pickers { display:grid; gap:5px; min-width:0; }
+.gaia-climate-pickers label { display:grid; grid-template-columns:2.5em minmax(0,1fr); gap:5px; align-items:center; }
+.gaia-climate-pickers label[hidden] { display:none; }
+.gaia-climate-pickers select { width:100%; min-width:0; text-overflow:ellipsis; }
+.gaia-climate-primary { display:grid; min-width:0; gap:3px; }
+.gaia-climate-primary > span,.gaia-climate-primary small { font-size:11px; color:#a8c5cc; }
+.gaia-climate-primary strong { font:var(--map-dock-value-size,34px)/1.2 var(--font-ja); white-space:nowrap; }
+.gaia-climate-timeline label { display:grid; grid-template-columns:auto minmax(0,1fr); gap:8px; align-items:center; }
+.gaia-climate-timeline input { width:100%; min-width:0; accent-color:#96ded7; }
+.gaia-climate-timeline > button { font-size:11px; margin-top:5px; }
+.gaia-climate-actions.gaia-map-actions { position:static; display:flex; padding:0; gap:7px; }
+.gaia-climate-actions .gaia-map-action { flex:1; min-width:0; }
+.gaia-climate-status { color:#98b4bc; font-size:10px; }
+.gaia-climate-legend { position:absolute; z-index:110; top:var(--responsive-legend-top,125px); right:22px; width:310px; color:#cde1e4; font:12px/1.7 var(--font-ja); background:#091c28de; border:1px solid #a5d8c138; border-radius:8px; padding:14px; box-sizing:border-box; max-height:calc(100% - 320px); overflow:auto; }
+.gaia-climate-legend h3 { margin:0 0 7px; font-size:14px; font-weight:500; overflow-wrap:anywhere; }
+.gaia-climate-legend p { margin:7px 0; }
+.gaia-climate-scale { height:6px; border-radius:5px; background:linear-gradient(90deg,#76d7ed,#88e4c5,#ffe08c,#ffa16f,#ff6486); }
+[data-climate-labels] { display:flex;justify-content:space-between;font-size:10px; }
+#japan-layer.is-climate-history-exhibit #gaia-map-theme-background { opacity:.3; }
+.gaia-climate-insight { border-top:1px solid #a5d8c12b; margin-top:13px; padding-top:12px; }
+.gaia-climate-legend details { border-top:1px solid #a5d8c12b; padding-top:8px; margin-top:10px; }
+.gaia-climate-legend summary { cursor:pointer; font-size:11px; }
+.gaia-climate-guide { font-size:11px; }
+@media(min-width:901px) {
+  #japan-layer.is-climate-history-exhibit { --map-command-dock-height:126px; }
+  #japan-layer .gaia-climate-readout { display:grid; grid-template-columns:minmax(200px,1.1fr) minmax(190px,1.1fr) minmax(180px,1fr) minmax(180px,1fr) var(--map-exhibit-actions-width,300px); left:18px; right:18px; bottom:0; padding:14px 18px; min-height:112px; align-items:center; gap:14px; border-radius:14px 14px 0 0; }
+  .gaia-climate-readout fieldset { display:contents; }
+  .gaia-climate-status { position:absolute; bottom:calc(100% + 7px); left:0; }
+  [data-climate-retry] { position:absolute; bottom:calc(100% + 25px); left:0; }
+}
+@media(min-width:901px) and (max-width:1350px) {
+  #japan-layer .gaia-climate-readout { grid-template-columns:minmax(180px,1fr) minmax(170px,1fr) minmax(150px,1fr); gap:8px 14px; }
+  .gaia-climate-chapter { grid-column:1;grid-row:1; }
+  .gaia-climate-pickers { grid-column:2;grid-row:1 / 3; }
+  .gaia-climate-primary { grid-column:3;grid-row:1; }
+  .gaia-climate-timeline { grid-column:1;grid-row:2; }
+  .gaia-climate-actions { grid-column:3;grid-row:2; }
+}
+@media(max-width:900px) {
+  #japan-layer.is-mobile-map-shell .gaia-climate-readout { position:fixed; left:var(--mobile-side,10px);right:var(--mobile-side,10px);bottom:var(--mobile-dock-bottom,76px);padding:8px 10px;border-radius:9px;max-height:36dvh;overflow:auto; }
+  .gaia-climate-chapter,.gaia-climate-actions.gaia-map-actions { display:none!important; }
+  .gaia-climate-pickers { grid-template-columns:1fr 1.5fr;gap:6px; }
+  .gaia-climate-pickers label { display:block;font-size:10px; }
+  .gaia-climate-pickers label:only-child,.gaia-climate-pickers label[hidden]+label { grid-column:1 / -1; }
+  .gaia-climate-pickers select { font-size:12px;min-height:36px; }
+  .gaia-climate-primary { grid-template-columns:1fr auto;gap:3px;margin:6px 0; }
+  .gaia-climate-primary strong { font-size:25px;grid-column:2;grid-row:1 / 3;align-self:center; }
+  .gaia-climate-primary > span,.gaia-climate-primary small { font-size:10px; }
+  .gaia-climate-timeline { display:grid;grid-template-columns:minmax(0,1fr) 75px;gap:7px;align-items:center; }
+  .gaia-climate-timeline label { display:block;font-size:11px; }
+  .gaia-climate-timeline > button { margin:0;min-height:40px; }
+  .gaia-climate-status { font-size:8px;margin-bottom:4px!important; }
+  .gaia-climate-legend { position:fixed;top:var(--mobile-heading-bottom,108px);right:var(--mobile-side,10px);width:170px;padding:8px 10px;max-height:90px;overflow:hidden; }
+  .gaia-climate-key h3 { font-size:10px; }
+  .gaia-climate-legend .gaia-climate-insight,.gaia-climate-legend details { display:none; }
+  .gaia-climate-key p { font-size:9px; }
+  #map-mobile-sheet .gaia-climate-guide { font-size:inherit; }
+}

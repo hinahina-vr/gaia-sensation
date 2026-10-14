@@ -20,7 +20,7 @@ try {
     await enforceBrowserSecurity(context, base); await context.route('https://**', r => r.abort());
     page = await context.newPage(); page.on('pageerror', e => report.errors.push(e.message));
     await page.goto(base + '/?exhibit=68#world', { waitUntil: 'domcontentloaded' }); await page.locator('[data-feature-start]').click();
-    await page.waitForFunction(() => globalThis.GaiaMapCategories?.buttons().length === 71); await page.evaluate(() => GaiaMapDemo.stop());
+    await page.waitForFunction(() => globalThis.GaiaMapCategories?.buttons().length === GaiaMapCategories.exhibitCount); await page.evaluate(() => GaiaMapDemo.stop());
     for (const n of requested || [68, ...Array.from({ length: 71 }, (_, i) => i + 1).filter(n => n !== 68)]) {
       await page.evaluate(n => GaiaMapCategories.buttons()[n - 1].click(), n);
       await page.waitForFunction(n => Number(document.querySelector('#japan-mode-number').textContent) === n && (n < 31 || n > 69 || GaiaMarineCod.getState().dataState === 'ready') && (n < 70 || GaiaFoodExhibits.getState().dataState === 'ready'), n);

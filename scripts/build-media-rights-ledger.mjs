@@ -60,7 +60,7 @@ const ledgerFor = (relative) => {
 };
 
 const serviceFor = (relative) => {
-  if (relative === 'assets/guide-previews/story.jpg') return 'GAIA SENSEWARE application screenshot supplied by owner';
+  if (relative === 'assets/guide-previews/story.jpg') return 'GAIA SENSEWARE screenshot supplied by the project owner';
   if (relative === 'assets/architecture/gaia-field-sensor-whiteboard-20260912.png') return 'OpenAI Imagegen';
   if (/^assets\/opening-(?:candidates-20260911|selected-20260912)\//u.test(relative)) return "OpenAI Imagegen";
   if (/^assets\/(?:title|ending)-candidates-20260909\//u.test(relative)) return "OpenAI Imagegen";
@@ -80,7 +80,9 @@ const termsFor = (service) => {
   return null;
 };
 
-const processingFor = (relative) => /^assets\/opening-selected-20260912\//u.test(relative)
+const processingFor = (relative) => relative === 'assets/guide-previews/story.jpg'
+  ? '2026-09-14作者指定の画面キャプチャをSharpで960×540 JPEGに縮小。全画角を保持し、生成・描き直し・トリミングなし。docs/QA_OPENING_ROUTE_PREVIEWS_20260914.mdの既存採用記録に基づく追記。今回、権利や公開許可の再判定は行っていません。'
+  : /^assets\/opening-selected-20260912\//u.test(relative)
   ? "2026-09-12作者添付の3枚を初対面・みず・あめのオープニングにローカル採用。初対面は初回生成版、みず・あめは毛先編集後の案1。元PNG無変更。全画角WebPは初対面品質84、人物品質92、通常1672×941／軽量834×469。再描画なし。selection.jsonに原本・派生のSHA-256、READMEに制作履歴、docs/QA_SELECTED_OPENING_2026-09-12.mdに検証範囲。未公開"
   : /^assets\/opening-candidates-20260911\//u.test(relative)
   ? "既存立ち絵と対応場面を参照しOpenAI内蔵画像生成で各3案、計9案を制作。毛先の追加編集後PNGを無変更で保存。候補制作記録は同フォルダのREADME.md、prompts.json、verification.json。2026-09-12採用の初対面は今回添付の初回版でこのフォルダの編集後版とは異なる。未公開"
@@ -107,9 +109,8 @@ const assets = media.map((file) => {
     path: relative,
     sha256,
     generationService: service,
-    // This newly exported screenshot first appeared in development commit f6bed3c.
-    firstRepositoryEvidenceAt: relative === 'assets/guide-previews/story.jpg' ? '2026-09-14T03:37:54+09:00' : originalDate(relative, sha256, evidenceDates.get(relative), origins),
-    processing: relative === 'assets/guide-previews/story.jpg' ? 'Owner-supplied application screenshot resized to 960x540 JPEG, without cropping or redrawing; source development commit f6bed3c. See sourceLedger for adoption evidence.' : processingFor(relative),
+    firstRepositoryEvidenceAt: originalDate(relative, sha256, evidenceDates.get(relative), origins),
+    processing: processingFor(relative),
     sourceLedger: ledgerFor(relative),
     officialTermsUrl: termsFor(service),
     publicationStatus: /^assets\/opening-(?:candidates-20260911|selected-20260912)\//u.test(relative) ? "local-only" : "public",

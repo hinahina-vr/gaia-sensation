@@ -77,6 +77,15 @@ add(14,
   t('円の面積が総人口に比例します。年代を動かすと、人口の変化を見比べられます。', 'Circle area is proportional to total population. Move through the years to compare changes.', '圆面积与总人口成正比，切换年份可比较人口变化。'),
   t('国・地域の総人口｜世界銀行', 'Total population by country / region | World Bank', '国家·地区总人口｜世界银行'));
 
+add(72,
+  t('世界の熱帯低気圧の経路と、1分平均風速の記録です。', 'Recorded tropical cyclone tracks and one-minute sustained winds around the world.', '全球热带气旋路径与一分钟平均风速记录。'),
+  t('線の色で風の強さを比べ、シーズンごとの経路をたどれます。', 'Line colors compare wind speed along tracks, season by season.', '以线条颜色比较风速，逐季追踪路径。'),
+  t('NOAA IBTrACS｜1980–2024シーズン｜主要経路', 'NOAA IBTrACS | 1980–2024 seasons | Main tracks', 'NOAA IBTrACS｜1980–2024季｜主要路径'), 'climate');
+add(73,
+  t('衛星水温から計算した、サンゴ礁監視海域の熱ストレスです。', 'Heat stress in coral reef monitoring regions, calculated from satellite sea temperatures.', '由卫星海温计算的珊瑚礁监测海域热应激。'),
+  t('点の色は年内最大DHW。海に蓄積した熱の年ごとの違いを比べます。', 'Point colors show annual maximum DHW, comparing accumulated heat across years.', '光点颜色表示年度最大DHW，比较逐年累积热量。'),
+  t('NOAA Coral Reef Watch｜1986–2025年｜DHW', 'NOAA Coral Reef Watch | 1986–2025 | DHW', 'NOAA Coral Reef Watch｜1986–2025年｜DHW'), 'climate');
+
 // Japan model fields represent one city per prefecture, not area averages.
 const liveMetrics = [
   [15, ['地上10mの風速', 'wind speed at 10 m', '地上10米风速'], source.weather],
@@ -224,8 +233,8 @@ const status = (number, runtime = globalThis) => {
     if (measurement.status === 'snapshot' || state.source === 'snapshot' || !state.connected) return messages.saved;
     return state.requestState === 'unavailable' ? messages.cached : '';
   }
-  if (entry.kind === 'records' || entry.kind === 'food') {
-    const state = (entry.kind === 'records' ? runtime.GaiaMarineCod : runtime.GaiaFoodExhibits)?.getState?.();
+  if (entry.kind === 'records' || entry.kind === 'food' || entry.kind === 'climate') {
+    const state = (entry.kind === 'records' ? runtime.GaiaMarineCod : entry.kind === 'food' ? runtime.GaiaFoodExhibits : runtime.GaiaClimateHistory)?.getState?.();
     return state?.dataState === 'ready' ? '' : state?.dataState === 'error' ? messages.error : messages.loading;
   }
   return '';

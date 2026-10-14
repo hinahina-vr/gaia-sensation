@@ -14,7 +14,7 @@ const context = vm.createContext({ GaiaI18n: { register(rows) {
 } } });
 vm.runInContext(fs.readFileSync(new URL('../src/exploration/map-data-intro-catalog.js', import.meta.url), 'utf8'), context);
 const { entries, status, messages } = context.GaiaMapDataIntro;
-assert.deepEqual(Object.keys(entries).sort(), Array.from({ length: 71 }, (_, i) => String(i + 1).padStart(2, '0')).sort());
+assert.deepEqual(Object.keys(entries).sort(), Array.from({ length: 73 }, (_, i) => String(i + 1).padStart(2, '0')).sort());
 assert(Object.isFrozen(entries));
 for (const [number, entry] of Object.entries(entries)) {
   assert.equal(entry.number, number);
@@ -24,7 +24,7 @@ for (const [number, entry] of Object.entries(entries)) {
     assert.doesNotMatch(text, /ではありません|ではなく|とは異な|できません|分かりません|していません|\bnot\b|并非|并不|并未|不是/iu,
       `${number}: explain the data directly, without negative disclaimers`);
   const expected = +number <= 5 ? number === '04' ? 'firms' : 'planet'
-    : +number >= 70 ? 'food' : +number >= 31 ? 'records' : +number >= 15 && +number <= 20 ? 'live' : 'saved';
+    : +number >= 72 ? 'climate' : +number >= 70 ? 'food' : +number >= 31 ? 'records' : +number >= 15 && +number <= 20 ? 'live' : 'saved';
   assert.equal(entry.kind, expected);
 }
 const planet = sourceState => ({ GaiaPlanetSignals: { getState: () => ({ sourceState }) } });
@@ -48,7 +48,7 @@ assert.equal(status('15', live(null, { requestState: 'unavailable' })), messages
 assert.equal(status('15', live(0)), '');
 assert.equal(status('15', live(5, { connected: false })), messages.saved);
 assert.equal(status('15', live(5, { requestState: 'unavailable' })), messages.cached);
-for (const [number, provider] of [['31', 'GaiaMarineCod'], ['70', 'GaiaFoodExhibits']]) {
+for (const [number, provider] of [['31', 'GaiaMarineCod'], ['70', 'GaiaFoodExhibits'], ['72', 'GaiaClimateHistory'], ['73', 'GaiaClimateHistory']]) {
   for (const [dataState, expected] of [['loading', messages.loading], ['error', messages.error], ['ready', '']])
     assert.equal(status(number, { [provider]: { getState: () => ({ dataState }) } }), expected);
 }
@@ -60,4 +60,4 @@ assert.equal(messages.error, 'データ取得エラー');
 const loader = fs.readFileSync(new URL('../gaia-mode-loader.js', import.meta.url), 'utf8');
 assert(loader.indexOf('./app-content.js') < loader.indexOf('./src/exploration/map-data-intro-catalog.js'));
 assert(loader.indexOf('./src/exploration/map-data-intro-catalog.js') < loader.indexOf('./app.js'));
-console.log(`PASS: 71 introductions, ${translations.size} translated messages, provider states, ordered loading`);
+console.log(`PASS: 73 introductions, ${translations.size} translated messages, provider states, ordered loading`);

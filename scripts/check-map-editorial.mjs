@@ -12,10 +12,8 @@ const content = sandbox.window.GaiaAppContent;
 const fixture = [...JSON.parse(read("docs/design/map-editorial-20260907/copy.json")).exhibits,
   JSON.parse(read("docs/design/marine-cod-20260908.json"))];
 const recyclingRevision = JSON.parse(read("docs/design/recycling-map-20260907.json"));
-// The approved copy is unchanged; only the first exhibits moved on 2026-09-25.
-const renumber = { "01": "04", "02": "01", "04": "02" };
-for (const row of fixture) row.number = renumber[row.number] || row.number;
-fixture.sort((a, b) => a.number.localeCompare(b.number));
+// Keep historical fixture numbers intact. Match by stable ID below, then
+// translate the expected number once to the current exhibition order.
 const liveRevision = JSON.parse(read("docs/design/live-prefecture-fill-20260912.json")).exhibits;
 const annualRevision = JSON.parse(read("docs/design/annual-picker-copy-20260912.json")).exhibits;
 const annualSeries = JSON.parse(read("data/estat-prefecture-series.json"));
@@ -37,9 +35,15 @@ assert.equal(fixture.length, 31);
 assert.equal(records.length, 31);
 assert.equal(new Set(records.map(record => record.id)).size, 31);
 for (const [index, record] of records.entries()) {
+  // The owner reordered wind / earthquake / fire on 2026-09-25. Keep the
+  // historical copy fixtures intact and associate their text by stable ID.
+  const original = fixture.find(item => item.id === record.id);
+  assert(original, `${record.id}: missing approved copy fixture`);
   const expected = record.number === recyclingRevision.number
-    ? { ...fixture[index], body: recyclingRevision.body }
-    : { ...fixture[index], ...liveRevision.find(item => item.number === record.number), ...annualRevision.find(item => item.number === record.number) };
+    ? { ...original, body: recyclingRevision.body }
+    : { ...original, ...liveRevision.find(item => item.number === original.number), ...annualRevision.find(item => item.number === original.number) };
+  const reordered = { '01': '04', '02': '01', '04': '02' };
+  expected.number = reordered[original.number] || original.number;
   assert.equal(record.number, String(index + 1).padStart(2, "0"));
   for (const key of ["number", "id", "title", "body", "question"]) {
     assert.equal(record[key], expected[key], `${record.number}: ${key}`);

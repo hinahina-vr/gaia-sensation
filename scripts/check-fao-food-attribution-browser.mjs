@@ -15,7 +15,7 @@ try {
     await enforceBrowserSecurity(c, base); await c.route('https://**', r => r.abort());
     await c.addInitScript(() => sessionStorage.setItem('gaia:mode-entry-guide:map:v5', 'seen'));
     const p = await c.newPage(); await p.goto(`${base}/?exhibit=70#world`, { waitUntil: 'domcontentloaded' });
-    await p.waitForFunction(() => globalThis.GaiaMapDemo && globalThis.GaiaFoodExhibits && globalThis.GaiaMapCategories?.buttons().length === 71 && GaiaFoodExhibits.getState().dataState === 'ready'); await p.evaluate(() => GaiaMapDemo.stop());
+    await p.waitForFunction(() => globalThis.GaiaMapDemo && globalThis.GaiaFoodExhibits && globalThis.GaiaMapCategories?.buttons().length === GaiaMapCategories.exhibitCount && GaiaFoodExhibits.getState().dataState === 'ready'); await p.evaluate(() => GaiaMapDemo.stop());
     for (const def of FOOD_EXHIBITS) {
       const bytes = fs.readFileSync(`data/${def.dataFile}`), data = JSON.parse(bytes);
       report.sha256[def.dataFile] = createHash('sha256').update(bytes).digest('hex');

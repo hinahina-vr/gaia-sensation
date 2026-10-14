@@ -1995,6 +1995,38 @@
       ]
     },
     {
+      "modeId": "cyclones",
+      "id": "noaa-cyclones",
+      "title": "IBTrACS v4r01 MAIN tracks",
+      "organisation": "NOAA NCEI",
+      "sourceUrl": "https://www.ncei.noaa.gov/data/international-best-track-archive-for-climate-stewardship-ibtracs/v04r01/access/csv/ibtracs.since1980.list.v04r01.csv",
+      "termsUrl": "https://www.ncei.noaa.gov/access/metadata/landing-page/bin/iso?id=gov.noaa.ncdc:C01552",
+      "retrievedAt": "2026-10-13T03:20:53.904Z",
+      "sourceSha256": "3043896e25fead6114f29bf85be987104abb2865db9f816edff0562b1c31820d",
+      "transformation": "MAIN tracks only; source SEASON (not calendar year). USA_WIND in knots, 1-minute sustained wind; missing wind remains null. Archive positions include interpolated times. Basin is the first recorded basin.",
+      "usageSurfaces": [
+        "on-screen transformed display",
+        "directly served bundled JSON",
+        "participant-selected analysis fields may be sent to BYOK AI after consent"
+      ]
+    },
+    {
+      "modeId": "coral",
+      "id": "noaa-coral",
+      "title": "Coral Reef Watch Regional Virtual Stations annual summaries",
+      "organisation": "NOAA Coral Reef Watch",
+      "sourceUrl": "https://coralreefwatch.noaa.gov/product/vs/data.php",
+      "termsUrl": "https://coralreefwatch.noaa.gov/satellite/docs/recommendations_crw_citation.php",
+      "retrievedAt": "2026-10-13T03:20:53.904Z",
+      "sourceSha256": null,
+      "transformation": "DHW_from_90th_HS>1: 84-day accumulation of regional daily 90th-percentile HotSpot above 1°C, in °C-weeks. Regional reef pixels include a 20 km buffer. Coordinates are polygon midpoints, not point observations. Annual maxima and threshold-day counts use valid daily values; no spatial interpolation.",
+      "usageSurfaces": [
+        "on-screen transformed display",
+        "directly served bundled JSON",
+        "participant-selected analysis fields may be sent to BYOK AI after consent"
+      ]
+    },
+    {
       "modeId": "story-map01-temperature",
       "id": "nasa-gistemp-regional-annual",
       "title": "GISTEMP v4 Land-Ocean Temperature Index, ERSSTv5, 1200 km smoothing",

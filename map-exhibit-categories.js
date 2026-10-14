@@ -6,9 +6,9 @@
   const definitions = Object.freeze([
     { id: "planet", label: "惑星のいま", summary: "火災・風・大気・地震・雲を世界から", color: "#9ee4dc", numbers: [1, 2, 3, 4, 5] },
     { id: "climate", label: "気候と炭素", summary: "CO₂濃度・長期の気温変化", color: "#f3b48f", numbers: [6, 16, 24, 25, 26] },
-    { id: "weather", label: "空と天気", summary: "風・雲・気温・空気の状態", color: "#9ed5ed", numbers: [15, 18, 19, 20, 27, 28, 38, 39, 40, 41, 42, 43] },
+    { id: "weather", label: "空と天気", summary: "風・雲・気温・空気の状態", color: "#9ed5ed", numbers: [15, 18, 19, 20, 27, 28, 38, 39, 40, 41, 42, 43, 72] },
     { id: "air", label: "大気と汚染", summary: "SO₂・NOx・Ox・粒子・炭化水素の実測", color: "#d7c3ed", numbers: [44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54] },
-    { id: "water", label: "水と森", summary: "海流・雨・森林・海川湖の水質", color: "#95d8c2", numbers: [7, 8, 12, 17, 29, 30, 31, 32, 33, 34, 35, 36, 37] },
+    { id: "water", label: "水と森", summary: "海流・雨・森林・海川湖の水質", color: "#95d8c2", numbers: [7, 8, 12, 17, 29, 30, 31, 32, 33, 34, 35, 36, 37, 73] },
     { id: "water-quality", label: "水質と汚濁", summary: "BOD・COD・SS・栄養塩・油分・金属・界面活性剤", color: "#a7d9c7", numbers: [55, 56, 57, 58, 59, 60, 61, 62, 63, 64] },
     { id: "chemicals", label: "化学物質の行方", summary: "PRTR事業所の届出排出量・移動量", color: "#d6b8ec", numbers: [65, 66, 67] },
     { id: "biology", label: "生きものの記録", summary: "河川の魚類・底生生物の確認分類群", color: "#bae6cd", numbers: [68, 69] },
@@ -52,7 +52,7 @@
     ["BOD", "川"], ["COD", "川"], ["COD", "湖"], ["SS"], ["T-N"], ["T-P"],
     ["油分", "n-Hex抽出"], ["Zn", "全亜鉛"], ["LAS"], ["NP"],
     ["PRTR", "大気"], ["PRTR", "水域"], ["PRTR", "移動"],
-    ["底生", "分類群数"], ["魚類", "分類群数"], ["需給", "食料"], ["供給", "食料指標"],
+    ["底生", "分類群数"], ["魚類", "分類群数"], ["需給", "食料"], ["供給", "食料指標"], ["台風", "経路"], ["DHW", "海の熱"],
   ].map(([symbol, detail = ""]) => Object.freeze({ symbol, detail })));
   const getTile = number => tileDefinitions[Number(number) - 1] || null;
   const decorateTile = (button, number) => {

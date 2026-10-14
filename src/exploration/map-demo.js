@@ -1,6 +1,6 @@
 import { createMapDemoController } from "./map-demo-controller.js?v=gaia-map-demo-1-perf-high-20260909";
-import { mountMapPlayback } from './map-playback.js?v=unified-playback-20260912-i18n-20260913-wind-first-tooltip-20260925';
-import { mountMapCruise } from './map-cruise.js?v=firms-animation-20260914-wind-first-tooltip-20260925';
+import { mountMapPlayback } from './map-playback.js?v=unified-playback-20260912-i18n-20260913-wind-first-tooltip-20260925-climate-20261013';
+import { mountMapCruise } from './map-cruise.js?v=firms-animation-20260914-wind-first-tooltip-20260925-climate-20261013';
 
 function mountMapDemo() {
   const layer = document.querySelector("#japan-layer");
@@ -82,6 +82,7 @@ function mountMapDemo() {
   };
   const dataIsPending = () => {
     if (layer.classList.contains("is-marine-cod-exhibit")) return globalThis.GaiaMarineCod?.getState().dataState !== "ready";
+    if (layer.classList.contains("is-climate-history-exhibit")) return globalThis.GaiaClimateHistory?.getState().dataState !== "ready";
     if (layer.classList.contains("is-food-exhibit")) return globalThis.GaiaFoodExhibits?.getState().dataState !== "ready";
     const external = layer.matches(".is-live-exhibit, .is-estat-exhibit, .is-firms-exhibit, .is-planet-signals-exhibit");
     return !external && globalThis.GaiaMapObservationAdapter?.getState().signalReady === false;
@@ -152,8 +153,8 @@ function mountMapDemo() {
     syncAvailability();
   });
   addEventListener("gaia:app-ready", syncAvailability);
-  for (const name of ["gaia:food-change", "gaia:food-ready", "gaia:marine-cod-change", "gaia:marine-cod-ready", "gaia:signals-ready", "gaia:japan-mode-change", "gaia:estat-exhibit-change", "gaia:firms-exhibit-change"]) addEventListener(name, syncPause);
-  for (const name of ["gaia:food-error", "gaia:marine-cod-error", "gaia:signals-error"]) addEventListener(name, () => controller.stop("error"));
+  for (const name of ["gaia:climate-change", "gaia:climate-ready", "gaia:food-change", "gaia:food-ready", "gaia:marine-cod-change", "gaia:marine-cod-ready", "gaia:signals-ready", "gaia:japan-mode-change", "gaia:estat-exhibit-change", "gaia:firms-exhibit-change"]) addEventListener(name, syncPause);
+  for (const name of ["gaia:climate-error", "gaia:food-error", "gaia:marine-cod-error", "gaia:signals-error"]) addEventListener(name, () => controller.stop("error"));
   const stop = (reason = 'stop') => {
     const changed = controller.stop(reason);
     if (changed || reason === 'stop') globalThis.GaiaMapPlayback?.stop(reason);

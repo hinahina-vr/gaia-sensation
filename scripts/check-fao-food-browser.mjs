@@ -40,7 +40,7 @@ try {
     page = await context.newPage(); page.on('pageerror', e => report.errors.push(e.message));
     await page.goto(`${base}/?exhibit=70#world`, { waitUntil: 'domcontentloaded' });
     await dismissWelcome();
-    await page.waitForFunction(() => globalThis.GaiaMapCategories?.buttons().length === 71 && globalThis.GaiaMapDemo);
+    await page.waitForFunction(() => globalThis.GaiaMapCategories?.buttons().length === GaiaMapCategories.exhibitCount && globalThis.GaiaMapDemo);
     await page.evaluate(() => GaiaMapDemo.stop()); await idle();
     let savedFoodView, savedFoodDataset;
     for (const def of FOOD_EXHIBITS) {

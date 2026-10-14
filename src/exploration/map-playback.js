@@ -26,6 +26,7 @@ export function mountMapPlayback() {
     if (n >= 15 && n <= 20) return globalThis.GaiaLiveExhibits;
     if (n >= 21 && n <= 30) return globalThis.GaiaEstatExhibits;
     if (n >= 31 && n <= 69) return globalThis.GaiaMarineCod;
+    if (n >= 72) return globalThis.GaiaClimateHistory;
     if (n >= 70) return globalThis.GaiaFoodExhibits;
     return null;
   };
@@ -108,7 +109,7 @@ export function mountMapPlayback() {
   addEventListener('keydown', onInput, true);
   for (const name of ['gaia:app-ready', 'gaia:japan-open', 'gaia:japan-close', 'gaia:japan-mode-change', 'gaia:live-exhibit-change',
     'gaia:estat-exhibit-change', 'gaia:firms-change', 'gaia:firms-exhibit-change', 'gaia:planet-signals-change', 'gaia:marine-cod-change', 'gaia:marine-cod-ready',
-    'gaia:food-change', 'gaia:food-ready', 'gaia:signals-ready', 'gaia:live-prefecture-field', 'gaia:live-update',
+    'gaia:climate-change', 'gaia:climate-ready', 'gaia:climate-error', 'gaia:food-change', 'gaia:food-ready', 'gaia:signals-ready', 'gaia:live-prefecture-field', 'gaia:live-update',
     'gaia:mode-guide-open', 'gaia:mode-guide-close', 'gaia:provider-playback-change']) addEventListener(name, scheduleSync);
   new MutationObserver(scheduleSync).observe(layer, {attributes: true, attributeFilter: ['class', 'hidden', 'aria-hidden', 'data-story-mode']});
   new MutationObserver(scheduleSync).observe(document.body, {attributes: true, attributeFilter: ['class']});

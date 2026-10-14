@@ -7,7 +7,7 @@
   osmAttribution.className='map-mobile-osm-attribution';osmAttribution.textContent='© OpenStreetMap contributors';osmAttribution.hidden=true;layer.append(osmAttribution);
   const creditDisclosure=document.createElement('details');creditDisclosure.className='map-poi-credits-disclosure';
   const creditSummary=document.createElement('summary');creditSummary.textContent='地図のクレジット';creditDisclosure.append(creditSummary);
-  const selector='.gaia-live-exhibit-readout,.gaia-estat-readout,.gaia-firms-readout,.gaia-planet-signals-readout,.gaia-marine-cod-readout,.gaia-food-readout,.signal-console-map';
+  const selector='.gaia-live-exhibit-readout,.gaia-estat-readout,.gaia-firms-readout,.gaia-planet-signals-readout,.gaia-marine-cod-readout,.gaia-food-readout,.gaia-climate-readout,.signal-console-map';
   const compact=matchMedia('(max-width:900px) and (max-height:700px)');
   const drawer=document.createElement('details');drawer.id='map-responsive-data';drawer.hidden=true;
   const summary=document.createElement('summary');summary.textContent='観測データ';drawer.append(summary);layer.append(drawer);
@@ -125,7 +125,7 @@
     const panels=[...layer.querySelectorAll(selector+',.map-command-dock')].filter(n=>!n.hidden&&n.checkVisibility({visibilityProperty:true})&&n.getBoundingClientRect().height>0);
     const bottom=enabled?drawer.getBoundingClientRect().top:Math.min(innerHeight,...panels.map(n=>n.getBoundingClientRect().top));
     set('--responsive-dock-top',`${Math.max(0,bottom)}px`);
-    const annotations=[...layer.querySelectorAll('.gaia-cod-annotations,.gaia-food-status,.gaia-food-count')].filter(n=>n.checkVisibility()&&n.getBoundingClientRect().height>0);
+    const annotations=[...layer.querySelectorAll('.gaia-cod-annotations,.gaia-food-status,.gaia-climate-status,.gaia-food-count')].filter(n=>n.checkVisibility()&&n.getBoundingClientRect().height>0);
     for(const node of annotations)if(!watched.has(node)){watched.add(node);sizes.observe(node);}
     const creditEdge=Math.min(bottom,...annotations.map(n=>n.getBoundingClientRect().top));
     set('--responsive-credit-bottom',`${Math.max(0,innerHeight-creditEdge+8)}px`);
@@ -141,7 +141,7 @@
     layer.classList.toggle('has-ecology-legend-lane',Boolean(ecologyVisible));
     if(ecologyVisible&&legend)set('--ecology-legend-right',`${innerWidth-ecology.getBoundingClientRect().left+16}px`);
     set('--responsive-metric-top',`${legend?.checkVisibility()?legend.getBoundingClientRect().bottom+8:legendTop}px`);
-    const legends=[...layer.querySelectorAll('.signal-encoding-legend-dock,.gaia-estat-heat-legend,.gaia-live-metric-legend,.gaia-food-legend,.gaia-marine-cod-legend,.gaia-firms-legend,.gaia-planet-signals-legend')].filter(n=>n.checkVisibility());
+    const legends=[...layer.querySelectorAll('.signal-encoding-legend-dock,.gaia-estat-heat-legend,.gaia-live-metric-legend,.gaia-food-legend,.gaia-climate-legend,.gaia-marine-cod-legend,.gaia-firms-legend,.gaia-planet-signals-legend')].filter(n=>n.checkVisibility());
     for(const node of legends){makeLegendDraggable(node);if(!watched.has(node)){watched.add(node);sizes.observe(node);}}
     set('--responsive-map-note-top',`${Math.max(legendTop,...legends.map(n=>n.getBoundingClientRect().bottom))+12}px`);
   }

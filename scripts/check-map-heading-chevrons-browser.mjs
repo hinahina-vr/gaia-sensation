@@ -73,7 +73,7 @@ try {
     await page.locator('#gaia-mode-entry-guide[data-phase="features"]').waitFor();
     await page.locator('[data-feature-start]').click();
     await page.evaluate(() => GaiaMapDemo.stop());
-    await page.waitForFunction(() => GaiaMapCategories.buttons().length === 71);
+    await page.waitForFunction(() => GaiaMapCategories.buttons().length === GaiaMapCategories.exhibitCount);
     await settled(66);
     await page.evaluate(() => document.fonts.ready);
     await check(width, height, 66);

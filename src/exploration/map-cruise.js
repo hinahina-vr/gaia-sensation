@@ -53,14 +53,14 @@ export function mountMapCruise() {
     const isFire = n === Number(g.GaiaFirmsExhibit?.definition.number);
     const isPlanet = Boolean(g.GaiaPlanetSignals?.definitions.some(item => Number(item.number) === n));
     const provider = isFire ? g.GaiaFirmsExhibit : isPlanet ? g.GaiaPlanetSignals : n <= 14 ? g.GaiaMapObservationAdapter
-      : n <= 20 ? g.GaiaLiveExhibits : n <= 30 ? g.GaiaEstatExhibits : n <= 69 ? g.GaiaMarineCod : g.GaiaFoodExhibits;
+      : n <= 20 ? g.GaiaLiveExhibits : n <= 30 ? g.GaiaEstatExhibits : n <= 69 ? g.GaiaMarineCod : n <= 71 ? g.GaiaFoodExhibits : g.GaiaClimateHistory;
     const ready = isPlanet ? provider?.getState().pointCount > 0 : provider?.getPlaybackState?.().ready;
     if (!ready) return {number:n, ready:false};
     if (isFire && provider.seekCruise) {
       return {number:n, ready:true, kind:'slider', duration:provider.getCruiseDuration(), seek:provider.seekCruise};
     }
     const selector = isFire ? '[data-firms-progress]' : isPlanet ? null : n <= 14 ? '.signal-console-map [data-signal-time]'
-      : n <= 20 ? '#gaia-live-time' : n <= 30 ? '[data-estat-month]' : n <= 69 ? '[data-cod-year]' : '[data-food-year]';
+      : n <= 20 ? '#gaia-live-time' : n <= 30 ? '[data-estat-month]' : n <= 69 ? '[data-cod-year]' : n <= 71 ? '[data-food-year]' : '[data-climate-year]';
     const slider = selector && layer.querySelector(selector);
     if (slider && !slider.disabled && Number(slider.max) > Number(slider.min)) {
       const min = Number(slider.min), max = Number(slider.max), originalStep = slider.step, step = Number(originalStep) || 1;

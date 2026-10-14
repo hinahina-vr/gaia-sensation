@@ -1,0 +1,43 @@
+{
+  "date": "2026-10-14",
+  "sourceDevelopmentCommit": "e2fba351d8d894d4a2df6ff65525dc61be876972",
+  "productionBase": "41c6259d23622f956e2deeff3bf6f787010ebc5c",
+  "request": "開発リポジトリにコミットしたんで、プッシュ・デプロイ",
+  "scopeSha256": "98f9572d23a2bd414c1318f617da0761691232de085ce0f7215cd010500b6f5b",
+  "materialContentUnchanged": true,
+  "adoptedMaterials": 341,
+  "existingDataAndProductionDependenciesUnchanged": true,
+  "changes": [
+    "Already-adopted story screenshot annotation and immutable origin snapshot refreshed",
+    "Exhibit numbering metadata follows the current map",
+    "NOAA IBTrACS and Coral Reef Watch derived saved datasets and attribution added"
+  ],
+  "newSources": [
+    {
+      "id": "cyclones",
+      "provider": "NOAA NCEI / IBTrACS",
+      "sourceUrl": "https://www.ncei.noaa.gov/products/international-best-track-archive",
+      "termsUrl": "https://www.ncei.noaa.gov/access/metadata/landing-page/bin/iso?id=gov.noaa.ncdc:C01552",
+      "evidence": "data/climate-history/cyclones.json"
+    },
+    {
+      "id": "coral",
+      "provider": "NOAA Coral Reef Watch",
+      "sourceUrl": "https://coralreefwatch.noaa.gov/product/vs/data.php",
+      "termsUrl": "https://coralreefwatch.noaa.gov/satellite/docs/recommendations_crw_citation.php",
+      "evidence": "data/climate-history/coral.json"
+    }
+  ],
+  "officialSourcesChecked": [
+    {
+      "url": "https://coralreefwatch.noaa.gov/satellite/docs/recommendations_crw_citation.php",
+      "finding": "NOAA CRW states public-domain distribution; source credits and recommended citation retained."
+    },
+    {
+      "url": "https://www.ncei.noaa.gov/products/international-best-track-archive",
+      "finding": "Publicly available IBTrACS v4r01; dataset DOI, selection, access date and source attribution retained."
+    }
+  ],
+  "previousDecisionsPreserved": true,
+  "providerPermissionNewlyClaimed": false
+}

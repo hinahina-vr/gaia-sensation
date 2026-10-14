@@ -48,7 +48,7 @@ async function scan(label, screenshot = true) {
 }
 async function ready(showGuide = true) {
   await page.waitForFunction(() => document.documentElement.dataset.gaiaAppReady === 'true'
-    && globalThis.GaiaMapCategories?.buttons().length === 71
+    && globalThis.GaiaMapCategories?.buttons().length === GaiaMapCategories.exhibitCount
     && document.querySelector('#japan-layer')?.getAttribute('aria-hidden') === 'false');
   await page.locator('#gaia-boot').waitFor({ state: 'hidden', timeout: 60000 });
   if (showGuide) await page.locator('[data-feature-start]').click();

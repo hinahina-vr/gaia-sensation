@@ -40,16 +40,4 @@ export const PRTR_BIOLOGY_EXHIBITS = Object.freeze([...prtr, ...biology].map(ite
   sensorNote: '公的な届出・生物確認記録です。ESP32の測定値ではなく、簡易センサーの値へ換算していません。',
 })));
 
-export const displayFraction = (definition, value) => {
-  const transform = n => definition.logScale ? Math.log10(1 + n) : n;
-  const low = transform(definition.stops[0]), high = transform(definition.stops.at(-1));
-  return (transform(Math.max(definition.stops[0], Math.min(definition.stops.at(-1), value))) - low) / (high - low);
-};
-export const recordAppearance = (definition, value) => {
-  if (!Number.isFinite(value)) return { color: '#abb5be', radius: 2.2 };
-  const amount = displayFraction(definition, value), scaled = amount * (definition.colors.length - 1);
-  const low = Math.floor(scaled), high = Math.min(low + 1, definition.colors.length - 1), blend = scaled - low;
-  const rgb = hex => hex.match(/[a-f0-9]{2}/gi).map(n => parseInt(n, 16));
-  const a = rgb(definition.colors[low]), b = rgb(definition.colors[high]);
-  return { color: `rgb(${a.map((c, i) => Math.round(c + (b[i] - c) * blend)).join(', ')})`, radius: 2.5 + Math.sqrt(amount) * 4.5 };
-};
+export { displayFraction, recordAppearance } from './record-appearance.js?v=palette-20261013';

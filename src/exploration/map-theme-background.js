@@ -1,4 +1,4 @@
-import {mapBackgroundTheme, MAP_BACKGROUND_NOTE} from './map-theme-catalog.js?v=theme-background-20260912-wind-first-tooltip-20260925';
+import {mapBackgroundTheme, MAP_BACKGROUND_NOTE} from './map-theme-catalog.js?v=theme-background-20260912-wind-first-tooltip-20260925-climate-20261013';
 import {MAP_THEME_VERTEX, MAP_THEME_FRAGMENT} from './map-theme-shaders.js?v=rain-downward-20260912';
 import {createOceanMask} from './estat-ocean.js?v=gaia-estat-ocean-1';
 import {earthBaseScale} from './world-projection.js?v=gaia-japan-center-1';
@@ -12,7 +12,7 @@ export function mountMapThemeBackground(){
   const motion=matchMedia('(prefers-reduced-motion: reduce)'),events=new AbortController();
   let theme=null,gl=null,program=null,buffer=null,locations=null,mask=null;
   let engine='uninitialized',frame=0,drawn=0,last=0,time=0,disposed=false,lost=false,needsFallback=false,wasVisible=false,maskStarted=0,contextCount=0;
-  const currentId=()=>layer.dataset.liveExhibit||layer.dataset.firmsExhibit||layer.dataset.marineCodExhibit||layer.dataset.foodExhibit;
+  const currentId=()=>layer.dataset.liveExhibit||layer.dataset.firmsExhibit||layer.dataset.marineCodExhibit||layer.dataset.foodExhibit||layer.dataset.climateExhibit;
   const isVisible=()=>!!theme&&!document.hidden&&layer.getAttribute('aria-hidden')!=='true'&&!layer.hidden&&!layer.classList.contains('is-map-title-transitioning');
   const profile=()=>globalThis.GaiaFrameBudgetGovernor?.getProfile?.()||{level:'medium',targetFps:30,dprCap:1};
   const cancel=()=>{cancelAnimationFrame(frame);frame=0;last=0;};
@@ -99,7 +99,7 @@ export function mountMapThemeBackground(){
   };
   const on=(target,name,callback)=>target.addEventListener(name,callback,{signal:events.signal});
   const observer=new MutationObserver(sync);
-  observer.observe(layer,{attributes:true,attributeFilter:['class','hidden','aria-hidden','data-live-exhibit','data-firms-exhibit','data-marine-cod-exhibit','data-food-exhibit']});
+  observer.observe(layer,{attributes:true,attributeFilter:['class','hidden','aria-hidden','data-live-exhibit','data-firms-exhibit','data-marine-cod-exhibit','data-food-exhibit','data-climate-exhibit']});
   // The base renderer republishes even unchanged coordinates. Only actual
   // camera changes should wake a reduced-motion/static background.
   const projection=()=>[overlay.dataset.earthZoom,overlay.dataset.earthOffsetX,overlay.dataset.earthOffsetY].join('|');
@@ -107,7 +107,7 @@ export function mountMapThemeBackground(){
   const projectionObserver=new MutationObserver(()=>{const next=projection();if(next!==projectionKey){projectionKey=next;queue();}});projectionObserver.observe(overlay,{attributes:true,attributeFilter:['data-earth-zoom','data-earth-offset-x','data-earth-offset-y']});
   const resizeObserver=new ResizeObserver(queue);resizeObserver.observe(map);
   on(document,'visibilitychange',sync);on(motion,'change',()=>{cancel();queue();});
-  for(const event of ['gaia:japan-open','gaia:japan-close','gaia:firms-exhibit-change','gaia:marine-cod-ready','gaia:marine-cod-change','gaia:food-ready','gaia:food-change'])on(globalThis,event,sync);
+  for(const event of ['gaia:japan-open','gaia:japan-close','gaia:firms-exhibit-change','gaia:marine-cod-ready','gaia:marine-cod-change','gaia:climate-ready','gaia:climate-change','gaia:food-ready','gaia:food-change'])on(globalThis,event,sync);
   on(globalThis,'gaia:lodchange',()=>{cancel();sync();queue();});
   on(canvas,'webglcontextlost',event=>{event.preventDefault();lost=true;engine='context-lost';cancel();release();canvas.dataset.themeEngine=engine;fallback(true);});
   on(canvas,'webglcontextrestored',()=>{lost=false;engine='uninitialized';delete canvas.dataset.themeError;sync();});

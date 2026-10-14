@@ -8,6 +8,7 @@ import { JAPAN_SENSOR_OPEN_EXHIBITS } from '../src/exploration/japan-sensor-open
 import { JAPAN_POLLUTION_EXHIBITS } from '../src/exploration/japan-pollution-catalog.js';
 import { PRTR_BIOLOGY_EXHIBITS } from '../src/exploration/prtr-biology-catalog.js';
 import { FOOD_EXHIBITS } from '../src/exploration/food-catalog.js';
+import { CLIMATE_EXHIBITS } from '../src/exploration/climate-history-model.js';
 
 export function mediaDataSources(root, providers) {
   const read = file => JSON.parse(fs.readFileSync(path.join(root, file), 'utf8'));
@@ -72,6 +73,12 @@ export function mediaDataSources(root, providers) {
       'data/space-signals.json', { period: d.period, retrievedAt: d.retrievedAt, transformation: d.transformation });
   }
   const temperature = read('data/story-temperature-annual.json');
+  for (const d of CLIMATE_EXHIBITS) {
+    const file = `data/climate-history/${d.id}.json`, data = read(file);
+    add('世界の気候記録（MAP 72–73）', d.id, d.id === 'coral' ? 'NOAA Coral Reef Watch' : 'NOAA NCEI / IBTrACS',
+      `MAP ${d.number} / ${d.signalLabel}`, d.source, '公式公開データから抽出・年別集計した保存値。展示選択時に遅延読込。欠測はゼロ補完しない。', file,
+      { retrievedAt: data.retrievedAt, transformation: data.method || data.selection, termsUrl: data.rights || 'https://www.ncei.noaa.gov/access/metadata/landing-page/bin/iso?id=gov.noaa.ncdc:C01552', sourceSha256: data.sha256 || null });
+  }
   add('ORBITAL・STORY・GX', 'story-gistemp', temperature.provider, temperature.dataset, temperature.sourceUrl,
     'STORY用。1958–2025年の月次2°格子を年平均に加工し同梱。全球平均系列とは別。', 'data/story-temperature-annual.json',
     { retrievedAt: temperature.retrievedAt, transformation: temperature.method });

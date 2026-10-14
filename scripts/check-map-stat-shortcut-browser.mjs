@@ -28,7 +28,7 @@ try {
     await page.goto(`${base}/?exhibit=6#world`, {waitUntil: 'domcontentloaded'});
     await page.locator('[data-feature-start]').click();
     await page.locator('#gaia-mode-entry-guide').waitFor({state: 'hidden'});
-    await page.waitForFunction(() => globalThis.GaiaMapCategories?.buttons().length === 71);
+    await page.waitForFunction(() => globalThis.GaiaMapCategories?.buttons().length === GaiaMapCategories.exhibitCount);
     await page.evaluate(async () => { await GaiaMapObservationAdapter.waitSignalsReady(); GaiaMapDemo.stop(); });
     const select = async number => {
       await page.evaluate(number => GaiaMapCategories.buttons()[number - 1].click(), number);

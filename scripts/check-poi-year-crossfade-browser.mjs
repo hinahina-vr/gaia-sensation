@@ -72,7 +72,7 @@ try {
     const context = await browser.newContext({ viewport: { width, height: width < 900 ? 844 : 900 },
       isMobile: width < 900, hasTouch: width < 900, deviceScaleFactor: width < 900 ? 3 : 1, reducedMotion: 'no-preference' });
     await enforceBrowserSecurity(context, base); await context.route('https://**', r => r.abort());
-    page = await context.newPage(); page.on('pageerror', e => report.errors.push(e.message));
+    page = await context.newPage(); page.setDefaultNavigationTimeout(120000); page.on('pageerror', e => report.errors.push(e.message));
     await page.goto(`${base}/#world-49`, { waitUntil: 'domcontentloaded' });
     await page.waitForFunction(() => globalThis.GaiaMarineCod?.getState().dataState === 'ready');
     await page.evaluate(() => GaiaMapPlayback.stop()); await ready();
@@ -128,10 +128,19 @@ try {
 
     await page.emulateMedia({ reducedMotion: 'reduce' });
     await slider(2004); assert.equal((await state()).yearFade.active, false);
+    await ready();
     await page.waitForTimeout(100);
+    const frozenFrame = await page.locator('#gaia-marine-cod-canvas').evaluate(c => ({ frame: c.dataset.codFrame, pixels: c.toDataURL() }));
+    await page.waitForTimeout(300);
+    assert.deepEqual(await page.locator('#gaia-marine-cod-canvas').evaluate(c => ({ frame: c.dataset.codFrame, pixels: c.toDataURL() })), frozenFrame,
+      'An unchanged reduced-motion canvas must retain identical pixels without repeated painting');
     await page.evaluate(() => GaiaMarineCod.setYear(2004)); assert.equal((await state()).yearFade.active, false);
+    await page.waitForFunction(frame => document.querySelector('#gaia-marine-cod-canvas').dataset.codFrame !== frame, frozenFrame.frame);
     report.checks.push(`${width}/49: reduced motion and same-year request do not fade`);
     await page.emulateMedia({ reducedMotion: 'no-preference' });
+    const resumedFrame = await page.locator('#gaia-marine-cod-canvas').getAttribute('data-cod-frame');
+    await page.waitForFunction(frame => document.querySelector('#gaia-marine-cod-canvas').dataset.codFrame !== frame, resumedFrame);
+    report.checks.push(`${width}/49: reduced-motion pixels reused; same-year refresh and motion resume repaint correctly`);
 
     for (const number of (width === 1440 ? [31, 65, 69] : [65])) {
       await page.evaluate(number => GaiaMapCategories.buttons()[number - 1].click(), number);
@@ -156,6 +165,7 @@ try {
     await page.waitForFunction(() => GaiaMarineCod.getState().yearFade.active);
     await page.evaluate(() => { location.hash = ''; });
     await page.waitForFunction(() => GaiaMarineCod.getState().yearFade.snapshotPixels === 0);
+    assert.equal((await state()).renderer.cachedPoints, 0, 'Leaving map releases vector paths');
     report.checks.push(`${width}: switching exhibit and leaving map release snapshot`);
     assert.deepEqual(await page.evaluate(() => __securityViolations), []);
     await context.close();

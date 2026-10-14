@@ -7,7 +7,7 @@
 
   const reduced = matchMedia("(prefers-reduced-motion: reduce)");
   const mobile = matchMedia("(max-width: 900px)");
-  const readouts = ".gaia-live-exhibit-readout, .gaia-estat-readout, .gaia-firms-readout, .gaia-planet-signals-readout, .gaia-marine-cod-readout, .gaia-food-readout";
+  const readouts = ".gaia-live-exhibit-readout, .gaia-estat-readout, .gaia-firms-readout, .gaia-planet-signals-readout, .gaia-marine-cod-readout, .gaia-food-readout, .gaia-climate-readout";
   let previous = null;
   let scheduled = 0;
   let motion = null;

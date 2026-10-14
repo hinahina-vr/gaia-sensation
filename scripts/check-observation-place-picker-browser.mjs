@@ -47,7 +47,7 @@ try {
     page.on("pageerror", error => report.errors.push(`${width}: ${error.message}`));
     await page.goto(`${base}/?exhibit=15&preview=observation-place-picker#world`, { waitUntil: "domcontentloaded" });
     await page.locator('[data-feature-start]').click();
-    await page.waitForFunction(() => globalThis.GaiaLiveExhibits && globalThis.GaiaMapCategories?.buttons().length === 71 && globalThis.GaiaMapDemo);
+    await page.waitForFunction(() => globalThis.GaiaLiveExhibits && globalThis.GaiaMapCategories?.buttons().length === GaiaMapCategories.exhibitCount && globalThis.GaiaMapDemo);
     await page.evaluate(async () => {
       await GaiaMapObservationAdapter.waitSignalsReady(); GaiaMapDemo.stop(); GaiaModeEntryGuide.close("map", { restoreFocus: false });
       GaiaMapCategories.buttons()[14].click(); GaiaLiveExhibits.pausePoiAutoplay(); GaiaLiveExhibits.selectObservationPoint("tokyo");
