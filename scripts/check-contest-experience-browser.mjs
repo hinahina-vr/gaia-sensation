@@ -509,8 +509,10 @@ try {
   await directPage.waitForFunction(() => location.hash === "#world-01"
     && document.querySelector("#japan-layer")?.getAttribute("aria-hidden") === "false");
   await directPage.goBack({ waitUntil: "domcontentloaded" });
+  await directPage.waitForURL(url => url.hash === "#earth");
   assert.equal(await directPage.evaluate(() => location.hash), "#earth");
   await directPage.goForward({ waitUntil: "domcontentloaded" });
+  await directPage.waitForURL(url => url.hash === "#world-01");
   assert.equal(await directPage.evaluate(() => location.hash), "#world-01");
   await directPage.reload({ waitUntil: "domcontentloaded" });
   await directPage.waitForFunction(() => Boolean(globalThis.GaiaMapObservationAdapter), null, { timeout: 30_000 });
@@ -564,6 +566,14 @@ try {
       await page.waitForFunction(() => GaiaLiveData.getCity() === "tokyo"
         && document.querySelector("#japan-layer")?.dataset.livePoiTransition === "settled");
       await page.waitForFunction(() => document.querySelector('.gaia-live-exhibit-readout')?.dataset.requestState !== "loading");
+      // POI/data readiness precedes the separate title and map entrance effects.
+      // Measure the resting layout only after their real completion signals.
+      await page.waitForFunction(() => {
+        const layer = document.querySelector('#japan-layer');
+        return layer && !layer.classList.contains('is-map-title-transitioning')
+          && !layer.classList.contains('is-map-data-intro')
+          && document.querySelector('#japan-overlay')?.dataset.viewAnimation !== 'running';
+      }, null, { timeout: 30000 });
       await page.waitForTimeout(1800); // Measure settled geometry, not the entrance transform.
       const state = await page.evaluate(n => {
         const definition = GaiaLiveExhibits.definitions.find(e => e.number === String(n));
@@ -599,7 +609,7 @@ try {
       assert.match(state.location, /東京/u);
       assert.match(state.caption, /代表都市|CAMS/u);
       assert(state.value.trim().length > 0);
-      assert(state.rect.left >= -1 && state.rect.right <= spec.width + 1 && state.rect.top >= 0 && state.rect.bottom <= spec.height + 1, `${spec.name}/${number}: readout outside viewport`);
+      assert(state.rect.left >= -1 && state.rect.right <= spec.width + 1 && state.rect.top >= 0 && state.rect.bottom <= spec.height + 1, `${spec.name}/${number}: readout outside viewport ${JSON.stringify(state.rect)}`);
       assert(state.rect.height <= spec.height * 0.35, `${spec.name}/${number}: readout obscures map`);
       assert(state.overflow <= 1, `${spec.name}/${number}: horizontal overflow`);
       assert.equal(await page.locator("#gaia-live-exhibit-canvas").count(), 0, "Retired particle canvas must not return");
