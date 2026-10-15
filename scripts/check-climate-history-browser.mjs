@@ -4,7 +4,7 @@ import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { chromium } from 'playwright-core';
 import { enforceBrowserSecurity } from './lib/browser-security-qa.mjs';
-const base=process.env.GAIA_BASE_URL, output=path.resolve('artifacts/climate-history-20261013');
+const base=process.env.GAIA_BASE_URL, output=path.resolve(process.env.GAIA_QA_OUTPUT_DIR || 'artifacts/climate-history-20261013');
 fs.mkdirSync(output,{recursive:true});
 const report={sha:execFileSync('git',['--no-optional-locks','rev-parse','HEAD'],{encoding:'utf8'}).trim(),worktree:'uncommitted changes',scope:'Installed headless Chrome, actual local NOAA snapshots; desktop and emulated mobile, not production or physical phone.',checks:[],errors:[]};
 const browser=await chromium.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true});report.browser=browser.version();let page;

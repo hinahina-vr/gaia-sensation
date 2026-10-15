@@ -280,6 +280,7 @@
       if (shouldOpen === panels.bank.classList.contains('is-dock-bank-expanded')) return;
       if (shouldOpen) guide.open = false;
       panels.bank.classList.toggle("is-dock-bank-expanded", shouldOpen);
+      japanLayer.dataset.mapPickerOpen = String(shouldOpen);
       bankTrigger.setAttribute("aria-expanded", String(shouldOpen));
       if (shouldOpen) globalThis.GaiaMapCategories.showCurrentScope();
       else globalThis.GaiaMapCategories.cancelReveal();
@@ -303,6 +304,12 @@
       .find(title => title.getBoundingClientRect().width > 0 && getComputedStyle(title).visibility !== "hidden");
     const pickerTrigger = () => innerWidth < DESKTOP_MIN ? mobileBankTrigger : bankTrigger;
     const pickerIsOpen = () => pickerTrigger()?.getAttribute("aria-expanded") === "true";
+    const closePicker = () => {
+      // A synthetic dock click retains the top-menu opener and can be treated
+      // as moving the anchor, reopening the menu. Closing must be explicit.
+      if (innerWidth >= DESKTOP_MIN) setBankOpen(false);
+      else if (pickerIsOpen()) mobileBankTrigger?.click();
+    };
     let menuOpener = null;
     let pickerLeaveTimer = 0;
     const withinPicker = node => node instanceof Node && (bankPopover.contains(node) || panels.bank.contains(node) || menuOpener?.contains(node) || bankTrigger.contains(node));
@@ -387,7 +394,7 @@
     addEventListener("resize", syncPicker, { passive: true });
     for (const event of ["gaia:japan-mode-change", "gaia:live-exhibit-change", "gaia:estat-exhibit-change", "gaia:firms-change", "gaia:planet-signals-change"]) {
       addEventListener(event, () => {
-        if (pickerIsOpen()) pickerTrigger()?.click();
+        if (pickerIsOpen()) closePicker();
         requestAnimationFrame(syncPicker);
       });
     }
@@ -400,7 +407,7 @@
       if (event.key !== "Escape" || !pickerIsOpen()) return;
       event.preventDefault();
       event.stopImmediatePropagation();
-      pickerTrigger()?.click();
+      closePicker();
       restorePickerFocus();
     }, { capture: true });
     panels.bank.addEventListener("click", (event) => {

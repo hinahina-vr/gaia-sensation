@@ -31,6 +31,8 @@ async function load(file) {
   return pending.get(file);
 }
 const setPlayback = value => { playing = Boolean(value) && active && dataState === 'ready'; lastStep = performance.now(); };
+const stopForInteraction = () => { setPlayback(false); globalThis.GaiaMapPlayback?.stop('interaction'); };
+const setBusy = value => { readout.setAttribute('aria-busy', String(value)); legend.setAttribute('aria-busy', String(value)); };
 const focusAll = () => globalThis.GaiaMapObservationAdapter?.focusEarthLocation?.({lon:150,lat:8,zoom:1,targetX:.5,targetY:.46,durationMs:450,label:'climate-world'});
 const focusPoint = point => {
   const p = isCoral() ? point : point?.points?.[Math.floor(point.points.length/2)];
@@ -60,19 +62,22 @@ function fillPoints() {
 async function setYear(next) {
   if (!active || !data || !years().includes(Number(next))) return;
   const ticket = ++generation; year = Number(next); dataState = 'loading'; season = null; geometryKey = ''; hitPoints = [];
+  setBusy(true);
   context.clearRect(0,0,canvas.width,canvas.height); q('[data-climate-controls]').disabled = true; q('[data-climate-analysis]').disabled = true;
   q('[data-climate-value]').textContent = '—'; q('[data-climate-period]').textContent = `${year}${isCoral()?'年':'シーズン'}`;
+  q('[data-climate-detail]').textContent = ''; q('[data-climate-selected]').textContent = `${year}の記録`;
   q('[data-climate-insight]').textContent = `${year}の記録を読み込んでいます。`; q('[data-climate-status]').textContent = 'NOAA保存データを読込中…';
   q('[data-climate-retry]').hidden = true;
   try {
     const payload = isCoral() ? null : await load(`cyclones/${year}`);
     if (!active || ticket !== generation) return;
-    season = payload; dataState = 'ready'; fillPoints(); sync(); q('[data-climate-controls]').disabled = false; legend.hidden = false; lastStep = performance.now(); emit('ready'); resume();
+    season = payload; dataState = 'ready'; fillPoints(); sync(); setBusy(false); q('[data-climate-controls]').disabled = false; legend.hidden = false; lastStep = performance.now(); emit('ready'); resume();
   } catch (error) {
     if (active && ticket === generation) fail(error);
   }
 }
 function fail(error) {
+  setBusy(false);
   dataState = 'error'; playing = false; q('[data-climate-status]').textContent = '保存データの読込に失敗しました。再試行できます。';
   q('[data-climate-retry]').hidden = false; emit('error'); console.warn('Climate snapshot unavailable',error);
 }
@@ -87,7 +92,10 @@ const projection = () => {
 };
 function paint(view, ratio) {
   const ctx = bufferContext, {rect,scale} = view;
-  buffer.width = canvas.width; buffer.height = canvas.height; ctx.setTransform(ratio,0,0,ratio,0,0); hitPoints = [];
+  if (buffer.width !== canvas.width) buffer.width = canvas.width;
+  if (buffer.height !== canvas.height) buffer.height = canvas.height;
+  ctx.setTransform(1,0,0,1,0,0); ctx.clearRect(0,0,buffer.width,buffer.height);
+  ctx.setTransform(ratio,0,0,ratio,0,0); hitPoints = [];
   const xy = (lon,lat) => ({x:view.x+earthLongitudeToMapX(lon)*scale,y:view.y+(90-lat)*scale});
   const visible = p => p.x>=-12 && p.y>=-12 && p.x<=rect.width+12 && p.y<=rect.height+12;
   if (isCoral()) {
@@ -127,8 +135,11 @@ function draw(now) {
   const ratio=Math.min(devicePixelRatio||1,1.5,Math.sqrt(1800000/Math.max(1,rect.width*rect.height)));
   const key=[definition.id,year,basin,selectedId,rect.width,rect.height,view.scale,view.x,view.y,ratio].join('/');
   if (key===geometryKey) return; geometryKey=key;
-  canvas.width=Math.max(1,Math.round(rect.width*ratio));canvas.height=Math.max(1,Math.round(rect.height*ratio));
-  paint(view,ratio);context.setTransform(1,0,0,1,0,0);context.drawImage(buffer,0,0);
+  const width=Math.max(1,Math.round(rect.width*ratio)),height=Math.max(1,Math.round(rect.height*ratio));
+  // Reuse backing stores when panning or selecting a record. Assigning even an
+  // unchanged canvas dimension clears/reallocates it and resets all drawing state.
+  if(canvas.width!==width)canvas.width=width;if(canvas.height!==height)canvas.height=height;
+  paint(view,ratio);context.setTransform(1,0,0,1,0,0);context.clearRect(0,0,width,height);context.drawImage(buffer,0,0);
 }
 function resume() { if (active && !frame && !document.hidden && !layer.hidden) frame=requestAnimationFrame(draw); }
 function findPoiAt(clientX,clientY,pointerType) {
@@ -144,6 +155,7 @@ function deactivate() {
   if(!active)return;active=false;generation++;playing=false;dataState='idle';cancelAnimationFrame(frame);frame=0;hitPoints=[];
   layer.classList.remove('is-climate-history-exhibit');delete layer.dataset.climateExhibit;
   canvas.hidden=readout.hidden=legend.hidden=true;buttons.get(definition.id)?.setAttribute('aria-current','false');emit('change');
+  setBusy(false);
 }
 async function select(id) {
   const target=CLIMATE_EXHIBITS.find(d=>d.id===id);if(!target)return;
@@ -158,6 +170,7 @@ async function select(id) {
   q('[data-climate-number]').textContent=target.number;q('[data-climate-title]').textContent=target.shortTitle;
   q('[data-climate-category]').textContent=isCoral()?'世界 · 水と森':'世界 · 空と天気';
   q('[data-climate-controls]').disabled=q('[data-climate-analysis]').disabled=true;
+  setBusy(true);
   q('[data-climate-basin-label]').hidden=isCoral();q('[data-climate-basin]').value='ALL';q('[data-climate-point]').replaceChildren();
   q('[data-climate-value]').textContent='—';q('[data-climate-detail]').textContent='';q('[data-climate-retry]').hidden=true;
   q('[data-climate-status]').textContent='NOAA保存データを読込中…';
@@ -197,10 +210,10 @@ function mount() {
   for(const d of CLIMATE_EXHIBITS){const b=document.createElement('button');b.type='button';b.className='map-mode-button';b.textContent=d.number;b.dataset.climateExhibit=d.id;b.dataset.mapPreviewSurface='map';b.setAttribute('aria-current','false');b.setAttribute('aria-label',`${d.number} ${d.shortTitle}`);b.setAttribute('aria-describedby','map-mode-preview');b.addEventListener('click',()=>void select(d.id));layer.querySelector('.map-mode-list').append(b);buttons.set(d.id,b);}
   layer.querySelector('.map-mode-bank').addEventListener('click',event=>{const b=event.target.closest?.('.map-mode-button');if(b&&!b.dataset.climateExhibit)deactivate();},{capture:true});
   for(const node of [readout,legend])for(const type of ['pointerdown','wheel','keydown','keyup'])node.addEventListener(type,event=>event.stopPropagation());
-  q('[data-climate-year]').addEventListener('input',event=>{if(event.isTrusted)globalThis.GaiaMapPlayback?.stop('interaction');void setYear(Number(event.target.value));});
-  q('[data-climate-basin]').addEventListener('change',event=>{basin=event.target.value;fillPoints();sync();});
-  q('[data-climate-point]').addEventListener('change',event=>selectPoint(event.target.value));
-  q('[data-climate-overview]').addEventListener('click',focusAll);
+  q('[data-climate-year]').addEventListener('input',event=>{if(event.isTrusted)stopForInteraction();void setYear(Number(event.target.value));});
+  q('[data-climate-basin]').addEventListener('change',event=>{stopForInteraction();basin=event.target.value;fillPoints();sync();});
+  q('[data-climate-point]').addEventListener('change',event=>{stopForInteraction();selectPoint(event.target.value);});
+  q('[data-climate-overview]').addEventListener('click',()=>{stopForInteraction();focusAll();});
   q('[data-climate-retry]').addEventListener('click',()=>{if(data)void setYear(year);else void select(definition.id);});
   q('[data-climate-analysis]').addEventListener('click',()=>{const dataset=statisticsDataset();if(!dataset)return;setPlayback(false);const open=()=>globalThis.GaiaStatisticsLab?.open?.({modeId:dataset.modeId,datasetId:dataset.id,dataset});if(globalThis.GaiaStatisticsLab?.open)open();else addEventListener('gaia:statistics-lab-ready',open,{once:true});});
   document.addEventListener('visibilitychange',()=>{if(document.hidden){cancelAnimationFrame(frame);frame=0;}else resume();});

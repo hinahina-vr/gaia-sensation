@@ -26,7 +26,7 @@
         "./map-instrument-ui.css?v=gaia-country-emissions-history-1",
         "./map-chapter-navigation.css?v=gaia-estat-copy-wrap-1-copy-transparent-20260909-cod-ui-20260909-annual-type-20260909-title-poi-20260909-title-no-underline-20260910-mincho-20260912",
         "./map-exhibit-actions.css?v=gaia-estat-copy-wrap-1-mincho-20260912",
-        "./map-exhibit-categories.css?v=gaia-exhibit-profile-1-scope-groups-20260910-periodic-tiles-20260912-mincho-20260912-live-badge-20260912",
+        "./map-exhibit-categories.css?v=gaia-exhibit-profile-1-scope-groups-20260910-periodic-tiles-20260912-mincho-20260912-live-badge-20260912-polish-20261015",
         "./ecologies-exhibit.css?v=gaia-ecologies-reading-1-mincho-20260912",
         "./metric-legend.css?v=gaia-unified-metric-legend-1-mincho-20260912",
         "./map-demo.css?v=gaia-demo-aurora-1-unified-playback-20260912-i18n-20260913",
@@ -53,8 +53,8 @@
         "./src/exploration/map-data-intro-catalog.js?v=concise-copy-20260926-1-climate-20261013",
         "./ecologies-exhibit.js?v=gaia-country-coverage-1-extended-handoff-20260912",
         "./map-exhibit-categories.js?v=gaia-exhibit-profile-1-marine-cod-1-cod-ui-20260909-japan-sensor-open-1-pollution-1-prtr-biology-1-fao-food-1-scope-groups-20260910-periodic-tiles-20260912-exhibit-links-20260912-i18n-20260913-picker-depth-focus-20260913-wind-first-tooltip-20260925-climate-20261013",
-        "./app.js?v=entry-ready-20260922-entry-bottom-menu-20260914-gaia-hardening-1-unified-navigation-1-map-polish-1-feature-intro-mizu-ame-2-recycling-coverage-1-hover-inline-1-population-style-1-marine-cod-1-separator-hold-20260909-cod-ui-20260909-japan-sensor-open-1-character-concept-20260909-perf-high-20260909-owner-dispose-20260909-observation-portal-20260909-tail-20260909-fao-food-1-calm-repeat-20260910-food-country-fill-20260910-title-return-dissolve-20260910-story-temperature-20260910-completion-gate-20260910-temperature-autoplay-20260911-periodic-tiles-20260912-unified-dock-20260912-shared-glint-20260912-mincho-20260912-prefecture-fill-20260912-unified-playback-20260912-ending-return-20260912-exhibit-links-20260912-exhibit-navigation-20260912-i18n-20260913-previews-20260913-wind-first-tooltip-20260925-wind-data-intro-20260926-all-exhibit-intros-20260926-1-initial-year-2016-20260926-climate-20261013-world-page-20261014",
-        "./map-ui-grid-polish.js?v=entry-bottom-menu-20260914-gaia-story-map-dock-1-map-polish-1-scope-groups-20260910-exhibit-navigation-20260912-i18n-20260913-picker-depth-focus-20260913-fixed-nav-dock15-20260913",
+        "./app.js?v=entry-ready-20260922-entry-bottom-menu-20260914-gaia-hardening-1-unified-navigation-1-map-polish-1-feature-intro-mizu-ame-2-recycling-coverage-1-hover-inline-1-population-style-1-marine-cod-1-separator-hold-20260909-cod-ui-20260909-japan-sensor-open-1-character-concept-20260909-perf-high-20260909-owner-dispose-20260909-observation-portal-20260909-tail-20260909-fao-food-1-calm-repeat-20260910-food-country-fill-20260910-title-return-dissolve-20260910-story-temperature-20260910-completion-gate-20260910-temperature-autoplay-20260911-periodic-tiles-20260912-unified-dock-20260912-shared-glint-20260912-mincho-20260912-prefecture-fill-20260912-unified-playback-20260912-ending-return-20260912-exhibit-links-20260912-exhibit-navigation-20260912-i18n-20260913-previews-20260913-wind-first-tooltip-20260925-wind-data-intro-20260926-all-exhibit-intros-20260926-1-initial-year-2016-20260926-climate-20261013-world-page-20261014-polish-20261015",
+        "./map-ui-grid-polish.js?v=entry-bottom-menu-20260914-gaia-story-map-dock-1-map-polish-1-scope-groups-20260910-exhibit-navigation-20260912-i18n-20260913-picker-depth-focus-20260913-fixed-nav-dock15-20260913-polish-20261015",
         "./map-legend-drag.js?v=gaia-story-map-left-ui-1-perf-high-20260909-fao-food-1",
         "./map-mobile-shell.js?v=gaia-mobile-collection-1-marine-cod-1-cod-ui-20260909-japan-sensor-open-1-fao-food-1-scope-groups-20260910-periodic-tiles-20260912-unified-playback-20260912-exhibit-navigation-20260912-i18n-20260913-picker-cascade-20260913-responsive-audit-climate-20261013",
         "./map-heading-navigation.js?v=gaia-heading-step-1-chevron-20260910",
@@ -64,7 +64,7 @@
         "./map-responsive-layout.js?v=mobile-credit-disclosure-top-20260913-climate-20261013",
       ],
       modules: [
-        "./src/exploration/index.js?v=gaia-firms-cruise-animation-20260914-wind-first-tooltip-20260925-action-icons-ready-20260926-initial-year-2016-20260926-annual-crossfade-20260926-vector-cache-20261013-climate-20261013",
+        "./src/exploration/index.js?v=gaia-firms-cruise-animation-20260914-wind-first-tooltip-20260925-action-icons-ready-20260926-initial-year-2016-20260926-annual-crossfade-20260926-vector-cache-20261013-climate-20261013-polish-20261015",
       ],
     },
     statistics: {
@@ -177,7 +177,7 @@
   });
 
   for (const name of ['exploration', 'statistics', 'character', 'sound']) {
-    groups[name].styles.push('./responsive-audit-fixes.css?v=mobile-credit-disclosure-top-20260913-unified-food-20260926');
+    groups[name].styles.push('./responsive-audit-fixes.css?v=mobile-credit-disclosure-top-20260913-unified-food-20260926-polish-20261015');
   }
   const assetPromises = new Map();
   const groupPromises = new Map();

@@ -833,7 +833,7 @@
   let program, fullscreenTriangle, uniforms, uniformSizes = {};
   let programIndices = [initialShaderMode], programRequest = 0;
   const programCache = new Map();
-  const programLoads = new Map();
+  let programQueue = Promise.resolve(), modeProgramFailed = false;
   const installProgram = (compiledProgram, indices) => {
     program = compiledProgram;
     programIndices = indices;
@@ -841,6 +841,7 @@
     canvas.dataset.baseShaderState = "ready";
     canvas.dataset.baseShaderBytes = String(fragmentSource(indices).length);
     canvas.dataset.baseShaderCacheSize = String(programCache.size);
+    if (modeProgramFailed) { errorPanel.hidden = true; modeProgramFailed = false; }
     if (!fullscreenTriangle) {
       fullscreenTriangle = gl.createBuffer();
       gl.bindBuffer(gl.ARRAY_BUFFER, fullscreenTriangle);
@@ -890,45 +891,50 @@
     errorPanel.hidden = false;
     return false;
   });
-  const prepareModeProgram = async () => {
+  const prepareModeProgram = () => {
     const request = ++programRequest;
-    const target = modeToIndex;
-    const from = programIndices.includes(modeFromIndex) ? modeFromIndex : programIndices[0];
-    if (!await rendererReady || request !== programRequest) return;
-    if (programIndices.includes(target)) {
-      canvas.dataset.baseShaderState = "ready";
-      return;
-    }
-    const indices = [...new Set([from, target])].sort((a, b) => a - b);
-    const key = indices.join(",");
-    canvas.dataset.baseShaderState = "loading";
-    try {
-      if (!programCache.has(key)) {
-        if (!programLoads.has(key)) programLoads.set(key, createProgram(indices));
-        const compiled = await programLoads.get(key);
-        programLoads.delete(key);
-        programCache.set(key, compiled);
+    // A selection in a later event turn must not start a second GPU compile.
+    // Finish the in-flight work, then skip superseded requests before compiling.
+    programQueue = programQueue.then(async () => {
+      if (!await rendererReady || request !== programRequest) return;
+      const target = modeToIndex;
+      const from = programIndices.includes(modeFromIndex) ? modeFromIndex : programIndices[0];
+      if (programIndices.includes(target)) {
+        canvas.dataset.baseShaderState = "ready";
+        if (modeProgramFailed) { errorPanel.hidden = true; modeProgramFailed = false; }
+        return;
       }
-      if (request === programRequest) {
-        installProgram(programCache.get(key), indices);
-        modeFromIndex = from;
-        transitionStartedAt = performance.now();
+      const indices = [...new Set([from, target])].sort((a, b) => a - b);
+      const key = indices.join(",");
+      canvas.dataset.baseShaderState = "loading";
+      try {
+        if (!programCache.has(key)) {
+          programCache.set(key, await createProgram(indices));
+        }
+        if (request === programRequest) {
+          installProgram(programCache.get(key), indices);
+          modeFromIndex = from;
+          transitionStartedAt = performance.now();
+        }
+        // Bound retained GPU programs, including rapid/repeated selections.
+        for (const [cachedKey, cachedProgram] of programCache) {
+          if (programCache.size <= 3) break;
+          if (cachedProgram === program) continue;
+          gl.deleteProgram(cachedProgram);
+          programCache.delete(cachedKey);
+        }
+        canvas.dataset.baseShaderCacheSize = String(programCache.size);
+      } catch (error) {
+        if (request !== programRequest) return;
+        canvas.dataset.baseShaderState = "error";
+        console.error(error);
+        modeProgramFailed = true;
+        errorPanel.querySelector("p").textContent = "演出の読み込みに失敗しました。展示を選び直すと再試行できます。";
+        errorPanel.querySelector("small").textContent = error.message;
+        errorPanel.hidden = false;
       }
-      // Bound retained GPU programs, including rapid/repeated selections.
-      for (const [cachedKey, cachedProgram] of programCache) {
-        if (programCache.size <= 3) break;
-        if (cachedProgram === program) continue;
-        gl.deleteProgram(cachedProgram);
-        programCache.delete(cachedKey);
-      }
-      canvas.dataset.baseShaderCacheSize = String(programCache.size);
-    } catch (error) {
-      programLoads.delete(key);
-      if (request !== programRequest) return;
-      canvas.dataset.baseShaderState = "error";
-      console.error(error);
-      errorPanel.hidden = false;
-    }
+    });
+    return programQueue;
   };
 
   // Geographic textures are generated once per data snapshot in a worker.
@@ -4771,6 +4777,9 @@
         globalThis.GaiaMobileMap.setMetric({ id, title, current, minimumLabel, maximumLabel, colors, scale, progress: clamp(normalized, 0, 1) });
         return null;
       }
+      // Canvas annotations must yield to the same menu as the HTML legends.
+      // endFrame() also retires their transparent drag hit surface for us.
+      if (japanLayer.dataset.mapPickerOpen === "true") return null;
       const legendDock = mapSignalEncodingLegend?.closest(".signal-encoding-legend-dock");
       const legendRect = legendDock?.getClientRects().length ? legendDock.getBoundingClientRect() : null;
       const storyMap = storyModeDetour?.kind === "map01";
@@ -9619,6 +9628,7 @@ for (const country of countryValues) {
     }
     if (japanIsOpen) clearJapanPoiHover();
     if (normalizedIndex === modeToIndex) {
+      if (!programIndices.includes(normalizedIndex)) void prepareModeProgram();
       // Extension exhibits replace the map UI without changing the base mode.
       // Re-selecting that mode must restore its headings and current button too.
       updateModeInterface();

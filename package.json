@@ -5,6 +5,7 @@
   "type": "module",
   "description": "惑星の放課後 — GAIA SENSATION — pure HTML/CSS/JavaScript installation",
   "scripts": {
+    "check:polish:browser": "node scripts/run-local-browser-check.mjs scripts/check-polish-browser.mjs && node scripts/run-local-browser-check.mjs scripts/check-climate-canvas-reuse-browser.mjs",
     "build:map-page": "node scripts/build-map-page.mjs",
     "check:map-page": "node scripts/build-map-page.mjs --check && node --check map-page-entry.js",
     "check:map-page:browser": "node scripts/run-local-browser-check.mjs scripts/check-data-explore-crash-browser.mjs && node scripts/run-local-browser-check.mjs scripts/check-title-direct-world-browser.mjs && node scripts/run-local-browser-check.mjs scripts/check-map-entry-failures-browser.mjs",

@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {chromium} from 'playwright-core';
 import {enforceBrowserSecurity} from './lib/browser-security-qa.mjs';
-const base=process.env.GAIA_BASE_URL,output=path.resolve('artifacts/climate-history-20261013');
+const base=process.env.GAIA_BASE_URL,output=path.resolve(process.env.GAIA_QA_OUTPUT_DIR || 'artifacts/climate-history-20261013');
 fs.mkdirSync(output,{recursive:true});const report={scope:'Local installed Chrome; real snapshots, simulated network failures/delays; mobile emulation.',checks:[],errors:[]};
 const browser=await chromium.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true});let page;
 const state=()=>page.evaluate(()=>GaiaClimateHistory.getState());

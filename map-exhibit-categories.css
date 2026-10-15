@@ -9,6 +9,9 @@
 
 /* The invisible drag surface must not intercept the expanded picker. */
 #japan-layer:has(.map-mode-bank.is-dock-bank-expanded) .map-metric-drag-handle { pointer-events: none; }
+/* Avoid two sets of text showing through the translucent exhibition picker.
+   These keep their positions and return immediately when the picker closes. */
+#japan-layer:has(.map-mode-bank.is-dock-bank-expanded) :is(.signal-encoding-legend-dock, #co2-timeline-display, .gaia-metric-legend, .map-draggable-legend) { visibility: hidden !important; pointer-events: none !important; }
 
 #japan-layer .map-scope-picker { min-width: 0; }
 #japan-layer .map-scope-panel { display: grid; gap: 14px; }
@@ -247,7 +250,9 @@
 @media (min-width: 901px) {
   /* The expanded table reaches beyond the old narrow dock: keep provider
      legends/readouts underneath it, and restore normal stacking on close. */
-  body.map-grid-desktop #japan-layer .map-command-dock:has(.is-dock-bank-expanded) { z-index: 140; }
+  /* The movable legend/handle use 510. Lift the menu's stacking context,
+     not just its popup child, and return it to the normal dock layer on close. */
+  body.map-grid-desktop #japan-layer .map-command-dock:has(.is-dock-bank-expanded) { z-index: 520; }
   body.map-grid-desktop #japan-layer:is(.is-live-exhibit, .is-estat-exhibit, .is-firms-exhibit) .map-command-dock {
     /* A hidden dock must not blur the replacement readout behind its popup. */
     background: transparent;

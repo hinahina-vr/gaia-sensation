@@ -34,8 +34,10 @@
 .map-mobile-source-credits { padding:10px; border:1px solid #80c6cf66; border-radius:8px; }
 .map-mobile-source-credits > summary { min-height:32px; cursor:pointer; }
 .map-mobile-source-credits > a { display:block; padding:12px 0; color:#d5e9eb; overflow-wrap:anywhere; }
-#map-responsive-data { position:fixed; z-index:270; left:12px; right:12px; bottom:76px; color:#e4f5f3; background:#071d29f5; border:1px solid #80c6cf; border-radius:10px; max-height:calc(100dvh - 152px); overflow:auto; }
-#map-responsive-data > summary { padding:10px 14px; min-height:44px; box-sizing:border-box; cursor:pointer; font:600 14px/24px var(--font-ja); }
+#map-responsive-data { position:fixed; z-index:270; left:12px; right:12px; bottom:76px; color:#e4f5f3; background:#071d29f5; border:1px solid #80c6cf; border-radius:10px; max-height:max(96px,calc(100dvh - var(--responsive-legend-top,140px) - 84px)); overflow:auto; overscroll-behavior:contain; }
+/* Leave the exhibition controls reachable in landscape. The close/disclosure
+   control stays visible while scrolling a long observation card. */
+#map-responsive-data > summary { position:sticky; top:0; z-index:2; padding:10px 14px; min-height:44px; box-sizing:border-box; cursor:pointer; font:600 14px/24px var(--font-ja); background:#071d29; }
 #japan-layer #map-responsive-data > :not(summary):not([hidden]) { position:static !important; inset:auto !important; width:auto !important; max-width:none !important; height:auto !important; min-height:0 !important; max-height:none !important; margin:0 !important; padding:12px !important; transform:none !important; }
 #japan-layer #map-responsive-data .map-dock-context { display:none !important; } /* Also available under Reading / legend. */
 #japan-layer #map-responsive-data :is(.gaia-cod-annotations,.gaia-cod-status,.gaia-cod-count,.gaia-food-status,.gaia-food-count) { position:static !important; max-width:100%; }

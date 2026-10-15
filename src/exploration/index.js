@@ -10,7 +10,7 @@ import "./food-exhibits.js?v=fao-food-1-food-country-fill-20260910-unified-playb
 import "./map-theme-background.js?v=theme-background-20260912-wind-first-tooltip-20260925-climate-20261013";
 import "./map-demo.js?v=gaia-firms-cruise-animation-20260914-wind-first-tooltip-20260925-climate-20261013";
 
-import "./climate-history-exhibits.js?v=climate-20261013";
+import "./climate-history-exhibits.js?v=climate-polish-20261015";
 
 globalThis.GaiaExploration = Object.freeze({ governor, live: globalThis.GaiaLiveData });
 void mount().catch((error) => console.error(error));
