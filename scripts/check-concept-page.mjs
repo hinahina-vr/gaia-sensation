@@ -42,9 +42,9 @@ for (const name of ["earth", "ribbon", "learning", "archive"]) assert(html.inclu
 assert.equal([...html.matchAll(/class="editorial-art(?:\s[^"]*)?"/gu)].length, 4);
 const storyRuntime = fs.readFileSync(path.join(root, "novel-mode.js"), "utf8");
 const courseTitles = [...storyRuntime.matchAll(/ZEN大学『([^』]+)』/gu)].map(match => match[1]);
-assert.equal(courseTitles.length, 5, "Staff credits include the owner's added big-data lecture");
+assert.equal(courseTitles.length, 6, "Staff credits include the owner's added Information Society Studies lecture");
 const learning = html.slice(html.indexOf('id="learning"'), html.indexOf('id="surface"'));
-// The September 13 request groups all five courses into three layers.
+// Keep the six credited courses within the existing three learning layers.
 for (const title of courseTitles) assert(learning.includes(`<h4>${title}</h4>`), `Course must match the live staff-roll implementation: ${title}`);
 assert.match(learning, /卒業プロジェクトを見据えて制作するコンセプトモデル/u);
 assert.doesNotMatch(overview, /卒業プロジェクト/u, "Introduce the university before its graduation project");
@@ -86,6 +86,7 @@ assert.equal(ids.length, new Set(ids).size, "Element IDs must be unique");
 const allowedReferences = new Set([
   "https://sphere.blue/",
   "https://syllabus.zen.ac.jp/subjects/2026/INF-2-C1-1030-014",
+  "https://syllabus.zen.ac.jp/subjects/2026/SOC-2-C1-1030-005",
   "https://note.com/hinahina_vr/n/nd03dec22e46a",
   ...["SOC-1-C1-0204-004", "HUM-2-C1-1030-003", "HUM-1-C1-1030-002", "INF-1-C1-1030-007"].map(code => `https://syllabus.zen.ac.jp/subjects/2026/${code}`),
 ]);

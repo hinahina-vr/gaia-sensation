@@ -112,7 +112,7 @@
         "./novel-temporal.js?v=gaia-temporal-1",
         "./story-temperature.js?v=story-temperature-20260910-temperature-autoplay-20260911-skip-20260912",
         "./ending-glitch.js?v=gaia-glitch-double-speed-1",
-        "./novel-mode.js?v=gaia-separator-plus-two-1-white-prologue-20260909-direct-expression-20260910-story-temperature-20260910-completion-gate-20260910-map-blue-glass-20260910-ending-entry-slow-20260910-temperature-autoplay-20260911-reading-breaks-20260911-section-entry-20260911-sound-all-story-20260911-handoff-expression-20260912-log-debug-20260912-cast-fade-20260912-closing-clock-20260912-chat-gothic-20260912-reaction-spacing-20260912-chat-memo-20260912-assistant-credit-20260912-credits-expanded-20260912-ending-return-20260912-credit-roles-20260912-suno-music-20260912-mic-credit-i18n-20260913",
+        "./novel-mode.js?v=gaia-separator-plus-two-1-white-prologue-20260909-direct-expression-20260910-story-temperature-20260910-completion-gate-20260910-map-blue-glass-20260910-ending-entry-slow-20260910-temperature-autoplay-20260911-reading-breaks-20260911-section-entry-20260911-sound-all-story-20260911-handoff-expression-20260912-log-debug-20260912-cast-fade-20260912-closing-clock-20260912-chat-gothic-20260912-reaction-spacing-20260912-chat-memo-20260912-assistant-credit-20260912-credits-expanded-20260912-ending-return-20260912-credit-roles-20260912-suno-music-20260912-mic-credit-i18n-20260913-course-20261018",
       ],
       modules: ["./src/exploration/lod-governor.js?v=gaia-budget-devices-1"],
     },

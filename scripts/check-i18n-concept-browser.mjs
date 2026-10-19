@@ -21,7 +21,7 @@ try{
    images:[...document.images].map(i=>i.getAttribute('src'))
   }));
   assert.equal(initial.passages,26);assert.equal(initial.htmlLang,language);
-  assert.equal(await page.locator('.learning-courses > li').count(),5);
+  assert.equal(await page.locator('.learning-courses > li').count(),6);
   assert.equal(await page.locator('.learning-courses > li').last().locator('a').getAttribute('href'),'https://syllabus.zen.ac.jp/subjects/2026/INF-2-C1-1030-014');
   for(const index of [2,4]){
     await page.locator('.learning-courses > li').nth(index).scrollIntoViewIfNeeded();

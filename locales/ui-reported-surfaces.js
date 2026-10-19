@@ -48,6 +48,7 @@ GaiaI18n.register([
   ["学術的着想","Academic inspiration","学术灵感"],
   ["ZEN大学『共創地球論』","ZEN University: Co-creating Earth","ZEN大学《共创地球论》"],
   ["ZEN大学『人新世の人類学』","ZEN University: Anthropology of the Anthropocene","ZEN大学《人类世的人类学》"],
+  ["ZEN大学『情報社会論』","ZEN University: Information Society Studies","ZEN大学《信息社会论》"],
   ["ZEN大学『リテラシーと応用のための物語理論』","ZEN University: Narrative Theory for Literacy and Application","ZEN大学《面向素养与应用的叙事理论》"],
   ["ZEN大学『統計学入門』","ZEN University: Introduction to Statistics","ZEN大学《统计学入门》"],
   ["ZEN大学『ビッグデータ分析概論』","ZEN University: Introduction to Big Data Analysis","ZEN大学《大数据分析概论》"],
