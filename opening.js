@@ -23,14 +23,14 @@
   const audioVolumeValue = document.querySelector("#gaia-audio-volume-value");
   const finalMenu = document.querySelector("#gaia-opening-final-menu");
   const aboutNav = finalMenu?.querySelector(".gaia-opening-about");
-  const desktopAboutMedia = window.matchMedia("(min-width: 961px) and (hover: hover) and (pointer: fine)");
+  const desktopAboutMedia = window.matchMedia("(min-width: 961px)");
   const syncAboutPlacement = () => {
     if (!opening || !finalMenu || !aboutNav) return;
     const destination = desktopAboutMedia.matches ? opening : finalMenu;
     if (aboutNav.parentElement === destination) return;
     const focusedLink = aboutNav.contains(document.activeElement) ? document.activeElement : null;
     // Move the same native link outside the transformed title lockup on PC.
-    // Touch layouts keep their existing below-menu position and tab order.
+    // Only narrow layouts use the below-menu position, including on hybrid PCs.
     destination.append(aboutNav);
     focusedLink?.focus({ preventScroll: true });
   };
@@ -325,6 +325,8 @@
   function initializeOpening({ initial = false } = {}) {
   if (openingUi) return openingUi;
   const finalCopy = opening.querySelector(".gaia-vn-panel-final .gaia-vn-final-copy");
+  // Touch devices need an explicit guide instead of hover previews, including
+  // large touchscreens. Input capability affects help, not the route layout.
   const routeHoverMedia = window.matchMedia("(hover: hover) and (pointer: fine)");
   const routeGuideSteps = [
     {

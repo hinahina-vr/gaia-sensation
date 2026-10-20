@@ -110,7 +110,10 @@
     const inlineCredits=layer.classList.contains('is-mobile-map-shell')&&poi&&!poi.hidden;
     if(inlineCredits&&credits.parentElement!==creditDisclosure){creditDisclosure.open=false;creditDisclosure.append(credits);poi.append(creditDisclosure);poi.scrollTop=0;}
     else if(!inlineCredits&&credits.parentElement!==layer){creditHome.after(credits);creditDisclosure.remove();}
-    const enabled=compact.matches&&layer.classList.contains('is-mobile-map-shell')&&!document.body.classList.contains('novel-mode-detour');
+    // Ecology has its own comparison dialog and launcher in this bottom lane.
+    // The generic (empty) data drawer would cover that launcher's hit target.
+    const enabled=compact.matches&&layer.classList.contains('is-mobile-map-shell')
+      &&!layer.classList.contains('is-ecologies-exhibit')&&!document.body.classList.contains('novel-mode-detour');
     if(drawer.hidden===enabled)drawer.hidden=!enabled;layer.classList.toggle('has-compact-observation',enabled);
     for(const node of layer.querySelectorAll(selector)){
       if(!watched.has(node)){watched.add(node);sizes.observe(node);}

@@ -5,7 +5,7 @@ import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import { chromium } from 'playwright-core';
 
-const base = process.argv[2] || 'http://127.0.0.1:4447';
+const base = process.env.GAIA_BASE_URL || process.argv[2] || 'http://127.0.0.1:4447';
 const output = path.resolve(process.env.GAIA_FEATURE_OUTPUT || 'artifacts/feature-intro');
 fs.mkdirSync(output, { recursive: true });
 const sizes = process.env.GAIA_FEATURE_SIZES?.split(',').map(value => value.split('x').map(Number)) || [[1440,900],[390,844],[320,568],[844,390],[768,1024],[3840,2160]];
@@ -62,6 +62,23 @@ try {
       await page.waitForTimeout(450);
       assert.equal(await page.locator('.gaia-feature-card').count(), 3);
       assert.equal(await page.locator('.is-gaia-mode-guide-target').count(), 0, 'No simultaneous spotlight tour');
+      const primary=page.locator('.gaia-feature-primary'), secondary=page.locator('.gaia-feature-secondary');
+      if(mode==='map'){
+        assert.equal(await secondary.innerText(),'スキップ');
+        assert.notEqual(await secondary.getAttribute('data-feature-start'),null);
+        assert.notEqual(await primary.getAttribute('data-feature-guide'),null);
+        assert.equal(await primary.locator('b').innerText(),'▶');
+        assert((await secondary.boundingBox()).x<(await primary.boundingBox()).x,'Skip is left of the guide start');
+        for(const [language,label]of [['en','Skip'],['zh-CN','跳过'],['ja','スキップ']]){
+          await page.evaluate(language=>GaiaI18n.set(language),language);
+          assert.equal(await secondary.innerText(),label);
+          assert.equal(await primary.locator('b').innerText(),'▶');
+        }
+      }else{
+        assert.equal(await secondary.innerText(),'操作ガイドを見る');
+        assert.notEqual(await primary.getAttribute('data-feature-start'),null);
+        assert.notEqual(await secondary.getAttribute('data-feature-guide'),null);
+      }
       if (mode === 'sensor') assert.equal(await page.locator('html').getAttribute('data-sensor-view'), 'map', 'Introduction must not redirect the public map to login');
       const scan = await modal.evaluate(layer => {
         const panel = layer.querySelector('.gaia-feature-intro'), rect = panel.getBoundingClientRect();
@@ -70,20 +87,20 @@ try {
           const bounds = button.getBoundingClientRect(), hit = document.elementFromPoint(bounds.x + bounds.width / 2, bounds.y + bounds.height / 2);
           return { text: button.textContent, rect: bounds.toJSON(), hit: button.contains(hit) };
         });
-        return { panel: rect.toJSON(), background: getComputedStyle(panel).backgroundImage, opacity: getComputedStyle(panel).opacity,
+        return { panel: rect.toJSON(), background: getComputedStyle(panel,'::after').backgroundImage, backgroundOpacity: getComputedStyle(panel,'::after').opacity, opacity: getComputedStyle(panel).opacity,
           overflow: document.documentElement.scrollWidth - innerWidth, scrollOverflow: scroller.scrollWidth - scroller.clientWidth,
           titles: [...panel.querySelectorAll('h3')].map(element => element.textContent), copy: panel.innerText, controls,
-          focusWithin: panel.contains(document.activeElement), paused: globalThis.GaiaMapDemo?.getState().paused,
+          focusWithin: panel.contains(document.activeElement), playback: globalThis.GaiaMapPlayback?.getState(),
           animation: getComputedStyle(panel.querySelector('.feature-beacon')).animationName };
       });
       assert(scan.panel.x >= 0 && scan.panel.y >= 0 && scan.panel.right <= width + 1 && scan.panel.bottom <= height + 1, 'Panel is inside the viewport');
       assert(scan.overflow <= 1 && scan.scrollOverflow <= 1, 'No horizontal overflow');
       assert.equal(scan.opacity, '1');
-      assert(scan.background.includes('0.8'), 'Only the panel background has 80% opacity');
+      assert.equal(Number(scan.backgroundOpacity),.8,'Only the panel paint layer has 80% opacity');
       assert(scan.focusWithin);
       assert(scan.controls.every(control => control.hit && control.rect.height >= 44 && control.rect.width >= 44), 'Fixed close and footer controls remain reachable');
-      assert(scan.copy.includes('APIキー'));
-      if (mode === 'map') assert.equal(scan.paused, true, 'Default map demo pauses during introduction');
+      if (mode === 'map') assert(scan.copy.includes('APIキー'));
+      if (mode === 'map') assert.equal(scan.playback.playing, false, 'Current exhibit playback is suspended during introduction');
       if (width === 320) assert.equal(scan.animation, 'none');
       await page.screenshot({ path: path.join(output, `${width}x${height}-${mode}.png`) });
       // Text/decoration clicks do not accidentally dismiss or advance.
@@ -91,21 +108,21 @@ try {
       assert.equal(await modal.isVisible(), true);
       const close = page.locator('[data-feature-close]');
       await close.focus(); await page.keyboard.press('Shift+Tab');
-      assert.equal(await page.locator('[data-feature-start]').evaluate(element => element === document.activeElement), true);
+      assert.equal(await page.locator('.gaia-feature-primary').evaluate(element => element === document.activeElement), true);
       await page.keyboard.press('Tab');
       assert.equal(await close.evaluate(element => element === document.activeElement), true);
       // Scroll inside small screens; the third complete card and conditions
       // remain available, while primary and close buttons stay on screen.
       await page.locator('.gaia-feature-scroll').evaluate(element => { element.scrollTop = element.scrollHeight; });
       await page.screenshot({ path: path.join(output, `${width}x${height}-${mode}-details.png`) });
-      await page.locator('[data-feature-start]').click();
+      await page.locator('[data-feature-start]')[width <= 900 ? 'tap' : 'click']();
       await modal.waitFor({ state: 'hidden' });
       assert.equal(await page.evaluate(() => GaiaModeEntryGuide.getState().active), false);
-      assert.equal(await page.locator('.is-gaia-mode-guide-target').count(), 0, 'Primary action starts experience without a second modal');
+      assert.equal(await page.locator('.is-gaia-mode-guide-target').count(), 0, 'Skip starts experience without a second modal');
       if (mode === 'sensor') assert.equal(await page.locator('html').getAttribute('data-sensor-view'), 'map');
       if (mode === 'map') {
-        assert.equal(await page.evaluate(() => GaiaMapDemo.getState().paused), false);
-        await page.evaluate(() => GaiaMapDemo.stop());
+        assert.equal(await page.evaluate(() => GaiaMapPlayback.getState().requested), true, 'Skip requests current-exhibit playback');
+        await page.evaluate(() => GaiaMapPlayback.stop());
       }
       // Replay through the real existing guide entry; mobile map exposes it
       // inside its tools sheet rather than in the small header.
@@ -114,7 +131,7 @@ try {
         await page.locator('#map-mobile-sheet').getByRole('button', { name: '地図ガイド', exact: true }).click();
       } else await page.locator(`[data-gaia-mode-guide-replay="${mode}"]`).click();
       await modal.waitFor();
-      await page.locator('[data-feature-guide]').click();
+      await page.locator('[data-feature-guide]')[width <= 900 ? 'tap' : 'click']();
       await page.waitForFunction(() => GaiaModeEntryGuide.getState().phase === 'guide' && document.querySelector('.is-gaia-mode-guide-target'));
       await page.locator('.gaia-mode-entry-guide-card').waitFor({ state: 'visible' });
       assert.equal(await page.locator('.gaia-feature-intro').isVisible(), false);
@@ -122,13 +139,19 @@ try {
       if (mode === 'sensor') assert.equal(await page.locator('html').getAttribute('data-sensor-view'), 'map', 'Public-map operation guide must not redirect to login');
       await page.keyboard.press('Escape');
       await page.locator('#gaia-mode-entry-guide').waitFor({ state: 'hidden' });
-      await page.reload({ waitUntil: 'domcontentloaded' });
+      // The current exhibit becomes #world-01, whose direct-link contract
+      // intentionally skips welcome. Use the real entry card again.
+      if (mode === 'map') {
+        await page.goto(`${base}/#top`, { waitUntil: 'domcontentloaded' });
+        await page.locator('[data-intro-path="map"]').click();
+      }
+      else await page.reload({ waitUntil: 'domcontentloaded' });
       if (mode === 'map') await page.waitForFunction(() => globalThis.GaiaMapDemo);
       else await page.waitForFunction(() => globalThis.GaiaModeEntryGuide && document.documentElement.dataset.sensorView);
       await page.waitForTimeout(1600);
       if (mode === 'map') {
-        assert.equal(await page.evaluate(() => GaiaModeEntryGuide.getState().active), true, 'Map welcome repeats despite the seen flag');
         await modal.waitFor();
+        assert.equal(await page.evaluate(() => GaiaModeEntryGuide.getState().active), true, 'Map welcome repeats despite the seen flag');
         await page.locator('[data-feature-start]').click();
         await page.locator('#gaia-mode-entry-guide').waitFor({ state: 'hidden' });
       } else assert.equal(await page.evaluate(() => GaiaModeEntryGuide.getState().active), false, 'Sensor seen state survives reload in this tab');

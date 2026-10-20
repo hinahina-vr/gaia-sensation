@@ -50,6 +50,7 @@
 .eco-urban { color: var(--eco-blue); }
 .eco-rail { height: 7px; background: #adbfbb20; border-radius: 2px; overflow: hidden; }
 .eco-rail i { display: block; height: 100%; background: currentColor; }
+.eco-metric-year { display: block; margin-top: 4px; color: #a5b6b8; font-size: .72em; font-variant-numeric: tabular-nums; }
 .eco-insight { margin: 18px 0 10px; padding-left: 13px; border-left: 2px solid #cddb95; color: #e2eac8; line-height: 1.7; }
 .eco-definition, .eco-chart-caption, .eco-culture-reading { color: #b0c2c4; line-height: 1.8; }
 .eco-definition { margin-bottom: 0; font-size: .88em; }

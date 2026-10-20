@@ -5,6 +5,7 @@ import { pickProjectedPoi } from "./poi-hit-test.js?v=gaia-japan-center-1";
 import { earthBaseScale, earthLongitudeToMapX } from "./world-projection.js?v=gaia-japan-center-1";
 import { decorateMapActions } from "./map-exhibit-actions.js?v=action-icons-ready-20260926";
 import { createRealtimeStatus, updateRealtimeStatus } from "./realtime-exhibit-status.js?v=gaia-map-polish-1-live-red-1-footer-credit-1";
+import { observationReadingTranslations } from "./observation-light.js?v=map-reading-20261020";
 import { FIRE_REVEAL_EDGE, FIRE_COLUMN_LIFETIME, FIRE_COLUMN_LIMIT, FIRE_COLUMN_MOBILE_LIMIT,
   fireSequence, inverseFireEase, FIRE_COLUMN_VERTEX, FIRE_COLUMN_FRAGMENT } from "./fire-ignition.js?v=gaia-fire-columns-1";
 
@@ -17,6 +18,7 @@ const HOLD_MS = 4_000;
 const EXTINGUISH_MS = 8_000;
 const FRAME_INTERVAL_MS = 1000 / 30;
 const MAX_CANVAS_PIXELS = 1_600_000;
+globalThis.GaiaI18n?.register(observationReadingTranslations);
 
 const DEFINITION = Object.freeze({
   id: "nasa-firms-active-fire",
@@ -60,6 +62,8 @@ let heldPlayback = null;
 let pausedCycleElapsedMs = 0;
 let savedHeading;
 let renderedPlayback = null;
+let introQuiet = 0;
+let focusedIndex = -1;
 
 const clamp01 = (value) => Math.max(0, Math.min(1, Number(value) || 0));
 const ease = (value) => {
@@ -226,10 +230,13 @@ const initializeWebgl = () => {
       uniform float u_extinguish;
       uniform float u_renderScale;
       uniform float u_markerScale;
+      uniform float u_introQuiet;
+      uniform float u_focusSequence;
       varying float v_alpha;
       varying float v_heat;
       varying float v_night;
       varying float v_seed;
+      varying float v_focus;
 
       void main() {
         float x = u_origin.x + a_positionData.x * u_scale;
@@ -237,12 +244,16 @@ const initializeWebgl = () => {
         vec2 clip = vec2(x / u_cssSize.x * 2.0 - 1.0, 1.0 - y / u_cssSize.y * 2.0);
         float appeared = smoothstep(a_positionData.w, a_positionData.w + 0.018, u_progress);
         float expired = u_extinguish < 0.0 ? 0.0 : smoothstep(a_positionData.w, a_positionData.w + 0.045, u_extinguish);
-        v_alpha = appeared * (1.0 - expired) * (0.55 + a_meta.x * 0.45);
+        v_focus = 1.0 - step(0.00001, abs(a_positionData.w - u_focusSequence));
+        float attention = u_focusSequence < 0.0 ? 1.0 : mix(0.5, 1.0, v_focus);
+        v_alpha = appeared * (1.0 - expired) * (0.55 + a_meta.x * 0.45)
+          * attention * (1.0 - u_introQuiet * 0.55);
         v_heat = a_positionData.z;
         v_night = a_meta.y;
         v_seed = a_meta.z;
         gl_Position = v_alpha > 0.002 ? vec4(clip, 0.0, 1.0) : vec4(2.0, 2.0, 0.0, 1.0);
-        gl_PointSize = (7.0 + a_positionData.z * 20.0) * u_renderScale * u_markerScale;
+        // A soft selection halo uses the same sprite/pass, independent of FRP.
+        gl_PointSize = (7.0 + a_positionData.z * 20.0 + v_focus * 16.0) * u_renderScale * u_markerScale;
       }
     `, `
       precision mediump float;
@@ -251,6 +262,7 @@ const initializeWebgl = () => {
       varying float v_heat;
       varying float v_night;
       varying float v_seed;
+      varying float v_focus;
 
       void main() {
         vec2 point = gl_PointCoord * 2.0 - 1.0;
@@ -267,7 +279,11 @@ const initializeWebgl = () => {
         vec3 middle = mix(vec3(1.0, 0.28, 0.025), vec3(1.0, 0.11, 0.035), v_night);
         vec3 color = mix(outer, middle, smoothstep(0.15, 0.82, body));
         color = mix(color, vec3(1.0, 0.88, 0.48), core * (0.48 + v_heat * 0.42));
+        color = mix(color, vec3(1.0, 0.96, 0.78), v_focus * body * 0.7);
         float alpha = body * v_alpha * flicker * (0.48 + v_heat * 0.52);
+        float selectionGlow = exp(-length(gl_PointCoord * 2.0 - 1.0) * 4.0) * v_focus;
+        color += vec3(1.0, 0.86, 0.53) * selectionGlow * 0.6;
+        alpha = max(alpha, selectionGlow * v_alpha * 0.8);
         gl_FragColor = vec4(color * (0.88 + core * 0.65), alpha);
       }
     `);
@@ -376,6 +392,14 @@ const findPoiAt = (clientX, clientY, pointerType) => {
         { label: '信頼度', value: formatNumber(point.confidence), unit: '' },
       ] },
       meta: `${title} / ${values} / ${formatJst(point.acquiredAt)}（日本時間） / ${snapshot.source === "nasa-firms-modis" ? "取得済みデータ" : "保存データ"} / ${DEFINITION.sourceName}`,
+      cardDetails: {
+        location: `${point.daynight === "N" ? "夜間" : "昼間"}検知`,
+        coordinates: formatCoordinatesJa(point.lat, point.lon, 2, " / "),
+        metrics: [["火災放射パワー / FRP", `${formatNumber(point.frp, 1)} MW`], ["信頼度", formatNumber(point.confidence)]],
+        timeLabel: "観測時刻", time: `${formatJst(point.acquiredAt)} JST`,
+        state: snapshot.source === "nasa-firms-modis" ? "取得済みデータ" : "保存データ",
+        source: DEFINITION.sourceName,
+      },
       url: SOURCE_PAGE,
     },
   };
@@ -435,6 +459,8 @@ const drawFires = (timestamp, projection, state, renderScale) => {
   gl.uniform1f(gl.getUniformLocation(fireProgram, "u_renderScale"), renderScale);
   gl.uniform1f(gl.getUniformLocation(fireProgram, "u_markerScale"), markerScale(projection));
   gl.uniform1f(gl.getUniformLocation(fireProgram, "u_time"), timestamp / 1000);
+  gl.uniform1f(gl.getUniformLocation(fireProgram, "u_introQuiet"), introQuiet);
+  gl.uniform1f(gl.getUniformLocation(fireProgram, "u_focusSequence"), focusedIndex < 0 ? -1 : fireSequence(focusedIndex, pointCount));
   gl.drawArrays(gl.POINTS, 0, pointCount);
 };
 
@@ -444,7 +470,8 @@ const drawFireColumns = (timestamp, projection, state, renderScale) => {
   const limit = projection.rect.width < 720 ? FIRE_COLUMN_MOBILE_LIMIT : FIRE_COLUMN_LIMIT;
   canvas.dataset.firmsColumnLimit = String(limit);
   canvas.dataset.firmsActiveColumns = "0";
-  if ((!playbackEnabled && !Number.isFinite(state.animationElapsed)) || matchMedia("(prefers-reduced-motion: reduce)").matches
+  if (introQuiet > .05 || focusedIndex >= 0
+    || (!playbackEnabled && !Number.isFinite(state.animationElapsed)) || matchMedia("(prefers-reduced-motion: reduce)").matches
     || !["igniting", "holding"].includes(state.phase)) return;
   const clock = Math.max(0, ((state.animationElapsed ?? (timestamp - cycleStartedAt)) - REVEAL_DELAY_MS) / 1000);
   const scale = markerScale(projection);
@@ -548,7 +575,18 @@ const draw = (timestamp = performance.now()) => {
   gl.clearColor(0, 0, 0, 0);
   gl.clear(gl.COLOR_BUFFER_BIT);
   const state = playbackState(timestamp);
-  const motionTime = matchMedia("(prefers-reduced-motion: reduce)").matches ? 0
+  const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const introTarget = layer.classList.contains("is-map-title-transitioning") || layer.classList.contains("is-map-data-intro") ? 1 : 0;
+  introQuiet = reducedMotion ? introTarget : introQuiet + (introTarget - introQuiet) * .12;
+  if (Math.abs(introQuiet - introTarget) < .002) introQuiet = introTarget;
+  const interaction = globalThis.GaiaMapObservationAdapter?.getPoiInteraction?.();
+  const selected = interaction?.selected?.exhibitId === DEFINITION.id ? interaction.selected : null;
+  const hovered = interaction?.hovered?.exhibitId === DEFINITION.id ? interaction.hovered : null;
+  focusedIndex = (selected || hovered)?.index ?? -1;
+  canvas.dataset.firmsPoiFocusState = selected ? "selected" : hovered ? "hovered" : "none";
+  canvas.dataset.firmsSelectedPoint = String(selected?.index ?? -1);
+  canvas.dataset.firmsIntroQuiet = introQuiet.toFixed(3);
+  const motionTime = reducedMotion ? 0
     : state.animationElapsed ?? (playbackEnabled ? timestamp - cycleStartedAt : heldPlayback ? pausedCycleElapsedMs : 0);
   drawBackground(motionTime, canvas.width, canvas.height);
   drawFires(motionTime, projection, state, renderScale);
@@ -640,6 +678,8 @@ const select = async () => {
   }
   active = true;
   renderedPlayback = null;
+  introQuiet = 0;
+  focusedIndex = -1;
   globalThis.GaiaMapObservationAdapter?.closePoi?.();
   layer.classList.add("is-firms-exhibit");
   layer.dataset.firmsExhibit = DEFINITION.id;
@@ -687,6 +727,8 @@ const deactivate = () => {
   delete layer.dataset.firmsExhibit;
   canvas.hidden = true;
   canvas.dataset.firmsActiveColumns = "0";
+  canvas.dataset.firmsPoiFocusState = "none";
+  canvas.dataset.firmsSelectedPoint = "-1";
   legend.hidden = true;
   readout.hidden = true;
   button.setAttribute("aria-current", "false");
@@ -744,8 +786,8 @@ const mount = () => {
     <details class="gaia-metric-legend-details"><summary>凡例・データの詳細</summary>
     <div class="gaia-metric-legend-details-body gaia-firms-legend-body">
     <header><strong>火災放射パワー / FRP</strong><span data-firms-legend-source>読込中</span></header>
-    <i aria-hidden="true"></i>
-    <div><small>弱い</small><small>50 MW</small><small>200+ MW</small></div>
+    <p>火点の大きさ：FRP · 色：昼間／夜間の検知</p>
+    <small>FRPは取得データ内の最大値を基準に粒径へ変換</small>
     <p><span><b class="is-day"></b>昼 / 金橙</span><span><b class="is-night"></b>夜 / 深紅</span><em data-firms-legend-count>—</em></p>
     <div class="gaia-firms-data-time"><span>最新のデータ時刻</span><time data-firms-latest>読込中</time><small data-firms-age>—</small></div>
     <p class="gaia-firms-legend-caption">${DEFINITION.caption} 光点や火柱は演出で、実際の炎の高さではありません。</p>

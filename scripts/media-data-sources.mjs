@@ -79,6 +79,14 @@ export function mediaDataSources(root, providers) {
       `MAP ${d.number} / ${d.signalLabel}`, d.source, '公式公開データから抽出・年別集計した保存値。展示選択時に遅延読込。欠測はゼロ補完しない。', file,
       { retrievedAt: data.retrievedAt, transformation: data.method || data.selection, termsUrl: data.rights || 'https://www.ncei.noaa.gov/access/metadata/landing-page/bin/iso?id=gov.noaa.ncdc:C01552', sourceSha256: data.sha256 || null });
   }
+  const regionalCyclones = read('data/climate-history/cyclone-regions.json');
+  add('世界の気候記録（MAP 72–73）', 'cyclone-regions', 'NOAA NCEI / IBTrACS',
+    'MAP 72 / 8地域の300 km圏内への接近・月別・年代別集計（1980–2024）',
+    'https://www.ncei.noaa.gov/products/international-best-track-archive',
+    '同梱MAIN経路から独自集計。各嵐をシーズンごとに1件。分析を開いたときだけ読込。元の年別ファイルのSHA-256を保持。',
+    'data/climate-history/cyclone-regions.json', { retrievedAt: regionalCyclones.sourceRetrievedAt,
+      transformation: regionalCyclones.method, sourceManifestSha256: regionalCyclones.sourceManifestSha256,
+      termsUrl: 'https://www.ncei.noaa.gov/access/metadata/landing-page/bin/iso?id=gov.noaa.ncdc:C01552' });
   add('ORBITAL・STORY・GX', 'story-gistemp', temperature.provider, temperature.dataset, temperature.sourceUrl,
     'STORY用。1958–2025年の月次2°格子を年平均に加工し同梱。全球平均系列とは別。', 'data/story-temperature-annual.json',
     { retrievedAt: temperature.retrievedAt, transformation: temperature.method });

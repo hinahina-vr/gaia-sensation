@@ -99,7 +99,15 @@
   #intro-layer .data-chapter { scroll-margin-top: calc(var(--page-header-height) + 72px); }
   #intro-layer .data-chapter-scene { top: calc(var(--page-header-height) + 92px); }
   #intro-layer:has(#intro-sense-stage:not([hidden])) #intro-title-return { display: none !important; }
-  #novel-close-button[data-control-mode="skip"] { left: calc(var(--navigation-left) + 96px) !important; }
+  /* Section skip is not a page exit. Keep it in the familiar upper-right
+     corner, beside audio, without moving the real return action on the left. */
+  #novel-close-button[data-control-mode="skip"] {
+    left: auto !important;
+    right: calc(var(--navigation-right) + 54px) !important;
+  }
+  body.novel-open:has(#gaia-audio-dock.is-expanded) #novel-close-button[data-control-mode="skip"] {
+    top: calc(var(--navigation-top) + 54px) !important;
+  }
   .japan-map-actions {
     position: fixed !important;
     inset: var(--navigation-top) auto auto var(--navigation-left) !important;

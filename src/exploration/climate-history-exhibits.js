@@ -3,6 +3,7 @@ import { decorateMapActions } from './map-exhibit-actions.js?v=action-icons-read
 import { CLIMATE_EXHIBITS, BASINS, windMS, format, stormPeak, stormLabel, colorFor, coralInsight, cycloneInsight, statisticsFor, daysInYear } from './climate-history-model.js?v=climate-20261013';
 
 const cache = new Map(), pending = new Map(), buttons = new Map();
+let regionalPanel;
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
 let definition = CLIMATE_EXHIBITS[0], active = false, dataState = 'idle', generation = 0;
 let data, season, year = 2016, basin = 'ALL', selectedId = '', playing = false, frame = 0, lastStep = 0, lastDraw = 0;
@@ -153,12 +154,14 @@ function findPoiAt(clientX,clientY,pointerType) {
 }
 function deactivate() {
   if(!active)return;active=false;generation++;playing=false;dataState='idle';cancelAnimationFrame(frame);frame=0;hitPoints=[];
+  regionalPanel?.closeRegionalAnalysis();
   layer.classList.remove('is-climate-history-exhibit');delete layer.dataset.climateExhibit;
   canvas.hidden=readout.hidden=legend.hidden=true;buttons.get(definition.id)?.setAttribute('aria-current','false');emit('change');
   setBusy(false);
 }
 async function select(id) {
   const target=CLIMATE_EXHIBITS.find(d=>d.id===id);if(!target)return;
+  regionalPanel?.closeRegionalAnalysis();
   for(const provider of [globalThis.GaiaLiveExhibits,globalThis.GaiaEstatExhibits,globalThis.GaiaFirmsExhibit,globalThis.GaiaPlanetSignals,globalThis.GaiaMarineCod,globalThis.GaiaFoodExhibits])provider?.deactivate?.();
   const ticket=++generation;definition=target;active=true;dataState='loading';data=null;season=null;year=2016;basin='ALL';selectedId='';playing=false;
   geometryKey='';hitPoints=[];layer.classList.add('is-climate-history-exhibit');layer.dataset.climateExhibit=id;
@@ -172,6 +175,7 @@ async function select(id) {
   q('[data-climate-controls]').disabled=q('[data-climate-analysis]').disabled=true;
   setBusy(true);
   q('[data-climate-basin-label]').hidden=isCoral();q('[data-climate-basin]').value='ALL';q('[data-climate-point]').replaceChildren();
+  q('[data-climate-regional]').hidden=isCoral();
   q('[data-climate-value]').textContent='—';q('[data-climate-detail]').textContent='';q('[data-climate-retry]').hidden=true;
   q('[data-climate-status]').textContent='NOAA保存データを読込中…';
   q('[data-climate-key-title]').textContent=isCoral()?'年内最大DHW（℃・週）':'1分平均風速（m/s）';
@@ -201,7 +205,7 @@ function mount() {
     <p class="gaia-climate-status" data-climate-status role="status"></p><button type="button" data-climate-retry hidden>再試行</button>
     <fieldset data-climate-controls disabled><legend class="gaia-climate-sr">観測記録を選ぶ</legend><div class="gaia-climate-pickers"><label data-climate-basin-label>海域<select data-climate-basin aria-label="台風の海域"></select></label><label>記録<select data-climate-point aria-label="監視海域・台風を選択"></select></label></div>
     <div class="gaia-climate-primary"><span data-climate-metric></span><strong data-climate-value>—</strong><small data-climate-detail></small></div>
-    <div class="gaia-climate-timeline"><label><b data-climate-period></b><input type="range" data-climate-year min="1980" max="2024" value="2016" step="1" aria-label="気候記録の年" /></label><button type="button" data-climate-overview>全体を見る</button></div></fieldset>
+    <div class="gaia-climate-timeline"><label><b data-climate-period></b><input type="range" data-climate-year min="1980" max="2024" value="2016" step="1" aria-label="気候記録の年" /></label><button type="button" data-climate-overview>全体を見る</button><button type="button" data-climate-regional aria-haspopup="dialog">地域別の接近を分析</button></div></fieldset>
     <div class="gaia-climate-actions"><button type="button" data-climate-source></button><button type="button" data-climate-analysis disabled></button></div>`;
   legend=document.createElement('section');legend.className='gaia-climate-legend';legend.hidden=true;
   legend.innerHTML=`<div class="gaia-climate-key"><h3 data-climate-key-title></h3><div class="gaia-climate-scale"></div><p data-climate-labels></p></div><div class="gaia-climate-insight"><h3 data-climate-selected></h3><p data-climate-insight></p></div><details><summary>指標と出典の読み方</summary><p class="gaia-climate-guide" data-climate-guide></p></details>`;
@@ -214,10 +218,19 @@ function mount() {
   q('[data-climate-basin]').addEventListener('change',event=>{stopForInteraction();basin=event.target.value;fillPoints();sync();});
   q('[data-climate-point]').addEventListener('change',event=>{stopForInteraction();selectPoint(event.target.value);});
   q('[data-climate-overview]').addEventListener('click',()=>{stopForInteraction();focusAll();});
+  q('[data-climate-regional]').addEventListener('click',async event=>{
+    stopForInteraction();const button=event.currentTarget,ticket=generation;button.disabled=true;
+    try {
+      regionalPanel=await import('./cyclone-regional-panel.js?v=regions-20261018');
+      if(active&&!isCoral()&&generation===ticket)regionalPanel.openRegionalAnalysis({year,trigger:button});
+      button.textContent='地域別の接近を分析';
+    } catch { button.textContent='地域別分析を再試行'; }
+    finally { button.disabled=false; }
+  });
   q('[data-climate-retry]').addEventListener('click',()=>{if(data)void setYear(year);else void select(definition.id);});
   q('[data-climate-analysis]').addEventListener('click',()=>{const dataset=statisticsDataset();if(!dataset)return;setPlayback(false);const open=()=>globalThis.GaiaStatisticsLab?.open?.({modeId:dataset.modeId,datasetId:dataset.id,dataset});if(globalThis.GaiaStatisticsLab?.open)open();else addEventListener('gaia:statistics-lab-ready',open,{once:true});});
   document.addEventListener('visibilitychange',()=>{if(document.hidden){cancelAnimationFrame(frame);frame=0;}else resume();});
-  addEventListener('gaia:japan-close',()=>{cancelAnimationFrame(frame);frame=0;playing=false;});addEventListener('gaia:japan-open',resume);
+  addEventListener('gaia:japan-close',()=>{cancelAnimationFrame(frame);frame=0;playing=false;regionalPanel?.closeRegionalAnalysis();});addEventListener('gaia:japan-open',resume);
   // Direct selections by other providers also relinquish this canvas.
   for(const name of ['live-exhibit','estat-exhibit','firms-exhibit','planet-signals','marine-cod','food'])addEventListener(`gaia:${name}-change`,event=>{if(event.detail?.active && active)deactivate();});
   reduced.addEventListener('change',()=>{geometryKey='';});emit('mounted');

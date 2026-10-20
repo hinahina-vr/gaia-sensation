@@ -4814,6 +4814,19 @@
       "sourceSha256": null
     },
     {
+      "section": "世界の気候記録（MAP 72–73）",
+      "id": "cyclone-regions",
+      "provider": "NOAA NCEI / IBTrACS",
+      "datasetId": "MAP 72 / 8地域の300 km圏内への接近・月別・年代別集計（1980–2024）",
+      "sourceUrl": "https://www.ncei.noaa.gov/products/international-best-track-archive",
+      "retrievalPolicy": "同梱MAIN経路から独自集計。各嵐をシーズンごとに1件。分析を開いたときだけ読込。元の年別ファイルのSHA-256を保持。",
+      "evidence": "data/climate-history/cyclone-regions.json",
+      "termsUrl": "https://www.ncei.noaa.gov/access/metadata/landing-page/bin/iso?id=gov.noaa.ncdc:C01552",
+      "retrievedAt": "2026-10-13T03:20:53.904Z",
+      "transformation": "MAIN tracks with a recorded centre within 300 km of the named city coordinate; one count per SID per SEASON. Month is the closest recorded approach in UTC, earliest in a tie. Wind is the maximum USA_WIND inside the circle (1-minute mean). Translation speed is summed great-circle segment distance / summed hours, using adjacent points both inside the circle, with intervals <=6 hours. Interpolated source positions are retained. All basins, no status or intensity threshold. Zero counts retained; unavailable wind/speed remain null.",
+      "sourceManifestSha256": "ab696c6af92e4aa68e5efaf633a01cc609b68189bb28f6f0f71aba46a0c7cd1d"
+    },
+    {
       "section": "ORBITAL・STORY・GX",
       "id": "story-gistemp",
       "provider": "NASA GISS",

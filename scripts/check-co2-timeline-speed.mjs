@@ -17,6 +17,7 @@ const duration = (id, storyModeDetour = null) => vm.runInNewContext(`${source.sl
   RENEWABLE_COUNTRY_DISPLAY_MS: constant("RENEWABLE_COUNTRY_DISPLAY_MS"),
   storyModeDetour,
   getActiveSignalMode: () => ({ id, signals: { current: Array(209) } }),
+  getThreeEcologiesComparison: () => ({ rows: Array(24) }),
   getGlobalEarthquakePlaybackSchedule: () => ({ durationMs: 123456 }),
 });
 assert.equal(duration("breathing-earth"), 20000, "Exploration should run three times faster: 60s -> 20s");

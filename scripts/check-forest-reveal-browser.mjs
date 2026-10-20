@@ -3,8 +3,8 @@ import fs from "node:fs";
 import path from "node:path";
 import { chromium } from "playwright-core";
 
-const base = process.argv[2] || "http://127.0.0.1:4397";
-const output = path.resolve(process.argv[3] || "artifacts/forest-reveal");
+const base = process.env.GAIA_BASE_URL || process.argv[2] || "http://127.0.0.1:4397";
+const output = path.resolve(process.env.GAIA_FOREST_OUTPUT || process.argv[3] || "artifacts/forest-reveal");
 fs.mkdirSync(output, { recursive: true });
 const report = { status: "running", checks: [], errors: [] };
 const browser = await chromium.launch({ executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe", headless: true });
@@ -44,6 +44,7 @@ try {
         return draw.call(this, source, ...args);
       };
     });
+    await context.route("https://**/*", route => route.abort());
     await context.route("https://services.swpc.noaa.gov/**", route => route.fulfill({ path: "data/ovation-aurora-snapshot.json", contentType: "application/json" }));
     let releaseImage;
     if (options.slow) {
@@ -53,7 +54,7 @@ try {
     const page = await context.newPage();
     activePage = page;
     page.on("pageerror", error => report.errors.push(error.message));
-    await page.goto(`${base}/?preview=forest-reveal&exhibit=7&live=1#world`, { waitUntil: "domcontentloaded" });
+    await page.goto(`${base}/world#world-07`, { waitUntil: "domcontentloaded" });
     await page.waitForFunction(() => document.documentElement.dataset.gaiaAppReady === "true"
       && document.querySelectorAll(".map-mode-bank .map-mode-button").length >= 30);
     await page.evaluate(async () => { GaiaMapDemo?.stop?.(); await GaiaMapObservationAdapter.waitSignalsReady(); GaiaModeEntryGuide?.close?.("map", { restoreFocus: false }); });
@@ -63,7 +64,6 @@ try {
     }, number);
     await select(7);
     await page.waitForFunction(() => !document.querySelector("#japan-layer").classList.contains("is-map-title-transitioning"));
-    if (!options.slow) await page.waitForFunction(() => document.querySelector("#japan-overlay").dataset.forestMask === "ready");
 
     const checkEntry = async (name, rapid = false) => {
       await page.evaluate(() => { window.__forestDraws = []; });

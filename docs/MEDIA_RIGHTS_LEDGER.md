@@ -9,7 +9,7 @@
 
 2026-09-13に現行カタログ・同梱メタデータと照合。収録期間は提供元の最新版の保証ではありません。今回、観測データの再取得や利用許諾の再判定は行っていません。
 
-登録: 118件（展示別の同一提供元、独自加工、補助経路も区別して収録）。日本の年次系列と食料の追加系列は実装カタログ・同梱JSONから生成します。各行の「記録」から取得日・加工内容・原データURLを確認できます。
+登録: 119件（展示別の同一提供元、独自加工、補助経路も区別して収録）。日本の年次系列と食料の追加系列は実装カタログ・同梱JSONから生成します。各行の「記録」から取得日・加工内容・原データURLを確認できます。
 
 利用条件と再利用上の注意は [データ出典・利用条件](DATA_SOURCES.md) を参照してください。本一覧は提供元の個別許諾や全データの無条件な再利用を保証するものではありません。
 
@@ -164,6 +164,7 @@
 |---|---|---|---|
 | [NOAA NCEI / IBTrACS](https://www.ncei.noaa.gov/products/international-best-track-archive) | MAP 72 / 熱帯低気圧の経路・最大風速 | 公式公開データから抽出・年別集計した保存値。展示選択時に遅延読込。欠測はゼロ補完しない。 | [記録](../data/climate-history/cyclones.json) |
 | [NOAA Coral Reef Watch](https://coralreefwatch.noaa.gov/product/vs/data.php) | MAP 73 / サンゴ礁監視海域の熱ストレス | 公式公開データから抽出・年別集計した保存値。展示選択時に遅延読込。欠測はゼロ補完しない。 | [記録](../data/climate-history/coral.json) |
+| [NOAA NCEI / IBTrACS](https://www.ncei.noaa.gov/products/international-best-track-archive) | MAP 72 / 8地域の300 km圏内への接近・月別・年代別集計（1980–2024） | 同梱MAIN経路から独自集計。各嵐をシーズンごとに1件。分析を開いたときだけ読込。元の年別ファイルのSHA-256を保持。 | [記録](../data/climate-history/cyclone-regions.json) |
 
 ### 地図・地域コード
 

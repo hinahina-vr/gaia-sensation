@@ -27,7 +27,7 @@ const linkGeometry = async () => {
   const state = await page.locator("#gaia-opening-concept").evaluate(el => {
     const rect = el.getBoundingClientRect();
     const hit = document.elementFromPoint(rect.x + rect.width / 2, rect.y + rect.height / 2);
-    return { rect: rect.toJSON(), hit: hit === el || el.contains(hit), desktop: matchMedia("(min-width: 961px) and (hover: hover) and (pointer: fine)").matches, parent: el.parentElement.parentElement.id, style: { color: getComputedStyle(el).color, fontSize: getComputedStyle(el).fontSize }, overflow: document.documentElement.scrollWidth - innerWidth };
+    return { rect: rect.toJSON(), hit: hit === el || el.contains(hit), desktop: matchMedia("(min-width: 961px)").matches, parent: el.parentElement.parentElement.id, style: { color: getComputedStyle(el).color, fontSize: getComputedStyle(el).fontSize }, overflow: document.documentElement.scrollWidth - innerWidth };
   });
   assert(state.hit, "CONCEPT must receive a real pointer hit");
   assert(state.rect.width >= 44 && state.rect.height >= 44, "CONCEPT has a 44px minimum hit area");

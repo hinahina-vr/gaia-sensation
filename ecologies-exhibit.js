@@ -102,7 +102,11 @@
         rail.setAttribute("role", "meter"); rail.setAttribute("aria-label", `${row.nameJa} ${metric.label} ${metric.year}年`);
         rail.setAttribute("aria-valuemin", "0"); rail.setAttribute("aria-valuemax", "100"); rail.setAttribute("aria-valuenow", String(metric.value));
         bar.style.width = `${metric.value}%`; rail.append(bar);
-        item.append(heading, rail); card.append(item);
+        // Each country's two indicators can have different reference years.
+        // Keep the year with its value, including the comparison country.
+        const year = document.createElement("span"); year.className = "eco-metric-year";
+        year.textContent = `${metric.year}年`;
+        item.append(heading, rail, year); card.append(item);
       }
       return card;
     };

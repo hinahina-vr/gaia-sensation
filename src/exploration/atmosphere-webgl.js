@@ -11,6 +11,8 @@ uniform vec3 geoView;
 uniform float time;
 uniform int mode;
 uniform float ready;
+uniform float fieldIntro;
+uniform vec3 fieldFocus;
 uniform sampler2D scalarField;
 uniform sampler2D vectorField;
 uniform sampler3D grainMap;
@@ -44,6 +46,14 @@ void main() {
   vec3 sphere = vec3(cos(angle.y) * cos(angle.x), sin(angle.y), cos(angle.y) * sin(angle.x));
   vec3 q = sphere * 12.;
   vec3 drift = vec3(time * .018, time * -.007, time * .004);
+  // Shared emphasis in the existing pass: leave the title and selected sample
+  // room to read, without changing the data, palette, or reference cloud shape.
+  vec2 screen = gl_FragCoord.xy / resolution;
+  float corridor = 1. - smoothstep(.06, .24, abs(screen.y - .5));
+  vec2 focusDistance = (screen - fieldFocus.xy) * vec2(resolution.x / resolution.y, 1.);
+  float nearby = 1. - smoothstep(.05, .24, length(focusDistance));
+  float attention = mix(1., .52 + .48 * nearby, fieldFocus.z);
+  float calm = 1. - fieldIntro * (.14 + .54 * corridor);
   if (mode == 0) {
     float speed = clamp(length(wind.xy) / 18., 0., 1.);
     vec3 east = vec3(-sin(angle.x), 0., cos(angle.x));
@@ -57,12 +67,13 @@ void main() {
     float streakA = 0., streakB = 0.;
     for (int i = 0; i < 12; i++) {
       float tail = float(i) * .28;
-      float weight = 1. - float(i) / 12.;
+      float tailFade = 1. - float(i) / 12.;
+      float weight = tailFade * (.75 + .25 * tailFade);
       vec3 offset = direction * tail;
       float a = cloudNoise(base - direction * phase * (5. + speed * 8.) + offset);
       float b = cloudNoise(base - direction * fract(phase + .5) * (5. + speed * 8.) + offset);
-      streakA = max(streakA, smoothstep(.76, .92, a) * weight);
-      streakB = max(streakB, smoothstep(.76, .92, b) * weight);
+      streakA = max(streakA, smoothstep(.81, .96, a) * weight);
+      streakB = max(streakB, smoothstep(.81, .96, b) * weight);
     }
     float streak = mix(streakA, streakB, abs(phase * 2. - 1.));
     // Atmospheric color, not a classified scale: teal -> soft gold -> coral.
@@ -71,7 +82,7 @@ void main() {
     float tintSpeed = max(0., wind.w);
     vec3 ink = mix(vec3(.36,.72,.78), vec3(.91,.80,.47), smoothstep(1., 8., tintSpeed));
     ink = mix(ink, vec3(.96,.46,.38), smoothstep(8., 18., tintSpeed));
-    color = vec4(ink, min(.7, streak * (.42 + speed * .35)) * ready);
+    color = vec4(ink, min(.7, streak * (.48 + speed * .35)) * ready * calm * attention);
   } else if (mode == 1) {
     float haze = max(0., value.a), pm = clamp(value.b, 0., 2.);
     float rolling = clouds(q * .57 + drift);
@@ -80,7 +91,7 @@ void main() {
     float opacity = extinction * (.37 + wisps * .54);
     vec3 ink = mix(vec3(.38,.47,.61), vec3(.72,.58,.53), clamp(pm * .52, 0., 1.));
     ink += pow(wisps, 3.) * vec3(.21,.17,.24);
-    color = vec4(ink, min(.72, opacity) * ready);
+    color = vec4(ink, min(.72, opacity) * ready * calm * attention);
   } else {
     float cover = clamp(value.r, 0., 1.);
     float sun = clamp(value.g, 0., 1.);
@@ -95,7 +106,7 @@ void main() {
     float alpha = .46 * sqrt(cover) * veil;
     vec3 shade = mix(vec3(.64,.74,.82), vec3(.89,.94,.96), luminance);
     shade += sun * vec3(.035,.024,.008);
-    color = vec4(shade, alpha * ready * cloudReady);
+    color = vec4(shade, alpha * ready * cloudReady * calm * attention);
   }
 }`;
 
@@ -119,7 +130,7 @@ export function createAtmosphereRenderer(canvas) {
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,3,-1,-1,3]), gl.STATIC_DRAW);
   const attribute = gl.getAttribLocation(program, "position");
   gl.enableVertexAttribArray(attribute); gl.vertexAttribPointer(attribute, 2, gl.FLOAT, false, 0, 0);
-  const uniforms = Object.fromEntries(["resolution", "geoView", "time", "mode", "ready",
+  const uniforms = Object.fromEntries(["resolution", "geoView", "time", "mode", "ready", "fieldIntro", "fieldFocus",
     "scalarField", "vectorField", "grainMap", "cloudReference", "cloudReady"].map(key => [key, gl.getUniformLocation(program, key)]));
   const textures = Array.from({ length: 4 }, (_, unit) => {
     const target = unit === 2 ? gl.TEXTURE_3D : gl.TEXTURE_2D;
@@ -211,14 +222,15 @@ export function createAtmosphereRenderer(canvas) {
     currentWorker.onerror = () => { canvas.dataset.fieldState = "unavailable"; currentWorker.terminate(); worker = null; };
     currentWorker.postMessage({ points: data.points, kind, key });
   };
-  const render = (timestamp, view, reducedMotion) => {
+  const render = (timestamp, view, reducedMotion, { intro = 0, focus = null, focusStrength = 1 } = {}) => {
     if (contextLost || gl.isContextLost()) return false;
     const maxPixels = view.rect.width < 720 ? 300000 : 760000;
     const scale = Math.min(1, Math.sqrt(maxPixels / (view.rect.width * view.rect.height)));
     const width = Math.max(1, Math.round(view.rect.width * scale)), height = Math.max(1, Math.round(view.rect.height * scale));
     // Reduced-motion mode needs no identical GPU work once the reveal settles.
     const revealAt = selectedMode === 2 && Number.isFinite(cloudReadyAt) ? Math.max(readyAt, cloudReadyAt) : readyAt;
-    const staticView = [width, height, view.originX, view.originY, view.scale, selectedMode, revealAt].join(":");
+    const staticView = [width, height, view.originX, view.originY, view.scale, selectedMode, revealAt,
+      intro, focus?.x, focus?.y, focusStrength].join(":");
     const settled = timestamp > revealAt + 700;
     if (reducedMotion && settled && staticView === lastStaticView) return true;
     lastStaticView = reducedMotion && settled ? staticView : "";
@@ -232,6 +244,9 @@ export function createAtmosphereRenderer(canvas) {
     gl.uniform1f(uniforms.time, reducedMotion ? 0 : timestamp / 1000);
     gl.uniform1i(uniforms.mode, selectedMode);
     gl.uniform1f(uniforms.ready, Math.max(0, Math.min(1, (timestamp - readyAt) / 700)));
+    gl.uniform1f(uniforms.fieldIntro, intro);
+    gl.uniform3f(uniforms.fieldFocus, focus ? focus.x / view.rect.width : 0,
+      focus ? 1 - focus.y / view.rect.height : 0, focus ? focusStrength : 0);
     gl.uniform1f(uniforms.cloudReady, Math.max(0, Math.min(1, (timestamp - cloudReadyAt) / 700)));
     gl.drawArrays(gl.TRIANGLES, 0, 3);
     canvas.dataset.draws = String((Number(canvas.dataset.draws) || 0) + 1);

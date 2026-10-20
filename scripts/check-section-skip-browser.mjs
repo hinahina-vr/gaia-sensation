@@ -181,12 +181,12 @@ try {
       assert(before.homeRect.left <= 40, `${viewport.name}: top return is not pinned left: ${JSON.stringify(before.homeRect)}`);
       assert(before.closeRect.top <= 40, `${viewport.name}: section skip is not pinned top: ${JSON.stringify(before.closeRect)}`);
       assert(Math.abs(before.closeRect.top - before.homeRect.top) <= 1, `${viewport.name}: mobile header controls are not on one row`);
-      assert(before.closeRect.left >= before.homeRect.right + 4, `${viewport.name}: section skip is not placed after the top return`);
+      assert(before.closeRect.left + before.closeRect.width / 2 > viewport.width / 2 && before.closeRect.right < before.audioRect.left, `${viewport.name}: section skip must stay upper-right beside audio`);
       assert.equal(before.closePosition, "fixed", `${viewport.name}: section skip is not viewport-fixed`);
       assert.equal(before.audioPosition, "fixed", `${viewport.name}: audio control is not viewport-fixed`);
     } else {
       assert(before.homeRect.left <= 40, `${viewport.name}: runtime return is not pinned left: ${JSON.stringify(before.homeRect)}`);
-      assert(before.closeRect.left >= before.homeRect.right + 6, `${viewport.name}: section skip is not placed after the top return`);
+      assert(before.closeRect.left + before.closeRect.width / 2 > viewport.width / 2 && before.closeRect.right < before.audioRect.left, `${viewport.name}: section skip must stay upper-right beside audio`);
     }
     assert.equal(before.overflowX, 0, `${viewport.name}: runtime overflows horizontally`);
     await page.locator("#gaia-audio-toggle").click();

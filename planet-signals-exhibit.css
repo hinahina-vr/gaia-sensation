@@ -41,6 +41,18 @@
 
 .gaia-planet-atmosphere-canvas[hidden] { display: none !important; }
 
+/* The same bearing remains legible when a phone's detail sheet covers the POI. */
+.japan-poi-wind-direction {
+  display: inline-block;
+  width: 1em;
+  margin-inline-end: .35em;
+  color: #b6eeeb;
+  font-family: sans-serif;
+  font-weight: 400;
+  text-align: center;
+  transform: rotate(var(--wind-to));
+}
+
 /* Keep the pearl-light markers distinct above the translucent atmosphere. */
 .gaia-planet-signals-canvas[data-planet-engine="webgl2-continuous-atmosphere"] {
   mix-blend-mode: normal;

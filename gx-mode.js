@@ -239,6 +239,16 @@
   let height = 0;
   let dpr = 1;
   let pointer = { x: 0.64, y: 0.48, active: false };
+  const gestureInputMedia = window.matchMedia("(pointer: coarse)");
+  let gestureInputTouch = gestureInputMedia.matches;
+  let gestureHintDismissed = false;
+  const GESTURE_KINDS = ["tap", "drag", "drag", "drag", "tap", "vertical", "drag", "circle"];
+  const GESTURE_COPY = {
+    tap: ["地球の円の中の、別の場所をクリックする。", "地球の円の中の、別の場所をタップする。"],
+    drag: ["地球の円の中を、左ボタンを押したまま左右に動かす。", "地球の円の中に指を置き、離さず左右にすべらせる。"],
+    vertical: ["地球の円の中を、左ボタンを押したまま上下に動かす。", "地球の円の中に指を置き、離さず上下にすべらせる。"],
+    circle: ["地球の円の中を、左ボタンを押したまま大きく一周する。", "地球の円の中に指を置き、離さず大きく一周する。"],
+  };
   let gestureCount = 0;
   let previousPhaseIndex = 0;
   let cyanobacteriaTouches = 0;
@@ -395,6 +405,23 @@
     return 0;
   };
 
+  const syncGestureGuide = () => {
+    const kind = GESTURE_KINDS[phaseIndex];
+    const copy = GESTURE_COPY[kind][gestureInputTouch ? 1 : 0];
+    if (elements.guide.dataset.gestureSource !== copy) {
+      elements.guide.dataset.gestureSource = copy;
+      if (globalThis.GaiaI18n) globalThis.GaiaI18n.bind(elements.guide, copy);
+      else elements.guide.textContent = copy;
+    }
+    layer.dataset.gestureKind = kind;
+    layer.dataset.gestureInput = gestureInputTouch ? "touch" : "mouse";
+    layer.dataset.gestureHint = gestureHintDismissed ? "done" : "visible";
+  };
+  gestureInputMedia.addEventListener("change", (event) => {
+    gestureInputTouch = event.matches;
+    syncGestureGuide();
+  });
+
   const updateInteractionProgress = () => {
     const stage = INTERACTION_STAGES[phaseIndex] || INTERACTION_STAGES[0];
     const progress = interactionProgress();
@@ -402,7 +429,7 @@
     elements.eraProgress.hidden = false;
     elements.eraProgressLabel.textContent = stage.metric;
     elements.eraProgressLabel.title = stage.label;
-    elements.guide.textContent = stage.pending;
+    syncGestureGuide();
     elements.eraProgressValue.textContent = `${percentage}%`;
     elements.eraProgressBar.style.width = `${percentage}%`;
     elements.eraProgressBar.parentElement.setAttribute("aria-valuenow", String(percentage));
@@ -673,6 +700,9 @@
     setMobileInfoExpanded(false);
     previousPhaseIndex = phaseIndex;
     phaseIndex = (index + exhibit.phases.length) % exhibit.phases.length;
+    // A drag that completed one era must not spill into the next era's task.
+    pointer.active = false;
+    gestureHintDismissed = false;
     if (phaseIndex === PHASE.PROTEROZOIC && previousPhaseIndex !== PHASE.PROTEROZOIC) prepareIronTransition();
     const phase = exhibit.phases[phaseIndex];
     const chapterTitle = GX_CHAPTER_TITLES[phaseIndex] || `THE ${phaseIndex + 1}TH GX`;
@@ -1968,6 +1998,89 @@
     context.restore();
   };
 
+  // A demonstration only: never call addInteraction or change task progress.
+  // Draw into the existing frame loop, inside the actual planet hit region.
+  const drawGestureHint = (time) => {
+    if (gestureHintDismissed || eraTransitionPending || pointer.active) return;
+    const { centerX, centerY, radius } = getPlanetGeometry();
+    const kind = GESTURE_KINDS[phaseIndex];
+    const t = reducedMotion ? 0.18 : clamp(((time % 3000) / 3000 - 0.15) / 0.7, 0, 1);
+    const point = (p) => {
+      if (kind === "circle") {
+        const angle = -Math.PI / 2 + p * Math.PI * 2;
+        return { x: centerX + Math.cos(angle) * radius * 0.35, y: centerY - radius * 0.12 + Math.sin(angle) * radius * 0.35 };
+      }
+      if (kind === "vertical") return { x: centerX + radius * 0.1, y: centerY + radius * (-0.48 + p * 0.68) };
+      return { x: centerX + radius * (-0.42 + p * 0.84), y: centerY - radius * 0.22 + Math.sin(p * Math.PI * 2) * radius * 0.06 };
+    };
+    const cursor = kind === "tap" ? point(0.5) : point(t);
+    context.save();
+    context.strokeStyle = "rgba(227,255,247,0.88)";
+    context.fillStyle = "rgba(5,27,36,0.9)";
+    context.lineWidth = 2;
+    context.shadowColor = "rgba(0,9,18,0.9)";
+    context.shadowBlur = 7;
+    if (kind !== "tap") {
+      context.setLineDash([5, 7]);
+      context.beginPath();
+      for (let n = 0; n <= 30; n += 1) {
+        const p = point(n / 30);
+        if (n === 0) context.moveTo(p.x, p.y);
+        else context.lineTo(p.x, p.y);
+      }
+      context.stroke();
+      context.setLineDash([]);
+      const end = point(0.97);
+      const prior = point(0.9);
+      const angle = Math.atan2(end.y - prior.y, end.x - prior.x);
+      context.beginPath();
+      context.moveTo(end.x - Math.cos(angle - 0.55) * 12, end.y - Math.sin(angle - 0.55) * 12);
+      context.lineTo(end.x, end.y);
+      context.lineTo(end.x - Math.cos(angle + 0.55) * 12, end.y - Math.sin(angle + 0.55) * 12);
+      context.stroke();
+    }
+    context.beginPath();
+    context.arc(cursor.x, cursor.y, reducedMotion ? 13 : 11 + Math.sin(time / 180) * 2, 0, Math.PI * 2);
+    context.stroke();
+    context.translate(cursor.x, cursor.y);
+    if (gestureInputTouch) {
+      // Finger contact and a small hand, distinct from observation particles.
+      context.beginPath();
+      context.moveTo(-4, 18);
+      context.lineTo(-4, 0);
+      context.bezierCurveTo(-4, -7, 4, -7, 4, 0);
+      context.lineTo(4, 13);
+      context.bezierCurveTo(20, 9, 24, 19, 18, 34);
+      context.lineTo(3, 34);
+      context.lineTo(-9, 21);
+      context.bezierCurveTo(-13, 16, -8, 13, -4, 18);
+      context.fill();
+      context.stroke();
+    } else {
+      // Highlight the held left mouse button, not just a moving pointer.
+      context.beginPath();
+      context.roundRect(-11, 12, 22, 32, 10);
+      context.fill();
+      context.stroke();
+      context.fillStyle = "#a4ffe5";
+      context.fillRect(-7, 17, 6, 9);
+      context.beginPath();
+      context.moveTo(0, 14);
+      context.lineTo(0, 28);
+      context.stroke();
+    }
+    context.restore();
+    context.save();
+    context.font = `500 ${clamp(radius * 0.06, 11, 15)}px "Yu Gothic", sans-serif`;
+    context.textAlign = "center";
+    context.fillStyle = "#e5fff6";
+    context.shadowColor = "#03131e";
+    context.shadowBlur = 8;
+    const captionY = centerY + radius * (width <= 620 || kind === "circle" ? 0.55 : -0.43);
+    context.fillText("操作の見本", centerX, captionY, radius * 1.2);
+    context.restore();
+  };
+
   const animate = (time) => {
     if (!isOpen) return;
     const delta = clamp((time - previousTime) / 16.67 || 1, 0.2, 3);
@@ -1988,6 +2101,7 @@
     drawCarbon(delta, time);
     drawNetwork(delta, time);
     drawLights(delta);
+    drawGestureHint(time);
     animationFrame = requestAnimationFrame(animate);
   };
 
@@ -2183,6 +2297,8 @@
 
   canvas.addEventListener("pointerdown", (event) => {
     if (!isOpen) return;
+    gestureInputTouch = event.pointerType === "touch" || event.pointerType === "pen";
+    syncGestureGuide();
     const position = pointerPosition(event);
     if (!isPointOnPlanet(position.x, position.y, 2)) {
       pointer.active = false;
@@ -2191,7 +2307,11 @@
     }
     pointer = { ...position, active: true };
     storyPointerActive = storyDetourActive;
-    addInteraction(position.x, position.y, 0.02);
+    const accepted = addInteraction(position.x, position.y, 0.02);
+    if (accepted && GESTURE_KINDS[phaseIndex] === "tap") {
+      gestureHintDismissed = true;
+      syncGestureGuide();
+    }
     canvas.setPointerCapture?.(event.pointerId);
   });
   canvas.addEventListener("pointermove", (event) => {
@@ -2201,7 +2321,10 @@
     if (motion < 0.018) return;
     pointer = { ...position, active: true };
     if (!isPointOnPlanet(position.x, position.y, 2)) return;
-    addInteraction(position.x, position.y, motion);
+    if (addInteraction(position.x, position.y, motion)) {
+      gestureHintDismissed = true;
+      syncGestureGuide();
+    }
   });
   const releasePointer = () => {
     if (storyPointerActive) recordStoryGesture();

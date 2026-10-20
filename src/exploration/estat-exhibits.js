@@ -58,6 +58,7 @@ let heatLegend;
 let readout;
 let buttons = [];
 let activeIndex = -1;
+let selectionGeneration = 0;
 let selectedIndex = 0;
 let periodIndex = 0;
 let previousPeriodIndex = 0;
@@ -1641,9 +1642,20 @@ const select = async (index) => {
     };
   }
   activeIndex = requested;
+  const generation = ++selectionGeneration;
+  // Claim the requested exhibit synchronously. Deactivating the live deck
+  // restores its old base heading (often 14); never publish that stale heading
+  // while the first statistics download is pending.
+  layer.classList.add("is-estat-exhibit");
+  layer.dataset.estatExhibit = currentExhibit().key;
+  layer.dataset.estatLoading = "true";
+  buttons.forEach((button, buttonIndex) => button.setAttribute("aria-current", String(buttonIndex === activeIndex)));
+  document.querySelectorAll(".map-mode-button:not([data-estat-exhibit])").forEach((button) => button.setAttribute("aria-current", "false"));
+  applyHeading();
   await Promise.all([loadSeries(), loadPrefectureShapes()]);
-  // A different exhibit may have been chosen while this first-use load ran.
-  if (activeIndex !== requested) return;
+  // Also reject A -> B -> A: an index check alone would commit A twice.
+  if (generation !== selectionGeneration || activeIndex !== requested) return;
+  delete layer.dataset.estatLoading;
   const regionMode = usesPrefectureRegions();
   periodIndex = Math.max(0, initialObservationIndex(periodsFor()));
   previousPeriodIndex = periodIndex;
@@ -1674,6 +1686,7 @@ const select = async (index) => {
 
 const deactivate = () => {
   if (activeIndex < 0) return;
+  selectionGeneration += 1;
   activeIndex = -1;
   cancelAnimationFrame(frame);
   cancelAnimationFrame(primaryValueAnimationFrame);
@@ -1684,6 +1697,7 @@ const deactivate = () => {
   primaryValueExhibitKey = "";
   layer.classList.remove("is-estat-exhibit");
   delete layer.dataset.estatExhibit;
+  delete layer.dataset.estatLoading;
   delete layer.dataset.estatFrequency;
   delete layer.dataset.estatPoiDisplay;
   delete layer.dataset.estatPlayback;

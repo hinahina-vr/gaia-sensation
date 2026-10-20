@@ -149,7 +149,7 @@ body.gaia-opening-active:not(.novel-open) .novel-layer {
 
 /* Desktop utilities sit together in the quiet top-right corner. Moving the
    single nav outside the transformed lockup keeps these viewport insets exact. */
-@media (min-width: 961px) and (hover: hover) and (pointer: fine) {
+@media (min-width: 961px) {
   .gaia-opening > .gaia-opening-about {
     position: absolute;
     z-index: 45;
@@ -177,7 +177,7 @@ body.gaia-opening-active:not(.novel-open) .novel-layer {
   }
 }
 
-@media (min-width: 961px) and (min-height: 521px) and (hover: hover) and (pointer: fine) {
+@media (min-width: 961px) and (min-height: 521px) {
   /* Retain the existing logo/cards composition when the link leaves its row. */
   .gaia-vn-panel-final .gaia-opening-final-menu {
     grid-template-rows: auto 44px;
@@ -5855,10 +5855,11 @@ body.gaia-opening-active .gaia-audio-dock.is-visible.is-expanded {
 @media (min-width: 961px) and (min-height: 521px) {
   .gaia-vn-panel-final .gaia-vn-final-copy,
   .gaia-opening.is-menu-ready .gaia-vn-panel-final .gaia-vn-final-copy {
-    bottom: clamp(236px, 26.5vh, 670px);
+    top: 24vh;
+    bottom: auto;
     right: auto;
-    left: max(26%, calc(min(460px, 44vw) + 18px));
-    width: min(920px, 88vw);
+    left: 26%;
+    width: min(36vw, 78vh);
     text-align: center;
     transform: translateX(-50%);
   }
@@ -5866,12 +5867,12 @@ body.gaia-opening-active .gaia-audio-dock.is-visible.is-expanded {
   .gaia-vn-panel-final .gaia-vn-work-title { width: 100%; }
 
   .gaia-vn-panel-final .gaia-vn-work-title {
-    margin-bottom: -40px;
+    margin-bottom: clamp(-64px, -1.56vw, -16px);
   }
 
   .gaia-vn-panel-final .gaia-opening-final-menu,
   .gaia-opening.is-menu-ready .gaia-vn-panel-final .gaia-opening-final-menu {
-    margin-top: 56px;
+    margin-top: 5vh;
   }
 
   .gaia-vn-panel-final .gaia-opening-route-grid { grid-row: 1; }
@@ -5879,7 +5880,7 @@ body.gaia-opening-active .gaia-audio-dock.is-visible.is-expanded {
 
   .gaia-vn-panel-final .gaia-opening-final-menu,
   .gaia-opening.is-menu-ready .gaia-vn-panel-final .gaia-opening-final-menu {
-    width: min(84%, 780px);
+    width: 84%;
     margin-right: auto;
     margin-left: auto;
   }
@@ -5911,13 +5912,6 @@ body.gaia-opening-active .gaia-audio-dock.is-visible.is-expanded {
 
   .gaia-opening.is-active .gaia-vn-panel-final .gaia-vn-final-copy {
     animation-name: opening-copy-final-centered;
-  }
-}
-
-@media (min-width: 961px) and (min-height: 1200px) {
-  .gaia-vn-panel-final .gaia-vn-final-copy,
-  .gaia-opening.is-menu-ready .gaia-vn-panel-final .gaia-vn-final-copy {
-    bottom: min(35vh, 756px);
   }
 }
 
@@ -6198,4 +6192,49 @@ body.gaia-opening-active .gaia-audio-dock.is-visible.is-expanded {
 @media(prefers-reduced-motion:reduce){
   .gaia-vn-panel-final .gaia-opening-route-grid .gaia-opening-route,
   .gaia-vn-panel-final .gaia-opening-route-grid .gaia-opening-route-symbol { transition:none; transform:none; }
+}
+
+/* Scale the gateway with its backdrop, not a fixed 920px lockup. The route
+   grid always owns the full row; a touch guide must not create an implicit
+   side column and squeeze the two primary destinations. */
+@media (min-width: 961px) and (min-height: 521px) {
+  .gaia-vn-panel-final .gaia-opening-route-grid {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+  .gaia-vn-panel-final .gaia-opening-route-guide-replay {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+  .gaia-vn-panel-final .gaia-vn-final-choice > strong,
+  .gaia-opening.is-menu-ready .gaia-vn-panel-final .gaia-vn-final-choice > strong {
+    font-size: clamp(14px, 1.05vw, 36px);
+  }
+  .gaia-vn-panel-final .gaia-opening-route-grid .gaia-opening-route {
+    grid-template-columns: minmax(0, 1fr) clamp(38px, 2.2vw, 84px);
+    min-height: clamp(80px, 9.3vh, 200px);
+    padding: clamp(12px, 1.25vw, 36px);
+  }
+  .gaia-vn-panel-final .gaia-opening-route strong {
+    font-size: clamp(11px, .85vw, 30px);
+    white-space: nowrap;
+    overflow-wrap: normal;
+  }
+  .gaia-vn-panel-final .gaia-opening-route-grid .gaia-opening-route-symbol {
+    width: clamp(38px, 2.2vw, 84px);
+    height: clamp(38px, 2.2vw, 84px);
+  }
+  .gaia-vn-panel-final .gaia-opening-route-icon,
+  .gaia-vn-panel-final .gaia-opening-route:hover .gaia-opening-route-icon,
+  .gaia-vn-panel-final .gaia-opening-route:focus-visible .gaia-opening-route-icon {
+    width: clamp(26px, 1.55vw, 58px);
+    height: clamp(26px, 1.55vw, 58px);
+  }
+}
+
+@media (min-width: 961px) and (max-width: 1440px) and (min-height: 521px) {
+  .gaia-vn-panel-final .gaia-opening-final-menu,
+  .gaia-opening.is-menu-ready .gaia-vn-panel-final .gaia-opening-final-menu {
+    width: 100%;
+  }
 }

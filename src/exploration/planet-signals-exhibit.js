@@ -4,12 +4,18 @@ import { formatCoordinatesJa } from "../shared/coordinates.js";
 import { pickProjectedPoi } from "./poi-hit-test.js?v=gaia-japan-center-1";
 import { earthBaseScale, earthLongitudeToMapX as mapLongitude } from "./world-projection.js?v=gaia-japan-center-1";
 import { decorateMapActions } from "./map-exhibit-actions.js?v=action-icons-ready-20260926";
-import { createAtmosphereRenderer } from "./atmosphere-webgl.js?v=wind-strength-color-20260913";
+import { createAtmosphereRenderer } from "./atmosphere-webgl.js?v=map-reading-20261020";
+import { windReading, windReadingTranslations } from "./wind-reading.js?v=wind-first-view-20261020";
+import { quakeMarkerStyle, quakeReadingTranslations } from "./quake-reading.js?v=quake-first-view-20261020";
+import { observationLight, observationReadingTranslations } from "./observation-light.js?v=map-reading-20261020";
 import { createPoiArrival, drawPoiArrivals } from "./poi-arrival.js?v=gaia-luminous-veil-1";
 import { createMetricLegend, updateMetricLegend } from "./metric-legend.js?v=gaia-observation-mincho-1-i18n-20260913";
 import { createRealtimeStatus, updateRealtimeStatus, sourceStateJa } from "./realtime-exhibit-status.js?v=gaia-map-polish-1-live-red-1-footer-credit-1";
 
 const GLOBAL_SAMPLE_COUNT = 240;
+globalThis.GaiaI18n?.register(windReadingTranslations);
+globalThis.GaiaI18n?.register(quakeReadingTranslations);
+globalThis.GaiaI18n?.register(observationReadingTranslations);
 const formatCoordinates = (point, digits = 1, separator = " ") =>
   formatCoordinatesJa(point.lat, point.lon, digits, separator);
 const GLOBAL_OBSERVATION_POINTS = Object.freeze(Array.from({ length: GLOBAL_SAMPLE_COUNT }, (_, index) => {
@@ -162,6 +168,11 @@ let anchorFocusChangedAt = 0;
 let poiArrival = null;
 let poiRenderedAt = 0;
 let focusedEpicenterIndex = -1;
+let fieldIntroQuiet = 0;
+let fieldFocusStrength = 0;
+let fieldFocusPoint = null;
+let quakeMarkers = [];
+let quakeIntroQuiet = 0;
 const poiOpacity = index => index === focusedEpicenterIndex ? 1 : poiArrival?.opacity(index, poiRenderedAt) ?? 1;
 
 const clamp = (value, min, max) => Math.max(min, Math.min(max, Number(value) || 0));
@@ -437,13 +448,14 @@ const findPoiAt = (clientX, clientY, pointerType) => {
 };
 const poiForPoint = (point, index) => {
   const definition = DEFINITIONS[activeIndex];
+  const wind = definition.renderer === "wind" ? windReading(point) : null;
   const metrics = definition.renderer === "wind"
-    ? [["風速", `${formatNumber(point.windSpeed)} m/s`], ["風向", `${formatNumber(point.windDirection, 0)}°`],
+    ? [["風速", `${formatNumber(point.windSpeed)} m/s`], [wind?.label || "風向", wind ? `${formatNumber(wind.from, 0)}°` : "—"],
       ["気圧", `${formatNumber(point.pressure)} hPa`], ["雲量", `${formatNumber(point.cloud, 0)}%`]]
     : definition.renderer === "air"
-      ? [["PM2.5", `${formatNumber(point.pm25)} µg/m³`], ["光学的厚さ", formatNumber(point.aerosol, 2)]]
+      ? [["PM2.5", `${formatNumber(point.pm25)} µg/m³`], ["AOD（光学的厚さ）", formatNumber(point.aerosol, 2)]]
       : definition.renderer === "cloud"
-        ? [["雲量", `${formatNumber(point.cloud, 0)}%`], ["短波放射", `${formatNumber(point.radiation, 0)} W/m²`]]
+        ? [["雲量", `${formatNumber(point.cloud, 0)}%`], ["日射（短波放射）", `${formatNumber(point.radiation, 0)} W/m²`]]
         : [["規模", `M${formatNumber(point.magnitude)}`], ["深さ", `${formatNumber(point.depth)} km`]];
   const values = metrics.map(([label, value]) => `${label} ${value}`).join(" / ");
   const coordinates = formatCoordinates(point, 2, " / ");
@@ -459,15 +471,17 @@ const poiForPoint = (point, index) => {
       title,
       preview: values,
       previewReadings: { readings: (definition.renderer === 'wind'
-        ? [['風速', point.windSpeed, 'm/s', 1], ['風向', point.windDirection, '°', 0], ['気圧', point.pressure, 'hPa', 1], ['雲量', point.cloud, '%', 0]]
-        : definition.renderer === 'air' ? [['PM2.5', point.pm25, 'µg/m³', 1], ['光学的厚さ', point.aerosol, '', 2]]
-          : definition.renderer === 'cloud' ? [['雲量', point.cloud, '%', 0], ['短波放射', point.radiation, 'W/m²', 0]]
+        ? [['風速', point.windSpeed, 'm/s', 1], [wind?.label || '風向', wind?.from ?? null, wind ? '°' : '', 0], ['気圧', point.pressure, 'hPa', 1], ['雲量', point.cloud, '%', 0]]
+        : definition.renderer === 'air' ? [['PM2.5', point.pm25, 'µg/m³', 1], ['AOD（光学的厚さ）', point.aerosol, '', 2]]
+          : definition.renderer === 'cloud' ? [['雲量', point.cloud, '%', 0], ['日射（短波放射）', point.radiation, 'W/m²', 0]]
             : [['規模', point.magnitude, 'M', 1], ['深さ', point.depth, 'km', 1]])
-        .map(([label, value, unit, digits]) => ({ label, value: formatNumber(value, digits), unit, prefix: unit === 'M' })) },
+        .map(([label, value, unit, digits]) => ({ label, value: value === null ? "—" : formatNumber(value, digits), unit, prefix: unit === 'M' })) },
       meta: `${title} / ${values} / ${coordinates} / ${formatJst(point.time || currentData.observedAt)} / ${sourceState} / ${definition.sourceName}${definition.loader !== "earthquake" && !saved ? " / モデル値" : ""}`,
       cardDetails: {
         location: definition.renderer === "quake" ? point.label : "",
         coordinates, metrics,
+        windFrom: wind?.from ?? null,
+        timeLabel: definition.renderer === "quake" ? "発生時刻" : "",
         time: formatJst(point.time || currentData.observedAt),
         state: sourceState,
         source: definition.sourceName,
@@ -516,8 +530,6 @@ const drawWind = (time, view, data, definition) => {
       context.globalAlpha = poiOpacity(index) * Math.sin(phase * Math.PI) ** 2 * .35;
       context.drawImage(light, x - size / 2, y - size / 2, size, size);
     }
-    context.globalAlpha = poiOpacity(index) * .82;
-    context.drawImage(light, center.x - 10, center.y - 10, 20, 20);
     context.restore();
   });
 };
@@ -526,7 +538,7 @@ const drawAir = (time, view, data, definition) => {
   data.points.forEach((point, index) => {
     if (!poiOpacity(index)) return;
     context.save();
-    context.globalAlpha = poiOpacity(index);
+    context.globalAlpha *= poiOpacity(index);
     const center = screenPoint(point, view);
     const density = clamp01(point.pm25 / 45);
     const haze = clamp01(point.aerosol / 0.6);
@@ -553,45 +565,113 @@ const drawAir = (time, view, data, definition) => {
   });
 };
 
-const drawQuakes = (time, view, data, definition) => {
-  const now = Date.now();
-  const ringCount = data.points.length > 240 ? 1 : data.points.length > 100 ? 2 : 3;
+const drawQuakes = (time, view, data, definition, interaction, introVisible) => {
+  const introTarget = introVisible ? 1 : 0;
+  quakeIntroQuiet = reducedMotion ? introTarget : quakeIntroQuiet + (introTarget - quakeIntroQuiet) * .12;
+  // The map's existing hit test owns selection. Draw its epicenter last so
+  // adjacent events cannot obscure the one whose detail card is open.
+  if (interaction.selected) focusedEpicenterIndex = -1;
+  const focusedIndex = interaction.focused?.index ?? focusedEpicenterIndex;
+  const state = interaction.selected ? "selected" : interaction.hovered ? "hovered"
+    : focusedIndex >= 0 ? "epicenter" : "none";
+  const size = clamp(view.scale / 5, .8, 1.25);
+  const light = getAnchorLight(definition);
+  const tau = Math.PI * 2;
+  let visible = 0, drawnRings = 0;
+  context.globalCompositeOperation = "source-over";
   data.points.forEach((point, index) => {
-    if (!poiOpacity(index)) return;
-    context.save();
-    context.globalAlpha = poiOpacity(index);
+    const arrival = index === focusedIndex ? 1 : poiOpacity(index);
+    if (!arrival) return;
     const center = screenPoint(point, view);
-    const magnitude = clamp(point.magnitude, 2.5, 8);
-    const age = clamp01((now - point.time) / 86_400_000);
+    const style = quakeMarkers[index];
+    const extent = (style.radius + style.core * 2) * size;
+    if (center.x < -extent || center.y < -extent || center.x > view.rect.width + extent || center.y > view.rect.height + extent) return;
+    visible++;
+    context.save();
+    context.globalAlpha = arrival * style.opacity * (1 - quakeIntroQuiet * .55)
+      * (focusedIndex >= 0 && index !== focusedIndex ? .38 : 1);
+    const glow = style.core * size * 5;
+    context.drawImage(light, center.x - glow, center.y - glow, glow * 2, glow * 2);
+    const ringCount = Math.min(style.rings, data.points.length > 240 ? 1 : 2);
     for (let ring = 0; ring < ringCount; ring += 1) {
-      const phase = reducedMotion ? 0.72 : fract(time * (0.06 + magnitude * 0.01) + ring / ringCount + hash(index * 23));
-      const radius = (3 + phase * (13 + magnitude * 7)) * Math.min(1.35, view.scale / 4);
+      // Two different static radii in reduced motion; no coincident rings.
+      const phase = reducedMotion ? .45 + ring * .3 : fract(time / style.period + ring / ringCount + hash(index * 23));
+      const radius = (style.core * 2 + phase * style.radius) * size;
       context.beginPath();
-      context.arc(center.x, center.y, radius, 0, Math.PI * 2);
-      context.strokeStyle = `rgba(${definition.rgb}, ${(1 - phase) * (0.1 + magnitude * 0.06) * (1 - age * 0.45)})`;
-      context.lineWidth = 0.55 + magnitude * 0.13;
+      context.arc(center.x, center.y, radius, 0, tau);
+      context.strokeStyle = `rgba(${definition.rgb}, ${(1 - phase) * .6})`;
+      context.lineWidth = .75 + style.core * .09;
       context.stroke();
+      drawnRings++;
     }
     context.beginPath();
-    context.arc(center.x, center.y, 1.2 + magnitude * 0.45, 0, Math.PI * 2);
-    context.fillStyle = `rgba(255, 241, 202, ${0.38 + magnitude * 0.055})`;
+    context.arc(center.x, center.y, style.core * size, 0, tau);
+    context.fillStyle = "#ffe6b2";
     context.fill();
-    if (index === focusedEpicenterIndex) {
-      context.beginPath();
-      context.arc(center.x, center.y, 12, 0, Math.PI * 2);
-      context.strokeStyle = `rgba(${definition.rgb}, .95)`;
-      context.lineWidth = 1.5;
-      context.stroke();
-    }
     context.restore();
   });
+  canvas.dataset.planetPoiFocusState = state;
+  canvas.dataset.planetFocusedPoiIndex = String(focusedIndex);
+  canvas.dataset.planetQuakeStyle = "magnitude-recency";
+  canvas.dataset.planetQuakeMotion = reducedMotion ? "static" : "ripple";
+  canvas.dataset.planetQuakeVisible = String(visible);
+  canvas.dataset.planetQuakeRings = String(drawnRings);
+  canvas.dataset.planetPoiConnector = "false";
+  canvas.dataset.planetPoiFocusRadius = "0";
+  const point = data.points[focusedIndex];
+  if (!point) return;
+  const center = screenPoint(point, view);
+  if (center.x < 0 || center.y < 0 || center.x > view.rect.width || center.y > view.rect.height) return;
+  const radius = Math.max(12, quakeMarkers[focusedIndex].core * size + 6);
+  context.save();
+  // Keep the selected event legible regardless of the pulse's current phase.
+  context.drawImage(light, center.x - radius * 2, center.y - radius * 2, radius * 4, radius * 4);
+  context.beginPath();
+  context.arc(center.x, center.y, radius, 0, tau);
+  context.lineWidth = 1.5;
+  context.strokeStyle = "rgba(255, 229, 180, .95)";
+  context.stroke();
+  context.fillStyle = "#fff3d8";
+  context.beginPath();
+  context.arc(center.x, center.y, quakeMarkers[focusedIndex].core * size, 0, tau);
+  context.fill();
+  const panel = document.querySelector(interaction.selected ? "#japan-poi-card" : ".japan-poi-preview");
+  if (interaction.focused && panel && !panel.hidden && panel.getAttribute("aria-hidden") !== "true") {
+    const bounds = panel.getBoundingClientRect();
+    const end = { x: clamp(center.x, bounds.left - view.rect.left, bounds.right - view.rect.left),
+      y: clamp(center.y, bounds.top - view.rect.top, bounds.bottom - view.rect.top) };
+    const distance = Math.hypot(end.x - center.x, end.y - center.y);
+    if (distance > radius) {
+      context.beginPath();
+      context.moveTo(center.x + (end.x - center.x) * radius / distance, center.y + (end.y - center.y) * radius / distance);
+      context.lineTo(end.x, end.y);
+      context.strokeStyle = `rgba(${definition.rgb}, .45)`;
+      context.lineWidth = .8;
+      context.stroke();
+      canvas.dataset.planetPoiConnector = "true";
+    }
+  }
+  if (state === "epicenter") {
+    // The existing maximum-epicenter shortcut focuses without opening a card.
+    // Identify that point in place, without adding a persistent map panel.
+    context.font = "500 16px Georgia, serif";
+    context.textAlign = "center";
+    context.textBaseline = "bottom";
+    context.lineWidth = 4;
+    context.strokeStyle = "#071920";
+    const label = quakeMarkers[focusedIndex].label;
+    context.strokeText(label, center.x, center.y - radius - 7);
+    context.fillText(label, center.x, center.y - radius - 7);
+  }
+  context.restore();
+  canvas.dataset.planetPoiFocusRadius = radius.toFixed(2);
 };
 
 const drawCloud = (time, view, data, definition) => {
   data.points.forEach((point, index) => {
     if (!poiOpacity(index)) return;
     context.save();
-    context.globalAlpha = poiOpacity(index);
+    context.globalAlpha *= poiOpacity(index);
     const center = screenPoint(point, view);
     const cloud = clamp01(point.cloud / 100);
     const radiance = clamp01(point.radiation / 900);
@@ -643,28 +723,70 @@ const getAnchorLight = (definition) => {
   return light;
 };
 
-const drawDataAnchors = (view, data, definition, timestamp) => {
+const getFocusedPoi = definition => {
+  const interaction = globalThis.GaiaMapObservationAdapter?.getPoiInteraction?.();
+  const selected = interaction?.selected?.exhibitId === definition.id ? interaction.selected : null;
+  const hovered = interaction?.hovered?.exhibitId === definition.id ? interaction.hovered : null;
+  return { selected, hovered, focused: selected || hovered };
+};
+
+const drawWindDirection = (point, p, size, progress, timestamp) => {
+  const wind = windReading(point);
+  canvas.dataset.planetWindCue = wind ? "direction" : "calm";
+  canvas.dataset.planetWindFrom = wind ? String(wind.from) : "";
+  if (!wind) return;
+  // One upstream cue, only for the selected sample. No extra legend, target
+  // rings, or hit area; the original point/card remains the interaction owner.
+  const length = 76 * size, gap = 12 * size;
+  const head = { x: p.x - wind.dx * gap, y: p.y - wind.dy * gap };
+  const tail = { x: p.x - wind.dx * length, y: p.y - wind.dy * length };
+  const tint = context.createLinearGradient(tail.x, tail.y, head.x, head.y);
+  tint.addColorStop(0, "rgba(171, 237, 242, 0)");
+  tint.addColorStop(.5, "rgba(171, 237, 242, .7)");
+  tint.addColorStop(1, "rgba(231, 255, 251, .95)");
+  context.strokeStyle = tint;
+  context.lineWidth = 1.5 * size;
+  context.beginPath(); context.moveTo(tail.x, tail.y); context.lineTo(head.x, head.y); context.stroke();
+  context.strokeStyle = "rgba(231, 255, 251, .95)";
+  context.beginPath();
+  context.moveTo(head.x - wind.dx * 7 * size - wind.dy * 4 * size, head.y - wind.dy * 7 * size + wind.dx * 4 * size);
+  context.lineTo(head.x, head.y);
+  context.lineTo(head.x - wind.dx * 7 * size + wind.dy * 4 * size, head.y - wind.dy * 7 * size - wind.dx * 4 * size);
+  context.stroke();
+  if (!reducedMotion) {
+    const phase = ((timestamp - anchorFocusChangedAt) % 1400) / 1400;
+    const distance = length + (gap - length) * phase;
+    context.globalAlpha *= Math.sin(phase * Math.PI) * progress;
+    context.fillStyle = "#edfffb";
+    context.beginPath(); context.arc(p.x - wind.dx * distance, p.y - wind.dy * distance, 1.8 * size, 0, Math.PI * 2); context.fill();
+  }
+};
+
+const drawDataAnchors = (view, data, definition, timestamp, interaction) => {
+  const { selected, hovered, focused } = interaction;
+  const isWind = definition.renderer === "wind";
   const size = view.rect.width >= 2400 ? 1.6 : 1;
   const radius = 10 * size;
   const light = getAnchorLight(definition);
-  const centers = data.points.map((point, index) => ({ ...screenPoint(point, view), alpha: poiOpacity(index) }))
+  const centers = data.points.map((point, index) => ({ ...screenPoint(point, view), alpha: poiOpacity(index),
+    light: isWind ? { radius: 10, opacity: .7 } : observationLight(definition.renderer, point) }))
     .filter(p => p.alpha > 0 && p.x >= 0 && p.y >= 0 && p.x <= view.rect.width && p.y <= view.rect.height);
   context.save();
   centers.forEach(p => {
-    context.globalAlpha = .82 * p.alpha;
-    context.drawImage(light, p.x - radius, p.y - radius, radius * 2, radius * 2);
+    const r = p.light.radius * size;
+    context.globalAlpha = p.light.opacity * (selected ? (isWind ? .36 / .7 : .4) : 1)
+      * (1 - fieldIntroQuiet * .65) * p.alpha;
+    context.drawImage(light, p.x - r, p.y - r, r * 2, r * 2);
   });
   context.restore();
   canvas.dataset.planetAnchorStyle = "soft-pearl-light";
   canvas.dataset.planetAnchorCount = String(centers.length);
   canvas.dataset.planetAnchorRadius = radius.toFixed(2);
   canvas.dataset.planetAnchorOuterRadius = radius.toFixed(2);
+  canvas.dataset.planetObservationStyle = isWind ? "wind-light"
+    : definition.renderer === "air" ? "pm25-light" : "radiation-light";
 
   // Use the map's actual hover/selection, not another competing hit-test.
-  const interaction = globalThis.GaiaMapObservationAdapter?.getPoiInteraction?.();
-  const selected = interaction?.selected?.exhibitId === definition.id ? interaction.selected : null;
-  const hovered = interaction?.hovered?.exhibitId === definition.id ? interaction.hovered : null;
-  const focused = selected || hovered;
   const state = selected ? "selected" : hovered ? "hovered" : "none";
   const key = focused ? `${definition.id}:${state}:${focused.index}` : "";
   if (key !== anchorFocusKey) { anchorFocusKey = key; anchorFocusChangedAt = timestamp; }
@@ -702,6 +824,7 @@ const drawDataAnchors = (view, data, definition, timestamp) => {
   }
 
   context.drawImage(light, p.x - focusRadius, p.y - focusRadius, focusRadius * 2, focusRadius * 2);
+  if (isWind && selected) drawWindDirection(record, p, size, progress, timestamp);
   context.restore();
 };
 
@@ -727,15 +850,42 @@ const draw = (timestamp = performance.now()) => {
   context.clearRect(0, 0, view.rect.width, view.rect.height);
   context.globalCompositeOperation = "lighter";
   const definition = DEFINITIONS[activeIndex];
+  const interaction = getFocusedPoi(definition);
+  const isField = definition.renderer !== "quake";
+  const introVisible = layer.classList.contains("is-map-title-transitioning") || layer.classList.contains("is-map-data-intro");
+  // The field keeps moving during the guide and title. Quiet the copy area,
+  // then let the existing field gradually reclaim it without restarting.
+  const introTarget = isField && introVisible ? 1 : 0;
+  fieldIntroQuiet = reducedMotion ? introTarget : fieldIntroQuiet + (introTarget - fieldIntroQuiet) * .12;
+  if (Math.abs(fieldIntroQuiet - introTarget) < .002) fieldIntroQuiet = introTarget;
+  const selectedPoint = isField && interaction.selected && currentData.points[interaction.selected.index];
+  if (selectedPoint) fieldFocusPoint = screenPoint(selectedPoint, view);
+  const focusTarget = selectedPoint ? 1 : 0;
+  fieldFocusStrength = reducedMotion ? focusTarget : fieldFocusStrength + (focusTarget - fieldFocusStrength) * .2;
+  if (Math.abs(fieldFocusStrength - focusTarget) < .002) fieldFocusStrength = focusTarget;
+  if (!fieldFocusStrength) fieldFocusPoint = null;
+  canvas.dataset.planetWindCue = "none";
+  canvas.dataset.planetWindFrom = "";
+  canvas.dataset.planetQuakeStyle = "none";
   const volumetric = definition.renderer !== "quake" && atmosphereRenderer
     && atmosphereCanvas.dataset.fieldState !== "unavailable"
-    && atmosphereRenderer.render(timestamp, view, reducedMotion);
+    && atmosphereRenderer.render(timestamp, view, reducedMotion, {
+      intro: fieldIntroQuiet, focus: fieldFocusPoint, focusStrength: fieldFocusStrength,
+    });
   atmosphereCanvas.hidden = !volumetric;
   if (volumetric) {
     context.globalCompositeOperation = "source-over";
-    drawDataAnchors(view, currentData, definition, timestamp);
-  } else RENDERERS[definition.renderer](reducedMotion ? 0 : timestamp / 1000, view, currentData, definition);
-  const arrival = drawPoiArrivals(context, poiArrival, { now: timestamp, view, project: screenPoint,
+    drawDataAnchors(view, currentData, definition, timestamp, interaction);
+  } else {
+    context.globalAlpha = isField ? (1 - fieldIntroQuiet * .55) * (selectedPoint ? .55 : 1) : 1;
+    RENDERERS[definition.renderer](reducedMotion ? 0 : timestamp / 1000, view, currentData, definition, interaction, introVisible);
+    context.globalAlpha = 1;
+    if (isField) drawDataAnchors(view, currentData, definition, timestamp, interaction);
+  }
+  // Let the title/selected observation own the light, not simultaneous blooms.
+  const visibleArrival = (isField && (fieldIntroQuiet > .05 || selectedPoint))
+    || (definition.renderer === "quake" && (quakeIntroQuiet > .05 || interaction.focused || focusedEpicenterIndex >= 0)) ? null : poiArrival;
+  const arrival = drawPoiArrivals(context, visibleArrival, { now: timestamp, view, project: screenPoint,
     kind: definition.renderer, rgb: definition.rgb, sprite: getAnchorLight(definition) });
   canvas.dataset.planetArrivalPhase = poiArrival?.phase(timestamp) || "idle";
   canvas.dataset.planetArrivalEffect = definition.renderer;
@@ -816,6 +966,13 @@ const updatePlanetLegend = (definition, data = null) => {
     ? "参考用に生成した値です。ライブ観測・現在値ではありません。"
     : isQuake ? "USGSが公開する直近24時間の地震。針は最大規模。"
       : "取得できた格子のモデル値の単純平均です。全球の面積加重平均ではありません。";
+  const encoding = legend.querySelector("[data-planet-quake-encoding]");
+  encoding.hidden = !isQuake;
+  encoding.textContent = "円の大きさ：規模 · 光の強さ：配信時点からの新しさ";
+  const fieldEncoding = legend.querySelector("[data-planet-field-encoding]");
+  fieldEncoding.hidden = !["air", "cloud"].includes(definition.renderer);
+  fieldEncoding.textContent = definition.renderer === "air"
+    ? "霞の色・光点の大きさ：PM2.5 · 霞の濃さ：AOD" : "雲の濃淡：雲量 · 光点の明るさ・大きさ：日射";
 };
 
 const renderReadout = (definition, data) => {
@@ -874,6 +1031,11 @@ const select = async (index) => {
     };
   }
   activeIndex = index;
+  fieldIntroQuiet = 0;
+  fieldFocusStrength = 0;
+  fieldFocusPoint = null;
+  quakeMarkers = [];
+  quakeIntroQuiet = 0;
   currentData = null;
   focusedEpicenterIndex = -1;
   delete canvas.dataset.planetFocusedEpicenter;
@@ -887,6 +1049,8 @@ const select = async (index) => {
   canvas.dataset.planetPoiFocusState = "none";
   canvas.dataset.planetFocusedPoiIndex = "-1";
   canvas.dataset.planetPoiConnector = "false";
+  canvas.dataset.planetWindCue = "none";
+  canvas.dataset.planetWindFrom = "";
   atmosphereCanvas.hidden = true;
   globalThis.GaiaMapObservationAdapter?.closePoi?.();
   if (context) context.clearRect(0, 0, canvas.width, canvas.height);
@@ -927,6 +1091,12 @@ const select = async (index) => {
   const data = await loadData(definition);
   if (activeIndex !== index || revision !== selectionRevision) return;
   currentData = data;
+  if (definition.renderer === "quake") {
+    const referenceTime = Date.parse(data.observedAt);
+    quakeMarkers = data.points.map(point => ({
+      ...quakeMarkerStyle(point, referenceTime), label: `M${formatNumber(point.magnitude)}`,
+    }));
+  }
   poiRenderedAt = performance.now();
   poiArrival = createPoiArrival(data.points, poiRenderedAt, reducedMotion);
   delete readout.dataset.loading;
@@ -1038,6 +1208,8 @@ const mount = () => {
         <div class="gaia-planet-data-time"><span data-planet-time-label>数値の時刻</span><time data-planet-data-time>読込中</time><small data-planet-data-age>—</small></div>
         <p><span data-planet-legend-state>取得中</span> · <span data-planet-legend-count>—</span></p>
         <p data-planet-scope-note></p>
+        <p data-planet-quake-encoding hidden></p>
+          <p data-planet-field-encoding hidden></p>
         <p data-planet-detail-caption></p>
         <a class="gaia-planet-cloud-credit" data-cloud-image-credit href="https://visibleearth.nasa.gov/images/57747/blue-marble-clouds" target="_blank" rel="noopener noreferrer" hidden><span>雲の参考画像 · NASA Blue Marble ↗</span><small>2002年公開 · 現在の雲分布ではありません</small></a>
         <p class="gaia-planet-poi-key"><span>観測点 · クリック／タップで詳細</span></p>

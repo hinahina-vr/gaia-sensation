@@ -1,4 +1,13 @@
 GaiaI18n.register([
+  ["地球の円の中の、別の場所をクリックする。", "Click different places inside the globe.", "点击地球圆形区域内的不同位置。"],
+  ["地球の円の中の、別の場所をタップする。", "Tap different places inside the globe.", "轻点地球圆形区域内的不同位置。"],
+  ["地球の円の中を、左ボタンを押したまま左右に動かす。", "Inside the globe, hold the left mouse button and move side to side.", "在地球圆形区域内，按住鼠标左键左右拖动。"],
+  ["地球の円の中に指を置き、離さず左右にすべらせる。", "Place your finger inside the globe and slide side to side without lifting it.", "将手指放在地球圆形区域内，不要抬起，左右滑动。"],
+  ["地球の円の中を、左ボタンを押したまま上下に動かす。", "Inside the globe, hold the left mouse button and move up and down.", "在地球圆形区域内，按住鼠标左键上下拖动。"],
+  ["地球の円の中に指を置き、離さず上下にすべらせる。", "Place your finger inside the globe and slide up and down without lifting it.", "将手指放在地球圆形区域内，不要抬起，上下滑动。"],
+  ["地球の円の中を、左ボタンを押したまま大きく一周する。", "Inside the globe, hold the left mouse button and trace a large circle.", "在地球圆形区域内，按住鼠标左键画一个大圆。"],
+  ["地球の円の中に指を置き、離さず大きく一周する。", "Place your finger inside the globe and trace a large circle without lifting it.", "将手指放在地球圆形区域内，不要抬起，画一个大圆。"],
+  ["操作の見本", "Gesture example", "操作示范"],
   [
     "地球の海をなぞり、生命で満たしてください。",
     "Trace Earth’s oceans and fill them with life.",

@@ -69,8 +69,8 @@
       <footer class="gaia-feature-footer">
         <p><span data-feature-visit-note></span><span>ガイドから、いつでも見返せます。</span></p>
         <div>
-          <button type="button" data-feature-guide>操作ガイドを見る</button>
-          <button type="button" data-feature-start><span></span><b aria-hidden="true">→</b></button>
+          <button class="gaia-feature-secondary" type="button" data-feature-guide>操作ガイドを見る</button>
+          <button class="gaia-feature-primary" type="button" data-feature-start><span></span><b aria-hidden="true">→</b></button>
         </div>
       </footer>
     </article>`;
@@ -286,7 +286,7 @@
     requestAnimationFrame(() => requestAnimationFrame(() => {
       if (!activeId || request !== openRequest || layer.dataset.phase !== "features") return;
       layer.classList.add("is-feature-ready");
-      featureIntro.querySelector("[data-feature-start]").focus({ preventScroll: true });
+      featureIntro.querySelector(".gaia-feature-primary").focus({ preventScroll: true });
     }));
   };
   const finishTitle = () => {
@@ -301,7 +301,20 @@
     featureIntro.classList.toggle("is-illustrated", Boolean(features.illustrated));
     for (const name of ["kicker", "title", "copy", "note"]) featureIntro.querySelector(`[data-feature-${name}]`).textContent = features[name] || "";
     featureIntro.querySelector('[data-feature-note]').hidden = !features.note;
-    featureIntro.querySelector("[data-feature-start] span").textContent = features.startLabel || "はじめる";
+    const primary = featureIntro.querySelector(".gaia-feature-primary");
+    const secondary = featureIntro.querySelector(".gaia-feature-secondary");
+    // Action attributes retain their meaning for replay and other modes;
+    // visual prominence is independent of starting or skipping the guide.
+    const primaryStartsGuide = features.primaryStartsGuide === true;
+    primary.toggleAttribute("data-feature-guide", primaryStartsGuide);
+    primary.toggleAttribute("data-feature-start", !primaryStartsGuide);
+    secondary.toggleAttribute("data-feature-start", primaryStartsGuide);
+    secondary.toggleAttribute("data-feature-guide", !primaryStartsGuide);
+    primary.querySelector("span").textContent = features.startLabel || "はじめる";
+    primary.querySelector("b").textContent = primaryStartsGuide ? "▶" : "→";
+    const secondaryCopy = primaryStartsGuide ? "スキップ" : "操作ガイドを見る";
+    if (globalThis.GaiaI18n) globalThis.GaiaI18n.bind(secondary, secondaryCopy);
+    else secondary.textContent = secondaryCopy;
     featureIntro.querySelector("[data-feature-visit-note]").textContent = features.visitNote || "初回のご案内です。";
     const items = features.items.map((item, index) => {
       const article = document.createElement("section");
@@ -484,7 +497,7 @@
   }, true);
   document.addEventListener("focusin", (event) => {
     if (activeId && !layer.contains(event.target)) {
-      (layer.dataset.phase === "title" ? entryTitle.querySelector("button") : layer.dataset.phase === "features" ? featureIntro.querySelector("[data-feature-start]") : card.dataset.positioned ? layer.querySelector("[data-mode-guide-next]") : layer).focus({ preventScroll: true });
+      (layer.dataset.phase === "title" ? entryTitle.querySelector("button") : layer.dataset.phase === "features" ? featureIntro.querySelector(".gaia-feature-primary") : card.dataset.positioned ? layer.querySelector("[data-mode-guide-next]") : layer).focus({ preventScroll: true });
     }
   });
   addEventListener("resize", schedulePosition, { passive: true });

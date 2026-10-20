@@ -29,6 +29,8 @@
 .gaia-climate-timeline label { display:grid; grid-template-columns:auto minmax(0,1fr); gap:8px; align-items:center; }
 .gaia-climate-timeline input { width:100%; min-width:0; accent-color:#96ded7; }
 .gaia-climate-timeline > button { font-size:11px; margin-top:5px; }
+.gaia-climate-timeline [data-climate-regional] { margin-left:5px; }
+.gaia-climate-timeline [data-climate-regional][hidden] { display:none; }
 .gaia-climate-actions.gaia-map-actions { position:static; display:flex; padding:0; gap:7px; }
 .gaia-climate-actions .gaia-map-action { flex:1; min-width:0; }
 .gaia-climate-status { color:#98b4bc; font-size:10px; }
@@ -70,10 +72,52 @@
   .gaia-climate-timeline { display:grid;grid-template-columns:minmax(0,1fr) 75px;gap:7px;align-items:center; }
   .gaia-climate-timeline label { display:block;font-size:11px; }
   .gaia-climate-timeline > button { margin:0;min-height:40px; }
+  .gaia-climate-timeline [data-climate-regional] { grid-column:1 / -1; margin:0; }
   .gaia-climate-status { font-size:8px;margin-bottom:4px!important; }
   .gaia-climate-legend { position:fixed;top:var(--mobile-heading-bottom,108px);right:var(--mobile-side,10px);width:170px;padding:8px 10px;max-height:90px;overflow:hidden; }
   .gaia-climate-key h3 { font-size:10px; }
   .gaia-climate-legend .gaia-climate-insight,.gaia-climate-legend details { display:none; }
   .gaia-climate-key p { font-size:9px; }
   #map-mobile-sheet .gaia-climate-guide { font-size:inherit; }
+}
+
+/* The regional analysis is an on-demand dialog, leaving the map unobstructed. */
+.gaia-cyclone-regions { box-sizing:border-box; width:min(760px,calc(100vw - 24px)); max-width:none; max-height:calc(100dvh - 32px); padding:0; border:1px solid #a5d8c158; border-radius:12px; color:#d9ecef; background:#0a1d28; font:14px/1.75 var(--font-ja); }
+.gaia-cyclone-regions[open] { display:flex; flex-direction:column; }
+.gaia-cyclone-regions::backdrop { background:#020a12b8; }
+.gaia-cyclone-regions header { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:16px 22px; border-bottom:1px solid #a5d8c138; flex:none; }
+.gaia-cyclone-regions h2 { font-size:21px; margin:0; font-weight:500; }
+.gaia-cyclone-regions header small { color:#80c9d0; }
+.gaia-cyclone-regions :is(button,select) { box-sizing:border-box; font:inherit; color:inherit; background:#102e3c; border:1px solid #a5d8c158; border-radius:5px; min-height:44px; }
+.gaia-cyclone-regions button { cursor:pointer; }
+.gaia-cyclone-regions [data-region-close] { width:44px; height:44px; flex:none; font:26px/1 sans-serif; }
+.gaia-cyclone-regions :is(button,select,summary,a):focus-visible { outline:2px solid #ffdf9b; outline-offset:2px; }
+.gaia-cyclone-region-body { padding:0 22px 22px; overflow:auto; overscroll-behavior:contain; min-height:0; }
+.gaia-cyclone-region-controls { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:14px; }
+.gaia-cyclone-region-controls label { display:grid; gap:5px; min-width:0; }
+.gaia-cyclone-region-controls select { width:100%; min-width:0; padding:5px 8px; }
+.gaia-cyclone-region-note { font-size:12px; color:#a9c3cb; }
+.gaia-cyclone-region-insight { padding:14px 16px; border-left:2px solid #84d9d0; background:#12353c; }
+.gaia-cyclone-region-kpis { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; margin:20px 0; }
+.gaia-cyclone-region-kpis dt { font-size:12px; color:#b1d0d4; }
+.gaia-cyclone-region-kpis dd { font-size:25px; margin:2px 0; color:#e6f5e7; }
+.gaia-cyclone-region-kpis small { display:block; font-size:11px; color:#a9c3cb; overflow-wrap:anywhere; }
+.gaia-cyclone-region-tables { display:grid; grid-template-columns:1fr 1.25fr; gap:22px; align-items:start; }
+.gaia-cyclone-regions table { width:100%; border-collapse:collapse; font-size:12px; font-variant-numeric:tabular-nums; }
+.gaia-cyclone-regions caption { text-align:left; font-size:15px; color:#9fdfdc; margin-bottom:6px; }
+.gaia-cyclone-regions :is(td,th) { border-bottom:1px solid #a5d8c126; padding:5px 2px; text-align:right; font-weight:400; }
+.gaia-cyclone-regions tr > :first-child { text-align:left; }
+.gaia-cyclone-regions details { border-top:1px solid #a5d8c138; margin-top:20px; padding-top:12px; font-size:12px; }
+.gaia-cyclone-regions summary { cursor:pointer; }
+.gaia-cyclone-regions a { color:#a2e3df; overflow-wrap:anywhere; }
+@media(max-width:600px) {
+  .gaia-cyclone-regions { font-size:13px; }
+  .gaia-cyclone-regions header { padding:12px 14px; }
+  .gaia-cyclone-regions h2 { font-size:18px; }
+  .gaia-cyclone-region-body { padding:0 14px 16px; }
+  .gaia-cyclone-region-controls { gap:8px; }
+  .gaia-cyclone-region-kpis { grid-template-columns:1fr; gap:10px; }
+  .gaia-cyclone-region-kpis > div { border-bottom:1px solid #a5d8c126; padding-bottom:8px; }
+  .gaia-cyclone-region-kpis dd { font-size:23px; }
+  .gaia-cyclone-region-tables { grid-template-columns:1fr; gap:18px; }
 }

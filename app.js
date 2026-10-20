@@ -9,6 +9,7 @@
     { createSnapshotStore },
     { INITIAL_OBSERVATION_YEAR, initialObservationIndex },
     { recyclingSourceId, recyclingSourceLabel, recyclingDefinition, recyclingScope, recyclingYearNote, recyclingDetails, RECYCLING_COMPARABILITY },
+    { currentReading, mapReadingDetails, mapReadingTranslations },
   ] = await Promise.all([
     import('./src/exploration/japan-prefecture-view.js?v=gaia-prefecture-gis-view-1'),
     import('./src/shared/animated-metric.js'),
@@ -17,7 +18,9 @@
     import('./src/data/snapshot-store.js?v=gaia-hardening-1-perf-high-20260909'),
     import('./src/exploration/initial-observation-year.js?v=2016-20260926'),
     import('./src/data/recycling-provenance.js?v=recycling-coverage-1'),
+    import('./src/exploration/map-reading-details.js?v=map-reading-01-14-20261020'),
   ]);
+  globalThis.GaiaI18n?.register(mapReadingTranslations);
   const snapshotStore = createSnapshotStore({ manifestUrl: new URL("./data/runtime/gaia-manifest.json?v=recycling-coverage-1", document.baseURI).href });
   let snapshotOwnerDisposed = false;
   window.addEventListener("pagehide", event => {
@@ -4402,6 +4405,9 @@
         ];
         return {
           kind: "current-vector",
+          uMs: row.uMs,
+          vMs: row.vMs,
+          time: row.time,
           lon: row.lon,
           lat: row.lat,
           meta: `${state?.dateLabel || row.time} / 海流 ${speed.toFixed(2)} m/s / ${direction}方向`,
@@ -4768,7 +4774,12 @@
         || maximum <= minimum
         || !Array.isArray(colors)
         || colors.length < 2
-      ) return null;
+      ) {
+        // A missing selected-cell value must not leave the previous global
+        // mean in the mobile reading sheet.
+        globalThis.GaiaMobileMap?.setMetric(null);
+        return null;
+      }
       const compact = rect.width < 680;
       if (globalThis.GaiaMobileMap?.isActive()) {
         const normalized = scale === "log"
@@ -4791,6 +4802,17 @@
       // Story observations follow the left-hand key, including narrow dialogs.
       const compactPanelY = storyMap ? 76 : 228;
       let panelY = getLegendSafePanelY(panelX, panelWidth, defaultY ?? (compact ? compactPanelY : 54), 8);
+      // The small basemap provenance note is independently positioned below
+      // the legend. Keep it from covering the selected/average scope label.
+      if (["breathing-earth", "blue-circulation", "forest-cloud-engine", "nothing-is-waste", "anthropocene-scar",
+        "rhythm-of-disaster", "earth-organ", "population-tide"].includes(signalMode.id)
+        && mapScopeNote?.getClientRects().length) {
+        const note = mapScopeNote.getBoundingClientRect();
+        if (rect.left + panelX < note.right && rect.left + panelX + panelWidth > note.left
+          && rect.top + panelY < note.bottom && rect.top + panelY + panelHeight > note.top) {
+          panelY = note.bottom - rect.top + 8;
+        }
+      }
       const draggedPanel = globalThis.GaiaMapLegendDrag?.placeMetric({
         left: rect.left + panelX, top: rect.top + panelY, width: panelWidth, height: panelHeight,
       });
@@ -4927,6 +4949,7 @@
 
     if (signalMode.id === "breathing-earth") {
       const state = getBreathingEarthState(signalMode);
+      const cell = selectedJapanPoi?.type === "data" ? selectedJapanPoi.record : null;
       renderGosatHeatmap(ctx, rect, left, top, state);
       japanOverlay.dataset.auroraForecast = ovationAuroraState.status;
       japanOverlay.dataset.auroraForecastSource = ovationAuroraState.source;
@@ -4945,9 +4968,9 @@
       }
       drawQuantitativeLegendPanel({
         id: "co2-concentration",
-        title: "大気CO₂濃度 / 全球平均",
-        current: `${state.timeline?.yearLabel || state.selectedYear || "—"}　${state.timeline?.referencePpm?.toFixed(1) || "—"} ppm`,
-        value: Number(state.timeline?.referencePpm),
+        title: cell ? "大気CO₂濃度 / 選択セル" : "大気CO₂濃度 / 全球平均",
+        current: `${state.timeline?.yearLabel || state.selectedYear || "—"}　${cell ? `約 ${formatObservationNumber(cell.valuePpm, 1)}` : state.timeline?.referencePpm?.toFixed(1) || "—"} ppm`,
+        value: cell ? (cell.valuePpm ?? NaN) : Number(state.timeline?.referencePpm),
         minimum: 300,
         maximum: 500,
         minimumLabel: "300 ppm",
@@ -4957,6 +4980,7 @@
       ctx.textAlign = "left";
     } else if (signalMode.id === "blue-circulation") {
       const state = getBlueCirculationState(signalMode);
+      const chosenCurrent = selectedJapanPoi?.type === "data" ? currentReading(selectedJapanPoi.record) : null;
       const longitudeCopies = [0];
       const pulse = reducedMotion ? 0.68 : 0.62 + Math.sin(time * 1.15) * 0.12;
       const arrowStride = rect.width <= 720 ? 6 : 5;
@@ -5116,9 +5140,9 @@
       }
       drawQuantitativeLegendPanel({
         id: "ocean-current-speed",
-        title: "海流速度 / 観測点平均",
-        current: `平均 ${state?.meanSpeedMs?.toFixed(2) || "—"} m/s`,
-        value: Number(state?.meanSpeedMs),
+        title: chosenCurrent ? "海流速度 / 選択地点" : "海流速度 / 観測点平均",
+        current: chosenCurrent ? `${chosenCurrent.direction}　${chosenCurrent.speed.toFixed(2)} m/s` : `平均 ${state?.meanSpeedMs?.toFixed(2) || "—"} m/s`,
+        value: chosenCurrent ? chosenCurrent.speed : Number(state?.meanSpeedMs),
         minimum: 0,
         maximum: 1.5,
         minimumLabel: "0 m/s",
@@ -5226,7 +5250,7 @@
         maximumLabel: `${FOREST_RAIN_REFERENCE_MAX_MM_DAY.toFixed(1)} mm/日以上`,
         colors: ["rgb(25,125,255)", "rgb(91,218,255)", "rgb(226,252,255)"],
       });
-      if (sequence?.selected) {
+      if (sequence?.selected && !selectedJapanPoi) {
         const row = sequence.selected;
         const point = pointFor(row);
         if (visible(point)) drawRainSelectionLabel(point, row, getForestRainRadius(row.precipitationMmDay));
@@ -5441,7 +5465,7 @@
           ctx.fillStyle = "rgba(255,239,146,.98)";
           ctx.fill();
           ctx.restore();
-          drawSelectionLabel(point, getCountryNameJa(selected),
+          if (!selectedJapanPoi) drawSelectionLabel(point, getCountryNameJa(selected),
             `再資源化率　${selected.recyclePercent.toFixed(1)}%`, null,
             { radius: 8, detail: `${selected.year}年 · ${recyclingSourceLabel(selected)}` });
         }
@@ -5621,6 +5645,7 @@
           : null;
         const activeCameraLabelVisible = Boolean(
           activeCameraReveal
+          && japanPoiCard.hidden
           && activeCameraLabelAlpha > 0.01
           && (!cameraSequence.returned || yearTransition.phase === "exit")
           && !cameraSequence.suppressed
@@ -5969,7 +5994,7 @@
           japanOverlay.dataset.energyPanelLegendClearance = japanOverlay.dataset.auxiliaryPanelLegendClearance;
         }
       }
-      if (readout) drawRenewableObservationLabel(readout.point, readout.selected, readout.radius, energyPanel);
+      if (readout && japanPoiCard.hidden) drawRenewableObservationLabel(readout.point, readout.selected, readout.radius, energyPanel);
       japanOverlay.dataset.renewableSelectionLabelVisible = japanOverlay.dataset.selectionLabelVisible;
     } else if (signalMode.id === "population-tide") {
       const state = getMapSequenceState(signalMode);
@@ -6030,7 +6055,7 @@
         if (!selectedRow && rect.width >= 760 && row.population >= maximumPopulation * 0.12) {
           populationLabels.push({ point, radius, text: formatPopulationCompact(row.population), alpha: reveal.alpha });
         }
-        if (selectedRow) {
+        if (selectedRow && japanPoiCard.hidden) {
           drawSelectionLabel(point, getCountryNameJa(row),
             `人口　${formatObservationNumber(animatedPopulation(row), 0)} 人`, null,
             { radius, detail: `${row.year}年 · 円の面積が人口に比例` });
@@ -6142,6 +6167,55 @@
   };
 
   const renderJapanPoiFocus = (ctx, rect, left, top, now, ratio) => {
+    // Keep a persistent, restrained selection cue after hover becomes a card.
+    // It marks an inspected cell/site, not an area of influence or uncertainty.
+    delete japanOverlay.dataset.selectedReadingMode;
+    const selectedMode = getActiveSignalMode()?.id;
+    if (selectedJapanPoi?.type === "data"
+      && ["breathing-earth", "blue-circulation", "forest-cloud-engine", "nothing-is-waste", "anthropocene-scar",
+        "rhythm-of-disaster", "earth-organ", "population-tide"].includes(selectedMode)) {
+      const record = selectedJapanPoi.record;
+      const point = japanWorldToScreen(record.lon, record.lat, left, top);
+      if (point.x >= 0 && point.x <= rect.width && point.y >= 0 && point.y <= rect.height) {
+        japanOverlay.dataset.selectedReadingMode = selectedMode;
+        ctx.save();
+        ctx.globalCompositeOperation = "source-over";
+        ctx.strokeStyle = "rgba(229,252,245,.95)";
+        ctx.lineWidth = 1.5;
+        const radius = selectedMode === "population-tide" ? getPopulationRadius(record.population, rect) + 6
+          : selectedMode === "rhythm-of-disaster" ? 22
+          : selectedMode === "forest-cloud-engine" ? getForestRainRadius(record.precipitationMmDay) + 6 : 14;
+        ctx.beginPath();
+        if (record.kind === "gosat-grid") {
+          const nw = japanWorldToScreen(record.bounds.west, record.bounds.north, left, top);
+          const se = japanWorldToScreen(record.bounds.east, record.bounds.south, left, top);
+          // Use the local cell width so the dateline cannot produce a world-wide rectangle.
+          const cellWidth = (record.bounds.east - record.bounds.west) * earthBaseScale(rect) * japanView.earthZoom;
+          ctx.rect(point.x - cellWidth / 2, nw.y, cellWidth, se.y - nw.y);
+        } else {
+          ctx.arc(point.x, point.y, radius, 0, Math.PI * 2);
+        }
+        ctx.stroke();
+        if (selectedMode === "blue-circulation") {
+          const reading = currentReading(record);
+          if (reading?.speed > 0) drawVectorArrow(ctx, point.x, point.y, record.uMs / reading.speed, record.vMs / reading.speed, "rgba(238,255,249,.98)", 32);
+        }
+        // A hairline visually links the actual selected site to its detail card.
+        const card = japanPoiCard.getBoundingClientRect();
+        if (!japanPoiCard.hidden && card.width > 0) {
+          const edgeX = clamp(point.x, card.left - rect.left, card.right - rect.left);
+          const edgeY = clamp(point.y, card.top - rect.top, card.bottom - rect.top);
+          const distance = Math.hypot(edgeX - point.x, edgeY - point.y);
+          if (distance > radius + 8) {
+            ctx.beginPath();
+            ctx.moveTo(point.x + (edgeX - point.x) * (radius + 4) / distance, point.y + (edgeY - point.y) * (radius + 4) / distance);
+            ctx.lineTo(edgeX, edgeY);
+            ctx.strokeStyle = "rgba(174,218,210,.45)"; ctx.lineWidth = 1; ctx.stroke();
+          }
+        }
+        ctx.restore();
+      }
+    }
     if (!hoveredJapanPoi || selectedJapanPoi || japanLayer.classList.contains("is-live-exhibit") || japanLayer.classList.contains("is-firms-exhibit")) {
       return;
     }
@@ -7269,7 +7343,11 @@
     );
     const commandDock = japanLayer.querySelector(".map-command-dock");
     const dockTop = commandDock?.getClientRects().length ? commandDock.getBoundingClientRect().top - layerRect.top : layerRect.height;
-    const bottomEdge = Math.min(layerRect.height - 20, dockTop - 12);
+    const credits = japanLayer.querySelector(".japan-credits");
+    const creditsBox = credits?.getClientRects().length ? credits.getBoundingClientRect() : null;
+    const creditsTop = creditsBox && left + layerRect.left < creditsBox.right && left + layerRect.left + cardWidth > creditsBox.left
+      ? creditsBox.top - layerRect.top : layerRect.height;
+    const bottomEdge = Math.min(layerRect.height - 20, dockTop - 12, creditsTop - 12);
     const top = clamp(localY - 70, 20, Math.max(20, bottomEdge - cardHeight));
     japanPoiCard.style.left = `${left}px`;
     japanPoiCard.style.top = `${top}px`;
@@ -7289,7 +7367,17 @@
       const name = document.createElement("span"); name.className = "japan-poi-name"; name.textContent = title.join(" / ");
       japanPoiType.replaceChildren(name, separator(), category);
     }
-    const details = selectedJapanPoi?.type === "exhibit" ? selectedJapanPoi.record.cardDetails : null;
+    const mode = getActiveSignalMode();
+    const record = selectedJapanPoi?.record;
+    const details = selectedJapanPoi?.type === "exhibit" ? record.cardDetails
+      : selectedJapanPoi?.type === "data" ? mapReadingDetails(mode?.id, record, {
+        location: mode?.id === "forest-cloud-engine" ? getForestRainSiteName(record) : record.iso3 ? getCountryNameJa(record) : "",
+        coordinates: formatCoordinateJa(record.lat, record.lon),
+        horizonHours: mode?.id === "blue-circulation" ? getBlueCirculationState(mode)?.horizonHours : null,
+        recyclingDetails: mode?.id === "nothing-is-waste" ? recyclingDetails(record) : "",
+        recyclingSource: mode?.id === "nothing-is-waste" ? recyclingSourceLabel(record) : "",
+        eventTime: mode?.id === "rhythm-of-disaster" ? formatJapanEventTime(record.occurredAt) : "",
+      }) : null;
     japanPoiCard.classList.toggle("has-observation-summary", Boolean(details));
     if (details) {
       const span = (className, text) => {
@@ -7306,11 +7394,19 @@
         const fact = span("japan-poi-fact");
         const number = document.createElement("strong");
         number.textContent = value;
+        if (index === 1 && (Number.isFinite(details.windFrom) || Number.isFinite(details.currentTo))) {
+          const direction = span("japan-poi-wind-direction", "↑");
+          direction.setAttribute("aria-hidden", "true");
+          // The value is the meteorological FROM bearing; the arrow shows TO.
+          direction.style.setProperty("--wind-to", `${Number.isFinite(details.currentTo) ? details.currentTo : details.windFrom + 180}deg`);
+          number.prepend(direction);
+        }
         fact.append(span("japan-poi-metric-label", `${label} `), number);
         if (index) metrics.append(separator());
         metrics.append(fact);
       });
       const note = span("japan-poi-observation-note");
+      if (details.timeLabel) note.append(span("japan-poi-time-label", details.timeLabel), document.createTextNode(" "));
       note.append(span("japan-poi-observed-time", details.time), separator(), span("japan-poi-data-state", details.state));
       const provenance = span("japan-poi-provenance", details.source);
       if (details.model) provenance.append(document.createTextNode(` / ${details.model}`));
@@ -10186,6 +10282,20 @@ for (const country of countryValues) {
 
   resetButton.addEventListener("click", clearSession);
 
+  // A touch opens the POI card on pointerup. Its ensuing synthetic click can
+  // otherwise hit a source link newly placed under that same finger.
+  // A fresh press or a keyboard click is always an intentional card action.
+  let pendingPoiTapClick = false;
+  japanLayer.addEventListener("pointerdown", () => { pendingPoiTapClick = false; }, { capture: true });
+  japanLayer.addEventListener("click", event => {
+    if (!pendingPoiTapClick) return;
+    pendingPoiTapClick = false;
+    if (event.detail > 0 && event.target instanceof Element && event.target.closest("#japan-poi-card")) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    }
+  }, { capture: true });
+
   japanMap.addEventListener("pointerdown", (event) => {
     if (!japanIsOpen) {
       return;
@@ -10313,6 +10423,7 @@ for (const country of countryValues) {
           || japanLayer.matches(".is-firms-exhibit, .is-marine-cod-exhibit, .is-food-exhibit, .is-climate-history-exhibit");
         const poi = findJapanPoiAt(event.clientX, event.clientY, event.pointerType);
         if (poi) {
+          pendingPoiTapClick = true;
           openJapanPoi(poi, event.clientX, event.clientY);
         } else {
           closeJapanPoi();
@@ -10901,6 +11012,7 @@ for (const country of countryValues) {
       title: "さあ、地球のふしぎを見つけにいこう！",
       copy: `動く地球をながめる。時間を旅する。「なぜ？」を探る。${globalThis.GaiaMapCategories.exhibitCount}の展示を、自分の手で楽しもう。`,
       startLabel: "地球を見にいく",
+      primaryStartsGuide: true,
       note: "",
       items: [
         { icon: "live", image: "./assets/modes/guide-map-live-mizu-ame-v2.webp", tag: "リアルタイムの演出", title: "いま、地球で何が起きてる？", copy: "火災・風・地震が、地図の光や動きに。公開データで地球のいまを発見！ ライブと保存値の違いも確認できます。" },

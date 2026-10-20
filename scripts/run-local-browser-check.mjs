@@ -18,7 +18,8 @@ const server = http.createServer((req, res) => {
   try {
     const pathname = decodeURIComponent(new URL(req.url, 'http://localhost').pathname);
     const relative = ['/world', '/world/'].includes(pathname) ? 'world.html'
-      : ['/', '/story', '/story/'].includes(pathname) ? 'index.html' : pathname.replace(/^\/+/, '');
+      : ['/', '/story', '/story/'].includes(pathname) ? 'index.html'
+      : pathname.replace(/^\/+/, '') + (pathname.endsWith('/') ? 'index.html' : '');
     let file = path.resolve(root, relative);
     if (!file.startsWith(root + path.sep)) { res.writeHead(403).end(); return; }
     if (baseline && fs.existsSync(path.join(baseline, relative))) file = path.join(baseline, relative);

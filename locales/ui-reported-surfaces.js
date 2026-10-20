@@ -1,4 +1,5 @@
 GaiaI18n.register([
+  ["スキップ","Skip","跳过"],
   ["白い光の向こうで、海が揺れていた。","Beyond the white light, the sea was swaying.","白光的彼端，海面轻轻摇曳。"],
   ["潮の匂いを含んだ風と、","A breeze carrying the scent of salt,","风里带着海的咸味，"],
   ["遠くの誰かの笑い声。","and someone’s laughter in the distance.","远处传来谁的笑声。"],

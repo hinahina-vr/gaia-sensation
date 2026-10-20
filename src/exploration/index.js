@@ -2,15 +2,15 @@
 import governor from "./lod-governor.js?v=gaia-budget-devices-1";
 import { mount } from "./live-data.js?v=gaia-national-analysis-1-hourly-20260912";
 import "./live-exhibits.js?v=gaia-map-polish-1-live-red-1-footer-credit-1-credit-clearance-1-marine-cod-1-status-place-20260909-fao-food-1-hourly-20260912-prefecture-fill-20260912-unified-playback-20260912-i18n-20260913-action-icons-ready-20260926";
-import "./estat-exhibits.js?v=gaia-map-polish-1-marine-cod-1-perf-high-20260909-fao-food-1-unified-playback-20260912-i18n-20260913-action-icons-ready-20260926-initial-2016";
-import "./firms-exhibit.js?v=gaia-firms-cruise-animation-20260914-wind-first-tooltip-20260925-action-icons-ready-20260926";
-import "./planet-signals-exhibit.js?v=gaia-map-polish-1-live-red-1-footer-credit-1-marine-cod-1-fao-food-1-i18n-20260913-wind-strength-color-20260913-wind-first-tooltip-20260925-action-icons-ready-20260926";
+import "./estat-exhibits.js?v=gaia-map-polish-1-marine-cod-1-perf-high-20260909-fao-food-1-unified-playback-20260912-i18n-20260913-action-icons-ready-20260926-initial-2016-stable-stat-entry-20261020";
+import "./firms-exhibit.js?v=gaia-firms-cruise-animation-20260914-wind-first-tooltip-20260925-action-icons-ready-20260926-map-reading-20261020";
+import "./planet-signals-exhibit.js?v=gaia-map-polish-1-live-red-1-footer-credit-1-marine-cod-1-fao-food-1-i18n-20260913-wind-strength-color-20260913-wind-first-tooltip-20260925-action-icons-ready-20260926-wind-first-view-20261020-quake-first-view-20261020-map-reading-20261020";
 import "./marine-cod-exhibit.js?v=gaia-marine-cod-1-cod-ui-20260909-japan-sensor-open-1-pollution-1-title-poi-20260909-perf-high-20260909-prtr-biology-1-fao-food-1-unified-playback-20260912-exhibit-links-20260912-i18n-20260913-status-right-20260913-action-icons-ready-20260926-initial-2016-annual-crossfade-20260926-vector-cache-20261013";
 import "./food-exhibits.js?v=fao-food-1-food-country-fill-20260910-unified-playback-20260912-i18n-20260913-action-icons-ready-20260926-initial-2016";
 import "./map-theme-background.js?v=theme-background-20260912-wind-first-tooltip-20260925-climate-20261013";
 import "./map-demo.js?v=gaia-firms-cruise-animation-20260914-wind-first-tooltip-20260925-climate-20261013";
 
-import "./climate-history-exhibits.js?v=climate-polish-20261015";
+import "./climate-history-exhibits.js?v=climate-regions-20261018";
 
 globalThis.GaiaExploration = Object.freeze({ governor, live: globalThis.GaiaLiveData });
 void mount().catch((error) => console.error(error));
