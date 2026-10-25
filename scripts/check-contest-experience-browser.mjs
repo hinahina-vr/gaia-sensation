@@ -502,15 +502,20 @@ try {
     assert.equal(await directPage.locator("#gaia-opening-sound-modal.is-visible").count(), 0, `${hash} must bypass entry`);
   }
   report.entry.directRoutes = "passed";
-  await directPage.goto(new URL("/#earth", baseUrl).href, { waitUntil: "domcontentloaded", timeout: 90_000 });
-  await directPage.waitForFunction(() => Boolean(globalThis.GaiaMapObservationAdapter), null, { timeout: 30_000 });
-  // Use the canonical route: the legacy #japan alias is normalized to #world-01.
+  // Legacy aliases are exercised above. Use distinct canonical exhibit routes
+  // for history so asynchronous alias normalization is not a history assertion.
+  await directPage.goto(new URL("/#world-02", baseUrl).href, { waitUntil: "domcontentloaded", timeout: 90_000 });
+  await directPage.waitForFunction(() => Boolean(globalThis.GaiaMapObservationAdapter)
+    && document.querySelector("#japan-mode-number")?.textContent.trim() === "02"
+    && globalThis.GaiaMapPlayback?.getState().ready, null, { timeout: 30_000 });
+  // Move between two actual exhibits, then verify browser back/forward.
   await directPage.evaluate(() => { location.hash = "#world-01"; });
   await directPage.waitForFunction(() => location.hash === "#world-01"
     && document.querySelector("#japan-layer")?.getAttribute("aria-hidden") === "false");
   await directPage.goBack({ waitUntil: "domcontentloaded" });
-  await directPage.waitForURL(url => url.hash === "#earth");
-  assert.equal(await directPage.evaluate(() => location.hash), "#earth");
+  await directPage.waitForURL(url => url.hash === "#world-02");
+  await directPage.waitForFunction(() => document.querySelector("#japan-mode-number")?.textContent.trim() === "02");
+  assert.equal(await directPage.evaluate(() => location.hash), "#world-02");
   await directPage.goForward({ waitUntil: "domcontentloaded" });
   await directPage.waitForURL(url => url.hash === "#world-01");
   assert.equal(await directPage.evaluate(() => location.hash), "#world-01");
