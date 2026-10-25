@@ -73,8 +73,8 @@ try {
       await page.locator('[data-mobile-sheet="reading"]').click();
       await page.waitForTimeout(100);
       const reading = page.locator("#map-mobile-sheet");
-      assert((await reading.textContent()).includes("実測海流や人の移動経路ではありません。"));
-      assert((await reading.textContent()).includes("雨の頻度"));
+      assert((await reading.textContent()).includes("海の光と流れは、展示に合わせた抽象演出です。"));
+      assert((await reading.textContent()).includes("量と頻度の違い"));
       await page.screenshot({ path: path.join(output, `${width}-reading.png`) });
     }
     console.log(`PASS ${width}: ${mode === "record" ? "baseline captured" : "all ten explanations fit; controls remain reachable"}`);

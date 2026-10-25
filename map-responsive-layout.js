@@ -22,7 +22,7 @@
     const existing=new Set([...sourcePanel.querySelectorAll('#data-ledger-sources a[href]')].map(a=>a.href));
     const uses=[
       ['naturalearthdata.com','地図の形を描く','陸地・国境の描画に使用。選択中のテーマの数値や統計計算には使用しません。'],
-      ['github.com/dataofjapan/land','都道府県の境界を描く','都道府県の輪郭の描画に使用。分析する観測値の出典ではありません。'],
+      ['github.com/dataofjapan/land','都道府県の境界を描く','都道府県の境界線の描画に使用。分析する観測値の出典ではありません。'],
       ['data.jma.go.jp/eqdb','地震テーマの震度表示','過去の地震・震度を表示する機能に使用。選択中のテーマの分析元として使う場合は、上のデータ欄に記載します。'],
       ['earthquake.usgs.gov','地震テーマの観測表示','地震の観測情報を表示する機能に使用。選択中のテーマの分析元として使う場合は、上のデータ欄に記載します。'],
       ['openstreetmap.org','背景地図を描く','背景地図のタイル画像に使用。観測値や統計計算には使用しません。'],

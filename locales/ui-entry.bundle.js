@@ -325,7 +325,7 @@ GaiaI18n.register([
   ["使用：宇宙09","Used in: Space 09","用于：宇宙09"],
   ["はやぶさ2がレーザーで測った、リュウグウまでの距離","Hayabusa2’s laser measurements of the distance to Ryugu","隼鸟2号用激光测量的龙宫距离"],
   ["はやぶさ2のLIDARはレーザーを送り、反射が戻るまでの時間から探査機と小惑星表面の距離を測りました。DARTSでは時刻、距離、表面位置など11列のCSVが公開されています。","Hayabusa2’s LIDAR sent laser pulses and measured the return time to calculate the distance from the spacecraft to the asteroid’s surface. DARTS publishes an 11-column CSV including time, distance, and surface position.","隼鸟2号的LIDAR发射激光，根据反射光返回所需时间测量探测器到小行星表面的距离。DARTS公开了包含时刻、距离、表面位置等11列的CSV。"],
-  ["2018年7月1日の公式CSVを保存し、表面中心からの高さを輪郭の凹凸へ変えます。一日の一部で、全面地形図ではありません。","The saved official CSV for July 1, 2018 turns surface heights relative to the center into an uneven outline. It covers part of one day, not a complete terrain map.","保存2018年7月1日的官方CSV，将相对中心的表面高度转化为轮廓起伏。仅涵盖一天中的部分记录，并非完整地形图。"],
+  ["2018年7月1日の公式CSVを保存し、表面中心からの高さを地形の起伏へ変えます。一日の一部で、全面地形図ではありません。","The saved official CSV for July 1, 2018 turns surface heights relative to the center into an uneven outline. It covers part of one day, not a complete terrain map.","保存2018年7月1日的官方CSV，将相对中心的表面高度转化为轮廓起伏。仅涵盖一天中的部分记录，并非完整地形图。"],
   ["11列の説明 ↗","Explanation of the 11 columns ↗","11列数据说明 ↗"],
   ["公開データとGXの関係を、物語でたどる。","Explore the connection between open data and GX through a story.","通过故事探索公开数据与GX的关系。"],
   ["ストーリーモードへ","Enter story mode","进入故事模式"],
@@ -1298,12 +1298,12 @@ GaiaI18n.register([
     "点"
   ],
   [
-    "はやぶさ2はレーザーを当て、光が戻るまでの時間からリュウグウとの距離を測りました。その距離と機体の位置を使い、測定点を凹凸のある輪郭として立ち上げます。",
+    "はやぶさ2はレーザーを当て、光が戻るまでの時間からリュウグウとの距離を測りました。その距離と機体の位置を使い、測定点を表面の起伏として描きます。",
     "Hayabusa2 measured its distance from Ryugu by timing the return of laser light. Those distances and the spacecraft’s position raise the measurement points into an uneven outline.",
     "隼鸟2号向龙宫小行星发射激光，通过光返回所需的时间测量距离。画面利用这些距离和探测器位置，将测量点构成立体起伏的轮廓。"
   ],
   [
-    "リュウグウへ触れると測定点を選び、輪郭に小さな起伏を残せます。収録した一日の一部分であり、天体全面の完成地形図ではありません。",
+    "リュウグウへ触れると測定点を選び、表面に小さな起伏を残せます。収録した一日の一部分であり、天体全面の完成地形図ではありません。",
     "Touch Ryugu to select a measurement point and leave a small bump in its outline. These data cover part of one day, not a complete topographic map of the entire body.",
     "触摸龙宫小行星可选择测量点，并在轮廓上留下细微起伏。这里只收录了一天中的部分数据，并非天体全表面的完整地形图。"
   ],
@@ -2080,7 +2080,7 @@ GaiaI18n.register([
     "0.5–2.0 R⊕、180–330 K。这些条件不表示生命是否存在。"
   ],
   [
-    "輪郭＝リュウグウ、光点＝レーザー測距点、探査機から伸びる線＝選択した測距です。起伏は測定値から強調しています。",
+    "面＝リュウグウ、光点＝レーザー測距点、探査機から伸びる線＝選択した測距です。起伏は測定値から強調しています。",
     "The outline is Ryugu; light points are laser-ranging measurements. The line from the spacecraft marks the selected measurement. Surface relief is exaggerated from the measured values.",
     "轮廓表示龙宫小行星，光点表示激光测距点，从探测器延伸的线表示所选测量。地形起伏依据测量值进行了夸张呈现。"
   ],
@@ -2090,7 +2090,7 @@ GaiaI18n.register([
     "发射激光测距脉冲"
   ],
   [
-    "リュウグウへ触れて測距点を選ぶ。距離と三次元座標から輪郭が立ち上がります。",
+    "リュウグウへ触れて測距点を選ぶ。距離と三次元座標から地形を描きます。",
     "Touch Ryugu to select a ranging point. Distances and three-dimensional coordinates form its outline.",
     "触摸龙宫小行星以选择测距点。距离与三维坐标构成其轮廓。"
   ],
@@ -2100,7 +2100,7 @@ GaiaI18n.register([
     "测距值 → 光路"
   ],
   [
-    "地形座標 → 輪郭",
+    "地形座標 → 起伏",
     "Terrain coordinates → outline",
     "地形坐标 → 轮廓"
   ],
@@ -2335,7 +2335,7 @@ GaiaI18n.register([
     "将 {distance} m 显示为探测器到表面的虚线"
   ],
   [
-    "経度 {longitude}°・高さ {height} mを輪郭点へ変換",
+    "経度 {longitude}°・高さ {height} mを地形の点へ変換",
     "Convert longitude {longitude}° and height {height} m into an outline point",
     "将经度 {longitude}°、高度 {height} m 转换为轮廓点"
   ],
@@ -3954,7 +3954,7 @@ GaiaI18n.register([
   ["半径と平衡温度","Radius and equilibrium temperature","半径与平衡温度"],
   ["大きさと平衡温度が設定範囲に入る系外惑星を、生命判定とは分けて見る。","View exoplanets whose size and equilibrium temperature fall within set ranges, separately from any assessment of life.","查看大小与平衡温度落在设定范围内的系外行星，不将其视为生命判断。"],
   ["リュウグウの地形","Ryugu’s terrain","龙宫的地形"],
-  ["はやぶさ2のレーザー高度計が測った距離と表面位置を、凹凸のある輪郭で見る。","See distances and surface positions measured by Hayabusa2’s laser altimeter as an uneven outline.","将隼鸟2号激光测高仪测量的距离与表面位置，化作起伏的轮廓。"],
+  ["はやぶさ2のレーザー高度計が測った距離と表面位置を、表面の起伏で見る。","See distances and surface positions measured by Hayabusa2’s laser altimeter as an uneven outline.","将隼鸟2号激光测高仪测量的距离与表面位置，化作起伏的轮廓。"],
   ["八つの公開資料","Eight public sources","八份公开资料"],
   ["太陽、地球近傍、小惑星、系外惑星の違う信号を、合計せず一つの網へ重ねる。","Overlay different signals from the Sun, near-Earth space, asteroids, and exoplanets in a single network without adding them together.","将太阳、近地空间、小行星与系外行星的不同信号叠加为一张网络，并不将数值相加。"],
 ]);
@@ -3991,9 +3991,9 @@ GaiaI18n.register([
   ["同じ速さと向きが14日続くと、選んだ地点から何km先まで進む計算になりましたか。","If speed and direction stayed the same for 14 days, how many kilometers would the current travel from your chosen point?","如果速度与方向持续14天不变，从所选地点算来会前进多少公里？"],
   ["飲み水や田畑、生きものの居場所を支える水は、森とどのようにつながっているのでしょう。森林の分布と世界の参照地点の雨量を同じ地図で比べ、そこから分かることと分からないことを考えます。","How does the water sustaining drinking supplies, fields, and habitats connect to forests? Compare forest distribution and rainfall at global reference sites on one map, considering what can and cannot be learned.","支撑饮用水、农田与栖息地的水，如何与森林相连？在同一地图比较森林分布与全球参考地点雨量，思考能知道什么、又不能知道什么。"],
   ["緑はMODISから抜き出した森林域です。水色円は世界の参照地点の平均降水量（国平均ではありません）で、直径が大きいほど雨が多い地点です。雨の多い円にはmm/dayの数値も表示します。ブラジルのアマゾン付近は5.33 mm/dayです。地点間には値を入れていません。","Green marks forest areas extracted from MODIS. Cyan circles show mean precipitation at reference sites, not national averages; larger diameters mean more rain. Wetter sites also show values in mm/day. Near the Amazon in Brazil, the value is 5.33 mm/day. No values are filled between sites.","绿色是从MODIS提取的森林区域。青色圆圈表示参考地点平均降水量，并非全国平均；直径越大，雨量越多。多雨地点也显示mm/day数值。巴西亚马孙附近为5.33 mm/day，地点间不填补数值。"],
-  ["大きな水色円を押すと自動走査が止まり、地図上とカードに代表地点名・平均降水量・資料区分が表示されます。別の円を押して森林との重なり方を比べられます。","Select a large cyan circle to stop automatic scanning and display the representative site name, mean precipitation, and data category on the map and card. Select another circle to compare its overlap with forests.","点击大的青色圆圈可停止自动巡览，在地图和卡片上显示代表地点名、平均降水量与资料类别。选择其他圆圈，可比较它们与森林的重叠。"],
+  ["水色の円を押すと自動走査が止まり、カードに代表地点名・平均降水量・資料区分が表示されます。別の円を押して森林との重なり方を比べられます。","Select a cyan circle to stop automatic scanning and display the representative site name, mean precipitation, and data category in its card. Select another circle to compare its overlap with forests.","点击青色圆圈可停止自动巡览，在卡片上显示代表地点名、平均降水量与资料类别。选择其他圆圈，可比较它们与森林的重叠。"],
   ["授業「森は地球の気候安定装置」では、森を木材の量だけでなく、水や土、気温を支える働きから見ます。この展示は、そのうち森林と雨の分布を並べたものです。","The course “Forests are Earth’s climate stabilizers” considers forests not just as timber, but through their roles in water, soil, and temperature. This exhibit places forest and rain distributions side by side.","课程《森林是地球的气候稳定器》不仅看木材量，也从支撑水、土壤与气温的功能认识森林。本展示将其中的森林与雨分布并列。"],
-  ["大きな水色円と森林の緑は、アマゾン、東南アジア、アフリカのどこで重なって見えましたか。","Where did large cyan circles overlap with green forest in the Amazon, Southeast Asia, and Africa?","在亚马孙、东南亚与非洲，哪里的大青色圆圈与森林绿色重叠？"],
+  ["水色の円と森林の緑は、アマゾン、東南アジア、アフリカのどこで重なって見えましたか。","Where did cyan circles overlap with green forest in the Amazon, Southeast Asia, and Africa?","在亚马孙、东南亚与非洲，哪里的青色圆圈与森林绿色重叠？"],
   ["使い終えたものを捨てて終わりにするか、次の資源へ戻すか。暮らしの中の選択と回収の仕組みを考える入口として、国連の再資源化率と世界銀行の再資源化向け回収率を読みます。","Do used things end as waste, or return as the next resource? Read UN recycling rates and World Bank collection-for-recycling rates as a starting point for thinking about daily choices and collection systems.","用过的物品是被丢弃终结，还是回归为下一份资源？阅读联合国回收利用率与世界银行回收利用收集率，作为思考日常选择和回收体系的入口。"],
   ["国土の青が明るいほど割合が高く、0〜100%の同じ色尺度で145の国・地域を表示します。0%の濃い青と無着色の未収録を区別し、未収録は推定値で埋めません。資料側の推計を含み、年度・対象ごみ・分母が異なるため、世界平均や厳密な順位にはできません。","Brighter blue means a higher share, with 145 countries and regions on one 0–100% scale. Dark-blue 0% is distinct from uncolored missing entries, which are not filled with estimates. Source-side estimates are included, and different years, waste scopes, and denominators prevent a world-average reading or strict ranking.","蓝色越亮，比例越高，145个国家与地区使用统一0—100%尺度。深蓝0%与无色未收录区分，未收录不以估算填补。包含来源方估算，年份、垃圾对象与分母不同，不能视为世界平均或严格排名。"],
   ["左右ボタンかスライダーで国・地域を切り替えます。国土を押すと割合、資料の年、国連・世界銀行の出典と対象範囲を確認できます。世界銀行の年は測定年不明の場合に公表年等を含みます。小さな国・地域もスライダーから選べます。","Use the arrows or slider to switch countries and regions. Select a country’s territory to see its share, data year, UN or World Bank source, and coverage. Where measurement years are unknown, World Bank years may indicate publication dates. Small countries and regions are also selectable with the slider.","用左右按钮或滑块切换国家与地区。点击国土可查看比例、资料年份、联合国或世界银行来源及覆盖范围。测量年份不明时，世界银行年份可能是发布年份等。小国或小地区也能通过滑块选择。"],
@@ -4030,7 +4030,7 @@ GaiaI18n.register([
   ["1960年と最新年を比べたとき、地図上の人口の重心はどちらへ動いたように見えましたか。","Comparing 1960 with the latest year, in which direction does the world’s population center seem to have shifted?","比较1960年与最新年份，地图上的人口重心似乎向哪个方向移动了？"],
   ["地図の見方：色はCO₂濃度です。斜線のマスは、近くの8地点から計算した値です。1958〜2009年は後年の衛星地図を使った再構成、2026年以降は最近10年の傾向が続いた場合の試算です。","Reading the map: Colors show CO₂ concentration. Hatched cells are calculated from eight nearby sites. Values for 1958–2009 are reconstructed using a later satellite map; values from 2026 onward are scenarios assuming the most recent ten-year trend continues.","地图读法：颜色表示CO₂浓度。斜线网格由附近8个地点计算。1958—2009年利用较晚的卫星地图重建；2026年起为假设最近十年趋势继续时的估算。"],
   ["地図の見方：色付きの矢印は海流で、青→水色→黄→橙の順に速くなります。点から伸びる線は、同じ海流が続くと仮定した0〜14日後の移動距離です。白い矢印は比較用の平均風で、距離計算には使いません。海の予報ではありません。","Reading the map: Colored arrows show ocean currents, increasing in speed from blue to cyan, yellow, and orange. Lines from points show travel over 0–14 days assuming unchanged currents. White arrows show mean wind for comparison and are not used in the distance calculation. This is not an ocean forecast.","地图读法：彩色箭头表示洋流，按蓝、青、黄、橙顺序加快。从点延伸的线表示假设洋流不变时0—14天的移动距离。白色箭头为比较用平均风，不参与距离计算。这并非海洋预报。"],
-  ["地図の見方：緑は2023年MODIS土地被覆から抜き出した森林域、大きな水色円は世界の参照地点の平均降水量（国平均ではありません）です。直径が大きいほど雨が多く、雨の多い円にはmm/dayも直接表示します。ブラジルのアマゾン付近は5.33 mm/dayです。地点間は補間せず、相関係数や因果関係を示す図ではありません。","Reading the map: Green marks forests extracted from 2023 MODIS land cover. Large cyan circles show mean precipitation at global reference sites, not national averages. Larger diameters mean more rain; wetter sites also display mm/day. Near Brazil’s Amazon, the value is 5.33 mm/day. Sites are not interpolated; this diagram does not show correlation coefficients or causation.","地图读法：绿色为从2023年MODIS土地覆盖提取的森林区域。大青圆表示全球参考地点的平均降水量，并非国家平均。直径越大，雨越多；多雨地点也直接显示mm/day。巴西亚马孙附近为5.33 mm/day。地点间不插值，此图不表示相关系数或因果关系。"],
+  ["地図の見方：緑は2023年MODIS土地被覆から抜き出した森林域、水色の円は世界の参照地点の平均降水量（国平均ではありません）です。円が大きいほど雨が多く、選択した地点の名前とmm/dayを表示します。ブラジルのアマゾン付近は5.33 mm/dayです。地点間は補間せず、相関係数や因果関係を示す図ではありません。","Reading the map: Green marks forests extracted from 2023 MODIS land cover. Cyan circles show mean precipitation at global reference sites, not national averages. Larger circles mean more rain. Select a site to see its name and value in mm/day. Near Brazil’s Amazon, the value is 5.33 mm/day. Sites are not interpolated; this diagram does not show correlation coefficients or causation.","地图读法：绿色为从2023年MODIS土地覆盖提取的森林区域。青色圆圈表示全球参考地点的平均降水量，并非国家平均。圆圈越大，雨越多。选择地点可查看名称和以mm/day表示的数值。巴西亚马孙附近为5.33 mm/day。地点间不插值，此图不表示相关系数或因果关系。"],
   ["地図の見方：国土の青が明るいほど割合が高い0〜100%の尺度で145の国・地域を表示。国連91地域に世界銀行54地域を補足し、無着色の未収録と濃い青の0%を区別します。国土を押すか左右ボタンとスライダーで選び、年・出典・対象範囲を確認できます。年度・定義・分母の差があり、厳密な順位にはできません。","Reading the map: A shared 0–100% scale colors 145 countries and regions, with brighter blue indicating a higher share. The 91 UN entries are supplemented by 54 World Bank entries. Uncolored missing coverage differs from dark-blue 0%. Select land areas, arrows, or the slider to check years, sources, and coverage. Differences in years, definitions, and denominators prevent a strict ranking.","地图读法：145个国家与地区使用统一0—100%尺度，国土蓝色越亮，比例越高。在联合国91个地区基础上补充世界银行54个地区，区分未收录的无色与0%的深蓝。点击国土或使用左右按钮、滑块查看年份、来源与范围。年度、定义和分母不同，不能严格排名。"],
   ["地図の見方：1945〜2023年の国別化石燃料由来CO₂を国土の色で示します。全年度共通の固定対数尺度で、濃紺→紫→赤→橙→淡黄ほど排出量が大きくなります。白い発光は2016年のNASA VIIRS夜間光を固定した比較用レイヤーで、過去の夜間光ではありません。0.65秒以上長押しすると白だけが6秒間薄くなります。","Reading the map: Country colors show fossil-fuel CO₂ emissions for 1945–2023 on a fixed logarithmic scale shared by all years. Emissions increase from navy through purple, red, orange, and pale yellow. White light is a fixed 2016 NASA VIIRS night-light layer for comparison, not historical night lights. Hold for at least 0.65 seconds to dim only the white layer for six seconds.","地图读法：国土颜色表示1945—2023年各国化石燃料CO₂排放，所有年份使用固定对数尺度。按深蓝、紫、红、橙、浅黄顺序增大。白光为固定的2016年NASA VIIRS夜间灯光比较层，并非往年的夜间灯光。长按至少0.65秒，可让白光单独变淡6秒。"],
   ["地図の見方：初期表示は世界です。2000〜2026年のUSGS M7.5以上を発生日時の早い順にカメラで追い、到着の0.5秒後に×印、さらに0.9秒後に日本時間の発生日時・位置・深さを表示します。年の再生時間は地震件数に合わせて変わり、最後は世界表示へ戻り、旧年の震源が一斉にフェードアウトしてから次年を再生します。実際の震度分布・被害・津波範囲ではなく、日本の実測震度は別層です。","Reading the map: Start with the world view, then follow USGS earthquakes of M7.5 or higher from 2000–2026 in chronological order. A cross appears 0.5 seconds after camera arrival; 0.9 seconds later, the event time in JST, location, and depth appear. Each year’s duration depends on its event count. The view returns to the world, and old epicenters fade before the next year begins. Effects do not represent actual shaking intensity, damage, or tsunami extent. Measured Japanese intensities are a separate layer.","地图读法：初始显示全球，随后按时间顺序追踪2000—2026年USGS记录的M7.5以上地震。镜头到达0.5秒后出现×，再过0.9秒显示日本时间的发生日期、位置与深度。每年的播放时长随地震数量变化，最后返回全球，旧震中淡出后再播放下一年。效果不代表实际震度、损失或海啸范围；日本实测震度为独立图层。"],
@@ -4092,17 +4092,18 @@ GaiaI18n.register([
   ["青→水色→黄→橙の順に海流が速くなります。背景の帯は観測点の間を補間した流れのイメージで、予報や実測の軌跡ではありません。白い矢印は比較用の風です。","Currents become faster from blue through cyan, yellow, and orange. Background bands interpolate between observation sites as a visual impression of flow, not a forecast or measured track. White arrows show wind for comparison.","洋流按蓝、青、黄、橙顺序加快。背景条带是在观测点间插值得到的流动意象，并非预报或实测轨迹。白色箭头为比较用风。"],
   ["色付きの点を押すと自動再生が止まり、その地点の速さ・向き・○日後の計算距離を読めます。スライダーでも日数を動かせます。","Select a colored point to stop autoplay and read its speed, direction, and calculated travel distance after the selected number of days. You can also change the day with the slider.","点击彩色点会停止自动播放，可查看该点的速度、方向与所选天数后的计算距离。也可用滑块改变天数。"],
   ["森の声","Voice of the forest","森林之声"],
-  ["大きな水色円＝降水量 × 緑＝森林分布","Large cyan circles = precipitation × green = forest distribution","大青圆＝降水量 × 绿色＝森林分布"],
+  ["水色の円＝降水量 × 緑＝森林分布","Cyan circles = precipitation × green = forest distribution","青色圆圈＝降水量 × 绿色＝森林分布"],
   ["森林 × 雨 / 世界の参照地点","Forests × rain / Global reference sites","森林 × 雨 / 全球参考地点"],
   ["緑は森林域、水色円は世界の国・地域に置いた参照地点の平均降水量です。直径が大きいほど雨が多く、国平均ではありません。円のない場所を雨量ゼロとは扱いません。","Green shows forests. Cyan circles show mean precipitation at reference sites across countries and regions. Larger diameters mean more rain, not national averages. Places without circles are not treated as having zero rain.","绿色表示森林，青圆表示各国与地区参考地点的平均降水量。直径越大，雨越多，但并非国家平均。没有圆的地点不视为雨量为零。"],
-  ["大きな水色円 / 降水量","Large cyan circles / Precipitation","大青圆 / 降水量"],
+  ["水色の円 / 降水量","Cyan circles / Precipitation","青色圆圈 / 降水量"],
   ["緑の面 / 森林域","Green areas / Forests","绿色区域 / 森林"],
-  ["円内の数字 / mm/日","Numbers in circles / mm/day","圆内数字 / 毫米/天"],
+  ["選択地点の値 / mm/日","Selected site / mm/day","所选地点的值 / 毫米/天"],
   ["同じ展示の国・地点を順に表示します。 展示ページは切り替えません。操作すると停止します。","Show countries and sites in this exhibit in sequence. This does not switch exhibits. Interaction stops playback.","依次显示当前展示的国家与地点，不会切换展示。操作后停止播放。"],
   ["mm/日","mm/day","毫米/天"],
   ["森林と、雨の多い場所はどこで重なる？","Where do forests and rainy places overlap?","森林与多雨的地方在哪里重叠？"],
   ["緑の森林分布と、世界の国・地域に広げた参照地点の平均降水量を見比べます。国平均や、森林が雨を起こす因果関係を示す図ではありません。","Compare green forest distribution with mean rainfall at reference sites across countries and regions. This does not show national averages or establish that forests cause rain.","比较绿色森林分布与各国、各地区参考地点的平均降水量。不表示国家平均，也不说明森林导致降雨的因果关系。"],
-  ["大きな水色円が降水量です。直径が大きいほど雨が多く、雨の多い円にはmm/日を直接表示します。ブラジルのアマゾン付近は5.33 mm/日です。","Large cyan circles show precipitation: a larger diameter means more rain. Wetter circles also display mm/day directly. Near Brazil’s Amazon, the value is 5.33 mm/day.","大青圆表示降水量，直径越大，雨越多。多雨的圆也直接显示毫米/天。巴西亚马孙附近为5.33毫米/天。"],
+  ["水色の円が降水量です。円が大きいほど雨が多く、選択した地点の名前とmm/日を表示します。ブラジルのアマゾン付近は5.33 mm/日です。","Cyan circles show precipitation: larger circles mean more rain. Select a site to see its name and value in mm/day. Near Brazil’s Amazon, the value is 5.33 mm/day.","青色圆圈表示降水量，圆圈越大，雨越多。选择地点可查看名称和以毫米/天表示的数值。巴西亚马孙附近为5.33毫米/天。"],
+  ["水色の円が降水量、緑が森林域です。円の大きさで雨量を比べ、選択した地点の値をmm/日で読み取れます。","Cyan circles show precipitation and green marks forests. Compare rain by circle size, then select a site to read its value in mm/day.","青色圆圈表示降水量，绿色表示森林区域。通过圆圈大小比较雨量，并查看所选地点以毫米/天表示的数值。"],
   ["水色円を押すと自動走査が止まり、参照地点名と平均降水量をカードで読めます。円のない場所は『雨がない』のではなく、この資料では表示していない場所です。","Select a cyan circle to stop the automatic scan and read the reference site’s name and mean precipitation. Areas without circles are not “rainless”; they are not displayed in this dataset.","点击青圆可停止自动巡览，在卡片中查看参考地点名称与平均降水量。没有圆并非“没有雨”，而是本资料未显示该处。"],
   ["ごみの声","Voice of waste","废弃物之声"],
   ["国別塗り分け / 再資源化・再資源化向け回収率","Country shading / Recycling and collection-for-recycling rates","按国着色 / 回收利用率及用于回收利用的收集率"],

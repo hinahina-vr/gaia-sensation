@@ -40,8 +40,8 @@ import {
 import { METHOD_GROUPS, METHOD_LOOKUP, actionLabel, resolveLegacyAction } from "./statistics-methods.js?v=gaia-analysis-guide-1";
 import { ANALYSIS_PURPOSES, ANALYSIS_CARDS, analysisIcon } from "./statistics-menu.js?v=gaia-analysis-guide-1";
 import { createStatisticsAi } from "./statistics-ai.js?v=inline-analysis-20260913";
-import { buildDataInsight } from "./statistics-data-insights.js?v=gaia-readable-comparison-1-marine-cod-1-fao-food-1-i18n-20260913";
-import { analyzeDiscovery } from "./statistics-discovery.js?v=gaia-readable-comparison-1-marine-cod-1-japan-sensor-open-1-prtr-biology-1-fao-food-1-i18n-20260913";
+import { buildDataInsight } from "./statistics-data-insights.js?v=food70-earth-20261025";
+import { analyzeDiscovery } from "./statistics-discovery.js?v=food70-earth-20261025";
 
 const q = (selector) => document.querySelector(selector);
 const lab = q("#gaia-statistics-lab");
@@ -455,7 +455,7 @@ if (!lab || !openButton) {
   const applySavedView = async () => {
     const view = state.savedViews.find((candidate) => candidate.id === ui.savedView.value);
     let dataset = state.datasets.find((candidate) => candidate.id === view?.datasetId);
-    if (!dataset && /^(?:food-(?:balances|security)-\d+-\d{3}|japan-.+|climate-(?:cyclones|coral)-[a-zA-Z0-9_]+)$/.test(view?.datasetId || "")) {
+    if (!dataset && /^(?:food-(?:balances|security)-\d+-\d{3}|japan-.+|climate-(?:cyclones|coral|lakes|waterstore|sealevel|electricity|drinking|sanitation|foresthistory|waterstress|cropland|yield|fertilizer|longevity|urban|ageing|childsurvival|seaice|snowcover|oceanheat|ozone|glaciers|volcanoes|tsunamis|wateruse|hunger|fisheries|internet|refugees)-[a-zA-Z0-9_-]+)$/.test(view?.datasetId || "")) {
       const requestedView = ui.savedView.value;
       let restored;
       try {
@@ -1060,18 +1060,21 @@ if (!lab || !openButton) {
     ui.takeawayEvidence.replaceChildren();
     ui.takeaway.dataset.state = insight ? "ready" : "empty";
     ui.takeawayHeadline.textContent = insight?.headline || "この条件では、まだ結論を表示できません。";
-    ui.takeaway.querySelector(".gaia-statistics-takeaway-copy > p").textContent = insight.scopeLabel || "このデータから分かること";
+    const earth = insight.computedInsight?.audience === "earth-context";
+    ui.takeaway.querySelector(".gaia-statistics-takeaway-copy > p").textContent = earth ? "食卓と地球のつながり" : insight.scopeLabel || "このデータから分かること";
     ui.takeawayBody.replaceChildren();
-    for (const [label, body] of [["ファクト", insight.findings.find(f => f.kind === "observation")?.body || insight.headline], ["インサイト", insight.summary]]) {
+    for (const [label, body] of [[earth ? "読み取れること" : "ファクト", insight.findings.find(f => f.kind === "observation")?.body || insight.headline], [earth ? "地球を考える視点" : "インサイト", insight.summary]]) {
       const section = document.createElement("section");
       const heading = document.createElement("h5"); heading.textContent = label;
       const paragraph = document.createElement("p"); paragraph.textContent = body;
       section.append(heading, paragraph); ui.takeawayBody.append(section);
     }
-    const caution = document.createElement('span'); caution.textContent = '注意：';
-    const caveat = document.createElement('span'); caveat.textContent = insight.caveat;
+    const caution = document.createElement('span'); caution.textContent = earth ? '読み方：' : '注意：';
+    const caveat = document.createElement('span'); caveat.textContent = earth ? insight.computedInsight.takeawayCaveat : insight.caveat;
     ui.takeawayCaveat.replaceChildren(caution, caveat);
-    const evidence = insight.evidence.slice(0, 3);
+    ui.takeawayEvidence.hidden = earth;
+    ui.takeawayEvidence.style.display = earth ? "none" : "";
+    const evidence = earth ? [] : insight.evidence.slice(0, 3);
     evidence.forEach((metric) => {
       const button = document.createElement("button");
       button.type = "button";
@@ -1088,7 +1091,7 @@ if (!lab || !openButton) {
       });
       ui.takeawayEvidence.append(button);
     });
-    if (!ui.takeawayEvidence.children.length) {
+    if (!earth && !ui.takeawayEvidence.children.length) {
       const note = document.createElement("span");
       note.textContent = "数値的な根拠は計算結果で確認できます";
       ui.takeawayEvidence.append(note);

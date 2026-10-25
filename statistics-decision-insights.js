@@ -1,6 +1,7 @@
 // Measured comparisons, not a catalogue of social questions. No inference of
 // causal effects, risk thresholds, or missing business dimensions.
 import {descriptive, simpleRegression} from './statistics-lab-core.js';
+import {foodBalanceEarthInsight} from './statistics-food-context.js?v=food70-earth-20261025';
 const num=x=>typeof x==='number'&&Number.isFinite(x);
 const fmt=x=>new Intl.NumberFormat('ja-JP',{maximumFractionDigits:Math.abs(x)<.01&&x!==0?5:2}).format(x);
 const sum=xs=>xs.reduce((a,b)=>a+b,0);
@@ -74,6 +75,9 @@ function distribution(dataset,rows,key) {
 
 export function buildDecisionInsight(dataset,domain,candidate,rows,profileKey) {
  const unit=dataset.unit||'';
+ if(domain==='food' && (dataset.modeId==='food-balances'||dataset.id?.startsWith('food-balances-'))){
+  const earth=foodBalanceEarthInsight(dataset,rows);if(earth)return earth;
+ }
  if(!rows.length)return result('分析できる記録がありません','有効な記録が0件のため、差・寄与・変化の結果は出せません。',[],[],{status:'insufficient'});
  if(rows.length===1)return result('比較結果は未成立',`${name(rows[0])}は${fmt(rows[0].value)}${unit}。有効値が1件のため、増減・順位・寄与率は算出できません。`,[[name(rows[0]),rows[0].value,unit]],rows,{status:'insufficient'});
  if(candidate.id==='near-peers'&&candidate.comparison) {

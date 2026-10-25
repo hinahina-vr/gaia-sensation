@@ -29,7 +29,7 @@ try{
   });
   if(mode==='boundary-failure')await ctx.route('**/data/japan-prefectures.topojson*',r=>r.abort());
   page=await ctx.newPage();page.on('pageerror',e=>report.errors.push(e.message));
-  await page.goto(base+'/?exhibit=15#world',{waitUntil:'domcontentloaded'});await page.locator('[data-feature-start]').click();await page.locator('#gaia-mode-entry-guide').waitFor({state:'hidden'});
+  await page.goto(base+'/world#world-15',{waitUntil:'domcontentloaded'});await page.waitForFunction(()=>document.documentElement.dataset.gaiaAppReady==='true');
   await page.waitForFunction(()=>GaiaLiveData.getPrefectureField().requestState!=='loading');await pause();
   if(mode==='boundary-failure'){
    await page.locator('.gaia-live-region-status').filter({hasText:'取得できません'}).waitFor();

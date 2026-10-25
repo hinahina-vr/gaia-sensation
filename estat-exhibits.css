@@ -109,6 +109,45 @@
   font: 700 9px/1 Consolas, var(--font-ja);
 }
 
+.gaia-estat-heat-legend .gaia-estat-reading-basis {
+  margin: 0 0 3px;
+  color: var(--estat-accent, #65f5df);
+  font: 600 11px/1.6 var(--font-ja);
+  overflow-wrap: anywhere;
+}
+
+.gaia-estat-heat-legend .gaia-estat-reading-map {
+  margin: 5px 0 0;
+  padding-top: 9px;
+  border-top: 1px solid rgba(190, 225, 227, 0.16);
+  font: 400 12px/1.7 var(--font-ja);
+  overflow-wrap: anywhere;
+}
+
+.gaia-estat-heat-legend .gaia-estat-reading-key {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px 16px;
+  margin: 3px 0 0;
+  color: rgba(225, 247, 243, 0.7);
+  font: 400 10px/1.6 var(--font-ja);
+}
+
+.gaia-estat-reading-key span::before {
+  display: inline-block;
+  width: 10px;
+  height: 8px;
+  margin-right: 6px;
+  border: 1px solid #f7fffa;
+  background: #132c36;
+  content: "";
+}
+
+.gaia-estat-reading-key span + span::before {
+  border-color: #64717d;
+  background: #2e3d4e;
+}
+
 .gaia-estat-markers {
   position: absolute;
   z-index: 6;
@@ -168,6 +207,15 @@
   opacity: 0;
   transform: translate(-50%, -5px);
   transition: opacity 220ms ease, transform 320ms cubic-bezier(0.18, 0.82, 0.18, 1);
+}
+
+/* Match the width used by updateMarkers when keeping labels inside the map. */
+#japan-layer[data-estat-exhibit] .gaia-estat-marker > span {
+  box-sizing: border-box;
+  width: min(280px, calc(100vw - 24px));
+  min-width: 0;
+  max-width: none;
+  left: calc(50% + var(--estat-label-offset, 0px));
 }
 
 .gaia-estat-marker > span small {

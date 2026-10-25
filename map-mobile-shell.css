@@ -125,7 +125,8 @@
   #japan-layer.is-mobile-map-shell [data-estat-mobile-history-note] { display: block; grid-column: 1 / -1; color: #b7cdc6; font: 400 11px/1.5 var(--font-ja); overflow-wrap: anywhere; }
   #japan-layer.is-mobile-map-shell .gaia-live-prefecture-picker { grid-column: 1 / -1; order: 0; }
   #japan-layer.is-mobile-map-shell .gaia-live-prefecture-picker > p { display: none; }
-  #japan-layer.is-mobile-map-shell .gaia-live-exhibit-primary { grid-column: 1 / -1; order: 1; display: block !important; padding: 0; min-height: 0; }
+  #japan-layer.is-mobile-map-shell .gaia-live-exhibit-primary { grid-column: 1 / -1; order: 1; display: flex !important; align-items: baseline; gap: 12px; padding: 0; min-height: 0; }
+  #japan-layer.is-mobile-map-shell .gaia-live-mobile-metric { display: inline; color: #b7d3db; font: 12px/1.5 var(--font-ja); }
   #japan-layer.is-mobile-map-shell .gaia-live-exhibit-primary > div { display: none; }
   #japan-layer.is-mobile-map-shell .gaia-live-exhibit-primary > strong { display: block !important; font-size: 20px; line-height: 1.5; }
   #japan-layer.is-mobile-map-shell .gaia-live-exhibit-readout::before,

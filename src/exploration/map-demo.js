@@ -1,6 +1,6 @@
 import { createMapDemoController } from "./map-demo-controller.js?v=gaia-map-demo-1-perf-high-20260909";
-import { mountMapPlayback } from './map-playback.js?v=unified-playback-20260912-i18n-20260913-wind-first-tooltip-20260925-climate-20261013';
-import { mountMapCruise } from './map-cruise.js?v=firms-animation-20260914-wind-first-tooltip-20260925-climate-20261013';
+import { mountMapPlayback } from './map-playback.js?v=intro-fade-gate-20261022';
+import { mountMapCruise } from './map-cruise.js?v=intro-fade-gate-20261022';
 
 function mountMapDemo() {
   const layer = document.querySelector("#japan-layer");
@@ -87,7 +87,8 @@ function mountMapDemo() {
     const external = layer.matches(".is-live-exhibit, .is-estat-exhibit, .is-firms-exhibit, .is-planet-signals-exhibit");
     return !external && globalThis.GaiaMapObservationAdapter?.getState().signalReady === false;
   };
-  const syncPause = () => controller.setPaused(document.hidden || guideIsOpen() || dataIsPending());
+  const syncPause = () => controller.setPaused(document.hidden || guideIsOpen() || dataIsPending()
+    || layer.matches('.is-map-title-transitioning, .is-map-data-intro'));
   const start = ({ automatic = false } = {}) => {
     if (document.hidden || !isAvailable()) return false;
     if (!automatic) globalThis.GaiaModeEntryGuide?.close?.("map", { restoreFocus: false });
@@ -108,7 +109,7 @@ function mountMapDemo() {
   // Real input yields immediately to the visitor. Programmatic exhibit clicks
   // must not cancel the loop, and the stop control must not restart itself.
   const onInput = event => {
-    if (!event.isTrusted || !controller.getState().active) return;
+    if (!event.isTrusted || !controller.getState().active || layer.classList.contains('is-map-data-intro')) return;
     // Reading, stepping through, or replaying the guide keeps the default on.
     // Its lifecycle pauses the countdown instead of cancelling the demo.
     if (guideIsOpen() || event.composedPath().some(node => node instanceof Element

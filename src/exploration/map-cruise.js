@@ -46,7 +46,7 @@ export function mountMapCruise() {
   const current = () => Number(layer.querySelector('#japan-mode-number').textContent);
   const available = () => !layer.hidden && layer.getAttribute('aria-hidden') === 'false' && !layer.dataset.storyMode && !document.body.classList.contains('novel-open');
   const paused = () => document.hidden || globalThis.GaiaModeEntryGuide?.getState?.()?.active
-    || layer.matches('.is-map-title-transitioning, .japan-data-open') || document.body.matches('.gaia-statistics-open, .gaia-tour-open')
+    || layer.matches('.is-map-title-transitioning, .is-map-data-intro, .japan-data-open') || document.body.matches('.gaia-statistics-open, .gaia-tour-open')
     || Boolean(layer.querySelector('#map-mobile-sheet[open]'));
   const inspect = () => {
     const n = current(), g = globalThis;
@@ -101,7 +101,7 @@ export function mountMapCruise() {
   const toggle = () => controller.getState().active ? stop() : start();
   button.addEventListener('click', toggle);
   const onInput = event => {
-    if (!event.isTrusted || !controller.getState().active || globalThis.GaiaModeEntryGuide?.getState?.()?.active) return;
+    if (!event.isTrusted || !controller.getState().active || layer.classList.contains('is-map-data-intro') || globalThis.GaiaModeEntryGuide?.getState?.()?.active) return;
     if (event.type==='keydown' && ['Tab','Shift'].includes(event.key)) return;
     if (event.composedPath().some(el=>el instanceof Element && el.matches('#gaia-map-cruise-toggle, [data-mobile-cruise], [data-mobile-sheet="tools"], [data-mobile-sheet-close], [data-gaia-mode-guide-replay="map"]'))) return;
     stop();

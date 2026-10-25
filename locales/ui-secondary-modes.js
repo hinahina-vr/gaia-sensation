@@ -250,12 +250,12 @@ GaiaI18n.register([
     "点"
   ],
   [
-    "はやぶさ2はレーザーを当て、光が戻るまでの時間からリュウグウとの距離を測りました。その距離と機体の位置を使い、測定点を凹凸のある輪郭として立ち上げます。",
+    "はやぶさ2はレーザーを当て、光が戻るまでの時間からリュウグウとの距離を測りました。その距離と機体の位置を使い、測定点を表面の起伏として描きます。",
     "Hayabusa2 measured its distance from Ryugu by timing the return of laser light. Those distances and the spacecraft’s position raise the measurement points into an uneven outline.",
     "隼鸟2号向龙宫小行星发射激光，通过光返回所需的时间测量距离。画面利用这些距离和探测器位置，将测量点构成立体起伏的轮廓。"
   ],
   [
-    "リュウグウへ触れると測定点を選び、輪郭に小さな起伏を残せます。収録した一日の一部分であり、天体全面の完成地形図ではありません。",
+    "リュウグウへ触れると測定点を選び、表面に小さな起伏を残せます。収録した一日の一部分であり、天体全面の完成地形図ではありません。",
     "Touch Ryugu to select a measurement point and leave a small bump in its outline. These data cover part of one day, not a complete topographic map of the entire body.",
     "触摸龙宫小行星可选择测量点，并在轮廓上留下细微起伏。这里只收录了一天中的部分数据，并非天体全表面的完整地形图。"
   ],

@@ -4,8 +4,8 @@ import { STATUS_LABELS } from "./transforms.js?v=gaia-live-loading-1";
 import { earthBaseScale, earthLongitudeToMapX } from "./world-projection.js?v=gaia-japan-center-1";
 import { japanPrefectureView } from "./japan-prefecture-view.js?v=gaia-prefecture-gis-view-1";
 import { decorateMapActions } from "./map-exhibit-actions.js?v=action-icons-ready-20260926";
-import { LIVE_EXHIBITS as EXHIBITS } from "./live-exhibit-catalog.js?v=gaia-prefecture-fill-20260912";
-import { createLivePrefectureMap } from "./live-prefecture-map.js?v=gaia-prefecture-fill-20260912";
+import { LIVE_EXHIBITS as EXHIBITS, liveReadingTranslations } from "./live-exhibit-catalog.js?v=live-reading-20261020-quality-20261022";
+import { createLivePrefectureMap } from "./live-prefecture-map.js?v=live-reading-20261020";
 import { OBSERVATION_CITIES, findObservationCity, adjacentObservationCity } from "./observation-cities.js?v=gaia-exhibit-catalog-1";
 import { createMetricLegend, updateMetricLegend } from "./metric-legend.js?v=gaia-observation-mincho-1-i18n-20260913";
 import { createObservationPlacePicker } from "./observation-place-picker.js?v=gaia-place-inline-1-i18n-20260913";
@@ -14,6 +14,7 @@ import { createBroadcastBadge, updateBroadcastBadge } from "./realtime-exhibit-s
 
 // Preserve the existing module export for callers outside the map runtime.
 export { OBSERVATION_CITIES };
+globalThis.GaiaI18n?.register(liveReadingTranslations);
 
 const LIVE_POI_DWELL_MS = 6800;
 const LIVE_POI_DEPART_MS = 280;
@@ -212,6 +213,7 @@ const renderReadout = () => {
   readout.dataset.selectedTime = state.selectedTime || "latest";
   readout.style.setProperty("--live-signal-level", String(strength));
   readout.querySelector("[data-live-exhibit-kicker]").textContent = exhibit.signalLabel;
+  readout.querySelector("[data-live-mobile-metric]").textContent = exhibit.signalLabel;
   const [titleJa, titleEn = ""] = exhibit.title.split(" — ");
   const exhibitTitle = readout.querySelector("[data-live-exhibit-title]");
   exhibitTitle.setAttribute("aria-label", exhibit.title);
@@ -238,16 +240,18 @@ const renderReadout = () => {
   updateMetricLegend(metricLegend, {
     title: exhibit.signalLabel,
     scope: location.label,
-    period: missing || !metricDate || !Number.isFinite(metricDate.getTime()) ? "" : new Intl.DateTimeFormat("ja-JP", {
-      timeZone: "Asia/Tokyo", hour: "2-digit", minute: "2-digit", hourCycle: "h23",
-    }).format(metricDate) + " JST",
+    period: missing || !metricDate || !Number.isFinite(metricDate.getTime()) ? feedState : new Intl.DateTimeFormat("ja-JP", {
+      timeZone: "Asia/Tokyo", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hourCycle: "h23",
+    }).format(metricDate) + ` JST · ${state.selectedTime ? "選択時刻" : pending ? "更新中" : retained ? "前回値" : savedMeasurement ? "保存値" : "最新取得値"}`,
     current: missing ? pending ? "取得中" : "未取得" : formatValue(measurement),
     value: missing ? null : Number(measurement.value), minimum, maximum,
     minimumLabel: `${minimum} ${unit}`,
     maximumLabel: `${maximum}${exhibit.key === "weatherWindSpeed" ? "+" : ""} ${unit}`,
     gradient: `linear-gradient(90deg, ${colors})`,
-    description: `${feedState}。${observedAt}。県の色は代表都市のモデル値で、都道府県平均ではありません。灰色はデータなし。針は選択地域の値を示し、範囲外では端で止まります。`,
+    description: `${exhibit.readingBasis}。${feedState}。${observedAt}。県の色は代表都市のモデル値。灰色はデータなし。針は選択地域の値を示し、範囲外では端で止まります。`,
   });
+  metricLegend.querySelector("[data-live-reading-context]").textContent = exhibit.readingBasis;
+  metricLegend.dataset.requestState = state.requestState || "ready";
   readout.querySelector("[data-live-exhibit-feed-copy]").textContent = pending
     ? missing ? "選択した地点のデータを取得しています。別の地点の値で補わず、到着した値から表示します。"
       : "同じ地点の前回取得値を表示しながら更新しています。データ時刻は前回取得値のものです。"
@@ -267,7 +271,7 @@ const renderReadout = () => {
   readout.querySelector("[data-live-exhibit-input]").textContent = missing
     ? pending ? `${exhibit.signalLabel}を取得中です。値がない都道府県は灰色で表示します。` : `${exhibit.signalLabel}は未取得です。値がない都道府県は灰色で表示します。`
     : `${exhibit.signalLabel} ${formatValue(measurement)}を変換の起点にします。`;
-  readout.querySelector("[data-live-exhibit-location]").textContent = `${location.label}（${location.lat.toFixed(3)}°, ${location.lon.toFixed(3)}°）のモデル値を、対応する都道府県の色で表示します。都道府県平均ではありません。`;
+  readout.querySelector("[data-live-exhibit-location]").textContent = `${location.label}（${location.lat.toFixed(3)}°, ${location.lon.toFixed(3)}°）のモデル値を、対応する都道府県の色で表示します。`;
   readout.querySelector("[data-live-exhibit-visual-map]").textContent = exhibit.visualMap;
   readout.querySelector("[data-live-exhibit-source]").textContent = measurement
     ? `${measurement.provider?.toUpperCase() || "SOURCE"} · ${measurement.datasetId || "PUBLIC DATA"}`
@@ -352,7 +356,7 @@ const applyHeading = () => {
       `県の色 / ${exhibit.signalLabel}`,
       "灰色 / データなし",
       "値 / 代表都市のモデル値",
-      "都道府県平均ではありません",
+      "白い線 / 選択中の県",
     ];
     ["heatmap", "nodata", "estimate", "resolution"].forEach((key, index) => {
       const item = legend.querySelector(`[data-encoding-label="${key}"]`);
@@ -593,6 +597,10 @@ const mount = () => {
   });
 
   metricLegend = createMetricLegend({ className: "gaia-live-metric-legend", label: "選択した都道府県のモデル値と目盛り" });
+  const readingContext = document.createElement("p");
+  readingContext.className = "gaia-live-reading-context";
+  readingContext.dataset.liveReadingContext = "";
+  metricLegend.append(readingContext);
   metricLegend.hidden = true;
   layer.append(metricLegend);
   weatherCredit = document.createElement("div");
@@ -647,6 +655,7 @@ const mount = () => {
           <small data-live-exhibit-title-en></small>
         </h3>
       </div>
+      <span class="gaia-live-mobile-metric" data-live-mobile-metric></span>
       <strong data-live-exhibit-value></strong>
     </div>
     <section class="gaia-live-timeline" aria-label="時間別モデル値">

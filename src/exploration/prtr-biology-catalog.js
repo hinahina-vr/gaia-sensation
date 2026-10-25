@@ -1,5 +1,6 @@
 // Reporting, occurrence and ambient concentration are deliberately separate.
 import { ANNUAL_OBSERVATION_YEARS } from './annual-observation-years.js?v=history-20260912';
+import { recordReadings } from './record-reading-catalog.js?v=records-reading-20261022';
 const prtrSource = 'https://www.env.go.jp/chemi/prtr/kaiji/index.html';
 const riverSource = 'https://www.nilim.go.jp/lab/fbg/ksnkankyo/';
 const prtr = [
@@ -38,6 +39,7 @@ export const PRTR_BIOLOGY_EXHIBITS = Object.freeze([...prtr, ...biology].map(ite
   title: item.shortTitle, signalLabel: item.metricLabel, periodUnit: '年度', sensorRegistrationKey: null,
   caption: `${item.explanation} ${item.comparisonNote}`, picker: `${item.years[0]}${item.years.length > 1 ? `〜${item.years.at(-1)}` : ''}年度。${item.subtitle}`,
   sensorNote: '公的な届出・生物確認記録です。ESP32の測定値ではなく、簡易センサーの値へ換算していません。',
+  ...recordReadings[item.number],
 })));
 
 export { displayFraction, recordAppearance } from './record-appearance.js?v=palette-20261013';

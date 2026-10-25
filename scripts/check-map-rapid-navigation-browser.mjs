@@ -4,6 +4,7 @@ import path from 'node:path';
 import { chromium } from 'playwright-core';
 
 const stage = process.env.GAIA_NAV_STAGE || 'after';
+const finalNumber = Number(process.env.GAIA_NAV_LAST || 25);
 const output = path.resolve(`artifacts/map-rapid-navigation-20261020/${stage}`);
 fs.mkdirSync(output, { recursive: true });
 const report = { stage, checks: [], errors: [], environment: 'Local installed Chrome; external requests blocked; mobile is emulated.' };
@@ -21,7 +22,7 @@ try {
     });
     page = await context.newPage();
     page.on('pageerror', error => report.errors.push(error.message));
-    await page.goto(`${process.env.GAIA_BASE_URL}/world#world-01`, { waitUntil: 'domcontentloaded' });
+    await page.goto(`${process.env.GAIA_BASE_URL}/world.html#world-01`, { waitUntil: 'domcontentloaded' });
     await page.waitForFunction(() => document.documentElement.dataset.gaiaAppReady === 'true' && globalThis.GaiaMapStableNavigation);
     await page.evaluate(() => {
       window.navigationTrace = [];
@@ -33,7 +34,7 @@ try {
       new MutationObserver(snapshot).observe(document.querySelector('#japan-mode-number'), { childList: true, characterData: true, subtree: true });
     });
     const next = page.locator('[data-map-stable-step="1"]');
-    for (let number = 2; number <= 25; number++) {
+    for (let number = 2; number <= finalNumber; number++) {
       if (width === 390) await next.tap(); else await next.click();
       await page.waitForTimeout(Number(process.env.GAIA_NAV_INTERVAL || 80));
       const state = await page.evaluate(() => ({ requested: GaiaMapStableNavigation.getState().requested, hash: location.hash,
@@ -57,8 +58,8 @@ try {
       hash: location.hash, trace: navigationTrace, current: GaiaMapCategories.buttons().filter(b => b.getAttribute('aria-current') === 'true').map(b => b.textContent.trim()) }));
     report.checks.push({ width, final });
     await page.screenshot({ path: path.join(output, `${width}-final.png`) });
-    assert.equal(Number(final.number), 25, 'Last requested exhibit must own the view after late loads');
-    assert.deepEqual(final.current, ['25']);
+    assert.equal(Number(final.number), finalNumber, 'Last requested exhibit must own the view after late loads');
+    assert.deepEqual(final.current, [String(finalNumber)]);
     assert(!final.trace.some(row => row.requested >= 21 && Number(row.number) < 21), 'No stale base exhibit during statistics load');
     await context.close();
   }

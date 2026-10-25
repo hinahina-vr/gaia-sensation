@@ -4155,186 +4155,244 @@ body.gaia-opening-active .gaia-audio-dock.is-visible.is-expanded {
 }
 
 .gaia-opening-sound-dialog {
+  --terminal-corner: 32px;
+  --terminal-cut: polygon(5% 0, 95% 0, 100% 5.86%, 100% 94.14%, 95% 100%, 5% 100%, 0 94.14%, 0 5.86%);
   position: relative;
-  width: min(clamp(420px, 39vw, 620px), 100%);
+  isolation: isolate;
+  width: min(clamp(620px, 42vw, 780px), 100%);
   margin: 0;
-  padding: 16px 24px 12px;
+  padding: 30px 34px 32px;
   border: 0;
   border-radius: 0;
-  color: #edf5f0;
-  background: radial-gradient(ellipse, rgba(4, 21, 28, .32), transparent 72%);
-  box-shadow: none;
+  color: #e8f4f7;
+  background: none;
   transform: translateY(8px);
   transition: transform 240ms ease-out;
 }
-
+/* Only the decorative surface is clipped, so keyboard outlines remain intact.
+   The glass effect uses translucent paint, without a full-screen blur pass. */
+.gaia-opening-sound-dialog::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  clip-path: var(--terminal-cut);
+  background: url("./assets/ui/sound-terminal-field.svg") center / 100% 100% no-repeat,
+    linear-gradient(135deg, rgba(5, 37, 54, .91), rgba(4, 24, 40, .87) 60%, rgba(12, 32, 52, .92));
+  pointer-events: none;
+}
 .gaia-opening-sound-modal.is-visible .gaia-opening-sound-dialog { transform: none; }
 .gaia-opening-sound-dialog::after { display: none; }
-
-.gaia-opening-sound-heading {
-  text-align: center;
+.gaia-opening-sound-frame {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  color: #94d8ec;
+  pointer-events: none;
+  filter: drop-shadow(0 0 5px #57cef62b);
 }
+.gaia-opening-sound-frame path { stroke: currentColor; stroke-width: 1; vector-effect: non-scaling-stroke; }
+.gaia-opening-sound-frame path:nth-child(2) { opacity: .42; }
+.gaia-opening-sound-frame-accents { opacity: .8; }
+
+.gaia-opening-sound-heading { position: relative; text-align: center; }
 .gaia-opening-sound-kicker {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 16px;
-  margin-bottom: 18px;
-  color: #e9d9a4;
-  font: 400 11px/1.5 var(--font-ja);
-  letter-spacing: .3em;
+  margin-bottom: 5px;
+  color: #ebddaf;
+  font: 400 12px/1.5 var(--font-ja);
+  letter-spacing: .28em;
 }
 .gaia-opening-sound-kicker::before,
 .gaia-opening-sound-kicker::after {
   content: "";
-  width: 38px;
+  width: 36px;
   height: 1px;
   background: linear-gradient(90deg, transparent, #ddc98e);
-  box-shadow: 0 0 8px #eacb6955;
 }
 .gaia-opening-sound-kicker::after { transform: scaleX(-1); }
-.gaia-opening-sound-heading > h2 {
-  margin: 0;
-  color: #fff8df;
-  font-family: var(--font-ja);
-  font-size: clamp(30px, 2.6vw, 43px);
-  font-weight: 600;
-  letter-spacing: .2em;
-  text-indent: .2em;
-  line-height: 1.45;
-  white-space: nowrap;
-  text-shadow: 0 2px 3px #061320, 0 0 26px #e7dca33b, 0 0 60px #85d6d52e;
+.gaia-opening-sound-heading > .gaia-opening-sound-brand {
+  display: block;
+  margin: 0 0 16px;
+  color: #d7d3b8;
+  font: 400 8px/1.5 Georgia, serif;
+  letter-spacing: .55em;
+  text-indent: .55em;
 }
-
+.gaia-opening-sound-wave {
+  position: absolute;
+  top: 63px;
+  left: 0;
+  width: 100%;
+  height: 58px;
+  pointer-events: none;
+  stroke: #99d9ea;
+  stroke-width: .75;
+  opacity: .7;
+}
+.gaia-opening-sound-wave-stars { stroke: #c5ffff; filter: drop-shadow(0 0 4px #97f5ff); }
+.gaia-opening-sound-heading > h2 {
+  position: relative;
+  margin: 0;
+  color: #f2fbff;
+  font: 600 clamp(36px, 2.6vw, 49px)/1.45 var(--font-ja);
+  letter-spacing: .16em;
+  text-indent: .16em;
+  white-space: nowrap;
+  text-shadow: 0 0 24px #8ddff32e;
+}
 .gaia-opening-sound-heading > span {
   display: block;
-  margin-top: 12px;
-  color: #b7c8c9;
-  font-family: var(--font-ja);
-  font-size: 12px;
-  letter-spacing: .1em;
-  line-height: 1.8;
+  margin-top: 8px;
+  color: #cfdee6;
+  font: 400 13px/1.8 var(--font-ja);
+  letter-spacing: .12em;
   text-align: center;
-  text-shadow: 0 1px 8px #000;
 }
 
-/* Language is a small typographic row, with an explicit selected underline. */
-.gaia-opening-language { width: min(340px, 100%); margin: 26px auto 24px; }
+.gaia-opening-language { width: 84%; margin: 20px auto 12px; }
 .gaia-opening-language-options {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0;
-  padding: 0;
-  border-bottom: 1px solid rgba(188, 213, 212, .19);
+  border-bottom: 1px solid #86bbcb38;
   border-radius: 0;
   background: none;
 }
 .gaia-opening-language-options button {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0;
+  display: grid;
+  place-items: center;
   min-width: 0;
-  min-height: 44px;
-  padding: 8px 14px;
+  min-height: 48px;
+  padding: 8px 12px;
   border: 1px solid transparent;
   border-radius: 0;
-  color: #b2c1c4;
+  color: #c5d5e1;
   background: transparent;
   cursor: pointer;
   touch-action: manipulation;
   transition: color 150ms ease, background-color 150ms ease;
 }
-.gaia-opening-language-options button:hover { color: #f0f7f3; background-color: rgba(183, 230, 209, .04); }
-.gaia-opening-language-options button[aria-pressed="true"] {
-  border-color: transparent;
-  border-bottom-color: #b7dbc5;
-  color: #edf6e9;
-  background: linear-gradient(0deg, rgba(172, 218, 195, .09), transparent 90%);
-  box-shadow: 0 1px #b7dbc5;
-}
-.gaia-opening-language-options button:focus-visible {
-  outline: 2px solid #b1dccf;
-  outline-offset: 2px;
-}
-.gaia-opening-language-name {
-  min-width: 0;
-  font-family: var(--font-ja);
-  font-size: 15px;
-  font-weight: 400;
-  letter-spacing: 0.02em;
-  line-height: 1.35;
-  white-space: nowrap;
-}
-.gaia-opening-language-check {
+.gaia-opening-language-options button + button::before {
   position: absolute;
-  top: 10px;
-  right: 8px;
-  width: 8px;
-  opacity: 0;
-  color: #d1e7c8;
-  font: 500 9px/1 sans-serif;
+  content: "";
+  left: 0;
+  height: 14px;
+  border-left: 1px solid #88c4d32b;
 }
+.gaia-opening-language-options button:hover { color: #f0fcff; background-color: #b7e6df0a; }
+.gaia-opening-language-options button[aria-pressed="true"] {
+  border-color: #8fd5e763;
+  border-bottom-color: #cafff6;
+  color: #ecfffc;
+  background: linear-gradient(0deg, #89e3e330, transparent);
+  box-shadow: inset 0 -2px #b6fff4, 0 3px 12px #9cecf112;
+}
+.gaia-opening-language-options button:focus-visible { outline: 2px solid #defff8; outline-offset: 3px; }
+.gaia-opening-language-name { font: 400 17px/1.35 var(--font-ja); letter-spacing: .03em; white-space: nowrap; }
+.gaia-opening-language-check { position: absolute; top: 5px; right: 6px; opacity: 0; color: #d0fff5; font: 500 9px/1 sans-serif; }
 .gaia-opening-language-options button[aria-pressed="true"] .gaia-opening-language-check { opacity: 1; }
 
-/* Jewel-like game entry cards. Effects are local to this sound dialog;
-   neither route-card glints nor the audio handoff timing are shared here. */
-.gaia-opening-sound-choices {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 18px;
-  margin-top: 0;
-}
-.gaia-opening-sound-option { min-width: 0; }
-.gaia-opening-sound-option-button {
-  --option-accent: 255, 225, 153;
-  --option-light: 109, 255, 226;
-  --option-top: #317e79;
-  --option-bottom: #102e43;
-  --option-foot: #193c42;
+.gaia-opening-setup-volume {
   position: relative;
   display: grid;
-  grid-template-columns: 52px minmax(0, 1fr) 32px;
-  gap: 20px;
+  width: auto;
+  grid-template-columns: 44px minmax(0, 1fr) 44px;
+  align-items: center;
+  gap: 22px;
+  margin: 0 20px 14px;
+  padding: 0 0 8px;
+  border: 0;
+}
+.gaia-opening-setup-volume::after {
+  content: "";
+  position: absolute;
+  bottom: 8px;
+  left: 66px;
+  right: 66px;
+  height: 4px;
+  background: repeating-linear-gradient(90deg, #8dcad76b 0 1px, transparent 1px 24px);
+  pointer-events: none;
+}
+.gaia-opening-setup-volume label { margin: 0; color: #cfdeeb; font: 400 14px/1.5 var(--font-ja); letter-spacing: .08em; }
+.gaia-opening-setup-volume output { justify-self: end; color: #eef9ff; font: 400 13px/1.4 var(--font-console); font-variant-numeric: tabular-nums; }
+.gaia-opening-setup-volume input[type="range"] { height: 44px; }
+.gaia-opening-setup-volume input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px;
+  background: linear-gradient(90deg, #cefff3 var(--volume-fill, 10%), #517f936e var(--volume-fill, 10%));
+  box-shadow: none;
+}
+.gaia-opening-setup-volume input[type="range"]::-moz-range-track { height: 3px; background: #517f936e; box-shadow: none; }
+.gaia-opening-setup-volume input[type="range"]::-moz-range-progress { height: 3px; background: #cefff3; }
+.gaia-opening-setup-volume input[type="range"]::-webkit-slider-thumb {
+  width: 16px; height: 16px; margin-top: -6.5px; border: 1px solid #dffff6; background: #baffec;
+  box-shadow: 0 0 0 7px #8adddd12, 0 0 18px #7fdedb55;
+}
+.gaia-opening-setup-volume input[type="range"]::-moz-range-thumb {
+  width: 16px; height: 16px; border: 1px solid #dffff6; background: #baffec;
+  box-shadow: 0 0 0 7px #8adddd12, 0 0 18px #7fdedb55;
+}
+.gaia-opening-setup-volume input:focus-visible { outline: 2px solid #cefff3; outline-offset: 2px; }
+
+/* Bevelled entry surfaces. Geometry and text remain native, selectable UI. */
+.gaia-opening-sound-choices { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; margin: 0; }
+.gaia-opening-sound-option {
+  --option-cut: polygon(15px 0, calc(100% - 15px) 0, 100% 15px, 100% calc(100% - 15px), calc(100% - 15px) 100%, 15px 100%, 0 calc(100% - 15px), 0 15px);
+  min-width: 0;
+  padding: 1px;
+  clip-path: var(--option-cut);
+  background: #8fddd9;
+}
+.gaia-opening-sound-option:has(:focus-visible) { background: #edfff9; filter: drop-shadow(0 0 6px #a2fcff); }
+.gaia-opening-sound-option--off { background: #7b9dca; }
+.gaia-opening-sound-option-button {
+  --option-accent: 218, 255, 247;
+  --option-light: 192, 255, 242;
+  position: relative;
+  display: grid;
+  grid-template-columns: 62px minmax(0, 1fr) 26px;
+  gap: 28px;
   align-items: center;
   isolation: isolate;
   overflow: hidden;
   width: 100%;
-  min-height: 108px;
-  padding: 20px 26px;
-  border: 1px solid rgba(var(--option-accent), .88);
-  border-radius: 13px 4px 13px 4px;
-  color: #fff9e7;
+  min-height: 124px;
+  padding: 24px 28px;
+  border: 0;
+  border-radius: 0;
+  clip-path: var(--option-cut);
+  color: #092c42;
   text-align: left;
-  background:
-    radial-gradient(ellipse at 12% 0%, rgba(var(--option-light), .28), transparent 60%),
-    linear-gradient(115deg, transparent 58%, rgba(var(--option-light), .09) 58.3%, transparent 76%),
-    linear-gradient(180deg, var(--option-top), var(--option-bottom));
-  box-shadow: inset 0 2px 1px #fffee766, inset 0 -3px 6px #00101f7a,
-    0 5px 0 var(--option-foot), 0 6px 0 rgba(var(--option-accent), .5),
-    0 14px 30px #000b1c66, 0 0 26px rgba(var(--option-light), .11);
+  background: #a8e4df url("./assets/ui/sound-terminal-water.svg") center / cover no-repeat;
+  box-shadow: inset 0 0 20px #cdfff663;
   cursor: pointer;
   touch-action: manipulation;
-  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease, filter 180ms ease;
+  transition: filter 180ms ease, box-shadow 180ms ease;
 }
 .gaia-opening-sound-option--off .gaia-opening-sound-option-button {
-  --option-accent: 207, 216, 255;
-  --option-light: 165, 185, 255;
-  --option-top: #45517e;
-  --option-bottom: #1b2949;
-  --option-foot: #252c4c;
-  color: #f5f4ff;
+  --option-accent: 167, 196, 243;
+  --option-light: 155, 192, 249;
+  color: #e5efff;
+  background:
+    linear-gradient(120deg, #729ad438, transparent 21%, #527ba81c 21.2%, transparent 65%),
+    url("./assets/ui/sound-terminal-field.svg") center / cover,
+    linear-gradient(120deg, #1c3858, #15243f);
+  box-shadow: inset 0 0 18px #7eaeef0d;
 }
 .gaia-opening-sound-option-button::before {
+  content: "";
   position: absolute;
   z-index: -1;
-  inset: 4px;
-  content: "";
+  inset: 5px;
   pointer-events: none;
-  border: 1px solid rgba(var(--option-accent), .3);
-  border-radius: 9px 1px 9px 1px;
-  background: linear-gradient(180deg, #ffffff0c, transparent 45%);
+  clip-path: polygon(10px 0, calc(100% - 10px) 0, 100% 10px, 100% calc(100% - 10px), calc(100% - 10px) 100%, 10px 100%, 0 calc(100% - 10px), 0 10px);
+  border: 1px solid rgba(var(--option-accent), .65);
 }
 .gaia-opening-sound-option-button::after {
   content: "";
@@ -4344,203 +4402,123 @@ body.gaia-opening-active .gaia-audio-dock.is-visible.is-expanded {
   pointer-events: none;
   opacity: 0;
   transform: translateX(-80%) rotate(-18deg);
-  background: linear-gradient(90deg, transparent 30%, rgba(var(--option-light), .12) 40%, #fff9dd96 49%, #ffffffb3 50%, rgba(var(--option-light), .15) 60%, transparent 70%);
+  background: linear-gradient(90deg, transparent 30%, rgba(var(--option-light), .08) 40%, #ecffff63 50%, rgba(var(--option-light), .08) 60%, transparent 70%);
 }
 .gaia-opening-sound-option-button.is-sound-glint::after { animation: sound-choice-sheen 640ms cubic-bezier(.2, .65, .3, 1) both; }
-.gaia-opening-sound-option-button:is(:hover, :focus-visible) {
-  border-color: rgb(var(--option-accent));
-  filter: brightness(1.12);
-  box-shadow: inset 0 2px 1px #fffbe894, inset 0 -3px 6px #00101f7a,
-    0 6px 0 var(--option-foot), 0 7px 0 rgba(var(--option-accent), .72),
-    0 16px 32px #000b1c80, 0 0 30px rgba(var(--option-light), .25);
-  transform: translateY(-2px);
-}
-.gaia-opening-sound-option-button:focus-visible { outline: 2px solid #fff7d6; outline-offset: 4px; }
+.gaia-opening-sound-option-button:is(:hover, :focus-visible) { filter: brightness(1.07); box-shadow: inset 0 0 0 2px rgba(var(--option-accent), .95), inset 0 0 28px rgba(var(--option-light), .18); }
+.gaia-opening-sound-option-button:focus-visible { outline: none; }
+.gaia-opening-sound-option-button:focus-visible::before { border-width: 2px; border-color: #f0fff9; }
 .gaia-opening-sound-option-button:active,
-.gaia-opening-sound-option-button:disabled[aria-pressed="true"] {
-  transform: translateY(3px);
-  filter: brightness(1.2);
-  box-shadow: inset 0 1px 7px #020c2280, 0 2px 0 var(--option-foot), 0 3px 0 rgba(var(--option-accent), .8), 0 0 32px rgba(var(--option-light), .3);
-}
+.gaia-opening-sound-option-button:disabled[aria-pressed="true"] { filter: brightness(1.1); }
 .gaia-opening-sound-option-button:disabled { cursor: wait; }
 .gaia-opening-sound-option-button:disabled[aria-pressed="false"] { opacity: .45; }
 .gaia-opening-sound-option-button:disabled[aria-pressed="true"]::after { animation: sound-choice-confirm 220ms ease-out both; }
 .gaia-opening-sound-option-button .gaia-opening-sound-icon-shell {
+  position: relative;
   display: grid;
-  flex: 0 0 auto;
   place-items: center;
-  width: 48px;
-  height: 48px;
-  border: 1px solid rgba(var(--option-accent), .7);
-  border-radius: 11px;
-  color: rgb(var(--option-accent));
-  background: linear-gradient(145deg, rgba(var(--option-light), .25), #08192c80 65%);
-  box-shadow: inset 0 1px 5px rgba(var(--option-accent), .3), 0 0 16px rgba(var(--option-light), .17);
-  transform: rotate(-8deg);
+  width: 58px;
+  height: 58px;
+  border: 1px solid rgba(var(--option-accent), .72);
+  border-radius: 15px;
+  color: inherit;
+  background: linear-gradient(145deg, #ecfff926, transparent);
+  transform: rotate(-5deg) translateY(-5px);
 }
-.gaia-opening-sound-option-button .gaia-opening-sound-icon { width: 27px; height: 27px; stroke-width: 1.5; transform: rotate(8deg); filter: drop-shadow(0 0 4px rgba(var(--option-accent), .4)); }
+.gaia-opening-sound-icon-shell::after { content: "ON"; position: absolute; top: calc(100% + 5px); font: 400 10px/1 Georgia, serif; letter-spacing: .12em; transform: rotate(5deg); }
+.gaia-opening-sound-option--off .gaia-opening-sound-icon-shell::after { content: "OFF"; color: #b8d1ef; }
+.gaia-opening-sound-option-button .gaia-opening-sound-icon { width: 33px; height: 33px; stroke-width: 1.55; transform: rotate(5deg); filter: none; }
 .gaia-opening-sound-option-copy { display: grid; min-width: 0; gap: 7px; }
-.gaia-opening-sound-option-copy > small {
-  color: #d1e9df;
-  font: 400 11px/1.6 var(--font-ja);
-  letter-spacing: .08em;
-}
-.gaia-opening-sound-option--off .gaia-opening-sound-option-copy > small { color: #d6dff5; }
-.gaia-opening-sound-option-arrow {
-  box-sizing: content-box;
-  width: 22px;
-  height: 16px;
-  padding: 9px 4px;
-  border: 1px solid rgba(var(--option-accent), .42);
-  border-radius: 7px 2px 7px 2px;
-  background: rgba(var(--option-accent), .09);
-  box-shadow: inset 0 1px rgba(var(--option-accent), .28);
-  color: rgb(var(--option-accent));
-  stroke: currentColor;
-  stroke-width: 1.5;
-  transition: transform 300ms ease;
-}
-.gaia-opening-sound-option-button:is(:hover, :focus-visible) .gaia-opening-sound-option-arrow { transform: translateX(3px); }
-.gaia-opening-sound-option-label {
-  font-family: var(--font-ja);
-  font-size: clamp(20px, 1.35vw, 25px);
-  font-weight: 600;
-  letter-spacing: .12em;
-  line-height: 1.5;
-  white-space: nowrap;
-  text-shadow: 0 2px 3px #07142dc9, 0 0 16px rgba(var(--option-accent), .18);
-}
-
+.gaia-opening-sound-option-copy > small { color: #244856; font: 400 13px/1.6 var(--font-ja); letter-spacing: .1em; }
+.gaia-opening-sound-option--off .gaia-opening-sound-option-copy > small { color: #c5d7f0; }
+.gaia-opening-sound-option-label { font: 600 clamp(25px, 1.75vw, 32px)/1.5 var(--font-ja); letter-spacing: .1em; white-space: nowrap; text-shadow: none; }
+.gaia-opening-sound-option-arrow { width: 23px; height: 30px; padding: 0; border: 0; background: none; box-shadow: none; color: inherit; fill: currentColor; stroke: none; transition: transform 180ms ease; }
+.gaia-opening-sound-option--off .gaia-opening-sound-option-arrow { color: #a3c9f5; }
+.gaia-opening-sound-option-button:is(:hover, :focus-visible) .gaia-opening-sound-option-arrow { transform: translateX(2px); }
 .gaia-opening-sound-sparkles { position: absolute; inset: 0; pointer-events: none; }
-.gaia-opening-sound-sparkles > i {
-  position: absolute;
-  width: 12px;
-  height: 12px;
-  color: rgb(var(--option-accent));
-  background: currentColor;
-  clip-path: polygon(50% 0, 60% 38%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0 50%, 40% 40%);
-  opacity: .65;
-}
-.gaia-opening-sound-sparkles > i:nth-child(1) { top: 3px; left: 22%; width: 10px; height: 10px; }
-.gaia-opening-sound-sparkles > i:nth-child(2) { top: 12px; right: 16px; }
-.gaia-opening-sound-sparkles > i:nth-child(3) { bottom: 7px; right: 18%; width: 7px; height: 7px; }
+.gaia-opening-sound-sparkles > i { position: absolute; width: 10px; height: 10px; background: rgb(var(--option-accent)); clip-path: polygon(50% 0, 56% 44%, 100% 50%, 56% 56%, 50% 100%, 44% 56%, 0 50%, 44% 44%); opacity: .8; }
+.gaia-opening-sound-sparkles > i:nth-child(1) { top: 12px; right: 20px; }
+.gaia-opening-sound-sparkles > i:nth-child(2) { bottom: 16px; right: 16%; width: 7px; height: 7px; }
+.gaia-opening-sound-sparkles > i:nth-child(3) { display: none; }
 .is-sound-glint .gaia-opening-sound-sparkles > i { animation: sound-choice-sparkle 640ms ease-out both; }
 @keyframes sound-choice-sheen {
   0% { opacity: 0; transform: translateX(-80%) rotate(-18deg); }
-  20% { opacity: .9; }
-  72% { opacity: .65; }
+  20% { opacity: .6; }
+  72% { opacity: .4; }
   100% { opacity: 0; transform: translateX(80%) rotate(-18deg); }
 }
-@keyframes sound-choice-sparkle {
-  0%, 100% { opacity: .65; transform: scale(1); }
-  45% { opacity: 1; transform: scale(1.6) rotate(30deg); }
-}
-@keyframes sound-choice-confirm {
-  from { opacity: .7; transform: none; }
-  to { opacity: 0; transform: none; }
-}
-
-.gaia-opening-setup-volume {
-  display: grid;
-  grid-template-columns: 36px minmax(0, 1fr) 44px;
-  align-items: center;
-  gap: 18px;
-  margin-top: 22px;
-  padding: 12px 4px 0;
-  border: 0;
-  border-top: 1px solid rgba(177, 211, 211, .18);
-  text-shadow: 0 1px 6px #000;
-}
-.gaia-opening-setup-volume label {
-  margin: 0;
-  color: #c0d0d0;
-  font-family: var(--font-ja);
-  font-size: 12px;
-  font-weight: 400;
-  letter-spacing: 0.04em;
-}
-.gaia-opening-setup-volume output { justify-self: end; color: #dce8dc; font: 400 12px/1.4 var(--font-console); font-variant-numeric: tabular-nums; }
-.gaia-opening-setup-volume input[type="range"] { height: 44px; }
-.gaia-opening-setup-volume input[type="range"]::-webkit-slider-runnable-track {
-  height: 2px;
-  background: linear-gradient(90deg, #c0ddc2 var(--volume-fill, 10%), #66817f66 var(--volume-fill, 10%));
-  box-shadow: none;
-}
-.gaia-opening-setup-volume input[type="range"]::-moz-range-track { height: 2px; background: #66817f66; box-shadow: none; }
-.gaia-opening-setup-volume input[type="range"]::-moz-range-progress { height: 2px; background: #c0ddc2; }
-.gaia-opening-setup-volume input[type="range"]::-webkit-slider-thumb {
-  width: 12px;
-  height: 12px;
-  margin-top: -5px;
-  border: 1px solid #ecf3da;
-  background: #d0e7cb;
-  box-shadow: 0 0 0 5px rgba(192, 222, 203, .08), 0 0 16px rgba(192, 222, 203, .24);
-}
-.gaia-opening-setup-volume input[type="range"]::-moz-range-thumb {
-  width: 12px;
-  height: 12px;
-  border: 1px solid #ecf3da;
-  background: #d0e7cb;
-  box-shadow: 0 0 0 5px rgba(192, 222, 203, .08), 0 0 16px rgba(192, 222, 203, .24);
-}
-
+@keyframes sound-choice-sparkle { 0%, 100% { opacity: .8; } 45% { opacity: 1; } }
+@keyframes sound-choice-confirm { from { opacity: .5; transform: none; } to { opacity: 0; transform: none; } }
 .gaia-opening.is-sound-modal-open .gaia-opening-final-menu.is-visible { opacity: 0.4; pointer-events: none; }
 
 @media (max-width: 720px) {
-  .gaia-opening-sound-modal {
-    padding: max(20px, env(safe-area-inset-top)) max(14px, env(safe-area-inset-right))
-      max(18px, env(safe-area-inset-bottom)) max(14px, env(safe-area-inset-left));
-  }
+  .gaia-opening-sound-modal { padding: max(20px, env(safe-area-inset-top)) max(14px, env(safe-area-inset-right)) max(18px, env(safe-area-inset-bottom)) max(14px, env(safe-area-inset-left)); }
   .gaia-opening-sound-scene > span { background-position: center, 67% center; }
-  .gaia-opening-sound-dialog { width: min(420px, 100%); padding: 12px 8px; }
-  .gaia-opening-sound-heading > h2 { font-size: 30px; }
-  .gaia-opening-sound-heading > span { font-size: 11px; }
-  .gaia-opening-sound-kicker { font-size: 10px; margin-bottom: 15px; }
-  .gaia-opening-language-options button { padding: 8px 12px; }
+  .gaia-opening-sound-dialog { --terminal-corner: 20px; width: min(480px, 100%); padding: 25px 18px 24px; }
+  .gaia-opening-sound-kicker { font-size: 10px; }
+  .gaia-opening-sound-heading > .gaia-opening-sound-brand { margin-bottom: 14px; font-size: 7px; }
+  .gaia-opening-sound-heading > h2 { font-size: 30px; letter-spacing: .1em; }
+  .gaia-opening-sound-heading > span { font-size: 11px; letter-spacing: .04em; }
+  .gaia-opening-sound-wave { top: 48px; height: 44px; opacity: .38; }
+  .gaia-opening-language { width: 100%; margin: 18px auto 12px; }
+  .gaia-opening-language-options button { min-height: 44px; padding: 8px; }
   .gaia-opening-language-name { font-size: 14px; }
-  .gaia-opening-sound-choices { gap: 16px; }
-  .gaia-opening-sound-option-button { min-height: 96px; padding: 16px 18px; gap: 12px; grid-template-columns: 38px minmax(0, 1fr) 26px; }
-  .gaia-opening-sound-option-button .gaia-opening-sound-icon-shell { width: 36px; height: 40px; }
-  .gaia-opening-sound-option-label { font-size: 20px; letter-spacing: .08em; }
-  .gaia-opening-sound-option-copy > small { font-size: 10px; }
-  .gaia-opening-sound-option-arrow { width: 18px; padding-inline: 3px; }
-  .gaia-opening-setup-volume { gap: 10px; }
-}
-
-@media (max-width: 360px) {
-  .gaia-opening-sound-heading > h2 { font-size: 27px; letter-spacing: .12em; }
-  .gaia-opening-language-name { font-size: 13px; }
-  .gaia-opening-sound-option-button { padding-inline: 12px; gap: 8px; grid-template-columns: 30px minmax(0, 1fr) 20px; }
-  .gaia-opening-sound-option-button .gaia-opening-sound-icon-shell { width: 30px; }
+  .gaia-opening-setup-volume { margin: 0 4px 10px; gap: 12px; grid-template-columns: 34px minmax(0, 1fr) 34px; }
+  .gaia-opening-setup-volume::after { left: 46px; right: 46px; background-size: auto; }
+  .gaia-opening-setup-volume label { font-size: 12px; }
+  .gaia-opening-setup-volume output { font-size: 11px; }
+  .gaia-opening-sound-choices { gap: 12px; }
+  .gaia-opening-sound-option-button { min-height: 102px; padding: 18px 16px; gap: 15px; grid-template-columns: 40px minmax(0, 1fr) 16px; }
+  .gaia-opening-sound-option-button .gaia-opening-sound-icon-shell { width: 38px; height: 42px; border-radius: 10px; }
   .gaia-opening-sound-option-button .gaia-opening-sound-icon { width: 25px; height: 25px; }
-  .gaia-opening-sound-option-label { font-size: 18px; letter-spacing: .03em; }
-  .gaia-opening-sound-option-copy > small { letter-spacing: 0; }
-  .gaia-opening-sound-option-arrow { width: 14px; padding-inline: 2px; }
+  .gaia-opening-sound-icon-shell::after { font-size: 8px; }
+  .gaia-opening-sound-option-label { font-size: 21px; letter-spacing: .04em; }
+  .gaia-opening-sound-option-copy { gap: 5px; }
+  .gaia-opening-sound-option-copy > small { font-size: 10px; letter-spacing: .02em; }
+  .gaia-opening-sound-option-arrow { width: 16px; height: 23px; }
 }
-
-@media (max-height: 600px) {
-  .gaia-opening-sound-dialog { padding-block: 0; }
-  .gaia-opening-sound-kicker { margin-bottom: 8px; }
+@media (max-width: 360px) {
+  .gaia-opening-sound-dialog { padding-inline: 14px; }
+  .gaia-opening-sound-heading > h2 { font-size: 25px; letter-spacing: .06em; }
+  .gaia-opening-sound-wave { opacity: .22; }
+  .gaia-opening-language-name { font-size: 13px; }
+  .gaia-opening-sound-option-button { min-height: 94px; padding-inline: 12px; gap: 10px; grid-template-columns: 32px minmax(0, 1fr) 12px; }
+  .gaia-opening-sound-option-button .gaia-opening-sound-icon-shell { width: 30px; height: 36px; }
+  .gaia-opening-sound-option-button .gaia-opening-sound-icon { width: 22px; height: 22px; }
+  .gaia-opening-sound-option-label { font-size: 18px; letter-spacing: 0; }
+  .gaia-opening-sound-option-copy > small { font-size: 9px; letter-spacing: 0; }
+  .gaia-opening-sound-option-arrow { width: 12px; }
+}
+@media (max-width: 300px) {
+  .gaia-opening-sound-option-button { gap: 8px; padding-inline: 10px; }
+  .gaia-opening-sound-option-label { font-size: 16px; }
+  .gaia-opening-sound-option-copy > small { font-size: 8px; }
+}
+@media (max-height: 650px) {
+  .gaia-opening-sound-dialog { padding-block: 20px; }
+  .gaia-opening-sound-heading > .gaia-opening-sound-brand { margin-bottom: 8px; }
   .gaia-opening-sound-heading > span { margin-top: 5px; }
-  .gaia-opening-language { margin-block: 14px; }
-  .gaia-opening-setup-volume { margin-top: 14px; padding-top: 4px; }
+  .gaia-opening-language { margin-block: 12px 6px; }
+  .gaia-opening-sound-wave { top: 48px; }
 }
 @media (orientation: landscape) and (max-width: 960px) and (max-height: 520px) {
-  .gaia-opening-sound-modal { overflow-y: auto; padding-block: 12px; }
-  .gaia-opening-sound-dialog { width: min(560px, 100%); padding: 0; }
-  .gaia-opening-sound-kicker { display: none; }
+  .gaia-opening-sound-modal { padding-block: 12px; overflow-y: auto; }
+  .gaia-opening-sound-dialog { width: min(660px, 100%); padding: 16px 24px 20px; }
+  .gaia-opening-sound-kicker, .gaia-opening-sound-heading > .gaia-opening-sound-brand { display: none; }
   .gaia-opening-sound-heading > h2 { font-size: 25px; line-height: 1.3; }
   .gaia-opening-sound-heading > span { margin-top: 2px; font-size: 10px; }
-  .gaia-opening-language { margin: 6px auto; }
+  .gaia-opening-sound-wave { top: -4px; height: 38px; }
+  .gaia-opening-language { width: 70%; margin: 6px auto 0; }
+  .gaia-opening-setup-volume { width: 85%; margin: 0 auto 6px; padding: 0; }
+  .gaia-opening-setup-volume::after { bottom: 3px; }
   .gaia-opening-sound-choices { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-  .gaia-opening-sound-option-button { min-height: 78px; padding: 10px 14px; gap: 10px; grid-template-columns: 28px minmax(0, 1fr); }
-  .gaia-opening-sound-option-button .gaia-opening-sound-icon-shell { width: 28px; height: 34px; }
-  .gaia-opening-sound-option-button .gaia-opening-sound-icon { width: 24px; height: 24px; }
-  .gaia-opening-sound-option-label { font-size: 17px; }
+  .gaia-opening-sound-option-button { min-height: 80px; padding: 12px; gap: 12px; grid-template-columns: 32px minmax(0, 1fr) 12px; }
+  .gaia-opening-sound-option-button .gaia-opening-sound-icon-shell { width: 30px; height: 34px; border-radius: 9px; }
+  .gaia-opening-sound-option-button .gaia-opening-sound-icon { width: 23px; height: 23px; }
+  .gaia-opening-sound-option-label { font-size: 17px; letter-spacing: 0; }
   .gaia-opening-sound-option-copy { gap: 3px; }
   .gaia-opening-sound-option-copy > small { font-size: 9px; letter-spacing: 0; }
-  .gaia-opening-sound-option-arrow { display: none; }
-  .gaia-opening-setup-volume { margin-top: 8px; }
+  .gaia-opening-sound-option-arrow { width: 12px; height: 20px; }
 }
 
 @keyframes sound-scene-breathe {

@@ -235,7 +235,6 @@ const initializeWebgl = () => {
       varying float v_alpha;
       varying float v_heat;
       varying float v_night;
-      varying float v_seed;
       varying float v_focus;
 
       void main() {
@@ -245,34 +244,32 @@ const initializeWebgl = () => {
         float appeared = smoothstep(a_positionData.w, a_positionData.w + 0.018, u_progress);
         float expired = u_extinguish < 0.0 ? 0.0 : smoothstep(a_positionData.w, a_positionData.w + 0.045, u_extinguish);
         v_focus = 1.0 - step(0.00001, abs(a_positionData.w - u_focusSequence));
-        float attention = u_focusSequence < 0.0 ? 1.0 : mix(0.5, 1.0, v_focus);
+        // Reading one observation must not flash/dim every other observation.
         v_alpha = appeared * (1.0 - expired) * (0.55 + a_meta.x * 0.45)
-          * attention * (1.0 - u_introQuiet * 0.55);
+          * (1.0 - u_introQuiet * 0.55);
         v_heat = a_positionData.z;
         v_night = a_meta.y;
-        v_seed = a_meta.z;
         gl_Position = v_alpha > 0.002 ? vec4(clip, 0.0, 1.0) : vec4(2.0, 2.0, 0.0, 1.0);
         // A soft selection halo uses the same sprite/pass, independent of FRP.
         gl_PointSize = (7.0 + a_positionData.z * 20.0 + v_focus * 16.0) * u_renderScale * u_markerScale;
       }
     `, `
       precision mediump float;
-      uniform float u_time;
       varying float v_alpha;
       varying float v_heat;
       varying float v_night;
-      varying float v_seed;
       varying float v_focus;
 
       void main() {
         vec2 point = gl_PointCoord * 2.0 - 1.0;
         point.x *= 1.0 + max(point.y, 0.0) * 0.34;
-        point.y += 0.12 + sin(u_time * (2.1 + v_seed) + v_seed * 31.0) * 0.055 * (1.0 - abs(point.y));
+        // Keep settled observations steady. Motion belongs to their chronological
+        // reveal/expiry and one-shot ignition, not a repeated brightness pulse.
+        point.y += 0.12;
         float distanceToCore = length(point * vec2(1.08, 0.88));
         if (distanceToCore > 1.0) discard;
         float core = exp(-distanceToCore * 5.8);
         float body = smoothstep(1.0, 0.1, distanceToCore);
-        float flicker = 0.86 + 0.14 * sin(u_time * (3.0 + v_seed * 2.0) + v_seed * 47.0 + point.y * 5.0);
         vec3 dayOuter = vec3(0.95, 0.12, 0.025);
         vec3 nightOuter = vec3(0.72, 0.025, 0.02);
         vec3 outer = mix(dayOuter, nightOuter, v_night);
@@ -280,7 +277,7 @@ const initializeWebgl = () => {
         vec3 color = mix(outer, middle, smoothstep(0.15, 0.82, body));
         color = mix(color, vec3(1.0, 0.88, 0.48), core * (0.48 + v_heat * 0.42));
         color = mix(color, vec3(1.0, 0.96, 0.78), v_focus * body * 0.7);
-        float alpha = body * v_alpha * flicker * (0.48 + v_heat * 0.52);
+        float alpha = body * v_alpha * 0.86 * (0.48 + v_heat * 0.52);
         float selectionGlow = exp(-length(gl_PointCoord * 2.0 - 1.0) * 4.0) * v_focus;
         color += vec3(1.0, 0.86, 0.53) * selectionGlow * 0.6;
         alpha = max(alpha, selectionGlow * v_alpha * 0.8);
@@ -440,7 +437,7 @@ const drawBackground = (timestamp, width, height) => {
   gl.drawArrays(gl.TRIANGLES, 0, 3);
 };
 
-const drawFires = (timestamp, projection, state, renderScale) => {
+const drawFires = (projection, state, renderScale) => {
   gl.enable(gl.BLEND);
   gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
   gl.useProgram(fireProgram);
@@ -458,7 +455,6 @@ const drawFires = (timestamp, projection, state, renderScale) => {
   gl.uniform1f(gl.getUniformLocation(fireProgram, "u_extinguish"), state.extinguish);
   gl.uniform1f(gl.getUniformLocation(fireProgram, "u_renderScale"), renderScale);
   gl.uniform1f(gl.getUniformLocation(fireProgram, "u_markerScale"), markerScale(projection));
-  gl.uniform1f(gl.getUniformLocation(fireProgram, "u_time"), timestamp / 1000);
   gl.uniform1f(gl.getUniformLocation(fireProgram, "u_introQuiet"), introQuiet);
   gl.uniform1f(gl.getUniformLocation(fireProgram, "u_focusSequence"), focusedIndex < 0 ? -1 : fireSequence(focusedIndex, pointCount));
   gl.drawArrays(gl.POINTS, 0, pointCount);
@@ -560,7 +556,8 @@ const draw = (timestamp = performance.now()) => {
     frame = 0;
     return;
   }
-  if (timestamp - lastRenderedAt < FRAME_INTERVAL_MS) {
+  canvas.hidden = layer.matches('.is-map-title-transitioning, .is-map-data-intro');
+  if (canvas.hidden || timestamp - lastRenderedAt < FRAME_INTERVAL_MS) {
     frame = requestAnimationFrame(draw);
     return;
   }
@@ -582,14 +579,16 @@ const draw = (timestamp = performance.now()) => {
   const interaction = globalThis.GaiaMapObservationAdapter?.getPoiInteraction?.();
   const selected = interaction?.selected?.exhibitId === DEFINITION.id ? interaction.selected : null;
   const hovered = interaction?.hovered?.exhibitId === DEFINITION.id ? interaction.hovered : null;
-  focusedIndex = (selected || hovered)?.index ?? -1;
+  // Hover still opens the observation preview, but must not resize markers or
+  // switch off all ignition columns as the pointer crosses a dense cluster.
+  focusedIndex = selected?.index ?? -1;
   canvas.dataset.firmsPoiFocusState = selected ? "selected" : hovered ? "hovered" : "none";
   canvas.dataset.firmsSelectedPoint = String(selected?.index ?? -1);
   canvas.dataset.firmsIntroQuiet = introQuiet.toFixed(3);
   const motionTime = reducedMotion ? 0
     : state.animationElapsed ?? (playbackEnabled ? timestamp - cycleStartedAt : heldPlayback ? pausedCycleElapsedMs : 0);
   drawBackground(motionTime, canvas.width, canvas.height);
-  drawFires(motionTime, projection, state, renderScale);
+  drawFires(projection, state, renderScale);
   drawFireColumns(timestamp, projection, state, renderScale);
   canvas.dataset.firmsFrame = String((Number(canvas.dataset.firmsFrame) || 0) + 1);
   renderedPlayback = state;

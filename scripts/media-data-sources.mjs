@@ -74,6 +74,17 @@ export function mediaDataSources(root, providers) {
   }
   const temperature = read('data/story-temperature-annual.json');
   for (const d of CLIMATE_EXHIBITS) {
+    if(d.atlas||d.id==='lakes'){
+      const file=d.atlas?`data/atlas-history/${d.id}.json`:'data/surface-water/lakes.json',data=read(file);
+      const termsUrl=d.termsUrl||(d.id==='waterstore'?'https://grace.jpl.nasa.gov/about/how-to-cite/':d.id==='sealevel'?'https://www.star.nesdis.noaa.gov/socd/lsa/SeaLevelRise/LSA_productspolicy.php':d.id==='lakes'?'https://global-surface-water.appspot.com/download':'https://datacatalog.worldbank.org/public-licenses');
+      add('水・気候・暮らしの記録（MAP 74–75）',d.id,d.organisation||'EC JRC / Google',`MAP ${d.number} / ${d.signalLabel}`,d.source,
+        '保存値を展示選択時に遅延読込。欠測を0埋めせず、原系列と独自年次集計を区別。',file,{modeId:d.id,period:data.period.join('–'),retrievedAt:data.retrievedAt,transformation:data.method,termsUrl,attribution:data.citation||data.attribution||d.organisation});
+      if(d.id==='waterstore'){
+        const gridFile='data/atlas-history/waterstore-grid.json',grid=read(gridFile);
+        add('水・気候・暮らしの記録（MAP 75）','waterstore-grid',d.organisation,'陸水量偏差の0.5度配布格子',d.source,'展示75で遅延読込。配布0.5度・推定約3度。',gridFile,{modeId:d.id,period:'2003–2024',retrievedAt:grid.retrievedAt,transformation:grid.method,termsUrl,attribution:d.organisation});
+      }
+      continue;
+    }
     const file = `data/climate-history/${d.id}.json`, data = read(file);
     add('世界の気候記録（MAP 72–73）', d.id, d.id === 'coral' ? 'NOAA Coral Reef Watch' : 'NOAA NCEI / IBTrACS',
       `MAP ${d.number} / ${d.signalLabel}`, d.source, '公式公開データから抽出・年別集計した保存値。展示選択時に遅延読込。欠測はゼロ補完しない。', file,

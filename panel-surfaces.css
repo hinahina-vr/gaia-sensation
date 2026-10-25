@@ -2,7 +2,7 @@
    containers (which also fades their text, icons and controls). */
 @layer gaia-panel-surfaces {
   :is(.gaia-mode-entry-guide-card, .gaia-opening-route-guide-surface, .intro-entry-guide-surface,
-      .gaia-opening-sound-dialog, .gaia-opening-sound-hint,
+      .gaia-opening-sound-hint,
       .sensor-participation-dialog, .sensor-public-profile-dialog, .sensor-map-card,
       .sensor-onboarding-dialog, .sensor-popover, .sensor-sync-tooltip,
       #japan-data-panel, #japan-poi-card, .japan-poi-preview,

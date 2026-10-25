@@ -1,8 +1,12 @@
+import {ATLAS_EXHIBITS} from './atlas-history-model.js?v=through75-20261025';
 export const CLIMATE_EXHIBITS = Object.freeze([
   { id: 'cyclones', number: '72', shortTitle: '嵐が残した道', signalLabel: '熱帯低気圧の経路・最大風速', subtitle: '海を渡った嵐の記録から、年ごとの違いをたどる',
     picker: 'NOAA IBTrACSの1980–2024シーズンの主要経路。線の色で1分平均風速を比べます。', source: 'https://www.ncei.noaa.gov/products/international-best-track-archive' },
   { id: 'coral', number: '73', shortTitle: '熱を抱えた海', signalLabel: 'サンゴ礁監視海域の熱ストレス', subtitle: '海に蓄積した熱を、サンゴ礁のそばで見つめる',
     picker: 'NOAA Coral Reef Watchの1986–2025年の監視海域別記録。年内最大DHWと高い状態が続いた日数を比べます。', source: 'https://coralreefwatch.noaa.gov/product/vs/data.php' },
+  { id: 'lakes', number: '74', shortTitle: '水があった場所', signalLabel: '固定範囲の年次水面積', subtitle: '湖の広さは、年とともに変わっていく',
+    picker: 'JRCの1984–2015年の衛星水域分類。3つの湖周辺で、水面の広がりと観測できた範囲を年ごとに比べます。', source: 'https://global-surface-water.appspot.com/download' },
+  ...ATLAS_EXHIBITS,
 ]);
 export const BASINS = { ALL: 'すべての海域', WP: '北西太平洋', EP: '東太平洋', NA: '北大西洋', NI: '北インド洋', SI: '南インド洋', SP: '南太平洋', SA: '南大西洋' };
 export const windMS = knots => Number.isFinite(knots) ? knots * 1852 / 3600 : null;

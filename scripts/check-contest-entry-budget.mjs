@@ -11,6 +11,8 @@ const openingCss = fs.readFileSync(path.join(root, "opening.css"), "utf8");
 const localHeadAssets = [...head.matchAll(/(?:src|href)="\.\/([^"?]+)(?:\?[^" ]*)?"/giu)].map((match) => match[1]);
 const firstScreenImages = [
   "assets/brand/brand-logo-dark-surface-590.webp",
+  "assets/ui/sound-terminal-field.svg",
+  "assets/ui/sound-terminal-water.svg",
   ...new Set([...openingCss.matchAll(/--opening-keyvisual-image:\s*url\("\.\/(.*?)"\)/gu)].map((match) => match[1])),
 ];
 const files = [...new Set(["index.html", ...localHeadAssets, ...firstScreenImages])];

@@ -15,11 +15,13 @@ fs.mkdirSync(outputDir, { recursive: true });
 
 const allViewports = [
   { name: "pc-1440", width: 1440, height: 900 },
+  { name: "pc-fullhd", width: 1920, height: 1080 },
   { name: "reference-1672", width: 1672, height: 941 },
   { name: "pc-4k", width: 3840, height: 2160 },
   { name: "mobile-360", width: 360, height: 800, mobile: true },
   { name: "mobile-390", width: 390, height: 844, mobile: true },
   { name: "mobile-short", width: 390, height: 667, mobile: true },
+  { name: "mobile-320", width: 320, height: 568, mobile: true },
   { name: "mobile-min", width: 280, height: 653, mobile: true },
   { name: "mobile-landscape-min", width: 568, height: 320, mobile: true },
   { name: "mobile-landscape-short", width: 667, height: 375, mobile: true },
@@ -116,6 +118,7 @@ try {
         modalRect: readRect("#gaia-opening-sound-modal"),
         dialogRect: readRect(".gaia-opening-sound-dialog"),
         dialogBackground: getComputedStyle(document.querySelector(".gaia-opening-sound-dialog")).backgroundColor,
+        dialogBackgroundImage: getComputedStyle(document.querySelector(".gaia-opening-sound-dialog")).backgroundImage,
         dialogBorder: getComputedStyle(document.querySelector(".gaia-opening-sound-dialog")).borderWidth,
         headerRect: readRect(".gaia-opening-sound-heading"),
         volumeRect: readRect(".gaia-opening-setup-volume"),
@@ -170,12 +173,14 @@ try {
     assert(Math.abs((initial.dialogRect.top + initial.dialogRect.bottom) / 2 - viewport.height / 2) <= 2, `${viewport.name}: sound setup must be vertically centered`);
     assert.equal(initial.dialogBackground, "rgba(0, 0, 0, 0)", `${viewport.name}: a large opaque settings panel returned`);
     assert.equal(initial.dialogBorder, "0px");
-    assert(initial.dialogRect.width <= 620, `${viewport.name}: sound setup is too wide`);
+    assert.equal(initial.dialogBackgroundImage, "none", `${viewport.name}: shared rectangular surface obscures the clipped terminal panel`);
+    assert(initial.dialogRect.width <= 780, `${viewport.name}: sound setup is too wide`);
     assert.equal(initial.flourishCount, 0, "Retired ornamental flourishes returned");
     assert.equal(initial.soundKicker, "惑星の放課後");
     if (shortLandscape) assert(initial.soundOnRect.right < initial.soundOffRect.left, `${viewport.name}: landscape choices must stay side by side`);
     else assert(initial.soundOnRect.bottom < initial.soundOffRect.top, `${viewport.name}: sound choices must form two invitation rows`);
-    assert(initial.volumeRect.top >= initial.choicesRect.bottom, `${viewport.name}: volume overlaps the choices`);
+    assert(initial.volumeRect.bottom <= initial.choicesRect.top, `${viewport.name}: volume must precede the choices without overlap`);
+    assert(initial.volumeRect.left >= initial.dialogRect.left && initial.volumeRect.right <= initial.dialogRect.right, `${viewport.name}: volume escapes the terminal`);
     for (let index = 0; index < 2; index++) {
       const card = [initial.soundOnRect, initial.soundOffRect][index];
       const icon = initial.iconRects[index];
@@ -183,7 +188,7 @@ try {
       assert(icon.width >= 28, `${viewport.name}: sound icon is too small`);
       assert(icon.right < label.left, `${viewport.name}: icon and label overlap`);
       assert(label.left >= card.left && label.right <= card.right, `${viewport.name}: choice text overflows`);
-      assert(Math.abs((icon.top + icon.bottom) / 2 - (card.top + card.bottom) / 2) < 1, `${viewport.name}: icon is not vertically centered in its row`);
+      assert(icon.top >= card.top && icon.bottom + 12 <= card.bottom, `${viewport.name}: icon and ON/OFF caption escape the card`);
     }
     for (const rect of [initial.soundOnRect, initial.soundOffRect]) {
       assert(rect.width >= 44 && rect.height >= 44, `${viewport.name}: sound action hit area is smaller than 44px`);
@@ -227,7 +232,18 @@ try {
     await page.screenshot({ path: path.join(outputDir, `${viewport.name}-first-sound-setup.png`), animations: "disabled" });
     await page.locator(".gaia-opening-sound-dialog").screenshot({ path: path.join(outputDir, `${viewport.name}-dialog.png`), animations: "disabled" });
 
-    await page.locator('[data-gaia-language="en"]').click();
+    for (const language of ["zh-CN", "en"]) {
+      await page.locator(`[data-gaia-language="${language}"]`).click();
+      const textFit = await page.evaluate(() => [...document.querySelectorAll("#gaia-opening-sound-title, .gaia-opening-sound-option-label, .gaia-opening-sound-option-copy > small")].map(el => {
+        const range = document.createRange();
+        range.selectNodeContents(el);
+        const text = range.getBoundingClientRect();
+        const box = el.getBoundingClientRect();
+        return { text: el.textContent, fits: text.left >= box.left - 1 && text.right <= box.right + 1 };
+      }));
+      assert(textFit.every(item => item.fits), `${viewport.name}: ${language} text overflows: ${JSON.stringify(textFit)}`);
+      await page.locator(".gaia-opening-sound-dialog").screenshot({ path: path.join(outputDir, `${viewport.name}-${language}-dialog.png`), animations: "disabled" });
+    }
     const languageState = await page.evaluate(() => ({
       value: document.documentElement.dataset.gaiaLanguageCurrent,
       stored: localStorage.getItem("gaia:language:v1"),
@@ -246,9 +262,12 @@ try {
 
     await page.locator("#gaia-opening-sound-off").focus();
     await page.locator("#gaia-opening-sound-off").press("Tab");
-    assert.equal(await page.evaluate(() => document.activeElement?.id), "gaia-opening-volume", `${viewport.name}: volume is not reachable after the sound actions`);
-    await page.locator("#gaia-opening-volume").press("Tab");
     assert.equal(await page.evaluate(() => document.activeElement?.dataset.gaiaLanguage), "ja", `${viewport.name}: modal focus did not wrap`);
+    await page.locator('[data-gaia-language="zh-CN"]').focus();
+    await page.keyboard.press("Tab");
+    assert.equal(await page.evaluate(() => document.activeElement?.id), "gaia-opening-volume", `${viewport.name}: keyboard order must follow the visible language / volume / choices layout`);
+    await page.keyboard.press("Tab");
+    assert.equal(await page.evaluate(() => document.activeElement?.id), "gaia-opening-sound-on");
 
     const startWithSound = ["pc-1440", "mobile-390", "mobile-landscape"].includes(viewport.name);
     const choice = page.locator(startWithSound ? "#gaia-opening-sound-on" : "#gaia-opening-sound-off");

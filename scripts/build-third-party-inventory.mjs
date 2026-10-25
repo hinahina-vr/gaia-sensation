@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
+import {ATLAS_EXHIBITS} from '../src/exploration/atlas-history-model.js';
 const root = path.resolve(import.meta.dirname, "..");
 const read = file => fs.readFileSync(path.join(root, file), "utf8");
 const dependencies = ["package-lock.json", "sensor-platform/package-lock.json"].flatMap(file => {
@@ -28,6 +29,17 @@ for (const id of ['cyclones', 'coral']) {
     retrievedAt: data.retrievedAt, sourceSha256: data.sha256 || null, transformation: data.selection || data.method,
     usageSurfaces: ['on-screen transformed display', 'directly served bundled JSON', 'participant-selected analysis fields may be sent to BYOK AI after consent'] });
 }
+for(const d of ATLAS_EXHIBITS){
+  const data=JSON.parse(read(`data/atlas-history/${d.id}.json`));
+  dataSources.push({modeId:d.id,id:`atlas-${d.id}`,title:d.signalLabel,organisation:d.organisation,sourceUrl:d.source,
+    termsUrl:d.termsUrl||(d.code?'https://datacatalog.worldbank.org/public-licenses':d.id==='waterstore'?'https://grace.jpl.nasa.gov/about/how-to-cite/':'https://www.star.nesdis.noaa.gov/socd/lsa/SeaLevelRise/LSA_productspolicy.php'),
+    retrievedAt:data.retrievedAt,transformation:data.method,citation:data.citation||d.organisation,rawSourceHashes:d.rawManifest||'data/atlas-history/sources.json',
+    usageSurfaces:['on-screen transformed display','directly served bundled JSON','participant-selected analysis fields may be sent to BYOK AI after consent']});
+}
+const lakes=JSON.parse(read('data/surface-water/lakes.json'));
+dataSources.push({modeId:'lakes',id:'jrc-lakes',title:'湖周辺の年次水域分類',organisation:'EC JRC / Google',sourceUrl:'https://global-surface-water.appspot.com/download',termsUrl:'https://global-surface-water.appspot.com/download',retrievedAt:lakes.retrievedAt,transformation:lakes.method,rawSourceHashes:'data/surface-water/lakes.json',usageSurfaces:['on-screen transformed display','directly served bundled JSON','participant-selected analysis fields may be sent to BYOK AI after consent']});
+const waterGrid=JSON.parse(read('data/atlas-history/waterstore-grid.json'));
+dataSources.push({modeId:'waterstore',id:'waterstore-grid',title:'陸水量偏差の0.5度配布格子',organisation:'NASA JPL / GRACE・GRACE-FO',sourceUrl:'https://grace.jpl.nasa.gov/data/get-data/jpl_global_mascons/',termsUrl:'https://grace.jpl.nasa.gov/about/how-to-cite/',retrievedAt:waterGrid.retrievedAt,transformation:waterGrid.method,rawSourceHashes:'data/atlas-history/waterstore-grid.json#sources',usageSurfaces:['on-screen transformed display','directly served bundled JSON','participant-selected analysis fields may be sent to BYOK AI after consent']});
 dataSources.push({modeId: 'story-map01-temperature', id: 'nasa-gistemp-regional-annual',
   title: storyTemperature.dataset, organisation: storyTemperature.provider,
   sourceUrl: storyTemperature.sourceUrl, documentationUrl: storyTemperature.documentationUrl,

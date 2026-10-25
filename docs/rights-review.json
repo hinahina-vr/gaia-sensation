@@ -37,7 +37,7 @@
       "decisionEvidence": "docs/GOSAT_OWNER_DECISION_2026-09-07.md",
       "decisionBasis": "非営利の作品公開・展示による公益性を鑑み、現行のGOSAT由来データの可視化と表示用加工JSONの配信に問題ないと製作者が判断し、利用継続と公開保留解除を指示した。",
       "providerPermissionVerified": false,
-      "scopeSha256": "d9ab095a0f4eccef20f7a29edbeb9de669b24e1020882297641ab6233728cf1f"
+      "scopeSha256": "cd2006d0816036e1fa07711f2530efddab40dca202913051722af62866e3c2ef"
     },
     {
       "id": "unesco",
@@ -49,7 +49,7 @@
       "decisionEvidence": "docs/UNESCO_OWNER_DECISION_2026-09-07.md",
       "decisionBasis": "世界遺産24地点の名称・座標・分類を紹介する実装で、WHCの説明文や写真を転載するものではないとの説明を受け、製作者が現行利用の継続を了承した。",
       "providerPermissionVerified": false,
-      "scopeSha256": "d9ab095a0f4eccef20f7a29edbeb9de669b24e1020882297641ab6233728cf1f"
+      "scopeSha256": "cd2006d0816036e1fa07711f2530efddab40dca202913051722af62866e3c2ef"
     },
     {
       "id": "gbif",
@@ -61,7 +61,7 @@
       "decisionEvidence": "docs/PUBLICATION_OWNER_DECISION_2026-09-08.md",
       "decisionBasis": "GBIFと残余データ・ソフトウェアの未確認リスクを説明し、出典・利用条件を維持する非営利公開として続行するか確認した直後、製作者が「デプロイ」と回答。今回版を説明済みの条件で公開する指示として記録した。",
       "providerPermissionVerified": false,
-      "scopeSha256": "d9ab095a0f4eccef20f7a29edbeb9de669b24e1020882297641ab6233728cf1f"
+      "scopeSha256": "cd2006d0816036e1fa07711f2530efddab40dca202913051722af62866e3c2ef"
     },
     {
       "id": "jaxa-fnf-image",
@@ -74,7 +74,7 @@
       "excludedPaths": [
         "assets/data/jaxa-fnf-riau.png"
       ],
-      "scopeSha256": "d9ab095a0f4eccef20f7a29edbeb9de669b24e1020882297641ab6233728cf1f"
+      "scopeSha256": "cd2006d0816036e1fa07711f2530efddab40dca202913051722af62866e3c2ef"
     },
     {
       "id": "generated-images-music",
@@ -86,7 +86,7 @@
       "decisionEvidence": "docs/MEDIA_OWNER_DECISION_2026-09-07.md",
       "decisionBasis": "製作者指示により、生成素材は制作元と出典の記録に整理し、現行素材の利用を継続する。",
       "providerPermissionVerified": false,
-      "scopeSha256": "d9ab095a0f4eccef20f7a29edbeb9de669b24e1020882297641ab6233728cf1f"
+      "scopeSha256": "cd2006d0816036e1fa07711f2530efddab40dca202913051722af62866e3c2ef"
     },
     {
       "id": "remaining-data-and-software",
@@ -98,7 +98,7 @@
       "decisionEvidence": "docs/PUBLICATION_OWNER_DECISION_2026-09-08.md",
       "decisionBasis": "GBIFと残余データ・ソフトウェアの未確認リスクを説明し、出典・利用条件を維持する非営利公開として続行するか確認した直後、製作者が「デプロイ」と回答。追加世界銀行資料を含む今回版を説明済みの条件で公開する指示として記録した。",
       "providerPermissionVerified": false,
-      "scopeSha256": "d9ab095a0f4eccef20f7a29edbeb9de669b24e1020882297641ab6233728cf1f"
+      "scopeSha256": "cd2006d0816036e1fa07711f2530efddab40dca202913051722af62866e3c2ef"
     }
   ],
   "scopeMaintenance20260913": {
@@ -148,5 +148,11 @@
     "scopeSha256": "d9ab095a0f4eccef20f7a29edbeb9de669b24e1020882297641ab6233728cf1f",
     "evidence": "docs/RELEASE_SCOPE_2026-10-20.json",
     "basis": "Official page describes the publicly available dataset and its citation. The new output summarizes the already-adopted saved tracks; no newly fetched or differently licensed external data or media. Existing attribution/citation retained. No new provider permission or owner decision is claimed."
+  },
+  "scopeMaintenance20261025": {
+    "date": "2026-10-25",
+    "scopeSha256": "cd2006d0816036e1fa07711f2530efddab40dca202913051722af62866e3c2ef",
+    "evidence": "docs/RELEASE_SCOPE_2026-10-25.json",
+    "basis": "Release scope bookkeeping for committed open-data-derived additions and a FAO description change. Existing owner decisions, dates, decision bases and providerPermissionVerified flags are preserved. No new owner decision or individual provider permission is claimed. Original rasters, processing caches and development-only dependencies remain excluded; the release contains derived PNG/JSON data and source manifests."
   }
 }

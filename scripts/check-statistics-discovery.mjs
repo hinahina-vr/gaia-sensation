@@ -73,7 +73,9 @@ for (const id of ["live-carbon-pulse", "live-rain-chorus", "live-temperature-fie
   assert.equal(insight.status, "needs-comparison");
   assert.match(primary(insight).signal, /1地点・1時点/);
   assert(!primary(insight).signal.includes("増加"));
-  assert.equal(find(id, [{ id: "missing", value: null }]).evidence[0][1], 0);
+  const missing = find(id, [{ id: "missing", value: null }]);
+  assert.deepEqual(missing.evidence, [], "No valid measurements produce no numerical evidence");
+  assert.equal(missing.computedInsight.status, "insufficient");
 }
 assert.equal(find("earthquakes", rows([1, 6, 3, 2, 1, 8]), { xLabel: "年" }).primaryId, "uneven-event-years");
 assert.equal(find("planet-usgs-earthquake-ripples", rows([4, 4.1, 3]).map((row, i) => ({ ...row, depth: [5, 100, 12][i] }))).primaryId, "same-magnitude-depth");

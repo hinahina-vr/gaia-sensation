@@ -59,7 +59,7 @@
     },
     "ryugu-lidar": {
       button: "LIDARを照射",
-      prompt: "リュウグウへ触れて測距点を選ぶ。距離と三次元座標から輪郭が立ち上がります。",
+      prompt: "リュウグウへ触れて測距点を選ぶ。距離と三次元座標から地形を描きます。",
     },
     "cosmic-senseware": {
       button: "信号網を点灯",
@@ -964,7 +964,7 @@
       ];
       case "ryugu-lidar": return [
         ["測距値 → 光路", `${format(record?.rangeM, 1)} mを探査機から表面までの点線として表示`],
-        ["地形座標 → 輪郭", `経度 ${format(record?.topoLongitudeDeg, 2)}°・高さ ${format(record?.topoHeightM, 2)} mを輪郭点へ変換`],
+        ["地形座標 → 起伏", `経度 ${format(record?.topoLongitudeDeg, 2)}°・高さ ${format(record?.topoHeightM, 2)} mを地形の点へ変換`],
         ["タッチ", "保存行から測距点を選び直す操作"],
       ];
       case "cosmic-senseware": return [

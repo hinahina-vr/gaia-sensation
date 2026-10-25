@@ -4,10 +4,14 @@ import { earthBaseScale, earthLongitudeToMapX } from "./world-projection.js?v=ga
 import { japanPrefectureView } from './japan-prefecture-view.js?v=gaia-prefecture-gis-view-1';
 import { pickProjectedPoi } from "./poi-hit-test.js?v=gaia-japan-center-1";
 import { decorateMapActions } from "./map-exhibit-actions.js?v=action-icons-ready-20260926";
-import { MARINE_COD_EXHIBIT } from "./marine-cod-catalog.js?v=gaia-marine-cod-1";
-import { JAPAN_SENSOR_OPEN_EXHIBITS, sensorObservationAppearance } from "./japan-sensor-open-catalog.js?v=gaia-japan-sensor-open-1";
-import { JAPAN_POLLUTION_EXHIBITS } from "./japan-pollution-catalog.js?v=gaia-pollution-1";
-import { PRTR_BIOLOGY_EXHIBITS, recordAppearance, displayFraction } from "./prtr-biology-catalog.js?v=prtr-biology-1-i18n-20260913-palette-20261013";
+import { MARINE_COD_EXHIBIT } from "./marine-cod-catalog.js?v=station-reading-20261022";
+import { JAPAN_SENSOR_OPEN_EXHIBITS, sensorObservationAppearance } from "./japan-sensor-open-catalog.js?v=atmosphere-reading-20261022";
+import { observationReadingTranslations } from './observation-reading-catalog.js?v=station-reading-20261022';
+import { atmosphereReadingTranslations } from './atmosphere-reading-catalog.js?v=atmosphere-reading-20261022';
+import { JAPAN_POLLUTION_EXHIBITS } from "./japan-pollution-catalog.js?v=records-reading-20261022";
+import { pollutionReadingTranslations } from './pollution-reading-catalog.js?v=pollution-reading-20261022';
+import { PRTR_BIOLOGY_EXHIBITS, recordAppearance, displayFraction } from "./prtr-biology-catalog.js?v=records-reading-20261022";
+import { recordReadingTranslations } from './record-reading-catalog.js?v=records-reading-20261022';
 import { poiArrivalDuration } from "./annual-poi-arrival.js?v=gaia-annual-pop-20260909";
 import { createAnnualPoiRenderer } from './annual-poi-renderer.js?v=vector-cache-20261013';
 import { createPoiYearCrossfade } from './poi-year-crossfade.js?v=annual-crossfade-20260926';
@@ -17,6 +21,10 @@ import { INITIAL_OBSERVATION_YEAR, initialObservationIndex } from './initial-obs
 
 const definitions = Object.freeze([Object.freeze({ ...MARINE_COD_EXHIBIT, dataFile: "japan-marine-cod.json", unit: "mg/L",
   metricLabel: "COD 年度平均値", secondaryLabel: "COD75（75%値）", periodUnit: "年度", organisation: "環境省", category: "water" }), ...JAPAN_SENSOR_OPEN_EXHIBITS, ...JAPAN_POLLUTION_EXHIBITS, ...PRTR_BIOLOGY_EXHIBITS]);
+globalThis.GaiaI18n?.register(observationReadingTranslations);
+globalThis.GaiaI18n?.register(atmosphereReadingTranslations);
+globalThis.GaiaI18n?.register(pollutionReadingTranslations);
+globalThis.GaiaI18n?.register(recordReadingTranslations);
 let definition = definitions[0], SOURCE_URL = definition.source, selectionGeneration = 0;
 const buttonsById = new Map(), cache = new Map(), requests = new Map();
 const isCod = () => definition.id === MARINE_COD_EXHIBIT.id;
@@ -24,6 +32,9 @@ const reading = point => isCod() ? point?.cod : point?.metrics?.[definition.meas
 const periodLabel = value => `${value}${definition.periodUnit}`;
 const yearsFor = target => cache.get(target.dataFile)?.periods.map(p => p.year) || target.years || [2020, 2021, 2022, 2023, 2024];
 const yearRange = (separator = "〜") => `${yearsFor(definition)[0]}${yearsFor(definition).length > 1 ? `${separator}${yearsFor(definition).at(-1)}` : ""}${definition.periodUnit}`;
+const savedDataStatus = () => definition.readingBasis
+  ? `${definition.organisation} / ${yearRange('–')} · ${localized(definition.category === 'weather' ? '気象の年次記録' : definition.category === 'air' ? '大気の年度記録' : definition.category === 'chemicals' ? '事業所の年度届出' : definition.category === 'biology' ? '河川の生物確認記録' : '水質の年度記録')}`
+  : `${definition.organisation} / ${yearRange('–')}の保存値（リアルタイムではありません）`;
 const retrievalDates = () => [...new Set([...(data?.sourceRetrievalDates || [data?.retrievedOn]), data?.historyRetrievedOn].filter(Boolean))].join('・') || '取得日はデータ読込後に表示';
 let layer, map, canvas, context, readout, legend, button, data, selectionHelp;
 let active = false, frame = 0, lastDraw = 0, year = INITIAL_OBSERVATION_YEAR, selectedId = "", prefecture = "all";
@@ -204,14 +215,67 @@ const renderLegend = () => {
   const minimum = stops[0], maximum = stops.at(-1);
   const gradient = definition.colors ? `linear-gradient(90deg, ${definition.colors.join(', ')})`
     : `linear-gradient(90deg, ${stops.map(value => `${appearance(value).color} ${(value-minimum)/(maximum-minimum)*100}%`).join(', ')})`;
-  const note = `${yearRange()} · ${definition.category === 'chemicals' ? '届出量 ≠ 環境濃度・危険度' : definition.category === 'biology' ? '確認分類群数 ≠ 個体数・水質等級' : '灰色＝欠測・注記。安全性は判定しません。'}`;
+  const note = `${yearRange()} · ${definition.qualityNote || (definition.category === 'chemicals' ? '届出量 ≠ 環境濃度・危険度' : definition.category === 'biology' ? '確認分類群数 ≠ 個体数・水質等級' : '灰色＝欠測・注記。安全性は判定しません。')}`;
   updateMetricLegend(legend, {
     title: definition.metricLabel, scope: selected ? [selected.water, selected.name].filter(Boolean).join(' / ') : '観測地点を選択',
     period: periodLabel(year), current: selected ? valueText(measurement) : '—', value: measurement?.value,
-    minimum, maximum, minimumLabel: `${minimum} ${definition.unit}`, maximumLabel: `${maximum}以上 ${definition.unit}`,
+    minimum, maximum, minimumLabel: `${minimum} ${definition.unit}`, maximumLabel: `${maximum}${definition.measurementKey === 'ph' ? '' : '以上'} ${definition.unit}`,
     gradient, scale: definition.logScale ? 'log' : 'linear', description: note,
   });
   legend.querySelector('[data-annual-legend-note]').textContent = note;
+  const readingPanel = legend.querySelector('[data-annual-reading]');
+  readingPanel.hidden = !definition.readingBasis;
+  if (!readingPanel.hidden) {
+    for (const [field, text] of Object.entries({ basis: definition.readingBasis, explanation: definition.explanation, map: definition.visualMap, guide: definition.guide })) {
+      readingPanel.querySelector(`[data-annual-reading-${field}]`).textContent = text;
+    }
+  }
+  // Surface source context without reinterpreting station classes, coverage
+  // strings or qualified solar values. Rebuilt only when the reading changes.
+  const sourceRecord = legend.querySelector('[data-annual-source-record]');
+  const facts = !selected ? [] : definition.number === '43' ? [
+    ['原資料の日積算量', measurement?.sourceText ? `${measurement.sourceText} ${measurement.sourceUnit}` : '—'],
+    ['24時間平均相当', measurement?.quality === 'measured' && Number.isFinite(measurement.value) ? `${measurement.text} ${definition.unit}` : '—'],
+  ] : definition.samplingWindow ? [
+    ['測定局区分', selected.water || '—'],
+    ['集計時間帯', definition.samplingWindow],
+    [definition.coverageLabel || '観測時間の記録', measurement?.coverageText || '—'],
+  ] : definition.sourceRecordKind === 'water' ? [
+    ['水域区分・水域名', selected.water || '—'],
+    ['原資料の地点コード', selected.sourceId || '—'],
+    ['原資料の年度平均', measurement?.text ? `${measurement.text}${measurement.quality === 'missing' ? '' : ` ${definition.unit}`}` : '—'],
+  ] : definition.sourceRecordKind === 'prtr' ? [
+    ['原整理番号', selected.sourceId || '—'],
+    ['届出業種', selected.industry || '—'],
+    ['届出物質数（kg単位）', String(selected.substances.length)],
+  ] : definition.sourceRecordKind === 'biology' ? [
+    ['水系・河川名', selected.water || '—'],
+    ['調査管理番号', selected.surveyIds?.join(' / ') || '—'],
+    ['確認分類群数', String(selected.taxa.length)],
+  ] : [];
+  sourceRecord.hidden = !facts.length;
+  sourceRecord.querySelector('dl').replaceChildren(...facts.flatMap(([label, value]) => {
+    const term = document.createElement('dt'), detail = document.createElement('dd');
+    term.textContent = label; detail.textContent = value;
+    // Preserve original facility/river names, IDs and source quantity strings.
+    if (definition.sourceRecordKind) { detail.translate = false; detail.lang = 'ja'; }
+    return [term, detail];
+  }));
+  // pH is already logarithmic. Show its actual annual extrema on a linear
+  // 0–14 pH axis, never infer a midpoint, mean, or a safety classification.
+  const range = legend.querySelector('[data-annual-range]');
+  range.hidden = definition.measurementKey !== 'ph';
+  if (!range.hidden) {
+    const low = measurement?.value, high = selected?.secondary?.value;
+    const complete = Number.isFinite(low) && Number.isFinite(high) && high >= low;
+    range.dataset.minimum = Number.isFinite(low) ? String(low) : '';
+    range.dataset.maximum = Number.isFinite(high) ? String(high) : '';
+    const band = range.querySelector('[data-annual-range-band]');
+    band.hidden = !complete;
+    if (complete) { band.style.left = `${low / 14 * 100}%`; band.style.width = `${(high - low) / 14 * 100}%`; }
+    range.querySelector('[data-annual-range-value]').textContent = complete ? `${measurement.text} — ${selected.secondary.text}` : '—';
+    range.querySelector('[data-annual-range-hint]').textContent = selected ? complete ? '' : '年度最小値・最大値の数値がそろう年に幅を表示' : '地点を選ぶと、その年度の幅を表示';
+  }
 };
 const render = () => {
   const current = period(), selected = station();
@@ -230,7 +294,7 @@ const render = () => {
   q("[data-cod-secondary]").textContent = selected && definition.secondaryLabel ? `${definition.secondaryLabel}: ${valueText(isCod() ? selected.cod75 : selected.secondary)}`
     : reading(selected)?.sourceText ? `原資料: ${reading(selected).sourceText} MJ/m²（日積算量の年平均）`
       : reading(selected)?.coverageText || `色・光の大きさは${definition.metricLabel}`;
-  if (definition.category === "chemicals") q("[data-cod-secondary]").textContent = selected ? `${selected.substances.length}届出物質（kg単位） / ${selected.industry}` : "届出量です。周辺の濃度・危険度ではありません。";
+  if (definition.category === "chemicals") q("[data-cod-secondary]").textContent = selected ? `${selected.substances.length}届出物質（kg単位） / ${selected.industry}` : localized('事業所を選び、物質ごとの届出量を確認');
   if (definition.category === "biology" && selected) {
     const label = document.createElement("span"), names = document.createElement("span"), suffix = document.createElement("span");
     label.textContent = "原表の名前：";
@@ -281,10 +345,10 @@ const setYear = async value => {
   }
   if (!active || generation !== selectionGeneration || request !== yearGeneration) return false;
   if (targetYear !== year && lastPoiViewKey !== null && !media.matches && !document.hidden
-    && layer.getAttribute('aria-hidden') !== 'true' && !layer.classList.contains('is-map-title-transitioning')
+    && layer.getAttribute('aria-hidden') !== 'true' && !layer.matches('.is-map-title-transitioning, .is-map-data-intro')
     && canvas.dataset.codArrivalState === 'complete') yearFade.capture(canvas, lastPoiViewKey);
   currentPeriod = loaded; year = targetYear; dataState = 'ready'; lastYearAt = performance.now();
-  q('[data-cod-status]').textContent = `${definition.organisation} / ${yearRange('–')}の保存値（リアルタイムではありません）`;
+  q('[data-cod-status]').textContent = savedDataStatus();
   renderedPoiIds.clear();
   globalThis.GaiaMapObservationAdapter?.closePoi?.();
   renderOptions();
@@ -328,8 +392,10 @@ const draw = time => {
   const drawStarted = performance.now();
   const elapsed = Math.min(100, time - lastDraw);
   lastDraw = time;
-  if (!media.matches) motionTime += elapsed;
-  if (playing && dataState === 'ready' && time - lastYearAt >= 4000) {
+  const separatorVisible = layer.matches('.is-map-title-transitioning, .is-map-data-intro');
+  if (!media.matches && !separatorVisible) motionTime += elapsed;
+  if (separatorVisible) lastYearAt = time;
+  if (playing && !separatorVisible && dataState === 'ready' && time - lastYearAt >= 4000) {
     const years = data.periods.map(item => item.year);
     setYear(years[(years.indexOf(year) + 1) % years.length]);
     lastYearAt = time;
@@ -339,7 +405,6 @@ const draw = time => {
   const width = Math.max(1, Math.round(rect.width * ratio)), height = Math.max(1, Math.round(rect.height * ratio));
   if (canvas.width !== width || canvas.height !== height) { canvas.width = width; canvas.height = height; }
   const overlay = document.querySelector("#japan-overlay");
-  const separatorVisible = layer.classList.contains("is-map-title-transitioning");
   // Start on the first drawable frame, not on a timer set when fetch began.
   // This also gives a late dataset its full arrival after the camera settles.
   if (separatorVisible) arrivalStartedAt = null;
@@ -381,7 +446,7 @@ const draw = time => {
   frame = requestAnimationFrame(draw);
 };
 const findPoiAt = (clientX, clientY, pointerType) => {
-  if (!active || !data || arrivalElapsed < 0 || layer.classList.contains("is-map-title-transitioning")) return null;
+  if (!active || !data || arrivalElapsed < 0 || layer.matches('.is-map-title-transitioning, .is-map-data-intro')) return null;
   const hit = pickProjectedPoi(period().stations, projection(), clientX, clientY, pointerType, point => renderedPoiIds.has(point.id));
   if (!hit) return null;
   const point = hit.point;
@@ -408,7 +473,7 @@ const showRecordDetail = () => {
   showSourcePlace(query('h2'), point);
   const noteSource = biological ? '{count}分類群（種コード数）。調査管理番号：{ids}。同じ種コードの複数採集を1つにまとめ、原表の名前を保持。同一コードに複数表記がある場合は / で併記します。分類名の訂正・同義語への統一はしていません。'
     : '{metric}：{value}。整理番号：{id}。ダイオキシン類（mg-TEQ）を除いたkg単位の届出物質です。';
-  const noteValues = {count:point.taxa?.length,ids:point.surveyIds?.join('・'),id:point.id,
+  const noteValues = {count:point.taxa?.length,ids:point.surveyIds?.join('・'),id:point.sourceId || point.id,
     get metric(){return localized(definition.metricLabel);},get value(){return localized(valueText(reading(point)));}};
   if(globalThis.GaiaI18n)GaiaI18n.bind(query('[data-record-note]'),noteSource,noteValues);
   else query('[data-record-note]').textContent=noteSource.replace(/\{(\w+)\}/g,(_,key)=>noteValues[key]);
@@ -499,6 +564,11 @@ const configureDefinition = () => {
   readout.classList.toggle("is-single-period", yearsFor(definition).length === 1);
   legend.classList.toggle("is-sensor-open-legend", !isCod());
   legend.classList.toggle("is-pollution-legend", definition.sensorRegistrationKey === null);
+  legend.classList.toggle('has-observation-reading', Boolean(definition.readingBasis));
+  legend.classList.toggle('has-atmosphere-reading', Number(definition.number) >= 41 && Number(definition.number) <= 50);
+  legend.classList.toggle('has-pollution-reading', Number(definition.number) >= 51 && Number(definition.number) <= 60);
+  legend.classList.toggle('has-record-reading', Number(definition.number) >= 61 && Number(definition.number) <= 69);
+  legend.querySelector('.gaia-observation-details').open = false;
   readout.setAttribute("aria-label", `${definition.metricLabel}の地点と${definition.periodUnit}`);
   readout.dataset.annualExhibit = definition.id;
   q(".gaia-marine-cod-chapter > p").textContent = definition.category === "weather" ? "JAPAN WEATHER / 空と天気"
@@ -582,7 +652,7 @@ const select = async (id = MARINE_COD_EXHIBIT.id) => {
   configureDefinition();
   dataState = "ready";
   q("[data-cod-controls]").disabled = false;
-  q("[data-cod-status]").textContent = `${definition.organisation} / ${yearRange("–")}の保存値（リアルタイムではありません）`;
+  q("[data-cod-status]").textContent = savedDataStatus();
   q("[data-cod-retrieved]")?.replaceChildren(document.createTextNode(`${data.attribution || "環境省データをGAIA SENSEWAREが抽出・加工"}。原資料取得日 ${retrievalDates()}。${data.coordinateNote || ""} ${data.historyNote || ""}`));
   renderOptions(); render();
   dispatchEvent(new CustomEvent("gaia:marine-cod-ready", { detail: { id } }));
@@ -623,7 +693,11 @@ const mount = () => {
   legend = createMetricLegend({ className: 'gaia-marine-cod-legend gaia-annual-metric-legend', label: '観測地点の値と色の目盛り' });
   legend.hidden = true;
   const legendNote = document.createElement('small'); legendNote.className = 'gaia-estat-history-note'; legendNote.dataset.annualLegendNote = '';
-  legend.append(legendNote); layer.append(legend);
+  const readingPanel = document.createElement('div'); readingPanel.className = 'gaia-observation-reading'; readingPanel.dataset.annualReading = ''; readingPanel.hidden = true;
+  readingPanel.innerHTML = `<p data-annual-reading-basis></p><p data-annual-reading-map></p><details class="gaia-observation-details"><summary>指標と見方</summary><p data-annual-reading-explanation></p><section class="gaia-observation-source-record" data-annual-source-record hidden><h3>選択地点の原記録</h3><dl></dl></section><p data-annual-reading-guide></p></details>`;
+  const range = document.createElement('section'); range.className = 'gaia-observation-range'; range.dataset.annualRange = ''; range.hidden = true;
+  range.innerHTML = `<header><span>年度最小〜最大</span><strong data-annual-range-value>—</strong></header><div class="gaia-observation-range-track" aria-hidden="true"><i data-annual-range-band hidden></i><b>7</b></div><div class="gaia-observation-range-labels"><span>酸性側</span><span>アルカリ性側</span></div><small data-annual-range-hint></small>`;
+  legend.append(range, readingPanel, legendNote); layer.append(legend);
   for (const item of definitions) {
     const control = document.createElement("button"); control.type = "button"; control.className = "map-mode-button"; control.textContent = item.number;
     control.dataset.marineCodExhibit = item.id; control.dataset.mapPreviewSurface = "map";

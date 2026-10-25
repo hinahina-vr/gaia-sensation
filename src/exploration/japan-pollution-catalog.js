@@ -1,5 +1,8 @@
 // Saved public observations, not stack emissions, discharge samples or legal assessments.
 import { ANNUAL_OBSERVATION_YEARS } from './annual-observation-years.js?v=history-20260912';
+import { atmosphereReadings } from './atmosphere-reading-catalog.js?v=atmosphere-reading-20261022';
+import { pollutionReadings } from './pollution-reading-catalog.js?v=pollution-reading-20261022';
+import { recordReadings } from './record-reading-catalog.js?v=records-reading-20261022';
 const airSource = "https://tenbou.nies.go.jp/download/";
 const waterSource = "https://water-pub.env.go.jp/water-pub/mizu-site/mizu/download/download.asp";
 const air = [
@@ -46,4 +49,7 @@ export const JAPAN_POLLUTION_EXHIBITS = Object.freeze([...air, ...water].map(ite
   sensorRegistrationKey: null,
   sensorNote: "公的観測の保存データです。この展示の指標はESP32の登録項目として追加していません。実験室分析・公定法等の測定を、簡易センサーの値や無次元指数で代用しないでください。",
   dataFile: `${item.id}.json`,
+  ...atmosphereReadings[item.number],
+  ...pollutionReadings[item.number],
+  ...recordReadings[item.number],
 })));

@@ -14,7 +14,7 @@ const context = vm.createContext({ GaiaI18n: { register(rows) {
 } } });
 vm.runInContext(fs.readFileSync(new URL('../src/exploration/map-data-intro-catalog.js', import.meta.url), 'utf8'), context);
 const { entries, status, messages } = context.GaiaMapDataIntro;
-assert.deepEqual(Object.keys(entries).sort(), Array.from({ length: 73 }, (_, i) => String(i + 1).padStart(2, '0')).sort());
+assert.deepEqual(Object.keys(entries).sort(), Array.from({ length: 75 }, (_, i) => String(i + 1).padStart(2, '0')).sort());
 assert(Object.isFrozen(entries));
 for (const [number, entry] of Object.entries(entries)) {
   assert.equal(entry.number, number);
@@ -48,16 +48,16 @@ assert.equal(status('15', live(null, { requestState: 'unavailable' })), messages
 assert.equal(status('15', live(0)), '');
 assert.equal(status('15', live(5, { connected: false })), messages.saved);
 assert.equal(status('15', live(5, { requestState: 'unavailable' })), messages.cached);
-for (const [number, provider] of [['31', 'GaiaMarineCod'], ['70', 'GaiaFoodExhibits'], ['72', 'GaiaClimateHistory'], ['73', 'GaiaClimateHistory']]) {
+for (const [number, provider] of [['31', 'GaiaMarineCod'], ['70', 'GaiaFoodExhibits'], ...Array.from({length:4},(_,i)=>[String(72+i),'GaiaClimateHistory'])]) {
   for (const [dataState, expected] of [['loading', messages.loading], ['error', messages.error], ['ready', '']])
     assert.equal(status(number, { [provider]: { getState: () => ({ dataState }) } }), expected);
 }
 assert.equal(status('06', planet('ERROR')), '');
-assert.equal(status('99', {}), '');
+assert.equal(status('76', {}), '');
 assert.equal(messages.sample, '演出用の参考値を表示しています。');
 assert.equal(messages.windSample, messages.sample);
 assert.equal(messages.error, 'データ取得エラー');
 const loader = fs.readFileSync(new URL('../gaia-mode-loader.js', import.meta.url), 'utf8');
 assert(loader.indexOf('./app-content.js') < loader.indexOf('./src/exploration/map-data-intro-catalog.js'));
 assert(loader.indexOf('./src/exploration/map-data-intro-catalog.js') < loader.indexOf('./app.js'));
-console.log(`PASS: 73 introductions, ${translations.size} translated messages, provider states, ordered loading`);
+console.log(`PASS: 75 introductions, ${translations.size} translated messages, provider states, ordered loading`);

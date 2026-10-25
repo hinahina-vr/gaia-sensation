@@ -9,7 +9,7 @@
 
 2026-09-13に現行カタログ・同梱メタデータと照合。収録期間は提供元の最新版の保証ではありません。今回、観測データの再取得や利用許諾の再判定は行っていません。
 
-登録: 119件（展示別の同一提供元、独自加工、補助経路も区別して収録）。日本の年次系列と食料の追加系列は実装カタログ・同梱JSONから生成します。各行の「記録」から取得日・加工内容・原データURLを確認できます。
+登録: 122件（展示別の同一提供元、独自加工、補助経路も区別して収録）。日本の年次系列と食料の追加系列は実装カタログ・同梱JSONから生成します。各行の「記録」から取得日・加工内容・原データURLを確認できます。
 
 利用条件と再利用上の注意は [データ出典・利用条件](DATA_SOURCES.md) を参照してください。本一覧は提供元の個別許諾や全データの無条件な再利用を保証するものではありません。
 
@@ -131,7 +131,7 @@
 
 | 提供者・出典 | データ・収録期間 | 取得・加工・退避方針 | ローカル根拠 |
 |---|---|---|---|
-| [FAO](https://data.fao.org/catalog/iso/2f264bb6-1238-459a-bf8b-0e2d0a16804a) | MAP 70 / FAOSTAT FBS | 世界は1961〜2023年、日本の参照値は1960年度から。9品目群の生産／輸入／輸出と重量ベースの品目別自給率。旧・新FAOと農水省の違いを明記。 | [記録](../data/fao-food-balances.json) |
+| [FAO](https://data.fao.org/catalog/iso/2f264bb6-1238-459a-bf8b-0e2d0a16804a) | MAP 70 / FAOSTAT FBS | 国ごとの食料の生産・輸入・輸出をたどります。9つの品目群から選び、重量ベースの品目別自給率を国土の色で比べます。 | [記録](../data/fao-food-balances.json) |
 | [FAO](https://bulks-faostat.fao.org/production/FoodBalanceSheetsHistoric_E_All_Data_(Normalized).zip) | FAOSTAT FBSH / 旧方式の食料需給表 | 同梱の追加系列。FAO旧・新方式と日本の年度系列を区別。独自算出は公式指標と同一視しない。 | [記録](../data/fao-food-balances.json) |
 | [農林水産省 / e-Stat](https://www.e-stat.go.jp/stat-search/files?layout=datalist&lid=000001478566&page=1) | 農林水産省 食料需給表 令和6年度 項目別累年表 | 同梱の追加系列。FAO旧・新方式と日本の年度系列を区別。独自算出は公式指標と同一視しない。 | [記録](../data/fao-food-balances.json) |
 | [FAO](https://data.fao.org/catalog/dataset/955d6564-40a9-48b4-b51b-f19d65bb3539) | MAP 71 / FAOSTAT FS | FAO公表の3年平均（2000年開始以降）。日本の穀物依存には1960年度以降の農水省数量から算出した別系列の参照値を追加。 | [記録](../data/fao-food-security.json) |
@@ -165,6 +165,19 @@
 | [NOAA NCEI / IBTrACS](https://www.ncei.noaa.gov/products/international-best-track-archive) | MAP 72 / 熱帯低気圧の経路・最大風速 | 公式公開データから抽出・年別集計した保存値。展示選択時に遅延読込。欠測はゼロ補完しない。 | [記録](../data/climate-history/cyclones.json) |
 | [NOAA Coral Reef Watch](https://coralreefwatch.noaa.gov/product/vs/data.php) | MAP 73 / サンゴ礁監視海域の熱ストレス | 公式公開データから抽出・年別集計した保存値。展示選択時に遅延読込。欠測はゼロ補完しない。 | [記録](../data/climate-history/coral.json) |
 | [NOAA NCEI / IBTrACS](https://www.ncei.noaa.gov/products/international-best-track-archive) | MAP 72 / 8地域の300 km圏内への接近・月別・年代別集計（1980–2024） | 同梱MAIN経路から独自集計。各嵐をシーズンごとに1件。分析を開いたときだけ読込。元の年別ファイルのSHA-256を保持。 | [記録](../data/climate-history/cyclone-regions.json) |
+
+### 水・気候・暮らしの記録（MAP 74–75）
+
+| 提供者・出典 | データ・収録期間 | 取得・加工・退避方針 | ローカル根拠 |
+|---|---|---|---|
+| [EC JRC / Google](https://global-surface-water.appspot.com/download) | MAP 74 / 固定範囲の年次水面積<br>1984–2015 | 保存値を展示選択時に遅延読込。欠測を0埋めせず、原系列と独自年次集計を区別。 | [記録](../data/surface-water/lakes.json) |
+| [NASA JPL / GRACE・GRACE-FO](https://grace.jpl.nasa.gov/data/get-data/jpl_global_mascons/) | MAP 75 / 陸水量の変化<br>2003–2024 | 保存値を展示選択時に遅延読込。欠測を0埋めせず、原系列と独自年次集計を区別。 | [記録](../data/atlas-history/waterstore.json) |
+
+### 水・気候・暮らしの記録（MAP 75）
+
+| 提供者・出典 | データ・収録期間 | 取得・加工・退避方針 | ローカル根拠 |
+|---|---|---|---|
+| [NASA JPL / GRACE・GRACE-FO](https://grace.jpl.nasa.gov/data/get-data/jpl_global_mascons/) | 陸水量偏差の0.5度配布格子<br>2003–2024 | 展示75で遅延読込。配布0.5度・推定約3度。 | [記録](../data/atlas-history/waterstore-grid.json) |
 
 ### 地図・地域コード
 

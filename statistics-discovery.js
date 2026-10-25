@@ -1,6 +1,6 @@
 import { analyzeSummary, descriptive, simpleRegression } from "./statistics-lab-core.js";
 import { buildSocialInsight } from "./statistics-social-insights.js";
-import { buildDecisionInsight } from "./statistics-decision-insights.js";
+import { buildDecisionInsight } from "./statistics-decision-insights.js?v=food70-earth-20261025";
 
 // Exploratory findings are selected from the records, not from a catalogue of
 // statistic-to-sentence templates. Scores order questions, never confidence.
@@ -558,6 +558,7 @@ export function discoverData({ dataset, rows = [], methodId = "discovery", recor
     const computed = buildDecisionInsight(dataset, domain, candidate, valid, social.profileKey);
     candidate.socialInsight = {...social, summary:computed.summary, status:computed.status};
     candidate.computedInsight = computed;
+    if (computed.fact) { candidate.signal = computed.fact; candidate.recordIds = computed.recordIds; }
     candidate.title = computed.headline;
     candidate.meaning = computed.summary;
     candidate.statisticalTest = candidate.test;
@@ -573,7 +574,7 @@ export function discoverData({ dataset, rows = [], methodId = "discovery", recor
     analysis: { lens: primary.lens, method: primary.method, calculation: `${primary.calculation}\n${primary.computedInsight.calculation||''}`, examined: candidates.map(candidate => candidate.lens) },
     findings: [
       { kind: "observation", title: "ファクト", body: primary.signal, recordIds: primary.recordIds },
-      { kind: "meaning", title: primary.computedInsight.status==='insufficient'?'比較結果は未成立':'インサイト', body: reading.summary, recordIds:primary.computedInsight.recordIds },
+      { kind: "meaning", title: primary.computedInsight.status==='insufficient'?'比較結果は未成立':primary.computedInsight.audience==='earth-context'?'地球を考える視点':'インサイト', body: reading.summary, recordIds:primary.computedInsight.recordIds },
       { kind: "limit", title: "留意事項", body: primary.caveat },
     ],
   };

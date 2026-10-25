@@ -330,7 +330,7 @@
     --map-command-dock-height: var(--map-unified-height) !important;
     --map-chapter-height: calc(var(--map-unified-height) - 21px) !important;
   }
-  body.map-grid-desktop #japan-layer.has-map-stable-navigation :is(.map-command-dock, .gaia-live-exhibit-readout, .gaia-estat-readout, .gaia-firms-readout, .gaia-planet-signals-readout, .gaia-marine-cod-readout, .gaia-food-readout) {
+  body.map-grid-desktop #japan-layer.has-map-stable-navigation :is(.map-command-dock, .gaia-live-exhibit-readout, .gaia-estat-readout, .gaia-firms-readout, .gaia-planet-signals-readout, .gaia-marine-cod-readout, .gaia-food-readout, .gaia-climate-readout) {
     --map-command-dock-height: var(--map-unified-height) !important;
     --map-chapter-height: calc(var(--map-unified-height) - 21px) !important;
     box-sizing: border-box;
@@ -495,7 +495,7 @@
   body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation:has(#japan-title[data-exhibit-number="15"]) [data-live-deck-number] {
     color: #63f3ff;
   }
-  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation .gaia-food-readout,
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation :is(.gaia-food-readout, .gaia-climate-readout),
   body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation:has(#japan-title[data-exhibit-number="15"]) .gaia-live-exhibit-readout {
     box-shadow: 0 -20px 65px rgba(0, 0, 0, .5), inset 0 1px rgba(236, 253, 255, .05);
     backdrop-filter: blur(18px) saturate(1.24);
@@ -506,9 +506,9 @@
     content: none;
   }
 
-  /* Food keeps its own inputs, but uses the same continuous instrument strip
+  /* Food and climate keep their own inputs, but use the same instrument strip
      and chapter / controls / reading / time / actions hierarchy as 05. */
-  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation.is-food-exhibit .gaia-food-readout {
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation:is(.is-food-exhibit, .is-climate-history-exhibit) :is(.gaia-food-readout, .gaia-climate-readout) {
     grid-template-columns: var(--map-chapter-width) minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, 1.2fr) var(--map-exhibit-actions-width);
     grid-template-rows: minmax(0, 1fr);
     grid-template-areas: "chapter pickers primary timeline actions";
@@ -551,12 +551,46 @@
   body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation .gaia-live-exhibit-readout {
     --map-chapter-height: 76px !important;
   }
-  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation.is-food-exhibit .gaia-food-readout {
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation:is(.is-food-exhibit, .is-climate-history-exhibit) :is(.gaia-food-readout, .gaia-climate-readout) {
     grid-template-columns: var(--map-chapter-width) minmax(0, 1fr) var(--map-exhibit-actions-width);
     grid-template-rows: 64px minmax(0, 1fr);
     grid-template-areas: "pickers pickers timeline" "chapter primary actions";
   }
   body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation.is-food-exhibit .gaia-food-pickers { grid-template-columns: 1fr 1fr; }
+}
+/* Climate uses the same frame as 70/71; only the native controls differ.
+   Keep the shared height, radius, shadow and breakpoint above as the source. */
+@media (min-width: 901px) {
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation .gaia-climate-readout { align-items: stretch; }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation .gaia-climate-chapter {
+    grid-area: chapter; display: flex; flex-direction: column; justify-content: center;
+    align-self: end; box-sizing: border-box; height: var(--map-chapter-height); min-width: 0; padding: 0 50px; gap: var(--realtime-row-gap);
+  }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation .gaia-climate-chapter > p {
+    margin: 0; font-size: var(--realtime-label-size); line-height: var(--realtime-label-row); letter-spacing: .04em;
+  }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation .gaia-climate-chapter > button { min-height: var(--realtime-value-row); align-items: center; }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation .gaia-climate-chapter b { font-size: var(--map-dock-number-size); line-height: var(--realtime-value-row); color: #63f3ff; }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation .gaia-climate-chapter strong { font-size: var(--map-dock-title-size); line-height: var(--realtime-value-row); color: #f4fdff; }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation :is(.gaia-climate-pickers, .gaia-climate-primary, .gaia-climate-timeline, .gaia-climate-actions) {
+    min-width: 0; margin: 0; padding: 0 12px; border-left: 1px solid rgba(99, 243, 255, .12); align-content: center;
+  }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation .gaia-climate-pickers { grid-area: pickers; gap: 4px; }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation .gaia-climate-pickers label { font-size: var(--realtime-label-size); }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation .gaia-climate-pickers select { min-height: 32px; height: 32px; font-size: clamp(14px,.8vw,18px); padding: 3px 6px; }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation .gaia-climate-primary { grid-area: primary; gap: 2px; min-height: 0; grid-template-rows: auto auto minmax(0,1fr); }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation .gaia-climate-primary > span { font-size: var(--realtime-label-size); line-height: 1.4; }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation .gaia-climate-primary > strong { font-size: var(--map-dock-value-size); line-height: 1.1; }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation .gaia-climate-primary > small { min-height: 0; overflow: auto; font-size: clamp(10px,.45vw,12px); line-height: 1.2; }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation .gaia-climate-timeline { grid-area: timeline; display: grid; grid-template-columns: minmax(0,.8fr) minmax(0,1.5fr); gap: 6px; }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation .gaia-climate-timeline label { grid-column: 1 / -1; font-size: clamp(14px,.8vw,18px); }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation .gaia-climate-timeline button { min-height: 28px; margin: 0; padding: 3px; font-size: var(--realtime-label-size); line-height: 1.4; }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation .gaia-climate-actions { grid-area: actions; padding: 0; align-items: center; }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation .gaia-climate-status { left: 14px; }
+}
+@media (min-width: 901px) and (max-width: 1200px) {
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation .gaia-climate-chapter { --map-chapter-height: 76px; }
+  body.map-grid-desktop:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation .gaia-climate-pickers { grid-template-columns: 1fr 1fr; }
 }
 /* Annual/record providers used to switch to two rows at 1400px. Match the
    shared dock's 1200px breakpoint so headings cannot fall below its height. */

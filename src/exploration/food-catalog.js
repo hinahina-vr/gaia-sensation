@@ -1,7 +1,8 @@
+import { foodBalanceReading } from './record-reading-catalog.js?v=records-reading-20261022';
 export const FOOD_EXHIBITS = Object.freeze([
   { id: 'food-balances', number: '70', shortTitle: '食料を育て、分かち合う',
     subtitle: '国ごとの収穫と、食料の出入り', signalLabel: 'FAOSTAT / 食料需給表', dataFile: 'fao-food-balances.json',
-    caption: '世界は1961〜2023年、日本の参照値は1960年度から。9品目群の生産／輸入／輸出と重量ベースの品目別自給率。旧・新FAOと農水省の違いを明記。',
+    caption: foodBalanceReading.caption,
     picker: '国土の色で品目別自給率を比較。選択国の芽と出入りする粒で、国の需給をたどる。', animation: 'harvest-exchange',
     source: 'https://data.fao.org/catalog/iso/2f264bb6-1238-459a-bf8b-0e2d0a16804a' },
   { id: 'food-security', number: '71', shortTitle: '食卓を支えるつながり',
@@ -59,7 +60,8 @@ export function buildFoodStatisticsDataset(data, definition, seriesId, selectedI
     // These are deterministic source ratios, not invented observations. Opening
     // this explicit metric may enable its derived rows; it never enables imputations.
     derivedFromSourceOnly: balance || observations.some(p => p.sourceRow?.[2] === 'MAFF_DERIVED'), provenance: balance ? ['DERIVED'] : observations.some(p => p.sourceRow?.[2] === 'MAFF_DERIVED') ? ['SOURCE', 'DERIVED'] : ['SOURCE'],
-    insightContext: { domain: 'food', axis: 'time-series', measurementKind: balance ? 'DERIVED' : 'SOURCE', seriesId },
+    insightContext: { domain: 'food', axis: 'time-series', measurementKind: balance ? 'DERIVED' : 'SOURCE', seriesId,
+      ...(balance ? { countryName: country.nameJa, seriesLabel: series.label } : {}) },
     sourceName: 'FAO / FAOSTAT・農水省参照値（出典は各行に保持）', sourceUrl: definition.source,
     comparisonNote: `${foodGuide(definition.id, seriesId)} ${data.historyNote || ''} 推計・補完値を含む公表統計です。出典の境目を同一方式の連続系列とみなさないでください。欠測は分析から除外。原因・飢餓・個人への分配は推定しません。` };
 }

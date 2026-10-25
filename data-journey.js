@@ -25,7 +25,7 @@
     ["NASA DONKI", "フレア・CME → 光と磁力線"],
     ["NASA/JPL CNEOS", "最接近距離 → 軌道の間隔"],
     ["Exoplanet Archive", "半径・温度 → 惑星の大きさと色"],
-    ["JAXA DARTS", "LIDAR距離 → リュウグウの輪郭"],
+    ["JAXA DARTS", "LIDAR距離 → リュウグウの形"],
   ];
 
   cards.forEach((card, index) => {

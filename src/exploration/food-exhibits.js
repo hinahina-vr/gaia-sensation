@@ -3,13 +3,15 @@ import { earthBaseScale, earthLongitudeToMapX } from './world-projection.js?v=ga
 import { japanPrefectureView } from './japan-prefecture-view.js?v=gaia-prefecture-gis-view-1';
 import { pickProjectedPoi } from './poi-hit-test.js?v=gaia-japan-center-1';
 import { decorateMapActions } from './map-exhibit-actions.js?v=action-icons-ready-20260926';
-import { FOOD_EXHIBITS, foodValue, foodFormat, foodAppearance, foodGuide, foodRowSource, foodFlagText, buildFoodStatisticsDataset } from './food-catalog.js?v=food-history-20260912';
+import { FOOD_EXHIBITS, foodValue, foodFormat, foodAppearance, foodGuide, foodRowSource, foodFlagText, buildFoodStatisticsDataset } from './food-catalog.js?v=food70-earth-20261025';
+import { foodBalanceReading, recordReadingTranslations } from './record-reading-catalog.js?v=records-reading-20261022';
 import { drawFoodMark } from './food-drawing.js?v=fao-food-1';
 import { drawFoodCountryFill, pickFoodCountry } from './food-country-fill.js?v=fao-food-country-fill-1';
 import { poiArrival, poiArrivalDuration } from './annual-poi-arrival.js?v=gaia-annual-pop-20260909';
 import { initialObservationIndex } from './initial-observation-year.js?v=2016-20260926';
 
 const cache = new Map(), requests = new Map(), buttons = new Map(), saved = new Map();
+globalThis.GaiaI18n?.register(recordReadingTranslations);
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
 let definition = FOOD_EXHIBITS[0], data, layer, map, canvas, context, readout, legend;
 let active = false, generation = 0, dataState = 'idle', seriesId = '', periodKey = '', selectedId = '392';
@@ -76,6 +78,11 @@ const syncCountryGeometry = () => {
   return true;
 };
 const renderGuide = () => {
+  const readingPanel = q('[data-food-reading]');
+  legend.classList.toggle('has-food-reading', balance());
+  readingPanel.hidden = !balance();
+  for (const key of ['basis', 'map']) readingPanel.querySelector(`[data-food-reading-${key}]`).textContent = foodBalanceReading[key];
+  q('[data-food-key-note]').textContent = balance() ? foodBalanceReading.key : '国土の色＝指標値。灰色＝算出・数値なし（0ではありません）。黄色の国境＝選択国。範囲外は端の色、数値は丸め込まず表示。色は安全性の判定ではありません。';
   q('[data-food-metric]').textContent = metric();
   q('[data-food-guide]').textContent = `${foodGuide(definition.id, seriesId)} ${data.historyNote || ''}`;
   q('[data-food-position]').textContent = '国境は展示13と共通のNatural Earth 50m。各国・地域自身のM49コードで数値を対応づけます。境界形状のない地域・旧国家の値を他国へ付け替えません。選択国の記号は代表位置で、農地・港・貿易経路ではありません。';
@@ -88,7 +95,26 @@ const renderGuide = () => {
   q('[data-food-scale]').style.background = `linear-gradient(90deg, ${stops.map(value => foodAppearance(definition.id, seriesId, value).color).join(',')})`;
   q('[data-food-scale-labels]').textContent = `${stops[0]}%以下　　${stops[1]}%　　${stops[2]}%以上`;
   q('[data-food-legend-title]').textContent = metric();
-  q('[data-food-period-kind]').textContent = balance() ? '年次 · 9品目群（全食料の合算ではありません）' : 'FAO公表 · 3年平均（隣り合う期間は重複）';
+  q('[data-food-period-kind]').textContent = balance() ? '年次 · 9品目群から選択' : 'FAO公表 · 3年平均（隣り合う期間は重複）';
+};
+const renderSourceQuantities = (r, source) => {
+  const record = q('[data-food-source-record]');
+  record.hidden = !balance();
+  if (!balance()) { record.querySelector('dl').replaceChildren(); return; }
+  // Keep each original quantity and its flag, including missing/zero values.
+  // This is a source view, not a new aggregation or a replacement for the ratio.
+  const facts = [
+    ['国・品目', [country()?.nameJa || '国を選択', series().label]],
+    ['出典・期間', [source.label, `${periodKey}${source.periodUnit}`]],
+    ...['生産（千t）', '輸入（千t）', '輸出（千t）'].map((label, i) => [label, [Number.isFinite(r?.[i + 1]) ? String(r[i + 1]) : '記録なし', foodFlagText(data, definition.id, r, r?.[i + 4])]]),
+  ];
+  record.querySelector('dl').replaceChildren(...facts.flatMap(([label, values]) => {
+    const dt = document.createElement('dt'), dd = document.createElement('dd'); dt.textContent = label;
+    const quantity = label.endsWith('（千t）');
+    if (quantity) dd.className = 'gaia-food-source-quantity';
+    values.forEach((value, i) => { const span = document.createElement('span'); span.textContent = value; if (i && !quantity) dd.append(' / '); dd.append(span); });
+    return [dt, dd];
+  }));
 };
 const render = () => {
   const current = period(); if (!current) return;
@@ -101,6 +127,7 @@ const render = () => {
   q('[data-food-series]').value = seriesId;
   q('[data-food-year]').value = String(series().periods.indexOf(current));
   const source = foodRowSource(definition.id, r);
+  renderSourceQuantities(r, source);
   q('[data-food-period]').textContent = balance() ? `${periodKey}${source.periodUnit}` : `${periodKey}${source.periodUnit}${source.id === 'MAFF' ? '参照' : '平均'}`;
   animateMetricText(q('[data-food-value]'), textValue(value), `${definition.id}/${seriesId}`);
   q('[data-food-value]').style.color = foodAppearance(definition.id, seriesId, value).color;
@@ -156,7 +183,7 @@ const draw = time => {
   frame = requestAnimationFrame(draw);
   if (time - lastFrame < 1000 / 24) return;
   const elapsed = Math.min(100, time - lastFrame); lastFrame = time;
-  const paused = globalThis.GaiaModeEntryGuide?.getState?.()?.active || globalThis.GaiaStatisticsLab?.getState?.()?.open || layer.classList.contains('is-map-title-transitioning');
+  const paused = globalThis.GaiaModeEntryGuide?.getState?.()?.active || globalThis.GaiaStatisticsLab?.getState?.()?.open || layer.matches('.is-map-title-transitioning, .is-map-data-intro');
   if (!paused && !reduced.matches) motionTime += elapsed;
   if (paused) lastPeriod = time;
   if (playing && !paused && time - lastPeriod > 4000) { const ps = series().periods; setPeriod(ps[(ps.indexOf(period()) + 1) % ps.length].key); lastPeriod = time; }
@@ -164,7 +191,7 @@ const draw = time => {
   const width = Math.max(1, Math.round(rect.width * ratio)), height = Math.max(1, Math.round(rect.height * ratio));
   if (canvas.width !== width || canvas.height !== height) { canvas.width = width; canvas.height = height; }
   context.setTransform(ratio, 0, 0, ratio, 0, 0); context.clearRect(0, 0, rect.width, rect.height); visible.clear();
-  if (layer.classList.contains('is-map-title-transitioning')) { arrivalStart = null; canvas.dataset.foodArrivalState = 'waiting'; return; }
+  if (layer.matches('.is-map-title-transitioning, .is-map-data-intro')) { arrivalStart = null; canvas.dataset.foodArrivalState = 'waiting'; return; }
   if (!syncCountryGeometry()) { fillKey = ''; canvas.dataset.foodFilledCountryCount = '0'; canvas.dataset.foodArrivalState = 'waiting'; return; }
   if (arrivalStart === null && document.querySelector('#japan-overlay').dataset.viewAnimation !== 'running') arrivalStart = time;
   const arrivalTime = arrivalStart === null ? -1 : time - arrivalStart;
@@ -201,7 +228,7 @@ const draw = time => {
   context.globalAlpha = 1; canvas.dataset.foodVisibleCount = String(visible.size); canvas.dataset.foodAnimation = definition.animation;
 };
 const findPoiAt = (x, y, pointerType) => {
-  if (!active || dataState !== 'ready' || canvas.dataset.foodGeometryState !== 'ready' || layer.classList.contains('is-map-title-transitioning')) return null;
+  if (!active || dataState !== 'ready' || canvas.dataset.foodGeometryState !== 'ready' || layer.matches('.is-map-title-transitioning, .is-map-data-intro')) return null;
   const view = projection();
   const countryId = pickFoodCountry(context, countryShapes, view, x, y);
   const index = points.findIndex(p => p.id === countryId);
@@ -228,6 +255,8 @@ const select = async id => {
   layer.classList.add('is-food-exhibit'); layer.dataset.foodExhibit = id;
   globalThis.GaiaMapObservationAdapter?.closePoi?.();
   canvas.hidden = readout.hidden = false; legend.hidden = true;
+  q('[data-food-reading]').hidden = q('[data-food-source-record]').hidden = true;
+  q('[data-food-source-record] dl').replaceChildren();
   context.clearRect(0, 0, canvas.width, canvas.height);
   for (const button of globalThis.GaiaMapCategories.buttons()) button.setAttribute('aria-current', String(button === buttons.get(id)));
   for (const selector of ['#japan-mode-title', '#japan-title', '[data-food-title]']) document.querySelector(selector).textContent = target.shortTitle;
@@ -257,7 +286,8 @@ const select = async id => {
   emit('ready');
   await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
   if (!active || generation !== ticket) return;
-  globalThis.GaiaMapObservationAdapter?.focusEarthLocation?.(japanPrefectureView(innerWidth));
+  if (balance()) globalThis.GaiaMapObservationAdapter?.focusEarthLocation?.(japanPrefectureView(innerWidth));
+  else focusAll();
   lastFrame = performance.now(); frame = requestAnimationFrame(draw);
 };
 const mount = () => {
@@ -276,6 +306,11 @@ const mount = () => {
   layer.append(readout);
   legend = document.createElement('section'); legend.className = 'gaia-food-legend'; legend.hidden = true;
   legend.innerHTML = `<div class="gaia-food-key"><h3 data-food-legend-title></h3><p data-food-period-kind></p><div class="gaia-food-scale" data-food-scale></div><p data-food-scale-labels></p><small>国土の色＝指標値。灰色＝算出・数値なし（0ではありません）。黄色の国境＝選択国。範囲外は端の色、数値は丸め込まず表示。色は安全性の判定ではありません。</small></div><details class="gaia-food-details"><summary>指標・演出・元データの説明</summary><div class="gaia-food-guide"><p data-food-guide></p><p data-food-motion></p><p data-food-quality></p><p data-food-position></p><p data-food-attribution></p><a href="https://www.fao.org/contact-us/terms/db-terms-of-use/en/" target="_blank" rel="noopener noreferrer">FAOデータ利用条件</a></div></details>`;
+  legend.querySelector('.gaia-food-key small').setAttribute('data-food-key-note', '');
+  legend.querySelector('.gaia-food-key').insertAdjacentHTML('beforeend', '<div class="gaia-food-reading" data-food-reading hidden><p data-food-reading-basis></p><p data-food-reading-map></p></div>');
+  legend.querySelector('.gaia-food-guide').insertAdjacentHTML('afterbegin', '<section class="gaia-food-source-record" data-food-source-record hidden><h3>選択国・品目の原数量</h3><dl></dl><p data-food-formula></p><p data-food-reading-guide></p></section>');
+  q('[data-food-formula]').textContent = foodBalanceReading.formula;
+  q('[data-food-reading-guide]').textContent = foodBalanceReading.guide;
   layer.append(legend); decorateMapActions(q('.gaia-food-actions'), q('[data-food-source]'), q('[data-food-analysis]'));
   for (const d of FOOD_EXHIBITS) {
     const b = document.createElement('button'); b.type = 'button'; b.className = 'map-mode-button'; b.textContent = d.number; b.dataset.foodExhibit = d.id;

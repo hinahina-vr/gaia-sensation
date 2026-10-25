@@ -1,0 +1,66 @@
+{
+  "date": "2026-10-25",
+  "sourceDevelopmentCommit": "d050cf81927c647aca545e7d637d5954086c3ba1",
+  "productionBase": "73855a201e4497d2f071ff3038577294ea9fd712",
+  "scopeSha256": "cd2006d0816036e1fa07711f2530efddab40dca202913051722af62866e3c2ef",
+  "existingAssets": 341,
+  "existingAssetsAndOriginRecordsUnchanged": true,
+  "dependencyLocksAnd184InventoryEntriesUnchanged": true,
+  "addedSources": [
+    {
+      "section": "水・気候・暮らしの記録（MAP 74–75）",
+      "id": "lakes",
+      "provider": "EC JRC / Google",
+      "datasetId": "MAP 74 / 固定範囲の年次水面積",
+      "sourceUrl": "https://global-surface-water.appspot.com/download",
+      "retrievalPolicy": "保存値を展示選択時に遅延読込。欠測を0埋めせず、原系列と独自年次集計を区別。",
+      "evidence": "data/surface-water/lakes.json",
+      "termsUrl": "https://global-surface-water.appspot.com/download",
+      "modeId": "lakes",
+      "period": "1984–2015",
+      "transformation": "Native annual classification: 0 no data, 1 non-water, 2 seasonal, 3 permanent. Fixed rectangular AOIs; not official lake boundaries. WGS84 ellipsoidal pixel-area sums at original 0.00025° spacing. Coverage denominator is the union of water-classified pixels across 1984–2015. Changes vs 2000 use only pixels observed in both years, requiring ≥95% coverage of that union. Display images use nearest-neighbour downsampling only; areas use original pixels.",
+      "attribution": "Pekel et al. (2016), Nature 540, 418–422. doi:10.1038/nature20584"
+    },
+    {
+      "section": "水・気候・暮らしの記録（MAP 74–75）",
+      "id": "waterstore",
+      "provider": "NASA JPL / GRACE・GRACE-FO",
+      "datasetId": "MAP 75 / 陸水量の変化",
+      "sourceUrl": "https://grace.jpl.nasa.gov/data/get-data/jpl_global_mascons/",
+      "retrievalPolicy": "保存値を展示選択時に遅延読込。欠測を0埋めせず、原系列と独自年次集計を区別。",
+      "evidence": "data/atlas-history/waterstore.json",
+      "termsUrl": "https://grace.jpl.nasa.gov/about/how-to-cite/",
+      "modeId": "waterstore",
+      "period": "2003–2024",
+      "retrievedAt": "2026-10-22",
+      "transformation": "JPL DATが返す固定矩形内のmeanを使用。観測の中心時刻を暦月に分類し、同月複数記録は平均。月ごとの空間平均を等重みで平均し、9か月未満は欠測。2004–2009年の製品基準値を維持。矩形の全面積に水深を掛けた体積や流域全体の総量には換算しない。",
+      "attribution": "NASA JPL Tellus GRACE/GRACE-FO RL06.3 Mascon CRI v4; JPL GRACE Data Analysis Tool"
+    },
+    {
+      "section": "水・気候・暮らしの記録（MAP 75）",
+      "id": "waterstore-grid",
+      "provider": "NASA JPL / GRACE・GRACE-FO",
+      "datasetId": "陸水量偏差の0.5度配布格子",
+      "sourceUrl": "https://grace.jpl.nasa.gov/data/get-data/jpl_global_mascons/",
+      "retrievalPolicy": "展示75で遅延読込。配布0.5度・推定約3度。",
+      "evidence": "data/atlas-history/waterstore-grid.json",
+      "termsUrl": "https://grace.jpl.nasa.gov/about/how-to-cite/",
+      "modeId": "waterstore",
+      "period": "2003–2024",
+      "retrievedAt": "2026-10-22",
+      "transformation": "NASA JPL DAT timeAvgMapSpark の0.5度陸域格子。各暦年に中心時刻を持つ観測解の算術平均。有効9暦月以上かつ9観測以上のセルを採用。cmを0.001cm単位に丸めて保存。独自の空間補間・欠測補間・gain factor適用なし。領域系列の暦月等重み平均とは集計法が異なる。",
+      "attribution": "NASA JPL / GRACE・GRACE-FO"
+    }
+  ],
+  "officialTermsChecked": [
+    {
+      "url": "https://global-surface-water.appspot.com/download",
+      "basis": "Copernicus data free of charge without restriction of use, with acknowledgement and dataset/article citation. The saved manifest contains Source: EC JRC/Google and Pekel et al. 2016, doi:10.1038/nature20584. This release uses the original 1984–2015 record, not the latest series."
+    },
+    {
+      "url": "https://grace.jpl.nasa.gov/about/how-to-cite/",
+      "basis": "GRACE Tellus grants use of data and images in research and publications with appropriate product citation and acknowledgement. Saved data, interface and ledgers identify NASA JPL Tellus GRACE/GRACE-FO RL06.3 Mascon CRI v4 and JPL GRACE Data Analysis Tool."
+    }
+  ],
+  "basis": "Release scope bookkeeping for committed open-data-derived additions and a FAO description change. Existing owner decisions, dates, decision bases and providerPermissionVerified flags are preserved. No new owner decision or individual provider permission is claimed. Original rasters, processing caches and development-only dependencies remain excluded; the release contains derived PNG/JSON data and source manifests."
+}

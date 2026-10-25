@@ -86,10 +86,10 @@ try {
         const readout = document.querySelector(".gaia-estat-readout");
         return { value: readout.querySelector("[data-estat-value]").textContent, quality: readout.querySelector("[data-estat-quality]").textContent, dataset: GaiaEstatExhibits.getStatisticsDataset() };
       }, { index, pref, slot });
-      assert.equal(result.value, "欠測"); assert.match(result.quality, /置き換えていません/u);
+      assert.equal(result.value, "欠測"); assert.match(result.quality, /未収録|欠測/u);
       const note = page.locator(width < 901 ? "[data-estat-mobile-history-note]" : "[data-estat-history-note]");
       assert(await note.isVisible());
-      assert.match(await note.textContent(), /置き換えていません/u);
+      assert.match(await note.textContent(), /未収録|欠測/u);
       assert.equal(result.dataset.missingCount, missing);
       assert.equal(result.dataset.rows.length, data.periodsBySeries[key].length - missing);
       assert(!result.dataset.rows.some(row => row.id === year));
@@ -124,7 +124,7 @@ try {
   assert.equal(await page.locator("[data-estat-value]").textContent(), "欠測");
   assert.equal(await page.locator("b[data-estat-period]").textContent(), "—");
   assert(await page.locator("[data-estat-analysis]").isDisabled());
-  assert.match(await page.locator("[data-estat-quality]").textContent(), /読み込めません/u);
+  assert.match(await page.locator("[data-estat-quality]").textContent(), /読み込みに失敗/u);
   assert.equal(await page.evaluate(() => GaiaEstatExhibits.getStatisticsDataset().rows.length), 0);
   await context.close();
   assert.deepEqual(report.errors, []);

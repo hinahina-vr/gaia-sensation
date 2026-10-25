@@ -1,4 +1,22 @@
 #gaia-food-canvas { position: absolute; inset: 0; z-index: 5; width: 100%; height: 100%; pointer-events: none; }
+.gaia-food-reading { margin-top: 8px; padding-top: 8px; border-top: 1px solid #bddfe029; overflow-wrap: anywhere; }
+.gaia-food-reading [data-food-reading-basis] { color: #98d8d5; }
+.gaia-food-source-record { margin: 8px 0 14px; padding-left: 10px; border-left: 2px solid #75c9ca66; overflow-wrap: anywhere; }
+.gaia-food-source-record h3 { margin: 0 0 8px; font: inherit; color: #cce6df; }
+.gaia-food-source-record dl { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.4fr); gap: 6px 10px; margin: 0 0 10px; }
+.gaia-food-source-record dt { color: #91b4c0; }
+.gaia-food-source-record dd { margin: 0; font-variant-numeric: tabular-nums; }
+.gaia-food-source-quantity > span { display: block; }
+.gaia-food-source-quantity > span:first-child { color: #e1eee6; font-size: 1.3em; }
+.gaia-food-source-quantity > span + span { color: #9fbec7; font-size: .9em; line-height: 1.5; }
+.gaia-food-source-record [data-food-formula] { color: #d9e9ba; }
+.gaia-food-source-record [data-food-reading-guide] { color: #a9c4cb; }
+@media (min-width: 901px) {
+  #japan-layer .gaia-food-legend.has-food-reading {
+    max-height: max(120px, calc(100dvh - var(--responsive-legend-top, 154px) - var(--responsive-credit-bottom, 120px) - 64px));
+    overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; pointer-events: auto;
+  }
+}
 #japan-layer.is-map-title-transitioning #gaia-food-canvas { visibility: hidden; }
 .experience.japan-open:has(#japan-layer.is-food-exhibit) { overflow: clip; }
 #gaia-food-canvas[hidden], .gaia-food-readout[hidden], .gaia-food-legend[hidden] { display: none !important; }

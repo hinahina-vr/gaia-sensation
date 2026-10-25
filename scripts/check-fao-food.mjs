@@ -59,6 +59,6 @@ for (const def of FOOD_EXHIBITS) {
 }
 const sandbox = { globalThis: {}, document: { querySelector: () => null, addEventListener() {} }, matchMedia: () => ({ matches: true, addEventListener() {} }) };
 vm.runInNewContext(fs.readFileSync('map-exhibit-categories.js', 'utf8'), sandbox);
-assert.equal(sandbox.globalThis.GaiaMapCategories.exhibitCount, 73);
+assert.equal(sandbox.globalThis.GaiaMapCategories.exhibitCount, 75);
 for (const number of [70, 71]) { assert.equal(sandbox.globalThis.GaiaMapCategories.get(number).id, 'food'); assert.equal(sandbox.globalThis.GaiaMapCategories.getProfile(number).scope, 'world'); }
 console.log(JSON.stringify({ status: 'passed', totals }));

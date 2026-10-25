@@ -92,7 +92,7 @@ GaiaI18n.register([
   ["使用：宇宙09","Used in: Space 09","用于：宇宙09"],
   ["はやぶさ2がレーザーで測った、リュウグウまでの距離","Hayabusa2’s laser measurements of the distance to Ryugu","隼鸟2号用激光测量的龙宫距离"],
   ["はやぶさ2のLIDARはレーザーを送り、反射が戻るまでの時間から探査機と小惑星表面の距離を測りました。DARTSでは時刻、距離、表面位置など11列のCSVが公開されています。","Hayabusa2’s LIDAR sent laser pulses and measured the return time to calculate the distance from the spacecraft to the asteroid’s surface. DARTS publishes an 11-column CSV including time, distance, and surface position.","隼鸟2号的LIDAR发射激光，根据反射光返回所需时间测量探测器到小行星表面的距离。DARTS公开了包含时刻、距离、表面位置等11列的CSV。"],
-  ["2018年7月1日の公式CSVを保存し、表面中心からの高さを輪郭の凹凸へ変えます。一日の一部で、全面地形図ではありません。","The saved official CSV for July 1, 2018 turns surface heights relative to the center into an uneven outline. It covers part of one day, not a complete terrain map.","保存2018年7月1日的官方CSV，将相对中心的表面高度转化为轮廓起伏。仅涵盖一天中的部分记录，并非完整地形图。"],
+  ["2018年7月1日の公式CSVを保存し、表面中心からの高さを地形の起伏へ変えます。一日の一部で、全面地形図ではありません。","The saved official CSV for July 1, 2018 turns surface heights relative to the center into an uneven outline. It covers part of one day, not a complete terrain map.","保存2018年7月1日的官方CSV，将相对中心的表面高度转化为轮廓起伏。仅涵盖一天中的部分记录，并非完整地形图。"],
   ["11列の説明 ↗","Explanation of the 11 columns ↗","11列数据说明 ↗"],
   ["公開データとGXの関係を、物語でたどる。","Explore the connection between open data and GX through a story.","通过故事探索公开数据与GX的关系。"],
   ["ストーリーモードへ","Enter story mode","进入故事模式"],

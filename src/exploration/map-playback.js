@@ -34,7 +34,7 @@ export function mountMapPlayback() {
     reason: 'この展示には時間順に再生できるデータがありません。' };
   const suspended = () => document.hidden || !inMap()
     || globalThis.GaiaModeEntryGuide?.getState?.()?.active
-    || layer.classList.contains('is-map-title-transitioning')
+    || layer.matches('.is-map-title-transitioning, .is-map-data-intro')
     || layer.classList.contains('japan-data-open')
     || document.body.matches('.gaia-statistics-open, .gaia-tour-open, .novel-open');
   const getState = () => {
@@ -99,7 +99,7 @@ export function mountMapPlayback() {
   };
   const onInput = event => {
     if (!event.isTrusted || !inMap() || !intent || keepsPlayback(event)
-      || globalThis.GaiaModeEntryGuide?.getState?.()?.active) return;
+      || layer.classList.contains('is-map-data-intro') || globalThis.GaiaModeEntryGuide?.getState?.()?.active) return;
     // Merely moving keyboard focus inside the mobile tools dialog is not stop.
     if (event.type === 'keydown' && ['Tab', 'Shift'].includes(event.key)) return;
     stop('interaction');

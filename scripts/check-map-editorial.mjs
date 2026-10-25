@@ -15,6 +15,8 @@ const recyclingRevision = JSON.parse(read("docs/design/recycling-map-20260907.js
 // Keep historical fixture numbers intact. Match by stable ID below, then
 // translate the expected number once to the current exhibition order.
 const liveRevision = JSON.parse(read("docs/design/live-prefecture-fill-20260912.json")).exhibits;
+const liveReadingRevision = JSON.parse(read("docs/design/live-prefecture-reading-20261020.json")).exhibits;
+const annualReadingRevision = JSON.parse(read("docs/design/annual-reading-20261022.json")).exhibits;
 const annualRevision = JSON.parse(read("docs/design/annual-picker-copy-20260912.json")).exhibits;
 const annualSeries = JSON.parse(read("data/estat-prefecture-series.json"));
 for (const key of ["migration", "lodging"]) {
@@ -43,6 +45,8 @@ for (const [index, record] of records.entries()) {
     ? { ...original, body: recyclingRevision.body }
     : { ...original, ...liveRevision.find(item => item.number === original.number), ...annualRevision.find(item => item.number === original.number) };
   const reordered = { '01': '04', '02': '01', '04': '02' };
+  Object.assign(expected, liveReadingRevision.find(item => item.id === record.id));
+  Object.assign(expected, annualReadingRevision.find(item => item.id === record.id));
   expected.number = reordered[original.number] || original.number;
   assert.equal(record.number, String(index + 1).padStart(2, "0"));
   for (const key of ["number", "id", "title", "body", "question"]) {
@@ -70,10 +74,10 @@ for (const [number, pattern] of [
   ["08", /因果関係は計算していません/u],
   ["09", /国連SDG.*91地域.*世界銀行.*54地域.*未収録.*推計.*分母.*厳密な順位/u],
   ["13", /年は異なり.*0%.*未収録/u],
-  ["21", /転入者数.*転出者数.*出生・死亡/u],
-  ["25", /毎日の日最高気温.*一年で平均.*夏だけ.*最高記録.*猛暑日数/u],
-  ["26", /毎日の日最低気温.*一年で平均.*冬だけ.*最低記録.*冬日数/u],
-  ["30", /雨日以外の日を晴天日数とはみなしません/u],
-  ["31", /COD.*年度平均値.*波紋は演出.*DO.*酸欠の分布ではありません/u],
+  ["21", /転入した人数.*転出した人数.*差.*日本人移動者.*沖縄県は1973年/u],
+  ["25", /毎日のいちばん高い気温.*一年分.*平均.*代表観測地点/u],
+  ["26", /毎日のいちばん低い気温.*一年分.*平均.*代表観測地点/u],
+  ["30", /一日の降水量が1mm以上.*雪.*一年の日数/u],
+  ["31", /COD.*化学的に酸化.*必要な酸素量.*測定地点ごとの年度平均値/u],
 ]) assert.match(records[Number(number) - 1].body, pattern, `${number}: material limitation`);
 console.log("PASS MAP editorial: all 31 titles, relevance subtitles, picker copy, bodies, sources and critical data limits match the copy fixtures");

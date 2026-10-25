@@ -83,9 +83,18 @@ add(72,
   t('NOAA IBTrACS｜1980–2024シーズン｜主要経路', 'NOAA IBTrACS | 1980–2024 seasons | Main tracks', 'NOAA IBTrACS｜1980–2024季｜主要路径'), 'climate');
 add(73,
   t('衛星水温から計算した、サンゴ礁監視海域の熱ストレスです。', 'Heat stress in coral reef monitoring regions, calculated from satellite sea temperatures.', '由卫星海温计算的珊瑚礁监测海域热应激。'),
-  t('点の色は年内最大DHW。海に蓄積した熱の年ごとの違いを比べます。', 'Point colors show annual maximum DHW, comparing accumulated heat across years.', '光点颜色表示年度最大DHW，比较逐年累积热量。'),
+  t('点の色が海に広がります。年を動かし、海域ごとの熱の蓄積を比べます。', 'Point colors spread across the sea. Move through the years to compare accumulated heat by region.', '光点的颜色在海上展开。切换年份，比较各海域的累积热量。'),
   t('NOAA Coral Reef Watch｜1986–2025年｜DHW', 'NOAA Coral Reef Watch | 1986–2025 | DHW', 'NOAA Coral Reef Watch｜1986–2025年｜DHW'), 'climate');
 
+add(74,
+  t('衛星が捉えた水の広がりを、3つの湖の周辺でたどります。', 'Follow satellite-observed surface water around three lakes.', '追踪卫星观测到的三个湖泊周边的水面。'),
+  t('青が通年、緑が季節的な水域。年を動かすと、水面の広がりが変わります。', 'Blue marks permanent water and green seasonal water. Move through the years to see the water extent change.', '蓝色表示常年水域，绿色表示季节性水域。切换年份，查看水域范围的变化。'),
+  t('EC JRC/Google｜GSW v1.0｜1984–2015年', 'EC JRC/Google | GSW v1.0 | 1984–2015', 'EC JRC/Google｜GSW v1.0｜1984–2015年'), 'climate');
+
+add(75,
+  t('重力を測る衛星から、陸に蓄えられた水の変化をたどります。', 'Gravity-measuring satellites reveal changes in water stored on land.', '通过测量重力的卫星，追踪陆地储水的变化。'),
+  t('青緑は基準より多い水、橙は少ない水。陸地を選び、同じ場所の変化を追えます。', 'Teal shows more water than the baseline; orange shows less. Select land to follow the same place through time.', '蓝绿色表示储水量高于基准，橙色表示低于基准。选择陆地，追踪同一位置的变化。'),
+  t('GRACE / GRACE-FO｜2003–2024年｜2004–2009年基準', 'GRACE / GRACE-FO | 2003–2024 | Baseline: 2004–2009', 'GRACE / GRACE-FO｜2003–2024年｜基准：2004–2009年'), 'climate');
 // Japan model fields represent one city per prefecture, not area averages.
 const liveMetrics = [
   [15, ['地上10mの風速', 'wind speed at 10 m', '地上10米风速'], source.weather],

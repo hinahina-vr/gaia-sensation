@@ -348,7 +348,7 @@ GaiaI18n.register([
     "0.5–2.0 R⊕、180–330 K。这些条件不表示生命是否存在。"
   ],
   [
-    "輪郭＝リュウグウ、光点＝レーザー測距点、探査機から伸びる線＝選択した測距です。起伏は測定値から強調しています。",
+    "面＝リュウグウ、光点＝レーザー測距点、探査機から伸びる線＝選択した測距です。起伏は測定値から強調しています。",
     "The outline is Ryugu; light points are laser-ranging measurements. The line from the spacecraft marks the selected measurement. Surface relief is exaggerated from the measured values.",
     "轮廓表示龙宫小行星，光点表示激光测距点，从探测器延伸的线表示所选测量。地形起伏依据测量值进行了夸张呈现。"
   ],
@@ -358,7 +358,7 @@ GaiaI18n.register([
     "发射激光测距脉冲"
   ],
   [
-    "リュウグウへ触れて測距点を選ぶ。距離と三次元座標から輪郭が立ち上がります。",
+    "リュウグウへ触れて測距点を選ぶ。距離と三次元座標から地形を描きます。",
     "Touch Ryugu to select a ranging point. Distances and three-dimensional coordinates form its outline.",
     "触摸龙宫小行星以选择测距点。距离与三维坐标构成其轮廓。"
   ],
@@ -368,7 +368,7 @@ GaiaI18n.register([
     "测距值 → 光路"
   ],
   [
-    "地形座標 → 輪郭",
+    "地形座標 → 起伏",
     "Terrain coordinates → outline",
     "地形坐标 → 轮廓"
   ],
@@ -603,7 +603,7 @@ GaiaI18n.register([
     "将 {distance} m 显示为探测器到表面的虚线"
   ],
   [
-    "経度 {longitude}°・高さ {height} mを輪郭点へ変換",
+    "経度 {longitude}°・高さ {height} mを地形の点へ変換",
     "Convert longitude {longitude}° and height {height} m into an outline point",
     "将经度 {longitude}°、高度 {height} m 转换为轮廓点"
   ],

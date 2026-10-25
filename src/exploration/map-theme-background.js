@@ -13,7 +13,7 @@ export function mountMapThemeBackground(){
   let theme=null,gl=null,program=null,buffer=null,locations=null,mask=null;
   let engine='uninitialized',frame=0,drawn=0,last=0,time=0,disposed=false,lost=false,needsFallback=false,wasVisible=false,maskStarted=0,contextCount=0;
   const currentId=()=>layer.dataset.liveExhibit||layer.dataset.firmsExhibit||layer.dataset.marineCodExhibit||layer.dataset.foodExhibit||layer.dataset.climateExhibit;
-  const isVisible=()=>!!theme&&!document.hidden&&layer.getAttribute('aria-hidden')!=='true'&&!layer.hidden&&!layer.classList.contains('is-map-title-transitioning');
+  const isVisible=()=>!!theme&&!document.hidden&&layer.getAttribute('aria-hidden')!=='true'&&!layer.hidden&&!layer.matches('.is-map-title-transitioning, .is-map-data-intro');
   const profile=()=>globalThis.GaiaFrameBudgetGovernor?.getProfile?.()||{level:'medium',targetFps:30,dprCap:1};
   const cancel=()=>{cancelAnimationFrame(frame);frame=0;last=0;};
   // The CSS fallback has no land mask: suppress it for ocean-only exhibits.

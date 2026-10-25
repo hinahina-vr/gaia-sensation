@@ -834,6 +834,16 @@ const draw = (timestamp = performance.now()) => {
     return;
   }
   const interval = reducedMotion ? 1000 / 15 : FRAME_INTERVAL_MS;
+  canvas.hidden = layer.matches('.is-map-title-transitioning, .is-map-data-intro');
+  if (canvas.hidden) {
+    atmosphereCanvas.hidden = true;
+    poiArrival = null;
+    lastRenderedAt = timestamp;
+    canvas.dataset.planetArrivalPhase = 'waiting';
+    frame = requestAnimationFrame(draw);
+    return;
+  }
+  if (!poiArrival) poiArrival = createPoiArrival(currentData.points, timestamp, reducedMotion);
   if (timestamp + 0.5 < lastRenderedAt + interval) {
     frame = requestAnimationFrame(draw);
     return;
@@ -853,8 +863,7 @@ const draw = (timestamp = performance.now()) => {
   const interaction = getFocusedPoi(definition);
   const isField = definition.renderer !== "quake";
   const introVisible = layer.classList.contains("is-map-title-transitioning") || layer.classList.contains("is-map-data-intro");
-  // The field keeps moving during the guide and title. Quiet the copy area,
-  // then let the existing field gradually reclaim it without restarting.
+  // The introductory band gates the field and its first POI arrival together.
   const introTarget = isField && introVisible ? 1 : 0;
   fieldIntroQuiet = reducedMotion ? introTarget : fieldIntroQuiet + (introTarget - fieldIntroQuiet) * .12;
   if (Math.abs(fieldIntroQuiet - introTarget) < .002) fieldIntroQuiet = introTarget;

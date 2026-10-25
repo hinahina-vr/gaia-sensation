@@ -2027,6 +2027,54 @@
       ]
     },
     {
+      "modeId": "waterstore",
+      "id": "atlas-waterstore",
+      "title": "陸水量の変化",
+      "organisation": "NASA JPL / GRACE・GRACE-FO",
+      "sourceUrl": "https://grace.jpl.nasa.gov/data/get-data/jpl_global_mascons/",
+      "termsUrl": "https://grace.jpl.nasa.gov/about/how-to-cite/",
+      "retrievedAt": "2026-10-22",
+      "transformation": "JPL DATが返す固定矩形内のmeanを使用。観測の中心時刻を暦月に分類し、同月複数記録は平均。月ごとの空間平均を等重みで平均し、9か月未満は欠測。2004–2009年の製品基準値を維持。矩形の全面積に水深を掛けた体積や流域全体の総量には換算しない。",
+      "citation": "NASA JPL Tellus GRACE/GRACE-FO RL06.3 Mascon CRI v4; JPL GRACE Data Analysis Tool",
+      "rawSourceHashes": "data/atlas-history/sources.json",
+      "usageSurfaces": [
+        "on-screen transformed display",
+        "directly served bundled JSON",
+        "participant-selected analysis fields may be sent to BYOK AI after consent"
+      ]
+    },
+    {
+      "modeId": "lakes",
+      "id": "jrc-lakes",
+      "title": "湖周辺の年次水域分類",
+      "organisation": "EC JRC / Google",
+      "sourceUrl": "https://global-surface-water.appspot.com/download",
+      "termsUrl": "https://global-surface-water.appspot.com/download",
+      "transformation": "Native annual classification: 0 no data, 1 non-water, 2 seasonal, 3 permanent. Fixed rectangular AOIs; not official lake boundaries. WGS84 ellipsoidal pixel-area sums at original 0.00025° spacing. Coverage denominator is the union of water-classified pixels across 1984–2015. Changes vs 2000 use only pixels observed in both years, requiring ≥95% coverage of that union. Display images use nearest-neighbour downsampling only; areas use original pixels.",
+      "rawSourceHashes": "data/surface-water/lakes.json",
+      "usageSurfaces": [
+        "on-screen transformed display",
+        "directly served bundled JSON",
+        "participant-selected analysis fields may be sent to BYOK AI after consent"
+      ]
+    },
+    {
+      "modeId": "waterstore",
+      "id": "waterstore-grid",
+      "title": "陸水量偏差の0.5度配布格子",
+      "organisation": "NASA JPL / GRACE・GRACE-FO",
+      "sourceUrl": "https://grace.jpl.nasa.gov/data/get-data/jpl_global_mascons/",
+      "termsUrl": "https://grace.jpl.nasa.gov/about/how-to-cite/",
+      "retrievedAt": "2026-10-22",
+      "transformation": "NASA JPL DAT timeAvgMapSpark の0.5度陸域格子。各暦年に中心時刻を持つ観測解の算術平均。有効9暦月以上かつ9観測以上のセルを採用。cmを0.001cm単位に丸めて保存。独自の空間補間・欠測補間・gain factor適用なし。領域系列の暦月等重み平均とは集計法が異なる。",
+      "rawSourceHashes": "data/atlas-history/waterstore-grid.json#sources",
+      "usageSurfaces": [
+        "on-screen transformed display",
+        "directly served bundled JSON",
+        "participant-selected analysis fields may be sent to BYOK AI after consent"
+      ]
+    },
+    {
       "modeId": "story-map01-temperature",
       "id": "nasa-gistemp-regional-annual",
       "title": "GISTEMP v4 Land-Ocean Temperature Index, ERSSTv5, 1200 km smoothing",

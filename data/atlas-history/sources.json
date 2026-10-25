@@ -1,0 +1,35 @@
+{
+  "retrievedAt": "2026-10-22",
+  "sources": [
+    {
+      "file": "grace-metadata.xml",
+      "url": "https://grace-onearth.jpl.nasa.gov/edge/ws/metadata/dataset?nexusShortName=TELLUS_GRAC-GRFO_MASCON_CRI_GRID_RL06.3_V4_LAND",
+      "sha256": "4442c86d18b05e7ed2a6f9b105ea5213ae7d2417480a79905f7688650f451d04",
+      "bytes": 10521
+    },
+    {
+      "file": "grace-amazon.json",
+      "url": "https://grace-onearth.jpl.nasa.gov/nexus/timeSeriesSpark?ds=TELLUS_GRAC-GRFO_MASCON_CRI_GRID_RL06.3_V4_LAND&minLat=-10&maxLat=0&minLon=-70&maxLon=-60&startTime=1041379200&endTime=1735689599&mask=3&lowPassFilter=False&seasonalFilter=false",
+      "sha256": "8e5078022462605397975357865373bbf92a90a957f85e78fa79852b2fe258a7",
+      "bytes": 85625
+    },
+    {
+      "file": "grace-india.json",
+      "url": "https://grace-onearth.jpl.nasa.gov/nexus/timeSeriesSpark?ds=TELLUS_GRAC-GRFO_MASCON_CRI_GRID_RL06.3_V4_LAND&minLat=22&maxLat=32&minLon=70&maxLon=85&startTime=1041379200&endTime=1735689599&mask=3&lowPassFilter=False&seasonalFilter=false",
+      "sha256": "24b81ad6cfff4218e2ba8e2ce3b4610a7c2ea77e94eab4b70b766bc285503214",
+      "bytes": 85685
+    },
+    {
+      "file": "grace-africa.json",
+      "url": "https://grace-onearth.jpl.nasa.gov/nexus/timeSeriesSpark?ds=TELLUS_GRAC-GRFO_MASCON_CRI_GRID_RL06.3_V4_LAND&minLat=-30&maxLat=-20&minLon=20&maxLon=30&startTime=1041379200&endTime=1735689599&mask=3&lowPassFilter=False&seasonalFilter=false",
+      "sha256": "595afc0b79241581150207b150b985274d5436a2792ee729dacb52653aa620e0",
+      "bytes": 85695
+    },
+    {
+      "file": "grace-australia.json",
+      "url": "https://grace-onearth.jpl.nasa.gov/nexus/timeSeriesSpark?ds=TELLUS_GRAC-GRFO_MASCON_CRI_GRID_RL06.3_V4_LAND&minLat=-38&maxLat=-28&minLon=135&maxLon=150&startTime=1041379200&endTime=1735689599&mask=3&lowPassFilter=False&seasonalFilter=false",
+      "sha256": "3fe81f77b6f11c7b72315799835571fd3cb505e98b5c2da46fc7b19265c6db1a",
+      "bytes": 85623
+    }
+  ]
+}

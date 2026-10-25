@@ -39,7 +39,7 @@ try {
         if (this.canvas.id === "japan-overlay" && masks.has(source)
           && document.querySelector("#japan-mode-number")?.textContent === "08") {
           window.__forestDraws.push({ time: performance.now(), alpha: this.globalAlpha,
-            separator: document.querySelector("#japan-layer").classList.contains("is-map-title-transitioning") });
+            separator: document.querySelector("#japan-layer").matches(".is-map-title-transitioning, .is-map-data-intro") });
         }
         return draw.call(this, source, ...args);
       };
@@ -63,7 +63,7 @@ try {
         .find(button => button.textContent.trim() === String(number).padStart(2, "0")).click();
     }, number);
     await select(7);
-    await page.waitForFunction(() => !document.querySelector("#japan-layer").classList.contains("is-map-title-transitioning"));
+    await page.waitForFunction(() => !document.querySelector("#japan-layer").matches(".is-map-title-transitioning, .is-map-data-intro"));
 
     const checkEntry = async (name, rapid = false) => {
       await page.evaluate(() => { window.__forestDraws = []; });
@@ -74,7 +74,8 @@ try {
       }
       await page.waitForFunction(() => document.querySelector("#japan-overlay").dataset.forestRevealState === "waiting-for-separator");
       assert.equal(await page.evaluate(() => window.__forestDraws.length), 0, `${label}/${name}: forest appeared during separator`);
-      await page.waitForFunction(() => !document.querySelector("#japan-layer").classList.contains("is-map-title-transitioning"));
+      // The forest must wait for both the title and its data explanation to fade.
+      await page.waitForFunction(() => !document.querySelector("#japan-layer").matches(".is-map-title-transitioning, .is-map-data-intro"));
       if (releaseImage) {
         await page.waitForTimeout(550);
         assert.equal(await page.locator("#japan-overlay").getAttribute("data-forest-reveal-state"), "waiting-for-raster");

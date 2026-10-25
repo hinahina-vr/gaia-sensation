@@ -78,7 +78,7 @@ GaiaI18n.register([
   ["半径と平衡温度","Radius and equilibrium temperature","半径与平衡温度"],
   ["大きさと平衡温度が設定範囲に入る系外惑星を、生命判定とは分けて見る。","View exoplanets whose size and equilibrium temperature fall within set ranges, separately from any assessment of life.","查看大小与平衡温度落在设定范围内的系外行星，不将其视为生命判断。"],
   ["リュウグウの地形","Ryugu’s terrain","龙宫的地形"],
-  ["はやぶさ2のレーザー高度計が測った距離と表面位置を、凹凸のある輪郭で見る。","See distances and surface positions measured by Hayabusa2’s laser altimeter as an uneven outline.","将隼鸟2号激光测高仪测量的距离与表面位置，化作起伏的轮廓。"],
+  ["はやぶさ2のレーザー高度計が測った距離と表面位置を、表面の起伏で見る。","See distances and surface positions measured by Hayabusa2’s laser altimeter as an uneven outline.","将隼鸟2号激光测高仪测量的距离与表面位置，化作起伏的轮廓。"],
   ["八つの公開資料","Eight public sources","八份公开资料"],
   ["太陽、地球近傍、小惑星、系外惑星の違う信号を、合計せず一つの網へ重ねる。","Overlay different signals from the Sun, near-Earth space, asteroids, and exoplanets in a single network without adding them together.","将太阳、近地空间、小行星与系外行星的不同信号叠加为一张网络，并不将数值相加。"],
 ]);

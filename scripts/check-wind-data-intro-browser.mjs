@@ -9,7 +9,9 @@ import { enforceBrowserSecurity } from './lib/browser-security-qa.mjs';
 const base = process.env.GAIA_BASE_URL || 'http://127.0.0.1:4492';
 const before = process.argv.includes('--before-fixed-height');
 const languagesOnly = process.argv.includes('--languages');
-const output = path.resolve(`artifacts/wind-data-intro-2026-09-26/${before ? 'fixed-height-before' : languagesOnly ? 'concise-copy-languages' : 'concise-copy'}`);
+const timingOnly = process.argv.includes('--timing-only');
+const output = path.resolve(process.env.GAIA_INTRO_OUTPUT || (timingOnly ? 'artifacts/map-intro-fade-20261022/wind-timing'
+  : `artifacts/wind-data-intro-2026-09-26/${before ? 'fixed-height-before' : languagesOnly ? 'concise-copy-languages' : 'concise-copy'}`));
 fs.mkdirSync(output, { recursive: true });
 const files = ['app.js', 'map-ui-grid-polish.css', 'index.html', 'gaia-mode-loader.js', 'locales/ui-entry.bundle.js', 'src/exploration/map-data-intro-catalog.js'];
 const report = { status: 'running', commit: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(),
@@ -18,7 +20,7 @@ const report = { status: 'running', commit: execFileSync('git', ['rev-parse', 'H
 const browser = await chromium.launch({ executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe', headless: true });
 let page;
 try {
-  const cases = before ? [[390,844,true,false]] : languagesOnly
+  const cases = timingOnly ? [[1440,900,false,false], [390,844,true,false], [320,568,true,true]] : before ? [[390,844,true,false]] : languagesOnly
     ? [[320,568,true,false,'en'], [390,844,true,false,'zh-CN']]
     : [[1440,900,false,false], [390,844,true,false], [844,390,false,false], [320,568,true,true]];
   for (const [width, height, sample, reduced, language = 'ja'] of cases) {
@@ -54,7 +56,7 @@ try {
     });
     page = await context.newPage();
     page.on('pageerror', error => report.errors.push(error.message));
-    await page.goto(`${base}/#world-01`, { waitUntil: 'domcontentloaded' });
+    await page.goto(`${base}/${timingOnly ? 'world.html' : ''}#world-01`, { waitUntil: 'domcontentloaded', timeout: 60000 });
     await page.locator('#gaia-boot').waitFor({ state: 'hidden', timeout: 60000 });
     await page.waitForFunction(() => {
       const intro = document.querySelector('#map-data-intro');
@@ -73,7 +75,7 @@ try {
     }));
     assert.equal(scan.pointerEvents, 'none');
     assert.equal(scan.titleRunning, false);
-    assert.equal(scan.playbackPaused, false);
+    assert.equal(scan.playbackPaused, true);
     assert.equal(scan.overflow, 0);
     assert.match(scan.text, /地上10m|10 metres|10米/);
     assert.match(scan.text, /気象予測モデルのデータをもとに|weather prediction models|气象预测模型/);
@@ -91,6 +93,20 @@ try {
     }
     if (width === 320) assert(scan.boxes.every(box => box.x >= 60), 'Narrow copy must clear the left zoom rail');
     await page.screenshot({ path: path.join(output, `${width}-intro.png`) });
+    if (timingOnly) {
+      await page.locator('#map-data-intro').waitFor({ state: 'hidden' });
+      const frames = await page.evaluate(() => window.__introFrames);
+      const shown = frames.filter(f => f.visible);
+      const durationMs = shown.at(-1).time - shown[0].time;
+      assert(durationMs >= 2900 && durationMs <= 3500, `${width}: ${durationMs}ms`);
+      assert(!frames.some(f => f.title && f.visible), 'Title must precede explanation');
+      assert.equal(shown.at(-1).frame, shown[0].frame, 'Field waits until explanation fades completely');
+      assert.deepEqual(await page.evaluate(() => window.__securityViolations), []);
+      report.checks.push({ width, height, reduced, durationMs, heightRange, ...scan });
+      console.log(`PASS ${width}x${height}: explanation ${durationMs.toFixed(0)}ms`);
+      await context.close();
+      continue;
+    }
     if (width === 1440) {
       await page.locator('#map-data-intro').waitFor({ state: 'hidden' });
       const frames = await page.evaluate(() => window.__introFrames);
@@ -108,8 +124,11 @@ try {
       }
       fs.writeFileSync(path.join(output, 'handoff-frames.json'), JSON.stringify(boundary, null, 2));
       assert(shown.some(f => f.opacity > .05 && f.opacity < .9), 'Actual fade-in/out frames');
-      assert(shown.at(-1).frame > shown[0].frame, 'Map continues rendering during the explanation');
-      assert(shown.at(-1).time - shown[0].time >= 6500, 'Reading hold must remain long enough');
+      assert.equal(shown.at(-1).frame, shown[0].frame, 'Field waits until the explanation fades completely');
+      const introDuration = shown.at(-1).time - shown[0].time;
+      assert(introDuration >= 2900 && introDuration <= 3500,
+        `Explanation must last two thirds of its former 4667ms: ${introDuration}ms`);
+      report.introDurationMs = introDuration;
       // Reselect via actual menu to exercise repeat entry and pointer-through.
       const select = async number => {
         await page.locator('[data-map-menu-toggle]').click();
@@ -123,7 +142,7 @@ try {
       await page.waitForFunction(() => !document.querySelector('#map-data-intro').hidden);
       await page.locator('.gaia-map-action--source:visible').click();
       await page.locator('#japan-data-panel[aria-hidden="false"]').waitFor();
-      assert(await page.locator('#map-data-intro').isHidden(), 'Input dismisses without swallowing the click');
+      await page.locator('#map-data-intro').waitFor({ state: 'hidden' });
       await page.locator('#japan-data-close').click();
       // Cancellation before the title ends must not leak wind copy into 02.
       await select('02');
@@ -135,7 +154,7 @@ try {
     } else {
       await page.locator('[data-mobile-sheet="tools"]').tap();
       await page.locator('#map-mobile-sheet').waitFor({ state: 'visible' });
-      assert(await page.locator('#map-data-intro').isHidden());
+      await page.locator('#map-data-intro').waitFor({ state: 'hidden' });
     }
     assert.deepEqual(await page.evaluate(() => window.__securityViolations), []);
     report.checks.push({ width, height, sample, reduced, language, heightRange, ...scan });

@@ -41,8 +41,18 @@ export const prefectureColor=(value,scale)=>{
 export function createLivePrefectureMap({map,onSelect,onPause}){
   const svg=document.createElementNS(NS,'svg'),group=document.createElementNS(NS,'g');
   svg.classList.add('gaia-live-prefecture-regions');svg.setAttribute('hidden','');svg.setAttribute('aria-label','代表都市のモデル値を塗り分けた47都道府県');svg.append(group);map.append(svg);
+  // A separate, non-interactive outline stays above neighboring polygons.
+  // Keep their data colors and hit targets unchanged, with no animation loop.
+  const selection=document.createElementNS(NS,'g');
+  selection.setAttribute('aria-hidden','true');selection.setAttribute('pointer-events','none');
+  const outlineBack=document.createElementNS(NS,'path'),outline=document.createElementNS(NS,'path');
+  for(const [node,extra] of [[outlineBack,' gaia-live-selection-back'],[outline,'']]){
+    node.setAttribute('class',`gaia-live-selection-outline${extra}`);node.setAttribute('fill','none');
+    node.setAttribute('pointer-events','none');node.setAttribute('vector-effect','non-scaling-stroke');
+    selection.append(node);
+  }
   const tooltip=document.createElement('div');tooltip.className='gaia-live-region-tooltip';tooltip.hidden=true;
-  tooltip.innerHTML='<strong></strong><b></b><small></small><span>代表都市のモデル値／都道府県平均ではありません</span>';map.append(tooltip);
+  tooltip.innerHTML='<strong></strong><b></b><small></small><span>県の色：代表都市のモデル値</span>';map.append(tooltip);
   const status=document.createElement('p');status.className='gaia-live-region-status';status.hidden=true;status.setAttribute('role','status');map.append(status);
   let regions=[],active=false,loading=null,last=null,painted=null,hovered=null,down=null;
   // The shared map captures pointers for panning. Its pointerup target is the
@@ -68,7 +78,8 @@ export function createLivePrefectureMap({map,onSelect,onPause}){
     tooltip.querySelector('strong').textContent=`${city.prefecture}・${city.city}`;
     tooltip.querySelector('b').textContent=value.value===null?'データなし':`${last.exhibit.signalLabel} ${formatJapaneseNumber(value.value,last.exhibit.key==='weatherPrecipitation'?2:1)}\u00a0${unit}`;
     const time=Date.parse(value.observedAt);
-    tooltip.querySelector('small').textContent=`${value.provider} · ${Number.isFinite(time)?new Intl.DateTimeFormat('ja-JP',{timeZone:'Asia/Tokyo',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).format(time)+' JST':'時刻なし'}${value.source==='snapshot'?' · 保存値':value.source==='stale-cache'?' · 前回値':''}`;
+    tooltip.querySelector('small').textContent=`${Number.isFinite(time)?new Intl.DateTimeFormat('ja-JP',{timeZone:'Asia/Tokyo',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).format(time)+' JST':'時刻なし'}${value.source==='snapshot'?' · 保存値':value.source==='stale-cache'?' · 前回値':''}`;
+    tooltip.querySelector('span').textContent=last.exhibit.readingBasis;
     tooltip.hidden=false;
     const {rect,scale,originX,originY}=last.projection;
     const x=originX+earthLongitudeToMapX(city.lon)*scale,y=originY+(90-city.lat)*scale;
@@ -92,7 +103,11 @@ export function createLivePrefectureMap({map,onSelect,onPause}){
       const city=OBSERVATION_CITIES[i],value=reading(city),missing=value.value===null;
       set(region,'fill',prefectureColor(value.value,state.scale));set(region,'data-value',missing?'missing':value.value);set(region,'data-missing',missing);
       set(region,'aria-current',city.id===state.selectedCity);set(region,'data-observed-at',value.observedAt);
-      set(region,'aria-label',`${city.code} ${city.prefecture}、代表都市 ${city.city}、${missing?'データなし':state.exhibit.signalLabel+' '+value.value+' '+state.scale[2]}。都道府県平均ではありません`);
+      set(region,'aria-label',`${city.code} ${city.prefecture}、代表都市 ${city.city}、${missing?'データなし':state.exhibit.signalLabel+' '+value.value+' '+state.scale[2]}。代表都市のモデル値`);
+      if(city.id===state.selectedCity){
+        set(outlineBack,'d',region.getAttribute('d'));set(outline,'d',region.getAttribute('d'));
+        set(selection,'data-city',city.id);
+      }
     });
     show(hovered);
   };
@@ -109,7 +124,7 @@ export function createLivePrefectureMap({map,onSelect,onPause}){
         region.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();if(e.detail!==0)return;onPause();onSelect(city.id);show(city);});
         region.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();e.stopPropagation();onPause();onSelect(city.id);show(city);}});
         group.append(region);return region;
-      });status.hidden=true;painted=null;if(last)update(last);
+      });group.append(selection);status.hidden=true;painted=null;if(last)update(last);
     }).catch(()=>{loading=null;status.textContent='都道府県の境界を取得できません。下の地域選択から値を確認できます。';status.hidden=!active;});
     return loading;
   };

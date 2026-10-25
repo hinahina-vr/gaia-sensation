@@ -294,3 +294,44 @@ body.gaia-statistics-open #japan-layer.is-marine-cod-exhibit:has(.is-record-exhi
 .gaia-cod-pickers select[aria-describedby="gaia-cod-selection-help"]:focus {
   outline: 2px solid #d2c0ed; outline-offset: 3px;
 }
+
+/* 31–40: retain the shared instrument; add source and reading guidance.
+   The phone map remains uncluttered: its existing reading sheet clones this. */
+.has-observation-reading .gaia-observation-reading {
+  border-top: 1px solid #bddfe029; padding-top: 8px;
+  font: 400 12px/1.65 var(--font-ja); overflow-wrap: anywhere;
+}
+.gaia-observation-reading p { margin: 0 0 6px; }
+.gaia-observation-reading [data-annual-reading-basis] { color: #98d8d5; font-size: 11px; }
+.gaia-observation-reading [data-annual-reading-guide] { color: #a9c4cb; }
+.gaia-observation-details { pointer-events: auto; }
+.gaia-observation-details > summary { padding: 4px 0; min-height: 28px; cursor: pointer; color: #b3d9de; font: inherit; }
+.gaia-observation-details > summary:focus-visible { outline: 2px solid #e7f4b1; outline-offset: 2px; }
+.gaia-observation-range { font: 400 11px/1.5 var(--font-ja); }
+.gaia-observation-range header, .gaia-observation-range-labels { display: flex; justify-content: space-between; gap: 8px; }
+.gaia-observation-range header { align-items: baseline; flex-wrap: wrap; }
+.gaia-observation-range strong { color: #ecf6db; font-size: 15px; font-weight: 500; font-variant-numeric: tabular-nums; }
+.gaia-observation-range-track { position: relative; height: 4px; margin: 17px 0 6px; background: #b8d6db29; border-radius: 2px; }
+.gaia-observation-range-track i { position: absolute; height: 4px; min-width: 2px; background: #d8efe3; border-radius: 2px; box-shadow: -1px 0 #f7ffe5, 1px 0 #f7ffe5; }
+.gaia-observation-range-track b { position: absolute; bottom: 0; left: 50%; padding-bottom: 5px; transform: translateX(-50%); color: #a7c9cd; font: inherit; }
+.gaia-observation-range-track b::after { content: ''; position: absolute; bottom: -2px; left: 50%; height: 8px; border-left: 1px solid #a7c9cd; }
+.gaia-observation-range-labels, .gaia-observation-range small { color: #9fbec7; }
+.gaia-observation-range small { display: block; margin-top: 3px; font: inherit; }
+.gaia-observation-range small:empty { display: none; }
+#japan-layer .has-observation-reading > [data-annual-legend-note] { line-height: 1.5; }
+#map-mobile-sheet .gaia-observation-reading { font-size: 13px; }
+#japan-layer.is-mobile-map-shell #map-mobile-sheet .gaia-observation-details { display: block; }
+#map-mobile-sheet .gaia-observation-details > summary { min-height: 44px; display: list-item; align-content: center; }
+.gaia-observation-source-record { margin: 10px 0; padding: 8px 0 8px 10px; border-left: 2px solid #75c9ca66; }
+.gaia-observation-source-record h3 { margin: 0 0 6px; color: #cce6df; font: inherit; }
+.gaia-observation-source-record dl { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 5px 10px; margin: 0; }
+.gaia-observation-source-record dt { color: #91b4c0; }
+.gaia-observation-source-record dd { margin: 0; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+#japan-layer .gaia-annual-metric-legend:is(.has-atmosphere-reading, .has-pollution-reading, .has-record-reading) .gaia-metric-legend-current { flex-direction: column; align-items: flex-start; gap: 5px; }
+#japan-layer .gaia-annual-metric-legend:is(.has-atmosphere-reading, .has-pollution-reading, .has-record-reading) [data-metric-title] { flex: none; white-space: normal; overflow: visible; text-overflow: clip; line-height: 1.5; }
+@media (min-width: 901px) {
+  #japan-layer .gaia-marine-cod-legend.has-record-reading {
+    max-height: max(120px, calc(100dvh - var(--responsive-legend-top, 154px) - var(--responsive-credit-bottom, 120px) - 64px));
+    overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; pointer-events: auto;
+  }
+}

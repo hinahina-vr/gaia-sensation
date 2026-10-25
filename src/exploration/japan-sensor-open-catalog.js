@@ -1,6 +1,8 @@
 // Official annual statistics, mapped to ESP32 measurement keys without
 // pretending that an annual statistic is an instantaneous sensor reading.
 import { ANNUAL_OBSERVATION_YEARS } from './annual-observation-years.js?v=history-20260912';
+import { observationReadings } from './observation-reading-catalog.js?v=station-reading-20261022';
+import { atmosphereReadings } from './atmosphere-reading-catalog.js?v=atmosphere-reading-20261022';
 const waterSource = "https://water-pub.env.go.jp/water-pub/mizu-site/mizu/download/download.asp";
 const weatherSource = "https://www.data.jma.go.jp/stats/etrn/";
 const water = [
@@ -35,6 +37,8 @@ const weather = [
 }));
 export const JAPAN_SENSOR_OPEN_EXHIBITS = Object.freeze([...water, ...weather].map(item => Object.freeze({
   ...item, years: Object.freeze(ANNUAL_OBSERVATION_YEARS[`${item.id}.json`]), picker: item.picker || item.caption, stops: Object.freeze(item.stops), title: item.shortTitle, dataFile: `${item.id}.json`,
+  ...observationReadings[item.number],
+  ...atmosphereReadings[item.number],
 })));
 
 // These exact same numerical stops drive both map pixels and the legend.

@@ -10,6 +10,7 @@
     { INITIAL_OBSERVATION_YEAR, initialObservationIndex },
     { recyclingSourceId, recyclingSourceLabel, recyclingDefinition, recyclingScope, recyclingYearNote, recyclingDetails, RECYCLING_COMPARABILITY },
     { currentReading, mapReadingDetails, mapReadingTranslations },
+    { createLakeCameraFlight },
   ] = await Promise.all([
     import('./src/exploration/japan-prefecture-view.js?v=gaia-prefecture-gis-view-1'),
     import('./src/shared/animated-metric.js'),
@@ -19,6 +20,7 @@
     import('./src/exploration/initial-observation-year.js?v=2016-20260926'),
     import('./src/data/recycling-provenance.js?v=recycling-coverage-1'),
     import('./src/exploration/map-reading-details.js?v=map-reading-01-14-20261020'),
+    import('./src/exploration/lake-camera-flight.js?v=lake-camera-20261025'),
   ]);
   globalThis.GaiaI18n?.register(mapReadingTranslations);
   const snapshotStore = createSnapshotStore({ manifestUrl: new URL("./data/runtime/gaia-manifest.json?v=recycling-coverage-1", document.baseURI).href });
@@ -442,7 +444,7 @@
     {
       title: "森林と、雨の多い場所はどこで重なる？",
       subject: "緑の森林分布と、世界の国・地域に広げた参照地点の平均降水量を見比べます。国平均や、森林が雨を起こす因果関係を示す図ではありません。",
-      reading: "大きな水色円が降水量です。直径が大きいほど雨が多く、雨の多い円にはmm/日を直接表示します。ブラジルのアマゾン付近は5.33 mm/日です。",
+      reading: "水色の円が降水量です。円が大きいほど雨が多く、選択した地点の名前とmm/日を表示します。ブラジルのアマゾン付近は5.33 mm/日です。",
       action: "水色円を押すと自動走査が止まり、参照地点名と平均降水量をカードで読めます。円のない場所は『雨がない』のではなく、この資料では表示していない場所です。",
     },
     {
@@ -1635,15 +1637,18 @@
     };
   };
   const FOREST_RAIN_REFERENCE_MAX_MM_DAY = 6.5;
-  const FOREST_RAIN_MIN_RADIUS = 10;
-  const FOREST_RAIN_MAX_RADIUS = 54;
-  const getForestRainRadius = (precipitationMmDay) => {
+  const FOREST_RAIN_MIN_RADIUS = 3;
+  const FOREST_RAIN_MAX_RADIUS = 14;
+  const getForestRainRadius = (precipitationMmDay, rect, zoom = japanView.earthZoom) => {
     const ratio = Math.sqrt(clamp(
       (Number(precipitationMmDay) || 0) / FOREST_RAIN_REFERENCE_MAX_MM_DAY,
       0,
       1,
     ));
-    return FOREST_RAIN_MIN_RADIUS + ratio * (FOREST_RAIN_MAX_RADIUS - FOREST_RAIN_MIN_RADIUS);
+    // One scale for every site, including the selection. Zoom changes display
+    // size, not the climate value or its ordering. Keep the forest visible.
+    const viewScale = (rect.width <= 720 ? 0.65 : 1) * clamp(Math.sqrt(zoom), 1, 2);
+    return (FOREST_RAIN_MIN_RADIUS + ratio * (FOREST_RAIN_MAX_RADIUS - FOREST_RAIN_MIN_RADIUS)) * viewScale;
   };
   const getForestRainSiteName = (row) => row?.id === "brazil"
     ? `${getCountryNameJa(row)}（アマゾン付近）`
@@ -1773,7 +1778,7 @@
 
   // Station-level coastal observations need kilometre-scale picking. Keep
   // the established limit for every other exhibit and all zoom entry paths.
-  const getEarthZoomLimit = () => japanLayer.classList.contains("is-marine-cod-exhibit") ? 512 : 8;
+  const getEarthZoomLimit = () => japanLayer.classList.contains("is-marine-cod-exhibit") || japanLayer.dataset.climateExhibit === "lakes" ? 512 : 8;
   const getEarthProjection = (rect) => {
     const baseScale = earthBaseScale(rect);
     const zoom = clamp(japanView.earthZoom, 1, getEarthZoomLimit());
@@ -1932,7 +1937,8 @@
       return true;
     }
 
-    const duration = clamp(Number(durationMs) || 1150, 120, 2400);
+    const lakeFlight = easing === "lake-flight" ? createLakeCameraFlight(start, target, rect, earthBaseScale(rect)) : null;
+    const duration = clamp(Math.max((Number(durationMs) || 1150) * (lakeFlight?.durationFactor || 1), lakeFlight?.minimumDurationMs || 0), 120, lakeFlight ? 6000 : 2400);
     let previousFrameAt = performance.now();
     let elapsed = 0;
     const scheduleStep = (step) => {
@@ -1957,7 +1963,7 @@
         : progress * progress * (3 - 2 * progress);
       japanOverlay.dataset.viewAnimationProgress = progress.toFixed(3);
       japanOverlay.dataset.viewAnimationEasedProgress = eased.toFixed(3);
-      applyEarthViewState({
+      applyEarthViewState(lakeFlight ? lakeFlight.at(progress) : {
         zoom: start.zoom + (target.zoom - start.zoom) * eased,
         offsetX: start.offsetX + (target.offsetX - start.offsetX) * eased,
         offsetY: start.offsetY + (target.offsetY - start.offsetY) * eased,
@@ -3912,14 +3918,14 @@
         phaseLabel: `${rows.length}参照地点 / ${String(index + 1).padStart(2, "0")} / ${String(rows.length).padStart(2, "0")}`,
         yearLabel: row.precipitationMmDay?.toFixed(2) || "—",
         valueLabel: `mm/日 · ${getForestRainSiteName(row)}`,
-        methodLabel: "大きな水色円＝降水量 × 緑＝森林分布",
+        methodLabel: "水色の円＝降水量 × 緑＝森林分布",
         timeLabel: `代表地点 / 自動 01→${String(rows.length).padStart(2, "0")}`,
         selectedIndex: index,
         selected: row,
         legend: [
-          "大きな水色円 / 降水量",
+          "水色の円 / 降水量",
           "緑の面 / 森林域",
-          "円内の数字 / mm/日",
+          "選択地点の値 / mm/日",
           `${rows.length}地点 / 国平均ではない`,
         ],
       };
@@ -5164,7 +5170,8 @@
         .map(({ index }) => index);
       const rainRevealOrder = new Map(visibleRainIndexes.map((index, order) => [index, order]));
       const brazilRain = precipitationRows.find((row) => row.id === "brazil");
-      japanOverlay.dataset.forestRainCircleRange = `${FOREST_RAIN_MIN_RADIUS}-${FOREST_RAIN_MAX_RADIUS}px radius`;
+      japanOverlay.dataset.forestRainCircleRange = `${getForestRainRadius(0, rect).toFixed(2)}-${getForestRainRadius(FOREST_RAIN_REFERENCE_MAX_MM_DAY, rect).toFixed(2)}px radius`;
+      japanOverlay.dataset.forestRainMarkerStyle = "quiet-circles-selected-reading";
       japanOverlay.dataset.forestRainBrazil = brazilRain
         ? `${brazilRain.precipitationMmDay.toFixed(2)} mm/日`
         : "missing";
@@ -5180,58 +5187,49 @@
         if (reveal.progress <= 0) return;
         const precipitationMmDay = Number(row.precipitationMmDay) || 0;
         const rain = clamp(precipitationMmDay / FOREST_RAIN_REFERENCE_MAX_MM_DAY, 0, 1);
-        const radius = getForestRainRadius(precipitationMmDay);
+        const radius = getForestRainRadius(precipitationMmDay, rect);
         const selected = index === sequence?.selectedIndex;
         ctx.save();
         applyMapPlotReveal(ctx, point, reveal);
+        ctx.globalCompositeOperation = "source-over";
         ctx.beginPath();
-        ctx.arc(point.x, point.y, radius + 4, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(0,18,35,${selected ? 0.82 : 0.62})`;
+        ctx.arc(point.x, point.y, radius + 2, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(0,18,35,${selected ? 0.48 : 0.1})`;
         ctx.fill();
 
         const fill = ctx.createRadialGradient(
           point.x - radius * 0.24,
           point.y - radius * 0.28,
-          Math.max(2, radius * 0.08),
+          Math.max(0.25, radius * 0.08),
           point.x,
           point.y,
           radius,
         );
-        fill.addColorStop(0, `rgba(226,252,255,${selected ? 0.98 : 0.9})`);
-        fill.addColorStop(0.18, `rgba(91,218,255,${selected ? 0.9 : 0.78})`);
-        fill.addColorStop(1, `rgba(25,125,255,${selected ? 0.52 : 0.3 + rain * 0.25})`);
+        fill.addColorStop(0, `rgba(226,252,255,${selected ? 0.9 : 0.44})`);
+        fill.addColorStop(0.18, `rgba(91,218,255,${selected ? 0.65 : 0.24})`);
+        fill.addColorStop(1, `rgba(25,125,255,${selected ? 0.35 : 0.08 + rain * 0.1})`);
         ctx.beginPath();
         ctx.arc(point.x, point.y, radius, 0, Math.PI * 2);
         ctx.fillStyle = fill;
         ctx.fill();
-        ctx.strokeStyle = selected ? "rgba(222,251,255,.98)" : "rgba(151,225,255,.82)";
-        ctx.lineWidth = selected ? 2.4 : 1.4;
+        ctx.strokeStyle = selected ? "rgba(222,251,255,.96)" : "rgba(151,225,255,.48)";
+        ctx.lineWidth = selected ? 1.5 : 0.8;
         ctx.stroke();
 
         if (selected) {
           ctx.beginPath();
-          ctx.arc(point.x, point.y, radius + 10 + Math.sin(time * 2.2) * 3, 0, Math.PI * 2);
-          ctx.strokeStyle = "rgba(153,220,255,.88)";
-          ctx.lineWidth = 1.8;
+          ctx.arc(point.x, point.y, radius + 5, 0, Math.PI * 2);
+          ctx.strokeStyle = "rgba(153,220,255,.55)";
+          ctx.lineWidth = 1;
           ctx.stroke();
         }
 
-        if (selected || precipitationMmDay >= 3.5) {
-          ctx.textAlign = "center";
-          ctx.textBaseline = "middle";
-          ctx.shadowColor = "rgba(0,10,24,.96)";
-          ctx.shadowBlur = 7;
-          ctx.fillStyle = "rgba(240,253,255,.98)";
-          ctx.font = `400 ${selected ? 11 : 10}px ${mapHeadingFont}`;
-          ctx.fillText(precipitationMmDay.toFixed(1), point.x, point.y - 4);
-          ctx.font = `400 7px ${mapHeadingFont}`;
-          ctx.fillText(row.id === "brazil" ? "ブラジル" : getCountryNameJa(row), point.x, point.y + 8);
-        } else {
-          ctx.beginPath();
-          ctx.arc(point.x, point.y, 2.6, 0, Math.PI * 2);
-          ctx.fillStyle = "rgba(236,253,255,.94)";
-          ctx.fill();
-        }
+        // Names and exact values belong to the one selected reading/card, not
+        // hundreds of overlapping labels inside the comparison circles.
+        ctx.beginPath();
+        ctx.arc(point.x, point.y, Math.min(radius * 0.35, selected ? 2 : 1.2), 0, Math.PI * 2);
+        ctx.fillStyle = selected ? "rgba(236,253,255,.98)" : "rgba(185,235,246,.72)";
+        ctx.fill();
         ctx.restore();
 
       };
@@ -5253,7 +5251,7 @@
       if (sequence?.selected && !selectedJapanPoi) {
         const row = sequence.selected;
         const point = pointFor(row);
-        if (visible(point)) drawRainSelectionLabel(point, row, getForestRainRadius(row.precipitationMmDay));
+        if (visible(point)) drawRainSelectionLabel(point, row, getForestRainRadius(row.precipitationMmDay, rect));
       }
     } else if (signalMode.id === "pollination-protocol") {
       const sequence = getMapSequenceState(signalMode);
@@ -6153,7 +6151,7 @@
       return 16;
     }
     if (poi?.type === "data" && signalModeId === "forest-cloud-engine") {
-      return Math.max(24, getForestRainRadius(poi.record?.precipitationMmDay) + 7);
+      return Math.max(12, getForestRainRadius(poi.record?.precipitationMmDay, rect) + 7);
     }
     if (poi?.type === "data" && signalModeId === "anthropocene-scar") {
       const selected = poi.record?.iso3 === anthropoceneSelectedIso3;
@@ -6184,7 +6182,7 @@
         ctx.lineWidth = 1.5;
         const radius = selectedMode === "population-tide" ? getPopulationRadius(record.population, rect) + 6
           : selectedMode === "rhythm-of-disaster" ? 22
-          : selectedMode === "forest-cloud-engine" ? getForestRainRadius(record.precipitationMmDay) + 6 : 14;
+          : selectedMode === "forest-cloud-engine" ? getForestRainRadius(record.precipitationMmDay, rect) + 6 : 14;
         ctx.beginPath();
         if (record.kind === "gosat-grid") {
           const nw = japanWorldToScreen(record.bounds.west, record.bounds.north, left, top);
@@ -6841,12 +6839,53 @@
   let mapTitleTransitionEnd = null;
   const mapDataIntro = document.querySelector("#map-data-intro");
   const mapDataIntroStatus = document.querySelector("#map-data-intro-status");
+  const MAP_DATA_INTRO_DURATION_MS = 7000 * 2 / 3 * 2 / 3;
+  const MAP_DATA_INTRO_FADE_MS = MAP_DATA_INTRO_DURATION_MS * .12;
   let mapDataIntroTimer = 0;
+  let mapDataIntroGeneration = 0;
+  let mapDataIntroExit = [];
+  let mapDataIntroExitFrame = 0;
+  const releaseMapIntroPlots = () => {
+    mapPlotRevealBlockedUntil = 0;
+    mapPlotRevealStartedAt = performance.now();
+  };
+  // Cancellation is only for leaving/replacing the exhibit, not dismissal.
   const hideMapDataIntro = () => {
+    mapDataIntroGeneration += 1;
     window.clearTimeout(mapDataIntroTimer);
     mapDataIntroTimer = 0;
+    cancelAnimationFrame(mapDataIntroExitFrame);
+    mapDataIntroExitFrame = 0;
+    mapDataIntroExit.forEach(animation => animation.cancel());
+    mapDataIntroExit = [];
     if (mapDataIntro) mapDataIntro.hidden = true;
     japanLayer.classList.remove("is-map-data-intro");
+  };
+  const finishMapDataIntro = () => {
+    hideMapDataIntro();
+    releaseMapIntroPlots();
+    japanOverlay.dataset.dataIntroState = "complete";
+    japanOverlay.dataset.dataIntroCompletedAt = performance.now().toFixed(1);
+  };
+  const fadeOutMapDataIntro = () => {
+    if (!mapDataIntro || mapDataIntro.hidden || mapDataIntroExit.length) return;
+    window.clearTimeout(mapDataIntroTimer);
+    mapDataIntroTimer = 0;
+    const generation = mapDataIntroGeneration;
+    japanOverlay.dataset.dataIntroState = "fading";
+    // Both layers use one exit clock, including a tap during the text fade-in.
+    mapDataIntroExit = [mapDataIntro, mapTitleTransition].map(node => node.animate([
+      { opacity: getComputedStyle(node).opacity }, { opacity: 0 },
+    ], { duration: MAP_DATA_INTRO_FADE_MS, easing: "ease", fill: "forwards" }));
+    Promise.all(mapDataIntroExit.map(animation => animation.finished)).then(() => {
+      if (generation !== mapDataIntroGeneration) return;
+      // Present a fully transparent frame before releasing plots and playback.
+      mapDataIntroExitFrame = requestAnimationFrame(() => {
+        mapDataIntroExitFrame = requestAnimationFrame(() => {
+          if (generation === mapDataIntroGeneration) finishMapDataIntro();
+        });
+      });
+    }).catch(() => {}); // A new exhibit/closed map cancels the old exit.
   };
   const updateMapDataIntroStatus = () => {
     if (!mapDataIntro || mapDataIntro.hidden || !mapDataIntroStatus) return;
@@ -6854,24 +6893,26 @@
     mapDataIntroStatus.textContent = globalThis.GaiaI18n?.t(text) || text;
   };
   const showMapDataIntro = () => {
-    // Explanations share the title band, but never its plot/playback gate.
+    // Keep the title's plot/playback gate until the shared band is transparent.
     const number = japanTitle.dataset.exhibitNumber;
     const entry = globalThis.GaiaMapDataIntro?.entries[number];
-    if (!mapDataIntro || !japanIsOpen || !entry) return;
+    if (!mapDataIntro || !japanIsOpen || !entry) return false;
     hideMapDataIntro();
+    mapPlotRevealBlockedUntil = mapPlotRevealStartedAt = Infinity;
     mapDataIntro.dataset.exhibitNumber = number;
     mapDataIntro.querySelector('[data-intro-subject]').textContent = entry.subject;
     mapDataIntro.querySelector('[data-intro-reading]').textContent = entry.reading;
     mapDataIntro.querySelector('[data-intro-source]').textContent = entry.source;
     globalThis.GaiaI18n?.translate(mapDataIntro);
+    mapDataIntro.style.setProperty("--map-data-intro-fade-in", `${MAP_DATA_INTRO_FADE_MS}ms`);
     mapDataIntro.hidden = false;
     japanLayer.classList.add("is-map-data-intro");
     updateMapDataIntroStatus();
-    mapDataIntroTimer = window.setTimeout(hideMapDataIntro, 7000);
+    japanOverlay.dataset.dataIntroState = "reading";
+    japanOverlay.dataset.dataIntroStartedAt = performance.now().toFixed(1);
+    mapDataIntroTimer = window.setTimeout(fadeOutMapDataIntro, MAP_DATA_INTRO_DURATION_MS - MAP_DATA_INTRO_FADE_MS);
+    return true;
   };
-  mapDataIntro?.addEventListener("animationend", event => {
-    if (event.target === mapDataIntro) hideMapDataIntro();
-  });
   for (const event of ["gaia:planet-signals-change", "gaia:firms-exhibit-change", "gaia:live-update",
     "gaia:live-prefecture-field", "gaia:live-city-change", "gaia:marine-cod-ready", "gaia:marine-cod-error", "gaia:food-ready", "gaia:food-error", "gaia:climate-ready", "gaia:climate-error"]) {
     window.addEventListener(event, updateMapDataIntroStatus);
@@ -6879,12 +6920,19 @@
   new MutationObserver(updateMapDataIntroStatus).observe(japanLayer, {
     subtree: true, attributes: true, attributeFilter: ["data-realtime-state"],
   });
-  // A user gesture dismisses the copy without consuming the gesture itself.
-  for (const type of ["pointerdown", "keydown", "wheel"]) {
-    japanLayer.addEventListener(type, hideMapDataIntro, { capture: true, passive: true });
+  // A tap on the map advances the intro, not the POI underneath. Explicit UI
+  // controls still work; their own dialogs/stop buttons retain playback intent.
+  for (const type of ["pointerdown", "pointerup", "click", "keydown", "wheel"]) {
+    window.addEventListener(type, event => {
+      if (!mapDataIntro || mapDataIntro.hidden || !japanLayer.contains(event.target)) return;
+      if (type === "keydown" && ["Tab", "Shift"].includes(event.key)) return;
+      fadeOutMapDataIntro();
+      const control = event.target.closest?.('button, a, input, select, textarea, summary, [role="button"], [role="dialog"]');
+      if (!control) { event.preventDefault(); event.stopImmediatePropagation(); }
+    }, { capture: true, passive: false });
   }
   document.addEventListener("visibilitychange", () => {
-    if (document.hidden) hideMapDataIntro();
+    if (document.hidden && mapDataIntro && !mapDataIntro.hidden) finishMapDataIntro();
   });
   const getMapTitleSubtitle = number => MAP_TITLE_SUBTITLES[number]
     || globalThis.GaiaMarineCod?.definitions?.find(item => item.number === number)?.subtitle
@@ -6897,7 +6945,7 @@
     mapTitleTransitionTimer = 0;
     if (mapTitleTransitionEnd) mapTitleTransition.removeEventListener("animationend", mapTitleTransitionEnd);
     mapTitleTransitionEnd = null;
-    mapPlotRevealBlockedUntil = 0;
+    releaseMapIntroPlots();
     japanLayer.classList.remove("is-map-title-transitioning", "has-map-data-intro");
     if (japanOverlay.dataset.titleSeparatorState === "running") {
       japanOverlay.dataset.titleSeparatorState = "cancelled";
@@ -6919,7 +6967,7 @@
     const separatorDuration = reducedMotion
       ? MAP_TITLE_SEPARATOR_REDUCED_DURATION_MS
       : MAP_TITLE_SEPARATOR_DURATION_MS;
-    mapPlotRevealBlockedUntil = separatorStartedAt + separatorDuration;
+    mapPlotRevealBlockedUntil = mapPlotRevealStartedAt = Infinity;
     // Keep the numbered identity for transition deduplication, but the
     // separator itself presents only the exhibit name.
     mapTitleTransitionText.textContent = japanTitle.textContent;
@@ -6932,20 +6980,17 @@
     japanLayer.classList.add("is-map-title-transitioning");
     japanOverlay.dataset.titleSeparatorState = "running";
     japanOverlay.dataset.titleSeparatorStartedAt = separatorStartedAt.toFixed(1);
-    japanOverlay.dataset.titleSeparatorEndsAt = mapPlotRevealBlockedUntil.toFixed(1);
+    japanOverlay.dataset.titleSeparatorEndsAt = (separatorStartedAt + separatorDuration).toFixed(1);
     const finish = () => {
       window.clearTimeout(mapTitleTransitionTimer);
       mapTitleTransitionTimer = 0;
       mapTitleTransition.removeEventListener("animationend", mapTitleTransitionEnd);
       mapTitleTransitionEnd = null;
-      mapPlotRevealBlockedUntil = 0;
-      // CSS starts on the next rendered frame. Reveal plots only after its
-      // afterglow actually finishes, not at the earlier scheduled timer edge.
-      mapPlotRevealStartedAt = Math.max(mapPlotRevealStartedAt, performance.now());
+      // Install the explanation gate before removing the title gate.
+      if (!showMapDataIntro()) releaseMapIntroPlots();
       japanLayer.classList.remove("is-map-title-transitioning");
       japanOverlay.dataset.titleSeparatorState = "complete";
       japanOverlay.dataset.titleSeparatorCompletedAt = performance.now().toFixed(1);
-      showMapDataIntro();
     };
     mapTitleTransitionEnd = event => {
       if (event.target !== mapTitleTransition || event.pseudoElement) return;
@@ -7475,7 +7520,7 @@
 
   const openJapanPoi = (poi, clientX, clientY) => {
     if (globalThis.GaiaClimateHistory?.definitions?.some(item => item.id === poi.record?.exhibitId)) {
-      globalThis.GaiaClimateHistory.selectPoint(poi.record.id, { focus: false });
+      globalThis.GaiaClimateHistory.selectPoint(poi.record.id, { focus: false, sample: poi.record.lakeSample });
       return;
     }
     if (globalThis.GaiaFoodExhibits?.definitions?.some(item => item.id === poi.record?.exhibitId)) {
@@ -7665,7 +7710,7 @@
       const point = japanWorldToScreen(record.lon, record.lat, left, top);
       let hitRadius = hitRadii.node;
       if (signalModeId === "forest-cloud-engine") {
-        hitRadius = Math.max(hitRadius, getForestRainRadius(record.precipitationMmDay));
+        hitRadius = Math.max(hitRadius, getForestRainRadius(record.precipitationMmDay, rect));
       } else if (signalModeId === "three-ecologies" && ecologiesView !== "culture") {
         hitRadius = Math.max(hitRadius, clamp(rect.width * .025, 28, 82) / 2 + 9);
       } else if (signalModeId === "population-tide") {
@@ -7984,7 +8029,7 @@
         location: getForestRainSiteName(rain),
         value: `降水量 ${rain?.precipitationMmDay?.toFixed(2) ?? "—"} mm/日`,
         dockMetric: { label: "降水量", value: rain?.precipitationMmDay?.toFixed(2) ?? "—", unit: "mm/日" },
-        note: "大きな水色円が降水量、緑が森林域です。円の直径で雨量を比べ、地点間は推測で埋めません。相関係数や因果関係を示す図ではありません。",
+        note: "水色の円が降水量、緑が森林域です。円の大きさで雨量を比べ、選択した地点の値をmm/日で読み取れます。",
         temporal: true,
       };
     }
@@ -10505,7 +10550,8 @@ for (const country of countryValues) {
   mapZoomIn.addEventListener("click", () => zoomEarthBy(1.35));
   mapZoomOut.addEventListener("click", () => zoomEarthBy(1 / 1.35));
   mapZoomReset.addEventListener("click", () => {
-    if (mapZoomReset.dataset.overview === 'japan') focusEarthLocation({ ...japanPrefectureView(innerWidth), durationMs: 450 });
+    if (japanLayer.dataset.climateExhibit === 'lakes') globalThis.GaiaClimateHistory.focusAll();
+    else if (mapZoomReset.dataset.overview === 'japan') focusEarthLocation({ ...japanPrefectureView(innerWidth), durationMs: 450 });
     else resetJapanView();
     japanMap.focus({ preventScroll: true });
   });
@@ -10543,7 +10589,8 @@ for (const country of countryValues) {
     } else if (event.key === "0" && mapScope === "earth") {
       event.preventDefault();
       event.stopPropagation();
-      resetJapanView();
+      if (japanLayer.dataset.climateExhibit === 'lakes') globalThis.GaiaClimateHistory.focusAll();
+      else resetJapanView();
     } else if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
       const rect = japanMap.getBoundingClientRect();

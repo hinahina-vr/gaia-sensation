@@ -1,5 +1,5 @@
 import { descriptive } from "./statistics-lab-core.js";
-import { discoverData } from "./statistics-discovery.js?v=gaia-readable-comparison-1-marine-cod-1-fao-food-1-i18n-20260913";
+import { discoverData } from "./statistics-discovery.js?v=food70-earth-20261025";
 
 // Observation-level copy is separate from the statistical explanation. Only
 // the rows used by the current analysis are supplied; no network or AI needed.

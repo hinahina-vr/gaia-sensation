@@ -213,10 +213,17 @@ body.map-grid-desktop .map-grid-intro #japan-title {
   display: grid;
   place-items: center;
   pointer-events: none;
-  animation: map-data-intro-fade 7000ms ease both;
+  animation: map-data-intro-fade-in var(--map-data-intro-fade-in, 373.333ms) ease both;
 }
 
 .map-data-intro[hidden] { display: none; }
+
+/* Keep independently rendered data layers behind the shared intro gate. */
+.japan-layer:is(.is-map-title-transitioning, .is-map-data-intro) :is(
+  .gaia-estat-canvas, .gaia-estat-webgl, .gaia-estat-markers, .gaia-estat-prefecture-regions,
+  .gaia-live-prefecture-regions, #gaia-planet-signals-canvas, #gaia-planet-atmosphere-canvas,
+  #gaia-firms-canvas, #gaia-marine-cod-canvas, #gaia-food-canvas, #gaia-climate-canvas
+) { visibility: hidden; }
 
 .map-data-intro-copy {
   box-sizing: border-box;
@@ -259,9 +266,9 @@ body.map-grid-desktop .map-grid-intro #japan-title {
   .map-data-intro-copy small { font-size: 10px; }
 }
 
-@keyframes map-data-intro-fade {
-  0%, 100% { opacity: 0; }
-  12%, 88% { opacity: 1; }
+@keyframes map-data-intro-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -461,7 +468,8 @@ body.map-grid-desktop .map-grid-intro #japan-title {
 .japan-layer.is-map-data-intro .map-title-transition {
   visibility: visible;
   background: rgba(0, 5, 12, 0.28);
-  animation: map-data-band-out 7000ms ease both;
+  animation: none;
+  opacity: 1;
 }
 .japan-layer.is-map-data-intro .map-title-transition::before {
   opacity: 1;
@@ -477,10 +485,6 @@ body.map-grid-desktop .map-grid-intro #japan-title {
   0% { opacity: 0; transform: translateY(-50%) scaleX(0); }
   2% { opacity: 1; }
   20%, 100% { opacity: 1; transform: translateY(-50%) scaleX(1); }
-}
-@keyframes map-data-band-out {
-  0%, 88% { opacity: 1; }
-  100% { opacity: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
   .japan-layer.is-map-data-intro .map-title-transition { animation: none; opacity: 1; }
@@ -793,8 +797,8 @@ body.map-grid-desktop:has(.gaia-audio-dock.is-expanded) .signal-encoding-legend-
     margin-bottom: 5px;
   }
 
-  .experience.japan-open .signal-console-map .signal-console-heading span,
-  .experience.japan-open .signal-console-map .signal-console-heading strong,
+  .experience.japan-open .signal-console-map .signal-console-heading > span,
+  .experience.japan-open .signal-console-map .signal-console-heading > strong,
   .experience.japan-open .signal-console-map label,
   .experience.japan-open .signal-console-map output {
     font-size: 8px;
@@ -1015,7 +1019,7 @@ body.map-grid-desktop:has(.gaia-audio-dock.is-expanded) .signal-encoding-legend-
     padding-right: 0;
   }
 
-  .experience.japan-open .signal-console-map .signal-console-heading span {
+  .experience.japan-open .signal-console-map .signal-console-heading > span {
     flex: 0 0 auto;
     font-size: 7px;
   }
@@ -2624,6 +2628,10 @@ body.map-grid-desktop:has(.gaia-audio-dock.is-expanded) .signal-encoding-legend-
   color: inherit;
   font: inherit;
   white-space: nowrap;
+}
+#japan-layer .signal-value-primary > span {
+  /* Nested animated digits are values, not the console's small heading label. */
+  font: inherit;
 }
 #japan-layer .signal-value-details {
   display: flex;

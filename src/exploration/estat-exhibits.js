@@ -4,11 +4,13 @@ import { setAttributeIfChanged, setTextIfChanged, setStyleIfChanged } from "../s
 import { formatPrefecturePlace } from "./observation-place-label.js?v=gaia-place-inline-1";
 import { EARTH_CENTER_LONGITUDE, earthBaseScale, earthLongitudeToMapX } from "./world-projection.js?v=gaia-japan-center-1";
 import { japanPrefectureView } from "./japan-prefecture-view.js?v=gaia-prefecture-gis-view-1";
-import { ESTAT_EXHIBITS as EXHIBITS } from "./estat-exhibit-catalog.js?v=gaia-poi-manual-1";
+import { ESTAT_EXHIBITS as EXHIBITS, estatReadingTranslations } from "./estat-exhibit-catalog.js?v=annual-reading-20261021-quality-20261022";
 import { decorateMapActions } from "./map-exhibit-actions.js?v=action-icons-ready-20260926";
 import { ESTAT_OCEAN_GLSL, createOceanMask } from "./estat-ocean.js?v=gaia-estat-ocean-1";
 import { createMetricLegend, updateMetricLegend, metricLegendProgress } from "./metric-legend.js?v=gaia-lodging-color-1-i18n-20260913";
 import { initialObservationIndex } from './initial-observation-year.js?v=2016-20260926';
+
+globalThis.GaiaI18n?.register(estatReadingTranslations);
 
 const SERIES_URL = new URL("../../data/estat-prefecture-series.json?v=gaia-annual-history-1", import.meta.url);
 const PREFECTURE_TOPOLOGY_URL = new URL("../../data/japan-prefectures.topojson?v=gaia-estat-choropleth-1", import.meta.url);
@@ -949,7 +951,7 @@ const legendPaletteFor = (exhibit, range) => {
     [1, interpolatePalette(palette, end)]].sort((a, b) => a[0] - b[0]);
 };
 
-const drawPrefectureHeatmap = (currentProjection, values, exhibit, timestamp) => {
+const drawPrefectureHeatmap = (currentProjection, values, exhibit) => {
   if (prefectureShapes.length !== 47) {
     canvas.dataset.estatHeatmap = "loading";
     return;
@@ -986,15 +988,16 @@ const drawPrefectureHeatmap = (currentProjection, values, exhibit, timestamp) =>
 
   const selectedShape = prefectureShapes[selectedIndex];
   if (selectedShape) {
-    const lodging = exhibit.key === "lodging";
-    const shimmer = lodging
-      ? 0.68 + Math.sin(timestamp * 0.00038 + selectedIndex * 0.73) * 0.035
-      : 0.72 + Math.sin(timestamp * 0.0022) * 0.16;
+    // Draw last so neighboring fills cannot cover the selection. A dark
+    // under-stroke keeps it legible on every palette without pulsing the map.
     context.save();
-    context.shadowColor = `rgba(255,255,238,${shimmer})`;
-    context.shadowBlur = lodging ? 3 : 8;
-    context.strokeStyle = `rgba(255,255,245,${0.66 + shimmer * 0.16})`;
-    context.lineWidth = (lodging ? 1.72 : 2.45) / currentProjection.scale;
+    context.shadowBlur = 0;
+    context.lineJoin = "round";
+    context.strokeStyle = "rgba(3,20,29,0.88)";
+    context.lineWidth = 4.8 / currentProjection.scale;
+    context.stroke(selectedShape.path);
+    context.strokeStyle = "rgba(247,255,250,0.98)";
+    context.lineWidth = 2 / currentProjection.scale;
     context.stroke(selectedShape.path);
     context.restore();
   }
@@ -1004,6 +1007,7 @@ const drawPrefectureHeatmap = (currentProjection, values, exhibit, timestamp) =>
   canvas.dataset.estatHeatmapValueCount = String(valueCount);
   canvas.dataset.estatHeatmapMissingCount = String(missingCount);
   canvas.dataset.estatHeatmapSelectedCode = String(selectedIndex + 1).padStart(2, "0");
+  canvas.dataset.estatSelectionOutline = canvas.dataset.estatHeatmapSelectedCode;
   canvas.dataset.estatHeatmapScale = exhibit.key === "lodging" ? "log" : "linear";
   const selectedRatio = heatmapRatio(values[selectedIndex], exhibit);
   canvas.dataset.estatHeatmapSelectedRatio = selectedRatio === null ? "" : String(selectedRatio);
@@ -1229,6 +1233,11 @@ const updateMarkers = (currentProjection, interpolatedValues) => {
     if (button.hidden !== !visible) button.hidden = !visible;
     setStyleIfChanged(button, "left", `${x}px`);
     setStyleIfChanged(button, "top", `${y}px`);
+    // Use projection coordinates, not a layout read for each animated marker.
+    // Keep the label centered on its point until it approaches a screen edge.
+    const labelHalfWidth = Math.min(280, rect.width - 24) / 2;
+    const labelCenter = Math.max(12 + labelHalfWidth, Math.min(rect.width - 12 - labelHalfWidth, x));
+    setStyleIfChanged(button, "--estat-label-offset", `${labelCenter - x}px`);
     const value = interpolatedValues[index];
     const missing = !Number.isFinite(value);
     const strength = normalizedValue(value, exhibit);
@@ -1249,6 +1258,11 @@ const draw = (timestamp = performance.now()) => {
     return;
   }
   const rect = syncCanvas();
+  if (layer.matches('.is-map-title-transitioning, .is-map-data-intro')) {
+    transitionStartedAt = timestamp;
+    frame = requestAnimationFrame(draw);
+    return;
+  }
   const currentProjection = projection(rect);
   if (!currentProjection) {
     frame = requestAnimationFrame(draw);
@@ -1339,6 +1353,7 @@ const renderReadout = () => {
   readout.querySelector("[data-estat-title]").textContent = exhibit.shortTitle;
   readout.querySelector("[data-map-bank-toggle]").setAttribute("aria-label", `${exhibit.number} ${exhibit.shortTitle}。展示一覧を開く`);
   readout.querySelector("[data-estat-place]").textContent = formatPrefecturePlace(city.prefecture, station?.station);
+  readout.querySelector("[data-estat-place-label]").textContent = usesWeatherStations(exhibit) ? "代表観測地点" : "都道府県";
   readout.querySelector("[data-estat-value-label]").textContent = exhibit.valueLabel;
   readout.querySelector("[data-estat-unit]").textContent = exhibit.unit;
   animatePrimaryValue(value, exhibit);
@@ -1346,17 +1361,17 @@ const renderReadout = () => {
   readout.querySelector("[data-estat-rank]").textContent = rank ? `${rank} / ${ordered.length}` : "欠測";
   readout.querySelector("[data-estat-delta]").textContent = delta === null ? (periodIndex === 0 ? "起点" : "比較不可") : `${formatNumber(delta, true, exhibit.decimals || 0)} ${exhibit.unit}`;
   readout.querySelector("[data-estat-frequency]").textContent = `${exhibit.provider || "e-Stat"} · ${exhibit.frequency.toUpperCase()}`;
-  readout.querySelector(".gaia-estat-comparison span:first-child").childNodes[0].nodeValue = usesWeatherStations(exhibit) ? "観測地点順位" : "都道府県順位";
+  readout.querySelector(".gaia-estat-comparison span:first-child").childNodes[0].nodeValue = "値が大きい順";
   readout.querySelector("[data-estat-delta-label]").childNodes[0].nodeValue = exhibit.longTerm
-    ? `${baselineYear}年差`
+    ? `${baselineYear}年との差`
     : exhibit.frequency === "年次" ? "前年差" : "前月差";
-  readout.querySelector("[data-estat-caption]").textContent = `${exhibit.caption} 海の光と流れは抽象演出で、実測海流や人の移動経路ではありません。`;
+  readout.querySelector("[data-estat-caption]").textContent = exhibit.caption;
   readout.querySelector("[data-estat-guide]").textContent = longTermTemperature && Number.isFinite(trendPerDecade)
     ? `${exhibit.guide} ${station?.station || city.city}の線形傾向は10年あたり${formatNumber(trendPerDecade, true, 2)}℃。`
     : exhibit.guide;
   const quality = qualityFlagFor(period);
-  const qualityNote = series.unavailable ? "年次データを読み込めませんでした。月次値への置き換えは行いません。"
-    : !Number.isFinite(value) ? quality?.flag === "insufficient" ? "この年は気象庁の資料不足値のため欠測扱いです。0や推定値には置き換えていません。" : "この年の値は未収録です。0や推定値には置き換えていません。"
+  const qualityNote = series.unavailable ? "年次データの読み込みに失敗しました。ページを再読み込みしてください。"
+    : !Number.isFinite(value) ? quality?.flag === "insufficient" ? "資料不足のため、この年は欠測として表示しています。" : "この年の値は未収録です。"
     : quality?.flag === "quasi-normal" ? "この年は気象庁の準正常値です。品質情報を保持して表示しています。" : "";
   readout.querySelector("[data-estat-quality]").textContent = qualityNote;
   readout.querySelector("[data-estat-quality]").hidden = !qualityNote;
@@ -1382,16 +1397,19 @@ const renderReadout = () => {
     scale: exhibit.key === "lodging" ? "log" : "linear",
     description: `${periods[0]}〜${periods.at(-1)}の47${usesWeatherStations(exhibit) ? "観測地点" : "都道府県"}に共通の色の範囲。針は選択中の値。`,
   });
-  const scopeNote = exhibit.key === "migration" ? "日本人移動者のみ（外国人は含まない）"
-    : exhibit.key === "lodging" ? "従業者10人以上の施設（小規模施設は含まない）"
-    : usesWeatherStations(exhibit) ? "代表観測地点の値（県全域の平均ではない）" : "暦年の着工戸数（完成戸数ではない）";
+  heatLegend.querySelector("[data-estat-reading-basis]").textContent = exhibit.readingBasis;
+  heatLegend.querySelector("[data-estat-reading-map]").textContent = exhibit.visualMap;
+  const scopeNote = exhibit.key === "migration" ? "日本人移動者"
+    : exhibit.key === "lodging" ? "従業者10人以上の施設"
+    : usesWeatherStations(exhibit) ? "代表観測地点の年次値" : "新設住宅の年間着工戸数";
   heatLegend.querySelector("[data-estat-history-note]").textContent = [
     series.unavailable ? "" : `${periods[0]}〜${periods.at(-1)}年 · ${scopeNote}`,
-    exhibit.key === "lodging" ? "面の色は紫→青→青緑→黄の対数目盛。人数の値は変えていません。" : "",
     exhibit.key === "sunshineHours" ? "1986〜1990年に日照計変更。未補正の長期比較です。" : "",
     qualityNote,
-  ].filter(Boolean).join(" ");
-  readout.querySelector("[data-estat-mobile-history-note]").textContent = heatLegend.querySelector("[data-estat-history-note]").textContent;
+  ].filter(Boolean).join("\n\n");
+  // The compact dock keeps the period beside the slider; full coverage and
+  // instrument/quality notes remain in the reading sheet and source details.
+  readout.querySelector("[data-estat-mobile-history-note]").textContent = qualityNote || scopeNote;
   const slider = readout.querySelector("[data-estat-month]");
   slider.max = String(periods.length - 1);
   slider.value = String(periodIndex);
@@ -1800,6 +1818,17 @@ const mount = () => {
   heatLegend.querySelector("[data-metric-title]").setAttribute("data-estat-heat-title", "");
   heatLegend.querySelector("[data-metric-minimum]").setAttribute("data-estat-heat-min", "");
   heatLegend.querySelector("[data-metric-maximum]").setAttribute("data-estat-heat-max", "");
+  const readingBasis = document.createElement("p");
+  readingBasis.className = "gaia-estat-reading-basis";
+  readingBasis.setAttribute("data-estat-reading-basis", "");
+  heatLegend.prepend(readingBasis);
+  const readingMap = document.createElement("p");
+  readingMap.className = "gaia-estat-reading-map";
+  readingMap.setAttribute("data-estat-reading-map", "");
+  const readingKey = document.createElement("p");
+  readingKey.className = "gaia-estat-reading-key";
+  readingKey.innerHTML = '<span>白い線 / 選択中の県</span><span>灰色 / 欠測</span>';
+  heatLegend.append(readingMap, readingKey);
   const historyNote = document.createElement("small");
   historyNote.className = "gaia-estat-history-note";
   historyNote.setAttribute("data-estat-history-note", "");
@@ -1814,7 +1843,7 @@ const mount = () => {
     <div class="gaia-estat-chapter">
       <div><button type="button" data-estat-step="-1" aria-label="前の日本統計展示">‹</button><button type="button" class="gaia-estat-selector-toggle" data-map-bank-toggle aria-expanded="false" aria-controls="map-dock-bank-popover" aria-label="21 人が動く、街が変わる。展示一覧を開く"><b data-estat-number>21</b><strong data-estat-title>人が動く、街が変わる</strong></button><button type="button" data-estat-step="1" aria-label="次の日本統計展示">›</button></div>
     </div>
-    <div class="gaia-estat-place"><p>都道府県</p><strong data-estat-place>北海道（札幌市）</strong></div>
+    <div class="gaia-estat-place"><p data-estat-place-label>都道府県</p><strong data-estat-place>北海道（札幌市）</strong></div>
     <div class="gaia-estat-primary"><p data-estat-value-label>転入超過</p><strong data-estat-value>—</strong><span data-estat-unit>人</span></div>
     <div class="gaia-estat-timeline">
       <header><span>表示年 / <b data-estat-period>—</b></span><strong data-estat-frequency>e-Stat · 年次</strong></header>
@@ -1823,7 +1852,7 @@ const mount = () => {
     </div>
     <div class="gaia-estat-comparison"><span>都道府県順位<strong data-estat-rank>—</strong></span><span data-estat-delta-label>前月差<strong data-estat-delta>—</strong></span></div>
     <small data-estat-mobile-history-note></small>
-    <div class="gaia-estat-copy"><p data-estat-caption></p><small data-estat-guide></small><small data-estat-quality hidden></small></div>
+    <div class="gaia-estat-copy"><p data-estat-caption></p><small data-estat-guide></small><small>海の光と流れは、展示に合わせた抽象演出です。</small><small data-estat-quality hidden></small></div>
     <div class="gaia-estat-actions" aria-label="元データと統計分析">
       <button type="button" data-estat-source-action></button>
       <button type="button" data-estat-analysis></button>

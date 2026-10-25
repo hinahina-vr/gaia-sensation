@@ -129,7 +129,7 @@ try {
     await page.screenshot({ path: path.join(output, `mobile-${number}-${width}.png`) });
     await page.locator('[data-mobile-sheet="tools"]').tap();
     await page.locator('#map-mobile-sheet').waitFor({ state: 'visible' });
-    assert(await page.locator('#map-data-intro').isHidden(), `${number}: dismiss without swallowing tap`);
+    await page.locator('#map-data-intro').waitFor({ state: 'hidden' });
     assert.deepEqual(await page.evaluate(() => window.__securityViolations), []);
     report.navigation.push({ direct: true, width, height, ...scan });
     await mobile.close();

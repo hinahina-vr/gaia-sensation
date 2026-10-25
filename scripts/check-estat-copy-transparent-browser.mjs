@@ -44,7 +44,7 @@ try {
         filter:css.backdropFilter,shadow:css.boxShadow,pseudo:pseudo.background,pseudoHeight:pseudo.height,overflow:document.documentElement.scrollWidth-innerWidth };
     });
     report.checks.push({width,height,...layout});
-    assert(layout.text.includes("日降水量1.0mm以上"),"Retain the reported explanation");
+    assert(layout.text.includes("一日の降水量が1mm以上"),"Retain the reported threshold");
     assert.equal(layout.overflow,0);
     await page.screenshot({path:path.join(output,`${width}-full.png`)});
     await dock.screenshot({path:path.join(output,`${width}-dock.png`)});
@@ -86,7 +86,7 @@ try {
       report.checks.push({width,height,previousAndSource:true});
     } else if (!before) {
       await page.locator('[data-mobile-sheet="reading"]').click();
-      assert((await page.locator("#map-mobile-sheet").innerText()).includes("雨の頻度"));
+      assert((await page.locator("#map-mobile-sheet").innerText()).includes("量と頻度の違い"));
       await page.keyboard.press("Escape");
       report.checks.push({width,height,mobileExplanation:true});
     }

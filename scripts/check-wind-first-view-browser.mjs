@@ -48,7 +48,7 @@ try {
     });
     page = await context.newPage();
     page.on('pageerror', error => report.errors.push({ width, message: error.message }));
-    await page.goto(`${process.env.GAIA_BASE_URL}/world#world`, { waitUntil: 'domcontentloaded' });
+    await page.goto(`${process.env.GAIA_BASE_URL}/${process.env.GAIA_MAP_PATH || 'world'}#world`, { waitUntil: 'domcontentloaded' });
     await page.locator('#gaia-mode-entry-guide[data-phase="features"]').waitFor();
     await page.waitForFunction(fallback => fallback
       ? Number(document.querySelector('#gaia-planet-signals-canvas')?.dataset.planetFrame) > 2
@@ -67,6 +67,9 @@ try {
     await page.waitForFunction(() => !document.querySelector('#japan-layer').classList.contains('is-map-data-intro'));
     await page.waitForTimeout(500);
     await page.screenshot({ path: path.join(output, `${width}-overview.png`) });
+    // POI arrivals now begin AFTER the explanation's completed fade. Wait for
+    // the target marks to exist before testing their normal selection path.
+    await page.waitForFunction(() => ['settled', 'reduced'].includes(document.querySelector('#gaia-planet-signals-canvas')?.dataset.planetArrivalPhase));
     const target = await page.evaluate(() => {
       const rect = document.querySelector('#japan-map').getBoundingClientRect();
       const overlay = document.querySelector('#japan-overlay');

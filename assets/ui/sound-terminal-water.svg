@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 144" fill="none">
+  <defs>
+    <linearGradient id="sea" x2="620" y2="144" gradientUnits="userSpaceOnUse"><stop stop-color="#b7fff1"/><stop offset=".4" stop-color="#d4f8ef"/><stop offset="1" stop-color="#377e97"/></linearGradient>
+    <linearGradient id="light" y2="144" gradientUnits="userSpaceOnUse"><stop stop-color="#eafff9" stop-opacity=".8"/><stop offset="1" stop-color="#b7fff1" stop-opacity="0"/></linearGradient>
+    <radialGradient id="sun"><stop stop-color="#f2fff5" stop-opacity=".9"/><stop offset="1" stop-color="#c7fff3" stop-opacity="0"/></radialGradient>
+  </defs>
+  <path fill="url(#sea)" d="M0 0h720v144H0z"/>
+  <ellipse cx="263" cy="20" rx="285" ry="100" fill="url(#sun)"/>
+  <path d="M0 95c93 47 186 21 276 27 83 6 116-36 183-24 97 17 123-58 261-54v100H0Z" fill="#438a9a" opacity=".24"/>
+  <path d="M0 119c83 4 159 27 242 7 98-24 134 13 229-9 108-26 143-27 249-21v48H0Z" fill="#74bdc7" opacity=".5"/>
+  <path d="M0 132c105-28 152 17 257 4 129-16 188-1 272-23 60-16 128-1 191-12" stroke="#edfff8" stroke-opacity=".65"/>
+  <g stroke="#e4fff7" stroke-width=".6" opacity=".38">
+    <path d="M354 145c46-32 119-28 160-51S621 33 720 30M384 144c49-32 127-26 172-54s112-44 164-42M408 144c66-32 132-22 177-53s92-26 135-34M455 144c67-28 101-15 160-47s67-19 105-28M506 144c71-24 111-21 143-39s48-21 71-20"/>
+    <path d="m467 0 42 144M513 0l40 144M563 0l39 144M618 0l38 144M678 0l32 144" opacity=".4"/>
+  </g>
+  <path d="M-60 0h480L301 144H-60Z" fill="url(#light)" opacity=".3"/>
+  <path d="M0 1h720M0 142h720" stroke="#ebfff8" stroke-opacity=".8"/>
+</svg>

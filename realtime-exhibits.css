@@ -3,6 +3,12 @@
 .gaia-live-prefecture-regions[hidden], .gaia-live-region-tooltip[hidden], .gaia-live-region-status[hidden] { display: none; }
 .gaia-live-prefecture-region { pointer-events: visiblePainted; stroke: #cde3f078; stroke-width: .8px; vector-effect: non-scaling-stroke; cursor: pointer; }
 .gaia-live-prefecture-region:hover, .gaia-live-prefecture-region:focus-visible, .gaia-live-prefecture-region[aria-current="true"] { stroke: #f3fcff; stroke-width: 2px; outline: none; }
+.gaia-live-selection-outline { stroke: #f3fcff; stroke-width: 2px; stroke-linejoin: round; }
+.gaia-live-selection-back { stroke: #061922; stroke-width: 4px; }
+.gaia-live-reading-context { margin: 10px 0 0; padding-top: 8px; border-top: 1px solid #a3d6ec29; color: #b7d3db; font: 12px/1.6 var(--font-ja); overflow-wrap: anywhere; }
+.gaia-live-metric-legend [data-metric-period] { font-variant-numeric: tabular-nums; line-height: 1.7; }
+.gaia-live-metric-legend [data-metric-current] { font-variant-numeric: tabular-nums; }
+.gaia-live-mobile-metric { display: none; }
 .gaia-live-region-tooltip { position: absolute; z-index: 8; display: grid; gap: 6px; box-sizing: border-box; width: max-content; max-width: min(680px, calc(100% - 24px)); padding: 14px 16px; border: 1px solid #a3d6ec52; border-radius: 8px; color: #effbff; background: #031629e8; box-shadow: 0 6px 24px #0005; font-family: var(--font-ja); pointer-events: none; }
 .gaia-live-region-tooltip :is(strong, b, small) { word-break: keep-all; overflow-wrap: normal; }
 .gaia-live-region-tooltip strong { font-size: clamp(16px, 1.2vw, 28px); }
