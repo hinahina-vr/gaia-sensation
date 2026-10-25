@@ -1,7 +1,8 @@
 // Measured comparisons, not a catalogue of social questions. No inference of
 // causal effects, risk thresholds, or missing business dimensions.
-import {descriptive, simpleRegression} from './statistics-lab-core.js';
+import {descriptive, simpleRegression} from './statistics-lab-core.js?v=whole-trends20-20261025';
 import {foodBalanceEarthInsight} from './statistics-food-context.js?v=food70-earth-20261025';
+import {mapEarthInsight} from './statistics-earth-context.js?v=insights75-scope-20261026';
 const num=x=>typeof x==='number'&&Number.isFinite(x);
 const fmt=x=>new Intl.NumberFormat('ja-JP',{maximumFractionDigits:Math.abs(x)<.01&&x!==0?5:2}).format(x);
 const sum=xs=>xs.reduce((a,b)=>a+b,0);
@@ -19,17 +20,17 @@ function contributions(dataset,domain,rows) {
  const top=rank.slice(0,Math.min(3,rank.length)),topTotal=sum(top.map(r=>r.value)),share=100*topTotal/total;
  let cumulative=0,count80=0;while(cumulative<total*.8&&count80<rank.length)cumulative+=rank[count80++].value;
  const unit=dataset.unit||'',names=top.map(name).join('・');
- const label=domain==='prtr'?'届出質量':dataset.valueLabel||dataset.yLabel||'収録量';
+ const label=domain==='prtr'?'届出質量':dataset.valueLabel||dataset.yLabel||'対象の合計量';
  const details=top.map(r=>`${name(r)} ${fmt(r.value)}${unit}（${fmt(r.value/total*100)}%）`).join('、');
  let conclusion=domain==='emissions'
-  ? `排出総量への寄与からみた重点対象は${names}です。仮にこの${top.length}対象だけが各10%削減し、他が不変なら、収録全体は${fmt(topTotal*.1)}${unit}、${fmt(share*.1)}%減ります（効果予測ではなく条件付き試算）。`
-  : domain==='population'?`${names}だけで、収録人口の${fmt(share)}%に相当します。人口を基準としたサービスの対象規模は、この${top.length}対象で合計${fmt(topTotal)}${unit}です。`
+  ? `排出総量への寄与からみた重点対象は${names}です。仮にこの${top.length}対象だけが各10%削減し、他が不変なら、対象全体は${fmt(topTotal*.1)}${unit}、${fmt(share*.1)}%減ります（効果予測ではなく条件付き試算）。`
+  : domain==='population'?`${names}だけで、対象地域の人口の${fmt(share)}%に相当します。人口を基準としたサービスの対象規模は、この${top.length}対象で合計${fmt(topTotal)}${unit}です。`
   : domain==='prtr'?`質量ベースで届出内訳を点検する際、まず${names}を押さえると全届出質量の${fmt(share)}%を説明できます。毒性や危険度の寄与率ではありません。`
   : domain==='lodging'?`宿泊実績の規模では${names}が主要な受け入れ先です。この${top.length}地域を除く残りの実績は全体の${fmt(100-share)}%です。`
   : domain==='housing'?`着工実績は${names}に計${fmt(topTotal)}${unit}集中しています。施工・供給の動きを追う対象を総量から絞るなら、この${top.length}地域が全体の${fmt(share)}%を占めます。`
   : `強い熱放射の記録は${names}に集まっています。上位${top.length}検知の記録FRP合計が全記録の${fmt(share)}%です。同時出力・被害規模ではありません。`;
  return result(`${names}が${label}の${fmt(share)}%を占める`,`${details}。${conclusion} 合計の80%に達する最少の上位対象数は${count80}/${rows.length}件です。`,
-  [['上位3件の構成比',share,'%'],['80%に達する上位対象数',count80,'件'],['収録合計',total,unit]],top,
+  [['上位3件の構成比',share,'%'],['80%に達する上位対象数',count80,'件'],['対象全体の合計',total,unit]],top,
   {calculation:'非負の有効値を降順に並べ、上位3件と累積80%到達件数を計算。分母は絞り込み後の有効値合計。',scenario:domain==='emissions'?{assumedReductionRate:.1,selectedRecordIds:ids(top),absoluteReduction:topTotal*.1,totalReductionPercent:share*.1}:null});
 }
 
@@ -73,8 +74,9 @@ function distribution(dataset,rows,key) {
   {calculation:'対象名付きの最大・最小・中央値とQ3+1.5×IQR超過件数を計算。順位・四分位基準は安全性や政策評価ではない。',details:{gap,median:stats.median,upperTailCount:above.length,upperTailRecordIds:ids(above)}});
 }
 
-export function buildDecisionInsight(dataset,domain,candidate,rows,profileKey) {
+function measuredDecisionInsight(dataset,domain,candidate,rows,profileKey) {
  const unit=dataset.unit||'';
+ if(['prefecture-earth-reading','cloud-day-night','whole-trend'].includes(candidate.id)&&candidate.earthResult)return candidate.earthResult;
  if(domain==='food' && (dataset.modeId==='food-balances'||dataset.id?.startsWith('food-balances-'))){
   const earth=foodBalanceEarthInsight(dataset,rows);if(earth)return earth;
  }
@@ -100,18 +102,23 @@ export function buildDecisionInsight(dataset,domain,candidate,rows,profileKey) {
   if(!links.length)return result('送粉関係の比較結果は未成立','現在の選択には送粉者と植物の対応記録がありません。生息記録だけから送粉関係は推定しません。',[],[],{status:'insufficient'});
   const taxa=new Map();for(const r of links){if(!taxa.has(r.sourceTaxon))taxa.set(r.sourceTaxon,new Set());taxa.get(r.sourceTaxon).add(r.targetTaxon);}
   const [taxon,plants]=[...taxa].sort((a,b)=>b[1].size-a[1].size||a[0].localeCompare(b[0]))[0];
-  return result(`${taxon}は${plants.size}分類群の植物と送粉関係が記録されている`,`${[...plants].slice(0,4).join('・')}など、${taxon}は${plants.size}分類群の植物を結ぶ共通の送粉者です。植物別に別々の関係として見るだけでは、この共通性を見落とします。収録された送粉者は${taxa.size}分類群で、関係の有無を示す記録です。送粉の依存率や、この種が減った場合の収量損失は算出していません。`,[['結び付く植物分類群',plants.size,'分類群'],['収録送粉者',taxa.size,'分類群']],links.filter(r=>r.sourceTaxon===taxon).slice(0,4),{calculation:'送粉者別に重複しない相手植物分類群を集計。生息記録と整理番号は集計対象に含めない。'});
+  return result(`${taxon}は${plants.size}分類群の植物と送粉関係が記録されている`,`${[...plants].slice(0,4).join('・')}など、${taxon}は${plants.size}分類群の植物を結ぶ共通の送粉者です。植物別に別々の関係として見るだけでは、この共通性を見落とします。記録された送粉者は${taxa.size}分類群で、関係の有無を示す記録です。送粉の依存率や、この種が減った場合の収量損失は算出していません。`,[['結び付く植物分類群',plants.size,'分類群'],['記録のある送粉者',taxa.size,'分類群']],links.filter(r=>r.sourceTaxon===taxon).slice(0,4),{calculation:'送粉者別に重複しない相手植物分類群を集計。生息記録と整理番号は集計対象に含めない。'});
  }
  if(domain==='culture') {
   const mixed=rows.filter(r=>r.category==='Mixed');
-  if(mixed.length)return result(`自然と文化が重なる複合遺産は${mixed.length}件`,`${mixed.map(name).join('・')}は自然・文化の両区分を持つ複合遺産で、収録${rows.length}件の${fmt(mixed.length/rows.length*100)}%です。自然だけ／文化だけの二択では、この${mixed.length}件の両面を表せません。所在は${[...new Set(mixed.map(r=>r.region||r.group))].join('・')}にまたがります。展示用に選んだ事例内の結果で、全世界の遺産の構成比ではありません。`,[['複合遺産',mixed.length,'件'],['収録事例に占める割合',mixed.length/rows.length*100,'%']],mixed,{calculation:'複合区分の実際の遺産名・地域を抽出し、選択範囲内の構成比を計算。'});
+  if(mixed.length)return result(`自然と文化が重なる複合遺産は${mixed.length}件`,`${mixed.map(name).join('・')}は自然・文化の両区分を持つ複合遺産で、対象${rows.length}件の${fmt(mixed.length/rows.length*100)}%です。自然だけ／文化だけの二択では、この${mixed.length}件の両面を表せません。所在は${[...new Set(mixed.map(r=>r.region||r.group))].join('・')}にまたがります。展示用に選んだ事例内の結果で、全世界の遺産の構成比ではありません。`,[['複合遺産',mixed.length,'件'],['対象事例に占める割合',mixed.length/rows.length*100,'%']],mixed,{calculation:'複合区分の実際の遺産名・地域を抽出し、選択範囲内の構成比を計算。'});
   const counts=new Map();for(const row of rows){const key=row.category||'分類記載なし';counts.set(key,(counts.get(key)||0)+1);}
   const rank=[...counts].sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0])),[top,n]=rank[0],last=rank.at(-1);
-  return result(`収録記録は「${top}」が${fmt(n/rows.length*100)}%`,`${rows.length}件中「${top}」が${n}件、「${last[0]}」が${last[1]}件。差は${n-last[1]}件です。${rank.slice(0,3).map(([k,v])=>`${k} ${v}件`).join('、')}という構成で、${domain==='culture'?'この展示で提示される文化の事例':'この標本で確認できる記録'}は${top}が最も多くなっています。現実世界の普及率・個体数の順位ではありません。`,[['最多カテゴリ',n,'件'],['最多カテゴリ構成比',n/rows.length*100,'%']],rows.filter(r=>r.category===top).slice(0,3),{calculation:'カテゴリ別の記録件数と構成比。整理番号を測定値として集計しない。'});
+  return result(`対象の記録は「${top}」が${fmt(n/rows.length*100)}%`,`${rows.length}件中「${top}」が${n}件、「${last[0]}」が${last[1]}件。差は${n-last[1]}件です。${rank.slice(0,3).map(([k,v])=>`${k} ${v}件`).join('、')}という構成で、${domain==='culture'?'この展示で提示される文化の事例':'この標本で確認できる記録'}は${top}が最も多くなっています。現実世界の普及率・個体数の順位ではありません。`,[['最多カテゴリ',n,'件'],['最多カテゴリ構成比',n/rows.length*100,'%']],rows.filter(r=>r.category===top).slice(0,3),{calculation:'カテゴリ別の記録件数と構成比。整理番号を測定値として集計しない。'});
  }
  const isTime=dataset.xKind==='year'||dataset.xKind==='month'||dataset.insightContext?.axis==='time-series'||/^(観測)?(年|月|年月)$/.test(dataset.xLabel||'');
  if(isTime){const computed=temporal(dataset,domain,rows,profileKey);if(computed)return computed;}
  if(['emissions','population','lodging','housing','fire','prtr'].includes(domain)&&!isTime){const c=contributions(dataset,domain,rows);if(c)return c;}
  if(rows.every(r=>r.value===rows[0].value))return result('記録上の差はありません',`${rows.length}件すべて${fmt(rows[0].value)}${unit}。最大と最小の差は0${unit}で、今回の値から優先順位は付けられません。`,[['共通値',rows[0].value,unit],['対象数',rows.length,'件']],rows.slice(0,2),{status:'no-difference'});
  return distribution(dataset,rows,profileKey);
+}
+
+export function buildDecisionInsight(dataset,domain,candidate,rows,profileKey) {
+ const measured=measuredDecisionInsight(dataset,domain,candidate,rows,profileKey);
+ return mapEarthInsight(dataset,candidate,rows,measured);
 }

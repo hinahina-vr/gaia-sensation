@@ -4,7 +4,7 @@ import path from 'node:path';
 import {chromium} from 'playwright-core';
 import {enforceBrowserSecurity} from './lib/browser-security-qa.mjs';
 import {recordCoralMotion as recordMotion} from './lib/record-coral-motion.mjs';
-const before=process.env.GAIA_LAKE_CAMERA_BEFORE==='1',out=path.resolve('artifacts/commit75-verification/lake74/'+(before?'before':'after'));fs.mkdirSync(out,{recursive:true});
+const before=process.env.GAIA_LAKE_CAMERA_BEFORE==='1',out=path.resolve('artifacts/lake-camera-74-20261025/'+(before?'before':'after'));fs.mkdirSync(out,{recursive:true});
 const report={scope:'Real installed Chrome and local lake rasters; actual camera frames; touch/reduced-motion emulation, not physical device or production',checks:[],errors:[]};let page;
 const browser=await chromium.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true});
 try{

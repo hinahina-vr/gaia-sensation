@@ -26,7 +26,7 @@
         "./map-instrument-ui.css?v=gaia-country-emissions-history-1",
         "./map-chapter-navigation.css?v=gaia-estat-copy-wrap-1-copy-transparent-20260909-cod-ui-20260909-annual-type-20260909-title-poi-20260909-title-no-underline-20260910-mincho-20260912",
         "./map-exhibit-actions.css?v=gaia-estat-copy-wrap-1-mincho-20260912",
-        "./map-exhibit-categories.css?v=gaia-exhibit-profile-1-scope-groups-20260910-periodic-tiles-20260912-mincho-20260912-live-badge-20260912-polish-20261015",
+        "./map-exhibit-categories.css?v=gaia-exhibit-profile-1",
         "./ecologies-exhibit.css?v=gaia-ecologies-reading-1-mincho-20260912-indicator-years-20261020",
         "./metric-legend.css?v=gaia-unified-metric-legend-1-mincho-20260912",
         "./map-demo.css?v=gaia-demo-aurora-1-unified-playback-20260912-i18n-20260913",
@@ -38,7 +38,7 @@
         "./map-observation-typography.css?v=gaia-lodging-color-1-annual-type-20260909-action-size-20260912",
         "./realtime-exhibits.css?v=live-reading-20261020",
         "./map-mobile-shell.css?v=live-reading-20261020",
-        "./climate-history-exhibits.css?v=through75-20261025",
+        "./climate-history-exhibits.css?v=insights75-scope-20261026",
         "./food-exhibits.css?v=records-reading-20261022",
         "./map-heading-navigation.css?v=heading-shadow-20261025",
         "./map-unified-dock.css?v=climate-dock-match-20261022",
@@ -47,13 +47,13 @@
       scripts: [
         "./mode-entry-guide.js?v=entry-bottom-menu-20260914-gaia-map-guide-sequence-1-feature-intro-mizu-ame-2-observation-portal-20260909-calm-repeat-20260910-entry-highlights-20260912-feature-actions-20261019",
         "./scene-transition.js?v=gaia-66",
-        "./data-ledger.js?v=gaia-hardening-1",
+        "./data-ledger.js?v=whole-trends20-20261025",
         "./data-journey.js?v=gaia-01-header-cleanup-1-quality-20261022",
-        "./app-content.js?v=quality-repair-20261022",
-        "./src/exploration/map-data-intro-catalog.js?v=through75-20261025",
-        "./ecologies-exhibit.js?v=gaia-country-coverage-1-extended-handoff-20260912-indicator-years-20261020",
-        "./map-exhibit-categories.js?v=through75-20261025",
-        "./app.js?v=lake-camera-20261025",
+        "./app-content.js?v=whole-trends20-20261025",
+        "./src/exploration/map-data-intro-catalog.js?v=insights75-scope-20261026",
+        "./ecologies-exhibit.js?v=whole-trends20-20261025",
+        "./map-exhibit-categories.js?v=insights75-scope-20261026",
+        "./app.js?v=whole-trends20-20261025",
         "./map-ui-grid-polish.js?v=entry-bottom-menu-20260914-gaia-story-map-dock-1-map-polish-1-scope-groups-20260910-exhibit-navigation-20260912-i18n-20260913-picker-depth-focus-20260913-fixed-nav-dock15-20260913-polish-20261015",
         "./map-legend-drag.js?v=gaia-story-map-left-ui-1-perf-high-20260909-fao-food-1",
         "./map-mobile-shell.js?v=gaia-mobile-collection-1-marine-cod-1-cod-ui-20260909-japan-sensor-open-1-fao-food-1-scope-groups-20260910-periodic-tiles-20260912-unified-playback-20260912-exhibit-navigation-20260912-i18n-20260913-picker-cascade-20260913-responsive-audit-climate-20261013",
@@ -64,7 +64,7 @@
         "./map-responsive-layout.js?v=mobile-credit-disclosure-top-20260913-climate-20261013-ecology-launcher-20261020-quality-20261022",
       ],
       modules: [
-        "./src/exploration/index.js?v=through75-20261025",
+        "./src/exploration/index.js?v=insights75-scope-20261026",
       ],
     },
     statistics: {
@@ -79,7 +79,7 @@
         "./statistics-refinement.css?v=glass-20260913",
       ],
       scripts: [],
-      modules: ["./statistics-lab.js?v=food70-earth-20261025"],
+      modules: ["./statistics-lab.js?v=insights75-scope-20261026"],
     },
     story: {
       templates: ["gaia-template-story"],
@@ -142,7 +142,7 @@
       scripts: [
         "./scene-transition.js?v=gaia-66",
         "./space-scenes.js?v=gaia-98-i18n-20260913-quality-20261022",
-        "./space-mode.js?v=gaia-no-breathing-flash-1-i18n-20260913-quality-20261022",
+        "./space-mode.js?v=whole-trends20-20261025",
       ],
       modules: ["./src/exploration/lod-governor.js?v=gaia-budget-devices-1"],
     },
@@ -154,7 +154,7 @@
         "./sound-mode.css?v=gaia-sound-lock-1-compact-rail-20260911-sound-all-story-20260911-rail-balance-20260912-mincho-20260912",
         "./mode-exit.css?v=gaia-story-control-center-2-mincho-20260912",
       ],
-      scripts: ["./sound-constellation.js?v=gaia-sound-lock-1-sound-all-story-20260911-rail-balance-20260912-i18n-20260913-constellation-morph-20260913", "./sound-mode.js?v=gaia-sound-lock-1-map-polish-1-selected-ending-20260910-compact-rail-20260911-sound-all-story-20260911-copy-20260912-title-space-responsive-followup-1"],
+      scripts: ["./sound-constellation.js?v=gaia-sound-lock-1-sound-all-story-20260911-rail-balance-20260912-i18n-20260913-constellation-morph-20260913", "./sound-mode.js?v=whole-trends20-20261025"],
     },
     character: {
       templates: ["gaia-template-character"],
@@ -422,7 +422,7 @@
   interceptClick("[data-character-gallery-open]", "character");
   interceptClick("#intro-gx-feature", "gx");
   interceptClick("[data-space-open]", "space");
-  interceptClick('#gaia-statistics-button, [data-gaia-statistics-open], .gaia-map-action--analysis:not([aria-disabled="true"]):not(:disabled):not([data-analysis-needs-selection])', "statistics");
+  interceptClick('#gaia-statistics-button, [data-gaia-statistics-open], .gaia-map-action--analysis:not([aria-disabled="true"]):not(:disabled):not([data-analysis-needs-selection]):not([data-observation-analysis])', "statistics");
   interceptEvent("gaia:gx-open", () => "gx");
   interceptEvent("gaia:space-open-at-mode", () => "space");
   interceptEvent("gaia:novel-open-at-mode", () => "story");

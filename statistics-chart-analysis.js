@@ -1,4 +1,4 @@
-import {studentTQuantile} from './statistics-lab-core.js';
+import {studentTQuantile} from './statistics-lab-core.js?v=whole-trends20-20261025';
 const f=n=>Number.isFinite(n)?Number(n.toPrecision(4)).toString():'算出不可';
 export function prepareStatisticalChart(result,method) {
  const c=result.chart;if(!c)return;
@@ -26,7 +26,7 @@ export function prepareStatisticalChart(result,method) {
  if(c.type==='categorical'){c.annotations.push((c.groupLevels||[]).map((s,i)=>`${['青','紫','緑','黄'][i%4]}：${s}`).join('　'));if(method==='bh')c.yLabel='p値 / BH補正値（無次元）';}
  if(c.type==='logistic'){c.yLabel='観測結果 / 推定確率（0〜1）';c.annotations.push('曲線：ロジスティック推定確率　点：0/1の観測');}
  if(c.type==='sampling')c.annotations.push(`基準線：元の標本平均 ${f(c.populationMean)}`);
- if(c.type==='distribution')c.annotations.push(c.curve?.length?'棒：観測度数　破線：モデル期待度数':'収録値の分布');
+ if(c.type==='distribution')c.annotations.push(c.curve?.length?'棒：観測度数　破線：モデル期待度数':'データ値の分布');
  if(c.type==='discrete')c.annotations.push('青：観測度数　破線：モデル期待度数');
  if(c.type==='bayes'){c.xLabel='成功確率';c.yLabel='事後確率密度';c.annotations.push(`95% HDI：${f(c.hdi?.[0]??c.hdi?.lower)}〜${f(c.hdi?.[1]??c.hdi?.upper)}`);}
  if(c.polynomial)c.annotations.push('紫の破線：2次多項式（当てはまりの比較用）');

@@ -14,7 +14,7 @@ test('70 turns supply structure into an Earth-focused insight',()=>{
  assert.match(c.fact,/読み取れます/);assert.match(r.summary,/目を向けてみよう/);
  assert.doesNotMatch(r.headline+c.fact+r.summary,/経営|調達|契約|在庫|指標です/);
  assert(Math.abs(c.details.latestValue-28.84148995709222)<1e-10);assert(Math.abs(c.details.netImportShare-71.15851004290778)<1e-10);
- assert(!/\d/.test(r.headline+c.fact+r.summary),'The summary contains no fine numerical values');assert.equal(r.findings.find(f=>f.kind==='meaning').title,'地球を考える視点');
+ assert(!/\d/.test(r.headline+c.fact+r.summary),'The summary contains no fine numerical values');assert.equal(r.findings.find(f=>f.kind==='meaning').title,'地球との共創を考える視点（インサイト）');
 });
 test('disjoint MAFF records are not presented as a continuous 1960–2015 comparison',()=>{
  const ds=dataset(),r=foodBalanceEarthInsight(ds,ds.rows);
@@ -46,8 +46,10 @@ test('gaps, duplicate years, source changes and imputations cannot create an ove
 test('all nine commodities keep their actual names and latest values',()=>{
  for(const series of raw.series){const ds=dataset('392',series.id),r=foodBalanceEarthInsight(ds,ds.rows);assert(r.headline.includes(series.label));assert.equal(r.details.latestValue,ds.rows.at(-1).value);assert(!/NaN|undefined|Infinity/.test(JSON.stringify(r)));}
 });
-test('71 and unavailable statistical methods retain their existing treatment',()=>{
+test('71 retains measured results in its Earth interpretation and unavailable methods stay unavailable',()=>{
  const fsRaw=JSON.parse(fs.readFileSync('data/fao-food-security.json','utf8')),ds=buildFoodStatisticsDataset(fsRaw,FOOD_EXHIBITS[1],'21035','392'),r=discoverData({dataset:ds,rows:ds.rows});
- assert.notEqual(r.computedInsight.audience,'earth-context');assert.match(r.summary,/穀物輸入依存度/);
+ assert.equal(r.computedInsight.audience,'earth-context');assert.equal(r.computedInsight.futurePerspective?.focus,'human-earth-co-creation-and-future');
+ const frozen=JSON.parse(fs.readFileSync('scripts/fixtures/insights61-75-numerical-20261026.json','utf8')).find(item=>item.id===ds.id);assert(frozen,'71 has a frozen source-based comparison');for(const key of ['metrics','recordIds','calculation','details','interpretationBasis','status'])assert.deepEqual(r.computedInsight[key],frozen.result[key],key);
+ assert(r.computedInsight.fact&&r.computedInsight.summary);assert.match(r.computedInsight.headline,/穀物/);
  const d=dataset();assert.match(buildDataInsight({dataset:d,rows:[],methodId:'paired',result:notApplicable('条件不足')}).headline,/答えは出せません/);
 });

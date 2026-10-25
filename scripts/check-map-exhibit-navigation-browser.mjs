@@ -17,7 +17,7 @@ try {
     await context.addInitScript(lang=>localStorage.setItem('gaia:language:v1',lang),language);
     page=await context.newPage();const errors=[];page.on('pageerror',error=>errors.push(error.message));
     await page.route('https://**',route=>route.abort());
-    await page.goto('http://127.0.0.1:4492/#world-08');
+    await page.goto((process.env.GAIA_BASE_URL||'http://127.0.0.1:4492')+'/#world-08');
     await settle(8);
     const next=page.locator('[data-map-stable-step="1"]'),previous=page.locator('[data-map-stable-step="-1"]'),menu=page.locator('[data-map-menu-toggle]');
     await menu.waitFor({state:'visible'});
@@ -54,7 +54,7 @@ try {
     }
     else {await menu.click();await picker.locator('[data-mobile-sheet-close]').click();await page.waitForFunction(()=>document.activeElement?.matches('[data-map-menu-toggle]'));}
     const positions=[];
-    for(const n of [1,2,8,12,17,21,31,69,70,71]) {
+    for(const n of [1,2,8,12,17,21,31,61,69,70,71,72,73,74,75]) {
       await page.evaluate(n=>{location.hash=`#world-${String(n).padStart(2,'0')}`;},n);await settle(n);
       const scan=await page.locator('#map-stable-navigation').evaluate(nav=>{
         const rect=nav.getBoundingClientRect();
@@ -72,7 +72,7 @@ try {
       positions.push({n,...scan});
       if([17,31,71].includes(n))await page.screenshot({path:`${output}/${width}-${n}.png`});
     }
-    await next.click();await settle(1);await previous.click();await settle(71);
+    await next.click();await settle(1);await previous.click();await settle(75);
     await page.emulateMedia({reducedMotion:'reduce'});
     assert.equal(await next.evaluate(node=>getComputedStyle(node,'::before').animationName),'none');
     assert.deepEqual(errors,[]);

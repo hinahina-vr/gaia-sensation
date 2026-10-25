@@ -1,6 +1,10 @@
-import { analyzeSummary, descriptive, simpleRegression } from "./statistics-lab-core.js";
-import { buildSocialInsight } from "./statistics-social-insights.js";
-import { buildDecisionInsight } from "./statistics-decision-insights.js?v=food70-earth-20261025";
+import {wholeTrendInsight} from './statistics-whole-trends.js?v=whole-trends20-20261025';
+import {cloudDayNightFinding} from './statistics-cloud-context.js?v=insight01-05-20261026';
+import {prefectureEarthInsight} from './statistics-prefecture-context.js?v=insights01-40-20261026';
+import {windLatitudeFinding} from './statistics-wind-context.js?v=insights75-scope-20261026';
+import { analyzeSummary, descriptive, simpleRegression } from "./statistics-lab-core.js?v=whole-trends20-20261025";
+import { buildSocialInsight } from "./statistics-social-insights.js?v=whole-trends20-20261025";
+import { buildDecisionInsight } from "./statistics-decision-insights.js?v=insights75-scope-20261026";
 
 // Exploratory findings are selected from the records, not from a catalogue of
 // statistic-to-sentence templates. Scores order questions, never confidence.
@@ -30,7 +34,7 @@ const DOMAIN_BY_ID = {
 
 const CONTEXT = {
   fire: { object: "検知点", issue: "光点の数だけで追うと、少数の強い熱放射を見落としかねません。", question: "熱の集中は同じ場所で続くのか、それとも観測機会が重なっただけか？", need: "同じ領域の複数日の検知、衛星の通過・雲による欠測、土地被覆を照合する。", limit: "FRPは検知時の放射パワーです。異なる観測時刻の合計は同時の出力や放出エネルギーではなく、焼失面積・被害・出火原因も表しません。" },
-  population: { object: "国・地域", issue: "国の数で均等に見ることと、人の数に応じて暮らしの基盤を考えることは、違う優先順位になります。", question: "人口が集まる国の中で、住まい・交通・教育を必要とする人はどこにいるのか？", need: "都市・地方別、年齢別の人口と、各サービスへの到達性を加える。総人口から需要の場所や種類は決めない。", limit: "収録された国・地域の総人口です。人口密度・年齢構成・豊かさ・環境負荷の比較ではありません。" },
+  population: { object: "国・地域", issue: "国の数で均等に見ることと、人の数に応じて暮らしの基盤を考えることは、違う優先順位になります。", question: "人口が集まる国の中で、住まい・交通・教育を必要とする人はどこにいるのか？", need: "都市・地方別、年齢別の人口と、各サービスへの到達性を加える。総人口から需要の場所や種類は決めない。", limit: "記録された国・地域の総人口です。人口密度・年齢構成・豊かさ・環境負荷の比較ではありません。" },
   emissions: { object: "国・地域", issue: "国を一つずつ同じ重さで扱うと、排出総量に大きく関わる対象が見えにくくなります。", question: "排出の大きい対象の、どの部門・用途から違いが生まれているのか？", need: "産業・電力・輸送別の排出、人口当たりと消費ベースの排出を分けて比較する。", limit: "この年の国別化石燃料由来CO₂です。個人の責任、消費先、歴史的累積、排出削減の容易さは分かりません。" },
   lodging: { object: "都道府県", issue: "宿泊の受け入れが偏るなら、人手や交通を全国一律の規模で考えるだけでは地域の条件を捉えられません。", question: "宿泊が集中する土地で、受け入れ能力と日々の暮らしは釣り合っているか？", need: "客室数・稼働率・宿泊業の就業者数と、複数月の推移を照合する。集中だけで混雑や人手不足と決めない。", limit: "年間の延べ宿泊者数です。旅行者の実人数、観光収入、日帰り客、混雑の程度ではありません。" },
   housing: { object: "都道府県", issue: "建設の動きが集まる場所と、住まいに困る人がいる場所は同じとは限りません。", question: "新しく建てている場所は、必要な住まいを必要な人に増やせているか？", need: "空き家率、家賃・住宅価格、世帯数、完成戸数を同じ地域・時期で重ねる。着工戸数を需要の代わりにしない。", limit: "年間の新設住宅着工戸数で、完成戸数・空き家・不足戸数ではありません。人口規模の違いも未調整です。" },
@@ -38,7 +42,7 @@ const CONTEXT = {
   renewables: { object: "国・地域", issue: "自然条件の良さだけで電気のつくり方が決まる、と考えるには説明しきれない違いがあります。", question: "似た自然条件で発電割合が違うのは、どの電源・設備・制度の違いか？", need: "水力を含む電源別発電量、設備容量、需要、送電・制度の情報を加え、まず同年の二国を比較する。", limit: "発電割合には水力なども含みます。日射・風は国全域ではなく代表地点。公表年が異なり、政策効果や導入可能量は推定していません。" },
   ecologies: { object: "国", issue: "都市に住む人の多さだけで、森を残せるかどうかを説明するのは難しそうです。", question: "都市居住の割合が近い国で、森林を残す条件は何が違うのか？", need: "気候、国土の広さ、土地利用・森林定義、森林の増減を同じ年で比較する。都市人口率は都市の面積率ではない。", limit: "森林率は陸地、都市人口率は人口が分母です。基準年も異なり、この二国の違いを都市化の因果効果とはみなしません。" },
   wind: { object: "地点", issue: "風を地域全体の一つの条件として扱うと、静かな場所と強い場所の違いを取り逃がします。", question: "この風の差は地形に沿って続くのか、それともこの時刻に限られるか？", need: "同じ地点の時間変化と、地形・風向・地表条件を照合する。代表地点の値を街路や屋内へそのまま当てはめない。", limit: "代表地点のモデル値または保存期間の平均です。実際の移動経路、風力発電量、局所の安全性を判定しません。" },
-  water: { object: "地点", issue: "雨が多い・少ないという一つの平均だけでは、水を使える時期や雨に左右される仕事は見えてきません。", question: "同じくらいの水が降る土地でも、雨が降る日や季節はどう違うのか？", need: "月別・日別の降水、雨日数、貯留・利用量を照合する。年合計や平均から豪雨・渇水の被害を推定しない。", limit: "代表地点の収録期間の降水量です。県全域の水量、短時間の降雨強度、利用可能な水資源を直接示しません。" },
+  water: { object: "地点", issue: "雨が多い・少ないという一つの平均だけでは、水を使える時期や雨に左右される仕事は見えてきません。", question: "同じくらいの水が降る土地でも、雨が降る日や季節はどう違うのか？", need: "月別・日別の降水、雨日数、貯留・利用量を照合する。年合計や平均から豪雨・渇水の被害を推定しない。", limit: "代表地点の対象期間の降水量です。県全域の水量、短時間の降雨強度、利用可能な水資源を直接示しません。" },
   humidity: { object: "地点", issue: "同じ湿度対策をどの土地にも当てはめる前に、空気の湿り方の違いを確かめる必要があります。", question: "湿度の違いは、気温を揃えても残るか？", need: "同地点・同時刻の気温と露点または絶対湿度を加え、季節別に比較する。年平均だけで室内環境を判断しない。", limit: "年平均相対湿度は気温に依存する割合です。水蒸気量そのものや今日の蒸し暑さではありません。" },
   sunshine: { object: "地点", issue: "日照時間の違いは、作物や屋外活動を同じ暦で考えてよいかを問い直す入口になります。", question: "日が差す時間の差は、必要な季節にも同じように残るか？", need: "月別の日照と作付け・活動時期を重ねる。発電を考える場合は日照時間ではなく日射量・設備条件を追加する。", limit: "代表地点の年間日照時間です。日射エネルギー、発電量、昼の長さではありません。" },
   "rain-days": { object: "地点", issue: "年間の雨量が同じでも、雨で予定を組み替える日の多さは同じとは限りません。", question: "雨の量よりも、雨の日の多さが仕事や移動の制約になっている土地はどこか？", need: "同年の年間降水量と日別の降り方、仕事・交通の記録を照合する。雨日数だけで損失を決めない。", limit: "年ごとの雨日数です。雨の強さや降水量ではなく、雨日以外をすべて晴天ともみなしません。" },
@@ -164,10 +168,10 @@ function concentrationCandidates(candidates, dataset, rows, domain) {
   addCandidate(candidates, {
     id: "concentration", lens: domain === "fire" ? "点の数と熱の強さのずれ" : "全体を動かす少数の対象", method: "上位層の構成比", score: 80 + Math.min(share, .9) * 12,
     title: domain === "fire" ? "火の光点を、全部同じ一つとして数えてよいか。" : domain === "housing" ? "建設が多い場所と、住まいを必要とする場所は同じか。" : domain === "lodging" ? "宿泊が集まる土地は、受け入れる余裕もあるのか。" : domain === "emissions" ? "排出を減らす問いは、国の数だけでは配分できない。" : "国の数を平等に数えると、人の集まり方が見えなくなる。",
-    signal: `${rows.length}${ctx.object}のうち、値が高い${count}${ctx.object}（${fmt(count / rows.length * 100)}%）が、収録値の合計の${fmt(share * 100)}%を占めます。${namedTop}に大きな値が集まっています。`,
+    signal: `${rows.length}${ctx.object}のうち、値が高い${count}${ctx.object}（${fmt(count / rows.length * 100)}%）が、データ値の合計の${fmt(share * 100)}%を占めます。${namedTop}に大きな値が集まっています。`,
     meaning: ctx.issue, question: ctx.question, test: ctx.need, caveat: ctx.limit,
     evidence: [[`上位${count}${ctx.object}の構成比`, share * 100, "%"], ["対象数の割合", count / rows.length * 100, "%"], [`最大の${ctx.object}の値`, ordered[0].value, unit]],
-    recordIds: ids(top.slice(0, 3)), calculation: `非負の収録値を降順に並べ、上位ceil(n×0.1)件の合計÷全件の合計。割合や濃度にはこの合計を適用しない。`,
+    recordIds: ids(top.slice(0, 3)), calculation: `非負のデータ値を降順に並べ、上位ceil(n×0.1)件の合計÷全件の合計。割合や濃度にはこの合計を適用しない。`,
     chart: rankedChart(rows, label, unit, top.slice(0, 3)),
   });
 }
@@ -278,7 +282,7 @@ function oceanCandidate(candidates, dataset, rows) {
     meaning: "漂うものの行き先を考えるとき、海全体の平均方向だけでは、運ぶ流れや留める流れを落としてしまいます。『よく混ざる海』と一括りにせず、どこで進路が分かれるかが問いになります。",
     question: "近い地点の流れが違う場所で、漂うものの行き先は分かれるか？",
     test: "隣接する格子と複数時刻の流れを追加し、沿岸・地形と照合する。固定した流れを延長した軌跡は説明用に留め、漂流予測とは呼ばない。",
-    caveat: "収録された疎な格子の比較で、面積加重した全球平均ではありません。流速は出典の東西・南北成分から計算した派生量です。水温、塩分、鉛直方向の輸送は含みません。",
+    caveat: "記録された疎な格子の比較で、面積加重した全球平均ではありません。流速は出典の東西・南北成分から計算した派生量です。水温、塩分、鉛直方向の輸送は含みません。",
     evidence: [["速さの平均", speed, "m/s"], ["向き込みの平均の大きさ", vector, "m/s"], ["対象格子", usable.length, "地点"]], recordIds: ids([...usable].sort((a, b) => b.value - a.value).slice(0, 2)),
     calculation: "mean(hypot(u,v))とhypot(mean(u),mean(v))を比較。割合は打ち消しの指標で停滞面積ではない。",
     chart: pointChart(usable, { x: "uMs", y: "vMs", xLabel: "東西成分（m/s）", yLabel: "南北成分", unit: "m/s" }),
@@ -293,14 +297,14 @@ function aerosolCandidate(candidates, dataset, rows) {
   const topAir = byAod[0], topGround = byPm[0];
   const groundRank = byPm.findIndex(row => row.id === topAir.id) + 1;
   if (topAir.id === topGround.id || groundRank <= Math.ceil(usable.length * .25) || topGround.value <= topAir.value * 1.5) return;
-  addCandidate(candidates, { id: "haze-ground-mismatch", lens: "空全体の霞と地表の空気の食い違い", method: "同時に収録された二つの指標の順位照合", score: 98,
+  addCandidate(candidates, { id: "haze-ground-mismatch", lens: "空全体の霞と地表の空気の食い違い", method: "同時に記録された二つの指標の順位照合", score: 98,
     title: "最も霞の大きい地点が、地表の微粒子も最多とは限らない。",
     signal: `光学的厚さが最大の${name(topAir)}（${fmt(topAir.aerosol)}）は、PM2.5では${usable.length}地点中${groundRank}位・${fmt(topAir.value)}µg/m³。PM2.5が最大の${name(topGround)}は${fmt(topGround.value)}µg/m³です。`,
     meaning: "空全体を通る光の変化と、人がいる高さの微粒子は別の量です。見た目の目立つ場所だけを追うと、地表の空気について確かめる場所を取り違える可能性があります。",
     question: "霞が目立つ場所と地表濃度が高い場所のずれは、微粒子の高度分布で説明できるか？",
     test: "同時刻の鉛直分布、地上観測、風向と照合する。雲・湿度・粒子の種類の影響も切り分ける。", caveat: CONTEXT.aerosol.limit,
     evidence: [[`${name(topAir)}のPM2.5`, topAir.value, "µg/m³"], [`${name(topGround)}のPM2.5`, topGround.value, "µg/m³"], ["光学的厚さ最大地点のPM順位", groundRank, "位"]],
-    recordIds: ids([topAir, topGround]), calculation: "同じ収録地点のAODとPM2.5を別々に順位付け。単位の違う値を足したり比率にしたりしない。",
+    recordIds: ids([topAir, topGround]), calculation: "同じ対象地点のAODとPM2.5を別々に順位付け。単位の違う値を足したり比率にしたりしない。",
     chart: pointChart(usable, { x: "aerosol", xLabel: "エアロゾル光学的厚さ（無次元）", yLabel: "PM2.5", unit: "µg/m³", highlight: [topAir, topGround] }),
   });
 }
@@ -336,14 +340,14 @@ function categoryCandidate(candidates, dataset, rows, domain) {
   const top = ordered[0], last = ordered.at(-1);
   addCandidate(candidates, { id: "recording-coverage", lens: "現象の偏りと記録の偏りを分ける", method: "カテゴリと記録方式の内訳", score: 100,
     title: domain === "culture" ? "多く記録された文化と、多く受け継がれる文化は同じか。" : "記録が多い生きものを、関係の中心と決めてよいか。",
-    signal: `収録${rows.length}件は${categories.length}カテゴリ・${groups.length}群に分かれ、最多は「${top.category}」${top.rows.length}件、最少は「${last.category}」${last.rows.length}件です。これは現象そのものの頻度ではなく、選ばれた記録の内訳です。`,
-    meaning: domain === "culture" ? "見えやすく登録されやすい営みが中心になると、名づけられない日常の文化を取り落とす可能性があります。地図の空白を『文化がない』と読まないために、収録の仕組み自体を問い直します。" : "観察しやすさや標本の残し方が、関係の見え方を変えます。相互作用の記録と出現記録を混ぜて多い順にしても、生態系での重要性は分かりません。",
+    signal: `対象${rows.length}件は${categories.length}カテゴリ・${groups.length}群に分かれ、最多は「${top.category}」${top.rows.length}件、最少は「${last.category}」${last.rows.length}件です。これは現象そのものの頻度ではなく、選ばれた記録の内訳です。`,
+    meaning: domain === "culture" ? "見えやすく登録されやすい営みが中心になると、名づけられない日常の文化を取り落とす可能性があります。地図の空白を『文化がない』と読まないために、対象の仕組み自体を問い直します。" : "観察しやすさや標本の残し方が、関係の見え方を変えます。相互作用の記録と出現記録を混ぜて多い順にしても、生態系での重要性は分かりません。",
     question: domain === "culture" ? "少ないカテゴリ・地域は、営みが少ないのか、記録する仕組みが届いていないのか？" : "記録の少ない相手は、関係が弱いのか、同じ方法で調べられていないのか？",
-    test: "収録基準・観測努力・調査範囲を確認し、同じ方式と期間の記録同士を比較する。空白をゼロで補わない。",
+    test: "対象の基準・観測努力・調査範囲を確認し、同じ方式と期間の記録同士を比較する。空白をゼロで補わない。",
     caveat: "選定されたカテゴリ記録の点検です。地域全体での普及率・自然界の個体数・因果関係・価値の順位を示しません。整理用の行番号を測定値として平均しません。",
-    evidence: [["収録記録", rows.length, "件"], ["カテゴリ", categories.length, "種類"], ["最多カテゴリの記録", top.rows.length, "件"]], recordIds: ids([top.rows[0], last.rows[0]]),
+    evidence: [["対象の記録", rows.length, "件"], ["カテゴリ", categories.length, "種類"], ["最多カテゴリの記録", top.rows.length, "件"]], recordIds: ids([top.rows[0], last.rows[0]]),
     calculation: "元のcategory/groupラベルの件数を数える。並び番号valueは計算に使わない。",
-    chart: { type: "categorical", table: [categories.map(category => rows.filter(row => row.category === category).length)], categoryLevels: categories, groupLevels: ["収録記録"], xLabel: "収録カテゴリ", yLabel: "記録数（件）", unit: "件" },
+    chart: { type: "categorical", table: [categories.map(category => rows.filter(row => row.category === category).length)], categoryLevels: categories, groupLevels: ["対象の記録"], xLabel: "対象カテゴリ", yLabel: "記録数（件）", unit: "件" },
   });
 }
 
@@ -359,9 +363,9 @@ function quakeCandidate(candidates, dataset, rows, domain) {
       meaning: "平均の回数に合わせた見方では、対応が重なる条件を捉えられません。ただし全球で重なった年の件数と、一つの地域で被害が重なることも区別が必要です。",
       question: "件数が多い年の記録は、同じ地域の一連の活動か、離れた地域の別々の活動か？",
       test: "元の発生時刻・震源・深さを戻して時空間のまとまりを調べる。備えの検討には揺れ・建物・人口の情報を加える。",
-      caveat: "収録基準に合う大地震の全球件数です。地域の危険度や次の発生日・発生回数を予測しません。件数の少ない年を安全な年と呼びません。",
+      caveat: "対象の基準に合う大地震の全球件数です。地域の危険度や次の発生日・発生回数を予測しません。件数の少ない年を安全な年と呼びません。",
       evidence: [[`${name(top)}年`, top.value, "件"], [`${name(low)}年`, low.value, "件"], ["対象年", rows.length, "年"]], recordIds: ids([top, low]),
-      calculation: "選択年の件数を比較。発生間隔の独立性や一定発生率を仮定した予測ではない。", chart: pointChart([...rows].sort((a, b) => a.x - b.x), { xLabel: "年", yLabel: "収録地震", unit: "件", highlight: [top, low] }),
+      calculation: "選択年の件数を比較。発生間隔の独立性や一定発生率を仮定した予測ではない。", chart: pointChart([...rows].sort((a, b) => a.x - b.x), { xLabel: "年", yLabel: "対象地震", unit: "件", highlight: [top, low] }),
     });
   } else {
     const usable = rows.filter(row => numeric(row.depth));
@@ -434,7 +438,7 @@ function visitorReading(candidate, dataset) {
     "opposing-currents": ["向きの違う海流は、平均すると打ち消し合う", "反対向きに流れる2つの海流を合わせると、平均は小さくなります。平均が小さくても、各地点で流れが弱いとは限りません。"],
     "haze-ground-mismatch": ["空のかすみと、地上のPM2.5は別の指標", "光学的厚さは空全体で光が通りにくい度合い、PM2.5は地表付近の細かい粒子の濃度です。測っている範囲が違うので、最大になる地点も同じとは限りません。"],
     "shared-rise": ["3つの観測所で、CO₂濃度が上昇", "同じ年の地点間の差より、期間の前後で比べた濃度の上昇が大きくなっています。ある1地点だけの変化ではありません。"],
-    "recording-coverage": ["どの種類の記録が多く収録されている？", "ここで数えているのは、このデータに収録された記録です。記録が少ないことは、現実に少ない・存在しないという意味ではありません。"],
+    "recording-coverage": ["どの種類の記録が多く掲載されている？", "ここで数えているのは、このデータに記録された記録です。記録が少ないことは、現実に少ない・存在しないという意味ではありません。"],
     "uneven-event-years": ["地震の記録件数は、年によって違う", "この記録では、毎年同じ回数ではありません。ただし、世界全体の件数から、ある地域の危険度や次の地震は判断できません。"],
     "same-magnitude-depth": ["規模が近い地震でも、震源の深さが違う", "マグニチュードは地震の規模です。同じくらいの規模でも深さは違い、この2つの数値だけでは地表の揺れや被害は分かりません。"],
     "flat-data": ["今回の記録では、値に差がありません", "記録上は同じ値なので、順位は付けられません。丸め方や測定の細かさによって、違いが記録されていない可能性もあります。"],
@@ -457,7 +461,7 @@ export function discoverData({ dataset, rows = [], methodId = "discovery", recor
     const ordered = timeRows(dataset, valid);
     const mixedSources = new Set(ordered.map(row => row.sourceSeries).filter(Boolean)).size > 1;
     addCandidate(candidates, {
-      id: "food-period-records", lens: "同じ国・同じ指標の推移", method: "収録期間を比べる", score: 2, status: "descriptive",
+      id: "food-period-records", lens: "同じ国・同じ指標の推移", method: "対象期間を比べる", score: 2, status: "descriptive",
       title: mixedSources ? "食料の率を、出典・方式の境目に注意してたどる" : "食料の率を、同じ定義・期間でたどる",
       signal: mixedSources ? `${rangeLabel(ordered)}の数値${ordered.length}件。複数の方式・出典が含まれるため、両端の差を同一系列の変化として要約しません。` : `${rangeLabel(ordered)}の数値${ordered.length}件。先頭と末尾の差は${fmt(ordered.at(-1).value - ordered[0].value)}ポイントです。`,
       meaning: "国別の食料供給・貿易に関する記録です。割合の違いを食料の実物量や個人の食生活の違いに読み替えません。",
@@ -480,7 +484,7 @@ export function discoverData({ dataset, rows = [], methodId = "discovery", recor
         : "kg単位の物質別届出量です。物質によって性質・有害性が異なり、量の順位が危険度の順位になるわけではありません。",
       question: biological ? "調査の季節・方法・分類群の名前は、年度間でどう違うか？" : "同じ物質・排出先・届出算出方法を揃えると、何が比較できるか？",
       test: "原資料の調査・届出条件を確かめ、環境濃度や生息状況の別の資料と区別して照合する。",
-      caveat: dataset.comparisonNote, evidence: [["収録記録", valid.length, "件"], [ordered[0].label, ordered[0].value, dataset.unit]],
+      caveat: dataset.comparisonNote, evidence: [["対象の記録", valid.length, "件"], [ordered[0].label, ordered[0].value, dataset.unit]],
       recordIds: ids(ordered), calculation: "公表値を保持し、記録なしを0へ変換せず、補間・回帰・予測・危険度判定を加えない。",
       chart: biological ? { ...pointChart(ordered, { xLabel: "調査年度", yLabel: dataset.yLabel, unit: dataset.unit }), xTicks: annualAxisTicks(ordered) }
         : rankedChart(ordered, dataset.yLabel, dataset.unit),
@@ -520,6 +524,23 @@ export function discoverData({ dataset, rows = [], methodId = "discovery", recor
       chart: { ...pointChart(ordered, { xLabel: dataset.xLabel, yLabel: label, unit: dataset.unit }), xTicks: annualAxisTicks(ordered) },
     });
   }
+  const prefecture=prefectureEarthInsight(dataset,valid);
+  if(prefecture)addCandidate(candidates,{id:'prefecture-earth-reading',lens:'土地の年次記録が示す変化',method:'同じ土地の複数年と関連系列を比較',score:120,earthResult:prefecture,
+    title:prefecture.headline,signal:prefecture.fact,meaning:prefecture.summary,question:'選んだ土地の変化は、期間を変えても続いているか？',test:'同じ場所・同じ集計条件の記録で期間を変えて照合する。',caveat:prefecture.takeawayCaveat,
+    evidence:prefecture.metrics,recordIds:prefecture.recordIds,calculation:prefecture.calculation,
+    chart:{...pointChart(valid,{xLabel:'年',yLabel:dataset.valueLabel||dataset.yLabel,unit:dataset.unit,highlight:valid.filter(r=>prefecture.recordIds.includes(String(r.id)))}),xTicks:annualAxisTicks(valid)}});
+  if(dataset.id==='planet-global-cloud-radiance'){
+    const cloud=cloudDayNightFinding(valid);
+    if(cloud)addCandidate(candidates,{id:'cloud-day-night',lens:'同じ雲量でも異なる昼夜の光',method:'昼夜が判明した地点で雲量をそろえて比較',score:112,earthResult:cloud,title:cloud.headline,signal:cloud.fact,meaning:cloud.summary,
+      question:'光を使う条件は、どの場所・どの時間帯でそろうか？',test:'雲量と昼夜の条件をそろえて比較する。',caveat:cloud.takeawayCaveat,evidence:cloud.metrics,recordIds:cloud.recordIds,calculation:cloud.calculation,
+      chart:pointChart(valid,{x:'cloudCover',xLabel:'雲量（%）',yLabel:'地表に届く短波放射',unit:'W/m²',highlight:valid.filter(r=>cloud.recordIds.includes(String(r.id)))})});
+  }
+  if(dataset.id==='planet-global-wind-pressure'){
+    const wind=windLatitudeFinding(valid);
+    if(wind)addCandidate(candidates,{id:'wind-latitude-pattern',lens:'緯度帯をまたぐ風向の反転',method:'緯度帯別の風向割合・平均風速',score:110,title:wind.headline,signal:wind.fact,meaning:wind.summary,
+      question:'この風の帯は、別の時点にも同じように現れるか？',test:'同じ地点配置・緯度帯で別の時点を比較する。',caveat:wind.takeawayCaveat,evidence:wind.metrics,recordIds:wind.recordIds,calculation:wind.calculation,
+      chart:pointChart(valid.filter(r=>Number.isFinite(r.lat)),{x:'lat',xLabel:'緯度（南緯−／北緯＋）',yLabel:'地上の風速',unit:'m/s'})});
+  }
   if (valid.length && !["prtr", "river-biology", "food"].includes(domain)) {
     if (!["earthquakes", "japan-sensor-open"].includes(domain)) temporalCandidates(candidates, dataset, valid, domain);
     if (domain === "ocean") oceanCandidate(candidates, dataset, valid);
@@ -543,7 +564,9 @@ export function discoverData({ dataset, rows = [], methodId = "discovery", recor
     question: "何と何を、同じ条件で比べればこの問いを確かめられるか？", test: "観測時点・対象・測定量を確認し、対応した比較相手を追加する。絞り込みが強すぎる場合は対象範囲を見直す。",
     caveat: "不足する値や傾向を推測で補いません。", evidence: [["有効な記録", valid.length, "件"]], calculation: "利用できる測定値と比較可能な軸を点検。", chart: { type: "summary" },
   });
-  const sourceCaveat = [dataset.comparisonNote, dataset.missingCount ? `全収録期間の欠測${dataset.missingCount}${domain === "food" ? "期間" : "年"}は計算から除外し、0や推定値に置き換えていません。` : ""].filter(Boolean).join("\n\n");
+  const whole=wholeTrendInsight(dataset,valid);
+  if(whole)addCandidate(candidates,{id:'whole-trend',lens:'同じ対象で全体の推移を比べる',method:'固定した対象・同じ長さの期間・地域平均の比較',score:220,earthResult:whole,title:whole.headline,signal:whole.fact,meaning:whole.summary,question:'全体の変化は各地域・各対象にも共通しているか？',test:'対象を固定して平均と対象別の変化を比較する。',caveat:whole.takeawayCaveat,evidence:whole.metrics,recordIds:whole.recordIds,calculation:whole.calculation,chart:whole.chart});
+  const sourceCaveat = [dataset.comparisonNote, dataset.missingCount ? `全対象期間の欠測${dataset.missingCount}${domain === "food" ? "期間" : "年"}は計算から除外し、0や推定値に置き換えていません。` : ""].filter(Boolean).join("\n\n");
   if (sourceCaveat) candidates.forEach(candidate => {
     candidate.caveat = [...new Set([candidate.caveat, sourceCaveat].filter(Boolean).flatMap(note => note.split(/\n\s*\n/u)))].join('\n\n');
   });
@@ -551,7 +574,7 @@ export function discoverData({ dataset, rows = [], methodId = "discovery", recor
   const primary = candidates[0];
   const nonSource = valid.filter(row => row.provenance && row.provenance !== "SOURCE").length;
   const model = dataset.insightContext?.measurementKind === "MODEL" || /モデル/u.test(dataset.title || "");
-  const scope = `${dataset.title} / 現在の対象 ${valid.length}行${recordQuery ? ` / 絞り込み「${recordQuery}」` : ""}。${model ? "モデル値を含む出典由来の記録です。" : "出典由来の収録値についての探索です。"}${nonSource ? `派生値を含みます（${nonSource}行）。` : ""}${excluded ? `補完値${excluded}行は特徴探索から除外しました。` : ""}${methodId !== "discovery" ? "課題探索は選択した統計手法の結論とは別です。その手法の読み取りは下の補足で確認できます。" : ""}`;
+  const scope = `${dataset.title} / 現在の対象 ${valid.length}行${recordQuery ? ` / 絞り込み「${recordQuery}」` : ""}。${model ? "モデル値を含む出典由来の記録です。" : "出典由来のデータ値についての探索です。"}${nonSource ? `派生値を含みます（${nonSource}行）。` : ""}${excluded ? `補完値${excluded}行は特徴探索から除外しました。` : ""}${methodId !== "discovery" ? "課題探索は選択した統計手法の結論とは別です。その手法の読み取りは下の補足で確認できます。" : ""}`;
   const reading = visitorReading(primary, dataset);
   for (const candidate of candidates) {
     const social = buildSocialInsight(dataset, domain, candidate);
@@ -571,10 +594,10 @@ export function discoverData({ dataset, rows = [], methodId = "discovery", recor
     comparison: primary.comparison || null,
     scopeLabel: `${model ? "モデル値を含む記録" : "出典に基づく記録"} · ${valid.length}件${recordQuery ? ` · 絞り込み「${recordQuery}」` : ""}${excluded ? ` · 補完値${excluded}件を除外` : ""}`,
     evidence: primary.computedInsight.metrics, computedInsight:primary.computedInsight, caveat: primary.caveat, scope, candidates: candidates.slice(0, 4),
-    analysis: { lens: primary.lens, method: primary.method, calculation: `${primary.calculation}\n${primary.computedInsight.calculation||''}`, examined: candidates.map(candidate => candidate.lens) },
+    analysis: { lens: primary.lens, method: primary.method, calculation: `${primary.calculation}\n${primary.computedInsight.calculation||''}\n${primary.computedInsight.factEvidence?.calculation||''}`, examined: candidates.map(candidate => candidate.lens) },
     findings: [
-      { kind: "observation", title: "ファクト", body: primary.signal, recordIds: primary.recordIds },
-      { kind: "meaning", title: primary.computedInsight.status==='insufficient'?'比較結果は未成立':primary.computedInsight.audience==='earth-context'?'地球を考える視点':'インサイト', body: reading.summary, recordIds:primary.computedInsight.recordIds },
+      { kind: "observation", title: primary.computedInsight.audience==='earth-context'?'データから読み取れること（ファクト）':'ファクト', body: primary.signal, recordIds: primary.computedInsight.factEvidence?.recordIds || primary.recordIds },
+      { kind: "meaning", title: primary.computedInsight.status==='insufficient'?'比較結果は未成立':primary.computedInsight.audience==='earth-context'?'地球との共創を考える視点（インサイト）':'インサイト', body: reading.summary, recordIds:primary.computedInsight.recordIds },
       { kind: "limit", title: "留意事項", body: primary.caveat },
     ],
   };
@@ -588,7 +611,7 @@ export function analyzeDiscovery({ dataset, rows, recordQuery = "" }) {
   return { ...base, kind: numericRows.length ? "discovery" : "not-applicable", dataInsight, metrics: dataInsight.evidence, chart: primary.chart,
     formula: dataInsight.analysis.calculation,
     insight: { headline: dataInsight.headline, meaning: dataInsight.summary, interpretation: primary.signal, evidence: dataInsight.evidence,
-      limitations: [primary.caveat, "表示した比較は収録範囲の分析結果です。条件付き試算は施策効果の予測ではありません。"],
+      limitations: [primary.caveat, "表示した比較は対象範囲の分析結果です。条件付き試算は施策効果の予測ではありません。"],
       nextActions: ["01 分布で確認する", "観測データの対象を確かめる"], provenance: dataset.provenance },
   };
 }

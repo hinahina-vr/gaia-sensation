@@ -35,7 +35,7 @@ export const buildAnnualDataset = (snapshot, modeId, position = 100) => {
   };
 };
 
-export const buildDatasets = (snapshot) => {
+export const buildDatasets = (snapshot, {recyclingTrend=null} = {}) => {
   const modes = new Map(snapshot.modes.map((mode) => [mode.id, mode]));
   const breathing = modes.get("breathing-earth")?.signals || {};
   const blue = modes.get("blue-circulation")?.signals || {};
@@ -65,18 +65,23 @@ export const buildDatasets = (snapshot) => {
   const earthquakeEvents = (disaster.globalEvents || []).map((row) => ({ ...row, date: new Date(row.occurredAt) })).filter((row) => !Number.isNaN(row.date.valueOf()));
   const yearly = [];
   const earthquakeCountsByYear = new Map();
+  const largestEarthquakeByYear = new Map();
   for (const row of earthquakeEvents) {
     const year = row.date.getUTCFullYear();
     earthquakeCountsByYear.set(year, (earthquakeCountsByYear.get(year) || 0) + 1);
+    if (finite(row.magnitude) !== null && (!largestEarthquakeByYear.has(year) || Number(row.magnitude) > Number(largestEarthquakeByYear.get(year).magnitude))) largestEarthquakeByYear.set(year, row);
   }
   for (let year = 2001; year <= 2025; year += 1) {
     const count = earthquakeCountsByYear.get(year) || 0;
-    yearly.push({ id: String(year), label: String(year), value: count, x: year, y: count, provenance: "SOURCE" });
+    const largest = largestEarthquakeByYear.get(year);
+    yearly.push({ id: String(year), label: String(year), value: count, x: year, y: count, provenance: "SOURCE", maxMagnitude: largest ? Number(largest.magnitude) : null, maxEventId: largest?.id || null });
   }
   const sortedEvents = [...earthquakeEvents].sort((a, b) => a.date - b.date);
   const gaps = sortedEvents.slice(1).map((row, index) => ({ id: row.id, label: row.date.toISOString().slice(0, 10), value: (row.date - sortedEvents[index].date) / 86_400_000, provenance: "DERIVED" }));
   const wasteRows = (waste.countryWaste || []).map((row) => ({ id: row.id, label: row.name, value: Number(row.recyclePercent), x: Number(row.lon), y: Number(row.recyclePercent), provenance: row.valueStatus === "SOURCE" ? "SOURCE" : "IMPUTED", ...row,
     sourceLabel: recyclingSourceLabel(row), sourceDefinition: recyclingDefinition(row), sourceScope: recyclingScope(row), yearMeaning: recyclingYearNote(row) }));
+  const forestById = new Map((ecologies.pairedCountries || []).map(row=>[row.id,row]));
+  for(const row of rainfall)row.forestPercent=forestById.get(row.id)?.forestPercent;
   const forestUrban = (ecologies.pairedCountries || []).map((row) => ({ id: row.id, label: row.name, x: Number(row.forestPercent), y: Number(row.urbanPercent), value: Number(row.forestPercent), provenance: "SOURCE", ...row }));
   const renewables = joinById(organ.current || [], organ.potential || []).map((row) => ({ id: row.id, label: row.name, x: Number(row.solarKwhM2Day), y: Number(row.renewablePercent), value: Number(row.renewablePercent), provenance: "SOURCE", ...row }));
   const culture = (ecologies.culture || []).map((row, index) => ({ id: String(index), label: row.name, category: row.category, group: row.region, value: index, provenance: "SOURCE", ...row }));
@@ -99,17 +104,23 @@ export const buildDatasets = (snapshot) => {
       missingPeriods: co2MissingMonths,
     },
     { id: "jma-co2", modeId: "breathing-earth", title: "JMA CO₂ 3観測所 共通期間", rows: jma, unit: "ppm", valueLabel: "綾里のCO₂", xLabel: "綾里", yLabel: "南鳥島", pairedLabel: "与那国島", provenance: ["SOURCE"] },
-    { id: "ocean-currents", modeId: "blue-circulation", title: `${currents.length}地点の表層海流（${currents[0]?.time?.slice(0, 10) || "収録時点"}）`, rows: currents, unit: "m/s", xLabel: "東西成分", yLabel: "南北成分", valueLabel: "流速", provenance: ["SOURCE"], insightContext: { measurementKind: "MODEL", axis: "locations" } },
+    { id: "ocean-currents", modeId: "blue-circulation", title: `${currents.length}地点の表層海流（${currents[0]?.time?.slice(0, 10) || "データ時点"}）`, rows: currents, unit: "m/s", xLabel: "東西成分", yLabel: "南北成分", valueLabel: "流速", provenance: ["SOURCE"], insightContext: { measurementKind: "MODEL", axis: "locations" } },
     { id: "wind-climate", modeId: "blue-circulation", title: `${climate.length}地点の風速と気温`, rows: climate, unit: "m/s", xLabel: "気温", yLabel: "風速", provenance: ["SOURCE"] },
     { id: "rainfall", modeId: "forest-cloud-engine", title: `${rainfall.length}地点の平均降水量`, rows: rainfall, unit: "mm/day", xLabel: "経度", yLabel: "降水量", provenance: ["SOURCE"] },
     { id: "pollination", modeId: "pollination-protocol", title: "送粉相互作用と記録方式", rows: [...interactions, ...occurrences], categoricalSets: [interactions, occurrences], unit: "件", provenance: ["SOURCE"] },
-    { id: "waste", modeId: "nothing-is-waste", title: `${wasteRows.length}の国・地域の再資源化率`, rows: wasteRows, unit: "%", xLabel: "経度", yLabel: "再資源化率", provenance: [...new Set(wasteRows.map(row => row.provenance))],
-      comparisonNote: RECYCLING_COMPARABILITY, periodStart: wasteRows.length ? String(Math.min(...wasteRows.map(row => row.year))) : undefined, periodEnd: wasteRows.length ? String(Math.max(...wasteRows.map(row => row.year))) : undefined },
+    ...(recyclingTrend ? [buildRecyclingTrendDataset(recyclingTrend)] : [{ id: "waste", modeId: "nothing-is-waste", title: `${wasteRows.length}の国・地域の再資源化率`, rows: wasteRows, unit: "%", xLabel: "経度", yLabel: "再資源化率", provenance: [...new Set(wasteRows.map(row => row.provenance))],
+      comparisonNote: RECYCLING_COMPARABILITY, periodStart: wasteRows.length ? String(Math.min(...wasteRows.map(row => row.year))) : undefined, periodEnd: wasteRows.length ? String(Math.max(...wasteRows.map(row => row.year))) : undefined }]),
     buildAnnualDataset(snapshot, "anthropocene-scar"),
-    { id: "earthquakes", modeId: "rhythm-of-disaster", title: "収録されたM7.5以上地震の年別件数（2001–2025）", rows: yearly, gaps, unit: "件/年", xLabel: "年", yLabel: "発生件数", provenance: ["SOURCE", "DERIVED"] },
+    { id: "earthquakes", modeId: "rhythm-of-disaster", title: "記録されたM7.5以上地震の年別件数（2001–2025）", rows: yearly, gaps, unit: "件/年", xLabel: "年", yLabel: "発生件数", provenance: ["SOURCE", "DERIVED"] },
     { id: "forest-urban", modeId: "three-ecologies", title: `${forestUrban.length}の国・地域の森林率と都市化率`, rows: forestUrban, unit: "%", valueLabel: "森林率", xLabel: "森林率", yLabel: "都市化率", provenance: ["SOURCE"] },
     { id: "culture", modeId: "three-ecologies", title: "文化遺産カテゴリと地域", rows: culture, unit: "件", provenance: ["SOURCE"] },
-    { id: "renewables", modeId: "earth-organ", title: `${renewables.length}の国・地域の再生可能電力（各国の最新収録年）`, rows: renewables, unit: "%", valueLabel: "再生可能エネルギー発電割合", xLabel: "代表地点の日射（収録31地点）", yLabel: "再生可能エネルギー発電割合", provenance: ["SOURCE"] },
+    { id: "renewables", modeId: "earth-organ", title: `${renewables.length}の国・地域の再生可能電力（各国の最新のデータ年）`, rows: renewables, unit: "%", valueLabel: "再生可能エネルギー発電割合", xLabel: "代表地点の日射（対象31地点）", yLabel: "再生可能エネルギー発電割合", provenance: ["SOURCE"] },
     buildAnnualDataset(snapshot, "population-tide"),
   ];
 };
+
+export function buildRecyclingTrendDataset(data){
+ const countries=data.countries,years=data.years;
+ const rows=years.map((year,i)=>{const values=countries.map(c=>c.values[i]);const value=values.reduce((s,v)=>s+v,0)/values.length;return{id:String(year),label:String(year),x:year,y:value,value,year,provenance:'SOURCE',countryCount:countries.length};});
+ return{id:'waste',modeId:'nothing-is-waste',title:'同じ国を追った再資源化率の推移（'+years[0]+'–'+years.at(-1)+'年・'+countries.length+'か国）',rows,unit:'%',xKind:'year',xLabel:'年',yLabel:'国別再資源化率の単純平均',valueLabel:'再資源化率',defaultMethod:'discovery',provenance:['SOURCE'],periodStart:years[0],periodEnd:years.at(-1),sourceName:'国連 SDG 12.5.1',sourceUrl:data.sourceUrl,comparisonNote:data.method,trendContext:{kind:'fixed-country-annual',countries,years}};
+}

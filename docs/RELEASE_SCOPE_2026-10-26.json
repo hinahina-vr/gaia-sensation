@@ -1,0 +1,14 @@
+{
+  "date": "2026-10-26",
+  "sourceDevelopmentCommit": "b236411d2dbcb6b535796b1f1ec10e8b7a33f4d4",
+  "productionBase": "63d0328c26c1c05f54afb1d953a351b61a148817",
+  "scopeSha256": "90c19c900b79a8780f709f2c84c72991e1328c65f7417a0f07a30e5bad98c615",
+  "releaseScope": "Exhibits 01–75 only. 76–100 excluded from registry, modules, public data and source inventory.",
+  "existingAssets": 341,
+  "allAssetsAndOriginsUnchanged": true,
+  "sourceIdsUnchanged": true,
+  "sources": 122,
+  "numericSnapshotValuesUnchanged": true,
+  "dependencyLocksAnd184EntriesUnchanged": true,
+  "basis": "Scope bookkeeping for existing 01–75 data and revised explanatory wording/insights. No new provider, media asset, software dependency or owner permission. Existing decision dates, statuses, bases and providerPermissionVerified flags are preserved. The current owner release request is limited to 75 exhibits."
+}

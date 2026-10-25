@@ -1,7 +1,7 @@
 import { earthBaseScale, earthLongitudeToMapX } from "./world-projection.js?v=gaia-japan-center-1";
 import { decorateMapActions } from "./map-exhibit-actions.js?v=action-icons-ready-20260926";
-import { CLIMATE_EXHIBITS, BASINS, windMS, format, stormPeak, stormLabel, colorFor, coralInsight, cycloneInsight, statisticsFor, daysInYear } from "./climate-history-model.js?v=through75-20261025";
-import { atlasDefinition, atlasInsight, atlasStatistics, atlasRow } from "./atlas-history-model.js?v=through75-20261025";
+import { CLIMATE_EXHIBITS, BASINS, windMS, format, stormPeak, stormLabel, colorFor, coralInsight, cycloneInsight, statisticsFor, daysInYear } from "./climate-history-model.js?v=insights75-scope-20261026";
+import { atlasDefinition, atlasInsight, atlasStatistics, atlasRow } from "./atlas-history-model.js?v=insights75-scope-20261026";
 import { createPoiYearCrossfade } from "./poi-year-crossfade.js?v=20260926";
 import { lakeInsight, lakeStatistics } from "./surface-water-model.js?v=lakes-20261022";
 import { createLakeView } from "./surface-water-view.js?v=lake-blend-20261023";
@@ -448,7 +448,7 @@ globalThis.GaiaClimateHistory = Object.freeze({
   focusAll,
   setPlayback,
   getState: () => ({ active, id: definition.id, year, month: null, basin, selectedId, playing, dataState }),
-  getPlaybackState: () => ({ ready: active && dataState === "ready", supported: !0, playing: active && playing, detail: "収録年を順番に表示します。" }),
+  getPlaybackState: () => ({ ready: active && dataState === "ready", supported: !0, playing: active && playing, detail: "対象年を順番に表示します。" }),
   getStatisticsDataset: statisticsDataset,
   restoreStatisticsDataset,
   getRenderState: () => isCoral() ? coralView.getState() : isWater() ? waterView.getState() : { engine: "idle" },

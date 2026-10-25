@@ -22,7 +22,7 @@ assert.equal(JSON.stringify([countries, observations, geography, reference]), be
 assert.throws(() => buildRenewableData(countries, [...observations, observation("JPN", 2020, 15)], geography), /Duplicate/);
 for (const value of [-1, 101, "50", NaN, Infinity]) assert.throws(() => buildRenewableData(countries, [observation("JPN", 2021, value)], geography), /Invalid/);
 const metadata = renewableDataset(result, "2026-09-06T12:00:00Z");
-assert.match(metadata.caveat, /同一年の順位ではありません.*未収録を0%で埋めません/);
+assert.match(metadata.caveat, /同一年の順位ではありません.*データなしを0%で埋めません/);
 
 const snapshot = JSON.parse(fs.readFileSync(new URL("../data/gaia-signals.json", import.meta.url), "utf8"));
 const mode = snapshot.modes.find(mode => mode.id === "earth-organ");

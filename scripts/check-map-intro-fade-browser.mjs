@@ -66,7 +66,7 @@ try {
           return { playback: GaiaMapPlayback.getState(), cod: cod?.dataset.codArrivalState,
             codVisible: cod?.dataset.codArrivalVisibleCount,
             theme: globalThis.GaiaMapThemeBackground?.getState(),
-            fields: [...layer.querySelectorAll('#gaia-planet-signals-canvas, #gaia-firms-canvas, #gaia-climate-canvas, #gaia-marine-cod-canvas, #gaia-food-canvas, .gaia-estat-canvas, .gaia-estat-webgl, .gaia-live-prefecture-regions')]
+            fields: [...layer.querySelectorAll('#gaia-planet-signals-canvas, #gaia-firms-canvas, #gaia-climate-canvas, #gaia-marine-cod-canvas, #gaia-food-canvas, .gaia-estat-canvas, .gaia-estat-webgl, .gaia-live-prefecture-regions, .gaia-lake-view')]
               .filter(el => el.getClientRects().length && getComputedStyle(el).visibility !== 'hidden').map(el => el.id || el.getAttribute('class')),
             overflow: document.documentElement.scrollWidth - innerWidth };
         });

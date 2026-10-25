@@ -1576,7 +1576,7 @@
       "sourceUrl": "https://www.data.jma.go.jp/ghg/kanshi/obs/co2_yearave.csv",
       "termsUrl": null,
       "retrievedAt": "2026-09-01T21:46:46.975Z",
-      "transformation": "GOSATとの観測量の違いを確認する比較資料として台帳に収録。観測開始前・終了後は構造的欠測として補完しない",
+      "transformation": "GOSATとの観測量の違いを確認する比較資料として台帳に記載。観測開始前・終了後は構造的欠測として補完しない",
       "usageSurfaces": [
         "on-screen transformed display",
         "directly served bundled JSON",
@@ -1786,7 +1786,7 @@
       "sourceUrl": "https://doi.org/10.5281/zenodo.13981696",
       "termsUrl": null,
       "retrievedAt": "2026-09-06T19:17:41.662Z",
-      "transformation": "GCB2024の全ての照合可能な国・地域について1945年以降のTotal列を採用。現行の地図境界で表示し、旧国家・地域合計・国際輸送は現在の国へ振り分けません。年別の欠測は未収録のままです。",
+      "transformation": "GCB2024の全ての照合可能な国・地域について1945年以降のTotal列を採用。現行の地図境界で表示し、旧国家・地域合計・国際輸送は現在の国へ振り分けません。年別の欠測はデータなしのままです。",
       "usageSurfaces": [
         "on-screen transformed display",
         "directly served bundled JSON",

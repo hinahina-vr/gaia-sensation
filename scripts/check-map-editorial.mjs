@@ -18,6 +18,7 @@ const liveRevision = JSON.parse(read("docs/design/live-prefecture-fill-20260912.
 const liveReadingRevision = JSON.parse(read("docs/design/live-prefecture-reading-20261020.json")).exhibits;
 const annualReadingRevision = JSON.parse(read("docs/design/annual-reading-20261022.json")).exhibits;
 const annualRevision = JSON.parse(read("docs/design/annual-picker-copy-20260912.json")).exhibits;
+const vocabularyRevision = JSON.parse(read("docs/design/visitor-vocabulary-20261026.json")).changes;
 const annualSeries = JSON.parse(read("data/estat-prefecture-series.json"));
 for (const key of ["migration", "lodging"]) {
   assert.equal(ESTAT_EXHIBITS.find(item => item.key === key).frequency, "年次");
@@ -48,6 +49,7 @@ for (const [index, record] of records.entries()) {
   Object.assign(expected, liveReadingRevision.find(item => item.id === record.id));
   Object.assign(expected, annualReadingRevision.find(item => item.id === record.id));
   expected.number = reordered[original.number] || original.number;
+  Object.assign(expected,vocabularyRevision.find(item=>item.id===record.id));
   assert.equal(record.number, String(index + 1).padStart(2, "0"));
   for (const key of ["number", "id", "title", "body", "question"]) {
     assert.equal(record[key], expected[key], `${record.number}: ${key}`);
@@ -72,8 +74,8 @@ for (const [number, pattern] of [
   ["06", /再構成.*試算.*因果関係を示す展示ではありません/u],
   ["07", /変わらない.*予報ではありません/u],
   ["08", /因果関係は計算していません/u],
-  ["09", /国連SDG.*91地域.*世界銀行.*54地域.*未収録.*推計.*分母.*厳密な順位/u],
-  ["13", /年は異なり.*0%.*未収録/u],
+  ["09", /国連SDG.*91地域.*世界銀行.*54地域.*データなし.*推計.*分母.*厳密な順位/u],
+  ["13", /年は異なり.*0%.*データなし/u],
   ["21", /転入した人数.*転出した人数.*差.*日本人移動者.*沖縄県は1973年/u],
   ["25", /毎日のいちばん高い気温.*一年分.*平均.*代表観測地点/u],
   ["26", /毎日のいちばん低い気温.*一年分.*平均.*代表観測地点/u],

@@ -8,9 +8,9 @@ import { MARINE_COD_EXHIBIT } from "./marine-cod-catalog.js?v=station-reading-20
 import { JAPAN_SENSOR_OPEN_EXHIBITS, sensorObservationAppearance } from "./japan-sensor-open-catalog.js?v=atmosphere-reading-20261022";
 import { observationReadingTranslations } from './observation-reading-catalog.js?v=station-reading-20261022';
 import { atmosphereReadingTranslations } from './atmosphere-reading-catalog.js?v=atmosphere-reading-20261022';
-import { JAPAN_POLLUTION_EXHIBITS } from "./japan-pollution-catalog.js?v=records-reading-20261022";
-import { pollutionReadingTranslations } from './pollution-reading-catalog.js?v=pollution-reading-20261022';
-import { PRTR_BIOLOGY_EXHIBITS, recordAppearance, displayFraction } from "./prtr-biology-catalog.js?v=records-reading-20261022";
+import { JAPAN_POLLUTION_EXHIBITS } from "./japan-pollution-catalog.js?v=whole-trends20-20261025";
+import { pollutionReadingTranslations } from './pollution-reading-catalog.js?v=whole-trends20-20261025';
+import { PRTR_BIOLOGY_EXHIBITS, recordAppearance, displayFraction } from "./prtr-biology-catalog.js?v=whole-trends20-20261025";
 import { recordReadingTranslations } from './record-reading-catalog.js?v=records-reading-20261022';
 import { poiArrivalDuration } from "./annual-poi-arrival.js?v=gaia-annual-pop-20260909";
 import { createAnnualPoiRenderer } from './annual-poi-renderer.js?v=vector-cache-20261013';
@@ -743,7 +743,7 @@ globalThis.GaiaMarineCod = Object.freeze({ get definition() { return definition;
   selectCruisePoi: index => { const point = period()?.stations[index]; if (point) selectStation(point.id); },
   setPlayback: setPlaying,
   getPlaybackState: () => ({ ready: active && dataState === 'ready', supported: yearsFor(definition).length > 1, playing: active && playing,
-    detail: '収録年度を順に表示します。', reason: yearsFor(definition).length > 1 ? '' : '収録データは1年分のみです。時間再生の対象外です。' }),
+    detail: 'データ年度を順に表示します。', reason: yearsFor(definition).length > 1 ? '' : '対象データは1年分のみです。時間再生の対象外です。' }),
   getStatisticsDataset: statisticsDataset, restoreStatisticsDataset,
   requestStatisticsSelection,
   getState: () => ({ active, id: definition.id, year, selectedId, playing, dataState, count: period()?.stations.length || 0, yearFade: yearFade.getState(), renderer: poiRenderer.getState() }),

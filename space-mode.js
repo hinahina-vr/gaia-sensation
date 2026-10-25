@@ -41,7 +41,7 @@
   const openButtons = Array.from(document.querySelectorAll("[data-space-open]"));
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
-  const DATA_URL = "./data/space-signals.json?v=gaia-97";
+  const DATA_URL = "./data/space-signals.json?v=whole-trends20-20261025";
   const AU_KM = 149_597_870.7;
   const TAU = Math.PI * 2;
   const scenes = window.GaiaSpaceScenes;

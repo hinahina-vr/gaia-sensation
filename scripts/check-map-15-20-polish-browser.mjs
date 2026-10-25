@@ -86,7 +86,7 @@ try {
       await page.waitForFunction(() => GaiaLiveData.getSelectedTime() === null);
       assert.match(await slider.getAttribute('aria-valuetext'), /最新/);
       if (!before) {
-        assert(await page.locator('[data-live-deck-analysis]').isDisabled(), 'Live analysis remains disabled');
+        assert(!(await page.locator('[data-live-deck-analysis]').isDisabled()), 'Representative-location comparison is available');
         if (width < 900) {
           const drawer = page.locator('#map-responsive-data');
           if (await drawer.isVisible() && await drawer.getAttribute('open') !== null) await drawer.locator(':scope > summary').click();

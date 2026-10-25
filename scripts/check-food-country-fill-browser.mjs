@@ -8,13 +8,17 @@ import { foodValue, foodAppearance, foodFormat } from '../src/exploration/food-c
 
 const before = process.argv.includes('--before');
 const base = process.env.GAIA_BASE_URL || 'http://127.0.0.1:4492';
-const output = path.resolve(`artifacts/food-country-fill-2026-09-10/${before ? 'before' : 'after'}`);
+const output = path.resolve(process.env.GAIA_FOOD_COUNTRY_OUT || `artifacts/food-country-fill-2026-09-10/${before ? 'before' : 'after'}`);
 fs.mkdirSync(output, { recursive: true });
 const report = { status: 'running', before, base, checks: [], errors: [], sha256: {}, environment: 'Local installed Chrome; real same-origin datasets and Canvas pixels, desktop/touch emulation; saved NOAA/FIRMS and empty USGS, production CSP. No live-provider / physical-device claim.' };
 for (const f of ['app.js','src/exploration/food-exhibits.js','src/exploration/food-catalog.js','src/exploration/food-drawing.js','src/exploration/food-country-fill.js','data/fao-food-balances.json','data/fao-food-security.json','data/natural-earth-50m-countries.geojson','gaia-mode-loader.js','src/exploration/index.js','index.html']) if (fs.existsSync(f)) report.sha256[f] = createHash('sha256').update(fs.readFileSync(f)).digest('hex');
 const browser = await chromium.launch({ executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe', headless:true });
 let page;
-const idle = () => page.waitForFunction(() => GaiaFoodExhibits?.getState().dataState === 'ready' && !document.querySelector('#japan-layer').classList.contains('is-map-title-transitioning') && document.querySelector('#japan-overlay').dataset.viewAnimation !== 'running' && document.querySelector('#gaia-food-canvas').dataset.foodArrivalState === 'complete');
+const idle = async () => {
+  await page.waitForFunction(() => GaiaFoodExhibits?.getState().dataState === 'ready' && !document.querySelector('#japan-layer').matches('.is-map-title-transitioning,.is-map-data-intro') && document.querySelector('#japan-overlay').dataset.viewAnimation !== 'running' && document.querySelector('#gaia-food-canvas').dataset.foodArrivalState === 'complete');
+  // The view controller and 24 fps food canvas run on separate animation ticks.
+  await page.waitForTimeout(120);
+};
 async function select(number) {
   await page.evaluate(n => GaiaMapCategories.buttons().find(b => b.textContent.trim() === String(n)).click(), number);
   if (number >= 70) await idle();
@@ -60,7 +64,7 @@ function assertColor(pixel,style) {
   assert(pixel.rgba[3]>30);
 }
 try {
-  const sizes = before ? [[1440,900]] : [[1440,900],[390,844],[320,568],[844,390],[3840,2160]];
+  const sizes = before ? [[1440,900]] : JSON.parse(process.env.GAIA_FOOD_COUNTRY_SIZES || '[[1440,900],[390,844],[320,568],[844,390],[3840,2160]]');
   for (const [width,height] of sizes) {
     const context = await browser.newContext({viewport:{width,height}, hasTouch:width<901, isMobile:width<901, reducedMotion:'reduce'});
     await enforceBrowserSecurity(context, base);
@@ -74,8 +78,9 @@ try {
     await page.evaluate(()=>GaiaMapDemo.stop());
     for (const number of [70,71]) {
       await select(number);
-      await page.locator('[data-food-overview]').click(); await idle();
+      await page.locator('#gaia-map-zoom-reset').click(); await idle();
       const scan = await pixels();
+      report.lastScan = scan;
       await page.screenshot({path:path.join(output,`${width}-${number}-overview.png`)});
       if (before) assert(scan.samples.filter(s=>s.name!=='Pacific'&&s.filledFraction>.7).length < 2, 'Reproduce: country-interior areas are not filled (small glyphs may cross individual pixels)');
       else {
@@ -111,16 +116,18 @@ try {
         await page.screenshot({path:path.join(output,`${width}-${number}-selected.png`)});
         if(number===70) {
           await page.locator('[data-food-country]').selectOption('392'); await waitPaint();
-          assert.equal(await page.locator('[data-food-value]').textContent(),'算出・数値なし');
-          const missing=await pointAt(140.3,39.4); assertColor(missing,foodAppearance(kind,'2511',null));
-          assert.equal(missing.hit,'392');
-          report.checks.push({width,number,check:'missing Japan remains gray, not zero',rgba:missing.rgba});
+          const latest=data.series.find(s=>s.id==='2511').periods.at(-1);
+          const value=foodValue(kind,latest.rows.find(r=>r[0]==='392'));
+          assert.equal(await page.locator('[data-food-value]').textContent(),Number.isFinite(value)?`${foodFormat(value)} %`:'算出・数値なし');
+          const pixel=await pointAt(140.3,39.4); assertColor(pixel,foodAppearance(kind,'2511',value));
+          assert.equal(pixel.hit,'392');
+          report.checks.push({width,number,check:'Japan uses the current source value and corresponding country color',value,rgba:pixel.rgba});
         }
         await page.locator('[data-food-country]').selectOption('250'); await waitPaint();
         assert(!(await page.locator('[data-food-country] option:checked').textContent()).includes('なし'),'France is correctly mapped with its own extended ISO code');
         assert.equal((await pointAt(2,47)).hit,'250');
         if(width===1440) {
-          await page.locator('[data-food-overview]').click(); await waitPaint();
+          await page.locator('#gaia-map-zoom-reset').click(); await waitPaint();
           for(const lon of [-35,-25]) assert.equal((await pointAt(lon,75)).hit,'304','Greenland is pickable on both sides of the 30 W world seam');
           const geometry=await page.evaluate(()=>GaiaMapObservationAdapter.getCountryGeometry().countries.map(({id,iso3})=>({id,iso3})));
           assert.equal(geometry.find(c=>c.id==='578').iso3,'NOR');
@@ -156,5 +163,11 @@ try {
     assert.deepEqual(await page.evaluate(()=>__securityViolations),[]);await context.close();
   }
   assert.deepEqual(report.errors,[]);report.status='passed';
-} catch(e) {report.status='failed';report.failure=e.stack;process.exitCode=1;}
+} catch(e) {
+  report.status='failed';report.failure=e.stack;process.exitCode=1;
+  if (page && !page.isClosed()) {
+    await page.screenshot({path:path.join(output,'failure.png')}).catch(()=>{});
+    report.failureState=await page.evaluate(()=>({food:globalThis.GaiaFoodExhibits?.getState(),layer:document.querySelector('#japan-layer')?.className})).catch(()=>null);
+  }
+}
 finally {await browser.close();fs.writeFileSync(path.join(output,'report.json'),JSON.stringify(report,null,2));console.log(JSON.stringify({status:report.status,checks:report.checks.length,failure:report.failure}));}

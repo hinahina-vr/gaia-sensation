@@ -9,7 +9,7 @@ export const WORLD_BANK_RECYCLING_ID = "worldbank-waw3-recycling";
 // the reported values. In particular, a partial numerator is not grossed up.
 const SOURCE_SCOPE_JA = Object.freeze({
   AFG: "再使用を含む。資料側の専門家推計。",
-  ARM: "プラスチックのみ。紙・金属・ガラスの量は未収録で、実際の再資源化率を過小評価する可能性。",
+  ARM: "プラスチックのみ。紙・金属・ガラスの量はデータなしで、実際の再資源化率を過小評価する可能性。",
   CHI: "ジャージーとガーンジーを合算。再使用を含む。",
   CYM: "処理先の量を合算して割合を算出した資料値。",
   EGY: "元資料の分母は回収されたごみ。発生量全体とは異なる。",
@@ -22,7 +22,7 @@ const SOURCE_SCOPE_JA = Object.freeze({
   MAR: "都市部のみ。農村部の処理を反映しない。",
   MNG: "他産業の中間投入を再資源化とみなす資料側の算定。",
   MOZ: "回収ごみに対する非公式部門の再使用・再資源化の割合。",
-  MYS: "資料に収録された回収量から算出。国連の範囲外値とは別資料。",
+  MYS: "資料に記録された回収量から算出。国連の範囲外値とは別資料。",
   NZL: "クラス1処分施設から転用された量。2023/2024年の資料。",
   PER: "有機系の回収量に基づく。資料の対象範囲が異なる。",
   PLW: "現地での再資源化分を除外した資料値。",
