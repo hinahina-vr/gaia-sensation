@@ -737,7 +737,7 @@ const analyzeCorrelation = ({ x, y, xLabel, yLabel, xUnit = "", yUnit = "", prov
       meaning: "相関係数rは2変数が直線的に同じ方向、または逆方向へ動く程度を-1から1で示します。",
       evidence: [["n", model.pairs.length, "組"], ["r", correlation, ""], ["r²", shared, ""], ["傾き", model.coefficients[1], `${yUnit}/${xUnit || "1単位"}`]],
       interpretation: `この保存標本ではr=${formatNumber(correlation, 3)}です。単回帰が説明する変動は約${formatNumber(shared * 100, 1)}%で、残りはこの変数だけでは説明できません。`,
-      limitations: ["未収録要因、空間依存、時系列依存が結果へ影響する可能性があります。", ...extraLimitations],
+      limitations: ["データなし要因、空間依存、時系列依存が結果へ影響する可能性があります。", ...extraLimitations],
       nextActions: ["12 回帰診断", "06 区間推定"],
       provenance,
     }),

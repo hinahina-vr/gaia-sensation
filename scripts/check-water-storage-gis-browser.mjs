@@ -71,8 +71,8 @@ try{
       await page.locator('[data-climate-analysis]').click();await page.waitForFunction(()=>globalThis.GaiaStatisticsLab?.getState().analysisReady);
       const original=await page.evaluate(()=>GaiaStatisticsLab.run('summary'));assert.equal(original.stats.n,19);
       await page.locator('#gaia-statistics-menu-toggle').click();if(await page.locator('.gaia-statistics-data-options').getAttribute('open')===null)await page.locator('.gaia-statistics-data-options summary').click();await page.locator('#gaia-statistics-view-save').click();const saved=await page.locator('#gaia-statistics-saved-view').inputValue();
-      await page.goto(`${process.env.GAIA_BASE_URL}/world.html#world-72`);
-      const onSealevel=()=>page.waitForFunction(()=>globalThis.GaiaClimateHistory?.getState().id==='cyclones'&&GaiaClimateHistory.getState().dataState==='ready'&&!document.querySelector('#japan-layer').matches('.is-map-title-transitioning,.is-map-data-intro'));
+      await page.goto(`${process.env.GAIA_BASE_URL}/world.html#world-76`);
+      const onSealevel=()=>page.waitForFunction(()=>globalThis.GaiaClimateHistory?.getState().id==='sealevel'&&GaiaClimateHistory.getState().dataState==='ready'&&!document.querySelector('#japan-layer').matches('.is-map-title-transitioning,.is-map-data-intro'));
       // A hash-only goto retains the document. Wait for the destination, check
       // release, then genuinely reload to test persistent saved-cell recovery.
       await onSealevel();assert.equal(await page.evaluate(()=>GaiaClimateHistory.getWaterState().texturePixels),0);

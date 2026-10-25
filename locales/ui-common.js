@@ -66,7 +66,7 @@ GaiaI18n.register([
   ['作品内の音源', 'Included audio', '作品内音源'],
   ['音源は作品内に保存されています。外部サービスへの接続は行いません。', 'The audio is included in the work. No external service is contacted.', '音源保存在作品内，不连接外部服务。'],
   ['サウンド鑑賞モードを閉じて戻る', 'Close the sound gallery and return', '关闭音乐欣赏模式并返回'],
-  ['収録曲', 'Included tracks', '收录曲目'],
+  ['楽曲', 'Included tracks', '收录曲目'],
   ['キャラクター', 'Characters', '角色'],
   ['人物紹介', 'Meet the characters', '人物介绍'],
   ['四つの瞳に映る、たったひとつの地球。', 'Four perspectives. One Earth.', '四双眼睛里，映着同一颗地球。'],

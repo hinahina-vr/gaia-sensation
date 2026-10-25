@@ -33,7 +33,9 @@ assert.equal(windReading.primaryId, "near-peers");
 assert.deepEqual(windReading.comparison.points.map(point => point.id), ["0", "1"]);
 assert.deepEqual(windReading.comparison.metrics.map(metric => [metric.unit, ...metric.values]), [["hPa", 987.5, 987.5], ["m/s", 0.27, 19.94]]);
 assert.deepEqual(windReading.findings.map(finding => finding.kind), ["observation", "meaning", "limit"]);
-assert.match(windReading.headline, /19.67m\/s/);
+assert.match(windReading.headline, /気圧の近い地点.*強さの異なる風/);
+assert.equal(windReading.computedInsight.interpretationBasis.kind,'matched-pressure-different-wind');
+assert(Math.abs(windReading.computedInsight.metrics[1][1]-windReading.computedInsight.metrics[0][1]-19.67)<1e-10,'Exact wind difference remains in measured evidence');
 assert.match(windReading.scopeLabel, /モデル値/);
 assert.match(windReading.comparison.intro, /他の条件まで同じという意味ではありません/);
 assert.deepEqual(find("planet-global-wind-pressure", [...wind].reverse(), { unit: "m/s", valueLabel: "風速" }).comparison, windReading.comparison);
@@ -71,7 +73,7 @@ for (const id of ["culture", "pollination"]) {
 for (const id of ["live-carbon-pulse", "live-rain-chorus", "live-temperature-field", "live-cloud-drift", "live-pm25-haze"]) {
   insight = find(id, rows([0]));
   assert.equal(insight.status, "needs-comparison");
-  assert.match(primary(insight).signal, /1地点・1時点/);
+  assert.match(primary(insight).signal, /(?:1地点・1時点|ひとつの地点・時点)/);
   assert(!primary(insight).signal.includes("増加"));
   const missing = find(id, [{ id: "missing", value: null }]);
   assert.deepEqual(missing.evidence, [], "No valid measurements produce no numerical evidence");

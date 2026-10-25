@@ -17,7 +17,10 @@ try {
   for (const width of [1440, 390]) {
     for (const number of [72, 73]) {
       const result = { width, number }; report.cases.push(result);
-      for (const version of ['before', 'after']) {
+      // 73 now intentionally has data-scaled heat glyphs. Keep the original
+      // pixel comparison for unchanged 72, and verify 73's current frame is
+      // deterministic when redrawn without a resize.
+      for (const version of number===73?['after']:['before', 'after']) {
         const context = await browser.newContext({ viewport: { width, height: width < 900 ? 844 : 900 }, deviceScaleFactor: 1 });
         await enforceBrowserSecurity(context, base); await context.route('https://**', r => r.abort());
         if (version === 'before') await context.route('**/climate-history-exhibits.js?*', r => r.fulfill({ body: original, contentType: 'text/javascript' }));
@@ -41,6 +44,7 @@ try {
         // four records without resizing. Compare the complete transparent layer.
         await page.evaluate(() => GaiaClimateHistory.focusAll());
         await page.waitForTimeout(1000);
+        if(number===73)await page.waitForFunction(()=>document.querySelector('#gaia-climate-canvas').dataset.climateArrival==='complete');
         const hashes = [], count = await page.evaluate(() => __canvasAssignments);
         const ids = await page.locator('[data-climate-point] option').evaluateAll(nodes => nodes.slice(0, 4).map(el => el.value));
         for (const id of ids) {
@@ -49,13 +53,19 @@ try {
           await page.waitForFunction(oldCount => document.querySelector('#gaia-climate-canvas').dataset.climatePaintCount !== oldCount, oldCount);
           const image = await page.locator('#gaia-climate-canvas').evaluate(el => el.toDataURL());
           hashes.push(createHash('sha256').update(image).digest('hex'));
+          if(number===73){
+            const painted=await page.locator('#gaia-climate-canvas').getAttribute('data-climate-paint-count');
+            await page.evaluate(id=>GaiaClimateHistory.selectPoint(id,{focus:false}),id);
+            await page.waitForFunction(n=>document.querySelector('#gaia-climate-canvas').dataset.climatePaintCount!==n,painted);
+            assert.equal(await page.locator('#gaia-climate-canvas').evaluate(el=>el.toDataURL()),image,'Unchanged heat record redraw is pixel-stable');
+          }
         }
         result[version] = { hashes, assignments: await page.evaluate(() => __canvasAssignments) - count };
         await context.close();
       }
-      assert.deepEqual(result.after.hashes, result.before.hashes, 'Canvas pixels must be identical');
-      assert(result.before.assignments >= 8); assert.equal(result.after.assignments, 0);
-      console.log(`Canvas reuse ${width}/${number}: identical pixels, ${result.before.assignments} -> 0 assignments`);
+      if(result.before){assert.deepEqual(result.after.hashes,result.before.hashes,'Canvas pixels must be identical');assert(result.before.assignments>=8);}
+      assert.equal(result.after.assignments,0);
+      console.log(`Canvas reuse ${width}/${number}: stable pixels, 0 resize assignments`);
     }
   }
   assert.deepEqual(report.errors, []); report.status = 'passed';

@@ -990,7 +990,7 @@
         "nasa-donki-flr"
       ],
       "metric": {
-        "label": "収録した観測記録",
+        "label": "対象した観測記録",
         "value": 40,
         "unit": "件",
         "detail": "最大等級 X4.5"
@@ -1843,7 +1843,7 @@
         "nasa-donki-sep"
       ],
       "metric": {
-        "label": "収録した粒子イベント",
+        "label": "記録した粒子イベント",
         "value": 14,
         "unit": "件",
         "detail": "観測機器と結びついた通知"
@@ -3123,7 +3123,7 @@
         "nasa-exoplanet-archive"
       ],
       "metric": {
-        "label": "最も近い収録惑星",
+        "label": "最も近い対象惑星",
         "value": 1.30119,
         "unit": "pc",
         "detail": "Proxima Cen d"
@@ -3957,13 +3957,13 @@
         "jaxa-darts-ryugu-lidar"
       ],
       "metric": {
-        "label": "収録したレーザー測距",
+        "label": "対象したレーザー測距",
         "value": 52,
         "unit": "点",
         "detail": "2018年7月1日 / JAXA DARTS"
       },
       "narrative": "はやぶさ2はレーザーを当て、光が戻るまでの時間からリュウグウとの距離を測りました。その距離と機体の位置を使い、測定点を凹凸のある輪郭として立ち上げます。",
-      "interaction": "リュウグウへ触れると測定点を選び、輪郭に小さな起伏を残せます。収録した一日の一部分であり、天体全面の完成地形図ではありません。",
+      "interaction": "リュウグウへ触れると測定点を選び、輪郭に小さな起伏を残せます。対象した一日の一部分であり、天体全面の完成地形図ではありません。",
       "records": [
         {
           "shotTime": "2018-07-01T22:50:11.217091",
@@ -4661,7 +4661,7 @@
         "jaxa-darts-ryugu-lidar"
       ],
       "metric": {
-        "label": "収録した公開記録",
+        "label": "対象した公開記録",
         "value": 1271,
         "unit": "件",
         "detail": "8/8データ源を保存"

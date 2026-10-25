@@ -124,7 +124,7 @@ def prtr(year=2022, source_dir=RAW, publish=True):
     payload = {'periods': [{'year': year, 'stations': list(stations.values()),
         'counts': {'measured': sum(p['metrics']['air']['value'] is not None for p in stations.values()), 'missing': sum(p['metrics']['air']['value'] is None for p in stations.values())}}],
         'substanceNames': dictionary, 'attribution': '環境省・経済産業省の2022年度PRTR届出（2026年2月修正）とNITE公式GISをGAIA SENSEWAREが整理番号で照合・加工',
-        'coordinateNote': '座標はNITEの2022年度事業所GIS（WGS84）。同年度の整理番号が一致する事業所だけを掲載。代表者氏名・連絡先は収録しません。',
+        'coordinateNote': '座標はNITEの2022年度事業所GIS（WGS84）。同年度の整理番号が一致する事業所だけを掲載。代表者氏名・連絡先は対象しません。',
         'exclusions': dict(excluded)}
     if not publish: return payload
     save('japan-prtr-2022.json', payload)

@@ -4,11 +4,18 @@ import {test} from 'node:test';
 import {createHash} from 'node:crypto';
 import {ATLAS_EXHIBITS as ALL_ATLAS,atlasColor,atlasInsight,atlasStatistics} from '../src/exploration/atlas-history-model.js';
 import {CLIMATE_EXHIBITS} from '../src/exploration/climate-history-model.js';
-
+import {placeAtlasGauge} from '../src/exploration/atlas-history-view.js';
 const read=p=>JSON.parse(fs.readFileSync(p));
 const ATLAS_EXHIBITS=ALL_ATLAS.filter(d=>Number(d.number)<=80);
-test('75 is a unique, actual datasets and shared provider registrations',()=>{
-  assert.deepEqual(ATLAS_EXHIBITS.map(d=>+d.number),[75]);
+test('basin gauges keep a stable year-independent clearance below legends',()=>{
+  const envelope={halfWidth:58,above:125,below:22},obstacles=[{left:1034,right:1344,top:212,bottom:438},{left:1109,right:1350,top:450,bottom:486}];
+  const placed=placeAtlasGauge({x:1290,y:363},envelope,obstacles,669);
+  assert(placed.y-envelope.above>=498);assert(placed.y+envelope.below<=657);
+  assert.equal(placed.x,1290);
+  assert.deepEqual(placeAtlasGauge({x:600,y:400},envelope,obstacles,669),{x:600,y:400});
+});
+test('75–80 are unique, actual datasets and shared provider registrations',()=>{
+  assert.deepEqual(ATLAS_EXHIBITS.map(d=>+d.number),[75,76,77,78,79,80]);
   assert.equal(new Set(CLIMATE_EXHIBITS.map(d=>d.id)).size,ALL_ATLAS.length+3);
   for(const d of ATLAS_EXHIBITS){
     assert(fs.statSync(`data/atlas-history/${d.id}.json`).size<220000);

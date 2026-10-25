@@ -1,0 +1,269 @@
+{
+  "retrievedAt": "2026-10-22",
+  "sources": [
+    {
+      "file": "countries.json",
+      "url": "https://api.worldbank.org/v2/country/all?format=json&per_page=400",
+      "sha256": "c9acf3932785191a649cbc04c3056af4cf64a236e5c3b49d49be25ddb0440bce",
+      "bytes": 113954
+    },
+    {
+      "file": "waterstress-metadata.json",
+      "url": "https://api.worldbank.org/v2/indicator/ER.H2O.FWST.ZS?format=json",
+      "sha256": "93f80a0eaba7806ea1727788513110db3ca8b12978bae13ac311a37ddd1ccbe9",
+      "bytes": 1074
+    },
+    {
+      "file": "waterstress.json",
+      "url": "https://api.worldbank.org/v2/country/all/indicator/ER.H2O.FWST.ZS?format=json&date=2000:2024&per_page=20000",
+      "sha256": "8631306fb635aee343c5d5820bb87207a9bba0213ed30b02839362da8af00af0",
+      "bytes": 1873071
+    },
+    {
+      "file": "cropland-metadata.json",
+      "url": "https://api.worldbank.org/v2/indicator/AG.LND.ARBL.ZS?format=json",
+      "sha256": "7f98886308e1c185355f43a33ed8832ce762da4ae363f6ec5818a9e4b14dbd24",
+      "bytes": 818
+    },
+    {
+      "file": "cropland.json",
+      "url": "https://api.worldbank.org/v2/country/all/indicator/AG.LND.ARBL.ZS?format=json&date=2000:2024&per_page=20000",
+      "sha256": "6ca6db4c16a3e94995f084221fb7f9e1ac285341e82f9ec4236de4b308c6af31",
+      "bytes": 1480776
+    },
+    {
+      "file": "yield-metadata.json",
+      "url": "https://api.worldbank.org/v2/indicator/AG.YLD.CREL.KG?format=json",
+      "sha256": "7db73e3ce4522b5a91050ee4243b129d332e444cf38709b7ca5443cae45d9f2c",
+      "bytes": 1082
+    },
+    {
+      "file": "yield.json",
+      "url": "https://api.worldbank.org/v2/country/all/indicator/AG.YLD.CREL.KG?format=json&date=2000:2024&per_page=20000",
+      "sha256": "719b2055f7aad9a8d225dc2d85f6e53ebb462a461ceb878a31251a0ad18e2d6f",
+      "bytes": 1435605
+    },
+    {
+      "file": "fertilizer-metadata.json",
+      "url": "https://api.worldbank.org/v2/indicator/AG.CON.FERT.ZS?format=json",
+      "sha256": "2f89ce87db1a6c08078e08ce6631315cb88a03f8c2fb7aea46fb407b757429d1",
+      "bytes": 1264
+    },
+    {
+      "file": "fertilizer.json",
+      "url": "https://api.worldbank.org/v2/country/all/indicator/AG.CON.FERT.ZS?format=json&date=2000:2024&per_page=20000",
+      "sha256": "f2653065353473153e311e63b01c7d7bc1c1724f1d10c0370ff473d1d4698059",
+      "bytes": 1691538
+    },
+    {
+      "file": "longevity-metadata.json",
+      "url": "https://api.worldbank.org/v2/indicator/SP.DYN.LE00.IN?format=json",
+      "sha256": "a39cb6fddfbbb953053690366243dffe77a266c4deae79c46ce5a06da9f5fc31",
+      "bytes": 969
+    },
+    {
+      "file": "longevity.json",
+      "url": "https://api.worldbank.org/v2/country/all/indicator/SP.DYN.LE00.IN?format=json&date=2000:2024&per_page=20000",
+      "sha256": "5ccbe961c5e26d9e5c05b8ffa01503016beb9de1ecd47c36a0401aaef0e67a1a",
+      "bytes": 1518331
+    },
+    {
+      "file": "urban-metadata.json",
+      "url": "https://api.worldbank.org/v2/indicator/SP.URB.TOTL.IN.ZS?format=json",
+      "sha256": "ada77d666a1469f69379933d0597cdd420299806163905af52de79d538da95e6",
+      "bytes": 719
+    },
+    {
+      "file": "urban.json",
+      "url": "https://api.worldbank.org/v2/country/all/indicator/SP.URB.TOTL.IN.ZS?format=json&date=2000:2024&per_page=20000",
+      "sha256": "a438d959d548397a3e150a64742d7f1b1da53db13186a23a66df3bf743190450",
+      "bytes": 1582313
+    },
+    {
+      "file": "ageing-metadata.json",
+      "url": "https://api.worldbank.org/v2/indicator/SP.POP.65UP.TO.ZS?format=json",
+      "sha256": "7e879654023471e82357bde5a072b0197de8e637832e4b61410c56aac6ac82f4",
+      "bytes": 571
+    },
+    {
+      "file": "ageing.json",
+      "url": "https://api.worldbank.org/v2/country/all/indicator/SP.POP.65UP.TO.ZS?format=json&date=2000:2024&per_page=20000",
+      "sha256": "62b59462d273b6accf3eb22afa61841aa36ca94aad52b0d3397b37f4de7b2baa",
+      "bytes": 1665919
+    },
+    {
+      "file": "childsurvival-metadata.json",
+      "url": "https://api.worldbank.org/v2/indicator/SH.DYN.MORT?format=json",
+      "sha256": "d6b4f172d2c2b36198d3a0977b21c17740566801f9fd75dda99c82a517f1e3c4",
+      "bytes": 1099
+    },
+    {
+      "file": "childsurvival.json",
+      "url": "https://api.worldbank.org/v2/country/all/indicator/SH.DYN.MORT?format=json&date=2000:2024&per_page=20000",
+      "sha256": "e40e0c47d6b4f4a7b224f56cd4353f5e205f3ddaee99f05120928d8afc0935ac",
+      "bytes": 1522613
+    },
+    {
+      "file": "N_01_extent_v4.0.csv",
+      "url": "https://noaadata.apps.nsidc.org/NOAA/G02135/north/monthly/data/N_01_extent_v4.0.csv",
+      "sha256": "61938dffac6f610d1d9610f70e8fb54fd14dfa93eaeec4047fd6ad13cbe2628f",
+      "bytes": 2352
+    },
+    {
+      "file": "N_02_extent_v4.0.csv",
+      "url": "https://noaadata.apps.nsidc.org/NOAA/G02135/north/monthly/data/N_02_extent_v4.0.csv",
+      "sha256": "cf1df2e3730acdc39831c386fc4c5ae765fc0d661f7466290e9239490422b32e",
+      "bytes": 2352
+    },
+    {
+      "file": "N_03_extent_v4.0.csv",
+      "url": "https://noaadata.apps.nsidc.org/NOAA/G02135/north/monthly/data/N_03_extent_v4.0.csv",
+      "sha256": "01c4fa25d1a4a35aee9558eeecd652564fc91582e35e7b2fcaf8c19ebf56aff7",
+      "bytes": 2352
+    },
+    {
+      "file": "N_04_extent_v4.0.csv",
+      "url": "https://noaadata.apps.nsidc.org/NOAA/G02135/north/monthly/data/N_04_extent_v4.0.csv",
+      "sha256": "31ededc3210d6b30dce1ac5c3bf1009d8ab8faee75d1cdf6a9ff39dcc7fe6e94",
+      "bytes": 2352
+    },
+    {
+      "file": "N_05_extent_v4.0.csv",
+      "url": "https://noaadata.apps.nsidc.org/NOAA/G02135/north/monthly/data/N_05_extent_v4.0.csv",
+      "sha256": "143786739a6f3d5d1a3208fa61f299a4afdff142974dfc973bfd1ee86670dc72",
+      "bytes": 2352
+    },
+    {
+      "file": "N_06_extent_v4.0.csv",
+      "url": "https://noaadata.apps.nsidc.org/NOAA/G02135/north/monthly/data/N_06_extent_v4.0.csv",
+      "sha256": "33f08540d96b62554ebcd8e27030364815be3e0836d03453e9bb078ef4452d0f",
+      "bytes": 2352
+    },
+    {
+      "file": "N_07_extent_v4.0.csv",
+      "url": "https://noaadata.apps.nsidc.org/NOAA/G02135/north/monthly/data/N_07_extent_v4.0.csv",
+      "sha256": "0be2b36d07f5eb3ec2ddb7a8604fcdf508ef718254ae3795c655681b3e567bf4",
+      "bytes": 2352
+    },
+    {
+      "file": "N_08_extent_v4.0.csv",
+      "url": "https://noaadata.apps.nsidc.org/NOAA/G02135/north/monthly/data/N_08_extent_v4.0.csv",
+      "sha256": "099dfed84622912b5dc11d56acfa81193788e0d81a2e751ebeecb16ddb1de504",
+      "bytes": 2352
+    },
+    {
+      "file": "N_09_extent_v4.0.csv",
+      "url": "https://noaadata.apps.nsidc.org/NOAA/G02135/north/monthly/data/N_09_extent_v4.0.csv",
+      "sha256": "3968dfdbe73b8361712da9136cfeff6dbc9a6d87ab3e75daa30cc254615eab1f",
+      "bytes": 2352
+    },
+    {
+      "file": "N_10_extent_v4.0.csv",
+      "url": "https://noaadata.apps.nsidc.org/NOAA/G02135/north/monthly/data/N_10_extent_v4.0.csv",
+      "sha256": "5b54b8bab1785d704c78a59d0df03171f4c9fccb88438d56b28e4c2befe2c150",
+      "bytes": 2304
+    },
+    {
+      "file": "N_11_extent_v4.0.csv",
+      "url": "https://noaadata.apps.nsidc.org/NOAA/G02135/north/monthly/data/N_11_extent_v4.0.csv",
+      "sha256": "2e883fcb0968770e2e6e02147e7004b75d9f937dbea353a78a60cb19aaa626ea",
+      "bytes": 2352
+    },
+    {
+      "file": "N_12_extent_v4.0.csv",
+      "url": "https://noaadata.apps.nsidc.org/NOAA/G02135/north/monthly/data/N_12_extent_v4.0.csv",
+      "sha256": "4bda9d85fd7212bb847dea3a19a5e6a28aa65bb6e38db6a586a88251049ffc94",
+      "bytes": 2352
+    },
+    {
+      "file": "S_01_extent_v4.0.csv",
+      "url": "https://noaadata.apps.nsidc.org/NOAA/G02135/south/monthly/data/S_01_extent_v4.0.csv",
+      "sha256": "ab782f15f3fb878f5c668e29095f200790ca5fa73805508b4ee78a273e3a0a86",
+      "bytes": 2352
+    },
+    {
+      "file": "S_02_extent_v4.0.csv",
+      "url": "https://noaadata.apps.nsidc.org/NOAA/G02135/south/monthly/data/S_02_extent_v4.0.csv",
+      "sha256": "ee9717d02fbc7f5ad66fb6982d3a5cb746c02a011311f2419f1483384ce9f8b3",
+      "bytes": 2352
+    },
+    {
+      "file": "S_03_extent_v4.0.csv",
+      "url": "https://noaadata.apps.nsidc.org/NOAA/G02135/south/monthly/data/S_03_extent_v4.0.csv",
+      "sha256": "569eb0d2eeb49ffb195d623476998aab9d5b0d3f4b9657a34bef7a818556c92f",
+      "bytes": 2352
+    },
+    {
+      "file": "S_04_extent_v4.0.csv",
+      "url": "https://noaadata.apps.nsidc.org/NOAA/G02135/south/monthly/data/S_04_extent_v4.0.csv",
+      "sha256": "0970d41942ff99a4bc15cfba95d7e4ed944db774e9fd79ecbc0af4e7a98d2139",
+      "bytes": 2352
+    },
+    {
+      "file": "S_05_extent_v4.0.csv",
+      "url": "https://noaadata.apps.nsidc.org/NOAA/G02135/south/monthly/data/S_05_extent_v4.0.csv",
+      "sha256": "65bee706e7aabae72e1fc9c8bc37ad21009d1415ff7a49002dab469e2c9b3555",
+      "bytes": 2361
+    },
+    {
+      "file": "S_06_extent_v4.0.csv",
+      "url": "https://noaadata.apps.nsidc.org/NOAA/G02135/south/monthly/data/S_06_extent_v4.0.csv",
+      "sha256": "ccbe22a3b01f37d48405a6f7898fc63fde30e740f45d29d775f526b5ce875b1e",
+      "bytes": 2352
+    },
+    {
+      "file": "S_07_extent_v4.0.csv",
+      "url": "https://noaadata.apps.nsidc.org/NOAA/G02135/south/monthly/data/S_07_extent_v4.0.csv",
+      "sha256": "eabbacf263faf23a01b8db13252a798485a8a5ef4294a6fbdae5aa0c9af9b527",
+      "bytes": 2352
+    },
+    {
+      "file": "S_08_extent_v4.0.csv",
+      "url": "https://noaadata.apps.nsidc.org/NOAA/G02135/south/monthly/data/S_08_extent_v4.0.csv",
+      "sha256": "64c76142efc35e76f8e593d90e958621cee9ca0a104d3b337494deb3dbcdc2e8",
+      "bytes": 2352
+    },
+    {
+      "file": "S_09_extent_v4.0.csv",
+      "url": "https://noaadata.apps.nsidc.org/NOAA/G02135/south/monthly/data/S_09_extent_v4.0.csv",
+      "sha256": "32e94df4721daf475d675490ce81d49d5e99f47e43cad2660c064ab56ba4f01a",
+      "bytes": 2352
+    },
+    {
+      "file": "S_10_extent_v4.0.csv",
+      "url": "https://noaadata.apps.nsidc.org/NOAA/G02135/south/monthly/data/S_10_extent_v4.0.csv",
+      "sha256": "c2c343b117cb1e04c8f08821ee9982c124312d3cce59c86e90f0a75b6ee8af4e",
+      "bytes": 2304
+    },
+    {
+      "file": "S_11_extent_v4.0.csv",
+      "url": "https://noaadata.apps.nsidc.org/NOAA/G02135/south/monthly/data/S_11_extent_v4.0.csv",
+      "sha256": "1ad02149c0e754021fb136324550bcb171390805e34ea0501b8136874f1f4e5a",
+      "bytes": 2352
+    },
+    {
+      "file": "S_12_extent_v4.0.csv",
+      "url": "https://noaadata.apps.nsidc.org/NOAA/G02135/south/monthly/data/S_12_extent_v4.0.csv",
+      "sha256": "dafcb0df80ac1fb828ae66bb40f28b10539ace084b0a9fb2e19cef145abe1dc2",
+      "bytes": 2352
+    },
+    {
+      "file": "moncov.eurasia.txt",
+      "url": "http://climate.rutgers.edu/snowcover/files/moncov.eurasia.txt",
+      "sha256": "202c72cf601bff7663d02409bed56ff69175f1606e5573a6c92f0e8353e6f7f8",
+      "bytes": 13090
+    },
+    {
+      "file": "moncov.nam.txt",
+      "url": "http://climate.rutgers.edu/snowcover/files/moncov.nam.txt",
+      "sha256": "0b1a08a876b7a0054b41987208cc84ac5cfeec257ae0c580683f82c4b34a001c",
+      "bytes": 13038
+    },
+    {
+      "file": "moncov.nhland.txt",
+      "url": "http://climate.rutgers.edu/snowcover/files/moncov.nhland.txt",
+      "sha256": "0544c001d80485c9b3e6e0a74a299ff298cd84e9c5e56b6c362a19b5d5e6968c",
+      "bytes": 13279
+    }
+  ]
+}

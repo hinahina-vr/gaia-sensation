@@ -120,7 +120,7 @@ GaiaI18n.register([
   ["使用: {count} / {total}　計算: {calculation}","Used: {count} / {total} · Calculation: {calculation}","使用：{count} / {total}　计算：{calculation}"],
   ["{period1}の平均{value1}に対し、{period2}は{value2}。{difference}高く、後の{count}時点中{above}時点が、前の期間の最高値を上回りました。","The average was {value1} in {period1}, compared with {value2} in {period2}: {difference} higher. Of the later {count} points, {above} exceeded the earlier period’s maximum.","{period1}的平均值为{value1}，{period2}则为{value2}，高出{difference}。后期{count}个时点中，有{above}个超过了前一时期的最大值。"],
   ["{year}の記録を見る →","View the {year} record →","查看{year}年的记录 →"],
-  ["{dataset} / 現在の対象 {count}行。出典由来の収録値についての探索です。","{dataset} / {count} rows selected. This explores values recorded from the cited source.","{dataset} / 当前对象{count}行。这是对来源中收录数值的探索。"],
+  ["{dataset} / 現在の対象 {count}行。出典由来のデータ値についての探索です。","{dataset} / {count} rows selected. This explores values recorded from the cited source.","{dataset} / 当前对象{count}行。这是对来源中收录数值的探索。"],
   ["さらに確かめるには：{next}","To check further: {next}","进一步验证：{next}"],
   ["注意：{caution}","Note: {caution}","注意：{caution}"],
   ["ほかの比較を見る（{count}）","View other comparisons ({count})","查看其他比较（{count}）"],

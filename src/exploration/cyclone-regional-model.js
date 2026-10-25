@@ -1,4 +1,4 @@
-import { format, windMS } from './climate-history-model.js?v=climate-20261013';
+import { format, windMS } from './climate-history-model.js?v=whole-trends20-20261025';
 
 export function regionalSummary(region, year) {
   const row = region.years.find(item => item.year === year);

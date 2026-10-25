@@ -1,4 +1,4 @@
-import {colorFor,daysInYear} from './climate-history-model.js?v=tide-gis-20261022';
+import {colorFor,daysInYear} from './climate-history-model.js?v=whole-trends20-20261025';
 import {createCoralHeatField} from './coral-heat-field.js?v=coral-current-20261023';
 
 export const CORAL_ARRIVAL_MS=1500;

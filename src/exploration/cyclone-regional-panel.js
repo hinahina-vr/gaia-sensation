@@ -1,5 +1,5 @@
-import { format } from './climate-history-model.js?v=climate-20261013';
-import { regionalSummary } from './cyclone-regional-model.js?v=regions-20261018';
+import { format } from './climate-history-model.js?v=whole-trends20-20261025';
+import { regionalSummary } from './cyclone-regional-model.js?v=whole-trends20-20261025';
 
 let payload, pending, dialog, opener, wantedYear = 2016;
 const q = selector => dialog.querySelector(selector);
@@ -69,7 +69,7 @@ function mount() {
     <div class="gaia-cyclone-region-tables"><table><caption>接近が集中する月（UTC）</caption><thead><tr><th scope="col">最接近月</th><th scope="col" data-region-month-heading></th></tr></thead><tbody data-region-months></tbody></table>
     <div><table><caption>年代別の接近数</caption><thead><tr><th scope="col">シーズン</th><th scope="col">1期平均</th><th scope="col">合計 / 期数</th></tr></thead><tbody data-region-decades></tbody></table>
     <p class="gaia-cyclone-region-note">2020–2024は5シーズン分。比較には1期あたりの平均を使います。</p></div></div>
-    <details><summary>集計方法と出典</summary><p>都市の代表座標から300 km以内に中心の位置記録があるMAIN経路を、シーズンごとに1件として数えます。低気圧の各段階を含み、強さによる絞り込みはしていません。月は最も近かった記録時刻（UTC）で決めます。南半球のシーズンは暦年をまたぎます。</p><p>移動速度は、両端が圏内にある6時間以内の隣接記録の大円距離を合計し、合計時間で割った値です。風速は圏内のUSA_WINDの最大値をm/sに換算。欠測は各指標から除外し、有効な経路数を併記しています。</p><p>記録には補間時刻を含みます。記録点の間だけを通った接近は集計外です。観測・収録体制の変化も件数に影響します。</p><a href="https://www.ncei.noaa.gov/products/international-best-track-archive" target="_blank" rel="noopener noreferrer" data-region-source></a></details></div></div>`;
+    <details><summary>集計方法と出典</summary><p>都市の代表座標から300 km以内に中心の位置記録があるMAIN経路を、シーズンごとに1件として数えます。低気圧の各段階を含み、強さによる絞り込みはしていません。月は最も近かった記録時刻（UTC）で決めます。南半球のシーズンは暦年をまたぎます。</p><p>移動速度は、両端が圏内にある6時間以内の隣接記録の大円距離を合計し、合計時間で割った値です。風速は圏内のUSA_WINDの最大値をm/sに換算。欠測は各指標から除外し、有効な経路数を併記しています。</p><p>記録には補間時刻を含みます。記録点の間だけを通った接近は集計外です。観測・対象体制の変化も件数に影響します。</p><a href="https://www.ncei.noaa.gov/products/international-best-track-archive" target="_blank" rel="noopener noreferrer" data-region-source></a></details></div></div>`;
   document.body.append(dialog);
   q('[data-region-close]').addEventListener('click',()=>dialog.close());
   q('[data-region-retry]').addEventListener('click',()=>void populate());

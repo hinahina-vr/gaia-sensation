@@ -91,7 +91,7 @@ const processingFor = (relative) => relative === 'assets/guide-previews/story.jp
   : /^assets\/(?:title|ending)-candidates-20260909\//u.test(relative)
   ? "みず・あめの既存キャラクター画像を参照し、組み込みImagegenで独立した5案を生成。生成元PNGを無加工で保存しSHA-256一致を確認。プロンプトと参照画像は同じフォルダのprompts.json、目視・保存試験はREADME.mdを参照。本編への採用ではなく候補比較ページとして公開"
   : /^assets\/concept\/brochure-map-/u.test(relative)
-  ? "ローカルChromeの実装画面を撮影。収録データを使用し外部ライブAPIは遮断。UIや数値の描き換えなし、全画面を1200px幅へ縮小しWebP変換。撮影手順と元画像はコンセプトページ記録を参照"
+  ? "ローカルChromeの実装画面を撮影。対象データを使用し外部ライブAPIは遮断。UIや数値の描き換えなし、全画面を1200px幅へ縮小しWebP変換。撮影手順と元画像はコンセプトページ記録を参照"
   : relative === "assets/concept/myth-machine-circulation-v3.png"
   ? "作者の原図v5を意味・構成の参照とし、内蔵ImageGenで7要素と因果／情報の2系統を再描画。Deep Agentは深層AI群と表記。原図のコラージュ人物・製品ロゴは再使用せず、生成された1672×941 PNGを無加工で保存。旧版は保持"
   : relative === "assets/concept/myth-agency-loop-v2.png"
@@ -125,7 +125,7 @@ const providers = [
 ];
 
 const sources = mediaDataSources(root, providers);
-const sourceIndexNote = "2026-09-13に現行カタログ・同梱メタデータと照合。収録期間は提供元の最新版の保証ではありません。今回、観測データの再取得や利用許諾の再判定は行っていません。";
+const sourceIndexNote = "2026-09-13に現行カタログ・同梱メタデータと照合。対象期間は提供元の最新版の保証ではありません。今回、観測データの再取得や利用許諾の再判定は行っていません。";
 for (const source of sources) {
   if (!source.id || !source.provider || !source.datasetId || !source.sourceUrl || !source.retrievalPolicy) throw new Error(`Incomplete data source: ${JSON.stringify(source)}`);
   if (!fs.existsSync(path.join(root, source.evidence))) throw new Error(`Missing data source evidence: ${source.evidence}`);
@@ -133,7 +133,7 @@ for (const source of sources) {
 if (new Set(sources.map(source => source.id)).size !== sources.length) throw new Error("Duplicate data source ID");
 const payload = { schemaVersion: 1, generatedBy: "scripts/build-media-rights-ledger.mjs", sourceIndexNote, assets, sources };
 const json = `${JSON.stringify(payload, null, 2)}\n`;
-const markdown = `# 公開素材・データ権利台帳\n\nこの文書は \`scripts/build-media-rights-ledger.mjs\` により機械可読JSONから生成されます。制作元・出典・加工内容を記録します。生成イラスト: OpenAI Imagegen。生成音楽: Suno AI。\n\n- 登録メディア（公開・ローカル候補を含む）: ${assets.length}件\n- 各ファイル: SHA-256、制作サービス、最初のリポジトリ証拠日、加工説明、元台帳、利用条件URLをJSONへ収録\n\n## データ出典\n\n${sourceIndexNote}\n\n登録: ${sources.length}件（展示別の同一提供元、独自加工、補助経路も区別して収録）。日本の年次系列と食料の追加系列は実装カタログ・同梱JSONから生成します。各行の「記録」から取得日・加工内容・原データURLを確認できます。\n\n利用条件と再利用上の注意は [データ出典・利用条件](DATA_SOURCES.md) を参照してください。本一覧は提供元の個別許諾や全データの無条件な再利用を保証するものではありません。\n\n${renderDataSources(sources)}\n\n## 検査\n\n\`npm run check:rights\` はメディアのSHA-256、出典の必須項目・ID重複・ローカル根拠の存在、生成結果の差分を検査します。外部サイトの全リンク到達性や利用条件の再監査ではありません。利用条件の確認とは別の、ファイルと記載の整合検査です。\n`;
+const markdown = `# 公開素材・データ権利台帳\n\nこの文書は \`scripts/build-media-rights-ledger.mjs\` により機械可読JSONから生成されます。制作元・出典・加工内容を記録します。生成イラスト: OpenAI Imagegen。生成音楽: Suno AI。\n\n- 登録メディア（公開・ローカル候補を含む）: ${assets.length}件\n- 各ファイル: SHA-256、制作サービス、最初のリポジトリ証拠日、加工説明、元台帳、利用条件URLをJSONへ対象\n\n## データ出典\n\n${sourceIndexNote}\n\n登録: ${sources.length}件（展示別の同一提供元、独自加工、補助経路も区別して対象）。日本の年次系列と食料の追加系列は実装カタログ・同梱JSONから生成します。各行の「記録」から取得日・加工内容・原データURLを確認できます。\n\n利用条件と再利用上の注意は [データ出典・利用条件](DATA_SOURCES.md) を参照してください。本一覧は提供元の個別許諾や全データの無条件な再利用を保証するものではありません。\n\n${renderDataSources(sources)}\n\n## 検査\n\n\`npm run check:rights\` はメディアのSHA-256、出典の必須項目・ID重複・ローカル根拠の存在、生成結果の差分を検査します。外部サイトの全リンク到達性や利用条件の再監査ではありません。利用条件の確認とは別の、ファイルと記載の整合検査です。\n`;
 
 if (assets.length !== media.length) throw new Error("Every public media file must have one ledger entry");
 for (const asset of assets) {

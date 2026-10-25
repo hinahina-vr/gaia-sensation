@@ -42,7 +42,7 @@ try {
     page.on('pageerror', error => report.errors.push(error.message));
     await page.goto(`${base}/world.html#world-21`, { waitUntil: 'domcontentloaded' });
     await page.waitForFunction(() => globalThis.GaiaModeEntryGuide);
-    await page.waitForFunction(() => globalThis.GaiaMapCategories?.buttons().length === 75, null, { timeout: 60000 });
+    await page.waitForFunction(() => globalThis.GaiaMapCategories?.buttons().length === 100, null, { timeout: 60000 });
     await page.evaluate(() => GaiaModeEntryGuide.close('map', { restoreFocus: false }));
     await page.waitForFunction(() => !document.querySelector('#map-data-intro')?.hidden, null, { timeout: 60000 });
     if (matrix) {
@@ -50,7 +50,7 @@ try {
       // Text hold/fade, input events, provider rendering and transport are real.
       await page.evaluate(() => setInterval(() => document.querySelector('#map-title-transition')?.getAnimations({ subtree: true })
         .filter(a => a.animationName?.startsWith('map-title')).forEach(a => { a.playbackRate = 30; }), 20));
-      const numbers = lifecycle ? [22] : width === 1440 ? Array.from({ length: 75 }, (_, i) => i + 1) : [1, 4, 15, 21, 31, 51, 60, 70, 72, 73, 74, 75];
+      const numbers = lifecycle ? [22] : width === 1440 ? Array.from({ length: 100 }, (_, i) => i + 1) : [1, 4, 15, 21, 31, 51, 60, 70, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100];
       for (const number of numbers) {
         await page.evaluate(number => {
           window.__introFrames = [];
@@ -66,7 +66,7 @@ try {
           return { playback: GaiaMapPlayback.getState(), cod: cod?.dataset.codArrivalState,
             codVisible: cod?.dataset.codArrivalVisibleCount,
             theme: globalThis.GaiaMapThemeBackground?.getState(),
-            fields: [...layer.querySelectorAll('#gaia-planet-signals-canvas, #gaia-firms-canvas, #gaia-climate-canvas, #gaia-marine-cod-canvas, #gaia-food-canvas, .gaia-estat-canvas, .gaia-estat-webgl, .gaia-live-prefecture-regions')]
+            fields: [...layer.querySelectorAll('#gaia-planet-signals-canvas, #gaia-firms-canvas, #gaia-climate-canvas, #gaia-marine-cod-canvas, #gaia-food-canvas, .gaia-estat-canvas, .gaia-estat-webgl, .gaia-live-prefecture-regions, .gaia-lake-view')]
               .filter(el => el.getClientRects().length && getComputedStyle(el).visibility !== 'hidden').map(el => el.id || el.getAttribute('class')),
             overflow: document.documentElement.scrollWidth - innerWidth };
         });

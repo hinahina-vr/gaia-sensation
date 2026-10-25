@@ -1992,14 +1992,15 @@ try {
     }));
     assert.equal(forestUi.guideTitle, "森林と、雨の多い場所はどこで重なる？");
     assert.match(forestUi.guideSubject, /世界の国・地域.*参照地点.*国平均.*因果関係/u);
-    assert.match(forestUi.guideReading, /大きな水色円.*ブラジルのアマゾン付近は5\.33 mm\/day/u);
+    assert.match(forestUi.guideReading, /水色の円.*ブラジルのアマゾン付近は5\.33 mm\/day/u);
     assert.match(forestUi.guideAction, /円のない場所.*雨がない.*ではなく/u);
     assert.match(forestUi.signalValue, /降水量.*mm\/day/u);
     assert.equal(forestUi.legendTitleVisible, true);
     assert.match(forestUi.legendTitle, /凡例\s*MAP LEGEND/u);
-    assert.match(forestUi.legend, /大きな水色円\s*\/\s*降水量/u);
+    assert.match(forestUi.legend, /水色の円\s*\/\s*降水量/u);
     assert.equal(forestUi.legendSupplementCount, 0);
-    assert.equal(forestUi.circleRange, "10-54px radius");
+    assert.match(forestUi.circleRange, /^\d+\.\d+-\d+\.\d+px radius$/u);
+    assert(Number(forestUi.circleRange.split('-')[1].split('px')[0]) <= 28);
     assert.equal(forestUi.brazilRain, "5.33 mm/日");
     if (openedMobileLegend) await mobileLegendToggle.click();
     await page.locator("#map-reading-guide").evaluate((element) => { element.open = false; });

@@ -17,7 +17,7 @@ for (const exhibit of ESTAT_EXHIBITS) for (let pref = 0; pref < 47; pref++) {
   const result = analyzeDiscovery({ dataset, rows });
   assert.equal(result.stats.n, valid.length);
   assert(Math.abs(result.stats.mean - valid.reduce((sum, row) => sum + row.value, 0) / valid.length) < 1e-8);
-  assert(result.dataInsight.candidates.every(candidate => ["baseline-shift", "pace-change", "yearly-variability"].includes(candidate.id)), `${exhibit.key}/${pref + 1}: spatial claim in time series`);
+  assert(result.dataInsight.candidates.every(candidate => ["prefecture-earth-reading", "baseline-shift", "pace-change", "yearly-variability"].includes(candidate.id)), `${exhibit.key}/${pref + 1}: spatial claim in time series`);
   assert(result.dataInsight.candidates.every(candidate => candidate.recordIds.every(id => valid.some(row => row.id === id))));
   assert.doesNotMatch(JSON.stringify(result.dataInsight), /NaN|undefined|Infinity|都道府県のうち/u);
   if (dataset.missingCount) assert.match(result.dataInsight.caveat, new RegExp(`欠測${dataset.missingCount}年`));

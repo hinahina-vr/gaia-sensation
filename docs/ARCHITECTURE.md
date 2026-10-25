@@ -1,6 +1,6 @@
 # GAIA SENSEWARE アーキテクチャ
 
-この文書は75展示と各モードの実装構成を紹介します。作品内容は[README](../README.md)、体験の確認順は[審査ガイド](CONTEST_2026_SUBMISSION.md)、データ利用条件は[データ出典](DATA_SOURCES.md)を参照してください。
+この文書は100展示と各モードの実装構成を紹介します。作品内容は[README](../README.md)、体験の確認順は[審査ガイド](CONTEST_2026_SUBMISSION.md)、データ利用条件は[データ出典](DATA_SOURCES.md)を参照してください。
 
 ## 実行構成
 

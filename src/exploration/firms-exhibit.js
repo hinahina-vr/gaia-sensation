@@ -3,7 +3,8 @@ import { formatJapaneseNumber } from "../shared/number-format.js";
 import { formatCoordinatesJa } from "../shared/coordinates.js";
 import { pickProjectedPoi } from "./poi-hit-test.js?v=gaia-japan-center-1";
 import { earthBaseScale, earthLongitudeToMapX } from "./world-projection.js?v=gaia-japan-center-1";
-import { decorateMapActions } from "./map-exhibit-actions.js?v=action-icons-ready-20260926";
+import { decorateMapActions } from "./map-exhibit-actions.js?v=earth01-05-20261025";
+import { openObservationAnalysis } from './observation-analysis.js?v=earth01-05-20261025';
 import { createRealtimeStatus, updateRealtimeStatus } from "./realtime-exhibit-status.js?v=gaia-map-polish-1-live-red-1-footer-credit-1";
 import { observationReadingTranslations } from "./observation-light.js?v=map-reading-20261020";
 import { FIRE_REVEAL_EDGE, FIRE_COLUMN_LIFETIME, FIRE_COLUMN_LIMIT, FIRE_COLUMN_MOBILE_LIMIT,
@@ -609,7 +610,8 @@ const applyHeading = () => {
   }
 };
 
-const statisticsDataset = () => snapshot ? {
+let analysisAvailable = false, analysisGeneration = 0, pendingAnalysisGeneration = -1;
+const statisticsDataset = () => active && analysisAvailable && snapshot ? {
   id: "nasa-firms-active-fire-24h",
   modeId: "nasa-firms",
   title: `火災・熱異常 ${formatNumber(snapshot.points.length)}地点`,
@@ -634,11 +636,14 @@ const statisticsDataset = () => snapshot ? {
   periodEnd: snapshot.summary.end,
   sourceUrl: SOURCE_PAGE,
   sourceName: DEFINITION.sourceName,
+  insightContext: { measurementKind: 'OBSERVED', axis: 'events', snapshotAnalysis: true },
 } : null;
 
 
 const renderSnapshot = () => {
   if (!snapshot || !readout || !legend) return;
+  analysisAvailable = snapshot.points.length>0;
+  readout.querySelector('[data-firms-analysis]').disabled = !analysisAvailable;
   updateRealtimeStatus(realtimeStatus, {
     sourceState: snapshot.source === "nasa-firms-modis" ? "LIVE CACHE" : "SAVED SNAPSHOT",
     observedAt: snapshot.summary.end,
@@ -664,6 +669,10 @@ const renderSnapshot = () => {
 };
 
 const select = async () => {
+  analysisGeneration++;
+  analysisAvailable = false;
+  readout.querySelector('[data-firms-analysis]').disabled = true;
+  readout.querySelector('[data-firms-analysis]').removeAttribute('aria-busy');
   globalThis.GaiaMarineCod?.deactivate?.();
   globalThis.GaiaFoodExhibits?.deactivate?.();
   globalThis.GaiaLiveExhibits?.deactivate?.();
@@ -718,6 +727,8 @@ const select = async () => {
 
 const deactivate = () => {
   if (!active) return;
+  analysisGeneration++;
+  analysisAvailable = false;
   active = false;
   renderedPlayback = null;
   cancelAnimationFrame(frame);
@@ -817,10 +828,20 @@ const mount = () => {
     <div class="gaia-firms-copy"><p>${DEFINITION.caption}</p><small>光点は火災の範囲ではなく、衛星が検知した熱異常の代表点です。火柱・火の粉は出現時の演出で、実際の炎の高さではありません。信頼度60未満は除外し、FRPを粒径へ変換しています。</small></div>
     <div class="gaia-firms-actions" aria-label="元データと統計分析">
       <button type="button" data-firms-source></button>
-      <button type="button" data-firms-analysis></button>
+      <button type="button" data-firms-analysis disabled></button>
     </div>
   `;
   decorateMapActions(readout.querySelector(".gaia-firms-actions"), readout.querySelector("[data-firms-source]"), readout.querySelector("[data-firms-analysis]"));
+  readout.querySelector('[data-firms-analysis]').dataset.observationAnalysis = '';
+  readout.querySelector('[data-firms-analysis]').addEventListener('click',()=>{
+    const generation=analysisGeneration,observation=snapshot;
+    if(pendingAnalysisGeneration===generation)return;
+    const dataset=statisticsDataset();if(!dataset)return;
+    const button=readout.querySelector('[data-firms-analysis]');pendingAnalysisGeneration=generation;button.setAttribute('aria-busy','true');
+    void openObservationAnalysis(dataset,()=>active&&analysisAvailable&&analysisGeneration===generation&&snapshot===observation).finally(()=>{
+      if(pendingAnalysisGeneration===generation){pendingAnalysisGeneration=-1;button.removeAttribute('aria-busy');}
+    });
+  });
   realtimeStatus = createRealtimeStatus();
   readout.querySelector(".gaia-firms-chapter").after(realtimeStatus);
   layer.append(readout);

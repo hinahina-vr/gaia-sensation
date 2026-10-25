@@ -14,7 +14,7 @@ test('70 turns supply structure into an Earth-focused insight',()=>{
  assert.match(c.fact,/読み取れます/);assert.match(r.summary,/目を向けてみよう/);
  assert.doesNotMatch(r.headline+c.fact+r.summary,/経営|調達|契約|在庫|指標です/);
  assert(Math.abs(c.details.latestValue-28.84148995709222)<1e-10);assert(Math.abs(c.details.netImportShare-71.15851004290778)<1e-10);
- assert(!/\d/.test(r.headline+c.fact+r.summary),'The summary contains no fine numerical values');assert.equal(r.findings.find(f=>f.kind==='meaning').title,'地球を考える視点');
+ assert(!/\d/.test(r.headline+c.fact+r.summary),'The summary contains no fine numerical values');assert.equal(r.findings.find(f=>f.kind==='meaning').title,'地球との共創を考える視点（インサイト）');
 });
 test('disjoint MAFF records are not presented as a continuous 1960–2015 comparison',()=>{
  const ds=dataset(),r=foodBalanceEarthInsight(ds,ds.rows);

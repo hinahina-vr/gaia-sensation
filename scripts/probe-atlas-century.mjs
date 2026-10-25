@@ -1,0 +1,7 @@
+// Read public source records and metadata; archive original responses for review.
+import fs from 'node:fs/promises';
+import path from 'node:path';
+const dir=path.resolve('artifacts/atlas-century-sources-20261022');await fs.mkdir(dir,{recursive:true});
+export async function source(name,url){const file=path.join(dir,name);try{return await fs.readFile(file,'utf8');}catch{}const r=await fetch(url,{signal:AbortSignal.timeout(55000)});if(!r.ok)throw Error(`${r.status} ${url}`);const s=await r.text();await fs.writeFile(file,s);return s;}
+const specs=[['withdraw-agriculture','ER.H2O.FWAG.ZS'],['withdraw-industry','ER.H2O.FWIN.ZS'],['withdraw-domestic','ER.H2O.FWDM.ZS'],['hunger','SN.ITK.DEFC.ZS'],['capture','ER.FSH.CAPT.MT'],['aquaculture','ER.FSH.AQUA.MT'],['internet','IT.NET.USER.ZS'],['refugees','SM.POP.REFG.OR']];
+for(let i=0;i<specs.length;i+=3)await Promise.all(specs.slice(i,i+3).map(async([id,code])=>{try{const meta=JSON.parse(await source(`${id}-metadata.json`,`https://api.worldbank.org/v2/indicator/${code}?format=json`));const data=JSON.parse(await source(`${id}.json`,`https://api.worldbank.org/v2/country/all/indicator/${code}?format=json&date=2000:2024&per_page=20000`));const v=data[1]?.filter(r=>Number.isFinite(r.value))||[];console.log(JSON.stringify({id,meta:meta[1]?.[0],pages:data[0]?.pages,rows:v.length,years:[...new Set(v.map(r=>r.date))].sort(),min:Math.min(...v.map(r=>r.value)),max:Math.max(...v.map(r=>r.value)),jpn:v.find(r=>r.countryiso3code==='JPN'&&r.date==='2016')},null,2));}catch(e){console.log(id,e.message);}}));
