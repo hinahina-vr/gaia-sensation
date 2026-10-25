@@ -129,6 +129,8 @@ try {
     report.checks.push({ width, sparse1984TNandTP: 10, realYearGap1977To2009: true });
     // Actual map click/tap on a projected station, rather than a synthetic selection.
     await choose(58);
+    await page.waitForFunction(() => document.querySelector('#gaia-marine-cod-canvas')?.dataset.codArrivalState === 'complete'
+      && Number(document.querySelector('#gaia-marine-cod-canvas')?.dataset.codVisibleCount) > 0);
     const hit = await page.evaluate(async () => {
       const { earthBaseScale, earthLongitudeToMapX } = await import('/src/exploration/world-projection.js?v=gaia-japan-center-1');
       const rect = GaiaMapObservationAdapter.getViewportRect(), d = document.querySelector('#japan-overlay').dataset;
