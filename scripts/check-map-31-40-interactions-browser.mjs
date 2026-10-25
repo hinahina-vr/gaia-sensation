@@ -105,7 +105,7 @@ try {
     await page.evaluate(() => GaiaMapPlayback.stop());
     report.checks.push({ width, next31To41AndBack40: true, autoplay2016To2017: true });
     await page.emulateMedia({ reducedMotion: 'reduce' });
-    for (const number of [61, 69]) { await choose(number); assert(await page.locator('[data-annual-reading]').getAttribute('hidden') !== null); assert(await page.locator('[data-annual-range]').getAttribute('hidden') !== null); }
+    for (const number of [61, 69]) { await choose(number); assert.equal(await page.locator('[data-annual-reading]').getAttribute('hidden') === null, await page.evaluate(() => Boolean(GaiaMarineCod.definition.readingBasis))); assert(await page.locator('[data-annual-range]').getAttribute('hidden') !== null); }
     if (width === 1920) for (const language of ['en', 'zh-CN']) {
       await choose(40); await page.evaluate(language => GaiaI18n.set(language), language); await settle(); await page.waitForTimeout(150);
       const translations = await page.evaluate(() => GaiaMarineCod.definitions.filter(d => d.readingBasis).flatMap(d => ['caption', 'explanation', 'visualMap', 'readingBasis', 'guide'].map(k => ({ source: d[k], translated: GaiaI18n.t(d[k]) }))));
