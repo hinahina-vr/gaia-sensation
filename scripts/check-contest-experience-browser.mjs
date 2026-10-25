@@ -561,6 +561,15 @@ try {
     for (let number = 15; number <= 20; number += 1) {
       await page.waitForFunction(n => document.querySelector("#japan-mode-number")?.textContent === String(n), number);
       await page.waitForFunction(() => document.querySelectorAll("[data-live-prefecture]").length === 47);
+      // Wait for the visible map, then leave the focus-opened exhibit picker.
+      // Selecting a hidden SVG while its intro/menu is active is not a user action.
+      await page.waitForFunction(() => {
+        const layer = document.querySelector('#japan-layer');
+        return layer && !layer.matches('.is-map-title-transitioning, .is-map-data-intro')
+          && document.querySelector('#japan-overlay')?.dataset.viewAnimation !== 'running';
+      });
+      await page.keyboard.press('Escape');
+      await page.mouse.move(1, 1);
       await page.locator('[data-live-prefecture="13"]').focus();
       await page.keyboard.press("Enter");
       await page.waitForFunction(() => GaiaLiveData.getCity() === "tokyo"

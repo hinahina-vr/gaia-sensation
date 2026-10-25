@@ -62,6 +62,8 @@ try {
     }
     // Real map hit/click, not an API-only selection.
     await choose(32);
+    await page.waitForFunction(() => document.querySelector('#gaia-marine-cod-canvas')?.dataset.codArrivalState === 'complete'
+      && Number(document.querySelector('#gaia-marine-cod-canvas')?.dataset.codVisibleCount) > 0);
     const hit = await page.evaluate(async () => {
       const { earthBaseScale, earthLongitudeToMapX } = await import('/src/exploration/world-projection.js?v=gaia-japan-center-1');
       const rect = GaiaMapObservationAdapter.getViewportRect(), d = document.querySelector('#japan-overlay').dataset;
