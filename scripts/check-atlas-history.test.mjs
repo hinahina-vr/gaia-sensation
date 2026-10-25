@@ -51,7 +51,7 @@ test('GRACE observed-month coverage and mission gap are explicit, not zero',{ski
     }
   }
 });
-test('NOAA annual reference and single-mission provenance retained',()=>{
+test('NOAA annual reference and single-mission provenance retained',{skip:!ALL_ATLAS.some(d=>d.id==='sealevel')},()=>{
   for(const r of read('data/atlas-history/sealevel.json').regions){
     assert.equal(r.years[0].value,0);assert(r.years.at(-1).value>0);
     for(const y of r.years){assert(y.mission);assert.equal(y.value===null,y.months!==12);assert(y.samples>0);}

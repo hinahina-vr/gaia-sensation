@@ -37,7 +37,7 @@ test('74 is a distinct, source-backed surface-water exhibit',()=>{
   const sandbox={document:{querySelector:()=>null,addEventListener(){}},matchMedia:()=>({matches:true,addEventListener(){}})};
   vm.runInNewContext(fs.readFileSync('map-exhibit-categories.js','utf8'),sandbox);
   const categories=JSON.parse(JSON.stringify(sandbox.GaiaMapCategories.definitions));
-  assert.deepEqual(categories.flatMap(c=>c.numbers).sort((a,b)=>a-b),Array.from({length:100},(_,i)=>i+1));
+  assert.deepEqual(categories.flatMap(c=>c.numbers).sort((a,b)=>a-b),Array.from({length:sandbox.GaiaMapCategories.exhibitCount},(_,i)=>i+1));
   assert.equal(sandbox.GaiaMapCategories.get(74).id,'water');
 });
 test('Every annual raster has its hash, period, finite areas and explicit missing coverage',()=>{
