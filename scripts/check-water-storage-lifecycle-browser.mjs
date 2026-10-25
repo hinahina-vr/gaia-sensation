@@ -6,7 +6,7 @@ import {enforceBrowserSecurity} from './lib/browser-security-qa.mjs';
 const base=process.env.GAIA_BASE_URL,out=path.resolve(process.env.GAIA_WATER_LIFECYCLE_OUT||'artifacts/water-storage-gis-20261022/lifecycle');fs.mkdirSync(out,{recursive:true});
 const report={scope:'Local Chrome, actual data and controls; explicit network/context-loss failure injection',checks:[],errors:[]};
 const browser=await chromium.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true});let page;
-const settled=()=>page.waitForFunction(()=>globalThis.GaiaClimateHistory?.getState().dataState==='ready'&&!document.querySelector('#japan-layer').matches('.is-map-title-transitioning,.is-map-data-intro')&&document.querySelector('#japan-overlay').dataset.viewAnimation!=='running'&&document.querySelector('#gaia-climate-canvas').dataset.climateArrival==='complete');
+const settled=()=>page.waitForFunction(()=>globalThis.GaiaClimateHistory?.getState().dataState==='ready'&&!document.querySelector('#japan-layer').matches('.is-map-title-transitioning,.is-map-data-intro')&&document.querySelector('#japan-overlay').dataset.viewAnimation!=='running'&&(GaiaClimateHistory.getState().id!=='waterstore'||document.querySelector('#gaia-climate-canvas').dataset.climateArrival==='complete'));
 try{
  const context=await browser.newContext({viewport:{width:1440,height:900}});await enforceBrowserSecurity(context,base);await context.route('https://**/*',r=>r.abort());
  await context.addInitScript(()=>{
