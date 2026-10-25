@@ -3,10 +3,10 @@ import { earthBaseScale, earthLongitudeToMapX } from './world-projection.js?v=ga
 import { japanPrefectureView } from './japan-prefecture-view.js?v=gaia-prefecture-gis-view-1';
 import { pickProjectedPoi } from './poi-hit-test.js?v=gaia-japan-center-1';
 import { decorateMapActions } from './map-exhibit-actions.js?v=action-icons-ready-20260926';
-import { FOOD_EXHIBITS, foodValue, foodFormat, foodAppearance, foodGuide, foodRowSource, foodFlagText, buildFoodStatisticsDataset } from './food-catalog.js?v=whole-trends20-20261025';
+import { FOOD_EXHIBITS, foodValue, foodFormat, foodAppearance, foodGuide, foodRowSource, foodFlagText, buildFoodStatisticsDataset } from './food-catalog.js?v=food70-earth-20261025';
 import { foodBalanceReading, recordReadingTranslations } from './record-reading-catalog.js?v=records-reading-20261022';
 import { drawFoodMark } from './food-drawing.js?v=fao-food-1';
-import { drawFoodCountryFill, pickFoodCountry } from './food-country-fill.js?v=whole-trends20-20261025';
+import { drawFoodCountryFill, pickFoodCountry } from './food-country-fill.js?v=fao-food-country-fill-1';
 import { poiArrival, poiArrivalDuration } from './annual-poi-arrival.js?v=gaia-annual-pop-20260909';
 import { initialObservationIndex } from './initial-observation-year.js?v=2016-20260926';
 
@@ -348,7 +348,7 @@ globalThis.GaiaFoodExhibits = Object.freeze({ definitions: FOOD_EXHIBITS, select
   getState: () => ({ active, id: definition.id, seriesId, periodKey, selectedId, playing, dataState }),
   setPlayback: setPlaying,
   getPlaybackState: () => ({ ready: active && dataState === 'ready', supported: Boolean(series()?.periods.length > 1), playing: active && playing,
-    detail: '選択した国・指標の対象期間を順に表示します。' }),
+    detail: '選択した国・指標の収録期間を順に表示します。' }),
   getSourceInfo: () => active ? { number: definition.number, shortTitle: definition.shortTitle, datasets: [{ id: definition.id, title: definition.signalLabel, organisation: foodRowSource(definition.id, row()).label, url: foodRowSource(definition.id, row()).url || definition.source,
     attributionNote: `${definition.caption} ${data?.attribution || 'FAO公式一括配布を抽出・加工。'} 取得 ${data?.retrievedAt?.slice(0, 10) || '読込後表示'}。${foodGuide(definition.id, seriesId)} ${data?.historyNote || ''} 利用条件: https://www.fao.org/contact-us/terms/db-terms-of-use/en/` }] } : null });
 if (globalThis.GaiaMapObservationAdapter) mount(); else addEventListener('gaia:map-adapter-ready', mount, { once: true });

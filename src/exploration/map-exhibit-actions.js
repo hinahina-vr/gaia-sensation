@@ -51,9 +51,7 @@ const populateIcon = (icon, canonicalKind) => {
   if (!svg) return false;
   for (const definition of svg.querySelectorAll("[id]")) {
     const oldId = definition.id;
-    let uniqueId;
-    do { uniqueId = `map-exhibit-icon-${++iconSerial}`; } while (document.getElementById(uniqueId));
-    definition.id = uniqueId;
+    definition.id = `map-exhibit-icon-${++iconSerial}`;
     for (const shape of svg.querySelectorAll("[fill]")) {
       if (shape.getAttribute("fill") === `url(#${oldId})`) shape.setAttribute("fill", `url(#${definition.id})`);
     }
@@ -82,7 +80,7 @@ const mountIcon = (icon, canonicalKind) => {
 
 // Reuse the canonical dock icons, including their gradient fills.
 // All source actions open the in-page ledger; external links live inside it.
-export const decorateMapActions = (container, source, analysis, { observationAnalysis = false } = {}) => {
+export const decorateMapActions = (container, source, analysis) => {
   container.classList.add("gaia-map-actions");
   container.setAttribute("aria-label", "データの出典と統計分析");
   for (const [button, kind, canonicalKind, kicker, label] of [
@@ -112,5 +110,5 @@ export const decorateMapActions = (container, source, analysis, { observationAna
       button.setAttribute("aria-controls", "gaia-statistics-lab");
     }
   }
-  if (container.closest(".gaia-live-exhibit-readout") && !observationAnalysis) disableRealtimeAnalysis(analysis);
+  if (container.closest(".gaia-live-exhibit-readout, .gaia-firms-readout, .gaia-planet-signals-readout")) disableRealtimeAnalysis(analysis);
 };

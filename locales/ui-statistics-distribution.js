@@ -46,7 +46,7 @@ GaiaI18n.register([
   ["組","pairs","组"],
   ["ppm/1単位","ppm per unit","ppm/单位"],
   ["傾き","Slope","斜率"],
-  ["データなし要因、空間依存、時系列依存が結果へ影響する可能性があります。","Unrecorded factors, spatial dependence, and time-series dependence may affect the results.","未收录的因素、空间依赖性与时间序列依赖性可能影响结果。"],
+  ["未収録要因、空間依存、時系列依存が結果へ影響する可能性があります。","Unrecorded factors, spatial dependence, and time-series dependence may affect the results.","未收录的因素、空间依赖性与时间序列依赖性可能影响结果。"],
   ["12 回帰診断","12 Regression diagnostics","12 回归诊断"],
   ["分布の形を数値にする","Quantify the shape of a distribution","用数值描述分布形状"],
   ["平均・分散・ゆがみ・累積を読む。","Read the mean, variance, skewness, and cumulative distribution.","解读平均值、方差、偏度与累积分布。"],
@@ -93,7 +93,7 @@ GaiaI18n.register([
   ["{metric} 観測{count}件（{period} / 欠測{missing}か月）","{metric}: {count} observations ({period} / {missing} missing months)","{metric}观测{count}条（{period} / 缺失{missing}个月）"],
   ["{date}の記録を見る →","View the record for {date} →","查看{date}的记录 →"],
   ["複数時点の水準比較。{calculation}","Comparing levels across time. {calculation}","比较多个时点的水平。{calculation}"],
-  ["{dataset} / 現在の対象 {count}行。出典由来のデータ値についての探索です。課題探索は選択した統計手法の結論とは別です。その手法の読み取りは下の補足で確認できます。","{dataset} / {count} rows selected. This explores values recorded from the cited source. Finding questions is separate from the conclusions of the selected statistical method. See below for that method’s interpretation.","{dataset} / 当前对象{count}行。这是对来源中收录数值的探索。问题探索与所选统计方法的结论不同，该方法的解读可在下方补充说明中查看。"],
+  ["{dataset} / 現在の対象 {count}行。出典由来の収録値についての探索です。課題探索は選択した統計手法の結論とは別です。その手法の読み取りは下の補足で確認できます。","{dataset} / {count} rows selected. This explores values recorded from the cited source. Finding questions is separate from the conclusions of the selected statistical method. See below for that method’s interpretation.","{dataset} / 当前对象{count}行。这是对来源中收录数值的探索。问题探索与所选统计方法的结论不同，该方法的解读可在下方补充说明中查看。"],
   ["{dataset} / 現在の対象 {count}行。実測・出典データのみ。","{dataset} / {count} rows selected. Measured and source data only.","{dataset} / 当前对象{count}行。仅使用实测及来源数据。"],
   ["約{count}年間で、{metric}が{change}増えています。","{metric} increased by {change} over about {count} years.","约{count}年间，{metric}增加了{change}。"],
   ["{date1}の{value1}から、{date2}の{value2}へ。期間全体の始点・終点を比べた変化です。","From {value1} in {date1} to {value2} in {date2}. This compares the start and end of the whole period.","从{date1}的{value1}到{date2}的{value2}。这是比较整个时期起点与终点所得的变化。"],
@@ -101,12 +101,12 @@ GaiaI18n.register([
   ["{metric}は平均{mean}、中央値{median}です。","{metric} has a mean of {mean} and a median of {median}.","{metric}的平均值为{mean}，中位数为{median}。"],
   ["左右の偏りは大きくありません。最小{min}から最大{max}まで広がり、平均だけでは地点や時点の違いを表し切れません。","There is no pronounced left–right skew. Values range from {min} to {max}; the mean alone cannot capture differences between places or times.","左右偏斜不明显。数值从最小{min}到最大{max}，仅凭平均值无法完整体现地点或时点的差异。"],
   ["{dataset}の{method}。{count}点。矢印キーでデータ点を確認し、Enterキーで監査レコードを開けます。","{method} for {dataset}. {count} points. Use arrow keys to inspect points and Enter to open the audit record.","{dataset}：{method}。共{count}个点。用方向键查看数据点，按Enter打开核查记录。"],
-  ["{period}の{count}時点を対象。途中の上下や欠測を含む可能性があり、毎年・毎月同じ方向に動いたという意味ではありません。","Includes {count} time points in {period}. There may be rises, falls, or missing values along the way; this does not mean values moved in the same direction every year or month.","收录{period}的{count}个时点。期间可能存在升降与缺失值，并不意味着每年、每月都朝同一方向变化。"],
+  ["{period}の{count}時点を収録。途中の上下や欠測を含む可能性があり、毎年・毎月同じ方向に動いたという意味ではありません。","Includes {count} time points in {period}. There may be rises, falls, or missing values along the way; this does not mean values moved in the same direction every year or month.","收录{period}的{count}个时点。期间可能存在升降与缺失值，并不意味着每年、每月都朝同一方向变化。"],
   ["{x}と{y}には非常に強い正の関係が見られます。","{x} and {y} show a very strong positive relationship.","{x}与{y}呈现非常强的正相关关系。"],
   ["この保存標本ではr={r}です。単回帰が説明する変動は約{percent}%で、残りはこの変数だけでは説明できません。","In this saved sample, r={r}. Simple regression explains about {percent}% of the variation; the rest is not explained by this variable alone.","此保存样本的r={r}。一元回归可解释约{percent}%的变动，其余部分无法仅用这个变量解释。"],
   ["この保存標本の歪度は{skewness}、超過尖度は{kurtosis}です。平均だけでなく分布全体を見る必要があります。","This saved sample has skewness {skewness} and excess kurtosis {kurtosis}. Consider the whole distribution, not just the mean.","此保存样本的偏度为{skewness}，超额峰度为{kurtosis}。不仅需要看平均值，还需观察整个分布。"],
   ["{metric}は{min}〜{max}に広がっています。","{metric} ranges from {min} to {max}.","{metric}分布在{min}至{max}之间。"],
   ["中央の50%の範囲は{q1}〜{q3}。平均{mean}だけでは、観測ごとの違いを表し切れません。","The middle 50% lies between {q1} and {q3}. The mean of {mean} alone cannot capture differences between observations.","中间50%的范围为{q1}至{q3}。仅凭平均值{mean}无法完整体现各条观测之间的差异。"],
   ["小さい順で中央にある値は{median}です。分布の端にある値も、誤りとは限りません。観測データから地点や時点を確認できます。","The middle value in ascending order is {median}. Values at the ends of the distribution are not necessarily errors. Check their places or times in the observations.","按升序排列后的中间值为{median}。分布两端的值不一定是错误，可在观测数据中确认其地点与时点。"],
-  ["記録されたM{magnitude}以上地震の年別件数（{period}）","Annual counts of recorded earthquakes with M≥{magnitude} ({period})","收录的M≥{magnitude}地震年度次数（{period}）"]
+  ["収録されたM{magnitude}以上地震の年別件数（{period}）","Annual counts of recorded earthquakes with M≥{magnitude} ({period})","收录的M≥{magnitude}地震年度次数（{period}）"]
 ]);

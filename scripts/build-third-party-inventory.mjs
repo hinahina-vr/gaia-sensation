@@ -36,15 +36,9 @@ for(const d of ATLAS_EXHIBITS){
     retrievedAt:data.retrievedAt,transformation:data.method,citation:data.citation||d.organisation,rawSourceHashes:d.rawManifest||'data/atlas-history/sources.json',
     usageSurfaces:['on-screen transformed display','directly served bundled JSON','participant-selected analysis fields may be sent to BYOK AI after consent']});
 }
+const lakes=JSON.parse(read('data/surface-water/lakes.json'));
+dataSources.push({modeId:'lakes',id:'jrc-lakes',title:'湖周辺の年次水域分類',organisation:'EC JRC / Google',sourceUrl:'https://global-surface-water.appspot.com/download',termsUrl:'https://global-surface-water.appspot.com/download',retrievedAt:lakes.retrievedAt,transformation:lakes.method,rawSourceHashes:'data/surface-water/lakes.json',usageSurfaces:['on-screen transformed display','directly served bundled JSON','participant-selected analysis fields may be sent to BYOK AI after consent']});
 const waterGrid=JSON.parse(read('data/atlas-history/waterstore-grid.json'));
-const tideStations=JSON.parse(read('data/atlas-history/sealevel-stations.json'));
-const electricityComparison=JSON.parse(read('data/atlas-history/electricity-comparison.json'));
-const drinkingComparison=JSON.parse(read('data/atlas-history/drinking-comparison.json'));
-const sanitationServices=JSON.parse(read('data/atlas-history/sanitation-services.json'));
-dataSources.push({modeId:'sanitation',id:'sanitation-services',title:'衛生サービスの内訳',organisation:'WHO / UNICEF JMP · World Bank WDI',sourceUrl:'https://washdata.org/topics/sanitation',termsUrl:'https://datacatalog.worldbank.org/public-licenses',license:sanitationServices.license,retrievedAt:sanitationServices.retrievedAt,transformation:sanitationServices.method,rawSourceHashes:sanitationServices.sources,usageSurfaces:['on-screen transformed display','directly served bundled JSON','participant-selected analysis fields may be sent to BYOK AI after consent']});
-dataSources.push({modeId:'drinking',id:'drinking-comparison',title:'安全管理された飲料水・都市と農村',organisation:'WHO / UNICEF JMP · World Bank WDI',sourceUrl:'https://washdata.org/topics/drinking-water',termsUrl:'https://datacatalog.worldbank.org/public-licenses',license:drinkingComparison.license,retrievedAt:drinkingComparison.retrievedAt,transformation:drinkingComparison.method,rawSourceHashes:drinkingComparison.sources,usageSurfaces:['on-screen transformed display','directly served bundled JSON','participant-selected analysis fields may be sent to BYOK AI after consent']});
-dataSources.push({modeId:'electricity',id:'electricity-comparison',title:'電力アクセス率・世界銀行の公式地域集計',organisation:'World Bank / SDG 7.1.1',sourceUrl:'https://data.worldbank.org/indicator/EG.ELC.ACCS.ZS',termsUrl:'https://datacatalog.worldbank.org/public-licenses',license:electricityComparison.license,retrievedAt:electricityComparison.retrievedAt,transformation:electricityComparison.method,rawSourceHashes:electricityComparison.sources,usageSurfaces:['on-screen transformed display','directly served bundled JSON']});
-dataSources.push({modeId:'sealevel',id:'sealevel-stations',title:'沿岸の相対海面・検潮所の年平均',organisation:'PSMSL / 原観測機関',sourceUrl:'https://psmsl.org/data/obtaining/',termsUrl:tideStations.termsUrl,referenceUrl:tideStations.referenceUrl,retrievedAt:tideStations.retrievedAt,transformation:tideStations.method,attribution:tideStations.citation,sourceSha256:tideStations.source.sha256,usageSurfaces:['on-screen transformed display','directly served bundled JSON','participant-selected analysis fields may be sent to BYOK AI after consent']});
 dataSources.push({modeId:'waterstore',id:'waterstore-grid',title:'陸水量偏差の0.5度配布格子',organisation:'NASA JPL / GRACE・GRACE-FO',sourceUrl:'https://grace.jpl.nasa.gov/data/get-data/jpl_global_mascons/',termsUrl:'https://grace.jpl.nasa.gov/about/how-to-cite/',retrievedAt:waterGrid.retrievedAt,transformation:waterGrid.method,rawSourceHashes:'data/atlas-history/waterstore-grid.json#sources',usageSurfaces:['on-screen transformed display','directly served bundled JSON','participant-selected analysis fields may be sent to BYOK AI after consent']});
 dataSources.push({modeId: 'story-map01-temperature', id: 'nasa-gistemp-regional-annual',
   title: storyTemperature.dataset, organisation: storyTemperature.provider,
@@ -52,7 +46,7 @@ dataSources.push({modeId: 'story-map01-temperature', id: 'nasa-gistemp-regional-
   retrievedAt: storyTemperature.retrievedAt, sourceSha256: storyTemperature.sourceSha256,
   transformation: storyTemperature.method, caveat: storyTemperature.caveat,
   usageSurfaces: ['story temperature map', 'directly served derived annual binary and metadata']});
-const payload = { schemaVersion: 1, generatedBy: "scripts/build-third-party-inventory.mjs", note: "ロックファイルの宣言と対象データ出典を列挙。ライセンス本文や公開許諾の代わりではない。利用者OSに存在するシステムフォントを優先し、フォント本体は掲載していない。", hostedFonts, dependencies, dataSources };
+const payload = { schemaVersion: 1, generatedBy: "scripts/build-third-party-inventory.mjs", note: "ロックファイルの宣言と収録データ出典を列挙。ライセンス本文や公開許諾の代わりではない。利用者OSに存在するシステムフォントを優先し、フォント本体は収録していない。", hostedFonts, dependencies, dataSources };
 const content = `${JSON.stringify(payload, null, 2)}\n`;
 const target = path.join(root, "docs/THIRD_PARTY_INVENTORY.json");
 if (process.argv.includes("--check")) assert.equal(fs.readFileSync(target, "utf8").replace(/\r\n/g, "\n"), content);

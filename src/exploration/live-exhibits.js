@@ -1,11 +1,9 @@
-import {buildLiveStatistics} from './live-statistics.js?v=whole-trends20-20261025';
-import {openObservationAnalysis} from './observation-analysis.js?v=earth-coexistence-20261025';
 import { animateMetricText } from '../shared/animated-metric.js';
 import { formatJapaneseNumber } from "../shared/number-format.js";
 import { STATUS_LABELS } from "./transforms.js?v=gaia-live-loading-1";
 import { earthBaseScale, earthLongitudeToMapX } from "./world-projection.js?v=gaia-japan-center-1";
 import { japanPrefectureView } from "./japan-prefecture-view.js?v=gaia-prefecture-gis-view-1";
-import { decorateMapActions } from "./map-exhibit-actions.js?v=co-creation20-20261025";
+import { decorateMapActions } from "./map-exhibit-actions.js?v=action-icons-ready-20260926";
 import { LIVE_EXHIBITS as EXHIBITS, liveReadingTranslations } from "./live-exhibit-catalog.js?v=live-reading-20261020-quality-20261022";
 import { createLivePrefectureMap } from "./live-prefecture-map.js?v=live-reading-20261020";
 import { OBSERVATION_CITIES, findObservationCity, adjacentObservationCity } from "./observation-cities.js?v=gaia-exhibit-catalog-1";
@@ -182,8 +180,6 @@ const draw = () => {
     field: globalThis.GaiaLiveData?.getPrefectureField?.(), scale: LIVE_METRIC_SCALES[exhibit.key] });
 };
 
-const statisticsDataset = () => activeIndex < 0 ? null : buildLiveStatistics(EXHIBITS[activeIndex], null, null, globalThis.GaiaLiveData?.getPrefectureField?.());
-
 const renderReadout = () => {
   if (activeIndex < 0 || !readout) return;
   const exhibit = EXHIBITS[activeIndex];
@@ -199,7 +195,7 @@ const renderReadout = () => {
   const modelMeasurement = measurement?.sourceKind === "MODEL";
   const feedState = state.selectedTime ? "選択時刻のモデル値" : pending ? missing ? "データを取得中" : "前回値を表示して更新中"
     : retained ? "前回取得値を表示中"
-    : missing ? state.source === "snapshot" ? "この地点の保存値はデータなし" : "データを取得できませんでした"
+    : missing ? state.source === "snapshot" ? "この地点の保存値は未収録" : "データを取得できませんでした"
     : state.connected && !savedMeasurement
     ? modelMeasurement ? "最新モデル値 / 5分ごとに再確認" : "公開観測値 / 5分ごとに再確認"
     : state.source === "live"
@@ -260,7 +256,7 @@ const renderReadout = () => {
     ? missing ? "選択した地点のデータを取得しています。別の地点の値で補わず、到着した値から表示します。"
       : "同じ地点の前回取得値を表示しながら更新しています。データ時刻は前回取得値のものです。"
     : retained ? "再取得できなかったため、同じ地点の前回取得値とそのデータ時刻を表示しています。"
-    : missing ? state.source === "snapshot" ? "この地点の値は保存データに含まれていません。保存値のある地点を選ぶか、ライブ接続で確認してください。"
+    : missing ? state.source === "snapshot" ? "この地点の値は保存データに収録されていません。保存値のある地点を選ぶか、ライブ接続で確認してください。"
       : "選択した地点のデータを取得できませんでした。別の地点の値で置き換えず、次の更新を待ちます。"
     : state.connected && !savedMeasurement
     ? exhibit.refreshCopy
@@ -302,8 +298,6 @@ const renderReadout = () => {
 const renderTimeline = exhibit => {
   const timeline = readout.querySelector('.gaia-live-timeline');
   if (!timeline) return;
-  const analysis = readout.querySelector('[data-live-deck-analysis]');
-  analysis.disabled = !statisticsDataset();
   const periods = globalThis.GaiaLiveData?.getPeriods?.(exhibit.key) || [];
   const selected = globalThis.GaiaLiveData?.getSelectedTime?.();
   const input = timeline.querySelector('input');
@@ -712,15 +706,7 @@ const mount = () => {
     <footer><span data-live-exhibit-source></span><time data-live-exhibit-time></time></footer>
     </div>
   `;
-  const analysisButton = readout.querySelector('[data-live-deck-analysis]');
-  analysisButton.setAttribute('data-observation-analysis', '');
-  decorateMapActions(readout.querySelector('.gaia-live-deck-actions'), readout.querySelector('[data-live-deck-source]'), analysisButton, { observationAnalysis: true });
-  analysisButton.disabled = true;
-  analysisButton.addEventListener('click', () => {
-    const index = activeIndex, dataset = statisticsDataset();
-    if (!dataset) return;
-    void openObservationAnalysis(dataset, () => activeIndex === index && activeIndex >= 0 && !layer.hidden);
-  });
+  decorateMapActions(readout.querySelector(".gaia-live-deck-actions"), readout.querySelector("[data-live-deck-source]"), readout.querySelector("[data-live-deck-analysis]"));
   cityPicker = readout.querySelector(".gaia-live-prefecture-picker");
   layer.append(readout);
   placePicker = createObservationPlacePicker({
@@ -855,8 +841,6 @@ globalThis.GaiaLiveExhibits = Object.freeze({
       playing: activeIndex >= 0 && (hourlyPlayback || poiAutoplayEnabled), detail: '選択地域を保ったまま、1時間ごとの保存モデル値を順に表示します。',
       reason: periods.length > 1 ? '' : '時間別データがないため、この展示は再生できません。' };
   },
-  getStatisticsDataset: statisticsDataset,
-  getState: () => ({ active: activeIndex >= 0, modeId: EXHIBITS[activeIndex]?.id || null }),
   observationPoints: OBSERVATION_CITIES,
   definitions: EXHIBITS,
 });

@@ -27,11 +27,11 @@ try {
     page.setDefaultTimeout(30000);
     page.on('pageerror', e => report.errors.push(e.message));
     await page.goto(`${base}/world.html#world-71`, { waitUntil: 'domcontentloaded' });
-    await page.waitForFunction(() => globalThis.GaiaMapCategories?.buttons().length === 100, null, { timeout: 60000 });
+    await page.waitForFunction(() => globalThis.GaiaMapCategories?.buttons().length === 75, null, { timeout: 60000 });
     await page.evaluate(() => GaiaModeEntryGuide.close('map', { restoreFocus: false }));
     await page.waitForFunction(() => !document.querySelector('#map-data-intro')?.hidden, null, { timeout: 60000 });
     let reference;
-    for (const number of [71, 72, 73]) {
+    for (const number of [71, 72, 73, 74, 75]) {
       if (number !== 71) await page.evaluate(n => GaiaMapCategories.buttons().find(b => Number(b.textContent.trim()) === n).click(), number);
       await page.waitForFunction(n => {
         const provider = n === 71 ? globalThis.GaiaFoodExhibits : globalThis.GaiaClimateHistory;

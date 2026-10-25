@@ -1,36 +1,9 @@
-import {ATLAS_EXPANSION_EXHIBITS} from './atlas-expansion-model.js?v=whole-trends20-20261025';
-import {waterStressColor} from './water-stress.js?v=cropland-gis-20261023';
-import {ATLAS_CENTURY_EXHIBITS,centuryValue,centuryDetail} from './atlas-century-model.js?v=whole-trends20-20261025';
-// Each exhibit is a distinct measurement; geographic subsets stay within it.
-const wdi = code => `https://data.worldbank.org/indicator/${code}`;
 export const ATLAS_EXHIBITS = Object.freeze([
   {id:'waterstore',number:'75',shortTitle:'大地に残る水',signalLabel:'陸水量の変化',subtitle:'土の中にも、川のほかにも、水は蓄えられている',
     picker:'GRACE / GRACE-FOの重力観測から、陸に蓄えられた水の増減を地図へ。陸地を選び、同じ場所の年変化をたどります。',
     source:'https://grace.jpl.nasa.gov/data/get-data/jpl_global_mascons/',organisation:'NASA JPL / GRACE・GRACE-FO',category:'世界 · 水と森',unit:'cm',metric:'陸水量偏差 · 観測月平均',range:[-30,30],colors:['#cf9666','#263f49','#86ded7'],labels:['−30','0','+30 cm'],view:'boxes',start:2003,end:2024,
     guide:'NASA JPL RL06.3 v4の陸域格子。2004–2009年平均からの水量の差を水の厚さ（cm）で表します。地下水・土壌水・地表水・雪氷などを含みます。配布0.5度、推定は約3度の広域単位です。地図と選択セルは年内の観測解平均、有効9暦月以上・9観測以上を採用。4つの地域の点は固定矩形の平均を開き、こちらは観測月の等重み平均です。基準より多いと青緑、少ないと橙。色面は近隣の有効格子をぼかして滑らかにつないでいます。地点選択・数値・統計は元の格子値を使用。灰色は有効月不足。衛星交代期などの欠測はそのまま残します。色の範囲を超えた値は数値で確認できます。'},
-  {id:'sealevel',number:'76',shortTitle:'少しずつ、高くなる海',signalLabel:'海域平均の海面高度',subtitle:'小さな高さの違いに、長い時間の変化が積もる',
-    picker:'沿岸の検潮所を選び、同じ港の海面の変化をたどります。衛星が測った3つの大洋の平均も開けます。',
-    source:'https://www.star.nesdis.noaa.gov/socd/lsa/SeaLevelRise/',organisation:'NOAA Laboratory for Satellite Altimetry',category:'世界 · 水と森',unit:'mm',metric:'海域平均海面高度 · 1993年比',range:[-120,120],colors:['#789ab7','#4a8caa','#a2e6e2'],labels:['−120','0','+120 mm'],view:'levels',start:1993,end:2024,
-    guide:'NOAAの実験的な衛星海面高度プロダクト。太平洋・大西洋・インド洋の記録を暦年で平均し、同じ海域の1993年平均からの差を表示。全12か月に観測がある年を採用し、各年の衛星系列を1つに絞って集計。地図の四角は海域全体の平均を開きます。対象は概ね北緯66度〜南緯66度。逆気圧補正あり、GIA補正なし。'},
-  {id:'electricity',number:'77',shortTitle:'電気が届くまで',signalLabel:'電気を利用できる人口の割合',subtitle:'日々の暮らしを支える電気は、どこまで届いているだろう',
-    picker:'世界銀行の国・地域別電力アクセス率。国の色と年の切り替えで、普及の違いを比べます。',
-    source:wdi('EG.ELC.ACCS.ZS'),code:'EG.ELC.ACCS.ZS',organisation:'World Bank / SDG 7.1.1',category:'世界 · 資源とエネルギー',unit:'%',metric:'電力アクセス率',range:[0,100],colors:['#222f43','#6a769a','#e2d7a4'],labels:['0','50','100%'],view:'countries',start:2000,end:2024,
-    guide:'電気を利用できる人口の割合。世界銀行WDI対象の公表・推計値を国・地域単位で表示しています。明るい色ほど割合が高く、灰色は選択年の欠測。普及率には供給の安定性・料金・夜間光の明るさの情報は含まれません。独自の補間や欠測のゼロ置換は行いません。'},
-  {id:'drinking',number:'78',shortTitle:'毎日の水を、家で',signalLabel:'安全に管理された飲料水',subtitle:'必要なときに、安全な水を使える暮らしへ',
-    picker:'WHO・UNICEF JMPの飲料水サービス統計。安全に管理された水を使える人口の割合を比べます。',
-    source:wdi('SH.H2O.SMDW.ZS'),code:'SH.H2O.SMDW.ZS',organisation:'WHO / UNICEF JMP · World Bank WDI',category:'世界 · 人口と暮らし',unit:'%',metric:'安全に管理された飲料水の利用率',range:[0,100],colors:['#183d4c','#378caa','#a2e6ed'],labels:['0','50','100%'],view:'countries',start:2000,end:2024,
-    guide:'改善された水源が敷地内にあり、必要なときに利用でき、糞便性・主要化学汚染のない飲料水を使う人口の割合。WHO・UNICEF JMPの推計を世界銀行WDIから取得。公表系列には提供元による補間・推計を含みます。欠測は灰色で示し、独自に埋めません。国の色は国内全域の水質ではなく、人口に占める利用率です。'},
-  {id:'sanitation',number:'79',shortTitle:'暮らしの先へ、水を返す',signalLabel:'安全に管理された衛生設備',subtitle:'使ったあとの水まで、暮らしはつながっている',
-    picker:'WHO・UNICEF JMPの衛生統計。安全に管理された衛生設備を使う人口の割合を比べます。',
-    source:wdi('SH.STA.SMSS.ZS'),code:'SH.STA.SMSS.ZS',organisation:'WHO / UNICEF JMP · World Bank WDI',category:'世界 · 人口と暮らし',unit:'%',metric:'安全に管理された衛生設備の利用率',range:[0,100],colors:['#263747','#608d9b','#bde3d1'],labels:['0','50','100%'],view:'countries',start:2000,end:2024,
-    guide:'他世帯と共用しない改善された衛生設備を利用し、排泄物が現場で安全に処理されるか、搬送先で処理される人口の割合。WHO・UNICEF JMPの推計を世界銀行WDIから取得。公表系列には提供元による補間・推計を含みます。国内の下水道普及率だけに限らない指標です。欠測は灰色とし、独自の補間は行いません。'},
-  {id:'foresthistory',number:'80',shortTitle:'森が増えた国、減った国',signalLabel:'森林面積の割合',subtitle:'長い年月をかけて、森と土地の関係は変わっていく',
-    picker:'FAO・世界銀行の年次森林統計。各国の森林面積率と2000年からの変化をたどります。',
-    source:wdi('AG.LND.FRST.ZS'),code:'AG.LND.FRST.ZS',organisation:'FAO / World Bank WDI',category:'世界 · 水と森',unit:'%',metric:'森林面積率',range:[0,100],colors:['#253e38','#4f9a7c','#bbe2ad'],labels:['0','50','100%'],view:'countries',start:2000,end:2023,
-    guide:'陸地面積に占める森林面積の割合。自然林と人工林を含み、果樹園・農業林・都市公園などは除きます。FAOの国別報告・推計を世界銀行WDIから取得。年次系列には提供元の補間・推計を含むため、年ごとの伐採場所や自然林の質を直接示すものとは区別します。2000年との差はパーセントポイント。欠測を補わず、08の森林分布画像や12の複数層表示とは分けて時系列を比較します。'},
-  ...ATLAS_EXPANSION_EXHIBITS,
-  ...ATLAS_CENTURY_EXHIBITS,
-].map(d=>Object.freeze({...d,atlas:true})));
+ ].map(d=>Object.freeze({...d,atlas:true})));
 export const atlasDefinition = id => ATLAS_EXHIBITS.find(d=>d.id===id);
 export function atlasRow(region,year,month) {
   const row=region?.years.find(r=>r.year===year);
@@ -38,7 +11,6 @@ export function atlasRow(region,year,month) {
 }
 export const atlasFormat = value => Number.isFinite(value)?value.toLocaleString('ja-JP',{maximumFractionDigits:1}):'欠測';
 export function atlasColor(d,value) {
-  if(d.id==='waterstress')return waterStressColor(value);
   if(!Number.isFinite(value))return '#566772';
   const f=Math.max(0,Math.min(1,(value-d.range[0])/(d.range[1]-d.range[0]))), part=Math.min(1,Math.floor(f*2)), t=f*2-part;
   const rgb=c=>[1,3,5].map(i=>parseInt(c.slice(i,i+2),16));
@@ -47,7 +19,6 @@ export function atlasColor(d,value) {
 }
 export function atlasInsight(d,region,year,month=d.defaultMonth) {
   const row=atlasRow(region,year,month);
-  if(d.century)return `${region?.name||''} · ${year}年 ${centuryValue(d,row,atlasFormat)}。${centuryDetail(d,row,atlasFormat)}。`;
   if(!Number.isFinite(row?.value))return `${year}年は比較に使える記録がありません。`;
   const baseYear=d.view==='countries'||d.monthly?2000:d.start, base=atlasRow(region,baseYear,month);
   const delta=Number.isFinite(base?.value)?row.value-base.value:null;

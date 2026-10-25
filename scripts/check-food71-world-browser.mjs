@@ -5,7 +5,7 @@ import {execFileSync} from 'node:child_process';
 import {chromium} from 'playwright-core';
 import {enforceBrowserSecurity} from './lib/browser-security-qa.mjs';
 const before=process.env.GAIA_FOOD71_BEFORE==='1';
-const out=path.resolve('artifacts/food71-world-20261025/'+(before?'before':'after'));
+const out=path.resolve('artifacts/commit75-verification/food71/'+(before?'before':'after'));
 fs.mkdirSync(out,{recursive:true});
 const browser=await chromium.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true});
 const report={sha:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),tree:'uncommitted changes',before,scope:'Installed Chrome, local real data, desktop and emulated touch; no production or physical phone claim',checks:[],errors:[]};let page;

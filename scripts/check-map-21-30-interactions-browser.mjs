@@ -76,7 +76,7 @@ try {
       }, { key, pref, year });
       assert.equal(missing.value, '欠測');
       assert.equal(missing.quality, 'missing');
-      assert.match(missing.note, /データなし|欠測/);
+      assert.match(missing.note, /未収録|欠測/);
       assert.equal(missing.period, `${year}年`);
       assert(!missing.rows.includes(year));
       report.checks.push({ width, key, pref: pref + 1, year, missing });

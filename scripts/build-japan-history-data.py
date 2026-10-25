@@ -183,7 +183,7 @@ def air():
             points = [p for k, p in unique.items() if k not in ambiguous]
             if any(p['measurement']['quality'] == 'measured' for p in points): series[key].append(pollution.period(year, points, excluded))
         print('Air built', year, flush=True)
-    for key, earlier in series.items(): extend(f'japan-air-{key}.json', earlier, '公表されている年度と物質だけを対象。年度ごとの測定局情報の座標で照合し、位置不明局は除外。測定網・方法の変更に注意。未観測年度の補間なし。')
+    for key, earlier in series.items(): extend(f'japan-air-{key}.json', earlier, '公表されている年度と物質だけを収録。年度ごとの測定局情報の座標で照合し、位置不明局は除外。測定網・方法の変更に注意。未観測年度の補間なし。')
 
 
 def pack():
@@ -213,7 +213,7 @@ def prtr():
     result.update(periods=periods + [recent], historyRetrievedOn='2026-09-12',
         attribution='環境省・経済産業省のPRTR個別届出とNITE公式GISを同年度の整理番号で照合・加工。',
         coordinateNote='各年度のNITE事業所GIS（WGS84）。同年度の整理番号が一致する事業所のみ。年度間の事業所の同一性を推定しません。',
-        historyNote='2018〜2022年度の同年度座標を取得できた届出を対象。年度別IDのため事業所の年度間連結は行わず、選択年度の物質別分析を提供。1955年当時にはPRTR届出制度がなく、過去の排出量を捏造・補間しません。')
+        historyNote='2018〜2022年度の同年度座標を取得できた届出を収録。年度別IDのため事業所の年度間連結は行わず、選択年度の物質別分析を提供。1955年当時にはPRTR届出制度がなく、過去の排出量を捏造・補間しません。')
     write_snapshot('japan-prtr-2022.json', result)
 
 

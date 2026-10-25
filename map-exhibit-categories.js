@@ -5,17 +5,17 @@
   // their relative order within the subject groups. IDs/renderer indices stay stable.
   const definitions = Object.freeze([
     { id: "planet", label: "惑星のいま", summary: "火災・風・大気・地震・雲を世界から", color: "#9ee4dc", numbers: [1, 2, 3, 4, 5] },
-    { id: "climate", label: "気候と炭素", summary: "CO₂濃度・気温・海氷・積雪・海の熱・氷河", color: "#f3b48f", numbers: [6, 16, 24, 25, 26, 89, 90, 91, 93] },
+    { id: "climate", label: "気候と炭素", summary: "CO₂濃度・長期の気温変化", color: "#f3b48f", numbers: [6, 16, 24, 25, 26] },
     { id: "weather", label: "空と天気", summary: "風・雲・気温・空気の状態", color: "#9ed5ed", numbers: [15, 18, 19, 20, 27, 28, 38, 39, 40, 41, 42, 43, 72] },
-    { id: "air", label: "大気と汚染", summary: "SO₂・NOx・Ox・粒子・炭化水素・南極のオゾン", color: "#d7c3ed", numbers: [44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 92] },
-    { id: "water", label: "水と森", summary: "海流・雨・森林・海川湖の水質・水利用", color: "#95d8c2", numbers: [7, 8, 12, 17, 29, 30, 31, 32, 33, 34, 35, 36, 37, 73, 74, 75, 76, 80, 81, 96] },
+    { id: "air", label: "大気と汚染", summary: "SO₂・NOx・Ox・粒子・炭化水素の実測", color: "#d7c3ed", numbers: [44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54] },
+    { id: "water", label: "水と森", summary: "海流・雨・森林・海川湖の水質", color: "#95d8c2", numbers: [7, 8, 12, 17, 29, 30, 31, 32, 33, 34, 35, 36, 37, 73, 74, 75] },
     { id: "water-quality", label: "水質と汚濁", summary: "BOD・COD・SS・栄養塩・油分・金属・界面活性剤", color: "#a7d9c7", numbers: [55, 56, 57, 58, 59, 60, 61, 62, 63, 64] },
     { id: "chemicals", label: "化学物質の行方", summary: "PRTR事業所の届出排出量・移動量", color: "#d6b8ec", numbers: [65, 66, 67] },
     { id: "biology", label: "生きものの記録", summary: "河川の魚類・底生生物の確認分類群", color: "#bae6cd", numbers: [68, 69] },
-    { id: "food", label: "食卓と世界", summary: "食料の生産・貿易・農地・収量・肥料・栄養・水産物", color: "#e5d5a8", numbers: [70, 71, 82, 83, 84, 97, 98] },
-    { id: "people", label: "人口と暮らし", summary: "人口・移動・暮らし・健康・通信・難民", color: "#e8cf9b", numbers: [14, 21, 22, 23, 78, 79, 85, 86, 87, 88, 99, 100] },
-    { id: "resources", label: "資源とエネルギー", summary: "再資源化・排出・再生可能電力・電力アクセス", color: "#b8c9ef", numbers: [9, 10, 13, 77] },
-    { id: "earth", label: "大地の活動", summary: "地震・噴火・津波、その時と場所", color: "#d7abd8", numbers: [11, 94, 95] },
+    { id: "food", label: "食卓と世界", summary: "食料の生産・貿易と、供給を支える構造", color: "#e5d5a8", numbers: [70, 71] },
+    { id: "people", label: "人口と暮らし", summary: "人口・移動・旅・住まい", color: "#e8cf9b", numbers: [14, 21, 22, 23] },
+    { id: "resources", label: "資源とエネルギー", summary: "再資源化・排出・再生可能電力", color: "#b8c9ef", numbers: [9, 10, 13] },
+    { id: "earth", label: "大地の活動", summary: "世界の大地震、その時と場所", color: "#d7abd8", numbers: [11] },
   ].map(category => Object.freeze({ ...category, numbers: Object.freeze(category.numbers) })));
   const byNumber = new Map(definitions.flatMap(category => category.numbers.map(number => [number, category])));
   const get = number => byNumber.get(Number(number)) || null;
@@ -52,10 +52,7 @@
     ["BOD", "川"], ["COD", "川"], ["COD", "湖"], ["SS"], ["T-N"], ["T-P"],
     ["油分", "n-Hex抽出"], ["Zn", "全亜鉛"], ["LAS"], ["NP"],
     ["PRTR", "大気"], ["PRTR", "水域"], ["PRTR", "移動"],
-    ["底生", "分類群数"], ["魚類", "分類群数"], ["需給", "食料"], ["供給", "食料指標"], ["台風", "経路"], ["DHW", "海の熱"], ["湖", "水面積"],
-    ["陸水", "蓄えた水"], ["海面", "高度"], ["電力", "アクセス"], ["飲水", "利用率"], ["衛生", "利用率"], ["森林", "年次面積率"],
-    ["取水", "水ストレス"], ["耕地", "面積率"], ["穀物", "収量"], ["肥料", "消費量"], ["余命", "出生時"], ["都市", "人口率"], ["世代", "65歳以上"], ["乳幼児", "死亡率"], ["海氷", "月平均面積"], ["積雪", "月平均面積"],
-    ["海熱", "深さ別"], ["O₃", "南極"], ["氷河", "質量収支"], ["噴火", "記録"], ["津波", "記録"], ["取水", "用途別"], ["栄養", "不足率"], ["水産", "漁獲・養殖"], ["通信", "利用率"], ["難民", "出身国別"],
+    ["底生", "分類群数"], ["魚類", "分類群数"], ["需給", "食料"], ["供給", "食料指標"], ["台風", "経路"], ["DHW", "海の熱"], ["湖", "水面積"], ["陸水", "蓄えた水"],
   ].map(([symbol, detail = ""]) => Object.freeze({ symbol, detail })));
   const getTile = number => tileDefinitions[Number(number) - 1] || null;
   const decorateTile = (button, number) => {
@@ -84,7 +81,7 @@
     }
   };
   const scopedSummaries = {
-    world: { climate: "CO₂濃度と季節ごとの海氷・積雪", water: "海流・森林・生態系・水資源", people: "人口・都市化・暮らしと健康" },
+    world: { climate: "世界のCO₂濃度の推移", water: "海流・森林・地球の生態系", people: "世界の人口の推移" },
     japan: { climate: "日本のCO₂観測・長期の気温変化", water: "雨・海川湖の水質", people: "日本の人口・移動・旅・住まい" },
   };
   // Retain one subject identity and the numeric route. Scope is the picker's

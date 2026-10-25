@@ -1,5 +1,5 @@
-import { descriptive } from "./statistics-lab-core.js?v=whole-trends20-20261025";
-import { discoverData } from "./statistics-discovery.js?v=insights100-final-20261026";
+import { descriptive } from "./statistics-lab-core.js";
+import { discoverData } from "./statistics-discovery.js?v=food70-earth-20261025";
 
 // Observation-level copy is separate from the statistical explanation. Only
 // the rows used by the current analysis are supplied; no network or AI needed.
@@ -25,13 +25,13 @@ function timeChange(dataset, rows, unit, label) {
   const first = ordered[0], last = ordered.at(-1), change = last.value - first.value;
   const dateYear = row => Number(String(row.label).match(/^(\d{4})(?:[-/年]|$)/)?.[1]);
   const years = dateYear(last) - dateYear(first);
-  const period = Number.isFinite(years) && years > 1 ? `約${years}年間で` : "対象期間の始めと終わりで";
+  const period = Number.isFinite(years) && years > 1 ? `約${years}年間で` : "収録期間の始めと終わりで";
   return {
     headline: change === 0 ? `${label}は、期間の始めと終わりで同じ値です。`
       : `${period}、${label}が${number(Math.abs(change))}${deltaUnit(unit)}${change > 0 ? "増えています" : "減っています"}。`,
     summary: `${first.label}の${number(first.value)}${unit}から、${last.label}の${number(last.value)}${unit}へ。期間全体の始点・終点を比べた変化です。`,
     evidence: [["始点", first.value, unit], ["終点", last.value, unit], ["変化量", change, deltaUnit(unit)]],
-    detail: { title: "変化を確認した範囲", body: `${first.label}〜${last.label}の${ordered.length}時点を対象。途中の上下や欠測を含む可能性があり、毎年・毎月同じ方向に動いたという意味ではありません。` },
+    detail: { title: "変化を確認した範囲", body: `${first.label}〜${last.label}の${ordered.length}時点を収録。途中の上下や欠測を含む可能性があり、毎年・毎月同じ方向に動いたという意味ではありません。` },
   };
 }
 
@@ -52,7 +52,7 @@ export function buildStatisticalReading({ result, dataset, rows = [], methodId, 
   const stats = result.stats || chart.summary || descriptive(rows.map(row => row.value));
   const scope = `${dataset.title} / 現在の対象 ${rows.length}行${recordQuery ? ` / 絞り込み「${recordQuery}」` : ""}。${result.family === "exponential" || rows.some(row => row.provenance && row.provenance !== "SOURCE") ? "補完・派生値を含みます。" : "実測・出典データのみ。"}`;
   const make = (headline, summary, evidence = [], detail = null, caveat = "この結果は選択中の観測範囲についてのものです。原因や未観測の地域・将来まで断定するものではありません。") => {
-    caveat = [...new Set([caveat, dataset.comparisonNote, dataset.missingCount ? `全対象期間の欠測${dataset.missingCount}年は計算から除外しています。` : ""].filter(Boolean).flatMap(note => note.split(/\n\s*\n/u)))].join("\n\n");
+    caveat = [...new Set([caveat, dataset.comparisonNote, dataset.missingCount ? `全収録期間の欠測${dataset.missingCount}年は計算から除外しています。` : ""].filter(Boolean).flatMap(note => note.split(/\n\s*\n/u)))].join("\n\n");
     return {
     methodId, headline, summary, evidence, caveat, scope,
     findings: [{ title: "データから見えたこと", body: summary }, ...(detail ? [detail] : []), { title: "どこまで言えるか", body: caveat }],
@@ -65,7 +65,7 @@ export function buildStatisticalReading({ result, dataset, rows = [], methodId, 
   );
   const change = timeChange(dataset, rows, unit, label);
   const spread = () => {
-    if (stats.range === 0) return make(`${label}は、対象内ですべて${number(stats.mean)}${unit}です。`, "今回のデータ値には差がありません。他の時期や対象でも同じとは限りません。", [["観測数", stats.n, "件"], ["共通の値", stats.mean, unit]]);
+    if (stats.range === 0) return make(`${label}は、対象内ですべて${number(stats.mean)}${unit}です。`, "今回の収録値には差がありません。他の時期や対象でも同じとは限りません。", [["観測数", stats.n, "件"], ["共通の値", stats.mean, unit]]);
     const headline = stats.skewness > 0.5 && stats.mean > stats.median
       ? `${label}は、高い値の観測が平均を押し上げています。`
       : stats.skewness < -0.5 && stats.mean < stats.median
@@ -77,16 +77,16 @@ export function buildStatisticalReading({ result, dataset, rows = [], methodId, 
   };
   // Category dataset values are row indices, not meaningful measurements.
   if (["culture", "pollination"].includes(dataset.id) && !["categorical", "fisher", "exercise"].includes(methodId)) {
-    return make(`記録された${rows.length}件のカテゴリ記録を見ています。`, "このデータの数値は記録の整理用です。平均の大小を文化や生態系の優劣としては読めません。", [["対象の記録", rows.length, "件"]], null, "カテゴリごとの内訳と、比較対象の有無を観測データで確認してください。");
+    return make(`収録された${rows.length}件のカテゴリ記録を見ています。`, "このデータの数値は記録の整理用です。平均の大小を文化や生態系の優劣としては読めません。", [["収録記録", rows.length, "件"]], null, "カテゴリごとの内訳と、比較対象の有無を観測データで確認してください。");
   }
   if (["summary", "exercise"].includes(methodId) && result.kind === "summary") {
     return change ? make(change.headline, change.summary, change.evidence, change.detail) : spread();
   }
   if (methodId === "moments" || methodId === "continuous") {
-    if (result.family === "exponential") return make(`記録された地震の発生間隔は、中央値${number(stats.median)}日です。`, `平均は${number(stats.mean)}日、最短${number(stats.minimum)}日〜最長${number(stats.maximum)}日。間隔には幅があり、次の発生日を示す値ではありません。`, [["間隔の中央値", stats.median, "日"], ["平均間隔", stats.mean, "日"], ["対象の間隔", stats.n, "件"]], null, "発生日時から計算した派生値です。独立・一定発生率の仮定は地震予知の根拠にはなりません。");
+    if (result.family === "exponential") return make(`収録された地震の発生間隔は、中央値${number(stats.median)}日です。`, `平均は${number(stats.mean)}日、最短${number(stats.minimum)}日〜最長${number(stats.maximum)}日。間隔には幅があり、次の発生日を示す値ではありません。`, [["間隔の中央値", stats.median, "日"], ["平均間隔", stats.mean, "日"], ["対象の間隔", stats.n, "件"]], null, "発生日時から計算した派生値です。独立・一定発生率の仮定は地震予知の根拠にはなりません。");
     return spread();
   }
-  if (methodId === "discrete") return make(`記録された大地震の件数は、年${number(stats.minimum)}〜${number(stats.maximum)}件です。`, `年平均は${number(stats.mean)}件。年ごとの件数には差があり、平均の回数で毎年発生するわけではありません。`, [["年平均", stats.mean, "件/年"], ["最少", stats.minimum, "件/年"], ["最多", stats.maximum, "件/年"]], { title: "対象期間", body: `${rows[0]?.label}〜${rows.at(-1)?.label}のうち、選択中の${stats.n}年を比較しています。対象の基準の範囲内の件数で、すべての地震の件数ではありません。` }, "年ごとの集計を、将来の発生回数や発生時期の予測としては使えません。");
+  if (methodId === "discrete") return make(`収録された大地震の件数は、年${number(stats.minimum)}〜${number(stats.maximum)}件です。`, `年平均は${number(stats.mean)}件。年ごとの件数には差があり、平均の回数で毎年発生するわけではありません。`, [["年平均", stats.mean, "件/年"], ["最少", stats.minimum, "件/年"], ["最多", stats.maximum, "件/年"]], { title: "対象期間", body: `${rows[0]?.label}〜${rows.at(-1)?.label}のうち、選択中の${stats.n}年を比較しています。収録基準の範囲内の件数で、すべての地震の件数ではありません。` }, "年ごとの集計を、将来の発生回数や発生時期の予測としては使えません。");
   if (methodId === "sampling") return make(`${metric(result, "標本サイズ")}件だけで見ると、${label}の平均にも揺れが出ます。`, `保存データから取り直した平均は${number(metric(result, "標本平均の平均"))}${unit}。標本平均のばらつきは${number(metric(result, "標本平均の標準偏差"))}${unit}（標準偏差）です。`, [["全体平均", stats.mean, unit], ["標本平均のSD", metric(result, "標本平均の標準偏差"), unit], ["取り直した回数", metric(result, "反復"), "回"]], null, "元データ内の再抽出シミュレーションです。実際に新しい観測を行った結果ではなく、元データの偏りも残ります。");
   if (methodId === "unbiased") return make(`${label}の観測間のばらつきは、標準偏差で${number(stats.sampleSd)}${unit}です。`, `平均${number(stats.mean)}${unit}に対し、値は${number(stats.minimum)}〜${number(stats.maximum)}${unit}に分布。対象数の少なさを補正しても、観測ごとの差そのものは残ります。`, [["標本標準偏差", stats.sampleSd, unit], ["平均", stats.mean, unit], ["対象", stats.n, "件"]], null, "標準偏差は平均からの典型的なばらつきの尺度で、全件が平均±標準偏差に入る意味ではありません。");
   if (methodId === "interval") {
@@ -150,16 +150,16 @@ export function buildStatisticalReading({ result, dataset, rows = [], methodId, 
     const headline = Math.abs(high - low) < 1
       ? `${xLabel}の高低を変えても、${yLabel}が中央値を超える推定確率の差は1ポイント未満です。`
       : `${xLabel}が高い条件ほど、${yLabel}が中央値を超え${high > low ? "やすい" : "にくい"}推定です。`;
-    return make(headline, `${xLabel}が${number(xs.q1)}の条件で${number(low)}%、${number(xs.q3)}の条件で${number(high)}%。対象範囲の下位25%点と上位25%点でモデルを比較した推定確率で、実際の観測割合そのものではありません。`, [["低い条件での推定", low, "%"], ["高い条件での推定", high, "%"]], null, "目的変数は中央値で二値化した教材用の区分です。原因や将来確率を断定せず、標本範囲外へ外挿しません。");
+    return make(headline, `${xLabel}が${number(xs.q1)}の条件で${number(low)}%、${number(xs.q3)}の条件で${number(high)}%。収録範囲の下位25%点と上位25%点でモデルを比較した推定確率で、実際の観測割合そのものではありません。`, [["低い条件での推定", low, "%"], ["高い条件での推定", high, "%"]], null, "目的変数は中央値で二値化した教材用の区分です。原因や将来確率を断定せず、標本範囲外へ外挿しません。");
   }
   if (methodId === "multiple") {
     const r2 = metric(result, "R²");
-    return make(r2 < 0.5 ? "国ごとの再生可能エネルギー発電割合の違いは、自然条件だけでは捉え切れません。" : "日射・風速・降水を合わせると、国ごとの再生可能エネルギー発電割合の違いの一部が見えてきます。", `3つの自然条件を使ったモデルで表せる標本内の変動は約${number(r2 * 100)}%。残る約${number((1 - r2) * 100)}%は、このモデルでは説明できません。`, [["モデルで表せる変動", r2 * 100, "%"], ["モデルに残る変動", (1 - r2) * 100, "%"], ["対象", metric(result, "n"), "か国"]], { title: "次に確かめたいこと", body: "政策、電源構成、設備や送電網など、データなしの条件と照らし合わせる余地があります。これらが原因だと、この分析だけで特定したわけではありません。" }, "標本内の当てはまりであり、未知の国の予測精度や、自然条件の因果効果ではありません。");
+    return make(r2 < 0.5 ? "国ごとの再生可能エネルギー発電割合の違いは、自然条件だけでは捉え切れません。" : "日射・風速・降水を合わせると、国ごとの再生可能エネルギー発電割合の違いの一部が見えてきます。", `3つの自然条件を使ったモデルで表せる標本内の変動は約${number(r2 * 100)}%。残る約${number((1 - r2) * 100)}%は、このモデルでは説明できません。`, [["モデルで表せる変動", r2 * 100, "%"], ["モデルに残る変動", (1 - r2) * 100, "%"], ["対象", metric(result, "n"), "か国"]], { title: "次に確かめたいこと", body: "政策、電源構成、設備や送電網など、未収録の条件と照らし合わせる余地があります。これらが原因だと、この分析だけで特定したわけではありません。" }, "標本内の当てはまりであり、未知の国の予測精度や、自然条件の因果効果ではありません。");
   }
   if (methodId === "prediction") {
     const prediction = metric(result, "平均xでの予測") ?? metric(result, "平均条件での予測"), lower = metric(result, "95%予測下限"), upper = metric(result, "95%予測上限");
     const conditions = dataset.id === "renewables" ? "日射・風速・降水" : xLabel;
-    if (Number.isFinite(prediction)) return make(`平均的な${conditions}の条件でも、${yLabel}の推定には${number(lower)}〜${number(upper)}${unit}の幅があります。`, `モデルの中心値は${number(prediction)}${unit}。新しい1観測の95%予測区間は幅${number(upper - lower)}${deltaUnit(unit)}あり、一点の予測だけでは不確実性を隠してしまいます。`, [["予測の中心", prediction, unit], ["95%予測下限", lower, unit], ["95%予測上限", upper, unit]], { title: "予測した条件", body: `${conditions}を、対象した値の平均に置いた推定です。次の年・次の月を予測した結果ではありません。` }, "線形性、独立性、等分散性などを仮定したモデル内の区間です。現実の値域を外れる場合もあり、標本外への外挿には使いません。");
+    if (Number.isFinite(prediction)) return make(`平均的な${conditions}の条件でも、${yLabel}の推定には${number(lower)}〜${number(upper)}${unit}の幅があります。`, `モデルの中心値は${number(prediction)}${unit}。新しい1観測の95%予測区間は幅${number(upper - lower)}${deltaUnit(unit)}あり、一点の予測だけでは不確実性を隠してしまいます。`, [["予測の中心", prediction, unit], ["95%予測下限", lower, unit], ["95%予測上限", upper, unit]], { title: "予測した条件", body: `${conditions}を、収録した値の平均に置いた推定です。次の年・次の月を予測した結果ではありません。` }, "線形性、独立性、等分散性などを仮定したモデル内の区間です。現実の値域を外れる場合もあり、標本外への外挿には使いません。");
   }
   if (["scatter", "regression", "diagnostics", "exercise"].includes(methodId)) {
     const residual = metric(result, "残差SD");
@@ -168,7 +168,7 @@ export function buildStatisticalReading({ result, dataset, rows = [], methodId, 
     if (Number.isFinite(r)) {
       const headline = Math.abs(r) < 0.3 ? `${xLabel}の高低だけでは、${yLabel}の高低は読み取りにくいです。` : `${xLabel}が高い観測ほど、${yLabel}も${r > 0 ? "高い" : "低い"}傾向があります。`;
       const ys = descriptive(chart.pairs.map(row => Array.isArray(row) ? row[1] : row.y));
-      return make(headline, `${chart.pairs.length}組の観測を比較。${yLabel}は${number(ys.minimum)}〜${number(ys.maximum)}${unit}に分布しています。${Math.abs(r) < 0.3 ? "一方の値だけで、もう一方を判断するのは難しい関係です。" : "これは同じ対象で2つの値が結び付く傾向で、時間的な増減ではありません。"}`, [["観測の組数", chart.pairs.length, "組"], [`${yLabel}の最小`, ys.minimum, unit], [`${yLabel}の最大`, ys.maximum, unit]], { title: "この関係の使いどころ", body: methodId === "diagnostics" && Number.isFinite(residual) ? `モデルとのずれは標準偏差で${number(residual)}${unit}。個別の観測が直線から離れる理由も別途調べる必要があります。` : "同時に見るべき条件を見つける手がかりです。同じ傾向が別の期間や対象でも続くかは、追加の観測で確かめます。" }, "相関は原因を示しません。地点や時点の偏り、データなしの条件も関係に影響します。");
+      return make(headline, `${chart.pairs.length}組の観測を比較。${yLabel}は${number(ys.minimum)}〜${number(ys.maximum)}${unit}に分布しています。${Math.abs(r) < 0.3 ? "一方の値だけで、もう一方を判断するのは難しい関係です。" : "これは同じ対象で2つの値が結び付く傾向で、時間的な増減ではありません。"}`, [["観測の組数", chart.pairs.length, "組"], [`${yLabel}の最小`, ys.minimum, unit], [`${yLabel}の最大`, ys.maximum, unit]], { title: "この関係の使いどころ", body: methodId === "diagnostics" && Number.isFinite(residual) ? `モデルとのずれは標準偏差で${number(residual)}${unit}。個別の観測が直線から離れる理由も別途調べる必要があります。` : "同時に見るべき条件を見つける手がかりです。同じ傾向が別の期間や対象でも続くかは、追加の観測で確かめます。" }, "相関は原因を示しません。地点や時点の偏り、未収録の条件も関係に影響します。");
     }
   }
   return spread();

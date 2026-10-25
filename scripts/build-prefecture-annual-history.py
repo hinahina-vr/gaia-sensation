@@ -96,7 +96,7 @@ def build_migration():
     values = {year: [count_value(prefectures[f"{code:02}"][column]) for code in range(1, 48)] for year, column in columns.items()}
     assert all(sum(v for v in row if v is not None) == 0 for row in values.values()), "Inter-prefecture net migration must balance"
     return values, source_metadata("migration", "住民基本台帳人口移動報告 長期時系列 第5表（総数・日本人移動者）", "総務省統計局", 1954,
-        "全期間を日本人移動者に統一。外国人は含みません。沖縄県は1973年から対象。出生・死亡を含む人口増減ではありません。",
+        "全期間を日本人移動者に統一。外国人は含みません。沖縄県は1973年から収録。出生・死亡を含む人口増減ではありません。",
         population="日本人移動者・男女計", table="第5表／総数", okinawaStart="1973")
 
 
@@ -126,7 +126,7 @@ def build_housing(stations):
     assert all(sum(v for v in row if v is not None) == national[year] for year, row in values.items()), "Housing prefectures do not reconcile to the official national total"
     assert "沖縄県は昭和48年計から集計開始" in normalized(rows[-1][0])
     return values, source_metadata("housing", "建築着工統計調査 年計 都道府県別新設住宅戸数", "国土交通省", 1951,
-        "暦年の着工戸数で、竣工戸数や住宅需要ではありません。沖縄県は1973年から対象。データなし年は欠測です。",
+        "暦年の着工戸数で、竣工戸数や住宅需要ではありません。沖縄県は1973年から収録。未収録年は欠測です。",
         table="年計／都道府県別戸数", okinawaStart="1973")
 
 

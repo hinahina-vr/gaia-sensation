@@ -75,7 +75,7 @@
     ['色・光の大きさは{metric}','Color and light size show {metric}','颜色与光的大小表示{metric}'],
     ['全期間共通の色目盛','Same color scale for all periods','全时期统一色标'],
     ['県の色','Prefecture colors','都道府县颜色'], ['灰色','Gray','灰色'],
-    ['選択地点の対象期間の記録、単位{unit}','Selected site’s recorded history, unit: {unit}','所选地点收录期间的记录，单位{unit}'],
+    ['選択地点の収録期間の記録、単位{unit}','Selected site’s recorded history, unit: {unit}','所选地点收录期间的记录，单位{unit}'],
     ['前の観測地点、{number} {place}へ送る','Previous observation site: {number} {place}','上一个观测地点：{number} {place}'],
     ['次の観測地点、{number} {place}へ送る','Next observation site: {number} {place}','下一个观测地点：{number} {place}'],
   ]);

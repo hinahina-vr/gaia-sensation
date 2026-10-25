@@ -69,7 +69,7 @@ const output = {
   sourceUrl: "https://www.data.jma.go.jp/eqdb/data/shindo/",
   retrievedAt: new Date().toISOString(),
   selection:
-    "最大震度6弱以上を観測した代表6地震。各イベントの観測点は震度6弱・6強・7を全件対象。",
+    "最大震度6弱以上を観測した代表6地震。各イベントの観測点は震度6弱・6強・7を全件収録。",
   caveat:
     "震度データベースは後日更新される場合があります。防災判断には最新の気象庁・自治体情報を利用してください。",
   events,

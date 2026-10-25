@@ -450,8 +450,8 @@
     {
       title: "再資源化率は、国ごとにどう違うのか？",
       subject: "各国の再資源化率を、国土の青の明るさで比べます。国連の公表値に、世界銀行の再資源化向け回収率を補足しています。",
-      reading: "国土の青が明るいほど再資源化率が高く、0〜100%の同じ色尺度で比べます。無着色はデータなしで、0%とは異なります。報告年は国・地域で異なります。",
-      action: "左右ボタンかスライダーで国・地域を切り替えます。国土を押すと、割合、資料の年、出典・対象範囲を確認できます。データなしはゼロや推定値で埋めません。年度・定義が異なるため厳密な順位にはできません。",
+      reading: "国土の青が明るいほど再資源化率が高く、0〜100%の同じ色尺度で比べます。無着色は未収録で、0%とは異なります。報告年は国・地域で異なります。",
+      action: "左右ボタンかスライダーで国・地域を切り替えます。国土を押すと、割合、資料の年、出典・対象範囲を確認できます。未収録はゼロや推定値で埋めません。年度・定義が異なるため厳密な順位にはできません。",
     },
     {
       title: "化石燃料由来CO₂は、1945年からどこで増えたのか？",
@@ -484,7 +484,7 @@
       action: "スライダーで年を動かし、円を押して選んだ国の人口を年ごとに追えます。人口の多さを豊かさや環境負荷へは変換しません。",
     },
   ];
-  const JMA_HISTORY_DATA = "./data/jma-intensity-history.json?v=whole-trends20-20261025";
+  const JMA_HISTORY_DATA = "./data/jma-intensity-history.json";
   const JAPAN_DATA_BOUNDS = {
     west: 122,
     east: 154,
@@ -1787,11 +1787,7 @@
     const height = 180 * scale;
     // Desktop overview fits the full world horizontally; portrait keeps the
     // existing cover/pan behaviour. At higher zoom both can pan as usual.
-    // Exhibit 80 opens on Brazil, close to the established 30°W map seam.
-    // Let its camera frame the real country clear of the reading panel rather
-    // than zooming into a tiny fragment to satisfy the world-cover clamp.
-    const maximumOffsetX = Math.abs(width - rect.width) / 2
-      + (japanLayer.dataset.climateExhibit === "foresthistory" ? rect.width * .65 : 0);
+    const maximumOffsetX = Math.abs(width - rect.width) / 2;
     // COD's phone overview is framed in the exposed area between legend and
     // dock. Allow that centre even near 1x, where world-cover clamping would
     // otherwise put all Japanese stations back underneath the legend.
@@ -1857,7 +1853,7 @@
   // Rotate the canonical textures into one bounded 360° frame. These two
   // adjacent texture pieces meet without overlap; all vector paths are clipped
   // to that frame, so no additional world can appear at either edge.
-  const getEarthWorldCopies = (projection) => (japanLayer.dataset.climateExhibit === "foresthistory" ? [-360, 0, 360, 720] : [0, 360]).map((repeat) => ({
+  const getEarthWorldCopies = (projection) => [0, 360].map((repeat) => ({
     repeat,
     x: projection.originX + (repeat - EARTH_INITIAL_CENTER_LONGITUDE) * projection.scale,
     y: projection.originY,
@@ -2689,8 +2685,6 @@
       const opaqueCurrentLand = currentMapHasOpaqueLand();
       const projection = japanView.earthProjection || getEarthProjection(rect);
       const { originX, originY, width, height, scale } = projection;
-      const wrapForest = japanLayer.dataset.climateExhibit === "foresthistory";
-      const frameX = wrapForest ? 0 : originX, frameWidth = wrapForest ? rect.width : width;
       const worldCopies = getEarthWorldCopies(projection);
       japanOverlay.dataset.vectorWorldCopies = worldCopies
         .map((copy) => copy.x.toFixed(2))
@@ -2709,17 +2703,16 @@
 
       ctx.save();
       ctx.beginPath();
-      ctx.rect(frameX, originY, frameWidth, height);
+      ctx.rect(originX, originY, width, height);
       ctx.clip();
       ctx.fillStyle = warmStatMap ? "rgba(27, 66, 69, 0.18)" : "rgba(7, 25, 43, 0.46)";
-      ctx.fillRect(frameX, originY, frameWidth, height);
+      ctx.fillRect(originX, originY, width, height);
 
       ctx.setLineDash([2, 9]);
       ctx.lineWidth = 0.55;
       ctx.strokeStyle = "rgba(135, 224, 211, 0.105)";
       for (let longitude = -180; longitude <= 180; longitude += 30) {
-        let x = originX + earthLongitudeToMapX(longitude) * scale;
-        if (wrapForest) x += Math.round((rect.width / 2 - x) / width) * width;
+        const x = originX + earthLongitudeToMapX(longitude) * scale;
         ctx.beginPath();
         ctx.moveTo(x, originY);
         ctx.lineTo(x, originY + height);
@@ -2728,8 +2721,8 @@
       for (let latitude = -90; latitude <= 90; latitude += 30) {
         const y = originY + (90 - latitude) * scale;
         ctx.beginPath();
-        ctx.moveTo(frameX, y);
-        ctx.lineTo(frameX + frameWidth, y);
+        ctx.moveTo(originX, y);
+        ctx.lineTo(originX + width, y);
         ctx.stroke();
       }
       ctx.setLineDash([]);
@@ -2807,13 +2800,13 @@
       ctx.setLineDash([8, 12]);
       ctx.strokeStyle = "rgba(164, 244, 221, 0.22)";
       ctx.beginPath();
-      ctx.moveTo(frameX, equatorY);
-      ctx.lineTo(frameX + frameWidth, equatorY);
+      ctx.moveTo(originX, equatorY);
+      ctx.lineTo(originX + width, equatorY);
       ctx.stroke();
       ctx.setLineDash([]);
       ctx.strokeStyle = "rgba(135, 244, 216, 0.3)";
       ctx.lineWidth = 0.8;
-      if (!wrapForest) ctx.strokeRect(originX, originY, width, height);
+      ctx.strokeRect(originX, originY, width, height);
       ctx.textAlign = "start";
       ctx.restore();
       return;
@@ -2923,7 +2916,6 @@
     const cacheKey = [
       mapScope,
       japanLayer.classList.contains("is-estat-exhibit") ? "warm-stat-map" : "default-map",
-      japanLayer.dataset.climateExhibit === "foresthistory" ? "wrap-forest" : "bounded-world",
       currentMapHasOpaqueLand() ? "opaque-current-land" : "translucent-land",
       naturalEarthLandState,
       naturalEarthLandRings.length,
@@ -4020,7 +4012,7 @@
         selected,
         legend: [
           "国土の青 / 再資源化率",
-          "無着色 / データなし",
+          "無着色 / 未収録",
           "黄色の枠 / 選択中",
           "濃い青 / 0%",
         ],
@@ -4152,7 +4144,7 @@
           "国土の青 / 発電割合",
           "明るさ / 比率",
           "日射・風 / 31代表地点のみ",
-          "無着色 / 値の対象なし",
+          "無着色 / 値の収録なし",
         ],
       };
     }
@@ -7053,10 +7045,10 @@
         const narratives = {
           "forest-cloud-engine": ["森林 × 雨 / 世界の参照地点", "緑は森林域、水色円は世界の国・地域に置いた参照地点の平均降水量です。直径が大きいほど雨が多く、国平均ではありません。円のない場所を雨量ゼロとは扱いません。"],
           "pollination-protocol": ["観察点と生息分布は異なります / 三つの読み方", "①黄色はGBIF観察点、②各国最大2件の標本制約、③場所のないGloBI花関係を非地理ネットワークで示します。点の空白はミツバチの不在ではありません。"],
-          "nothing-is-waste": ["再資源化率 / 国・地域別", "国土の青が明るいほど再資源化率が高く、0〜100%の同じ色尺度で比較します。国土を押すか、左右ボタンとスライダーで公表値のある国・地域を切り替えます。無着色はデータなしで、0%とは異なります。報告年は国ごとに異なります。"],
+          "nothing-is-waste": ["再資源化率 / 国・地域別", "国土の青が明るいほど再資源化率が高く、0〜100%の同じ色尺度で比較します。国土を押すか、左右ボタンとスライダーで公表値のある国・地域を切り替えます。無着色は未収録で、0%とは異なります。報告年は国ごとに異なります。"],
           "anthropocene-scar": ["1945—2023年 化石燃料由来CO₂ × 2016年固定夜間光", "国土の濃紺→紫→赤→橙→淡黄は、選択年の国別化石燃料由来CO₂です。1945〜2023年で共通の固定対数尺度を使います。白い発光はNASA VIIRS 2016を固定した比較用レイヤーです。"],
-          "three-ecologies": ["都市人口率が高い国は、森が少ない？", "緑は陸地の森林率、青は人口の都市居住率。都市人口率が近い二国、対象国・地域の散布図、文化・記憶を切り替えて比較します。欠測を除外し基準年も異なるため、因果関係の結論ではありません。"],
-          "earth-organ": ["再生可能エネルギー発電割合 / 世界の国・地域", "国土の青が明るいほど、総発電量に占める再生可能エネルギーの割合が高い国です。公表値のある国・地域を、高い国から低い国へ移動します。年は国ごとに異なります。日射・風は31代表地点のみの補足で、データなし値は補いません。"],
+          "three-ecologies": ["都市人口率が高い国は、森が少ない？", "緑は陸地の森林率、青は人口の都市居住率。都市人口率が近い二国、収録国・地域の散布図、文化・記憶を切り替えて比較します。欠測を除外し基準年も異なるため、因果関係の結論ではありません。"],
+          "earth-organ": ["再生可能エネルギー発電割合 / 世界の国・地域", "国土の青が明るいほど、総発電量に占める再生可能エネルギーの割合が高い国です。公表値のある国・地域を、高い国から低い国へ移動します。年は国ごとに異なります。日射・風は31代表地点のみの補足で、未収録値は補いません。"],
           "population-tide": ["1960—2025年 人口 / 世界の国・地域", "淡青の円は選択年の人口です。217の国・地域を対象に、円の面積が人口に比例する全年共通尺度で比較します。欠測年は非表示。点は代表位置で、都市の位置や人口密度ではありません。"],
         };
         const [kicker, copy] = narratives[signalMode.id] || [
@@ -7811,7 +7803,7 @@
       if (!Array.isArray(data.events)) {
         throw new Error("Invalid JMA history payload");
       }
-      dataLedger.setJsonPreview("jma", data, "data/jma-intensity-history.json?v=whole-trends20-20261025");
+      dataLedger.setJsonPreview("jma", data, "data/jma-intensity-history.json");
       japanHistoryEvents = data.events.filter(
         (event) =>
           Number.isFinite(event.longitude) &&
@@ -8057,7 +8049,7 @@
         location: state?.selected ? getCountryNameJa(state.selected) : "—",
         value: `再資源化率 ${state?.sourceRecycle.toFixed(1) || "—"}% / ${recyclingSourceLabel(state?.selected)}`,
         dockMetric: { label: "再資源化率", value: state?.sourceRecycle.toFixed(1) || "—", unit: "%", detail: recyclingSourceLabel(state?.selected) },
-        note: `${state?.selected ? getCountryNameJa(state.selected) : "この国"} ${state?.selected?.year || "報告年不明"}。${recyclingDetails(state?.selected)} ${RECYCLING_COMPARABILITY} 無着色はデータなしです。`,
+        note: `${state?.selected ? getCountryNameJa(state.selected) : "この国"} ${state?.selected?.year || "報告年不明"}。${recyclingDetails(state?.selected)} ${RECYCLING_COMPARABILITY} 無着色は未収録です。`,
         temporal: true,
       };
     }
@@ -9150,17 +9142,13 @@ for (const country of countryValues) {
         const primaryM49 = /^[0-9]{3}$/.test(String(properties.ISO_N3)) && properties.ISO_A3 !== "-99" ? String(properties.ISO_N3) : null;
         const equivalentM49 = properties.ADM0_A3 === properties.ISO_A3_EH && /^[0-9]{3}$/.test(String(properties.ISO_N3_EH)) ? String(properties.ISO_N3_EH) : null;
         const m49 = primaryM49 || equivalentM49;
-        // Some available geometries (e.g. Kosovo) have no numeric M49 code.
-        // Retain their own ISO/ADM identity for non-FAOSTAT observations;
-        // numeric food records still match only their original M49 IDs.
-        const recordId = m49 || iso3;
-        if (recordId !== "010" && !countryRecords.has(recordId)) {
+        if (m49 && m49 !== "010" && !countryRecords.has(m49)) {
           const bounds = { left: Infinity, top: Infinity, right: -Infinity, bottom: -Infinity };
           for (const polygon of polygons) for (const ring of polygon) for (const [lon,lat] of ring) {
             bounds.left = Math.min(bounds.left,lon+180); bounds.right = Math.max(bounds.right,lon+180);
             bounds.top = Math.min(bounds.top,90-lat); bounds.bottom = Math.max(bounds.bottom,90-lat);
           }
-          countryRecords.set(recordId, Object.freeze({ id: recordId, iso3, lon: properties.LABEL_X, lat: properties.LABEL_Y, bounds: Object.freeze(bounds) }));
+          countryRecords.set(m49, Object.freeze({ id: m49, iso3, lon: properties.LABEL_X, lat: properties.LABEL_Y, bounds: Object.freeze(bounds) }));
         }
         const rings = countryRings.get(iso3) || [];
         for (const polygon of polygons) {
@@ -11173,7 +11161,7 @@ for (const country of countryValues) {
       target: document.querySelector("[data-intro-guide='sound']"),
       copy: "作品の音楽を一覧で再生し、シーンを支えるサウンドを鑑賞できます。",
       preview: "./assets/guide-previews/sound.jpg?v=current-guide-20260906-previews-20260913",
-      previewAlt: "楽曲一覧と再生パネルを表示したサウンド鑑賞画面",
+      previewAlt: "収録曲一覧と再生パネルを表示したサウンド鑑賞画面",
     },
   ].filter(({ target }) => target instanceof Element));
   const introEntryGuide = document.createElement("section");

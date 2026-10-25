@@ -2,60 +2,6 @@
   "retrievedAt": "2026-10-22",
   "sources": [
     {
-      "file": "countries.json",
-      "url": "https://api.worldbank.org/v2/country/all?format=json&per_page=400",
-      "sha256": "c9acf3932785191a649cbc04c3056af4cf64a236e5c3b49d49be25ddb0440bce",
-      "bytes": 113954
-    },
-    {
-      "file": "electricity-metadata.json",
-      "url": "https://api.worldbank.org/v2/indicator/EG.ELC.ACCS.ZS?format=json",
-      "sha256": "b97baf3b8af89e755fb51e00bf690940fddff51d8af3dbf32849662ece66559b",
-      "bytes": 812
-    },
-    {
-      "file": "electricity.json",
-      "url": "https://api.worldbank.org/v2/country/all/indicator/EG.ELC.ACCS.ZS?format=json&date=2000:2024&per_page=20000",
-      "sha256": "7d098c3250f2d28da1d6201b7e4d7e6d6f985cce968470daa91c390cffd9950e",
-      "bytes": 1491383
-    },
-    {
-      "file": "drinking-metadata.json",
-      "url": "https://api.worldbank.org/v2/indicator/SH.H2O.SMDW.ZS?format=json",
-      "sha256": "0fa2202365ca61608303356763ee484c4ef228807364f14fdfd77107c4221526",
-      "bytes": 1332
-    },
-    {
-      "file": "drinking.json",
-      "url": "https://api.worldbank.org/v2/country/all/indicator/SH.H2O.SMDW.ZS?format=json&date=2000:2024&per_page=20000",
-      "sha256": "374ad104b19b322d0d58c890ada337bb5a0c055f388948f1a22209382658e663",
-      "bytes": 1730363
-    },
-    {
-      "file": "sanitation-metadata.json",
-      "url": "https://api.worldbank.org/v2/indicator/SH.STA.SMSS.ZS?format=json",
-      "sha256": "9b186aa72504764172407ff5016666414e0794d3cd2c2fdd370ddb79386d7acf",
-      "bytes": 1387
-    },
-    {
-      "file": "sanitation.json",
-      "url": "https://api.worldbank.org/v2/country/all/indicator/SH.STA.SMSS.ZS?format=json&date=2000:2024&per_page=20000",
-      "sha256": "6dec8601df7d041b6708f5815f27119dfa399bd3434cf497408248a87351fad2",
-      "bytes": 1703527
-    },
-    {
-      "file": "foresthistory-metadata.json",
-      "url": "https://api.worldbank.org/v2/indicator/AG.LND.FRST.ZS?format=json",
-      "sha256": "706587ee22b05b930a1e745e4f104d6c895f46b827f5209655405764b85c7145",
-      "bytes": 879
-    },
-    {
-      "file": "foresthistory.json",
-      "url": "https://api.worldbank.org/v2/country/all/indicator/AG.LND.FRST.ZS?format=json&date=2000:2023&per_page=20000",
-      "sha256": "d02013fda03cd4dad636df9ad946c255a57e3d307713a738c0c7e590f656a432",
-      "bytes": 1422183
-    },
-    {
       "file": "grace-metadata.xml",
       "url": "https://grace-onearth.jpl.nasa.gov/edge/ws/metadata/dataset?nexusShortName=TELLUS_GRAC-GRFO_MASCON_CRI_GRID_RL06.3_V4_LAND",
       "sha256": "4442c86d18b05e7ed2a6f9b105ea5213ae7d2417480a79905f7688650f451d04",
@@ -84,24 +30,6 @@
       "url": "https://grace-onearth.jpl.nasa.gov/nexus/timeSeriesSpark?ds=TELLUS_GRAC-GRFO_MASCON_CRI_GRID_RL06.3_V4_LAND&minLat=-38&maxLat=-28&minLon=135&maxLon=150&startTime=1041379200&endTime=1735689599&mask=3&lowPassFilter=False&seasonalFilter=false",
       "sha256": "3fe81f77b6f11c7b72315799835571fd3cb505e98b5c2da46fc7b19265c6db1a",
       "bytes": 85623
-    },
-    {
-      "file": "sealevel-pac.csv",
-      "url": "https://www.star.nesdis.noaa.gov/socd/lsa/SeaLevelRise/slr/slr_sla_pac_keep_ref_90.csv",
-      "sha256": "9b270ca5734f38e30a5bc5533943546f0d7fb13d82e5988b51358fdc8d393177",
-      "bytes": 39076
-    },
-    {
-      "file": "sealevel-atl.csv",
-      "url": "https://www.star.nesdis.noaa.gov/socd/lsa/SeaLevelRise/slr/slr_sla_atl_keep_ref_90.csv",
-      "sha256": "8bbff2640234c9cec1fa56c5f498af14cd81328f60c92db214b0385a98e96503",
-      "bytes": 39457
-    },
-    {
-      "file": "sealevel-ind.csv",
-      "url": "https://www.star.nesdis.noaa.gov/socd/lsa/SeaLevelRise/slr/slr_sla_ind_keep_ref_90.csv",
-      "sha256": "b21aa09568cfec4e21584de789cf70d1ceac334793dcab274e835d004773725c",
-      "bytes": 39755
     }
   ]
 }

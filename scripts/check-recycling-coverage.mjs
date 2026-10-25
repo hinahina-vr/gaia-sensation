@@ -25,13 +25,7 @@ const priorMode = prior.modes.find(row => row.id === mode.id);
 assert.equal(priorMode.signals.countryWaste.length, 91);
 assert(!priorMode.signals.countryWaste.some(row => ["RUS", "IDN"].includes(row.iso3)), "Reproduce the original missing-country condition");
 assert.deepEqual(rows.filter(row => !row.datasetId || row.datasetId === "un-sdg"), priorMode.signals.countryWaste, "All 91 UN values, years, identities and notes remain exact");
-// Approved visitor-copy revision changes words only. Keep the complete historical
-// comparison (including every number, identity and note) after these exact terms.
-const currentVocabulary = value => typeof value === "string"
-  ? value.replaceAll("未収録", "データなし").replaceAll("台帳に収録", "台帳に記載").replaceAll("収録したGOSAT", "記録したGOSAT").replaceAll("収録値", "データ値").replaceAll("収録数", "対象数")
-  : Array.isArray(value) ? value.map(currentVocabulary)
-  : value && typeof value === "object" ? Object.fromEntries(Object.entries(value).map(([k,v]) => [k,currentVocabulary(v)])) : value;
-for (const original of prior.modes.filter(row => row.id !== mode.id)) assert.deepEqual(snapshot.modes.find(row => row.id === original.id), currentVocabulary(original));
+for (const original of prior.modes.filter(row => row.id !== mode.id)) assert.deepEqual(snapshot.modes.find(row => row.id === original.id), original);
 for (const row of rows.filter(row => row.datasetId === WB)) {
   const raw = source.rows.find(raw => raw.iso3 === row.iso3);
   assert.equal(row.recyclePercent, raw.rawFraction * 100);

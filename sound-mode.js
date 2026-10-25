@@ -314,7 +314,7 @@
     trackButtons.forEach((button, index) => {
       const track = button.dataset.soundTrack;
       const available = isAvailable(track);
-      const title = available ? tracks[track].title : "再生できる音源がありません";
+      const title = available ? tracks[track].title : "収録曲ではありません";
       button.disabled = !available;
       button.setAttribute("aria-disabled", String(!available));
       button.classList.toggle("is-locked", !available);

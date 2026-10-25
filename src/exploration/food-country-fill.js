@@ -1,10 +1,10 @@
 import { EARTH_CENTER_LONGITUDE } from './world-projection.js?v=gaia-japan-center-1';
-import { foodAppearance, foodValue } from './food-catalog.js?v=whole-trends20-20261025';
+import { foodAppearance, foodValue } from './food-catalog.js?v=fao-food-country-fill-1';
 import { poiArrival } from './annual-poi-arrival.js?v=gaia-annual-pop-20260909';
 
 // Country Path2Ds use longitude+180, latitude inverted, exactly like exhibit 13.
 // Draw both copies across the 30 W seam, clipped to a single geographic frame.
-export const foodCountryCopies = view => (view.wrapX?[-360,0,360,720]:[0,360]).map(repeat => ({
+export const foodCountryCopies = view => [0, 360].map(repeat => ({
   x: view.originX + (repeat - EARTH_CENTER_LONGITUDE) * view.scale,
   y: view.originY,
 }));
@@ -36,7 +36,7 @@ export function drawFoodCountryFill(ctx, { view, shapes, rows, kind, seriesId, s
 
 export function pickFoodCountry(ctx, shapes, view, clientX, clientY) {
   const x = clientX-view.rect.left, y = clientY-view.rect.top;
-  if (x<0 || y<0 || x>view.rect.width || y>view.rect.height || (!view.wrapX&&(x<view.originX||x>view.originX+360*view.scale)) || y<view.originY || y>view.originY+180*view.scale) return null;
+  if (x<0 || y<0 || x>view.rect.width || y>view.rect.height || x<view.originX || x>view.originX+360*view.scale || y<view.originY || y>view.originY+180*view.scale) return null;
   ctx.save(); ctx.setTransform(1,0,0,1,0,0);
   try {
     // Inverse-transform the pointer instead of testing against the DPR-scaled

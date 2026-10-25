@@ -25,13 +25,13 @@ try{
   await meaning.scrollIntoViewIfNeeded();const meaningBounds=await meaning.boundingBox();
   assert(meaningBounds.y>=0&&meaningBounds.y+meaningBounds.height<=height,'Earth-focused explanation can be scrolled fully into the viewport');
   await page.screenshot({path:path.join(out,width+'-70-meaning.png')});
-  assert.match(initial,/日本.*穀物/);assert(!/\d/.test(initial),'Summary focuses on interpretation rather than fine numbers');assert.match(initial,/地球との共創を考える視点/);assert.match(initial,/産地をたどり/);assert.match(initial,/農地や水/);assert.equal(await page.locator('#gaia-statistics-takeaway-evidence').isVisible(),false);
+  assert.match(initial,/日本.*穀物/);assert(!/\d/.test(initial),'Summary focuses on interpretation rather than fine numbers');assert.match(initial,/地球を考える視点/);assert.match(initial,/産地をたどり/);assert.match(initial,/農地や水/);assert.equal(await page.locator('#gaia-statistics-takeaway-evidence').isVisible(),false);
   assert(!initial.includes('1960年〜2015年'));assert(!initial.includes('直近3記録中'));assert(!initial.includes('範囲も分離'));assert(!initial.includes('（36.77%減）'));
   const r=await page.evaluate(()=>GaiaStatisticsLab.run('discovery').dataInsight);
   assert.equal(r.computedInsight.audience,'earth-context');assert.deepEqual(r.computedInsight.details.comparableYears,[2014,2015,2016,2017,2018,2019,2020,2021,2022,2023]);
   assert(Math.abs(r.computedInsight.details.latestValue-28.84148995709222)<1e-10);
   const summary=await page.locator('#gaia-statistics-takeaway').evaluate(e=>{const r=e.getBoundingClientRect();return{width:r.width,overflow:e.scrollWidth-e.clientWidth,documentOverflow:document.documentElement.scrollWidth-innerWidth};});assert(summary.overflow<=1&&summary.documentOverflow<=1);
-  await page.locator('[data-stat-view="findings"]').click();const findings=await page.locator('#gaia-statistics-findings').innerText();assert.match(findings,/地球との共創を考える視点|海外調達/);assert.match(findings,/食卓|生産/);
+  await page.locator('[data-stat-view="findings"]').click();const findings=await page.locator('#gaia-statistics-findings').innerText();assert.match(findings,/地球を考える視点|海外調達/);assert.match(findings,/食卓|生産/);
   await page.locator('[data-stat-view="records"]').click();assert((await page.locator('#gaia-statistics-records-body tr').count())>0);
   await closeAnalysis();
   await choose('036','2905');await openAnalysis();const surplus=await page.locator('#gaia-statistics-takeaway').innerText();assert.match(surplus,/オーストラリア/);assert.match(surplus,/純輸出|輸出/);assert(!surplus.includes('純輸入が'));await page.screenshot({path:path.join(out,width+'-70-export.png')});await closeAnalysis();

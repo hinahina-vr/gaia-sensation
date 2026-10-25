@@ -4,7 +4,7 @@ import { setAttributeIfChanged, setTextIfChanged, setStyleIfChanged } from "../s
 import { formatPrefecturePlace } from "./observation-place-label.js?v=gaia-place-inline-1";
 import { EARTH_CENTER_LONGITUDE, earthBaseScale, earthLongitudeToMapX } from "./world-projection.js?v=gaia-japan-center-1";
 import { japanPrefectureView } from "./japan-prefecture-view.js?v=gaia-prefecture-gis-view-1";
-import { ESTAT_EXHIBITS as EXHIBITS, estatReadingTranslations } from "./estat-exhibit-catalog.js?v=whole-trends20-20261025";
+import { ESTAT_EXHIBITS as EXHIBITS, estatReadingTranslations } from "./estat-exhibit-catalog.js?v=annual-reading-20261021-quality-20261022";
 import { decorateMapActions } from "./map-exhibit-actions.js?v=action-icons-ready-20260926";
 import { ESTAT_OCEAN_GLSL, createOceanMask } from "./estat-ocean.js?v=gaia-estat-ocean-1";
 import { createMetricLegend, updateMetricLegend, metricLegendProgress } from "./metric-legend.js?v=gaia-lodging-color-1-i18n-20260913";
@@ -12,7 +12,7 @@ import { initialObservationIndex } from './initial-observation-year.js?v=2016-20
 
 globalThis.GaiaI18n?.register(estatReadingTranslations);
 
-const SERIES_URL = new URL("../../data/estat-prefecture-series.json?v=whole-trends20-20261025", import.meta.url);
+const SERIES_URL = new URL("../../data/estat-prefecture-series.json?v=gaia-annual-history-1", import.meta.url);
 const PREFECTURE_TOPOLOGY_URL = new URL("../../data/japan-prefectures.topojson?v=gaia-estat-choropleth-1", import.meta.url);
 const PERIOD_MS = 6200;
 const POI_MS = 3600;
@@ -1371,7 +1371,7 @@ const renderReadout = () => {
     : exhibit.guide;
   const quality = qualityFlagFor(period);
   const qualityNote = series.unavailable ? "年次データの読み込みに失敗しました。ページを再読み込みしてください。"
-    : !Number.isFinite(value) ? quality?.flag === "insufficient" ? "資料不足のため、この年は欠測として表示しています。" : "この年の値はデータなしです。"
+    : !Number.isFinite(value) ? quality?.flag === "insufficient" ? "資料不足のため、この年は欠測として表示しています。" : "この年の値は未収録です。"
     : quality?.flag === "quasi-normal" ? "この年は気象庁の準正常値です。品質情報を保持して表示しています。" : "";
   readout.querySelector("[data-estat-quality]").textContent = qualityNote;
   readout.querySelector("[data-estat-quality]").hidden = !qualityNote;
@@ -1488,10 +1488,6 @@ const statisticsDataset = () => {
           city: station?.station || "",
           year: Number(year),
           qualityFlag: qualityFlagFor(year)?.flag || "normal",
-          related: Object.fromEntries((['averageTemperature','summerHigh','winterLow','relativeHumidity'].includes(exhibit.key)
-            ? ['averageTemperature','summerHigh','winterLow','relativeHumidity']
-            : ['precipitation','rainyDays'].includes(exhibit.key) ? ['precipitation','rainyDays'] : [])
-            .flatMap(key => Number.isFinite(series[key]?.[year]?.[selectedIndex]) ? [[key,series[key][year][selectedIndex]]] : [])),
           period: year,
           provenance: "SOURCE",
         };
@@ -1502,7 +1498,6 @@ const statisticsDataset = () => {
       valueLabel: exhibit.valueLabel,
       yLabel: exhibit.valueLabel,
       defaultMethod: "discovery",
-      insightContext: { domain: "prefecture-annual", axis: "time-series", placeName: formatPrefecturePlace(city.prefecture, station?.station) },
       provenance: ["SOURCE"],
       periodStart: validPeriods[0] || "",
       periodEnd: validPeriods.at(-1) || "",

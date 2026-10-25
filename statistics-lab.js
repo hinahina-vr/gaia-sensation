@@ -1,8 +1,8 @@
 /** 概要: データ分析画面。展示の観測データを読み込み、分析方法の選択・グラフ・結果の解説を表示する。 */
 import { formatJapaneseNumber } from "./src/shared/number-format.js";
-import { prepareStatisticalChart } from './statistics-chart-analysis.js?v=whole-trends20-20261025';
+import { prepareStatisticalChart } from './statistics-chart-analysis.js';
 import { formatObservationNumber, concentrationDomain } from "./src/shared/observation-numbers.js?v=pollution-1";
-import { buildDatasets, buildAnnualDataset, finiteNumber as finite } from "./statistics-datasets.js?v=whole-trends20-20261025";
+import { buildDatasets, buildAnnualDataset, finiteNumber as finite } from "./statistics-datasets.js?v=recycling-coverage-1";
 import { recyclingSourceLabel, recyclingDefinition, recyclingScope, recyclingYearNote } from "./src/data/recycling-provenance.js?v=recycling-coverage-1";
 import {
   analyzeAnova,
@@ -36,13 +36,12 @@ import {
   studentTQuantile,
   studentTCdf,
   varianceConfidenceInterval,
-} from "./statistics-lab-core.js?v=whole-trends20-20261025";
+} from "./statistics-lab-core.js?v=gaia-analysis-guide-1";
 import { METHOD_GROUPS, METHOD_LOOKUP, actionLabel, resolveLegacyAction } from "./statistics-methods.js?v=gaia-analysis-guide-1";
 import { ANALYSIS_PURPOSES, ANALYSIS_CARDS, analysisIcon } from "./statistics-menu.js?v=gaia-analysis-guide-1";
 import { createStatisticsAi } from "./statistics-ai.js?v=inline-analysis-20260913";
-import { buildDataInsight } from "./statistics-data-insights.js?v=insights100-final-20261026";
-import { snapshotObservationDataset, restoreObservationSnapshot } from './statistics-observation-snapshot.js?v=facts20-20261025';
-import { analyzeDiscovery } from "./statistics-discovery.js?v=insights100-final-20261026";
+import { buildDataInsight } from "./statistics-data-insights.js?v=food70-earth-20261025";
+import { analyzeDiscovery } from "./statistics-discovery.js?v=food70-earth-20261025";
 
 const q = (selector) => document.querySelector(selector);
 const lab = q("#gaia-statistics-lab");
@@ -426,11 +425,6 @@ if (!lab || !openButton) {
     const dataset = currentDataset();
     const method = METHOD_LOOKUP.get(state.methodId);
     if (!dataset || !method) return false;
-    const observationSnapshot = dataset.insightContext?.snapshotAnalysis ? snapshotObservationDataset(dataset) : null;
-    if (dataset.insightContext?.snapshotAnalysis && !observationSnapshot) {
-      ui.status.textContent = 'この観測記録は保存できません。対象を確認してください。';
-      return false;
-    }
     const snapshot = {
       id: globalThis.crypto?.randomUUID?.() || `view-${Date.now()}-${Math.random().toString(16).slice(2)}`,
       name: `${dataset.title.replace(/（.*$/u, "").trim()} · ${globalThis.GaiaI18n?.t(method.label.split('・')[0]) || method.label.split('・')[0]}${state.recordQuery ? ` · ${state.recordQuery}` : ""}`,
@@ -442,7 +436,6 @@ if (!lab || !openButton) {
       recordSortKey: state.recordSortKey,
       recordSortDirection: state.recordSortDirection,
       savedAt: new Date().toISOString(),
-      ...(observationSnapshot ? { observationSnapshot } : {}),
     };
     const signature = savedViewSignature(snapshot);
     const existing = state.savedViews.find((view) => savedViewSignature(view) === signature);
@@ -454,7 +447,7 @@ if (!lab || !openButton) {
     }
     const persisted = persistSavedViews();
     renderSavedViews(snapshot.id);
-    ui.status.textContent = persisted ? observationSnapshot ? "このブラウザに観測記録と条件を保存しました" : "このブラウザに条件を保存しました" : "ブラウザの設定により保存できません";
+    ui.status.textContent = persisted ? "このブラウザに条件を保存しました" : "ブラウザの設定により保存できません";
     window.dispatchEvent(new CustomEvent("gaia:statistics-view-save", { detail: { ...snapshot, persisted } }));
     return persisted;
   };
@@ -462,11 +455,6 @@ if (!lab || !openButton) {
   const applySavedView = async () => {
     const view = state.savedViews.find((candidate) => candidate.id === ui.savedView.value);
     let dataset = state.datasets.find((candidate) => candidate.id === view?.datasetId);
-    if (view?.observationSnapshot) {
-      const restored = restoreObservationSnapshot(view.observationSnapshot,view.datasetId);
-      if (!restored) { ui.status.textContent = '保存した観測記録を読み込めません。'; return false; }
-      dataset = installExternalDataset(restored);
-    }
     if (!dataset && /^(?:food-(?:balances|security)-\d+-\d{3}|japan-.+|climate-(?:cyclones|coral|lakes|waterstore|sealevel|electricity|drinking|sanitation|foresthistory|waterstress|cropland|yield|fertilizer|longevity|urban|ageing|childsurvival|seaice|snowcover|oceanheat|ozone|glaciers|volcanoes|tsunamis|wateruse|hunger|fisheries|internet|refugees)-[a-zA-Z0-9_-]+)$/.test(view?.datasetId || "")) {
       const requestedView = ui.savedView.value;
       let restored;
@@ -497,7 +485,6 @@ if (!lab || !openButton) {
     renderLectures();
     renderMethods();
     setDataset(dataset.id, false);
-    if (view.observationSnapshot) ui.status.textContent = '保存した観測記録で条件を復元しました';
     window.dispatchEvent(new CustomEvent("gaia:statistics-view-apply", { detail: { ...view } }));
     return true;
   };
@@ -563,7 +550,7 @@ if (!lab || !openButton) {
       chart: { type: "discrete", observed, expected, label: "年別件数" },
       formula: "Poisson: P(X=k)=e^(−λ)λ^k/k! / λ=標本平均",
       insight: customInsight({
-        headline: `記録された大地震は年平均${format(stats.mean, 2)}件、分散/平均は${format(ratio, 2)}です。`,
+        headline: `収録された大地震は年平均${format(stats.mean, 2)}件、分散/平均は${format(ratio, 2)}です。`,
         meaning: "ポアソン分布は、一定の平均率で独立に起きる件数を表し、理論上は平均と分散が等しくなります。幾何分布は次の発生までの試行回数を表します。",
         evidence: [["期間", "2001–2025", ""], ["n", stats.n, "年"], ["平均", stats.mean, "件"], ["分散", stats.populationVariance, "件²"], ["分散/平均", ratio, ""], [`年${threshold}件以上`, successYears, "年"]],
         interpretation: `分散/平均=${format(ratio, 2)}。この標本の年ごとの変動は、平均と分散が等しい単純ポアソンの目安と比べて${ratio > 1 ? "広い" : ratio < 1 ? "狭い" : "同じ"}値です。適合が確認されたわけではありません。`,
@@ -866,7 +853,7 @@ if (!lab || !openButton) {
       const margin = studentTQuantile(0.975, model.df) * residualSe * Math.sqrt(1 + 1 / rows.length);
       metrics.push(["平均条件での予測", predicted, "%"], ["95%予測下限", predicted - margin, "%"], ["95%予測上限", predicted + margin, "%"]);
     }
-    return customResult({ kind: "regression", metrics, chart: { type: "scatter", rows, pairs: rows.map((row,i) => ({ x: model.fitted[i], y: row.renewablePercent })), line: [0,1], xLabel: "重回帰の当てはめ値（%）", yLabel: "観測値（%）", unit: "%", identity: true }, formula: "y=β0+β1 solar+β2 wind+β3 rain+ε / β=(X'X)^−1X'y / VIF=1/(1−Rj²)", insight: customInsight({ headline: `3変数の重回帰R²は${format(model.rSquared)}、調整済みR²は${format(model.adjustedRSquared)}です。`, meaning: prediction ? "予測区間は係数推定と新しい観測の両方の不確実性を含みます。多重共線性は説明変数同士が似た情報を持つ状態で、VIFで確認します。" : "重回帰係数は、他の説明変数を一定としたときの1単位当たりの平均変化を表します。", evidence: [["n", model.n, "か国"], ["R²", model.rSquared, ""], ["最大VIF", Math.max(...vifs), ""], ["太陽光単相関", correlationSolar?.r ?? NaN, ""], ["風速単相関", correlationWind?.r ?? NaN, ""]], interpretation: `この保存標本では再生可能比率と太陽光の単相関は${format(correlationSolar?.r)}、風速とは${format(correlationWind?.r)}です。自然条件が高いほど導入率が高いとは限りません。最大VIFは${format(Math.max(...vifs))}です。`, limitations: ["係数は政策・経済・送電網などデータなし要因の影響を受けます。", "31か国の観察標本から因果効果は判断できません。", prediction ? "標本範囲外への外挿は行いません。" : "係数の安定性には残差と共線性の追加診断が必要です。"], nextActions: prediction ? ["12 残差診断", "15 分析の進め方"] : ["12 R²・残差", "01 説明変数間相関"], provenance: ["SOURCE"] }) });
+    return customResult({ kind: "regression", metrics, chart: { type: "scatter", rows, pairs: rows.map((row,i) => ({ x: model.fitted[i], y: row.renewablePercent })), line: [0,1], xLabel: "重回帰の当てはめ値（%）", yLabel: "観測値（%）", unit: "%", identity: true }, formula: "y=β0+β1 solar+β2 wind+β3 rain+ε / β=(X'X)^−1X'y / VIF=1/(1−Rj²)", insight: customInsight({ headline: `3変数の重回帰R²は${format(model.rSquared)}、調整済みR²は${format(model.adjustedRSquared)}です。`, meaning: prediction ? "予測区間は係数推定と新しい観測の両方の不確実性を含みます。多重共線性は説明変数同士が似た情報を持つ状態で、VIFで確認します。" : "重回帰係数は、他の説明変数を一定としたときの1単位当たりの平均変化を表します。", evidence: [["n", model.n, "か国"], ["R²", model.rSquared, ""], ["最大VIF", Math.max(...vifs), ""], ["太陽光単相関", correlationSolar?.r ?? NaN, ""], ["風速単相関", correlationWind?.r ?? NaN, ""]], interpretation: `この保存標本では再生可能比率と太陽光の単相関は${format(correlationSolar?.r)}、風速とは${format(correlationWind?.r)}です。自然条件が高いほど導入率が高いとは限りません。最大VIFは${format(Math.max(...vifs))}です。`, limitations: ["係数は政策・経済・送電網など未収録要因の影響を受けます。", "31か国の観察標本から因果効果は判断できません。", prediction ? "標本範囲外への外挿は行いません。" : "係数の安定性には残差と共線性の追加診断が必要です。"], nextActions: prediction ? ["12 残差診断", "15 分析の進め方"] : ["12 R²・残差", "01 説明変数間相関"], provenance: ["SOURCE"] }) });
   };
 
   const analyzeLogisticDataset = (dataset) => {
@@ -1074,19 +1061,17 @@ if (!lab || !openButton) {
     ui.takeaway.dataset.state = insight ? "ready" : "empty";
     ui.takeawayHeadline.textContent = insight?.headline || "この条件では、まだ結論を表示できません。";
     const earth = insight.computedInsight?.audience === "earth-context";
-    ui.takeaway.querySelector(".gaia-statistics-takeaway-copy > p").textContent = earth ? insight.computedInsight.takeawayLabel || "食卓と地球のつながり" : insight.scopeLabel || "このデータから分かること";
+    ui.takeaway.querySelector(".gaia-statistics-takeaway-copy > p").textContent = earth ? "食卓と地球のつながり" : insight.scopeLabel || "このデータから分かること";
     ui.takeawayBody.replaceChildren();
-    for (const [label, body] of [[earth ? "データから読み取れること（ファクト）" : "ファクト", insight.findings.find(f => f.kind === "observation")?.body || insight.headline], [earth ? "地球との共創を考える視点（インサイト）" : "インサイト", insight.summary]]) {
+    for (const [label, body] of [[earth ? "読み取れること" : "ファクト", insight.findings.find(f => f.kind === "observation")?.body || insight.headline], [earth ? "地球を考える視点" : "インサイト", insight.summary]]) {
       const section = document.createElement("section");
       const heading = document.createElement("h5"); heading.textContent = label;
       const paragraph = document.createElement("p"); paragraph.textContent = body;
       section.append(heading, paragraph); ui.takeawayBody.append(section);
     }
-    // The summary stays focused on the finding. Methods and limits remain in
-    // the detailed findings and source/observation views.
-    ui.takeawayCaveat.replaceChildren();
-    ui.takeawayCaveat.hidden = true;
-    ui.takeawayCaveat.style.display = 'none';
+    const caution = document.createElement('span'); caution.textContent = earth ? '読み方：' : '注意：';
+    const caveat = document.createElement('span'); caveat.textContent = earth ? insight.computedInsight.takeawayCaveat : insight.caveat;
+    ui.takeawayCaveat.replaceChildren(caution, caveat);
     ui.takeawayEvidence.hidden = earth;
     ui.takeawayEvidence.style.display = earth ? "none" : "";
     const evidence = earth ? [] : insight.evidence.slice(0, 3);
@@ -1569,8 +1554,7 @@ if (!lab || !openButton) {
     let maxY = ys.length ? Math.max(...ys) : 1;
     const frequencyChart = ["histogram", "distribution", "sampling", "discrete", "categorical"].includes(chart.type) && state.methodId!=='bh';
     if(chart.band?.length){minY=Math.min(minY,...chart.band.map(p=>p.lower));maxY=Math.max(maxY,...chart.band.map(p=>p.upper));}
-    const requestedXTicks = Array.isArray(chart.xTicks) ? [...new Set(chart.xTicks.filter(Number.isFinite))].slice(0, 10) : [];
-    const explicitXTicks = chart.tickLabels && width < 420 && requestedXTicks.length > 4 ? [requestedXTicks[0],requestedXTicks[Math.floor(requestedXTicks.length/2)],requestedXTicks.at(-1)] : requestedXTicks;
+    const explicitXTicks = Array.isArray(chart.xTicks) ? [...new Set(chart.xTicks.filter(Number.isFinite))].slice(0, 10) : [];
     canvas.dataset.xTickLabels = explicitXTicks.join(",");
     if (chart.bins?.length) {
       minX = Math.min(...chart.bins.map((bin) => bin.x0));
@@ -1662,8 +1646,7 @@ if (!lab || !openButton) {
         const value = minX + i / xTickCount * (maxX - minX);
         return timeAxis ? Math.round(value) : value;
       }))];
-      const tickLabel = value => chart.tickLabels?.[String(value)] ?? (timeAxis || explicitXTicks.length ? String(value) : format(value, Math.abs(maxX-minX)<12?1:0));
-      canvas.dataset.renderedXTickLabels = JSON.stringify(xTicks.map(tickLabel));
+      canvas.dataset.renderedXTickLabels = JSON.stringify(xTicks.map(value => timeAxis ? String(value) : format(value, Math.abs(maxX - minX) < 12 ? 1 : 0)));
       ctx.font = `600 13px ${chartFont}`;
       ctx.fillStyle = "#48697f";
       for (let i = 0; i <= tickCount; i += 1) {
@@ -1689,7 +1672,7 @@ if (!lab || !openButton) {
           ctx.beginPath(); ctx.moveTo(x, pad.top); ctx.lineTo(x, plotBottom); ctx.stroke(); ctx.setLineDash([]);
           ctx.strokeStyle = "#4f7384";
           ctx.beginPath(); ctx.moveTo(x, plotBottom); ctx.lineTo(x, plotBottom + 5); ctx.stroke();
-          ctx.fillText(tickLabel(value), x, plotBottom + (histogram ? 49 : 22));
+          ctx.fillText(timeAxis || explicitXTicks.length ? String(value) : format(value, Math.abs(maxX - minX) < 12 ? 1 : 0), x, plotBottom + (histogram ? 49 : 22));
         }
       }
       ctx.strokeStyle = "#4f7384"; ctx.lineWidth = 1.4;
@@ -1754,10 +1737,6 @@ if (!lab || !openButton) {
       }
       ctx.save();ctx.beginPath();ctx.rect(pad.left,pad.top,plotRight-pad.left,plotBottom-pad.top);ctx.clip();
       if(chart.band?.length){ctx.fillStyle='#508fc52b';ctx.beginPath();chart.band.forEach((p,i)=>{if(i)ctx.lineTo(xScale(p.x),yScale(p.lower));else ctx.moveTo(xScale(p.x),yScale(p.lower));});[...chart.band].reverse().forEach(p=>ctx.lineTo(xScale(p.x),yScale(p.upper)));ctx.closePath();ctx.fill();}
-      if(chart.observedPath?.length){
-        ctx.strokeStyle='#267ca5';ctx.lineWidth=2;ctx.beginPath();
-        chart.observedPath.forEach((p,i)=>{if(i)ctx.lineTo(xScale(p.x),yScale(p.y));else ctx.moveTo(xScale(p.x),yScale(p.y));});ctx.stroke();
-      }
       const lineCoefficients=Array.isArray(chart.line)?chart.line:chart.line?.coefficients;
       if(lineCoefficients || chart.line?.slope!==undefined){
         const intercept=lineCoefficients?lineCoefficients[0]:chart.line.intercept,slope=lineCoefficients?lineCoefficients[1]:chart.line.slope;
@@ -2039,20 +2018,11 @@ if (!lab || !openButton) {
     else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
   };
 
-  let statisticsDataReady = null;
-  const ensureReady = () => {
-    if (state.datasets.length) return Promise.resolve();
-    if (statisticsDataReady) return statisticsDataReady;
-    statisticsDataReady = (async () => {
-      const adapter = globalThis.GaiaMapObservationAdapter;
-      if (!adapter?.waitSignalsReady) throw new Error("地図データの準備が完了していません。");
-      const snapshot = await adapter.waitSignalsReady();
-      const recyclingTrend = await fetch("./data/recycling-trends.json?v=whole-trends20-20261025").then(r=>r.ok?r.json():null).catch(()=>null);
-      state.datasets = buildDatasets(snapshot,{recyclingTrend});
-      state.snapshot = snapshot;
-      renderLectures(); renderMethods();
-    })().catch(error=>{statisticsDataReady=null;throw error;});
-    return statisticsDataReady;
+  const ensureReady = async () => {
+    if (state.snapshot) return;
+    const adapter = globalThis.GaiaMapObservationAdapter;
+    if (!adapter?.waitSignalsReady) throw new Error("地図データの準備が完了していません。");
+    state.snapshot = await adapter.waitSignalsReady(); state.datasets = buildDatasets(state.snapshot); renderLectures(); renderMethods();
   };
 
   const installExternalDataset = (dataset) => {
@@ -2097,11 +2067,6 @@ if (!lab || !openButton) {
       dataset = annual.getStatisticsDataset();
       if (!dataset) { annual.requestStatisticsSelection?.(); return; }
       modeId = dataset.modeId;
-    }
-    if (!dataset && !datasetId && globalThis.GaiaLiveExhibits?.getState?.().active) {
-      const live = globalThis.GaiaLiveExhibits.getStatisticsDataset();
-      if (!live) return;
-      dataset = live; modeId = live.modeId;
     }
     clearTimeout(surfaceHideTimer);
     const request = ++surfaceRequest;

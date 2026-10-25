@@ -402,7 +402,7 @@
           "period": "1987–2025",
           "unit": "ppm",
           "resolution": "年次・綾里／南鳥島／与那国島",
-          "transformation": "GOSATとの観測量の違いを確認する比較資料として台帳に記載。観測開始前・終了後は構造的欠測として補完しない",
+          "transformation": "GOSATとの観測量の違いを確認する比較資料として台帳に収録。観測開始前・終了後は構造的欠測として補完しない",
           "caveat": "衛星XCO₂は大気柱平均、JMAは地上付近の背景大気で同じ観測量ではない。地点ごとに観測期間が異なる。与那国島の観測は2024年3月末で終了。「*」は月平均11個以下、「)」は速報値。",
           "preview": [
             {
@@ -255682,7 +255682,7 @@
           "plainTitle": "記録がある二つの月を、直線でつなぐ",
           "plainExplanation": "記録がある月と次の月のあいだは、二つの数字を直線で結び、途中の値を計算しました。",
           "plainLimit": "途中の変化を実際に観測したわけではありません。急な変化は表せない方法です。",
-          "target": "記録したGOSAT時点の間",
+          "target": "収録したGOSAT時点の間",
           "formula": "x_hat(t) = (1-a)x_t0 + a x_t1",
           "rule": "観測された前後二つの時点がある区間だけを、直線でつなぎます。観測期間の外へは延ばしません。",
           "validation": "途中を実際に測った値ではないため、画面ではDERIVEDと表示します。",
@@ -269788,7 +269788,7 @@
               "datasetId": "worldbank-waw3-recycling",
               "sourceLabel": "世界銀行公表値",
               "sourceDefinition": "再資源化向けに回収されたごみの割合（資料ごとの対象・分母の差を含む）",
-              "sourceScope": "プラスチックのみ。紙・金属・ガラスの量はデータなしで、実際の再資源化率を過小評価する可能性。",
+              "sourceScope": "プラスチックのみ。紙・金属・ガラスの量は未収録で、実際の再資源化率を過小評価する可能性。",
               "source": "World Bank. 2024. Armenia SWM Sector Assessment and Reform Plan. Sector Assessment Report. ",
               "sourceUrl": "https://datacatalog.worldbank.org/search/dataset/0039597/what-a-waste-global-database",
               "url": "https://datacatalog.worldbank.org/search/dataset/0039597/what-a-waste-global-database",
@@ -270304,7 +270304,7 @@
             "datasetId": "worldbank-waw3-recycling",
             "sourceLabel": "世界銀行公表値",
             "sourceDefinition": "再資源化向けに回収されたごみの割合（資料ごとの対象・分母の差を含む）",
-            "sourceScope": "プラスチックのみ。紙・金属・ガラスの量はデータなしで、実際の再資源化率を過小評価する可能性。",
+            "sourceScope": "プラスチックのみ。紙・金属・ガラスの量は未収録で、実際の再資源化率を過小評価する可能性。",
             "source": "World Bank. 2024. Armenia SWM Sector Assessment and Reform Plan. Sector Assessment Report. ",
             "sourceUrl": "https://datacatalog.worldbank.org/search/dataset/0039597/what-a-waste-global-database",
             "url": "https://datacatalog.worldbank.org/search/dataset/0039597/what-a-waste-global-database",
@@ -272690,7 +272690,7 @@
             "datasetId": "worldbank-waw3-recycling",
             "sourceLabel": "世界銀行公表値",
             "sourceDefinition": "再資源化向けに回収されたごみの割合（資料ごとの対象・分母の差を含む）",
-            "sourceScope": "資料に記録された回収量から算出。国連の範囲外値とは別資料。",
+            "sourceScope": "資料に収録された回収量から算出。国連の範囲外値とは別資料。",
             "source": "Malaysia, Ministry of Housing and Local Government Malaysia. \"Statistik KPKT 2022.\" [Malaysia, Kementerian Perumahan dan Kerajaan Tempatan Malaysia. \"Statistik KPKT 2022.\"]",
             "sourceUrl": "https://datacatalog.worldbank.org/search/dataset/0039597/what-a-waste-global-database",
             "url": "https://datacatalog.worldbank.org/search/dataset/0039597/what-a-waste-global-database",
@@ -274525,7 +274525,7 @@
           "period": "1945–2023",
           "unit": "Mt CO₂",
           "resolution": "15438 annual values / 213 countries and territories",
-          "transformation": "GCB2024の全ての照合可能な国・地域について1945年以降のTotal列を採用。現行の地図境界で表示し、旧国家・地域合計・国際輸送は現在の国へ振り分けません。年別の欠測はデータなしのままです。",
+          "transformation": "GCB2024の全ての照合可能な国・地域について1945年以降のTotal列を採用。現行の地図境界で表示し、旧国家・地域合計・国際輸送は現在の国へ振り分けません。年別の欠測は未収録のままです。",
           "caveat": "化石燃料燃焼・セメント等の国全体のCO₂です。土地利用変化やCO₂以外の温室効果ガスを含みません。点は国の目印で排出源ではありません。",
           "preview": [
             {
@@ -540162,7 +540162,7 @@
           "unit": "%",
           "resolution": "209 countries and economies / aggregates excluded",
           "transformation": "209の国・地域の国土を同じ0〜100%尺度で、暗い青から明るい水色へ塗り分けます。自動再生とスライダーは発電割合の高い国から低い国へ移動します。小さな地域は代表点でも選べます。",
-          "caveat": "COUNTRY VALUE。各国・地域の最新の非欠測値で、データ値の年は2011〜2021年と異なります。同一年の順位ではありません。世界・地域合計は除外し、データなしを0%で埋めません。日射・風は別の31代表地点の気候値です。",
+          "caveat": "COUNTRY VALUE。各国・地域の最新の非欠測値で、収録値の年は2011〜2021年と異なります。同一年の順位ではありません。世界・地域合計は除外し、未収録を0%で埋めません。日射・風は別の31代表地点の気候値です。",
           "preview": [
             {
               "id": "abw",
@@ -544109,7 +544109,7 @@
           "unit": "people",
           "resolution": "14292 annual values / 217 countries and economies",
           "transformation": "世界銀行の国・地域を全件対象とし、世界・地域・所得階層などの集計値を除外。選択年の人口を、全年共通の面積尺度で円に変換します。欠測年は補間せず非表示にします。",
-          "caveat": "点はNatural Earthの国・地域ラベル位置で、人口分布や密度ではありません。歴史的な国境ではなく現在の統計区分です。年によって対象数が異なります。人口の多さは豊かさや環境負荷を意味しません。",
+          "caveat": "点はNatural Earthの国・地域ラベル位置で、人口分布や密度ではありません。歴史的な国境ではなく現在の統計区分です。年によって収録数が異なります。人口の多さは豊かさや環境負荷を意味しません。",
           "countryMetadataUrl": "https://api.worldbank.org/v2/country?format=json&per_page=400",
           "dataUrl": "https://api.worldbank.org/v2/country/all/indicator/SP.POP.TOTL?date=1960:2025&format=json&per_page=20000",
           "positionSource": "data/natural-earth-50m-countries.geojson / LABEL_X, LABEL_Y; Gibraltar: Natural Earth 10m",

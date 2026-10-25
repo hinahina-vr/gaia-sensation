@@ -1,4 +1,4 @@
-import {ATLAS_EXHIBITS} from './atlas-history-model.js?v=whole-trends20-20261025';
+import {ATLAS_EXHIBITS} from './atlas-history-model.js?v=through75-20261025';
 export const CLIMATE_EXHIBITS = Object.freeze([
   { id: 'cyclones', number: '72', shortTitle: '嵐が残した道', signalLabel: '熱帯低気圧の経路・最大風速', subtitle: '海を渡った嵐の記録から、年ごとの違いをたどる',
     picker: 'NOAA IBTrACSの1980–2024シーズンの主要経路。線の色で1分平均風速を比べます。', source: 'https://www.ncei.noaa.gov/products/international-best-track-archive' },
@@ -29,10 +29,10 @@ export function coralInsight(region, row) {
 export function cycloneInsight(storms, year) {
   const measured = storms.filter(s => stormPeak(s) != null);
   const strongest = measured.reduce((best,s) => !best || stormPeak(s)>stormPeak(best) ? s : best, null);
-  return `${year}シーズンに主要経路${storms.length}件を対象。1分平均風速を確認できる${measured.length}件のうち、最大は${strongest ? `${stormLabel(strongest)}の${format(windMS(stormPeak(strongest)))}m/s` : '該当なし'}。${storms.length-measured.length ? `風速なしの${storms.length-measured.length}件は強さの比較から除外。` : ''}`;
+  return `${year}シーズンに主要経路${storms.length}件を収録。1分平均風速を確認できる${measured.length}件のうち、最大は${strongest ? `${stormLabel(strongest)}の${format(windMS(stormPeak(strongest)))}m/s` : '該当なし'}。${storms.length-measured.length ? `風速なしの${storms.length-measured.length}件は強さの比較から除外。` : ''}`;
 }
 export function statisticsFor({ kind, data, region, basin = 'ALL' }) {
-  const coral = kind === 'coral', label = coral ? `${region?.name} / 年内最大DHW` : `${BASINS[basin]} / 主要経路の対象数`;
+  const coral = kind === 'coral', label = coral ? `${region?.name} / 年内最大DHW` : `${BASINS[basin]} / 主要経路の収録数`;
   const observations = coral ? (region?.years || []).filter(r => r.validDays === daysInYear(r.year)).map(r => ({year:r.year,value:r.max}))
     : data.years.map(r => ({year:r.year,value:(basin === 'ALL' ? r : r.basins[basin])?.count ?? 0}));
   const unit = coral ? '℃・週' : '件', id = `climate-${kind}-${coral ? region?.id : basin}`;
@@ -42,5 +42,5 @@ export function statisticsFor({ kind, data, region, basin = 'ALL' }) {
     derivedFromSourceOnly:true,provenance:['DERIVED'],insightContext:{domain:'climate',axis:'time-series',measurementKind:'DERIVED'},
     sourceName:coral?'NOAA Coral Reef Watch':'NOAA NCEI / IBTrACS v4r01',sourceUrl:CLIMATE_EXHIBITS[coral?1:0].source,
     comparisonNote:coral?'日別DHWから算出した年内最大値。有効日数が暦年の日数に満たない年は統計対象から除外。監視海域の90パーセンタイルHotSpotから積算。'
-      :'MAIN経路の対象数。海域は各経路の最初の記録で分類。観測・対象体制の変化を含むため、件数の増減だけから発生頻度の長期変化を断定できません。' };
+      :'MAIN経路の収録数。海域は各経路の最初の記録で分類。観測・収録体制の変化を含むため、件数の増減だけから発生頻度の長期変化を断定できません。' };
 }

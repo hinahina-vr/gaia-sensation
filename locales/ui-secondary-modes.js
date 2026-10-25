@@ -145,7 +145,7 @@ GaiaI18n.register([
     "按压地球周围，可让磁力线暂时弯曲。Kp反映全球地磁活动，并非特定地点的极光预报。"
   ],
   [
-    "記録した粒子イベント",
+    "収録した粒子イベント",
     "Recorded particle events",
     "收录的粒子事件"
   ],
@@ -200,7 +200,7 @@ GaiaI18n.register([
     "火球沿拖动方向划过。只有方向由观众决定，亮度与发光高度基于观测记录。这并非涵盖所有流星的统计。"
   ],
   [
-    "最も近い対象惑星",
+    "最も近い収録惑星",
     "Nearest recorded planet",
     "收录的最近行星"
   ],
@@ -240,7 +240,7 @@ GaiaI18n.register([
     "触摸行星可比较其与地球的大小和温度差异。平衡温度并非实测地表温度，仅凭这些条件也无法判断是否存在生命。"
   ],
   [
-    "対象したレーザー測距",
+    "収録したレーザー測距",
     "Recorded laser-ranging points",
     "收录的激光测距点"
   ],
@@ -255,12 +255,12 @@ GaiaI18n.register([
     "隼鸟2号向龙宫小行星发射激光，通过光返回所需的时间测量距离。画面利用这些距离和探测器位置，将测量点构成立体起伏的轮廓。"
   ],
   [
-    "リュウグウへ触れると測定点を選び、表面に小さな起伏を残せます。対象した一日の一部分であり、天体全面の完成地形図ではありません。",
+    "リュウグウへ触れると測定点を選び、表面に小さな起伏を残せます。収録した一日の一部分であり、天体全面の完成地形図ではありません。",
     "Touch Ryugu to select a measurement point and leave a small bump in its outline. These data cover part of one day, not a complete topographic map of the entire body.",
     "触摸龙宫小行星可选择测量点，并在轮廓上留下细微起伏。这里只收录了一天中的部分数据，并非天体全表面的完整地形图。"
   ],
   [
-    "対象した公開記録",
+    "収録した公開記録",
     "Recorded public observations",
     "收录的公开记录"
   ],

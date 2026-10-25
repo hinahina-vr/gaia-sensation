@@ -95,69 +95,6 @@ add(75,
   t('重力を測る衛星から、陸に蓄えられた水の変化をたどります。', 'Gravity-measuring satellites reveal changes in water stored on land.', '通过测量重力的卫星，追踪陆地储水的变化。'),
   t('青緑は基準より多い水、橙は少ない水。陸地を選び、同じ場所の変化を追えます。', 'Teal shows more water than the baseline; orange shows less. Select land to follow the same place through time.', '蓝绿色表示储水量高于基准，橙色表示低于基准。选择陆地，追踪同一位置的变化。'),
   t('GRACE / GRACE-FO｜2003–2024年｜2004–2009年基準', 'GRACE / GRACE-FO | 2003–2024 | Baseline: 2004–2009', 'GRACE / GRACE-FO｜2003–2024年｜基准：2004–2009年'), 'climate');
-add(76,
-  t('衛星から見た海の高さは、年を追うごとに変わってきました。', 'Satellites have recorded the changing height of the ocean over the years.', '卫星记录下海面高度随年份发生的变化。'),
-  t('海の色で大洋の平均を、沿岸の点で港ごとの変化をたどります。', 'Ocean colours follow basin averages; coastal points reveal the changes at individual ports.', '海洋颜色呈现大洋平均值，沿岸的点显示各港口的变化。'),
-  t('検潮所 PSMSL / 衛星 NOAA｜1993–2024年', 'Tide gauges: PSMSL / Satellites: NOAA | 1993–2024', '验潮站 PSMSL / 卫星 NOAA｜1993–2024年'), 'climate');
-add(77,
-  t('電気を利用できる人は、その国の人口のうちどれくらいいるでしょう。', 'What share of a country’s population can access electricity?', '一个国家有多少比例的人口可以使用电力？'),
-  t('国を選び、2000年からの変化をたどります。同じ地域の歩みとも比べられます。', 'Select a country to follow change since 2000 and compare its progress with its region.', '选择国家，追踪2000年以来的变化，也可与所属地区的历程比较。'),
-  t('電力アクセス率｜世界銀行｜2000–2024年', 'Electricity access | World Bank | 2000–2024', '电力普及率｜世界银行｜2000–2024年'), 'climate');
-add(78,
-  t('家の敷地内で、必要なときに安全な飲み水を使える人の割合です。', 'The share of people with safe drinking water available on their premises when needed.', '在住所范围内能在需要时使用安全饮水的人口比例。'),
-  t('国を選び、都市と農村の違いをたどります。同じ国でも、水の届き方は変わります。', 'Select a country and follow differences between urban and rural access over time.', '选择国家，追踪城市与农村在饮水服务上的差异。'),
-  t('飲料水サービス｜WHO・UNICEF JMP／世界銀行｜2000–2024年', 'Drinking water | WHO / UNICEF JMP, World Bank | 2000–2024', '饮水服务｜WHO·UNICEF JMP／世界银行｜2000–2024年'), 'climate');
-add(79,
-  t('排泄物の処理まで安全に管理された衛生設備を使う人の割合です。', 'The share of people using sanitation facilities with safely managed waste disposal.', '使用排泄物得到安全处理的卫生设施的人口比例。'),
-  t('国を選び、設備の利用から処理までを確かめます。年を動かすと、その内訳が変わります。', 'Select a country to explore sanitation from access to waste treatment. Move through the years to see how its service mix changes.', '选择国家，了解从设施使用到排泄物处理的卫生服务。移动年份，查看各类服务的比例变化。'),
-  t('衛生サービス｜WHO・UNICEF JMP／世界銀行｜2000–2024年', 'Sanitation | WHO / UNICEF JMP, World Bank | 2000–2024', '卫生服务｜WHO·UNICEF JMP／世界银行｜2000–2024年'), 'climate');
-add(80,
-  t('その国の陸地のうち、森が占める割合を年ごとにたどります。', 'Follow the share of each country’s land covered by forest, year by year.', '逐年追踪各国陆地中森林所占的比例。'),
-  t('2000年から割合が増えた国は緑、減った国は橙。国を選び、年を動かして変化をたどります。', 'Green marks countries where the share has risen since 2000; orange marks a decline. Select a country and move through the years.', '绿色表示森林比例较2000年上升，橙色表示下降。选择国家，移动年份追踪变化。'),
-  t('森林面積率｜FAO／世界銀行｜2000–2023年', 'Forest area share | FAO / World Bank | 2000–2023', '森林面积比例｜FAO／世界银行｜2000–2023年'), 'climate');
-
-for(const [number,ja,en,zh,credit] of [
-  [81,'使える淡水資源に対し、どれほどの水を取り出しているでしょう。','How much freshwater is withdrawn relative to available renewable resources?','取水量占可用可再生淡水资源的比例有多高？','FAO AQUASTAT / World Bank · 2000–2022'],
-  [82,'国の陸地のうち、耕地が占める割合をたどります。','Follow the share of each country’s land used as arable land.','追踪各国陆地中耕地所占的比例。','FAO / World Bank · 2000–2024'],
-  [83,'収穫した土地1ヘクタールあたりの、穀物の量です。','Cereal production per hectare of harvested land.','每公顷收获土地的谷物产量。','FAO / World Bank · kg/ha · 2000–2024'],
-  [84,'肥料の成分消費量を、その国の耕地面積で割った値です。','Fertilizer nutrient consumption divided by each country’s arable area.','各国肥料养分消耗量除以耕地面积。','FAO / World Bank · kg/ha · 2000–2024'],
-  [85,'その年の死亡率に基づく、出生時の平均余命です。','Life expectancy at birth, based on mortality rates in each year.','根据各年死亡率计算的出生时预期寿命。','UN / World Bank · 2000–2024'],
-  [86,'国の人口のうち、都市で暮らす人の割合です。','The share of each country’s population living in urban areas.','各国人口中居住在城市的人口比例。','UN / World Bank · 2000–2024'],
-  [87,'人口に占める、65歳以上の人の割合をたどります。','Follow the share of the population aged 65 and over.','追踪总人口中65岁及以上人口的比例。','UN / World Bank · 2000–2024'],
-  [88,'出生1,000人あたり、5歳になる前に亡くなる確率の推計です。','Estimated deaths before age five per 1,000 live births.','每千名活产婴儿在五岁前死亡的估计概率。','UN IGME / World Bank · 2000–2024'],
-]) {
-  const reading={
-    81:t('国の色が、水への負荷を示します。国を選び、年を動かして、取水の割合を比べます。','Country colors show pressure on water. Select a country and move through the years to compare withdrawal ratios.','国家颜色表示用水压力。选择国家并移动年份，比较取水比例。'),
-    82:t('国の色が2000年からの増減。国を選び、陸地に占める耕地の割合を比べます。','Country colors show changes since 2000. Select a country to compare the arable share of its land.','国家颜色表示相对2000年的增减。选择国家比较耕地占陆地的比例。'),
-    83:t('国の色が穀物の収量。国を選び、2000年との違いや年ごとの変化を比べます。','Country colors show cereal yield. Select a country to compare changes since 2000 and follow its yearly record.','国家颜色表示谷物单产。选择国家，比较相对2000年的变化及逐年记录。'),
-    84:t('国の色が肥料の成分消費量。国を選び、年ごとの変化と同じ年の国の分布を比べます。','Country colors show fertilizer nutrient use. Select a country to follow yearly changes and compare the distribution across countries.','国家颜色表示肥料养分消耗量。选择国家，比较逐年变化和同一年各国的分布。'),
-    85:t('国の色が平均余命を示します。2つの国を選び、2000年からの変化を同じ目盛りでたどります。','Country colors show life expectancy. Select two countries to follow changes since 2000 on the same scale.','国家颜色表示预期寿命。选择两个国家，以相同刻度追踪2000年以来的变化。'),
-    86:t('国を選び、都市とそれ以外の割合が2000年からどう変わったかをたどります。','Select a country to follow its urban and rural population shares since 2000.','选择国家，追踪2000年以来城市与其他人口比例的变化。'),
-    87:t('100個の光のうち、明るい部分が65歳以上。年を動かして世代の変化をたどります。','In each group of 100 lights, bright ones show the share aged 65+. Move through the years.','每组100个光点中，明亮部分表示65岁以上比例。切换年份观察代际变化。'),
-    88:t('円の欠けた割合で死亡率を表します。外周の2000年と比べ、変化をたどります。','The missing arc shows the mortality rate. The outer ring marks 2000 for comparison.','圆环缺口表示死亡率，外环标记2000年以便比较。'),
-  };
-  add(number,t(ja,en,zh),reading[number],t(credit,credit,credit),'climate');
-}
-add(89,t('衛星が記録した、北極と南極の海氷域の広さです。','Satellite records of sea ice extent in the Arctic and Antarctic.','卫星记录的北极与南极海冰范围面积。'),
-  t('円の面積で広さを表します。月を選び、同じ季節を年ごとに比べましょう。','Circle areas represent extent. Choose a month to compare the same season across years.','圆的面积表示海冰范围。选择月份，比较各年同一季节。'),
-  t('NSIDC Sea Ice Index v4｜1979–2024年｜月平均','NSIDC Sea Ice Index v4 | 1979–2024 | Monthly means','NSIDC Sea Ice Index v4｜1979–2024年｜月平均'),'climate');
-add(90,t('雪に覆われた陸地の面積を、大陸ごとにたどります。','Follow the area of snow-covered land across continents.','追踪各大陆被雪覆盖的陆地面积。'),
-  t('12枚の扇が1〜12月の積雪面積。月を選ぶと金色になり、同じ季節を年ごとに比べられます。','Twelve sectors show snow area from January to December. Select a month in gold and compare it across years.','12个扇区表示1至12月的积雪面积，选定月份以金色标记，可逐年比较同一季节。'),
-  t('Rutgers / NOAA SCE CDR｜1972–2024年｜月平均','Rutgers / NOAA SCE CDR | 1972–2024 | Monthly means','Rutgers / NOAA SCE CDR｜1972–2024年｜月平均'),'climate');
-
-for(const [number,ja,en,zh,readJa,readEn,readZh,credit] of [
-  [91,'海に蓄えられた熱を、太平洋・大西洋・インド洋で比べます。','Compare heat stored in the Pacific, Atlantic and Indian oceans.','比较太平洋、大西洋和印度洋储存的热量。','上段は水深700mまで、下段は700〜2,000m。色と数値で、海の奥の変化をたどります。','The upper section spans 0–700 m; the lower 700–2,000 m. Colors and values trace changes at depth.','上层为0至700米，下层为700至2000米。通过颜色和数值追踪深处的变化。','NOAA NCEI · 2005–2024 · 10²² J'],
-  [92,'衛星観測から集計された、南極の春のオゾンホール面積です。','Antarctic spring ozone-hole area compiled from satellite observations.','根据卫星观测汇总的南极春季臭氧空洞面积。','中央に開く面積が、その春の広さ。年を動かして比べられます。','The central opening represents that spring’s area. Move through years to compare.','中央开口面积表示当年春季的大小，切换年份即可比较。','NASA Ozone Watch · 1979–2024 · 季節平均'],
-  [93,'世界の参照氷河で、積み重なった質量の変化をたどります。','Trace cumulative mass changes in the world’s reference glaciers.','追踪全球参考冰川的累积质量变化。','1970年の線から、失われた水当量が下へ重なります。','Lost water equivalent accumulates below the 1970 reference line.','失去的水当量在1970年基准线下逐渐累积。','WGMS · 1970–2024 · m水当量'],
-  [94,'被害や規模などから選ばれた、世界の噴火の記録です。','A global catalogue of significant eruptions selected by impact or magnitude.','根据影响或规模等筛选的全球重要喷发记录。','山形は記録された火山の位置。上に重なる段は、噴火の指数VEIです。','Mountain marks locate recorded volcanoes; the tiers above show the VEI category.','山形标记记录中的火山位置，上方层级表示火山爆发指数VEI。','NOAA NCEI · 1980–2024 · 対象噴火'],
-  [95,'発生が確認された津波を、その年の記録からたどります。','Trace confirmed tsunami events through each year’s records.','逐年追踪已确认发生的海啸记录。','波の記号が発生位置。地点を選ぶと、日付と沿岸の観測高を確認できます。','Wave marks locate origins. Select one for its date and reported coastal height.','波形标记发生位置，选择地点可查看日期与沿岸观测高度。','NOAA NCEI · 1980–2024 · 確度4の記録'],
-  [96,'国ごとに、水が農業・工業・生活へ向かう割合を比べます。','Compare water withdrawal shares for agriculture, industry and domestic use.','比较各国农业、工业和生活取水的比例。','三つの枝の太さが、それぞれの割合。年ごとの水の使い方をたどれます。','Three branch widths show the shares. Trace how water use changes over time.','三条分支的宽度表示各自比例，可追踪用水结构的逐年变化。','FAO AQUASTAT / World Bank · 2000–2022'],
-  [97,'日々の食事エネルギーが不足している人口の割合です。','The share of the population with insufficient habitual dietary energy.','日常膳食能量不足的人口比例。','皿の欠けた割合で、各国の栄養不足を比べます。','The missing share of each plate compares undernourishment across countries.','通过每个盘子缺口的比例比较各国营养不足情况。','FAO / World Bank · 2001–2024 · 3年移動平均'],
-  [98,'各国の水産物を、漁獲と養殖に分けてたどります。','Trace fisheries production, separating capture from aquaculture.','分别追踪各国捕捞与养殖的水产品产量。','青は漁獲、緑は養殖。二つのひし形の面積で、生産量を比べられます。','Blue is capture; green is aquaculture. Diamond areas compare production volumes.','蓝色为捕捞，绿色为养殖。通过两个菱形的面积比较产量。','FAO / World Bank · 2000–2024 · 万t'],
-  [99,'過去3か月にインターネットを利用した人の割合です。','The population share that used the Internet in the past three months.','过去三个月使用过互联网的人口比例。','連なる線が明るくなるほど、利用した人の割合が高くなります。','More of the connected trace lights up as the user share increases.','相连的线越明亮，使用者所占比例越高。','ITU / World Bank · 2000–2024'],
-  [100,'故郷の外で暮らす難民の数を、出身国別にたどります。','Trace refugee populations living outside their homeland, by country of origin.','按原籍国追踪在故乡之外生活的难民人口。','扉の向こうに広がる面積が人数。年を動かし、その変化を見つめます。','Area beyond the doorway represents people. Move through years to follow change.','门后的面积表示人数，切换年份观察变化。','UNHCR / World Bank · 2000–2024 · 年末人口'],
-]) add(number,t(ja,en,zh),t(readJa,readEn,readZh),t(credit,credit,credit),'climate');
-
 // Japan model fields represent one city per prefecture, not area averages.
 const liveMetrics = [
   [15, ['地上10mの風速', 'wind speed at 10 m', '地上10米风速'], source.weather],

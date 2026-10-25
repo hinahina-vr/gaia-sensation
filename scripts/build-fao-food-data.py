@@ -95,7 +95,7 @@ def build(domain, basename, labels, url):
         source=dict(name='FAOSTAT ' + domain, catalogUrl=url, **source), flags=flags,
         attribution=citation + ' GAIA SENSEWARE が抽出・加工。FAOによる推奨を意味しません。',
         license='CC BY 4.0 (FAO database terms apply)', termsUrl='https://www.fao.org/contact-us/terms/db-terms-of-use/en/',
-        positionNote='Natural Earth 50m 国・地域の代表位置。農地・港・実際の貿易経路ではありません。座標データなしの国・地域も一覧には保持。',
+        positionNote='Natural Earth 50m 国・地域の代表位置。農地・港・実際の貿易経路ではありません。座標未収録の国・地域も一覧には保持。',
         columns=['country', 'production', 'imports', 'exports', 'productionFlag', 'importsFlag', 'exportsFlag', 'notes'] if domain == 'FBS' else ['country', 'value', 'flag', 'sourceText', 'note'],
         missingPolicy='欠測・数値以外・負の数量・分母0以下は自給率算出不可。0埋め・補間・旧国家の現国家への付替なし。',
         countries=sorted(countries.values(), key=lambda r: r['id']), excludedAggregates=excluded,

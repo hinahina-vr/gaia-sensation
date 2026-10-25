@@ -3,10 +3,7 @@ import { formatJapaneseNumber } from "../shared/number-format.js";
 import { formatCoordinatesJa } from "../shared/coordinates.js";
 import { pickProjectedPoi } from "./poi-hit-test.js?v=gaia-japan-center-1";
 import { earthBaseScale, earthLongitudeToMapX as mapLongitude } from "./world-projection.js?v=gaia-japan-center-1";
-import { decorateMapActions } from "./map-exhibit-actions.js?v=earth-so-what-20261025";
-import { buildPlanetStatistics } from './planet-statistics.js?v=earth-so-what-20261025';
-import { openObservationAnalysis } from './observation-analysis.js?v=earth-so-what-20261025';
-let pendingAnalysisRevision = -1;
+import { decorateMapActions } from "./map-exhibit-actions.js?v=action-icons-ready-20260926";
 import { createAtmosphereRenderer } from "./atmosphere-webgl.js?v=map-reading-20261020";
 import { windReading, windReadingTranslations } from "./wind-reading.js?v=wind-first-view-20261020";
 import { quakeMarkerStyle, quakeReadingTranslations } from "./quake-reading.js?v=quake-first-view-20261020";
@@ -253,7 +250,7 @@ const fetchPointRows = async (base, points, params) => {
 
 const loadAtmosphere = async () => {
   const rows = await fetchPointRows(OPEN_METEO_WEATHER, GLOBAL_OBSERVATION_POINTS, {
-    current: "wind_speed_10m,wind_direction_10m,surface_pressure,cloud_cover,shortwave_radiation,is_day",
+    current: "wind_speed_10m,wind_direction_10m,surface_pressure,cloud_cover,shortwave_radiation",
     wind_speed_unit: "ms",
     timezone: "GMT",
     cell_selection: "nearest",
@@ -267,7 +264,6 @@ const loadAtmosphere = async () => {
       pressure: asFinite(current.surface_pressure, NaN),
       cloud: asFinite(current.cloud_cover, NaN),
       radiation: asFinite(current.shortwave_radiation, NaN),
-      isDay: current.is_day === 0 || current.is_day === 1 ? current.is_day : null,
     };
   }).filter(p => [p.windSpeed, p.windDirection, p.pressure, p.cloud, p.radiation].every(Number.isFinite));
   if (!points.length) throw new Error("Open-Meteo atmosphere values are unavailable");
@@ -1050,8 +1046,6 @@ const select = async (index) => {
   quakeMarkers = [];
   quakeIntroQuiet = 0;
   currentData = null;
-  readout.querySelector('[data-planet-analysis]').disabled = true;
-  readout.querySelector('[data-planet-analysis]').removeAttribute('aria-busy');
   focusedEpicenterIndex = -1;
   delete canvas.dataset.planetFocusedEpicenter;
   poiArrival = null;
@@ -1106,7 +1100,6 @@ const select = async (index) => {
   const data = await loadData(definition);
   if (activeIndex !== index || revision !== selectionRevision) return;
   currentData = data;
-  readout.querySelector('[data-planet-analysis]').disabled = !buildPlanetStatistics(definition,data);
   if (definition.renderer === "quake") {
     const referenceTime = Date.parse(data.observedAt);
     quakeMarkers = data.points.map(point => ({
@@ -1266,17 +1259,6 @@ const mount = () => {
     <div class="gaia-planet-source"><button type="button" data-planet-source-link></button><button type="button" data-planet-analysis disabled></button></div>
   `;
   decorateMapActions(readout.querySelector(".gaia-planet-source"), readout.querySelector("[data-planet-source-link]"), readout.querySelector("[data-planet-analysis]"));
-  readout.querySelector('[data-planet-analysis]').dataset.observationAnalysis = '';
-  readout.querySelector('[data-planet-analysis]').addEventListener('click',()=>{
-    const revision=selectionRevision,index=activeIndex,observation=currentData;
-    if(pendingAnalysisRevision===revision)return;
-    const dataset=buildPlanetStatistics(DEFINITIONS[index],observation);
-    if(!dataset)return;
-    const button=readout.querySelector('[data-planet-analysis]');pendingAnalysisRevision=revision;button.setAttribute('aria-busy','true');
-    void openObservationAnalysis(dataset,()=>activeIndex===index&&selectionRevision===revision&&currentData===observation).finally(()=>{
-      if(pendingAnalysisRevision===revision){pendingAnalysisRevision=-1;button.removeAttribute('aria-busy');}
-    });
-  });
   realtimeStatus = createRealtimeStatus();
   readout.querySelector(".gaia-planet-chapter").after(realtimeStatus);
   layer.append(readout);
@@ -1327,7 +1309,6 @@ globalThis.GaiaPlanetSignals = Object.freeze({
     globalThis.GaiaMapObservationAdapter?.previewCruisePoi(poiForPoint(point,index));
   },
   definitions: DEFINITIONS,
-  getStatisticsDataset: () => activeIndex<0?null:buildPlanetStatistics(DEFINITIONS[activeIndex],currentData),
   select,
   deactivate,
   findPoiAt,

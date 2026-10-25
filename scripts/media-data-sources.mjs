@@ -77,27 +77,11 @@ export function mediaDataSources(root, providers) {
     if(d.atlas||d.id==='lakes'){
       const file=d.atlas?`data/atlas-history/${d.id}.json`:'data/surface-water/lakes.json',data=read(file);
       const termsUrl=d.termsUrl||(d.id==='waterstore'?'https://grace.jpl.nasa.gov/about/how-to-cite/':d.id==='sealevel'?'https://www.star.nesdis.noaa.gov/socd/lsa/SeaLevelRise/LSA_productspolicy.php':d.id==='lakes'?'https://global-surface-water.appspot.com/download':'https://datacatalog.worldbank.org/public-licenses');
-      add('水・気候・暮らしの記録（MAP 74–100）',d.id,d.organisation||'EC JRC / Google',`MAP ${d.number} / ${d.signalLabel}`,d.source,
+      add('水・気候・暮らしの記録（MAP 74–75）',d.id,d.organisation||'EC JRC / Google',`MAP ${d.number} / ${d.signalLabel}`,d.source,
         '保存値を展示選択時に遅延読込。欠測を0埋めせず、原系列と独自年次集計を区別。',file,{modeId:d.id,period:data.period.join('–'),retrievedAt:data.retrievedAt,transformation:data.method,termsUrl,attribution:data.citation||data.attribution||d.organisation});
       if(d.id==='waterstore'){
         const gridFile='data/atlas-history/waterstore-grid.json',grid=read(gridFile);
         add('水・気候・暮らしの記録（MAP 75）','waterstore-grid',d.organisation,'陸水量偏差の0.5度配布格子',d.source,'展示75で遅延読込。配布0.5度・推定約3度。',gridFile,{modeId:d.id,period:'2003–2024',retrievedAt:grid.retrievedAt,transformation:grid.method,termsUrl,attribution:d.organisation});
-      }
-      if(d.id==='sealevel'){
-        const stationFile='data/atlas-history/sealevel-stations.json',stations=read(stationFile);
-        add('水・気候・暮らしの記録（MAP 76）','sealevel-stations','PSMSL / 原観測機関','沿岸の相対海面・検潮所の年平均','https://psmsl.org/data/obtaining/','展示76で遅延読込。欠日・品質フラグで年値を選別。同じ地点の1993年比。',stationFile,{modeId:d.id,period:'1993–2024',retrievedAt:stations.retrievedAt,transformation:stations.method,termsUrl:stations.termsUrl,attribution:stations.citation,sourceSha256:stations.source.sha256});
-      }
-      if(d.id==='sanitation'){
-        const file='data/atlas-history/sanitation-services.json',services=read(file);
-        add('水・気候・暮らしの記録（MAP 79）','sanitation-services',d.organisation,'衛生サービスの内訳','https://washdata.org/topics/sanitation','展示79で遅延読込。同国・同年・同じ人口分母の系列で内訳を算出。',file,{modeId:d.id,period:services.period.join('–'),retrievedAt:services.retrievedAt,transformation:services.method,termsUrl,attribution:d.organisation,sourceFiles:services.sources});
-      }
-      if(d.id==='drinking'){
-        const file='data/atlas-history/drinking-comparison.json',comparison=read(file);
-        add('水・気候・暮らしの記録（MAP 78）','drinking-comparison',d.organisation,'安全管理された飲料水・都市と農村','https://washdata.org/topics/drinking-water','展示78で遅延読込。同国・同年の都市人口と農村人口それぞれの利用率を比較。',file,{modeId:d.id,period:comparison.period.join('–'),retrievedAt:comparison.retrievedAt,transformation:comparison.method,termsUrl,attribution:d.organisation,sourceFiles:comparison.sources});
-      }
-      if(d.id==='electricity'){
-        const comparisonFile='data/atlas-history/electricity-comparison.json',comparison=read(comparisonFile);
-        add('水・気候・暮らしの記録（MAP 77）','electricity-comparison',d.organisation,'電力アクセス率・世界銀行の公式地域集計',d.source,'展示77で遅延読込。国の単純平均を使わず、同年の公式地域値を比較。',comparisonFile,{modeId:d.id,period:comparison.period.join('–'),retrievedAt:comparison.retrievedAt,transformation:comparison.method,termsUrl,attribution:d.organisation,sourceFiles:comparison.sources});
       }
       continue;
     }

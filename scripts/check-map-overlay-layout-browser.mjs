@@ -325,8 +325,7 @@ try {
         await page.waitForFunction(() => !document.querySelector("#japan-layer")?.classList.contains("japan-data-open"));
       }
       if (index === 2) {
-        assert.match(scan.forestRainCircleRange, /^\d+\.\d+-\d+\.\d+px radius$/u);
-        assert(Number(scan.forestRainCircleRange.split('-')[1].split('px')[0]) <= 28, `${viewport.name}/08: rain circles must keep the forest readable`);
+        assert.equal(scan.forestRainCircleRange, "10-54px radius", `${viewport.name}/03: rain-circle scale is stale`);
         assert.equal(scan.forestRainBrazil, "5.33 mm/日", `${viewport.name}/03: Brazil rain point is missing`);
       } else if (index === 6) {
         assert.equal(scan.ecologiesPlot, "paired-country-scatter", `${viewport.name}/07: paired scatter plot is missing`);

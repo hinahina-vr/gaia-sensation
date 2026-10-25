@@ -62,7 +62,7 @@ GaiaI18n.register([
   ["画面を押すと、次のフレア記録がその場所から開きます。過去の観測を見比べる作品であり、未来の発生予測ではありません。","Touch the screen to open the next flare record at that spot. This work compares past observations; it does not predict future events.","点击画面，下一条耀斑记录将在该处绽放。这是比较过去观测的作品，并非未来活动预测。"],
   ["C5.3級の太陽フレア","Class C5.3 solar flare","C5.3级太阳耀斑"],
   ["2024/5/1 15:57にX線が最大になった記録です。等級が高いほど光が大きく開きます。","X-rays peaked on May 1, 2024 at 15:57. Higher flare classes produce larger blooms of light.","这条记录的X射线在2024年5月1日15:57达到峰值。耀斑等级越高，绽放的光越大。"],
-  ["対象した観測記録","Included observation records","收录的观测记录"],
+  ["収録した観測記録","Included observation records","收录的观测记录"],
   ["件","records","条"],
   ["太陽風の波","Waves of solar wind","太阳风的波动"],
   ["磁気圏の嵐","Storms in the magnetosphere","磁层风暴"],

@@ -1,7 +1,7 @@
 // Saved public observations, not stack emissions, discharge samples or legal assessments.
 import { ANNUAL_OBSERVATION_YEARS } from './annual-observation-years.js?v=history-20260912';
 import { atmosphereReadings } from './atmosphere-reading-catalog.js?v=atmosphere-reading-20261022';
-import { pollutionReadings } from './pollution-reading-catalog.js?v=whole-trends20-20261025';
+import { pollutionReadings } from './pollution-reading-catalog.js?v=pollution-reading-20261022';
 import { recordReadings } from './record-reading-catalog.js?v=records-reading-20261022';
 const airSource = "https://tenbou.nies.go.jp/download/";
 const waterSource = "https://water-pub.env.go.jp/water-pub/mizu-site/mizu/download/download.asp";

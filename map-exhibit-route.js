@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  const exhibitCount = () => globalThis.GaiaMapCategories?.exhibitCount ?? 100;
+  const exhibitCount = () => globalThis.GaiaMapCategories?.exhibitCount ?? 75;
   const validNumber = number => Number.isInteger(number) && number >= 1 && number <= exhibitCount();
   const numberFromHash = hash => {
     const match = /^#world-(\d{1,3})$/iu.exec(hash);
