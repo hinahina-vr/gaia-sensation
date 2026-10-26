@@ -1,0 +1,249 @@
+@font-face{font-family:NotebookMincho;src:url('./fonts/ZenOldMincho-Medium.ttf');font-weight:500;font-display:swap}
+@font-face{font-family:NotebookSans;src:url('./fonts/NotoSansJP.ttf');font-weight:100 900;font-display:swap}
+@font-face{font-family:NotebookNumber;src:url('./fonts/Manrope.ttf');font-weight:200 800;font-display:swap}
+
+/* Deliberately scoped to the opt-in, real-app prototype. */
+#gaia-statistics-lab.is-notebook-preview{
+  --stat-ui-font:NotebookSans,'Noto Sans JP',sans-serif;
+  --font-ja:NotebookSans,sans-serif;--stat-ink:#123d59;--stat-muted:#66859d;
+  --stat-panel:#f7fcff;--stat-line:#bfdfef;--stat-cyan:#078fc1;
+  color:#123d59;color-scheme:light;padding:18px;
+  background:#0315213d;backdrop-filter:blur(1.5px);
+}
+#gaia-statistics-lab.is-notebook-preview::before{display:none}
+#gaia-statistics-lab.is-notebook-preview .gaia-statistics-shell{
+  width:88vw!important;height:88dvh!important;max-height:88dvh!important;
+  padding:22px 26px 20px!important;gap:18px;border:1px solid #d4ecf6;
+  border-radius:22px;background:linear-gradient(#f4fcff35,#f4fcff75),url('./assets/observatory-background.png') center top/cover!important;
+  box-shadow:0 22px 64px #00192750,0 0 0 1px #ffffffa0 inset;
+  opacity:1!important;
+}
+#gaia-statistics-lab.is-notebook-preview :is(button,input,select,textarea){font-family:var(--stat-ui-font);letter-spacing:normal}
+#gaia-statistics-lab.is-notebook-preview button{transition:background .15s,color .15s,border-color .15s,box-shadow .15s,transform .15s}
+#gaia-statistics-lab.is-notebook-preview button:focus-visible{outline:2px solid #098cbe!important;outline-offset:3px}
+#gaia-statistics-lab.is-notebook-preview .gaia-statistics-header{
+  min-height:94px;padding:8px 14px!important;gap:20px;border:0;border-radius:0;
+  background:linear-gradient(90deg,#f7fcff 0%,#f7fcfff5 46%,#f7fcff00 82%)!important;
+  box-shadow:none;align-items:center;border-radius:12px;
+}
+#gaia-statistics-lab.is-notebook-preview .gaia-statistics-header::before{display:none}
+#gaia-statistics-lab.is-notebook-preview .notebook-eyebrow{
+  margin:0 0 5px;color:#577f9e;font:500 10px/1.5 NotebookSans,sans-serif;letter-spacing:.16em;
+}
+#gaia-statistics-lab.is-notebook-preview #gaia-statistics-title{
+  margin:0;color:#103e5b!important;font:500 clamp(24px,2.05vw,38px)/1.5 NotebookMincho,serif!important;
+  letter-spacing:.08em!important;text-shadow:0 1px 4px #ffffffd0;
+}
+#gaia-statistics-lab.is-notebook-preview #gaia-statistics-title .gaia-statistics-subtitle{
+  display:block;margin:4px 0 0;color:#64849d!important;font:400 12px/1.6 NotebookSans,sans-serif;
+  letter-spacing:.02em;
+}
+#gaia-statistics-lab.is-notebook-preview .gaia-statistics-header-actions{gap:9px;flex:0 0 auto;align-items:center}
+#gaia-statistics-lab.is-notebook-preview .gaia-statistics-header-actions button{
+  min-height:44px;height:auto;padding:10px 18px;background:#ffffffec!important;
+  border:1px solid #bcdff0;border-radius:10px;color:#214d6c;
+  box-shadow:0 3px 12px #22648412!important;font:600 13px/1.4 NotebookSans,sans-serif;
+}
+#gaia-statistics-lab.is-notebook-preview .gaia-statistics-header-actions button::before,
+#gaia-statistics-lab.is-notebook-preview .gaia-statistics-header-actions button::after{display:none}
+#gaia-statistics-lab.is-notebook-preview .gaia-statistics-header-actions #gaia-statistics-ai-open{
+  background:linear-gradient(120deg,#0794c1,#118abf)!important;color:white;border-color:#078cb9;box-shadow:0 4px 17px #068dc536!important;
+}
+#gaia-statistics-lab.is-notebook-preview .gaia-statistics-header-actions button svg{width:18px;height:18px}
+#gaia-statistics-lab.is-notebook-preview .gaia-statistics-header-actions #gaia-statistics-close{width:44px;min-width:44px;padding:10px}
+#gaia-statistics-lab.is-notebook-preview .gaia-statistics-body{overflow:auto!important;min-height:0;background:none;border:0;scrollbar-color:#9dc9df #eaf5fb;scrollbar-width:thin}
+#gaia-statistics-lab.is-notebook-preview .gaia-statistics-stage[data-result-view]{
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr)!important;
+  grid-template-rows:auto auto!important;gap:14px!important;align-content:start;
+  height:auto!important;min-height:0!important;min-width:0;width:100%!important;max-width:100%;box-sizing:border-box;overflow:visible;padding:0!important;margin:0!important;background:none;border:0;align-content:start!important;
+}
+#gaia-statistics-lab.is-notebook-preview .gaia-statistics-stage>.gaia-statistics-stage-header,
+#gaia-statistics-lab.is-notebook-preview .gaia-statistics-bi-strip{display:none!important}
+#gaia-statistics-lab.is-notebook-preview .gaia-statistics-stage>.gaia-statistics-view-tabs{
+  grid-column:1/-1;grid-row:1!important;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));
+  height:auto!important;gap:7px;margin:0;padding:0;border:0;background:none;
+}
+#gaia-statistics-lab.is-notebook-preview .gaia-statistics-view-tabs button{
+  min-height:46px;height:auto;padding:10px 8px;font:600 13px/1.5 NotebookSans,sans-serif;
+  color:#285470;background:#ffffffdf!important;border:1px solid #bfdfef!important;
+  box-shadow:0 2px 6px #205c7d08!important;border-radius:10px;white-space:nowrap;
+}
+#gaia-statistics-lab.is-notebook-preview .gaia-statistics-view-tabs button::before,
+#gaia-statistics-lab.is-notebook-preview .gaia-statistics-view-tabs button::after{display:none}
+#gaia-statistics-lab.is-notebook-preview .gaia-statistics-view-tabs button[aria-selected=true]{
+  color:white!important;background:linear-gradient(120deg,#098cb7,#1098ca)!important;
+  border-color:#088dbb!important;box-shadow:0 4px 14px #148db52b!important;
+}
+#gaia-statistics-lab.is-notebook-preview .notebook-chart-card{
+  grid-column:1;grid-row:2;min-width:0;align-self:start;overflow:hidden;padding:19px 21px 6px;
+  border:1px solid #bfdfef;border-radius:15px;background:#ffffffed;box-shadow:0 6px 18px #25678b15;
+}
+#gaia-statistics-lab.is-notebook-preview .notebook-chart-heading{display:flex;align-items:start;justify-content:space-between;gap:12px}
+#gaia-statistics-lab.is-notebook-preview #gaia-statistics-context{position:static!important;display:grid!important;grid-template-columns:1fr;gap:4px;margin:0;min-width:0;width:auto!important;height:auto!important;clip-path:none!important;padding:0;border:0;background:none;box-shadow:none;overflow:visible!important}
+#gaia-statistics-lab.is-notebook-preview #gaia-statistics-context strong{display:block!important;font:600 16px/1.7 NotebookSans,sans-serif;color:#17455f}
+#gaia-statistics-lab.is-notebook-preview #gaia-statistics-context small{display:block!important;font:400 12px/1.7 NotebookSans,sans-serif;color:#708da4}
+#gaia-statistics-lab.is-notebook-preview .notebook-record-count{font:400 11px/1.7 NotebookSans,sans-serif;color:#6e8ca2;flex:0 0 auto}
+#gaia-statistics-lab.is-notebook-preview .notebook-metrics{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px}
+#gaia-statistics-lab.is-notebook-preview .notebook-metrics[hidden]{display:none}
+#gaia-statistics-lab.is-notebook-preview .notebook-metrics>div{flex:1 1 140px;min-width:0;padding:9px 12px 10px;border-radius:10px;background:linear-gradient(130deg,#eef8fc,#e9f3fa)}
+#gaia-statistics-lab.is-notebook-preview .notebook-metrics dt{font:500 11px/1.6 NotebookSans,sans-serif;color:#63829a}
+#gaia-statistics-lab.is-notebook-preview .notebook-metrics dd{margin:3px 0 0;color:#124767;font:500 clamp(23px,2vw,36px)/1.4 NotebookNumber,NotebookSans,sans-serif;overflow-wrap:anywhere}
+#gaia-statistics-lab.is-notebook-preview .notebook-metrics dd small{font:400 12px/1.4 NotebookSans,sans-serif;margin-left:5px}
+#gaia-statistics-lab.is-notebook-preview .notebook-metrics .notebook-metric-note dd{font:400 12px/1.7 NotebookSans,sans-serif}
+#gaia-statistics-lab.is-notebook-preview .notebook-chart-card #gaia-statistics-visual{
+  position:relative;display:block!important;min-height:0;height:clamp(250px,31dvh,365px)!important;
+  width:100%;padding:0;margin:0;overflow:hidden;grid-area:auto;background:transparent!important;
+  border:0;border-radius:0;box-shadow:none;
+}
+#gaia-statistics-lab.is-notebook-preview #gaia-statistics-canvas{display:block;width:100%;height:100%;background:transparent!important;--font-ja:NotebookSans,sans-serif}
+#gaia-statistics-lab.is-notebook-preview #gaia-statistics-takeaway{
+  grid-column:1!important;grid-row:2!important;display:flex!important;flex-direction:column;
+  align-self:start;min-height:0;max-height:none;height:auto;width:auto;margin:0;padding:23px 26px!important;
+  gap:0!important;overflow:hidden;border:1px solid #bfdfef;border-radius:15px;
+  background:linear-gradient(145deg,#fffffff5,#ffffffeb);box-shadow:0 6px 18px #25678b15;
+}
+#gaia-statistics-lab.is-notebook-preview #gaia-statistics-takeaway::before,
+#gaia-statistics-lab.is-notebook-preview #gaia-statistics-takeaway::after{display:none}
+#gaia-statistics-lab.is-notebook-preview .insight-summary-label{
+  display:flex;align-items:center;gap:10px;margin:0 0 18px!important;padding:0 0 14px;
+  border:0;border-bottom:1px solid #d6e8f2;font:500 15px/1.6 NotebookSans,sans-serif!important;color:#285776!important;
+}
+#gaia-statistics-lab.is-notebook-preview .insight-summary-label::before{content:'✧';color:#058fc4;font:400 26px/1 serif}
+#gaia-statistics-lab.is-notebook-preview .gaia-statistics-takeaway-copy{padding:0;border:0;min-width:0}
+#gaia-statistics-lab.is-notebook-preview .gaia-statistics-takeaway-copy>p{margin:0 0 15px!important;font:500 11px/1.6 NotebookSans,sans-serif!important;color:#7893aa!important;letter-spacing:.02em}
+#gaia-statistics-lab.is-notebook-preview #gaia-statistics-takeaway-title{
+  margin:0 0 23px!important;padding:0;color:#113f5c!important;font:500 clamp(22px,1.75vw,32px)/1.8 NotebookMincho,serif!important;
+  letter-spacing:.035em;max-width:none;width:auto;text-shadow:none;
+}
+#gaia-statistics-lab.is-notebook-preview #gaia-statistics-takeaway-body{display:grid;gap:20px}
+#gaia-statistics-lab.is-notebook-preview #gaia-statistics-takeaway-body section{margin:0;padding:0;border:0;background:none}
+#gaia-statistics-lab.is-notebook-preview #gaia-statistics-takeaway-body h5{margin:0 0 8px!important;padding:0;color:#317496;font:600 12px/1.8 NotebookSans,sans-serif!important;letter-spacing:normal;border:0}
+#gaia-statistics-lab.is-notebook-preview #gaia-statistics-takeaway-body h5::before{display:none}
+#gaia-statistics-lab.is-notebook-preview #gaia-statistics-takeaway-body p{margin:0!important;color:#33566c!important;font:400 clamp(13px,.93vw,17px)/2 NotebookSans,sans-serif!important;letter-spacing:.015em}
+#gaia-statistics-lab.is-notebook-preview .gaia-statistics-discover-cta{
+  margin:25px 0 0!important;min-height:45px;padding:10px;width:100%;background:#ddf3ff;
+  border:1px solid #d0ecfa;border-radius:9px;color:#068abb;box-shadow:none;font:600 13px/1.5 NotebookSans,sans-serif;
+}
+#gaia-statistics-lab.is-notebook-preview .gaia-statistics-discover-cta::before,
+#gaia-statistics-lab.is-notebook-preview .gaia-statistics-discover-cta::after{display:none}
+#gaia-statistics-lab.is-notebook-preview .gaia-statistics-discover-cta strong{color:#068abb!important;font:600 13px/1.5 NotebookSans,sans-serif!important;text-shadow:none!important}
+#gaia-statistics-lab.is-notebook-preview .notebook-questions{grid-column:1;grid-row:3;align-self:start;padding:17px 20px;background:#ffffffe8;border:1px solid #bfdfef;border-radius:15px;box-shadow:0 6px 18px #25678b15}
+#gaia-statistics-lab.is-notebook-preview .notebook-questions>header{display:flex;align-items:center;gap:13px}
+#gaia-statistics-lab.is-notebook-preview .notebook-questions>header>span{font:32px/1 serif;color:#078fc1}
+#gaia-statistics-lab.is-notebook-preview .notebook-questions h3{margin:0;font:500 19px/1.6 NotebookMincho,serif;color:#174967}
+#gaia-statistics-lab.is-notebook-preview .notebook-questions p{margin:2px 0 0;font:400 11px/1.6 NotebookSans,sans-serif;color:#718ea3}
+#gaia-statistics-lab.is-notebook-preview .notebook-question-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+#gaia-statistics-lab.is-notebook-preview .notebook-question-grid button{display:flex;align-items:center;gap:10px;min-width:0;min-height:72px;padding:8px 12px 8px 4px;text-align:left;border:1px solid #c4e2f0;border-radius:12px;background:linear-gradient(120deg,#f6fcff,#eff8fd);box-shadow:none;color:#174967}
+#gaia-statistics-lab.is-notebook-preview .notebook-question-grid svg{flex:0 0 56px;width:56px;height:52px;fill:#a3dded66;stroke:#4bacc8;stroke-width:1.3}
+#gaia-statistics-lab.is-notebook-preview .notebook-question-grid button:nth-child(2) svg{fill:#a5cda633;stroke:#80ab94}
+#gaia-statistics-lab.is-notebook-preview .notebook-question-grid strong{display:block;font:500 clamp(14px,1.05vw,20px)/1.5 NotebookMincho,serif}
+#gaia-statistics-lab.is-notebook-preview .notebook-question-grid small{display:block;margin-top:5px;font:400 10px/1.5 NotebookSans,sans-serif;color:#7393ab}
+#gaia-statistics-lab.is-notebook-preview .notebook-question-grid b{margin-left:auto;font:24px/1 NotebookSans,sans-serif;color:#078fc1}
+#gaia-statistics-lab.is-notebook-preview button:hover:not(:disabled){filter:none;box-shadow:0 4px 15px #1686ae24!important}
+@media(hover:hover) and (pointer:fine){
+ #gaia-statistics-lab.is-notebook-preview button:hover:not(:disabled){background:#d9f0ff!important;color:#075f88!important;border-color:#72bfdf!important}
+ #gaia-statistics-lab.is-notebook-preview .gaia-statistics-header-actions #gaia-statistics-ai-open:hover:not(:disabled),
+ #gaia-statistics-lab.is-notebook-preview .gaia-statistics-view-tabs button[aria-selected=true]:hover:not(:disabled){background:linear-gradient(120deg,#0875a5,#087fb1)!important;color:#fff!important;border-color:#0875a5!important}
+ #gaia-statistics-lab.is-notebook-preview .gaia-statistics-discover-cta:hover:not(:disabled){background:#bde8ff!important}
+ #gaia-statistics-lab.is-notebook-preview .gaia-statistics-header-actions #gaia-statistics-close:hover:not(:disabled){background:#d9f0ff!important;color:#075f88!important;border-color:#72bfdf!important}
+ #gaia-statistics-lab.is-notebook-preview .notebook-question-grid button:hover:not(:disabled){background:linear-gradient(115deg,#d7f2ff,#eaf8ff)!important}
+}
+#gaia-statistics-lab.is-notebook-preview .gaia-statistics-stage:not([data-result-view=chart])>:is(.notebook-chart-card,.notebook-questions,#gaia-statistics-takeaway){display:none!important}
+#gaia-statistics-lab.is-notebook-preview .gaia-statistics-stage>details[open],
+#gaia-statistics-lab.is-notebook-preview .gaia-statistics-stage>#gaia-statistics-ai-dialog:not([hidden]){grid-row:2!important;grid-column:1/-1!important;min-height:520px;max-height:none!important;height:auto!important;background:#fffffff5;border:1px solid #bfdfef;border-radius:15px;padding:22px!important;box-shadow:none;overflow:visible}
+#gaia-statistics-lab.is-notebook-preview :is(.gaia-statistics-records-scroll,.gaia-statistics-values-scroll,.gaia-statistics-findings,.gaia-statistics-insights){max-height:62dvh;overflow:auto!important}
+/* The original panels absolutely positioned content inside a fixed-height stage.
+   These reading pages use normal flow so the tables cannot collapse below their header. */
+#gaia-statistics-lab.is-notebook-preview .gaia-statistics-stage>details[open]{display:block!important;position:relative!important;min-height:0!important;overflow:hidden}
+#gaia-statistics-lab.is-notebook-preview .gaia-statistics-stage>details[open]>summary{
+  display:flex;align-items:center;box-sizing:border-box;min-height:44px;
+  padding:0 235px 12px 0;margin:0;border-bottom:1px solid #dcebf4;
+  font:600 14px/1.8 NotebookSans,sans-serif;color:#285b78;
+}
+#gaia-statistics-lab.is-notebook-preview .gaia-statistics-stage>details[open]>.gaia-statistics-panel-back{
+  top:22px;right:22px;min-height:36px;padding:7px 12px;
+  background:#e9f7ff;border:1px solid #d5ecf7;border-radius:8px;
+  color:#16799f;font:600 12px/1.5 NotebookSans,sans-serif;
+}
+#gaia-statistics-lab.is-notebook-preview .gaia-statistics-stage>details[open]>:is(.gaia-statistics-values-scroll,.gaia-statistics-records-scroll,#gaia-statistics-insights,#gaia-statistics-findings){
+  position:static!important;inset:auto!important;box-sizing:border-box;
+  width:100%;height:auto!important;min-height:180px!important;max-height:60dvh!important;
+  margin:14px 0 0!important;padding:0!important;overflow:auto!important;
+  scrollbar-gutter:stable;background:transparent;
+}
+#gaia-statistics-lab.is-notebook-preview .gaia-statistics-stage>details[open] table{width:100%;border-collapse:collapse}
+#gaia-statistics-lab.is-notebook-preview .gaia-statistics-stage>details[open] :is(td,th){font:400 clamp(13px,.9vw,16px)/1.8 NotebookSans,sans-serif;color:#284e67}
+#gaia-statistics-lab.is-notebook-preview .gaia-statistics-controls{background:#f7fcff;color:#254d65;border-color:#baddea;box-shadow:0 16px 50px #174c7540}
+#gaia-statistics-lab.is-notebook-preview .gaia-statistics-controls[aria-hidden=true]{display:none!important}
+#gaia-statistics-lab.is-notebook-preview:not(.is-menu-open) #gaia-statistics-menu-scrim{display:none!important}
+#gaia-statistics-lab.is-notebook-preview .notebook-headline-lead{display:block}
+#gaia-statistics-lab.is-notebook-preview .gaia-statistics-controls :is(h3,strong,p,summary){color:#254d65}
+#gaia-statistics-lab.is-notebook-preview .gaia-statistics-controls button{color:#285570;background:#edf7fc;border-color:#baddea}
+#gaia-statistics-lab.is-notebook-preview #gaia-statistics-ai-dialog .gaia-statistics-ai-layout{min-height:480px}
+#gaia-statistics-lab.is-notebook-preview #gaia-statistics-menu-toggle,
+#gaia-statistics-lab.is-notebook-preview #gaia-statistics-menu-toggle span,
+#gaia-statistics-lab.is-notebook-preview #gaia-statistics-menu-toggle svg{color:#214d6c!important;text-shadow:none!important}
+#gaia-statistics-lab.is-notebook-preview .notebook-chart-column{display:grid;grid-column:2;grid-row:2;gap:14px;min-width:0;align-content:start}
+#gaia-statistics-lab.is-notebook-preview .notebook-chart-column>:is(.notebook-chart-card,.notebook-questions){grid-area:auto}
+#gaia-statistics-lab.is-notebook-preview .gaia-statistics-stage:not([data-result-view=chart])>.notebook-chart-column{display:none}
+#gaia-statistics-lab.is-notebook-preview .gaia-statistics-view-tabs button{display:flex;align-items:center;justify-content:center;gap:9px}
+#gaia-statistics-lab.is-notebook-preview .gaia-statistics-view-tabs button svg{width:18px;height:18px;flex:0 0 18px;stroke:currentColor;stroke-width:1.4;fill:none}
+#gaia-statistics-lab.is-notebook-preview #gaia-statistics-takeaway{position:relative}
+#gaia-statistics-lab.is-notebook-preview .notebook-summary-orbit{position:absolute;right:12px;top:18px;width:76px;height:76px;border:1px solid #9fdaf25c;border-radius:50%;transform:rotate(35deg);pointer-events:none}
+#gaia-statistics-lab.is-notebook-preview .notebook-summary-orbit::before{content:'';position:absolute;inset:14px 21px;border-radius:50%;background:radial-gradient(circle at 33% 22%,#ffffff,#9bd9ed55 46%,#6ac0e677 69%,#ffffffa0 72%);box-shadow:0 0 14px #b3e5f45e}
+#gaia-statistics-lab.is-notebook-preview .notebook-summary-orbit::after{content:'';position:absolute;inset:-8px 18px;border:1px solid #9fdaf25c;border-radius:50%;transform:rotate(20deg)}
+#gaia-statistics-lab.is-notebook-preview .notebook-questions{background:radial-gradient(ellipse at 98% 0,#b9e9f244,transparent 37%),#fffffff0}
+
+@media(max-width:1000px){
+ #gaia-statistics-lab.is-notebook-preview .gaia-statistics-shell{width:92vw!important;height:92dvh!important;max-height:92dvh!important;padding:15px!important}
+ #gaia-statistics-lab.is-notebook-preview .gaia-statistics-header{padding:5px!important;gap:12px;flex-wrap:wrap}
+ #gaia-statistics-lab.is-notebook-preview .gaia-statistics-stage[data-result-view]{display:flex!important;flex-direction:column;align-items:stretch;grid-template-columns:minmax(0,1fr)!important;grid-template-rows:auto auto auto auto!important}
+ #gaia-statistics-lab.is-notebook-preview .notebook-chart-column{display:none}
+ #gaia-statistics-lab.is-notebook-preview .gaia-statistics-stage>.notebook-chart-card{width:100%;box-sizing:border-box}
+ #gaia-statistics-lab.is-notebook-preview .gaia-statistics-stage[data-result-view=chart]>#gaia-statistics-takeaway{width:100%;box-sizing:border-box}
+ #gaia-statistics-lab.is-notebook-preview .notebook-chart-column>.notebook-chart-card{grid-column:1;grid-row:2}
+ #gaia-statistics-lab.is-notebook-preview .notebook-chart-column>.notebook-questions{grid-column:1;grid-row:4}
+ #gaia-statistics-lab.is-notebook-preview .gaia-statistics-stage[data-result-view=chart]>#gaia-statistics-takeaway{grid-column:1!important;grid-row:3!important}
+ #gaia-statistics-lab.is-notebook-preview .notebook-questions{grid-row:4}
+ #gaia-statistics-lab.is-notebook-preview .gaia-statistics-stage>.gaia-statistics-view-tabs{display:flex;overflow:auto;scrollbar-width:thin;padding:3px 2px 8px}
+ #gaia-statistics-lab.is-notebook-preview .gaia-statistics-view-tabs button{flex:0 0 138px}
+ #gaia-statistics-lab.is-notebook-preview #gaia-statistics-takeaway-title{font-size:28px!important}
+ #gaia-statistics-lab.is-notebook-preview #gaia-statistics-takeaway-body p{font-size:15px!important}
+}
+@media(max-width:600px){
+ #gaia-statistics-lab.is-notebook-preview{padding:0}
+ #gaia-statistics-lab.is-notebook-preview .gaia-statistics-shell{width:96vw!important;height:96dvh!important;max-height:96dvh!important;border-radius:16px;padding:16px 12px 12px!important;gap:13px;background-position:58% top}
+ #gaia-statistics-lab.is-notebook-preview .gaia-statistics-header{display:block;min-height:0}
+ #gaia-statistics-lab.is-notebook-preview .notebook-eyebrow{font-size:8px}
+ #gaia-statistics-lab.is-notebook-preview #gaia-statistics-title{font-size:24px!important;letter-spacing:.04em!important}
+ #gaia-statistics-lab.is-notebook-preview #gaia-statistics-title .gaia-statistics-subtitle{font-size:10px;margin-top:3px}
+ #gaia-statistics-lab.is-notebook-preview .gaia-statistics-header-actions{display:flex;margin-top:13px;gap:6px}
+ #gaia-statistics-lab.is-notebook-preview .gaia-statistics-header-actions button{font-size:11px;min-height:40px;padding:8px 10px}
+ #gaia-statistics-lab.is-notebook-preview .gaia-statistics-header-actions #gaia-statistics-ai-open{flex:1}
+ #gaia-statistics-lab.is-notebook-preview .gaia-statistics-header-actions #gaia-statistics-close{height:40px;min-width:40px;width:40px;margin:0}
+ #gaia-statistics-lab.is-notebook-preview .notebook-chart-card{padding:15px 11px 5px}
+ #gaia-statistics-lab.is-notebook-preview .notebook-chart-heading{gap:6px}
+ #gaia-statistics-lab.is-notebook-preview #gaia-statistics-context strong{font-size:12px}
+ #gaia-statistics-lab.is-notebook-preview #gaia-statistics-context small{font-size:10px}
+ #gaia-statistics-lab.is-notebook-preview .notebook-record-count{font-size:10px}
+ #gaia-statistics-lab.is-notebook-preview .notebook-metrics{gap:5px}
+ #gaia-statistics-lab.is-notebook-preview .notebook-metrics>div{flex:1 1 80px;padding:7px}
+ #gaia-statistics-lab.is-notebook-preview .notebook-metrics dt{font-size:9px}
+ #gaia-statistics-lab.is-notebook-preview .notebook-metrics dd{display:flex;align-items:baseline;flex-wrap:nowrap;gap:2px;font-size:clamp(16px,5vw,21px);white-space:nowrap}
+ #gaia-statistics-lab.is-notebook-preview .notebook-metrics dd small{font-size:9px;white-space:nowrap;margin-left:0;flex:0 0 auto}
+ #gaia-statistics-lab.is-notebook-preview .notebook-chart-card #gaia-statistics-visual{height:285px!important}
+ #gaia-statistics-lab.is-notebook-preview #gaia-statistics-takeaway{padding:20px!important}
+ #gaia-statistics-lab.is-notebook-preview #gaia-statistics-takeaway-title{font-size:25px!important}
+ #gaia-statistics-lab.is-notebook-preview #gaia-statistics-takeaway-body p{font-size:14px!important}
+ #gaia-statistics-lab.is-notebook-preview #gaia-statistics-takeaway-body h5{font-size:11px!important}
+ #gaia-statistics-lab.is-notebook-preview .notebook-question-grid{grid-template-columns:1fr}
+ #gaia-statistics-lab.is-notebook-preview .notebook-question-grid strong{font-size:18px}
+ #gaia-statistics-lab.is-notebook-preview .gaia-statistics-stage>details[open],
+ #gaia-statistics-lab.is-notebook-preview .gaia-statistics-stage>#gaia-statistics-ai-dialog:not([hidden]){padding:15px!important;min-height:400px}
+ #gaia-statistics-lab.is-notebook-preview .gaia-statistics-stage>details[open]>summary{padding:0 0 10px;min-height:0}
+ #gaia-statistics-lab.is-notebook-preview .gaia-statistics-stage>details[open]>.gaia-statistics-panel-back{position:static;display:inline-flex;margin:12px 0 0}
+ #gaia-statistics-lab.is-notebook-preview #stat-panel-records table{min-width:520px}
+ #gaia-statistics-lab.is-notebook-preview #gaia-statistics-ai-dialog .gaia-statistics-ai-layout{display:block;min-height:0}
+ #gaia-statistics-lab.is-notebook-preview #gaia-statistics-ai-dialog form{display:flex;flex-direction:column;overflow:visible}
+ #gaia-statistics-lab.is-notebook-preview #gaia-statistics-ai-dialog .gaia-statistics-ai-result{min-height:220px;margin-top:18px}
+}

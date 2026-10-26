@@ -1664,6 +1664,16 @@
       "publicationStatus": "public"
     },
     {
+      "path": "assets/notebook/assets/observatory-background.png",
+      "sha256": "217ce6288fa4c4409c894a765e2faf6c8daeb746a64e6b0a051539c3a3f239e7",
+      "generationService": "OpenAI Imagegen",
+      "firstRepositoryEvidenceAt": "2026-10-26T21:20:25+09:00",
+      "processing": "作者指定の観測ノートUIを参照し、組み込みImageGenで文字のない背景を生成。コミット済みPNGを無加工で採用。文字・数値・図・操作部は既存の実データとHTML/CSSで表示。出典とファイルハッシュはassets/notebook/manifest.json。",
+      "sourceLedger": "assets/notebook/manifest.json",
+      "officialTermsUrl": "https://openai.com/policies/service-terms/",
+      "publicationStatus": "public"
+    },
+    {
       "path": "assets/opening-candidates-20260911/ame-01.png",
       "sha256": "1f296c0d34da6086cc369bb563182392cbb57d7db71600012900398842e34c1e",
       "generationService": "OpenAI Imagegen",

@@ -102,7 +102,8 @@ assert.match(architecture, /```mermaid/u);
 assert.match(architecture, /gaia:map-adapter-ready/u);
 assert.match(architecture, /WebGL 2が使えない場合/u);
 assert.equal(fs.existsSync(path.join(root, "assets/architecture/gaia-system-architecture.png")), true);
-assert.doesNotMatch(loader, /observation-notebook|#observation=|"notebook"/u);
+// Retired observation-capture mode stays absent; the opt-in lab design may use notebook as its query value.
+assert.doesNotMatch(loader, /observation-notebook|#observation=|GaiaObservationNotebook|\bnotebook\s*:\s*\{/u);
 assert.doesNotMatch(opening, /#observation=/u);
 assert.doesNotMatch(sensorsIndex, /observation-notebook/u);
 assert.doesNotMatch(sensorPlatform, /GaiaObservation|観測ノート|gaia-observation-capture/u);

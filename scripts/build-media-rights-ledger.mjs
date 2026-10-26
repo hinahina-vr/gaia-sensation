@@ -8,6 +8,7 @@ import { mediaDataSources, renderDataSources } from "./media-data-sources.mjs";
 import { validateOrigins, originalDate } from "./media-origin.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const notebook = JSON.parse(fs.readFileSync(path.join(root, 'assets/notebook/manifest.json'), 'utf8'));
 const jsonPath = path.join(root, "docs", "media-rights-ledger.json");
 const markdownPath = path.join(root, "docs", "MEDIA_RIGHTS_LEDGER.md");
 const checkOnly = process.argv.includes("--check");
@@ -34,6 +35,7 @@ for (const line of history.split(/\r?\n/u)) {
 }
 
 const ledgerFor = (relative) => {
+  if (relative === notebook.art.file) return 'assets/notebook/manifest.json';
   if (relative === 'assets/guide-previews/story.jpg') return 'docs/QA_OPENING_ROUTE_PREVIEWS_20260914.md';
   if (relative === 'assets/concept/myth-machine-circulation-v4.png') return 'docs/QA_CONCEPT_DIAGRAM_V4_20260913.md';
   if (relative === 'assets/visuals-07/sound-archive-bg-v3.png') return 'docs/QA_SOUND_BACKGROUND_ADOPTION_20260913.md';
@@ -60,6 +62,7 @@ const ledgerFor = (relative) => {
 };
 
 const serviceFor = (relative) => {
+  if (relative === notebook.art.file) return 'OpenAI Imagegen';
   if (relative === 'assets/guide-previews/story.jpg') return 'GAIA SENSEWARE screenshot supplied by the project owner';
   if (relative === 'assets/architecture/gaia-field-sensor-whiteboard-20260912.png') return 'OpenAI Imagegen';
   if (/^assets\/opening-(?:candidates-20260911|selected-20260912)\//u.test(relative)) return "OpenAI Imagegen";
@@ -80,7 +83,9 @@ const termsFor = (service) => {
   return null;
 };
 
-const processingFor = (relative) => relative === 'assets/guide-previews/story.jpg'
+const processingFor = (relative) => relative === notebook.art.file
+  ? '作者指定の観測ノートUIを参照し、組み込みImageGenで文字のない背景を生成。コミット済みPNGを無加工で採用。文字・数値・図・操作部は既存の実データとHTML/CSSで表示。出典とファイルハッシュはassets/notebook/manifest.json。'
+  : relative === 'assets/guide-previews/story.jpg'
   ? '2026-09-14作者指定の画面キャプチャをSharpで960×540 JPEGに縮小。全画角を保持し、生成・描き直し・トリミングなし。docs/QA_OPENING_ROUTE_PREVIEWS_20260914.mdの既存採用記録に基づく追記。今回、権利や公開許可の再判定は行っていません。'
   : /^assets\/opening-selected-20260912\//u.test(relative)
   ? "2026-09-12作者添付の3枚を初対面・みず・あめのオープニングにローカル採用。初対面は初回生成版、みず・あめは毛先編集後の案1。元PNG無変更。全画角WebPは初対面品質84、人物品質92、通常1672×941／軽量834×469。再描画なし。selection.jsonに原本・派生のSHA-256、READMEに制作履歴、docs/QA_SELECTED_OPENING_2026-09-12.mdに検証範囲。未公開"
@@ -109,13 +114,15 @@ const assets = media.map((file) => {
     path: relative,
     sha256,
     generationService: service,
-    firstRepositoryEvidenceAt: originalDate(relative, sha256, evidenceDates.get(relative), origins),
+    firstRepositoryEvidenceAt: relative === notebook.art.file ? notebook.art.firstRepositoryEvidenceAt : originalDate(relative, sha256, evidenceDates.get(relative), origins),
     processing: processingFor(relative),
     sourceLedger: ledgerFor(relative),
     officialTermsUrl: termsFor(service),
     publicationStatus: /^assets\/opening-(?:candidates-20260911|selected-20260912)\//u.test(relative) ? "local-only" : "public",
   };
 });
+
+if (assets.find(row => row.path === notebook.art.file)?.sha256 !== notebook.art.sha256) throw new Error('Notebook art differs from committed provenance');
 
 const providers = [
   { provider: "NOAA NDBC", datasetId: "latest observations", sourceUrl: "https://www.ndbc.noaa.gov/data/latest_obs/latest_obs.txt", termsUrl: "https://www.noaa.gov/information-technology/open-data-dissemination", retrievalPolicy: "live: 5 minutes; versioned snapshot fallback" },

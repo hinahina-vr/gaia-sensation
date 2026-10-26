@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "ed3577b55e813bf16e3d39e1a1208e3e6d4a4c32",
+  "scope": "Opt-in notebook presentation for the real statistics lab; normal routes retain the existing presentation. Production map remains exhibits 01–75.",
+  "entry": "/world.html?labMock=notebook&showLab=1#world-75",
+  "art": {
+    "file": "assets/notebook/assets/observatory-background.png",
+    "sha256": "217ce6288fa4c4409c894a765e2faf6c8daeb746a64e6b0a051539c3a3f239e7",
+    "generationService": "OpenAI Imagegen",
+    "firstRepositoryEvidenceAt": "2026-10-26T21:20:25+09:00",
+    "method": "Built-in image_gen; generated text-free scenery from the user reference.",
+    "sourceRepositoryPath": "output/mockups/blue-observation-notebook-v1/assets/observatory-background.png"
+  },
+  "fonts": [
+    {
+      "family": "Manrope",
+      "file": "assets/notebook/fonts/Manrope.ttf",
+      "sha256": "3ae11c49db0455a3cc33e37d380f20fdb8c7f8b41dc07625c177e3d87a9d6ae6",
+      "license": "SIL Open Font License 1.1",
+      "licenseFile": "assets/notebook/fonts/Manrope-OFL.txt",
+      "sourceUrl": "https://github.com/google/fonts/tree/main/ofl/manrope",
+      "delivery": "Self-hosted only when notebook preview is selected"
+    },
+    {
+      "family": "Noto Sans JP",
+      "file": "assets/notebook/fonts/NotoSansJP.ttf",
+      "sha256": "c2f3b4d463500a2ddcd3849cded1fceeb9fd6d1c32e6cbecd568453ba50fc68f",
+      "license": "SIL Open Font License 1.1",
+      "licenseFile": "assets/notebook/fonts/NotoSansJP-OFL.txt",
+      "sourceUrl": "https://github.com/google/fonts/tree/main/ofl/notosansjp",
+      "delivery": "Self-hosted only when notebook preview is selected"
+    },
+    {
+      "family": "Zen Old Mincho",
+      "file": "assets/notebook/fonts/ZenOldMincho-Medium.ttf",
+      "sha256": "e60c7961e5110d0f08f902de43fe60865f1538845ff2092c779837257efac3bf",
+      "license": "SIL Open Font License 1.1",
+      "licenseFile": "assets/notebook/fonts/ZenOldMincho-OFL.txt",
+      "sourceUrl": "https://github.com/google/fonts/tree/main/ofl/zenoldmincho",
+      "delivery": "Self-hosted only when notebook preview is selected"
+    }
+  ]
+}

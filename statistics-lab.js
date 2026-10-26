@@ -1554,7 +1554,8 @@ if (!lab || !openButton) {
     const chart = result.chart || {};
     const histogram = chart.type === "histogram" && Boolean(chart.stats);
     const width = rect.width / displayScale; const height = rect.height / displayScale;
-    const pad = { left: width < 560 ? 48 : 64, right: width < 560 ? 18 : 28, top: histogram ? 146 : 106, bottom: histogram ? 86 : 60 };
+    const notebookPreview = lab.classList.contains("is-notebook-preview");
+    const pad = { left: width < 560 ? 48 : 64, right: width < 560 ? 18 : 28, top: notebookPreview ? (histogram ? 82 : 40) : (histogram ? 146 : 106), bottom: histogram ? 86 : 60 };
     const hasPrefecture = !prefectureLabel.hidden;
     if (hasPrefecture && rect.width < 600) pad.top += 80 / displayScale;
     canvas.dataset.labelSize = String(13 * displayScale);
@@ -1627,7 +1628,7 @@ if (!lab || !openButton) {
     const compactAnnotations=width<420&&chart.type==='scatter'&&result.model
       ? [...(chart.annotations||[]).slice(0,2),...(chart.band?[state.methodId==='prediction'?'帯：95%予測区間':'帯：平均応答の95%信頼区間']:[])]
       : chart.annotations||[];
-    const annotationLines=compactAnnotations.flatMap(wrapLabel);
+    const annotationLines=notebookPreview ? [] : compactAnnotations.flatMap(wrapLabel);
     if(width<420&&!histogram)pad.top-=30;
     canvas.dataset.statisticalAnnotations=JSON.stringify(chart.annotations||[]);
     pad.top+=annotationLines.length*17;
@@ -1648,9 +1649,9 @@ if (!lab || !openButton) {
       // Keep exported/cropped plots identifiable without the surrounding lab.
       ctx.fillStyle = "#294e63"; ctx.font = `600 13px ${chartFont}`; ctx.textAlign = "left";
       const headingWidth = hasPrefecture && rect.width >= 600 ? width - 28 - prefectureLabel.getBoundingClientRect().width / displayScale - 16 : width - 28;
-      ctx.fillText(dataset.title, 14, 22, Math.max(60, hasPrefecture ? headingWidth : width - 180));
+      if (!notebookPreview) ctx.fillText(dataset.title, 14, 22, Math.max(60, hasPrefecture ? headingWidth : width - 180));
       ctx.font = `400 11px ${chartFont}`;
-      ctx.fillText(`${dataset.sourceName || ""}${dataset.unit ? ` / ${dataset.unit}` : ""}`, 14, 42, Math.max(60, headingWidth));
+      if (!notebookPreview) ctx.fillText(`${dataset.sourceName || ""}${dataset.unit ? ` / ${dataset.unit}` : ""}`, 14, 42, Math.max(60, headingWidth));
       ctx.font=`500 12px ${chartFont}`;
       annotationLines.forEach((line,i)=>ctx.fillText(line,pad.left,(histogram?83:62)+17*i));
       ctx.strokeStyle = "#d1e4ee"; ctx.lineWidth = 1;
@@ -1664,13 +1665,13 @@ if (!lab || !openButton) {
       }))];
       const tickLabel = value => chart.tickLabels?.[String(value)] ?? (timeAxis || explicitXTicks.length ? String(value) : format(value, Math.abs(maxX-minX)<12?1:0));
       canvas.dataset.renderedXTickLabels = JSON.stringify(xTicks.map(tickLabel));
-      ctx.font = `600 13px ${chartFont}`;
-      ctx.fillStyle = "#48697f";
+      ctx.font = `${notebookPreview ? '400 11' : '600 13'}px ${chartFont}`;
+      ctx.fillStyle = notebookPreview ? "#7091aa" : "#48697f";
       for (let i = 0; i <= tickCount; i += 1) {
         const ratio = i / tickCount;
         const x = pad.left + ratio * (width - pad.left - pad.right);
         const y = pad.top + ratio * (height - pad.top - pad.bottom);
-        ctx.strokeStyle = "#91aeba";
+        ctx.strokeStyle = notebookPreview ? "#d8eaf5" : "#91aeba";
         ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(width - pad.right, y); ctx.stroke();
         ctx.strokeStyle = "#4f7384";
         ctx.beginPath(); ctx.moveTo(pad.left - 5, y); ctx.lineTo(pad.left, y); ctx.stroke();
@@ -1685,14 +1686,14 @@ if (!lab || !openButton) {
         ctx.textAlign = "center";
         for (const value of xTicks) {
           const x = xScale(value);
-          ctx.strokeStyle = "#9bb4bf"; ctx.setLineDash([3, 4]);
+          ctx.strokeStyle = notebookPreview ? "#d0e6f3" : "#9bb4bf"; ctx.setLineDash([3, 4]);
           ctx.beginPath(); ctx.moveTo(x, pad.top); ctx.lineTo(x, plotBottom); ctx.stroke(); ctx.setLineDash([]);
           ctx.strokeStyle = "#4f7384";
           ctx.beginPath(); ctx.moveTo(x, plotBottom); ctx.lineTo(x, plotBottom + 5); ctx.stroke();
           ctx.fillText(tickLabel(value), x, plotBottom + (histogram ? 49 : 22));
         }
       }
-      ctx.strokeStyle = "#4f7384"; ctx.lineWidth = 1.4;
+      ctx.strokeStyle = notebookPreview ? "#c8e2f1" : "#4f7384"; ctx.lineWidth = 1.4;
       ctx.beginPath(); ctx.moveTo(pad.left, pad.top); ctx.lineTo(pad.left, plotBottom); ctx.lineTo(plotRight, plotBottom); ctx.stroke();
       if (minY < 0 && maxY > 0) {
         ctx.strokeStyle = "#587c8b"; ctx.setLineDash([6, 3]);
@@ -1712,10 +1713,11 @@ if (!lab || !openButton) {
       canvas.dataset.plotTop = String(pad.top * displayScale);
       canvas.dataset.plotBottom = String((height - pad.bottom) * displayScale);
       canvas.dataset.observationLayout = histogram ? "rug" : "plot";
-      ctx.fillStyle = "#305b75"; ctx.font = `600 13px ${chartFont}`; ctx.textAlign = "center";
+      ctx.fillStyle = notebookPreview ? "#7091aa" : "#305b75"; ctx.font = `${notebookPreview ? '400 11' : '600 13'}px ${chartFont}`; ctx.textAlign = "center";
       xLabelLines.forEach((line,i)=>nativeContext.fillText(line,pad.left+(width-pad.left-pad.right)/2,height-12-(xLabelLines.length-1-i)*labelLineHeight));
       ctx.textAlign = "left";
-      yLabelLines.forEach((line,i)=>nativeContext.fillText(line,pad.left,pad.top-12-(yLabelLines.length-1-i)*labelLineHeight));
+      const paintedYLabels = notebookPreview && dataset.unit ? [`(${dataset.unit})`] : yLabelLines;
+      paintedYLabels.forEach((line,i)=>nativeContext.fillText(line,pad.left,pad.top-12-(paintedYLabels.length-1-i)*labelLineHeight));
       if (["histogram", "distribution", "sampling"].includes(chart.type) && chart.bins?.length) {
         const barFill = ctx.createLinearGradient(0, pad.top, 0, height - pad.bottom);
         barFill.addColorStop(0, "#27b9cc"); barFill.addColorStop(1, "#b8e5f5");

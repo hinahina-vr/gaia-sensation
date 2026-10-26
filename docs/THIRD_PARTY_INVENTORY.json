@@ -1,8 +1,37 @@
 {
   "schemaVersion": 1,
   "generatedBy": "scripts/build-third-party-inventory.mjs",
-  "note": "ロックファイルの宣言と収録データ出典を列挙。ライセンス本文や公開許諾の代わりではない。利用者OSに存在するシステムフォントを優先し、フォント本体は収録していない。",
+  "note": "ロックファイルの宣言と収録データ出典を列挙。ライセンス本文や公開許諾の代わりではない。通常画面はシステムフォントを優先。ノートブック表示用の同梱フォントとOFL本文はlocalFontsに記録。",
   "hostedFonts": [],
+  "localFonts": [
+    {
+      "family": "Manrope",
+      "file": "assets/notebook/fonts/Manrope.ttf",
+      "sha256": "3ae11c49db0455a3cc33e37d380f20fdb8c7f8b41dc07625c177e3d87a9d6ae6",
+      "license": "SIL Open Font License 1.1",
+      "licenseFile": "assets/notebook/fonts/Manrope-OFL.txt",
+      "sourceUrl": "https://github.com/google/fonts/tree/main/ofl/manrope",
+      "delivery": "Self-hosted only when notebook preview is selected"
+    },
+    {
+      "family": "Noto Sans JP",
+      "file": "assets/notebook/fonts/NotoSansJP.ttf",
+      "sha256": "c2f3b4d463500a2ddcd3849cded1fceeb9fd6d1c32e6cbecd568453ba50fc68f",
+      "license": "SIL Open Font License 1.1",
+      "licenseFile": "assets/notebook/fonts/NotoSansJP-OFL.txt",
+      "sourceUrl": "https://github.com/google/fonts/tree/main/ofl/notosansjp",
+      "delivery": "Self-hosted only when notebook preview is selected"
+    },
+    {
+      "family": "Zen Old Mincho",
+      "file": "assets/notebook/fonts/ZenOldMincho-Medium.ttf",
+      "sha256": "e60c7961e5110d0f08f902de43fe60865f1538845ff2092c779837257efac3bf",
+      "license": "SIL Open Font License 1.1",
+      "licenseFile": "assets/notebook/fonts/ZenOldMincho-OFL.txt",
+      "sourceUrl": "https://github.com/google/fonts/tree/main/ofl/zenoldmincho",
+      "delivery": "Self-hosted only when notebook preview is selected"
+    }
+  ],
   "dependencies": [
     {
       "lockfile": "package-lock.json",

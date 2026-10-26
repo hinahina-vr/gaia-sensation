@@ -79,7 +79,7 @@
         "./statistics-refinement.css?v=glass-20260913",
       ],
       scripts: [],
-      modules: ["./statistics-lab.js?v=insights75-scope-20261026"],
+      modules: ["./statistics-lab.js?v=notebook-preview-20261026"],
     },
     story: {
       templates: ["gaia-template-story"],
@@ -355,7 +355,15 @@
       performance.mark(`gaia:${name}-load-start`);
       group.templates.forEach(mountTemplate);
       await loadGroupAssets(group);
+      // Opt-in design study inside the real map analysis flow; normal routes stay unchanged.
+      if (name === "statistics" && new URLSearchParams(location.search).get("labMock") === "notebook") {
+        await loadStyle("./assets/notebook/in-app.css?v=reading-panels-20261026");
+        await loadModule("./assets/notebook/in-app.js?v=insight-first-20261026");
+      }
       await waitForGroupReady(name);
+      if (name === "exploration" && new URLSearchParams(location.search).get("labMock") === "notebook" && new URLSearchParams(location.search).has("showLab")) {
+        await loadModule("./assets/notebook/open-in-app.js?v=data-ready-20261026");
+      }
       loadedGroups.add(name);
       performance.mark(`gaia:${name}-load-end`);
       performance.measure(`gaia:${name}-load`, `gaia:${name}-load-start`, `gaia:${name}-load-end`);

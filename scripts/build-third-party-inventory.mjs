@@ -1,3 +1,4 @@
+import {createHash} from 'node:crypto';
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
@@ -46,7 +47,8 @@ dataSources.push({modeId: 'story-map01-temperature', id: 'nasa-gistemp-regional-
   retrievedAt: storyTemperature.retrievedAt, sourceSha256: storyTemperature.sourceSha256,
   transformation: storyTemperature.method, caveat: storyTemperature.caveat,
   usageSurfaces: ['story temperature map', 'directly served derived annual binary and metadata']});
-const payload = { schemaVersion: 1, generatedBy: "scripts/build-third-party-inventory.mjs", note: "ロックファイルの宣言と収録データ出典を列挙。ライセンス本文や公開許諾の代わりではない。利用者OSに存在するシステムフォントを優先し、フォント本体は収録していない。", hostedFonts, dependencies, dataSources };
+const localFonts = JSON.parse(read('assets/notebook/manifest.json')).fonts.map(font => { assert.equal(createHash('sha256').update(fs.readFileSync(path.join(root,font.file))).digest('hex'),font.sha256); assert(read(font.licenseFile).includes('SIL OPEN FONT LICENSE')); return font; });
+const payload = { schemaVersion: 1, generatedBy: "scripts/build-third-party-inventory.mjs", note: "ロックファイルの宣言と収録データ出典を列挙。ライセンス本文や公開許諾の代わりではない。通常画面はシステムフォントを優先。ノートブック表示用の同梱フォントとOFL本文はlocalFontsに記録。", hostedFonts, localFonts, dependencies, dataSources };
 const content = `${JSON.stringify(payload, null, 2)}\n`;
 const target = path.join(root, "docs/THIRD_PARTY_INVENTORY.json");
 if (process.argv.includes("--check")) assert.equal(fs.readFileSync(target, "utf8").replace(/\r\n/g, "\n"), content);

@@ -1,0 +1,50 @@
+{
+  "date": "2026-10-26",
+  "sourceDevelopmentCommit": "ed3577b55e813bf16e3d39e1a1208e3e6d4a4c32",
+  "productionBase": "c7e00fca29089f2e68b2b98063950655cdc21a22",
+  "scopeSha256": "d86aef71301adcc6b037d3af3e8686d0c78e3614f4a18567220ebd5bf8151f91",
+  "scope": "Only notebook presentation from latest commit. Map/data/catalog stay at 01–75 per the owner answer: 75までを維持する.",
+  "unchangedAssets": 341,
+  "newBackground": {
+    "path": "assets/notebook/assets/observatory-background.png",
+    "sha256": "217ce6288fa4c4409c894a765e2faf6c8daeb746a64e6b0a051539c3a3f239e7",
+    "generationService": "OpenAI Imagegen",
+    "firstRepositoryEvidenceAt": "2026-10-26T21:20:25+09:00",
+    "processing": "作者指定の観測ノートUIを参照し、組み込みImageGenで文字のない背景を生成。コミット済みPNGを無加工で採用。文字・数値・図・操作部は既存の実データとHTML/CSSで表示。出典とファイルハッシュはassets/notebook/manifest.json。",
+    "sourceLedger": "assets/notebook/manifest.json",
+    "officialTermsUrl": "https://openai.com/policies/service-terms/",
+    "publicationStatus": "public"
+  },
+  "fontInventory": [
+    {
+      "family": "Manrope",
+      "file": "assets/notebook/fonts/Manrope.ttf",
+      "sha256": "3ae11c49db0455a3cc33e37d380f20fdb8c7f8b41dc07625c177e3d87a9d6ae6",
+      "license": "SIL Open Font License 1.1",
+      "licenseFile": "assets/notebook/fonts/Manrope-OFL.txt",
+      "sourceUrl": "https://github.com/google/fonts/tree/main/ofl/manrope",
+      "delivery": "Self-hosted only when notebook preview is selected"
+    },
+    {
+      "family": "Noto Sans JP",
+      "file": "assets/notebook/fonts/NotoSansJP.ttf",
+      "sha256": "c2f3b4d463500a2ddcd3849cded1fceeb9fd6d1c32e6cbecd568453ba50fc68f",
+      "license": "SIL Open Font License 1.1",
+      "licenseFile": "assets/notebook/fonts/NotoSansJP-OFL.txt",
+      "sourceUrl": "https://github.com/google/fonts/tree/main/ofl/notosansjp",
+      "delivery": "Self-hosted only when notebook preview is selected"
+    },
+    {
+      "family": "Zen Old Mincho",
+      "file": "assets/notebook/fonts/ZenOldMincho-Medium.ttf",
+      "sha256": "e60c7961e5110d0f08f902de43fe60865f1538845ff2092c779837257efac3bf",
+      "license": "SIL Open Font License 1.1",
+      "licenseFile": "assets/notebook/fonts/ZenOldMincho-OFL.txt",
+      "sourceUrl": "https://github.com/google/fonts/tree/main/ofl/zenoldmincho",
+      "delivery": "Self-hosted only when notebook preview is selected"
+    }
+  ],
+  "sourceIdsAnd122SourcesUnchanged": true,
+  "dependencyLocksAnd184DependenciesUnchanged": true,
+  "basis": "The owner requested push/deployment of the committed notebook UI while explicitly retaining 75 exhibits. Carry the committed generated background without modification, preserve its source commit/date/hash and bundled OFL font licenses. Original decisions, dates, statuses, bases and providerPermissionVerified flags remain unchanged; this scope maintenance does not claim newly verified individual provider permissions."
+}
