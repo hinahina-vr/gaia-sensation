@@ -3,7 +3,7 @@
  */
 import { initSensorSenseField } from "./sensor-field.js?v=gaia-real-sensor-field-1";
 import { initSetupRequests, renderCompactMeasurementPicker, syncCompactMeasurementPicker } from "./sensor-onboarding.js?v=gaia-onboarding-1-i18n-20260913";
-import { aiProviderPresets, readAiConfiguration, saveAiConfiguration, clearAiKey, endAiSession, confirmAiDestination, validatedAiEndpoint, requestAiAnswer } from "../byok-ai.js?v=gaia-hardening-1-i18n-20260913";
+import { aiProviderPresets, readAiConfiguration, saveAiConfiguration, clearAiKey, endAiSession, confirmAiDestination, validatedAiEndpoint, requestAiAnswer } from "../byok-ai.js?v=deepseek41-flash-20261026";
 
 const views = new Map(Array.from(document.querySelectorAll("[data-view]"), (element) => [element.dataset.view, element]));
 const statusRegion = document.querySelector("#sensor-status");

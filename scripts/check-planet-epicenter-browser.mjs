@@ -47,7 +47,7 @@ try {
     assert.equal(await page.locator("#gaia-planet-signals-canvas").getAttribute("data-planet-focused-epicenter"), null);
     release();
     await page.waitForFunction(() => !document.querySelector("[data-planet-epicenter]").disabled);
-    for (const width of reduced ? [3840, 1920, 1440, 1280, 1121, 1024, 900, 768, 390, 320] : [1440]) {
+    for (const width of process.env.GAIA_EPICENTER_WIDTHS ? JSON.parse(process.env.GAIA_EPICENTER_WIDTHS) : reduced ? [3840, 1920, 1440, 1280, 1121, 1024, 900, 768, 390, 320] : [1440]) {
       await page.setViewportSize({ width, height: width === 3840 ? 2088 : width < 901 ? 844 : 900 });
       for (const long of reduced ? [false, true] : [false]) {
         const currentPoints = points.map(point => ({ ...point, label: point.id === "strongest-event" && long ? longName : point.label }));
@@ -93,6 +93,8 @@ try {
         assert(focus.zoom >= 3);
         assert.equal(focus.id, "strongest-event", "Navigation must match the displayed maximum, including early arrival");
         assert.equal(focus.focus, "strongest-event");
+        await page.waitForFunction(()=>document.querySelector('.gaia-map-text-layer[data-map-text-kind="epicenter"] text'));
+        assert((await page.locator('.gaia-map-text-layer[data-map-text-kind="epicenter"] text').first().textContent()).length>0);
         assert(focus.x > 5 && focus.x < width - 5 && focus.y > 70 && focus.y < focus.dockTop, `${width}: focused quake is out of view`);
         report.checks.push({ width, reduced, long, layout, focus });
         if (!long && [3840, 1440, 390].includes(width)) {
@@ -105,6 +107,7 @@ try {
     // Leaving 29 must remove both the action and its selected marker.
     await page.evaluate(() => document.querySelector('[data-planet-exhibit="global-cloud-radiance"]').click());
     assert(!await button.isVisible());
+    assert.equal(await page.locator('.gaia-map-text-layer[data-map-text-kind="epicenter"]').count(),0);
     assert.equal(await page.locator("#gaia-planet-signals-canvas").getAttribute("data-planet-focused-epicenter"), null);
     await context.close();
   }

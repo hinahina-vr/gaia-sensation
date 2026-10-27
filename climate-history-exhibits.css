@@ -181,6 +181,9 @@
 
 #japan-layer[data-climate-exhibit="lakes"] .gaia-climate-key { margin-top:14px; }
 
+.gaia-map-text-layer { position:absolute; inset:0; z-index:5; width:100%; height:100%; pointer-events:none; overflow:hidden; }
+#japan-layer:is(.is-map-title-transitioning,.is-map-data-intro,.japan-data-open) .gaia-map-text-layer { visibility:hidden; }
+
 #gaia-climate-canvas { position:absolute; inset:0; z-index:5; width:100%; height:100%; pointer-events:none; }
 
 .experience.japan-open:has(#japan-layer.is-climate-history-exhibit) { overflow:clip; }

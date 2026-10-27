@@ -2,10 +2,12 @@ import {earthLongitudeToMapX} from './world-projection.js?v=gaia-japan-center-1'
 import {waterCell,waterRgba} from './water-storage-grid.js?v=water-gis-20261022';
 import {waterDisplayField,WATER_FIELD_SIGMA} from './water-storage-field.js?v=water-smooth-20261023';
 import {waterFieldArrival,waterPoiState} from './water-storage-poi.js?v=water-poi-20261023';
+import {createMapTextLayer} from './map-text-layer.js?v=sharp-map-text-20261026';
 
 // Rasterise once per year, then reproject the small texture with the shared
 // camera. No particle motion pretending to be subsurface water transport.
 export function createWaterStorageView() {
+  const textLayer=createMapTextLayer('water-storage');
   let grid,texture,textureYear,textureCount=0,engine='idle',gl,program,uniform,vertices,valuesTexture,lost=false,markers=[];
   const gpu=document.createElement('canvas');gpu.width=720;gpu.height=360;
   gpu.addEventListener('webglcontextlost',event=>{event.preventDefault();lost=true;textureYear=null;dispatchEvent(new Event('gaia:atlas-renderer-change'));});
@@ -45,7 +47,11 @@ export function createWaterStorageView() {
     }
     textureCount++;textureYear=year;return texture;
   }
-  function paint(ctx,{data,year,view,elapsed,reduced,cell,region,regions}){
+  function paint(ctx,options){
+    const {view,year,cell,region,labelHost,ratio=1}=options;
+    return textLayer.record(ctx,textCtx=>paintContent(textCtx,options),{host:labelHost,width:view.rect.width,height:view.rect.height,view,ratio,key:[year,cell?.id,region?.id].join('/')});
+  }
+  function paintContent(ctx,{data,year,view,elapsed,reduced,cell,region,regions}){
     if(grid!==data){grid=data;textureYear=null;}
     const image=raster(year),alpha=waterFieldArrival(elapsed,reduced),world=360*view.scale;
     ctx.save();ctx.globalAlpha=alpha;ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high';
@@ -95,6 +101,6 @@ export function createWaterStorageView() {
     const lon=(x-view.x)/view.scale-30,lat=90-(y-view.y)/view.scale;
     return {cell:waterCell(grid,lon,lat)};
   }
-  const reset=()=>{grid=texture=null;textureYear=null;engine='idle';markers=[];if(gl&&program){gl.deleteTexture(valuesTexture);gl.deleteBuffer(vertices);gl.deleteProgram(program);program=null;}};
-  return {paint,pick,reset,getState:()=>({engine,textureYear,textureCount,texturePixels:texture?720*360:0,style:'smooth',smoothingSigmaDegrees:WATER_FIELD_SIGMA*.5,markers})};
+  const reset=()=>{textLayer.reset();grid=texture=null;textureYear=null;engine='idle';markers=[];if(gl&&program){gl.deleteTexture(valuesTexture);gl.deleteBuffer(vertices);gl.deleteProgram(program);program=null;}};
+  return {paint,pick,reset,presentLabels:fade=>textLayer.present(1,fade),getState:()=>({engine,textureYear,textureCount,texturePixels:texture?720*360:0,style:'smooth',smoothingSigmaDegrees:WATER_FIELD_SIGMA*.5,markers,textLayer:textLayer.getState()})};
 }

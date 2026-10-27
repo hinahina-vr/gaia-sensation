@@ -33,7 +33,7 @@ globalThis.addEventListener?.("storage", event => {
   if (event.key === aiKeyStorageKey && !event.newValue) notifyAiCleared();
 });
 export const aiProviderPresets = Object.freeze({
-  openrouter: { label: "OpenRouter", adapter: "openai", endpoint: "https://openrouter.ai/api/v1/chat/completions", model: "deepseek/deepseek-v4-flash" },
+  openrouter: { label: "OpenRouter", adapter: "openai", endpoint: "https://openrouter.ai/api/v1/chat/completions", model: "deepseek/deepseek-v4.1-flash" },
   openai: { label: "OpenAI", adapter: "openai", endpoint: "https://api.openai.com/v1/chat/completions", model: "gpt-4.1-mini" },
   xai: { label: "xAI", adapter: "openai", endpoint: "https://api.x.ai/v1/chat/completions", model: "grok-3-mini" },
   gemini: { label: "Google Gemini", adapter: "gemini", endpoint: "https://generativelanguage.googleapis.com/v1beta", model: "gemini-2.5-flash" },
@@ -125,10 +125,15 @@ export function readAiConfiguration() {
   try { saved = JSON.parse(storageRead("localStorage", aiConfigStorageKey)); } catch { /* Use defaults. */ }
   const provider = saved && Object.hasOwn(aiProviderPresets, saved.provider) ? saved.provider : "openrouter";
   const persistentKey = storageRead("localStorage", aiKeyStorageKey);
+  const endpoint = typeof saved?.endpoint === "string" ? saved.endpoint : aiProviderPresets[provider].endpoint;
+  const savedModel = typeof saved?.model === "string" ? saved.model : aiProviderPresets[provider].model;
+  // Migrate the former OpenRouter default; keep custom models/endpoints intact.
+  const model = provider === "openrouter" && endpoint === aiProviderPresets.openrouter.endpoint
+    && savedModel === "deepseek/deepseek-v4-flash" ? aiProviderPresets.openrouter.model : savedModel;
   return {
     provider,
-    endpoint: typeof saved?.endpoint === "string" ? saved.endpoint : aiProviderPresets[provider].endpoint,
-    model: typeof saved?.model === "string" ? saved.model : aiProviderPresets[provider].model,
+    endpoint,
+    model,
     apiKey: persistentKey || storageRead("sessionStorage", aiSessionKeyStorageKey),
     rememberKey: Boolean(persistentKey),
   };

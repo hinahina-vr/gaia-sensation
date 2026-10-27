@@ -17,7 +17,7 @@
         "./scene-transition.css?v=gaia-52",
         "./data-ledger.css?v=gaia-inline-data-sources-1-mincho-20260912-source-layer-20260912",
         "./data-journey.css?v=gaia-map-polish-1-mincho-20260912",
-        "./map-ui-grid-polish.css?v=quality-repair-20261022",
+        "./map-ui-grid-polish.css?v=shared75-20261027",
         "./estat-exhibits.css?v=annual-reading-20261021",
         "./firms-exhibit.css?v=gaia-firms-readout-fit-1-mincho-20260912",
         "./marine-cod-exhibit.css?v=records-reading-20261022",
@@ -38,9 +38,9 @@
         "./map-observation-typography.css?v=gaia-lodging-color-1-annual-type-20260909-action-size-20260912",
         "./realtime-exhibits.css?v=live-reading-20261020",
         "./map-mobile-shell.css?v=live-reading-20261020",
-        "./climate-history-exhibits.css?v=insights75-scope-20261026",
+        "./climate-history-exhibits.css?v=shared75-20261027",
         "./food-exhibits.css?v=records-reading-20261022",
-        "./map-heading-navigation.css?v=heading-shadow-20261025",
+        "./map-heading-navigation.css?v=shared75-20261027",
         "./map-unified-dock.css?v=climate-dock-match-20261022",
         "./map-stable-navigation.css?v=stable-next-20260912-exhibit-navigation-20260912-i18n-20260913-fixed-nav-dock15-20260913-nav-left-align-20260913",
       ],
@@ -64,7 +64,7 @@
         "./map-responsive-layout.js?v=mobile-credit-disclosure-top-20260913-climate-20261013-ecology-launcher-20261020-quality-20261022",
       ],
       modules: [
-        "./src/exploration/index.js?v=insights75-scope-20261026",
+        "./src/exploration/index.js?v=shared75-20261027",
       ],
     },
     statistics: {
@@ -79,7 +79,7 @@
         "./statistics-refinement.css?v=glass-20260913",
       ],
       scripts: [],
-      modules: ["./statistics-lab.js?v=notebook-preview-20261026"],
+      modules: ["./statistics-lab.js?v=shared75-20261027"],
     },
     story: {
       templates: ["gaia-template-story"],

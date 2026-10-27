@@ -76,9 +76,7 @@
     -webkit-background-clip: text;
     color: transparent;
     -webkit-text-fill-color: transparent;
-    filter:
-      drop-shadow(0 2px 1px rgba(0, 5, 16, 0.38))
-      drop-shadow(0 4px 4px rgba(0, 4, 14, 0.22));
+    filter: none;
   }
 }
 

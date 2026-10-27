@@ -4,7 +4,7 @@ import {prefectureEarthInsight} from './statistics-prefecture-context.js?v=insig
 import {windLatitudeFinding} from './statistics-wind-context.js?v=insights75-scope-20261026';
 import { analyzeSummary, descriptive, simpleRegression } from "./statistics-lab-core.js?v=whole-trends20-20261025";
 import { buildSocialInsight } from "./statistics-social-insights.js?v=whole-trends20-20261025";
-import { buildDecisionInsight } from "./statistics-decision-insights.js?v=insights75-scope-20261026";
+import { buildDecisionInsight } from "./statistics-decision-insights.js?v=shared75-20261027";
 
 // Exploratory findings are selected from the records, not from a catalogue of
 // statistic-to-sentence templates. Scores order questions, never confidence.

@@ -39,10 +39,10 @@ import {
 } from "./statistics-lab-core.js?v=whole-trends20-20261025";
 import { METHOD_GROUPS, METHOD_LOOKUP, actionLabel, resolveLegacyAction } from "./statistics-methods.js?v=gaia-analysis-guide-1";
 import { ANALYSIS_PURPOSES, ANALYSIS_CARDS, analysisIcon } from "./statistics-menu.js?v=gaia-analysis-guide-1";
-import { createStatisticsAi } from "./statistics-ai.js?v=inline-analysis-20260913";
-import { buildDataInsight } from "./statistics-data-insights.js?v=insights75-scope-20261026";
+import { createStatisticsAi } from "./statistics-ai.js?v=deepseek41-flash-20261026";
+import { buildDataInsight } from "./statistics-data-insights.js?v=shared75-20261027";
 import { snapshotObservationDataset, restoreObservationSnapshot } from './statistics-observation-snapshot.js?v=facts20-20261025';
-import { analyzeDiscovery } from "./statistics-discovery.js?v=insights75-scope-20261026";
+import { analyzeDiscovery } from "./statistics-discovery.js?v=shared75-20261027";
 
 const q = (selector) => document.querySelector(selector);
 const lab = q("#gaia-statistics-lab");

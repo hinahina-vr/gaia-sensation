@@ -1,4 +1,4 @@
-import { aiProviderPresets, readAiConfiguration, saveAiConfiguration, clearAiKey, endAiSession, confirmAiDestination, validatedAiEndpoint, requestAiAnswer } from "./byok-ai.js?v=gaia-hardening-1-i18n-20260913";
+import { aiProviderPresets, readAiConfiguration, saveAiConfiguration, clearAiKey, endAiSession, confirmAiDestination, validatedAiEndpoint, requestAiAnswer } from "./byok-ai.js?v=deepseek41-flash-20261026";
 import { analysisIcon } from "./statistics-menu.js?v=gaia-analysis-guide-1";
 
 const text = (value, limit = 400) => typeof value === "string" ? value.slice(0, limit) : "";

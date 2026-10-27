@@ -1,4 +1,6 @@
 import { animateMetricText } from '../shared/animated-metric.js';
+import {createMapTextLayer} from './map-text-layer.js?v=sharp-map-text-20261026';
+const epicenterText=createMapTextLayer('epicenter');
 import { formatJapaneseNumber } from "../shared/number-format.js";
 import { formatCoordinatesJa } from "../shared/coordinates.js";
 import { pickProjectedPoi } from "./poi-hit-test.js?v=gaia-japan-center-1";
@@ -578,6 +580,7 @@ const drawQuakes = (time, view, data, definition, interaction, introVisible) => 
   const focusedIndex = interaction.focused?.index ?? focusedEpicenterIndex;
   const state = interaction.selected ? "selected" : interaction.hovered ? "hovered"
     : focusedIndex >= 0 ? "epicenter" : "none";
+  if(state!=='epicenter')epicenterText.reset();
   const size = clamp(view.scale / 5, .8, 1.25);
   const light = getAnchorLight(definition);
   const tau = Math.PI * 2;
@@ -664,8 +667,11 @@ const drawQuakes = (time, view, data, definition, interaction, introVisible) => 
     context.lineWidth = 4;
     context.strokeStyle = "#071920";
     const label = quakeMarkers[focusedIndex].label;
-    context.strokeText(label, center.x, center.y - radius - 7);
-    context.fillText(label, center.x, center.y - radius - 7);
+    epicenterText.record(context,textCtx=>{
+      textCtx.strokeText(label, center.x, center.y - radius - 7);
+      textCtx.fillText(label, center.x, center.y - radius - 7);
+    },{host:canvas,width:view.rect.width,height:view.rect.height,view,ratio:canvas.width/view.rect.width,key:String(focusedIndex)});
+    epicenterText.present();
   }
   context.restore();
   canvas.dataset.planetPoiFocusRadius = radius.toFixed(2);
@@ -864,6 +870,7 @@ const draw = (timestamp = performance.now()) => {
   context.clearRect(0, 0, view.rect.width, view.rect.height);
   context.globalCompositeOperation = "lighter";
   const definition = DEFINITIONS[activeIndex];
+  if(definition.renderer!=='quake')epicenterText.reset();
   const interaction = getFocusedPoi(definition);
   const isField = definition.renderer !== "quake";
   const introVisible = layer.classList.contains("is-map-title-transitioning") || layer.classList.contains("is-map-data-intro");
@@ -1029,6 +1036,7 @@ const renderReadout = (definition, data) => {
 
 
 const select = async (index) => {
+  epicenterText.reset();
   globalThis.GaiaMarineCod?.deactivate?.();
   globalThis.GaiaFoodExhibits?.deactivate?.();
   const definition = DEFINITIONS[index];
@@ -1132,6 +1140,7 @@ const select = async (index) => {
 };
 
 const deactivate = () => {
+  epicenterText.reset();
   if (activeIndex < 0) return;
   const previous = DEFINITIONS[activeIndex];
   activeIndex = -1;

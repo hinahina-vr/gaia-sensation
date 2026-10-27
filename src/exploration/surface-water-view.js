@@ -1,10 +1,12 @@
 import {createPoiYearCrossfade} from './poi-year-crossfade.js?v=20260926';
 import {earthLongitudeToMapX} from './world-projection.js?v=gaia-japan-center-1';
 import {LAKE_CLASSES,lakeClass,lakeRasterRect,lakeCellAt} from './surface-water-spatial.js?v=lake-gis-20261022';
+import {createMapTextLayer} from './map-text-layer.js?v=sharp-map-text-20261026';
 
 // One georeferenced raster, not a second map or a floating enlarged image.
 // The shared map camera owns panning, zooming and all pointer events.
 export function createLakeView(parent, onChange=()=>{}) {
+  const textLayer=createMapTextLayer('lake-detail');
   const figure=document.createElement('figure');figure.className='gaia-lake-view';figure.hidden=true;
   figure.innerHTML='<div class="gaia-lake-images"><canvas role="img"></canvas></div><p data-lake-image-status role="status"></p>';
   parent.append(figure);
@@ -99,7 +101,7 @@ export function createLakeView(parent, onChange=()=>{}) {
     ctx.imageSmoothingEnabled=false;
     if(compare&&reference)ctx.drawImage(reference.outline,r.x,r.y,r.width,r.height);
     ctx.drawImage(texture,r.x,r.y,r.width,r.height);
-    if(detail&&scale>30){
+    if(detail&&scale>30){textLayer.record(ctx,ctx=>{
       const [west,south,east,north]=region.bounds;
       ctx.save();ctx.fillStyle='#a9c5cf';ctx.lineWidth=.7;ctx.font='10px sans-serif';
       // Let the coordinate guides dissolve into the map, rather than framing
@@ -127,15 +129,16 @@ export function createLakeView(parent, onChange=()=>{}) {
       if(sample){const px=x+earthLongitudeToMapX(sample.lon)*scale,py=y+(90-sample.lat)*scale;
         ctx.strokeStyle='#fff1c7';ctx.lineWidth=1.5;ctx.beginPath();ctx.arc(px,py,7,0,Math.PI*2);ctx.moveTo(px-12,py);ctx.lineTo(px-9,py);ctx.moveTo(px+9,py);ctx.lineTo(px+12,py);ctx.stroke();}
       ctx.restore();
-    }
+    },{host:canvas,width:rect.width,height:rect.height,view,ratio,key});textLayer.present();
+    }else textLayer.reset();
     figure.dataset.paintCount=String(++paintCount);
   }
-  function clear(){generation++;cacheEpoch++;current=reference=region=row=sample=view=null;key=renderKey='';fade.reset();cache.clear();texture.width=texture.height=canvas.width=canvas.height=1;visible=detail=false;figure.hidden=true;delete figure.dataset.renderedYear;delete figure.dataset.region;status.textContent='';}
+  function clear(){textLayer.reset();generation++;cacheEpoch++;current=reference=region=row=sample=view=null;key=renderKey='';fade.reset();cache.clear();texture.width=texture.height=canvas.width=canvas.height=1;visible=detail=false;figure.hidden=true;delete figure.dataset.renderedYear;delete figure.dataset.region;status.textContent='';}
   return {show,paint,clear,pick,
     setVisible(value){visible=Boolean(value);figure.hidden=!visible;if(!visible)fade.reset();},
     setDetail(value){detail=Boolean(value);invalidate();},
     setCompare(value){compare=Boolean(value);invalidate();},
     selectSample(value){sample=value?{lon:value.lon,lat:value.lat}:null;invalidate();},
     getState:()=>({region:region?.id,year:current?Number(figure.dataset.renderedYear):null,compare,referenceReady:!!reference,sample:sample?sampleAt(sample.lon,sample.lat):null,
-      raster:region&&view?lakeRasterRect(region.bounds,view):null,cacheSize:cache.size,paintCount})};
+      raster:region&&view?lakeRasterRect(region.bounds,view):null,cacheSize:cache.size,paintCount,textLayer:textLayer.getState()})};
 }

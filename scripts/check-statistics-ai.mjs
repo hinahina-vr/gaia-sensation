@@ -23,6 +23,15 @@ try {
   assert.match(statisticsAiQuestions.find(preset => preset.id === "change").question, /時系列データでなければ/);
   assert.match(statisticsAiQuestions.find(preset => preset.id === "relation").question, /因果を断定しない/);
   assert.equal(readAiConfiguration().provider, "openrouter");
+  assert.equal(readAiConfiguration().model, "deepseek/deepseek-v4.1-flash");
+  const openrouter = { provider: "openrouter", endpoint: aiProviderPresets.openrouter.endpoint, model: "deepseek/deepseek-v4-flash", apiKey: "qa-only-not-a-real-key", rememberKey: false };
+  saveAiConfiguration(openrouter);
+  assert.equal(readAiConfiguration().model, "deepseek/deepseek-v4.1-flash");
+  assert.equal(readAiConfiguration().apiKey, openrouter.apiKey);
+  saveAiConfiguration({ ...openrouter, model: "user-chosen-model" });
+  assert.equal(readAiConfiguration().model, "user-chosen-model");
+  saveAiConfiguration({ ...openrouter, endpoint: "https://ai-qa.example/chat" });
+  assert.equal(readAiConfiguration().model, openrouter.model);
   const config = { provider: "custom", endpoint: "https://ai-qa.example/chat", model: "qa-model", apiKey: "qa-only-not-a-real-key", rememberKey: false };
   saveAiConfiguration(config);
   assert.deepEqual(readAiConfiguration(), config);

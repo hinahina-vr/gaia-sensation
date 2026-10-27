@@ -2,6 +2,7 @@ import {mapCoCreationInsight} from './statistics-map-co-creation.js?v=insights75
 import {windEarthInsight} from './statistics-wind-context.js?v=insights75-scope-20261026';
 import {stationEarthInsight} from './statistics-station-context.js?v=insights75-scope-20261026';
 import {environmentEarthInsight} from './statistics-environment-context.js?v=insights75-scope-20261026';
+import {livingEarthInsight} from './statistics-living-earth-context.js?v=shared75-20261027';
 import {finalEarthInsight} from './statistics-final-context.js?v=insights75-scope-20261026';
 // Visitor-facing readings for map 01–05. Numerical evidence, source IDs and
 // calculations remain on the measured result; this layer explains their meaning.
@@ -108,6 +109,7 @@ export function mapEarthInsight(dataset,candidate,rows,measured) {
   if(dataset.modeId==='food-balances'&&measured.audience==='earth-context')return {...measured,futurePerspective:{focus:'human-earth-co-creation-and-future',basis:'同じ出典・同じ品目の需給構造と既存の期間比較',evidenceRecordIds:measured.recordIds}};
   const station=stationEarthInsight(dataset,measured);if(station)return station;
   const environment=environmentEarthInsight(dataset,measured);if(environment)return environment;
+  const living=livingEarthInsight(dataset,rows,measured);if(living)return living;
   const final=finalEarthInsight(dataset,rows,measured);if(final)return final;
   const topic=TOPIC[dataset.id];if(!topic)return mapCoCreationInsight(dataset,candidate,rows,measured);
   if(topic==='wind')return windEarthInsight(dataset,candidate,rows,measured);

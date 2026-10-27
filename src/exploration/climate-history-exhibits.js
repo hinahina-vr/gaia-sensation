@@ -1,18 +1,20 @@
+import { createMapTextLayer } from './map-text-layer.js?v=sharp-map-text-20261026';
 import { earthBaseScale, earthLongitudeToMapX } from "./world-projection.js?v=gaia-japan-center-1";
 import { decorateMapActions } from "./map-exhibit-actions.js?v=action-icons-ready-20260926";
 import { CLIMATE_EXHIBITS, BASINS, windMS, format, stormPeak, stormLabel, colorFor, coralInsight, cycloneInsight, statisticsFor, daysInYear } from "./climate-history-model.js?v=insights75-scope-20261026";
 import { atlasDefinition, atlasInsight, atlasStatistics, atlasRow } from "./atlas-history-model.js?v=insights75-scope-20261026";
 import { createPoiYearCrossfade } from "./poi-year-crossfade.js?v=20260926";
 import { lakeInsight, lakeStatistics } from "./surface-water-model.js?v=lakes-20261022";
-import { createLakeView } from "./surface-water-view.js?v=lake-blend-20261023";
+import { createLakeView } from "./surface-water-view.js?v=sharp-map-text-20261026";
 import { lakeFitCamera } from "./surface-water-spatial.js?v=lake-gis-20261022";
 import { poiArrival, poiArrivalDuration } from "./annual-poi-arrival.js?v=20260909";
 import { decodeWaterGrid, waterCellById, waterCellRegion, waterCellStatistics, waterCoordinates, waterRgba } from "./water-storage-grid.js?v=water-gis-20261022";
-import { createWaterStorageView } from "./water-storage-view.js?v=water-poi-20261023";
+import { createWaterStorageView } from "./water-storage-view.js?v=sharp-map-text-20261026";
 import { WATER_ARRIVAL_MS } from "./water-storage-poi.js?v=water-poi-20261023";
 import { createCoralHeatView, CORAL_ARRIVAL_MS } from "./coral-heat-view.js?v=coral-current-20261023";
 const cache = /* @__PURE__ */ new Map(), pending = /* @__PURE__ */ new Map(), buttons = /* @__PURE__ */ new Map();
 let regionalPanel, lakeView;
+const lakeTextLayer = createMapTextLayer('lakes');
 const atlasFade = createPoiYearCrossfade();
 let atlasArrival = null, atlasViewKey = "", lakeArrival = null, lakeDetail = !1, lakeAutoDetail = !1;
 const waterView = createWaterStorageView();
@@ -136,8 +138,10 @@ function fillPoints() {
 async function setYear(next) {
   if (!active || !data || !years().includes(Number(next))) return;
   (isAtlas() || isCoral()) && dataState === "ready" && Number(next) !== year && !reduced.matches && !canvas.hidden && atlasFade.capture(canvas, atlasViewKey);
+  // Keep the year fieldset enabled so native mouse/touch drags are not cancelled.
+  // The generation ticket already rejects obsolete asynchronous loads.
   const ticket = ++generation;
-  year = Number(next), dataState = "loading", season = null, geometryKey = "", hitPoints = [], setBusy(!0), !isAtlas() && !isCoral() && context.clearRect(0, 0, canvas.width, canvas.height), q("[data-climate-controls]").disabled = !0, q("[data-climate-analysis]").disabled = !0, q("[data-climate-value]").textContent = "—", q("[data-climate-period]").textContent = `${year}${isRegion() ? "年" : "シーズン"}`, q("[data-climate-detail]").textContent = "", q("[data-climate-selected]").textContent = `${year}の記録`, q("[data-climate-insight]").textContent = `${year}の記録を読み込んでいます。`, q("[data-climate-status]").textContent = isAtlas() ? "保存データを読込中…" : isLake() ? "JRC保存データを読込中…" : "NOAA保存データを読込中…", q("[data-climate-retry]").hidden = !0;
+  year = Number(next), dataState = "loading", season = null, geometryKey = "", hitPoints = [], setBusy(!0), !isAtlas() && !isCoral() && context.clearRect(0, 0, canvas.width, canvas.height), q("[data-climate-analysis]").disabled = !0, q("[data-climate-value]").textContent = "—", q("[data-climate-period]").textContent = `${year}${isRegion() ? "年" : "シーズン"}`, q("[data-climate-detail]").textContent = "", q("[data-climate-selected]").textContent = `${year}の記録`, q("[data-climate-insight]").textContent = `${year}の記録を読み込んでいます。`, q("[data-climate-status]").textContent = isAtlas() ? "保存データを読込中…" : isLake() ? "JRC保存データを読込中…" : "NOAA保存データを読込中…", q("[data-climate-retry]").hidden = !0;
   try {
     const payload = isRegion() ? null : await load(`cyclones/${year}`);
     if (!active || ticket !== generation) return;
@@ -173,13 +177,17 @@ const projection = () => {
   return { rect, scale, x: (rect.width - 360 * scale) / 2 + (Number(d.earthOffsetX) || 0), y: (rect.height - 180 * scale) / 2 + (Number(d.earthOffsetY) || 0) };
 };
 function paint(view, ratio, now) {
-  const ctx = bufferContext, { rect, scale } = view;
+  if(isLake())return lakeTextLayer.record(bufferContext,ctx=>paintScene(view,ratio,now,ctx),{host:canvas,width:view.rect.width,height:view.rect.height,view,ratio,key:[year,selectedId].join('/')});
+  return paintScene(view,ratio,now,bufferContext);
+}
+function paintScene(view, ratio, now, ctx) {
+  const { rect, scale } = view;
   buffer.width !== canvas.width && (buffer.width = canvas.width), buffer.height !== canvas.height && (buffer.height = canvas.height), ctx.setTransform(1, 0, 0, 1, 0, 0), ctx.clearRect(0, 0, buffer.width, buffer.height), ctx.setTransform(ratio, 0, 0, ratio, 0, 0), hitPoints = [];
   const xy = (lon, lat) => ({ x: view.x + earthLongitudeToMapX(lon) * scale, y: view.y + (90 - lat) * scale }), visible = (p) => p.x >= -12 && p.y >= -12 && p.x <= rect.width + 12 && p.y <= rect.height + 12;
   if (isCoral())
     hitPoints = coralView.paint(ctx, { regions: data.regions, year, selectedId, xy, scale, width: rect.width, height: rect.height, ratio, elapsed: coralArrival === null ? -1 : now - coralArrival, reduced: reduced.matches }), canvas.dataset.coralEngine = coralView.getState().engine;
   else if (isWater()) {
-    const result = waterView.paint(ctx, { data: waterGrid, regions: data.regions, year, view, elapsed: atlasArrival === null ? -1 : now - atlasArrival, reduced: reduced.matches, cell: waterSelection, region: selected() });
+    const result = waterView.paint(ctx, { data: waterGrid, regions: data.regions, year, view, ratio, labelHost: canvas, elapsed: atlasArrival === null ? -1 : now - atlasArrival, reduced: reduced.matches, cell: waterSelection, region: selected() });
     hitPoints = result.points, canvas.dataset.atlasGeometryState = result.state, canvas.dataset.atlasEngine = waterView.getState().engine;
   } else if (isRegion())
     for (const [index, region] of data.regions.entries()) {
@@ -251,6 +259,8 @@ function draw(now) {
   geometryKey = arriving ? "" : key;
   const width = Math.max(1, Math.round(rect.width * ratio)), height = Math.max(1, Math.round(rect.height * ratio));
   canvas.width !== width && (canvas.width = width), canvas.height !== height && (canvas.height = height), paint(view, ratio, now), context.setTransform(1, 0, 0, 1, 0, 0), context.clearRect(0, 0, width, height), context.drawImage(buffer, 0, 0), atlasViewKey = [rect.width, rect.height, view.scale, view.x, view.y, ratio].join("/"), (isAtlas() || isCoral()) && atlasFade.paint(context, atlasViewKey, now, reduced.matches), canvas.dataset.yearFade = atlasFade.getState().active ? "running" : "complete";
+  if(isWater())waterView.presentLabels(atlasFade.getState());
+  else if(isLake())lakeTextLayer.present();
 }
 function resume() {
   active && !frame && !document.hidden && !layer.hidden && (frame = requestAnimationFrame(draw));
@@ -308,9 +318,11 @@ function findPoiAt(clientX, clientY, pointerType) {
   } };
 }
 function deactivate() {
+  lakeTextLayer.reset();
   active && (active = !1, generation++, playing = !1, dataState = "idle", cancelAnimationFrame(frame), frame = 0, hitPoints = [], regionalPanel?.closeRegionalAnalysis(), lakeView?.clear(), lakeArrival = null, lakeDetail = !1, lakeAutoDetail = !1, atlasArrival = null, atlasFade.reset(), waterView.reset(), waterGrid = null, waterSelection = null, waterEntryFocus = !1, coralView.reset(), coralArrival = null, layer.classList.remove("is-climate-history-exhibit", "is-lake-detail"), delete layer.dataset.climateExhibit, canvas.hidden = readout.hidden = legend.hidden = !0, buttons.get(definition.id)?.setAttribute("aria-current", "false"), emit("change"), setBusy(!1));
 }
 async function select(id) {
+  lakeTextLayer.reset();
   const target = CLIMATE_EXHIBITS.find((d) => d.id === id);
   if (!target) return;
   regionalPanel?.closeRegionalAnalysis(), lakeView?.clear(), layer.classList.remove("is-lake-detail"), lakeLocatorKey = lakePanelKey = "", lakeArrival = null, lakeDetail = !1, lakeAutoDetail = !1, atlasArrival = null, atlasFade.reset(), waterView.reset(), waterGrid = null, waterSelection = null, waterEntryFocus = !1, coralView.reset(), coralArrival = null;
@@ -469,3 +481,5 @@ globalThis.GaiaClimateHistory = Object.freeze({
   }] } : null
 });
 globalThis.GaiaMapObservationAdapter ? mount() : addEventListener("gaia:map-adapter-ready", mount, { once: !0 });
+
+addEventListener('gaia:atlas-renderer-change',()=>{geometryKey='';resume();});
