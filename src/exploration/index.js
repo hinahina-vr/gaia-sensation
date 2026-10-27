@@ -4,13 +4,13 @@ import { mount } from "./live-data.js?v=gaia-national-analysis-1-hourly-20260912
 import "./live-exhibits.js?v=whole-trends20-20261025";
 import "./estat-exhibits.js?v=whole-trends20-20261025";
 import "./firms-exhibit.js?v=earth01-05-20261025";
-import "./planet-signals-exhibit.js?v=sharp-map-text-20261026";
+import "./planet-signals-exhibit.js?v=labels75-c363152-20261027";
 import "./marine-cod-exhibit.js?v=whole-trends20-20261025";
 import "./food-exhibits.js?v=whole-trends20-20261025";
 import "./map-theme-background.js?v=intro-fade-gate-20261022";
 import "./map-demo.js?v=intro-fade-gate-20261022";
 
-import "./climate-history-exhibits.js?v=no-dark-label-wash-20261027";
+import "./climate-history-exhibits.js?v=labels75-c363152-20261027";
 
 globalThis.GaiaExploration = Object.freeze({ governor, live: globalThis.GaiaLiveData });
 void mount().catch((error) => console.error(error));

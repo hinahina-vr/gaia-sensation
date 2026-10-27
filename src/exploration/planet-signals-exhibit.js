@@ -1,5 +1,5 @@
 import { animateMetricText } from '../shared/animated-metric.js';
-import {createMapTextLayer} from './map-text-layer.js?v=sharp-map-text-20261026';
+import {createMapTextLayer} from './map-text-layer.js?v=country-text-halo-20261027';
 const epicenterText=createMapTextLayer('epicenter');
 import { formatJapaneseNumber } from "../shared/number-format.js";
 import { formatCoordinatesJa } from "../shared/coordinates.js";

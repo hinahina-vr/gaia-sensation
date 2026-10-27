@@ -1,15 +1,15 @@
-import { createMapTextLayer } from './map-text-layer.js?v=sharp-map-text-20261026';
+import { createMapTextLayer } from './map-text-layer.js?v=labels75-c363152-20261027';
 import { earthBaseScale, earthLongitudeToMapX } from "./world-projection.js?v=gaia-japan-center-1";
 import { decorateMapActions } from "./map-exhibit-actions.js?v=action-icons-ready-20260926";
 import { CLIMATE_EXHIBITS, BASINS, windMS, format, stormPeak, stormLabel, colorFor, coralInsight, cycloneInsight, statisticsFor, daysInYear } from "./climate-history-model.js?v=insights75-scope-20261026";
 import { atlasDefinition, atlasInsight, atlasStatistics, atlasRow } from "./atlas-history-model.js?v=insights75-scope-20261026";
 import { createPoiYearCrossfade } from "./poi-year-crossfade.js?v=20260926";
 import { lakeInsight, lakeStatistics } from "./surface-water-model.js?v=lakes-20261022";
-import { createLakeView } from "./surface-water-view.js?v=sharp-map-text-20261026";
+import { createLakeView } from "./surface-water-view.js?v=labels75-c363152-20261027";
 import { lakeFitCamera } from "./surface-water-spatial.js?v=lake-gis-20261022";
 import { poiArrival, poiArrivalDuration } from "./annual-poi-arrival.js?v=20260909";
 import { decodeWaterGrid, waterCellById, waterCellRegion, waterCellStatistics, waterCoordinates, waterRgba } from "./water-storage-grid.js?v=water-gis-20261022";
-import { createWaterStorageView } from "./water-storage-view.js?v=sharp-map-text-20261026";
+import { createWaterStorageView } from "./water-storage-view.js?v=labels75-c363152-20261027";
 import { WATER_ARRIVAL_MS } from "./water-storage-poi.js?v=water-poi-20261023";
 import { createCoralHeatView, CORAL_ARRIVAL_MS } from "./coral-heat-view.js?v=coral-current-20261023";
 const cache = /* @__PURE__ */ new Map(), pending = /* @__PURE__ */ new Map(), buttons = /* @__PURE__ */ new Map();

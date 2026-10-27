@@ -1,7 +1,7 @@
 import {createPoiYearCrossfade} from './poi-year-crossfade.js?v=20260926';
 import {earthLongitudeToMapX} from './world-projection.js?v=gaia-japan-center-1';
 import {LAKE_CLASSES,lakeClass,lakeRasterRect,lakeCellAt} from './surface-water-spatial.js?v=lake-gis-20261022';
-import {createMapTextLayer} from './map-text-layer.js?v=sharp-map-text-20261026';
+import {createMapTextLayer} from './map-text-layer.js?v=country-text-halo-20261027';
 
 // One georeferenced raster, not a second map or a floating enlarged image.
 // The shared map camera owns panning, zooming and all pointer events.

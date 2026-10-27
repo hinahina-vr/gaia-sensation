@@ -2,7 +2,7 @@ import {earthLongitudeToMapX} from './world-projection.js?v=gaia-japan-center-1'
 import {waterCell,waterRgba} from './water-storage-grid.js?v=water-gis-20261022';
 import {waterDisplayField,WATER_FIELD_SIGMA} from './water-storage-field.js?v=water-smooth-20261023';
 import {waterFieldArrival,waterPoiState} from './water-storage-poi.js?v=water-poi-20261023';
-import {createMapTextLayer} from './map-text-layer.js?v=sharp-map-text-20261026';
+import {createMapTextLayer} from './map-text-layer.js?v=country-text-halo-20261027';
 
 // Rasterise once per year, then reproject the small texture with the shared
 // camera. No particle motion pretending to be subsurface water transport.

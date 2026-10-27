@@ -64,7 +64,7 @@
         "./map-responsive-layout.js?v=mobile-credit-disclosure-top-20260913-climate-20261013-ecology-launcher-20261020-quality-20261022",
       ],
       modules: [
-        "./src/exploration/index.js?v=shared75-20261027",
+        "./src/exploration/index.js?v=labels75-c363152-20261027",
       ],
     },
     statistics: {

@@ -37,7 +37,12 @@ export function createMapTextLayer(kind){
     for(const command of commands){
       const attributes={x:command.x,y:command.y,transform:`matrix(${command.transform.join(' ')})`,opacity:command.alpha,'text-anchor':command.align==='center'?'middle':['right','end'].includes(command.align)?'end':'start','dominant-baseline':({top:'text-before-edge',hanging:'hanging',middle:'central',bottom:'text-after-edge',ideographic:'ideographic'})[command.baseline]||'alphabetic'};
       if(command.stroke)Object.assign(attributes,{fill:'none',stroke:command.ink,'stroke-width':command.lineWidth,'stroke-linejoin':'round'});
-      else Object.assign(attributes,{fill:command.fill,...(command.shadow?{stroke:command.shadow,'stroke-width':2,'stroke-linejoin':'round','paint-order':'stroke fill'}:{})});
+      else {
+        // Country annotations sit directly on bright fills and boundaries. Keep
+        // a crisp text-only halo even after a chart disables canvas shadows.
+        const halo=command.shadow||(kind==='country-history'?'#04151e':null);
+        Object.assign(attributes,{fill:command.fill,...(halo?{stroke:halo,'stroke-width':2,'stroke-linejoin':'round','paint-order':'stroke fill'}:{})});
+      }
       if(command.maxWidth)Object.assign(attributes,{textLength:command.maxWidth,lengthAdjust:'spacingAndGlyphs'});
       const node=element('text',attributes);node.style.font=command.font;node.textContent=command.text;current.append(node);
     }
