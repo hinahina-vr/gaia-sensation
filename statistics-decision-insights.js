@@ -2,7 +2,7 @@
 // causal effects, risk thresholds, or missing business dimensions.
 import {descriptive, simpleRegression} from './statistics-lab-core.js?v=whole-trends20-20261025';
 import {foodBalanceEarthInsight} from './statistics-food-context.js?v=food70-earth-20261025';
-import {mapEarthInsight} from './statistics-earth-context.js?v=shared75-20261027';
+import {mapEarthInsight} from './statistics-earth-context.js?v=release100-c363-20261027';
 const num=x=>typeof x==='number'&&Number.isFinite(x);
 const fmt=x=>new Intl.NumberFormat('ja-JP',{maximumFractionDigits:Math.abs(x)<.01&&x!==0?5:2}).format(x);
 const sum=xs=>xs.reduce((a,b)=>a+b,0);

@@ -40,9 +40,9 @@ import {
 import { METHOD_GROUPS, METHOD_LOOKUP, actionLabel, resolveLegacyAction } from "./statistics-methods.js?v=gaia-analysis-guide-1";
 import { ANALYSIS_PURPOSES, ANALYSIS_CARDS, analysisIcon } from "./statistics-menu.js?v=gaia-analysis-guide-1";
 import { createStatisticsAi } from "./statistics-ai.js?v=deepseek41-flash-20261026";
-import { buildDataInsight } from "./statistics-data-insights.js?v=shared75-20261027";
+import { buildDataInsight } from "./statistics-data-insights.js?v=release100-c363-20261027";
 import { snapshotObservationDataset, restoreObservationSnapshot } from './statistics-observation-snapshot.js?v=facts20-20261025';
-import { analyzeDiscovery } from "./statistics-discovery.js?v=shared75-20261027";
+import { analyzeDiscovery } from "./statistics-discovery.js?v=release100-c363-20261027";
 
 const q = (selector) => document.querySelector(selector);
 const lab = q("#gaia-statistics-lab");
@@ -467,7 +467,7 @@ if (!lab || !openButton) {
       if (!restored) { ui.status.textContent = '保存した観測記録を読み込めません。'; return false; }
       dataset = installExternalDataset(restored);
     }
-    if (!dataset && /^(?:food-(?:balances|security)-\d+-\d{3}|japan-.+|climate-(?:cyclones|coral|lakes|waterstore)-[a-zA-Z0-9_-]+)$/.test(view?.datasetId || "")) {
+    if (!dataset && /^(?:food-(?:balances|security)-\d+-\d{3}|japan-.+|climate-[a-z]+-[a-zA-Z0-9_-]+)$/.test(view?.datasetId || "")) {
       const requestedView = ui.savedView.value;
       let restored;
       try {

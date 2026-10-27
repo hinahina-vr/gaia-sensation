@@ -1,0 +1,71 @@
+{
+  "retrievedAt": "2026-10-22",
+  "sources": [
+    {
+      "file": "countries.json",
+      "url": "https://api.worldbank.org/v2/country/all?format=json&per_page=400",
+      "sha256": "c9acf3932785191a649cbc04c3056af4cf64a236e5c3b49d49be25ddb0440bce",
+      "bytes": 113954
+    },
+    {
+      "file": "waterstress-metadata.json",
+      "url": "https://api.worldbank.org/v2/indicator/ER.H2O.FWST.ZS?format=json",
+      "sha256": "93f80a0eaba7806ea1727788513110db3ca8b12978bae13ac311a37ddd1ccbe9",
+      "bytes": 1074
+    },
+    {
+      "file": "waterstress.json",
+      "url": "https://api.worldbank.org/v2/country/all/indicator/ER.H2O.FWST.ZS?format=json&date=2000:2024&per_page=20000",
+      "sha256": "8631306fb635aee343c5d5820bb87207a9bba0213ed30b02839362da8af00af0",
+      "bytes": 1873071
+    },
+    {
+      "file": "cropland-metadata.json",
+      "url": "https://api.worldbank.org/v2/indicator/AG.LND.ARBL.ZS?format=json",
+      "sha256": "7f98886308e1c185355f43a33ed8832ce762da4ae363f6ec5818a9e4b14dbd24",
+      "bytes": 818
+    },
+    {
+      "file": "cropland.json",
+      "url": "https://api.worldbank.org/v2/country/all/indicator/AG.LND.ARBL.ZS?format=json&date=2000:2024&per_page=20000",
+      "sha256": "6ca6db4c16a3e94995f084221fb7f9e1ac285341e82f9ec4236de4b308c6af31",
+      "bytes": 1480776
+    },
+    {
+      "file": "yield-metadata.json",
+      "url": "https://api.worldbank.org/v2/indicator/AG.YLD.CREL.KG?format=json",
+      "sha256": "7db73e3ce4522b5a91050ee4243b129d332e444cf38709b7ca5443cae45d9f2c",
+      "bytes": 1082
+    },
+    {
+      "file": "yield.json",
+      "url": "https://api.worldbank.org/v2/country/all/indicator/AG.YLD.CREL.KG?format=json&date=2000:2024&per_page=20000",
+      "sha256": "719b2055f7aad9a8d225dc2d85f6e53ebb462a461ceb878a31251a0ad18e2d6f",
+      "bytes": 1435605
+    },
+    {
+      "file": "fertilizer-metadata.json",
+      "url": "https://api.worldbank.org/v2/indicator/AG.CON.FERT.ZS?format=json",
+      "sha256": "2f89ce87db1a6c08078e08ce6631315cb88a03f8c2fb7aea46fb407b757429d1",
+      "bytes": 1264
+    },
+    {
+      "file": "fertilizer.json",
+      "url": "https://api.worldbank.org/v2/country/all/indicator/AG.CON.FERT.ZS?format=json&date=2000:2024&per_page=20000",
+      "sha256": "f2653065353473153e311e63b01c7d7bc1c1724f1d10c0370ff473d1d4698059",
+      "bytes": 1691538
+    },
+    {
+      "file": "longevity-metadata.json",
+      "url": "https://api.worldbank.org/v2/indicator/SP.DYN.LE00.IN?format=json",
+      "sha256": "a39cb6fddfbbb953053690366243dffe77a266c4deae79c46ce5a06da9f5fc31",
+      "bytes": 969
+    },
+    {
+      "file": "longevity.json",
+      "url": "https://api.worldbank.org/v2/country/all/indicator/SP.DYN.LE00.IN?format=json&date=2000:2024&per_page=20000",
+      "sha256": "5ccbe961c5e26d9e5c05b8ffa01503016beb9de1ecd47c36a0401aaef0e67a1a",
+      "bytes": 1518331
+    }
+  ]
+}

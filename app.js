@@ -1787,12 +1787,16 @@
     const height = 180 * scale;
     // Desktop overview fits the full world horizontally; portrait keeps the
     // existing cover/pan behaviour. At higher zoom both can pan as usual.
-    const maximumOffsetX = Math.abs(width - rect.width) / 2;
+    const maximumOffsetX = Math.abs(width - rect.width) / 2
+      + (japanLayer.dataset.climateExhibit === "foresthistory" ? rect.width * .65 : 0);
     // COD's phone overview is framed in the exposed area between legend and
     // dock. Allow that centre even near 1x, where world-cover clamping would
     // otherwise put all Japanese stations back underneath the legend.
+    // The Antarctic atmosphere must be framed above the dock even at a low
+    // zoom. World-cover clamping otherwise leaves exhibit 92 below the screen.
+    const polarAtmosphere = japanLayer.dataset.climateExhibit === "ozone";
     const maximumOffsetY = Math.abs(height - rect.height) / 2
-      + (getEarthZoomLimit() > 8 ? rect.height / 2 : 0);
+      + (getEarthZoomLimit() > 8 || polarAtmosphere ? rect.height / 2 : 0);
     japanView.earthZoom = zoom;
     japanView.earthOffsetX = clamp(
       japanView.earthOffsetX,
@@ -1853,7 +1857,7 @@
   // Rotate the canonical textures into one bounded 360° frame. These two
   // adjacent texture pieces meet without overlap; all vector paths are clipped
   // to that frame, so no additional world can appear at either edge.
-  const getEarthWorldCopies = (projection) => [0, 360].map((repeat) => ({
+  const getEarthWorldCopies = (projection) => (japanLayer.dataset.climateExhibit === "foresthistory" ? [-360,0,360,720] : [0,360]).map((repeat) => ({
     repeat,
     x: projection.originX + (repeat - EARTH_INITIAL_CENTER_LONGITUDE) * projection.scale,
     y: projection.originY,
@@ -2685,6 +2689,7 @@
       const opaqueCurrentLand = currentMapHasOpaqueLand();
       const projection = japanView.earthProjection || getEarthProjection(rect);
       const { originX, originY, width, height, scale } = projection;
+      const wrapForest=japanLayer.dataset.climateExhibit === "foresthistory",frameX=wrapForest?0:originX,frameWidth=wrapForest?rect.width:width;
       const worldCopies = getEarthWorldCopies(projection);
       japanOverlay.dataset.vectorWorldCopies = worldCopies
         .map((copy) => copy.x.toFixed(2))
@@ -2703,10 +2708,10 @@
 
       ctx.save();
       ctx.beginPath();
-      ctx.rect(originX, originY, width, height);
+      ctx.rect(frameX, originY, frameWidth, height);
       ctx.clip();
       ctx.fillStyle = warmStatMap ? "rgba(27, 66, 69, 0.18)" : "rgba(7, 25, 43, 0.46)";
-      ctx.fillRect(originX, originY, width, height);
+      ctx.fillRect(frameX, originY, frameWidth, height);
 
       ctx.setLineDash([2, 9]);
       ctx.lineWidth = 0.55;
@@ -2721,8 +2726,8 @@
       for (let latitude = -90; latitude <= 90; latitude += 30) {
         const y = originY + (90 - latitude) * scale;
         ctx.beginPath();
-        ctx.moveTo(originX, y);
-        ctx.lineTo(originX + width, y);
+        ctx.moveTo(frameX, y);
+        ctx.lineTo(frameX + frameWidth, y);
         ctx.stroke();
       }
       ctx.setLineDash([]);
@@ -2800,8 +2805,8 @@
       ctx.setLineDash([8, 12]);
       ctx.strokeStyle = "rgba(164, 244, 221, 0.22)";
       ctx.beginPath();
-      ctx.moveTo(originX, equatorY);
-      ctx.lineTo(originX + width, equatorY);
+      ctx.moveTo(frameX, equatorY);
+      ctx.lineTo(frameX + frameWidth, equatorY);
       ctx.stroke();
       ctx.setLineDash([]);
       ctx.strokeStyle = "rgba(135, 244, 216, 0.3)";
@@ -2916,6 +2921,7 @@
     const cacheKey = [
       mapScope,
       japanLayer.classList.contains("is-estat-exhibit") ? "warm-stat-map" : "default-map",
+      japanLayer.dataset.climateExhibit === "foresthistory" ? "wrap-forest" : "bounded-world",
       currentMapHasOpaqueLand() ? "opaque-current-land" : "translucent-land",
       naturalEarthLandState,
       naturalEarthLandRings.length,

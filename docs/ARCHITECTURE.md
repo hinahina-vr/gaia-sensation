@@ -1,6 +1,6 @@
 # GAIA SENSEWARE アーキテクチャ
 
-この文書は75展示と各モードの実装構成を紹介します。作品内容は[README](../README.md)、体験の確認順は[審査ガイド](CONTEST_2026_SUBMISSION.md)、データ利用条件は[データ出典](DATA_SOURCES.md)を参照してください。
+この文書は100展示と各モードの実装構成を紹介します。作品内容は[README](../README.md)、体験の確認順は[審査ガイド](CONTEST_2026_SUBMISSION.md)、データ利用条件は[データ出典](DATA_SOURCES.md)を参照してください。
 
 ## 実行構成
 
@@ -34,7 +34,7 @@ flowchart LR
 | URL | 動作 |
 |---|---|
 | `/` | サウンド設定、オープニング、物語／データ探索の2択を表示 |
-| `#world-01`〜`#world-71` | 指定番号の展示を直接開く |
+| `#world-01`〜`#world-100` | 指定番号の展示を直接開く |
 | `#tour` | 入口を迂回し、地球観測の30秒ガイドを開始 |
 | `#story` または `/story` | 入口を迂回し、物語のタイトルへ移動 |
 | `#earth` / `#japan` / `#data` | explorationを読み、対応する地球観測画面へ移動 |
@@ -48,7 +48,7 @@ flowchart LR
 
 | グループ | 主な内容 | 読み込む契機 |
 |---|---|---|
-| `exploration` | MAP 01—71、地図、データ台帳、ライブ取得、LOD | データ探索、地球観測の直接URL、ガイド |
+| `exploration` | MAP 01—100、地図、データ台帳、ライブ取得、LOD | データ探索、地球観測の直接URL、ガイド |
 | `statistics` | 統計分析、グラフ、結果解説、任意のAI質問 | 展示の分析ボタン |
 | `story` | 本編6章、APEIRONCENE、SAVE／LOAD、背景・演出 | 物語開始、`#story` |
 | `gx` | `THE FIRST GX` | GXカードまたは物語内のGX工程 |
@@ -68,6 +68,9 @@ flowchart LR
 | 21—30 | `estat-exhibits.js`・`estat-exhibit-catalog.js` | `data/estat-prefecture-series.json` の年次系列 |
 | 31—69 | `marine-cod-exhibit.js` と各catalog | 水質、気象、大気汚染、PRTR、生物等の同梱データ |
 | 70—71 | `food-exhibits.js`・`food-catalog.js` | FAO等の同梱食料データ |
+| 72—75 | `climate-history-exhibits.js`、湖・陸水の専用view | 熱帯低気圧、サンゴ熱ストレス、JRC水面、GRACE保存値 |
+| 76—80 | 海面・電力・飲料水・衛生・森林の専用view | `data/atlas-history/` の保存系列と比較用データ |
+| 81—100 | `local-atlas85.js`・`local-atlas90.js`・`local-atlas95.js`・`local-atlas100.js` | 国別系列、極域・海洋・氷河の地理表示、火山・津波カタログ |
 
 公開版は保存済みデータと外部APIを併用します。外部JavaScriptランタイムライブラリを使わないことは、外部データAPIへ接続しないことを意味しません。保存JSONだけを表示する展示があっても、ページ全体の外部通信を無効にする設定ではありません。
 
@@ -194,3 +197,5 @@ story/USER_SCRIPT_2026-08-24.txt
 - 物語への新規遷移はベース画面を先に隠し、フェードアウト後に物語をフェードインします。
 - ガイドは物語のセーブデータを書き換えません。
 - CIは検査だけを行い、pushやデプロイを実行しません。
+
+展示81—100のモジュール名に含まれる `local` は開発時の命名です。公開ホストでも100件すべての登録・案内・スタイルを読み込みます。

@@ -9,7 +9,7 @@
 
 2026-09-13に現行カタログ・同梱メタデータと照合。収録期間は提供元の最新版の保証ではありません。今回、観測データの再取得や利用許諾の再判定は行っていません。
 
-登録: 122件（展示別の同一提供元、独自加工、補助経路も区別して収録）。日本の年次系列と食料の追加系列は実装カタログ・同梱JSONから生成します。各行の「記録」から取得日・加工内容・原データURLを確認できます。
+登録: 154件（展示別の同一提供元、独自加工、補助経路も区別して収録）。日本の年次系列と食料の追加系列は実装カタログ・同梱JSONから生成します。各行の「記録」から取得日・加工内容・原データURLを確認できます。
 
 利用条件と再利用上の注意は [データ出典・利用条件](DATA_SOURCES.md) を参照してください。本一覧は提供元の個別許諾や全データの無条件な再利用を保証するものではありません。
 
@@ -166,12 +166,41 @@
 | [NOAA Coral Reef Watch](https://coralreefwatch.noaa.gov/product/vs/data.php) | MAP 73 / サンゴ礁監視海域の熱ストレス | 公式公開データから抽出・年別集計した保存値。展示選択時に遅延読込。欠測はゼロ補完しない。 | [記録](../data/climate-history/coral.json) |
 | [NOAA NCEI / IBTrACS](https://www.ncei.noaa.gov/products/international-best-track-archive) | MAP 72 / 8地域の300 km圏内への接近・月別・年代別集計（1980–2024） | 同梱MAIN経路から独自集計。各嵐をシーズンごとに1件。分析を開いたときだけ読込。元の年別ファイルのSHA-256を保持。 | [記録](../data/climate-history/cyclone-regions.json) |
 
-### 水・気候・暮らしの記録（MAP 74–75）
+### 水・気候・暮らしの記録（MAP 74–100）
 
 | 提供者・出典 | データ・収録期間 | 取得・加工・退避方針 | ローカル根拠 |
 |---|---|---|---|
 | [EC JRC / Google](https://global-surface-water.appspot.com/download) | MAP 74 / 固定範囲の年次水面積<br>1984–2015 | 保存値を展示選択時に遅延読込。欠測を0埋めせず、原系列と独自年次集計を区別。 | [記録](../data/surface-water/lakes.json) |
 | [NASA JPL / GRACE・GRACE-FO](https://grace.jpl.nasa.gov/data/get-data/jpl_global_mascons/) | MAP 75 / 陸水量の変化<br>2003–2024 | 保存値を展示選択時に遅延読込。欠測を0埋めせず、原系列と独自年次集計を区別。 | [記録](../data/atlas-history/waterstore.json) |
+| [NOAA Laboratory for Satellite Altimetry](https://www.star.nesdis.noaa.gov/socd/lsa/SeaLevelRise/) | MAP 76 / 海域平均の海面高度<br>1993–2024 | 保存値を展示選択時に遅延読込。欠測を0埋めせず、原系列と独自年次集計を区別。 | [記録](../data/atlas-history/sealevel.json) |
+| [PSMSL](https://psmsl.org/data/obtaining/rlr.annual.data/rlr_annual.zip) | MAP 76 / 沿岸の検潮所の相対海面<br>1993–2024 | 展示選択時に遅延読込。原系列・欠測・出典を保持。 | [記録](../data/atlas-history/sealevel-stations.json) |
+| [World Bank / SDG 7.1.1](https://data.worldbank.org/indicator/EG.ELC.ACCS.ZS) | MAP 77 / 電気を利用できる人口の割合<br>2000–2024 | 保存値を展示選択時に遅延読込。欠測を0埋めせず、原系列と独自年次集計を区別。 | [記録](../data/atlas-history/electricity.json) |
+| [World Bank / SDG 7.1.1](https://data.worldbank.org/indicator/EG.ELC.ACCS.ZS) | MAP 77 / 世界銀行の地域集計<br>2000–2024 | 展示選択時に遅延読込。原系列・欠測・出典を保持。 | [記録](../data/atlas-history/electricity-comparison.json) |
+| [WHO / UNICEF JMP · World Bank WDI](https://data.worldbank.org/indicator/SH.H2O.BASW.ZS) | MAP 78 / 基本的な飲料水サービス<br>2000–2024 | 保存値を展示選択時に遅延読込。欠測を0埋めせず、原系列と独自年次集計を区別。 | [記録](../data/atlas-history/drinking.json) |
+| [WHO / UNICEF JMP · World Bank WDI](https://data.worldbank.org/indicator/SH.H2O.BASW.ZS) | MAP 78 / 飲料水の都市・農村別利用率<br>2000–2024 | 展示選択時に遅延読込。原系列・欠測・出典を保持。 | [記録](../data/atlas-history/drinking-comparison.json) |
+| [WHO / UNICEF JMP · World Bank WDI](https://data.worldbank.org/indicator/SH.STA.SMSS.ZS) | MAP 79 / 安全に管理された衛生設備<br>2000–2024 | 保存値を展示選択時に遅延読込。欠測を0埋めせず、原系列と独自年次集計を区別。 | [記録](../data/atlas-history/sanitation.json) |
+| [WHO / UNICEF JMP · World Bank WDI](https://data.worldbank.org/indicator/SH.STA.SMSS.ZS) | MAP 79 / 衛生サービスの内訳<br>2000–2024 | 展示選択時に遅延読込。原系列・欠測・出典を保持。 | [記録](../data/atlas-history/sanitation-services.json) |
+| [FAO / World Bank WDI](https://data.worldbank.org/indicator/AG.LND.FRST.ZS) | MAP 80 / 森林面積の割合<br>2000–2023 | 保存値を展示選択時に遅延読込。欠測を0埋めせず、原系列と独自年次集計を区別。 | [記録](../data/atlas-history/foresthistory.json) |
+| [FAO AQUASTAT / World Bank WDI](https://data.worldbank.org/indicator/ER.H2O.FWST.ZS) | MAP 81 / 水ストレス率<br>2000–2022 | 保存値を展示選択時に遅延読込。欠測を0埋めせず、原系列と独自年次集計を区別。 | [記録](../data/atlas-history/waterstress.json) |
+| [FAO / World Bank WDI](https://data.worldbank.org/indicator/AG.LND.ARBL.ZS) | MAP 82 / 耕地面積率<br>2000–2024 | 保存値を展示選択時に遅延読込。欠測を0埋めせず、原系列と独自年次集計を区別。 | [記録](../data/atlas-history/cropland.json) |
+| [FAO / World Bank WDI](https://data.worldbank.org/indicator/AG.YLD.CREL.KG) | MAP 83 / 穀物の収量<br>2000–2024 | 保存値を展示選択時に遅延読込。欠測を0埋めせず、原系列と独自年次集計を区別。 | [記録](../data/atlas-history/yield.json) |
+| [FAO / World Bank WDI](https://data.worldbank.org/indicator/AG.CON.FERT.ZS) | MAP 84 / 耕地面積あたりの肥料消費<br>2000–2024 | 保存値を展示選択時に遅延読込。欠測を0埋めせず、原系列と独自年次集計を区別。 | [記録](../data/atlas-history/fertilizer.json) |
+| [国連人口部・各国統計機関・Eurostat / World Bank WDI](https://data.worldbank.org/indicator/SP.DYN.LE00.IN) | MAP 85 / 出生時平均余命<br>2000–2024 | 保存値を展示選択時に遅延読込。欠測を0埋めせず、原系列と独自年次集計を区別。 | [記録](../data/atlas-history/longevity.json) |
+| [UN World Urbanization Prospects / World Bank WDI](https://data.worldbank.org/indicator/SP.URB.TOTL.IN.ZS) | MAP 86 / 都市人口の割合<br>2000–2024 | 保存値を展示選択時に遅延読込。欠測を0埋めせず、原系列と独自年次集計を区別。 | [記録](../data/atlas-history/urban.json) |
+| [UN World Population Prospects / World Bank WDI](https://data.worldbank.org/indicator/SP.POP.65UP.TO.ZS) | MAP 87 / 65歳以上の人口割合<br>2000–2024 | 保存値を展示選択時に遅延読込。欠測を0埋めせず、原系列と独自年次集計を区別。 | [記録](../data/atlas-history/ageing.json) |
+| [UN IGME / World Bank WDI](https://data.worldbank.org/indicator/SH.DYN.MORT) | MAP 88 / 5歳未満死亡率<br>2000–2024 | 保存値を展示選択時に遅延読込。欠測を0埋めせず、原系列と独自年次集計を区別。 | [記録](../data/atlas-history/childsurvival.json) |
+| [NSIDC / Sea Ice Index v4](https://nsidc.org/data/g02135/versions/4) | MAP 89 / 月平均の海氷域面積<br>1979–2024 | 保存値を展示選択時に遅延読込。欠測を0埋めせず、原系列と独自年次集計を区別。 | [記録](../data/atlas-history/seaice.json) |
+| [Rutgers Global Snow Lab / NOAA SCE CDR](https://snowcover.org/table_area.php?ui_set=2&ui_sort=0) | MAP 90 / 月平均の積雪面積<br>1972–2024 | 保存値を展示選択時に遅延読込。欠測を0埋めせず、原系列と独自年次集計を区別。 | [記録](../data/atlas-history/snowcover.json) |
+| [NOAA NCEI / Ocean Heat Content](https://www.ncei.noaa.gov/access/global-ocean-heat-content/basin_heat_data.html) | MAP 91 / 0–2,000mの海洋熱量偏差<br>2005–2024 | 保存値を展示選択時に遅延読込。欠測を0埋めせず、原系列と独自年次集計を区別。 | [記録](../data/atlas-history/oceanheat.json) |
+| [NASA Ozone Watch](https://ozonewatch.gsfc.nasa.gov/statistics/annual_data.html) | MAP 92 / 南極オゾンホールの季節平均面積<br>1979–2024 | 保存値を展示選択時に遅延読込。欠測を0埋めせず、原系列と独自年次集計を区別。 | [記録](../data/atlas-history/ozone.json) |
+| [WGMS / 参照氷河](https://wgms.ch/global-glacier-state/) | MAP 93 / 参照氷河の累積質量収支 · 1970年比<br>1970–2024 | 保存値を展示選択時に遅延読込。欠測を0埋めせず、原系列と独自年次集計を区別。 | [記録](../data/atlas-history/glaciers.json) |
+| [NOAA NCEI / Significant Volcanic Eruptions](https://www.ncei.noaa.gov/products/natural-hazards/tsunamis-earthquakes-volcanoes/volcanoes) | MAP 94 / 記録された噴火の件数<br>1980–2024 | 保存値を展示選択時に遅延読込。欠測を0埋めせず、原系列と独自年次集計を区別。 | [記録](../data/atlas-history/volcanoes.json) |
+| [NOAA NCEI / Historical Tsunami Database](https://www.ncei.noaa.gov/products/natural-hazards/tsunamis-earthquakes-volcanoes/tsunamis) | MAP 95 / 確認された津波の対象件数<br>1980–2024 | 保存値を展示選択時に遅延読込。欠測を0埋めせず、原系列と独自年次集計を区別。 | [記録](../data/atlas-history/tsunamis.json) |
+| [FAO AQUASTAT / World Bank WDI](https://data.worldbank.org/indicator/ER.H2O.FWAG.ZS) | MAP 96 / 農業向けの取水割合<br>2000–2022 | 保存値を展示選択時に遅延読込。欠測を0埋めせず、原系列と独自年次集計を区別。 | [記録](../data/atlas-history/wateruse.json) |
+| [FAO / World Bank WDI](https://data.worldbank.org/indicator/SN.ITK.DEFC.ZS) | MAP 97 / 栄養不足の人口割合 · 3年平均<br>2001–2024 | 保存値を展示選択時に遅延読込。欠測を0埋めせず、原系列と独自年次集計を区別。 | [記録](../data/atlas-history/hunger.json) |
+| [FAO / World Bank WDI](https://data.worldbank.org/indicator/ER.FSH.CAPT.MT) | MAP 98 / 漁獲と養殖の総生産量<br>2000–2024 | 保存値を展示選択時に遅延読込。欠測を0埋めせず、原系列と独自年次集計を区別。 | [記録](../data/atlas-history/fisheries.json) |
+| [ITU / World Bank WDI](https://data.worldbank.org/indicator/IT.NET.USER.ZS) | MAP 99 / インターネット利用者の人口割合<br>2000–2024 | 保存値を展示選択時に遅延読込。欠測を0埋めせず、原系列と独自年次集計を区別。 | [記録](../data/atlas-history/internet.json) |
+| [UNHCR Refugee Population Statistics Database / World Bank WDI](https://data.worldbank.org/indicator/SM.POP.RHCR.EO) | MAP 100 / 出身国別の難民人口 · UNHCR所管<br>2000–2024 | 保存値を展示選択時に遅延読込。欠測を0埋めせず、原系列と独自年次集計を区別。 | [記録](../data/atlas-history/refugees.json) |
 
 ### 水・気候・暮らしの記録（MAP 75）
 
@@ -189,6 +218,19 @@
 | [Unicode CLDR](https://cldr.unicode.org/) | 国・行政区分コード | コード・英語名を収録。許諾文は地域コード出典を参照。 | [記録](../docs/REGION-CODE-SOURCES.md) |
 | [J-LIS](https://www.j-lis.go.jp/spd/code-address/jititai-code.html) | 全国地方公共団体コード | 自治体コードと名称を収録。 | [記録](../docs/REGION-CODE-SOURCES.md) |
 | [国土地理院](https://maps.gsi.go.jp/) | 自治体庁舎の初期POI | 登録画面の編集可能な初期座標。端末の実位置ではない。 | [記録](../docs/REGION-CODE-SOURCES.md) |
+
+### 地理境界・氷河地形
+
+| 提供者・出典 | データ・収録期間 | 取得・加工・退避方針 | ローカル根拠 |
+|---|---|---|---|
+| [Natural Earth](https://www.naturalearthdata.com/downloads/50m-physical-vectors/50m-glaciated-areas/) | 1:50m glaciated areas | 固定の氷河地形を遅延読込。過去の境界やWGMS標本の位置には読み替えない。 | [記録](../data/natural-earth-glaciers-NOTICE.json) |
+
+### 水・気候・暮らしの記録（MAP 78）
+
+| 提供者・出典 | データ・収録期間 | 取得・加工・退避方針 | ローカル根拠 |
+|---|---|---|---|
+| [WHO / UNICEF JMP, World Bank WDI](https://data.worldbank.org/indicator/SH.H2O.BASW.ZS) | drinking-basic | 基本的飲料水サービスの保存推計値。安全管理サービスと区別し、欠測を補わない。 | [記録](../data/atlas-history/drinking-basic.json) |
+| [WHO / UNICEF JMP, World Bank WDI](https://data.worldbank.org/indicator/SH.H2O.BASW.ZS) | drinking-basic-comparison | 基本的飲料水サービスの保存推計値。安全管理サービスと区別し、欠測を補わない。 | [記録](../data/atlas-history/drinking-basic-comparison.json) |
 
 ## 検査
 

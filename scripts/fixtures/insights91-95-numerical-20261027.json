@@ -1,0 +1,3591 @@
+[
+  {
+    "id": "climate-oceanheat-pacific",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          4.174166666666666,
+          "×10²² J"
+        ],
+        [
+          "直近期間の平均",
+          9.641166666666669,
+          "×10²² J"
+        ],
+        [
+          "平均差",
+          5.467000000000002,
+          "×10²² J"
+        ]
+      ],
+      "recordIds": [
+        "climate-oceanheat-pacific-2005",
+        "climate-oceanheat-pacific-2019",
+        "climate-oceanheat-pacific-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各6記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "2005年〜2010年",
+        "recent": "2019年〜2024年",
+        "window": 6,
+        "change": 5.467000000000002,
+        "beyond": 6,
+        "range": 6.739999999999999
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-oceanheat-atlantic",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          5.723166666666667,
+          "×10²² J"
+        ],
+        [
+          "直近期間の平均",
+          12.110166666666666,
+          "×10²² J"
+        ],
+        [
+          "平均差",
+          6.387,
+          "×10²² J"
+        ]
+      ],
+      "recordIds": [
+        "climate-oceanheat-atlantic-2005",
+        "climate-oceanheat-atlantic-2019",
+        "climate-oceanheat-atlantic-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各6記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "2005年〜2010年",
+        "recent": "2019年〜2024年",
+        "window": 6,
+        "change": 6.387,
+        "beyond": 6,
+        "range": 7.970999999999999
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-oceanheat-indian",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          2.8365000000000005,
+          "×10²² J"
+        ],
+        [
+          "直近期間の平均",
+          5.908333333333332,
+          "×10²² J"
+        ],
+        [
+          "平均差",
+          3.071833333333332,
+          "×10²² J"
+        ]
+      ],
+      "recordIds": [
+        "climate-oceanheat-indian-2005",
+        "climate-oceanheat-indian-2019",
+        "climate-oceanheat-indian-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各6記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "2005年〜2010年",
+        "recent": "2019年〜2024年",
+        "window": 6,
+        "change": 3.071833333333332,
+        "beyond": 6,
+        "range": 6.194
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-ozone-antarctic",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          7.969999999999999,
+          "百万km²"
+        ],
+        [
+          "直近期間の平均",
+          20.859999999999996,
+          "百万km²"
+        ],
+        [
+          "平均差",
+          12.889999999999997,
+          "百万km²"
+        ]
+      ],
+      "recordIds": [
+        "climate-ozone-antarctic-1979",
+        "climate-ozone-antarctic-2015",
+        "climate-ozone-antarctic-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1979年〜1988年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 12.889999999999997,
+        "beyond": 8,
+        "range": 26.5
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-glaciers-reference",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          -1.0078,
+          "m水当量"
+        ],
+        [
+          "直近期間の平均",
+          -22.641,
+          "m水当量"
+        ],
+        [
+          "平均差",
+          -21.6332,
+          "m水当量"
+        ]
+      ],
+      "recordIds": [
+        "climate-glaciers-reference-1970",
+        "climate-glaciers-reference-2015",
+        "climate-glaciers-reference-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1970年〜1979年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": -21.6332,
+        "beyond": 10,
+        "range": 27.018
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-volcanoes-ALL",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          3.3,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          6.1,
+          "件"
+        ],
+        [
+          "平均差",
+          2.8,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-volcanoes-ALL-1980",
+        "climate-volcanoes-ALL-2015",
+        "climate-volcanoes-ALL-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 2.8,
+        "beyond": 1,
+        "range": 13
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-volcanoes-ITA",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0.5,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0.8,
+          "件"
+        ],
+        [
+          "平均差",
+          0.30000000000000004,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-volcanoes-ITA-1980",
+        "climate-volcanoes-ITA-2015",
+        "climate-volcanoes-ITA-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0.30000000000000004,
+        "beyond": 2,
+        "range": 3
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-volcanoes-IDN",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          1.1,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          1.8,
+          "件"
+        ],
+        [
+          "平均差",
+          0.7,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-volcanoes-IDN-1980",
+        "climate-volcanoes-IDN-2015",
+        "climate-volcanoes-IDN-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0.7,
+        "beyond": 0,
+        "range": 4
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-volcanoes-pacific_ocean",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0.1,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "平均差",
+          -0.1,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-volcanoes-pacific_ocean-1980",
+        "climate-volcanoes-pacific_ocean-2015",
+        "climate-volcanoes-pacific_ocean-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": -0.1,
+        "beyond": 0,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-volcanoes-PHL",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0.1,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0.4,
+          "件"
+        ],
+        [
+          "平均差",
+          0.30000000000000004,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-volcanoes-PHL-1980",
+        "climate-volcanoes-PHL-2015",
+        "climate-volcanoes-PHL-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0.30000000000000004,
+        "beyond": 1,
+        "range": 3
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-volcanoes-JPN",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0.2,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0.3,
+          "件"
+        ],
+        [
+          "平均差",
+          0.09999999999999998,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-volcanoes-JPN-1980",
+        "climate-volcanoes-JPN-2015",
+        "climate-volcanoes-JPN-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0.09999999999999998,
+        "beyond": 0,
+        "range": 3
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-volcanoes-CMR",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0.1,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "平均差",
+          -0.1,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-volcanoes-CMR-1980",
+        "climate-volcanoes-CMR-2015",
+        "climate-volcanoes-CMR-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": -0.1,
+        "beyond": 0,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-volcanoes-PNG",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0.8,
+          "件"
+        ],
+        [
+          "平均差",
+          0.8,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-volcanoes-PNG-1980",
+        "climate-volcanoes-PNG-2015",
+        "climate-volcanoes-PNG-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0.8,
+        "beyond": 4,
+        "range": 3
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-volcanoes-VUT",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0.4,
+          "件"
+        ],
+        [
+          "平均差",
+          0.4,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-volcanoes-VUT-1980",
+        "climate-volcanoes-VUT-2015",
+        "climate-volcanoes-VUT-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0.4,
+        "beyond": 3,
+        "range": 2
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-volcanoes-russia",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0.3,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0.1,
+          "件"
+        ],
+        [
+          "平均差",
+          -0.19999999999999998,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-volcanoes-russia-1980",
+        "climate-volcanoes-russia-2015",
+        "climate-volcanoes-russia-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": -0.19999999999999998,
+        "beyond": 0,
+        "range": 2
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-volcanoes-USA",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0.1,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0.3,
+          "件"
+        ],
+        [
+          "平均差",
+          0.19999999999999998,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-volcanoes-USA-1980",
+        "climate-volcanoes-USA-2015",
+        "climate-volcanoes-USA-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0.19999999999999998,
+        "beyond": 1,
+        "range": 3
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-volcanoes-MEX",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0.3,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0.1,
+          "件"
+        ],
+        [
+          "平均差",
+          -0.19999999999999998,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-volcanoes-MEX-1980",
+        "climate-volcanoes-MEX-2015",
+        "climate-volcanoes-MEX-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": -0.19999999999999998,
+        "beyond": 0,
+        "range": 3
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-volcanoes-GTM",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0.1,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0.3,
+          "件"
+        ],
+        [
+          "平均差",
+          0.19999999999999998,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-volcanoes-GTM-1980",
+        "climate-volcanoes-GTM-2015",
+        "climate-volcanoes-GTM-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0.19999999999999998,
+        "beyond": 0,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-volcanoes-NIC",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "平均差",
+          0,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-volcanoes-NIC-1980",
+        "climate-volcanoes-NIC-2015",
+        "climate-volcanoes-NIC-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0,
+        "beyond": 0,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-volcanoes-COL",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0.1,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "平均差",
+          -0.1,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-volcanoes-COL-1980",
+        "climate-volcanoes-COL-2015",
+        "climate-volcanoes-COL-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": -0.1,
+        "beyond": 0,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-volcanoes-ECU",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0.1,
+          "件"
+        ],
+        [
+          "平均差",
+          0.1,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-volcanoes-ECU-1980",
+        "climate-volcanoes-ECU-2015",
+        "climate-volcanoes-ECU-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0.1,
+        "beyond": 1,
+        "range": 2
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-volcanoes-CHL",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0.1,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0.1,
+          "件"
+        ],
+        [
+          "平均差",
+          0,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-volcanoes-CHL-1980",
+        "climate-volcanoes-CHL-2015",
+        "climate-volcanoes-CHL-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0,
+        "beyond": 0,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-volcanoes-montserrat",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "平均差",
+          0,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-volcanoes-montserrat-1980",
+        "climate-volcanoes-montserrat-2015",
+        "climate-volcanoes-montserrat-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0,
+        "beyond": 0,
+        "range": 3
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-volcanoes-ISL",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0.1,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0.1,
+          "件"
+        ],
+        [
+          "平均差",
+          0,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-volcanoes-ISL-1980",
+        "climate-volcanoes-ISL-2015",
+        "climate-volcanoes-ISL-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0,
+        "beyond": 0,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-volcanoes-cape_verde",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "平均差",
+          0,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-volcanoes-cape_verde-1980",
+        "climate-volcanoes-cape_verde-2015",
+        "climate-volcanoes-cape_verde-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0,
+        "beyond": 0,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-volcanoes-PER",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "平均差",
+          0,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-volcanoes-PER-1980",
+        "climate-volcanoes-PER-2015",
+        "climate-volcanoes-PER-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0,
+        "beyond": 0,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-volcanoes-CRI",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0.1,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "平均差",
+          -0.1,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-volcanoes-CRI-1980",
+        "climate-volcanoes-CRI-2015",
+        "climate-volcanoes-CRI-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": -0.1,
+        "beyond": 0,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-volcanoes-NZL",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0.1,
+          "件"
+        ],
+        [
+          "平均差",
+          0.1,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-volcanoes-NZL-1980",
+        "climate-volcanoes-NZL-2015",
+        "climate-volcanoes-NZL-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0.1,
+        "beyond": 1,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-volcanoes-yemen",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "平均差",
+          0,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-volcanoes-yemen-1980",
+        "climate-volcanoes-yemen-2015",
+        "climate-volcanoes-yemen-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0,
+        "beyond": 0,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-volcanoes-congo_drc",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0.1,
+          "件"
+        ],
+        [
+          "平均差",
+          0.1,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-volcanoes-congo_drc-1980",
+        "climate-volcanoes-congo_drc-2015",
+        "climate-volcanoes-congo_drc-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0.1,
+        "beyond": 1,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-volcanoes-COM",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "平均差",
+          0,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-volcanoes-COM-1980",
+        "climate-volcanoes-COM-2015",
+        "climate-volcanoes-COM-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0,
+        "beyond": 0,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-volcanoes-ERI",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "平均差",
+          0,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-volcanoes-ERI-1980",
+        "climate-volcanoes-ERI-2015",
+        "climate-volcanoes-ERI-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0,
+        "beyond": 0,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-volcanoes-SLV",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "平均差",
+          0,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-volcanoes-SLV-1980",
+        "climate-volcanoes-SLV-2015",
+        "climate-volcanoes-SLV-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0,
+        "beyond": 0,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-volcanoes-st_vincent_the_grenadines",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0.1,
+          "件"
+        ],
+        [
+          "平均差",
+          0.1,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-volcanoes-st_vincent_the_grenadines-1980",
+        "climate-volcanoes-st_vincent_the_grenadines-2015",
+        "climate-volcanoes-st_vincent_the_grenadines-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0.1,
+        "beyond": 1,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-volcanoes-ESP",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0.1,
+          "件"
+        ],
+        [
+          "平均差",
+          0.1,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-volcanoes-ESP-1980",
+        "climate-volcanoes-ESP-2015",
+        "climate-volcanoes-ESP-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0.1,
+        "beyond": 1,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-volcanoes-TON",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0.1,
+          "件"
+        ],
+        [
+          "平均差",
+          0.1,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-volcanoes-TON-1980",
+        "climate-volcanoes-TON-2015",
+        "climate-volcanoes-TON-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0.1,
+        "beyond": 1,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-ALL",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          6.2,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          14.9,
+          "件"
+        ],
+        [
+          "平均差",
+          8.7,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-ALL-1980",
+        "climate-tsunamis-ALL-2015",
+        "climate-tsunamis-ALL-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 8.7,
+        "beyond": 8,
+        "range": 18
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-russia",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0.4,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0.5,
+          "件"
+        ],
+        [
+          "平均差",
+          0.09999999999999998,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-russia-1980",
+        "climate-tsunamis-russia-2015",
+        "climate-tsunamis-russia-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0.09999999999999998,
+        "beyond": 0,
+        "range": 2
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-JPN",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          1.5,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          1.6,
+          "件"
+        ],
+        [
+          "平均差",
+          0.10000000000000009,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-JPN-1980",
+        "climate-tsunamis-JPN-2015",
+        "climate-tsunamis-JPN-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0.10000000000000009,
+        "beyond": 1,
+        "range": 5
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-SLB",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0.2,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0.6,
+          "件"
+        ],
+        [
+          "平均差",
+          0.39999999999999997,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-SLB-1980",
+        "climate-tsunamis-SLB-2015",
+        "climate-tsunamis-SLB-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0.39999999999999997,
+        "beyond": 2,
+        "range": 3
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-GRC",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0.2,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0.4,
+          "件"
+        ],
+        [
+          "平均差",
+          0.2,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-GRC-1980",
+        "climate-tsunamis-GRC-2015",
+        "climate-tsunamis-GRC-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0.2,
+        "beyond": 0,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-NZL",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0.3,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          1,
+          "件"
+        ],
+        [
+          "平均差",
+          0.7,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-NZL-1980",
+        "climate-tsunamis-NZL-2015",
+        "climate-tsunamis-NZL-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0.7,
+        "beyond": 3,
+        "range": 3
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-WSM",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0.1,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "平均差",
+          -0.1,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-WSM-1980",
+        "climate-tsunamis-WSM-2015",
+        "climate-tsunamis-WSM-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": -0.1,
+        "beyond": 0,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-MEX",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0.3,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0.4,
+          "件"
+        ],
+        [
+          "平均差",
+          0.10000000000000003,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-MEX-1980",
+        "climate-tsunamis-MEX-2015",
+        "climate-tsunamis-MEX-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0.10000000000000003,
+        "beyond": 0,
+        "range": 2
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-TON",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0.2,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0.4,
+          "件"
+        ],
+        [
+          "平均差",
+          0.2,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-TON-1980",
+        "climate-tsunamis-TON-2015",
+        "climate-tsunamis-TON-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0.2,
+        "beyond": 1,
+        "range": 4
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-IDN",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0.1,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          1,
+          "件"
+        ],
+        [
+          "平均差",
+          0.9,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-IDN-1980",
+        "climate-tsunamis-IDN-2015",
+        "climate-tsunamis-IDN-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0.9,
+        "beyond": 3,
+        "range": 5
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-PNG",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0.6,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0.4,
+          "件"
+        ],
+        [
+          "平均差",
+          -0.19999999999999996,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-PNG-1980",
+        "climate-tsunamis-PNG-2015",
+        "climate-tsunamis-PNG-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": -0.19999999999999996,
+        "beyond": 0,
+        "range": 3
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-CHL",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0.4,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0.7,
+          "件"
+        ],
+        [
+          "平均差",
+          0.29999999999999993,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-CHL-1980",
+        "climate-tsunamis-CHL-2015",
+        "climate-tsunamis-CHL-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0.29999999999999993,
+        "beyond": 1,
+        "range": 4
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-uk_territory",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0.1,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0.1,
+          "件"
+        ],
+        [
+          "平均差",
+          0,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-uk_territory-1980",
+        "climate-tsunamis-uk_territory-2015",
+        "climate-tsunamis-uk_territory-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0,
+        "beyond": 0,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-guadeloupe_french_territory_",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0.1,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "平均差",
+          -0.1,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-guadeloupe_french_territory_-1980",
+        "climate-tsunamis-guadeloupe_french_territory_-2015",
+        "climate-tsunamis-guadeloupe_french_territory_-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": -0.1,
+        "beyond": 0,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-usa",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0.8,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          1.8,
+          "件"
+        ],
+        [
+          "平均差",
+          1,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-usa-1980",
+        "climate-tsunamis-usa-2015",
+        "climate-tsunamis-usa-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 1,
+        "beyond": 1,
+        "range": 4
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-PHL",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0.1,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0.4,
+          "件"
+        ],
+        [
+          "平均差",
+          0.30000000000000004,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-PHL-1980",
+        "climate-tsunamis-PHL-2015",
+        "climate-tsunamis-PHL-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0.30000000000000004,
+        "beyond": 0,
+        "range": 2
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-AUS",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0.1,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "平均差",
+          -0.1,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-AUS-1980",
+        "climate-tsunamis-AUS-2015",
+        "climate-tsunamis-AUS-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": -0.1,
+        "beyond": 0,
+        "range": 2
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-CRI",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "平均差",
+          0,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-CRI-1980",
+        "climate-tsunamis-CRI-2015",
+        "climate-tsunamis-CRI-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0,
+        "beyond": 0,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-usa_territory",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0.1,
+          "件"
+        ],
+        [
+          "平均差",
+          0.1,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-usa_territory-1980",
+        "climate-tsunamis-usa_territory-2015",
+        "climate-tsunamis-usa_territory-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0.1,
+        "beyond": 1,
+        "range": 2
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-ITA",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0.1,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0.4,
+          "件"
+        ],
+        [
+          "平均差",
+          0.30000000000000004,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-ITA-1980",
+        "climate-tsunamis-ITA-2015",
+        "climate-tsunamis-ITA-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0.30000000000000004,
+        "beyond": 1,
+        "range": 2
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-taiwan",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0.1,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0.1,
+          "件"
+        ],
+        [
+          "平均差",
+          0,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-taiwan-1980",
+        "climate-tsunamis-taiwan-2015",
+        "climate-tsunamis-taiwan-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0,
+        "beyond": 0,
+        "range": 2
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-CHN",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0.1,
+          "件"
+        ],
+        [
+          "平均差",
+          0.1,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-CHN-1980",
+        "climate-tsunamis-CHN-2015",
+        "climate-tsunamis-CHN-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0.1,
+        "beyond": 1,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-NIC",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0.1,
+          "件"
+        ],
+        [
+          "平均差",
+          0.1,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-NIC-1980",
+        "climate-tsunamis-NIC-2015",
+        "climate-tsunamis-NIC-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0.1,
+        "beyond": 1,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-NCL",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          1.4,
+          "件"
+        ],
+        [
+          "平均差",
+          1.4,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-NCL-1980",
+        "climate-tsunamis-NCL-2015",
+        "climate-tsunamis-NCL-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 1.4,
+        "beyond": 6,
+        "range": 5
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-egypt",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "平均差",
+          0,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-egypt-1980",
+        "climate-tsunamis-egypt-2015",
+        "climate-tsunamis-egypt-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0,
+        "beyond": 0,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-PER",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0.2,
+          "件"
+        ],
+        [
+          "平均差",
+          0.2,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-PER-1980",
+        "climate-tsunamis-PER-2015",
+        "climate-tsunamis-PER-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0.2,
+        "beyond": 2,
+        "range": 2
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-montserrat",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "平均差",
+          0,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-montserrat-1980",
+        "climate-tsunamis-montserrat-2015",
+        "climate-tsunamis-montserrat-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0,
+        "beyond": 0,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-turkey",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0.3,
+          "件"
+        ],
+        [
+          "平均差",
+          0.3,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-turkey-1980",
+        "climate-tsunamis-turkey-2015",
+        "climate-tsunamis-turkey-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0.3,
+        "beyond": 3,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-VUT",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0.5,
+          "件"
+        ],
+        [
+          "平均差",
+          0.5,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-VUT-1980",
+        "climate-tsunamis-VUT-2015",
+        "climate-tsunamis-VUT-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0.5,
+        "beyond": 3,
+        "range": 3
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-IND",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "平均差",
+          0,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-IND-1980",
+        "climate-tsunamis-IND-2015",
+        "climate-tsunamis-IND-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0,
+        "beyond": 0,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-DZA",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0.1,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0.1,
+          "件"
+        ],
+        [
+          "平均差",
+          0,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-DZA-1980",
+        "climate-tsunamis-DZA-2015",
+        "climate-tsunamis-DZA-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0,
+        "beyond": 0,
+        "range": 2
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-CAN",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0.1,
+          "件"
+        ],
+        [
+          "平均差",
+          0.1,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-CAN-1980",
+        "climate-tsunamis-CAN-2015",
+        "climate-tsunamis-CAN-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0.1,
+        "beyond": 1,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-PYF",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "平均差",
+          0,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-PYF-1980",
+        "climate-tsunamis-PYF-2015",
+        "climate-tsunamis-PYF-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0,
+        "beyond": 0,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-NOR",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0.2,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0.1,
+          "件"
+        ],
+        [
+          "平均差",
+          -0.1,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-NOR-1980",
+        "climate-tsunamis-NOR-2015",
+        "climate-tsunamis-NOR-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": -0.1,
+        "beyond": 0,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-GRL",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0.3,
+          "件"
+        ],
+        [
+          "平均差",
+          0.3,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-GRL-1980",
+        "climate-tsunamis-GRL-2015",
+        "climate-tsunamis-GRL-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0.3,
+        "beyond": 2,
+        "range": 2
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-kermadec_islands",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0.1,
+          "件"
+        ],
+        [
+          "平均差",
+          0.1,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-kermadec_islands-1980",
+        "climate-tsunamis-kermadec_islands-2015",
+        "climate-tsunamis-kermadec_islands-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0.1,
+        "beyond": 1,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-PRT",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0.1,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "平均差",
+          -0.1,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-PRT-1980",
+        "climate-tsunamis-PRT-2015",
+        "climate-tsunamis-PRT-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": -0.1,
+        "beyond": 0,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-HND",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0.1,
+          "件"
+        ],
+        [
+          "平均差",
+          0.1,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-HND-1980",
+        "climate-tsunamis-HND-2015",
+        "climate-tsunamis-HND-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0.1,
+        "beyond": 1,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-JOR",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "平均差",
+          0,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-JOR-1980",
+        "climate-tsunamis-JOR-2015",
+        "climate-tsunamis-JOR-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0,
+        "beyond": 0,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-HTI",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0.1,
+          "件"
+        ],
+        [
+          "平均差",
+          0.1,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-HTI-1980",
+        "climate-tsunamis-HTI-2015",
+        "climate-tsunamis-HTI-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0.1,
+        "beyond": 1,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-uk",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "平均差",
+          0,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-uk-1980",
+        "climate-tsunamis-uk-2015",
+        "climate-tsunamis-uk-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0,
+        "beyond": 0,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-SLV",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "平均差",
+          0,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-SLV-1980",
+        "climate-tsunamis-SLV-2015",
+        "climate-tsunamis-SLV-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0,
+        "beyond": 0,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-GTM",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "平均差",
+          0,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-GTM-1980",
+        "climate-tsunamis-GTM-2015",
+        "climate-tsunamis-GTM-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0,
+        "beyond": 0,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-PAK",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "平均差",
+          0,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-PAK-1980",
+        "climate-tsunamis-PAK-2015",
+        "climate-tsunamis-PAK-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0,
+        "beyond": 0,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-antarctica",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0.2,
+          "件"
+        ],
+        [
+          "平均差",
+          0.2,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-antarctica-1980",
+        "climate-tsunamis-antarctica-2015",
+        "climate-tsunamis-antarctica-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0.2,
+        "beyond": 2,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-ECU",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0.1,
+          "件"
+        ],
+        [
+          "平均差",
+          0.1,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-ECU-1980",
+        "climate-tsunamis-ECU-2015",
+        "climate-tsunamis-ECU-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0.1,
+        "beyond": 1,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-FJI",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0.2,
+          "件"
+        ],
+        [
+          "平均差",
+          0.2,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-FJI-1980",
+        "climate-tsunamis-FJI-2015",
+        "climate-tsunamis-FJI-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0.2,
+        "beyond": 2,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-iran",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0.1,
+          "件"
+        ],
+        [
+          "平均差",
+          0.1,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-iran-1980",
+        "climate-tsunamis-iran-2015",
+        "climate-tsunamis-iran-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0.1,
+        "beyond": 1,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-COL",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0.1,
+          "件"
+        ],
+        [
+          "平均差",
+          0.1,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-COL-1980",
+        "climate-tsunamis-COL-2015",
+        "climate-tsunamis-COL-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0.1,
+        "beyond": 1,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-ESP",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0.1,
+          "件"
+        ],
+        [
+          "平均差",
+          0.1,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-ESP-1980",
+        "climate-tsunamis-ESP-2015",
+        "climate-tsunamis-ESP-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0.1,
+        "beyond": 1,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-UKR",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "平均差",
+          0,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-UKR-1980",
+        "climate-tsunamis-UKR-2015",
+        "climate-tsunamis-UKR-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0,
+        "beyond": 0,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-CUB",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0.1,
+          "件"
+        ],
+        [
+          "平均差",
+          0.1,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-CUB-1980",
+        "climate-tsunamis-CUB-2015",
+        "climate-tsunamis-CUB-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0.1,
+        "beyond": 1,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-ISL",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "平均差",
+          0,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-ISL-1980",
+        "climate-tsunamis-ISL-2015",
+        "climate-tsunamis-ISL-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0,
+        "beyond": 0,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-MAR",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0.1,
+          "件"
+        ],
+        [
+          "平均差",
+          0.1,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-MAR-1980",
+        "climate-tsunamis-MAR-2015",
+        "climate-tsunamis-MAR-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0.1,
+        "beyond": 1,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-CMR",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0.1,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "平均差",
+          -0.1,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-CMR-1980",
+        "climate-tsunamis-CMR-2015",
+        "climate-tsunamis-CMR-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": -0.1,
+        "beyond": 0,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-east_china_sea",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "平均差",
+          0,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-east_china_sea-1980",
+        "climate-tsunamis-east_china_sea-2015",
+        "climate-tsunamis-east_china_sea-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0,
+        "beyond": 0,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-saint_vincent_and_the_grenadines",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0.1,
+          "件"
+        ],
+        [
+          "平均差",
+          0.1,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-saint_vincent_and_the_grenadines-1980",
+        "climate-tsunamis-saint_vincent_and_the_grenadines-2015",
+        "climate-tsunamis-saint_vincent_and_the_grenadines-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0.1,
+        "beyond": 1,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-BRA",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0.1,
+          "件"
+        ],
+        [
+          "平均差",
+          0.1,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-BRA-1980",
+        "climate-tsunamis-BRA-2015",
+        "climate-tsunamis-BRA-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0.1,
+        "beyond": 1,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-ARG",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0.2,
+          "件"
+        ],
+        [
+          "平均差",
+          0.2,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-ARG-1980",
+        "climate-tsunamis-ARG-2015",
+        "climate-tsunamis-ARG-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0.2,
+        "beyond": 1,
+        "range": 2
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-FRA",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0.1,
+          "件"
+        ],
+        [
+          "平均差",
+          0.1,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-FRA-1980",
+        "climate-tsunamis-FRA-2015",
+        "climate-tsunamis-FRA-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0.1,
+        "beyond": 1,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-tsunamis-HRV",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "直近期間の平均",
+          0,
+          "件"
+        ],
+        [
+          "平均差",
+          0,
+          "件"
+        ]
+      ],
+      "recordIds": [
+        "climate-tsunamis-HRV-1980",
+        "climate-tsunamis-HRV-2015",
+        "climate-tsunamis-HRV-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各10記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "1980年〜1989年",
+        "recent": "2015年〜2024年",
+        "window": 10,
+        "change": 0,
+        "beyond": 0,
+        "range": 1
+      },
+      "status": "computed"
+    }
+  }
+]

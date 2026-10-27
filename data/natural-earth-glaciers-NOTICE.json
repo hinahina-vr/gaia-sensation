@@ -1,0 +1,16 @@
+{
+  "source": "Natural Earth 1:50m glaciated areas",
+  "url": "https://www.naturalearthdata.com/downloads/50m-physical-vectors/50m-glaciated-areas/",
+  "download": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_50m_glaciated_areas.geojson",
+  "terms": "https://www.naturalearthdata.com/about/terms-of-use/",
+  "license": "Public domain",
+  "retrieved": "2026-10-27",
+  "files": [
+    {
+      "path": "data/ne_50m_glaciated_areas.geojson",
+      "bytes": 512454,
+      "sha256": "067a70af1f77312c62aa27d0a16ccdf90fa641363843fec15b8d67a19f09246f"
+    }
+  ],
+  "use": "Fixed geographic basemap of glaciers. Does not locate the WGMS reference sample or reconstruct historical glacier boundaries. Greenland and Antarctic ice sheets are masked out."
+}

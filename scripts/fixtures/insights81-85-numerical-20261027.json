@@ -1,0 +1,668 @@
+[
+  {
+    "id": "climate-waterstress-EGY",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          113.04372857142857,
+          "%"
+        ],
+        [
+          "直近期間の平均",
+          136.78119999999998,
+          "%"
+        ],
+        [
+          "平均差",
+          23.73747142857141,
+          "ポイント"
+        ]
+      ],
+      "recordIds": [
+        "climate-waterstress-EGY-2000",
+        "climate-waterstress-EGY-2016",
+        "climate-waterstress-EGY-2022"
+      ],
+      "calculation": "同一系列内の最初・最後各7記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "2000年〜2006年",
+        "recent": "2016年〜2022年",
+        "window": 7,
+        "change": 23.73747142857141,
+        "beyond": 6,
+        "range": 37.28599999999999
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-waterstress-IND",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          64.82421428571429,
+          "%"
+        ],
+        [
+          "直近期間の平均",
+          66.4921,
+          "%"
+        ],
+        [
+          "平均差",
+          1.6678857142857026,
+          "ポイント"
+        ]
+      ],
+      "recordIds": [
+        "climate-waterstress-IND-2000",
+        "climate-waterstress-IND-2016",
+        "climate-waterstress-IND-2022"
+      ],
+      "calculation": "同一系列内の最初・最後各7記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "2000年〜2006年",
+        "recent": "2016年〜2022年",
+        "window": 7,
+        "change": 1.6678857142857026,
+        "beyond": 0,
+        "range": 4.639599999999994
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-waterstress-JPN",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          39.19047142857143,
+          "%"
+        ],
+        [
+          "直近期間の平均",
+          36.49262857142857,
+          "%"
+        ],
+        [
+          "平均差",
+          -2.6978428571428594,
+          "ポイント"
+        ]
+      ],
+      "recordIds": [
+        "climate-waterstress-JPN-2000",
+        "climate-waterstress-JPN-2016",
+        "climate-waterstress-JPN-2022"
+      ],
+      "calculation": "同一系列内の最初・最後各7記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "2000年〜2006年",
+        "recent": "2016年〜2022年",
+        "window": 7,
+        "change": -2.6978428571428594,
+        "beyond": 7,
+        "range": 5.5172000000000025
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-cropland-ETH-change",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          1.078925,
+          "ポイント"
+        ],
+        [
+          "直近期間の平均",
+          4.664899999999999,
+          "ポイント"
+        ],
+        [
+          "平均差",
+          3.5859749999999995,
+          "ポイント"
+        ]
+      ],
+      "recordIds": [
+        "climate-cropland-ETH-2000-change",
+        "climate-cropland-ETH-2017-change",
+        "climate-cropland-ETH-2024-change"
+      ],
+      "calculation": "同一系列内の最初・最後各8記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "2000年〜2007年",
+        "recent": "2017年〜2024年",
+        "window": 8,
+        "change": 3.5859749999999995,
+        "beyond": 8,
+        "range": 4.8389999999999995
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-cropland-ETH",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          10.908424999999998,
+          "%"
+        ],
+        [
+          "直近期間の平均",
+          14.494399999999999,
+          "%"
+        ],
+        [
+          "平均差",
+          3.5859750000000012,
+          "ポイント"
+        ]
+      ],
+      "recordIds": [
+        "climate-cropland-ETH-2000",
+        "climate-cropland-ETH-2017",
+        "climate-cropland-ETH-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各8記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "2000年〜2007年",
+        "recent": "2017年〜2024年",
+        "window": 8,
+        "change": 3.5859750000000012,
+        "beyond": 8,
+        "range": 4.838999999999999
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-cropland-JPN-change",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          -0.22286249999999996,
+          "ポイント"
+        ],
+        [
+          "直近期間の平均",
+          -1.0431625,
+          "ポイント"
+        ],
+        [
+          "平均差",
+          -0.8203,
+          "ポイント"
+        ]
+      ],
+      "recordIds": [
+        "climate-cropland-JPN-2000-change",
+        "climate-cropland-JPN-2017-change",
+        "climate-cropland-JPN-2024-change"
+      ],
+      "calculation": "同一系列内の最初・最後各8記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "2000年〜2007年",
+        "recent": "2017年〜2024年",
+        "window": 8,
+        "change": -0.8203,
+        "beyond": 8,
+        "range": 1.2373
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-cropland-JPN",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          12.051437499999999,
+          "%"
+        ],
+        [
+          "直近期間の平均",
+          11.231137499999999,
+          "%"
+        ],
+        [
+          "平均差",
+          -0.8202999999999996,
+          "ポイント"
+        ]
+      ],
+      "recordIds": [
+        "climate-cropland-JPN-2000",
+        "climate-cropland-JPN-2017",
+        "climate-cropland-JPN-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各8記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "2000年〜2007年",
+        "recent": "2017年〜2024年",
+        "window": 8,
+        "change": -0.8202999999999996,
+        "beyond": 8,
+        "range": 1.2372999999999994
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-cropland-USA-change",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          -0.6614125,
+          "ポイント"
+        ],
+        [
+          "直近期間の平均",
+          -2.3433500000000005,
+          "ポイント"
+        ],
+        [
+          "平均差",
+          -1.6819375000000005,
+          "ポイント"
+        ]
+      ],
+      "recordIds": [
+        "climate-cropland-USA-2000-change",
+        "climate-cropland-USA-2017-change",
+        "climate-cropland-USA-2024-change"
+      ],
+      "calculation": "同一系列内の最初・最後各8記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "2000年〜2007年",
+        "recent": "2017年〜2024年",
+        "window": 8,
+        "change": -1.6819375000000005,
+        "beyond": 8,
+        "range": 2.585
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-cropland-USA",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          18.491487499999998,
+          "%"
+        ],
+        [
+          "直近期間の平均",
+          16.80955,
+          "%"
+        ],
+        [
+          "平均差",
+          -1.6819374999999965,
+          "ポイント"
+        ]
+      ],
+      "recordIds": [
+        "climate-cropland-USA-2000",
+        "climate-cropland-USA-2017",
+        "climate-cropland-USA-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各8記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "2000年〜2007年",
+        "recent": "2017年〜2024年",
+        "window": 8,
+        "change": -1.6819374999999965,
+        "beyond": 8,
+        "range": 2.5849999999999973
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-yield-IND",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          2386.5125,
+          "kg/ha"
+        ],
+        [
+          "直近期間の平均",
+          3442.525,
+          "kg/ha"
+        ],
+        [
+          "平均差",
+          1056.0125000000003,
+          "kg/ha"
+        ]
+      ],
+      "recordIds": [
+        "climate-yield-IND-2000",
+        "climate-yield-IND-2017",
+        "climate-yield-IND-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各8記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "2000年〜2007年",
+        "recent": "2017年〜2024年",
+        "window": 8,
+        "change": 1056.0125000000003,
+        "beyond": 8,
+        "range": 1406.9
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-yield-JPN",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          5988.862499999999,
+          "kg/ha"
+        ],
+        [
+          "直近期間の平均",
+          6271.35,
+          "kg/ha"
+        ],
+        [
+          "平均差",
+          282.4875000000011,
+          "kg/ha"
+        ]
+      ],
+      "recordIds": [
+        "climate-yield-JPN-2000",
+        "climate-yield-JPN-2017",
+        "climate-yield-JPN-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各8記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "2000年〜2007年",
+        "recent": "2017年〜2024年",
+        "window": 8,
+        "change": 282.4875000000011,
+        "beyond": 4,
+        "range": 966
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-yield-USA",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          6215.3125,
+          "kg/ha"
+        ],
+        [
+          "直近期間の平均",
+          8210.425,
+          "kg/ha"
+        ],
+        [
+          "平均差",
+          1995.1124999999993,
+          "kg/ha"
+        ]
+      ],
+      "recordIds": [
+        "climate-yield-USA-2000",
+        "climate-yield-USA-2017",
+        "climate-yield-USA-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各8記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "2000年〜2007年",
+        "recent": "2017年〜2024年",
+        "window": 8,
+        "change": 1995.1124999999993,
+        "beyond": 8,
+        "range": 3067.4000000000005
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-fertilizer-IND",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          117.28723749999999,
+          "kg/ha"
+        ],
+        [
+          "直近期間の平均",
+          192.61316250000002,
+          "kg/ha"
+        ],
+        [
+          "平均差",
+          75.32592500000003,
+          "kg/ha"
+        ]
+      ],
+      "recordIds": [
+        "climate-fertilizer-IND-2000",
+        "climate-fertilizer-IND-2017",
+        "climate-fertilizer-IND-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各8記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "2000年〜2007年",
+        "recent": "2017年〜2024年",
+        "window": 8,
+        "change": 75.32592500000003,
+        "beyond": 8,
+        "range": 114.1091
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-fertilizer-JPN",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          304.6778375,
+          "kg/ha"
+        ],
+        [
+          "直近期間の平均",
+          173.6194,
+          "kg/ha"
+        ],
+        [
+          "平均差",
+          -131.0584375,
+          "kg/ha"
+        ]
+      ],
+      "recordIds": [
+        "climate-fertilizer-JPN-2000",
+        "climate-fertilizer-JPN-2017",
+        "climate-fertilizer-JPN-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各8記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "2000年〜2007年",
+        "recent": "2017年〜2024年",
+        "window": 8,
+        "change": -131.0584375,
+        "beyond": 8,
+        "range": 216.7151
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-fertilizer-NLD",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          365.2945875,
+          "kg/ha"
+        ],
+        [
+          "直近期間の平均",
+          268.40486250000004,
+          "kg/ha"
+        ],
+        [
+          "平均差",
+          -96.88972499999994,
+          "kg/ha"
+        ]
+      ],
+      "recordIds": [
+        "climate-fertilizer-NLD-2000",
+        "climate-fertilizer-NLD-2017",
+        "climate-fertilizer-NLD-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各8記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "2000年〜2007年",
+        "recent": "2017年〜2024年",
+        "window": 8,
+        "change": -96.88972499999994,
+        "beyond": 8,
+        "range": 181.2434
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-longevity-JPN",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          81.8446875,
+          "年"
+        ],
+        [
+          "直近期間の平均",
+          84.2183125,
+          "年"
+        ],
+        [
+          "平均差",
+          2.37362499999999,
+          "年"
+        ]
+      ],
+      "recordIds": [
+        "climate-longevity-JPN-2000",
+        "climate-longevity-JPN-2017",
+        "climate-longevity-JPN-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各8記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "2000年〜2007年",
+        "recent": "2017年〜2024年",
+        "window": 8,
+        "change": 2.37362499999999,
+        "beyond": 8,
+        "range": 3.4839000000000055
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-longevity-IND",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          64.280125,
+          "年"
+        ],
+        [
+          "直近期間の平均",
+          70.575375,
+          "年"
+        ],
+        [
+          "平均差",
+          6.295249999999996,
+          "年"
+        ]
+      ],
+      "recordIds": [
+        "climate-longevity-IND-2000",
+        "climate-longevity-IND-2017",
+        "climate-longevity-IND-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各8記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "2000年〜2007年",
+        "recent": "2017年〜2024年",
+        "window": 8,
+        "change": 6.295249999999996,
+        "beyond": 8,
+        "range": 9.485999999999997
+      },
+      "status": "computed"
+    }
+  },
+  {
+    "id": "climate-longevity-USA",
+    "result": {
+      "metrics": [
+        [
+          "初期期間の平均",
+          77.2622,
+          "年"
+        ],
+        [
+          "直近期間の平均",
+          77.9981625,
+          "年"
+        ],
+        [
+          "平均差",
+          0.7359624999999994,
+          "年"
+        ]
+      ],
+      "recordIds": [
+        "climate-longevity-USA-2000",
+        "climate-longevity-USA-2017",
+        "climate-longevity-USA-2024"
+      ],
+      "calculation": "同一系列内の最初・最後各8記録の平均差と値域の重なりを計算。窓は事前固定ルール min(10,floor(n/3))、最低1。因果・予測・有意差検定ではない。",
+      "details": {
+        "baseline": "2000年〜2007年",
+        "recent": "2017年〜2024年",
+        "window": 8,
+        "change": 0.7359624999999994,
+        "beyond": 5,
+        "range": 2.5608999999999895
+      },
+      "status": "computed"
+    }
+  }
+]

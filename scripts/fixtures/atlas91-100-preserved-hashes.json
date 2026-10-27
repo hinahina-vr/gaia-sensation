@@ -1,0 +1,16 @@
+{
+  "sourceCommit": "1a803317b497344cd23c85ff2ae476b726974817",
+  "algorithm": "sha256",
+  "files": {
+    "data/atlas-history/oceanheat.json": "b77baae7fbaf35b575008c9b889c6411a6ca230935967420b11e32c6f9667285",
+    "data/atlas-history/ozone.json": "20b5199e036e3db217b28e0bbb178a2e1b17c449baf73f6abb10d146b06470df",
+    "data/atlas-history/glaciers.json": "db9f9086ebf98031ec708b34d973a8cff8badc05ab763209044636bf51ccb5b7",
+    "data/atlas-history/volcanoes.json": "6c982dfd300be2e4a67b205b5fd866157bb4bb211161432353c7b123c9e5834b",
+    "data/atlas-history/tsunamis.json": "d24ab8ef968afcbda1e01e786e067631915f057ec0d1a50003ad97b22e173fe4",
+    "data/atlas-history/wateruse.json": "0f170098c8e1d594e243b04fb56d19c705191f990099358f25298d4a710a2a4f",
+    "data/atlas-history/hunger.json": "59e7e03664afb3b8fb7d7ab71dbd93a730ace9f4cbb939b0028afe770317f2fb",
+    "data/atlas-history/fisheries.json": "b85625c55a0d3d0b2231c41c5bfc697627be1876e3ae513053bbf92dd4ddf184",
+    "data/atlas-history/internet.json": "ba063882a46226e5c3b8fead70bc1800bc776ae4fd2119186f2b0a2d36f8c76e",
+    "data/atlas-history/refugees.json": "7c7689e43f2748742b4f1e961f996580dfb920e31686e27dfcce1f97ccace443"
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "scope": "Exact archived World Bank responses used by exhibit 77–80 source-integrity tests. gzip compression only; no data changes. Licence/URLs retained in the source inventory and source metadata.",
+  "files": [
+    {
+      "file": "atlas-history-sources-20261022/countries.json.gz",
+      "sourceBytes": 113954,
+      "sourceSha256": "c9acf3932785191a649cbc04c3056af4cf64a236e5c3b49d49be25ddb0440bce",
+      "compressedBytes": 9982
+    },
+    {
+      "file": "atlas-history-sources-20261022/drinking.json.gz",
+      "sourceBytes": 1730363,
+      "sourceSha256": "374ad104b19b322d0d58c890ada337bb5a0c055f388948f1a22209382658e663",
+      "compressedBytes": 68438
+    },
+    {
+      "file": "atlas-history-sources-20261022/electricity.json.gz",
+      "sourceBytes": 1491383,
+      "sourceSha256": "7d098c3250f2d28da1d6201b7e4d7e6d6f985cce968470daa91c390cffd9950e",
+      "compressedBytes": 45675
+    },
+    {
+      "file": "atlas-history-sources-20261022/foresthistory.json.gz",
+      "sourceBytes": 1422183,
+      "sourceSha256": "d02013fda03cd4dad636df9ad946c255a57e3d307713a738c0c7e590f656a432",
+      "compressedBytes": 74201
+    },
+    {
+      "file": "drinking-water-sources-20261023/rural-metadata.json.gz",
+      "sourceBytes": 1348,
+      "sourceSha256": "f1133cbafbf511ffdc729c43b9d01ad753dedfb7accfe70eb8f789f1e0c054b6",
+      "compressedBytes": 645
+    },
+    {
+      "file": "drinking-water-sources-20261023/rural.json.gz",
+      "sourceBytes": 1817905,
+      "sourceSha256": "745d21e30ad8a91c858c48e1d42535a9aed3e16987206065f0e65b7d7336b1fa",
+      "compressedBytes": 54742
+    },
+    {
+      "file": "drinking-water-sources-20261023/urban-metadata.json.gz",
+      "sourceBytes": 1348,
+      "sourceSha256": "52604045e3a06ab540cbb63cd409e75bffcaa3198ba0d10b113c2b25e6f6e4eb",
+      "compressedBytes": 645
+    },
+    {
+      "file": "drinking-water-sources-20261023/urban.json.gz",
+      "sourceBytes": 1823180,
+      "sourceSha256": "af432088b503ce85ca244b3980293afd298f614703d800906d1b22e1d910e893",
+      "compressedBytes": 58239
+    },
+    {
+      "file": "sanitation-sources-20261023/basic-metadata.json.gz",
+      "sourceBytes": 1257,
+      "sourceSha256": "5be5e6443462725b4bb1ea4547a443489c6dde0ae875c278be049151aa9ec5df",
+      "compressedBytes": 595
+    },
+    {
+      "file": "sanitation-sources-20261023/basic.json.gz",
+      "sourceBytes": 1725281,
+      "sourceSha256": "0366268b658dfebeccc23c9dd11cc31381fd8ca449b86e0a0413324613621cdb",
+      "compressedBytes": 86880
+    },
+    {
+      "file": "sanitation-sources-20261023/open-metadata.json.gz",
+      "sourceBytes": 992,
+      "sourceSha256": "7493701c0925e6dccfbe019c00c2a7b9f99f3bdaa7f0f757c120b5f09a92fbb3",
+      "compressedBytes": 494
+    },
+    {
+      "file": "sanitation-sources-20261023/open.json.gz",
+      "sourceBytes": 1612615,
+      "sourceSha256": "a0f5b0ddcd68759a7d3db9d727ac84a6140795f32dfeb1408094e5c8dff27dd4",
+      "compressedBytes": 74145
+    }
+  ]
+}

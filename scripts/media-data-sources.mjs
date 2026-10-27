@@ -77,11 +77,16 @@ export function mediaDataSources(root, providers) {
     if(d.atlas||d.id==='lakes'){
       const file=d.atlas?`data/atlas-history/${d.id}.json`:'data/surface-water/lakes.json',data=read(file);
       const termsUrl=d.termsUrl||(d.id==='waterstore'?'https://grace.jpl.nasa.gov/about/how-to-cite/':d.id==='sealevel'?'https://www.star.nesdis.noaa.gov/socd/lsa/SeaLevelRise/LSA_productspolicy.php':d.id==='lakes'?'https://global-surface-water.appspot.com/download':'https://datacatalog.worldbank.org/public-licenses');
-      add('水・気候・暮らしの記録（MAP 74–75）',d.id,d.organisation||'EC JRC / Google',`MAP ${d.number} / ${d.signalLabel}`,d.source,
+      add('水・気候・暮らしの記録（MAP 74–100）',d.id,d.organisation||'EC JRC / Google',`MAP ${d.number} / ${d.signalLabel}`,d.source,
         '保存値を展示選択時に遅延読込。欠測を0埋めせず、原系列と独自年次集計を区別。',file,{modeId:d.id,period:data.period.join('–'),retrievedAt:data.retrievedAt,transformation:data.method,termsUrl,attribution:data.citation||data.attribution||d.organisation});
       if(d.id==='waterstore'){
         const gridFile='data/atlas-history/waterstore-grid.json',grid=read(gridFile);
         add('水・気候・暮らしの記録（MAP 75）','waterstore-grid',d.organisation,'陸水量偏差の0.5度配布格子',d.source,'展示75で遅延読込。配布0.5度・推定約3度。',gridFile,{modeId:d.id,period:'2003–2024',retrievedAt:grid.retrievedAt,transformation:grid.method,termsUrl,attribution:d.organisation});
+      }
+      const auxiliary={sealevel:['sealevel-stations','沿岸の検潮所の相対海面'],electricity:['electricity-comparison','世界銀行の地域集計'],drinking:['drinking-comparison','飲料水の都市・農村別利用率'],sanitation:['sanitation-services','衛生サービスの内訳']}[d.id];
+      if(auxiliary){
+        const [id,title]=auxiliary,file=`data/atlas-history/${id}.json`,snapshot=read(file);
+        add('水・気候・暮らしの記録（MAP 74–100）',id,d.id==='sealevel'?'PSMSL':d.organisation,`MAP ${d.number} / ${title}`,snapshot.source?.url||d.source,'展示選択時に遅延読込。原系列・欠測・出典を保持。',file,{modeId:d.id,period:snapshot.period.join('–'),retrievedAt:snapshot.retrievedAt,transformation:snapshot.method,termsUrl:snapshot.termsUrl||termsUrl,attribution:snapshot.citation||snapshot.license||d.organisation});
       }
       continue;
     }
@@ -115,6 +120,9 @@ export function mediaDataSources(root, providers) {
   // Keep legacy providers visible without implying that all are active exhibits.
   for (const [i, d] of providers.entries()) rows.push({ ...d, id: `legacy-provider-${i}`, section: '補助・未使用の取得経路',
     evidence: 'sensor-platform/src/live-senseware.ts', retrievalPolicy: `補助provider（設定依存・現行展示での使用とは別）：${d.retrievalPolicy}` });
+  const glacierNotice=read('data/natural-earth-glaciers-NOTICE.json');
+  add('地理境界・氷河地形','natural-earth-glaciers','Natural Earth','1:50m glaciated areas',glacierNotice.url,'固定の氷河地形を遅延読込。過去の境界やWGMS標本の位置には読み替えない。','data/natural-earth-glaciers-NOTICE.json',{termsUrl:glacierNotice.terms,license:glacierNotice.license,retrievedAt:glacierNotice.retrieved,sourceSha256:glacierNotice.files[0].sha256});
+  for(const id of ['drinking-basic','drinking-basic-comparison']){const file='data/atlas-history/'+id+'.json',snapshot=read(file);add('水・気候・暮らしの記録（MAP 78）',id,'WHO / UNICEF JMP, World Bank WDI',id,'https://data.worldbank.org/indicator/SH.H2O.BASW.ZS','基本的飲料水サービスの保存推計値。安全管理サービスと区別し、欠測を補わない。',file,{termsUrl:'https://data.worldbank.org/summary-terms-of-use',license:snapshot.license,retrievedAt:snapshot.retrievedAt,transformation:snapshot.method});}
   return rows;
 }
 

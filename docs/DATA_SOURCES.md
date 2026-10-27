@@ -1,6 +1,6 @@
 # データ出典・利用条件
 
-2026-09-13の実装カタログと同梱データを基準にした案内です。提供元の最新データをすべて取得済みという意味ではありません。展示別のデータ名・収録期間・原本の参照先は[素材・データ台帳](MEDIA_RIGHTS_LEDGER.md#データ出典)で確認できます。
+2026-10-27の100展示の実装カタログと同梱データを基準にした案内です。提供元の最新データをすべて取得済みという意味ではありません。展示別のデータ名・収録期間・原本の参照先は[素材・データ台帳](MEDIA_RIGHTS_LEDGER.md#データ出典)で確認できます。
 
 ## データの扱い
 
@@ -37,10 +37,17 @@
 | 68–69 河川生物 | [国土交通省・国総研](https://www.nilim.go.jp/lab/fbg/ksnkankyo/) | 河川水辺の国勢調査の確認リスト・GISを照合した分類群数 |
 | 70–71 食料 | [FAO](https://www.fao.org/faostat/)、[農林水産省 / e-Stat](https://www.e-stat.go.jp/stat-search/files?layout=datalist&lid=000001478566&page=1) | 旧・新食料需給表、食料安全保障指標、日本の年度系列。独自の自給率算出とFAO公表値を区別 |
 | ORBITAL | [NASA DONKI](https://kauai.ccmc.gsfc.nasa.gov/DONKI/)、[NASA/JPL CNEOS](https://cneos.jpl.nasa.gov/)、[NASA Exoplanet Archive](https://exoplanetarchive.ipac.caltech.edu/)、[ISAS/JAXA DARTS](https://doi.org/10.17597/isas.darts/hyb2-00500) | 太陽活動、小天体、系外惑星、リュウグウの保存スナップショット |
+| 74 湖・75 陸水量 | [EC JRC / Google](https://global-surface-water.appspot.com/)、[NASA JPL GRACE・GRACE-FO](https://grace.jpl.nasa.gov/data/get-data/jpl_global_mascons/) | 水面分類と重力観測由来の陸水量偏差。推定解像度・欠測を保持 |
+| 76 海面高度 | [NOAA](https://www.star.nesdis.noaa.gov/socd/lsa/SeaLevelRise/)、[PSMSL](https://psmsl.org/data/obtaining/) | 衛星による海域平均と、沿岸の相対海面を区別 |
+| 77—88・96—100 国別の暮らし・資源 | [世界銀行WDI](https://data.worldbank.org/)、WHO・UNICEF JMP、FAO、UN IGME、ITU、UNHCR | 原提供元の公表・推計系列と原メタデータ。欠測・上限表記を保持 |
+| 89—93 氷雪・海洋・大気 | NSIDC、NOAA、NASA Ozone Watch、WGMS | 海氷・積雪・海洋熱・オゾンホール・氷河質量収支。集計値と地理的な演出を区別 |
+| 94—95 火山・津波 | [NOAA NCEI](https://www.ncei.noaa.gov/products/natural-hazards) | 事象カタログの対象記録。被害予測や警報ではない |
 | STORY気温デモ | [NASA GISS / GISTEMP v4](https://data.giss.nasa.gov/gistemp/data_v4.html) | 1958–2025年の2°格子を年平均に加工。全球平均の系列とは別 |
 | GX | [ICS](https://stratigraphy.org/chart/)、[USGS](https://pubs.usgs.gov/gip/fossils/scale.html)、国立科学博物館、IUGS | 地球史の解説資料。ライブ観測データではない |
 
 ## 地図・コード・参加型センサー
+
+氷河の固定地形もNatural Earthのpublic domainデータを使用し、[対象ファイル・引用元・SHA-256](../data/natural-earth-glaciers-NOTICE.json)を記録しています。過去の氷河境界やWGMS観測標本の位置としては扱いません。
 
 世界地図は[Natural Earth](https://www.naturalearthdata.com/about/terms-of-use/)、都道府県境界は[地球地図日本由来の境界](../data/japan-prefectures-NOTICE.md)を使用しています。登録画面の都市地図は[OpenStreetMap](https://www.openstreetmap.org/copyright)、地域コードは[Unicode CLDR・J-LIS等](REGION-CODE-SOURCES.md)を参照します。
 

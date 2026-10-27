@@ -2,8 +2,8 @@ import {mapCoCreationInsight} from './statistics-map-co-creation.js?v=insights75
 import {windEarthInsight} from './statistics-wind-context.js?v=insights75-scope-20261026';
 import {stationEarthInsight} from './statistics-station-context.js?v=insights75-scope-20261026';
 import {environmentEarthInsight} from './statistics-environment-context.js?v=insights75-scope-20261026';
-import {livingEarthInsight} from './statistics-living-earth-context.js?v=shared75-20261027';
 import {finalEarthInsight} from './statistics-final-context.js?v=insights75-scope-20261026';
+import {livingEarthInsight} from './statistics-living-earth-context.js?v=release100-c363-20261027';
 // Visitor-facing readings for map 01–05. Numerical evidence, source IDs and
 // calculations remain on the measured result; this layer explains their meaning.
 const TOPIC = Object.freeze({

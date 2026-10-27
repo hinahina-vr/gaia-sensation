@@ -1,4 +1,4 @@
-import {ATLAS_EXHIBITS} from './atlas-history-model.js?v=insights75-scope-20261026';
+import {ATLAS_EXHIBITS} from './atlas-history-model.js?v=release100-c363-20261027';
 export const CLIMATE_EXHIBITS = Object.freeze([
   { id: 'cyclones', number: '72', shortTitle: '嵐が残した道', signalLabel: '熱帯低気圧の経路・最大風速', subtitle: '海を渡った嵐の記録から、年ごとの違いをたどる',
     picker: 'NOAA IBTrACSの1980–2024シーズンの主要経路。線の色で1分平均風速を比べます。', source: 'https://www.ncei.noaa.gov/products/international-best-track-archive' },

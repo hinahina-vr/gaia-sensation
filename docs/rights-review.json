@@ -37,7 +37,7 @@
       "decisionEvidence": "docs/GOSAT_OWNER_DECISION_2026-09-07.md",
       "decisionBasis": "非営利の作品公開・展示による公益性を鑑み、現行のGOSAT由来データの可視化と表示用加工JSONの配信に問題ないと製作者が判断し、利用継続と公開保留解除を指示した。",
       "providerPermissionVerified": false,
-      "scopeSha256": "d86aef71301adcc6b037d3af3e8686d0c78e3614f4a18567220ebd5bf8151f91"
+      "scopeSha256": "45de9d7cbc9dcea51ab2184bdb53d72487a23918486658d6c79f92dd4f3916e2"
     },
     {
       "id": "unesco",
@@ -49,7 +49,7 @@
       "decisionEvidence": "docs/UNESCO_OWNER_DECISION_2026-09-07.md",
       "decisionBasis": "世界遺産24地点の名称・座標・分類を紹介する実装で、WHCの説明文や写真を転載するものではないとの説明を受け、製作者が現行利用の継続を了承した。",
       "providerPermissionVerified": false,
-      "scopeSha256": "d86aef71301adcc6b037d3af3e8686d0c78e3614f4a18567220ebd5bf8151f91"
+      "scopeSha256": "45de9d7cbc9dcea51ab2184bdb53d72487a23918486658d6c79f92dd4f3916e2"
     },
     {
       "id": "gbif",
@@ -61,7 +61,7 @@
       "decisionEvidence": "docs/PUBLICATION_OWNER_DECISION_2026-09-08.md",
       "decisionBasis": "GBIFと残余データ・ソフトウェアの未確認リスクを説明し、出典・利用条件を維持する非営利公開として続行するか確認した直後、製作者が「デプロイ」と回答。今回版を説明済みの条件で公開する指示として記録した。",
       "providerPermissionVerified": false,
-      "scopeSha256": "d86aef71301adcc6b037d3af3e8686d0c78e3614f4a18567220ebd5bf8151f91"
+      "scopeSha256": "45de9d7cbc9dcea51ab2184bdb53d72487a23918486658d6c79f92dd4f3916e2"
     },
     {
       "id": "jaxa-fnf-image",
@@ -74,7 +74,7 @@
       "excludedPaths": [
         "assets/data/jaxa-fnf-riau.png"
       ],
-      "scopeSha256": "d86aef71301adcc6b037d3af3e8686d0c78e3614f4a18567220ebd5bf8151f91"
+      "scopeSha256": "45de9d7cbc9dcea51ab2184bdb53d72487a23918486658d6c79f92dd4f3916e2"
     },
     {
       "id": "generated-images-music",
@@ -86,7 +86,7 @@
       "decisionEvidence": "docs/MEDIA_OWNER_DECISION_2026-09-07.md",
       "decisionBasis": "製作者指示により、生成素材は制作元と出典の記録に整理し、現行素材の利用を継続する。",
       "providerPermissionVerified": false,
-      "scopeSha256": "d86aef71301adcc6b037d3af3e8686d0c78e3614f4a18567220ebd5bf8151f91"
+      "scopeSha256": "45de9d7cbc9dcea51ab2184bdb53d72487a23918486658d6c79f92dd4f3916e2"
     },
     {
       "id": "remaining-data-and-software",
@@ -98,7 +98,7 @@
       "decisionEvidence": "docs/PUBLICATION_OWNER_DECISION_2026-09-08.md",
       "decisionBasis": "GBIFと残余データ・ソフトウェアの未確認リスクを説明し、出典・利用条件を維持する非営利公開として続行するか確認した直後、製作者が「デプロイ」と回答。追加世界銀行資料を含む今回版を説明済みの条件で公開する指示として記録した。",
       "providerPermissionVerified": false,
-      "scopeSha256": "d86aef71301adcc6b037d3af3e8686d0c78e3614f4a18567220ebd5bf8151f91"
+      "scopeSha256": "45de9d7cbc9dcea51ab2184bdb53d72487a23918486658d6c79f92dd4f3916e2"
     }
   ],
   "scopeMaintenance20260913": {
@@ -165,5 +165,10 @@
     "scopeSha256": "d86aef71301adcc6b037d3af3e8686d0c78e3614f4a18567220ebd5bf8151f91",
     "evidence": "docs/RELEASE_SCOPE_2026-10-26_NOTEBOOK.json",
     "basis": "The owner requested push/deployment of the committed notebook UI while explicitly retaining 75 exhibits. Carry the committed generated background without modification, preserve its source commit/date/hash and bundled OFL font licenses. Original decisions, dates, statuses, bases and providerPermissionVerified flags remain unchanged; this scope maintenance does not claim newly verified individual provider permissions."
+  },
+  "public100ScopeMaintenance20261027": {
+    "scopeSha256": "45de9d7cbc9dcea51ab2184bdb53d72487a23918486658d6c79f92dd4f3916e2",
+    "evidence": "docs/RELEASE_SCOPE_2026-10-27_100.json",
+    "basis": "Owner explicitly requested public access through 100 to the committed source. Preserve the source datasets, terms URLs, citations, transformations and missing/censored values. The new natural-earth glacier geometry is documented as public domain in the committed notice. Preserve all prior rights decisions, dates, and providerPermissionVerified flags; this inventory/scope maintenance does not claim newly obtained individual permissions."
   }
 }

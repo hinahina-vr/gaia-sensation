@@ -1,0 +1,327 @@
+[data-longevity-panel][hidden]{ display:none; }
+#japan-layer[data-climate-exhibit="longevity"] .gaia-climate-insight,
+#japan-layer[data-climate-exhibit="longevity"] .gaia-climate-key{ display:none; }
+#japan-layer[data-climate-exhibit="longevity"] #gaia-map-theme-background{ visibility:hidden; }
+#japan-layer[data-climate-exhibit="longevity"] .gaia-climate-legend{ width:336px;max-height:calc(100% - var(--responsive-legend-top,125px) - 150px);background:#101d2aef; }
+.longevity-heading{ display:flex;align-items:baseline;justify-content:space-between;gap:8px; }
+#japan-layer .longevity-heading h3{ margin:0;font-size:21px;line-height:1.3;color:#dce9f5; }
+.longevity-heading > span{ font-size:11px;color:#a9bacb;white-space:nowrap; }
+#japan-layer .longevity-measure{ font-size:11px;color:#adbfcd;margin:14px 0 2px; }
+.longevity-reading{ display:flex;align-items:baseline;gap:9px;color:#c5e8f7; }
+.longevity-reading strong{ font-size:42px;line-height:1.2;font-weight:400;font-variant-numeric:tabular-nums; }
+.longevity-reading > span{ font-size:13px; }
+#japan-layer .longevity-change,#japan-layer .longevity-gap{ display:flex;justify-content:space-between;gap:6px;margin:10px 0;font-size:10px;color:#a9bdcc; }
+.longevity-change b,.longevity-gap b{ font-weight:400;color:#c6deed; }
+.longevity-comparison{ display:grid;grid-template-columns:minmax(0,1fr) auto;gap:9px;align-items:center;border-top:1px solid #acc8e62b;padding-top:12px;margin-top:14px; }
+.longevity-comparison label{ display:flex;align-items:center;gap:6px;color:#dabc9c;font-size:10px;white-space:nowrap; }
+.longevity-comparison select{ width:0;flex:1;min-width:0;background:#142a34;color:#e8c9a8;border:1px solid #bdad9340;padding:5px;font:11px var(--font-ja);border-radius:3px; }
+.longevity-comparison strong{ font-size:18px;color:#e2be97;font-weight:400;white-space:nowrap; }
+.longevity-chart-heading{ display:flex;align-items:center;justify-content:space-between;font-size:10px;color:#bedcec;margin-top:14px; }
+.longevity-chart-heading > span{ display:flex;align-items:center;gap:6px; }
+.longevity-chart-heading i{ width:14px;height:2px;background:#b8dff4; }
+.longevity-chart-heading small{ color:#9cb2c4;font-size:9px; }
+[data-longevity-chart]{ display:block;width:100%;height:115px;margin:7px 0;cursor:crosshair; }
+[data-longevity-chart]:focus-visible,[data-longevity-compare]:focus-visible{ outline:2px solid #c5e4f3;outline-offset:2px; }
+.longevity-scale{ position:relative;display:flex;justify-content:space-between;padding-top:12px;margin:15px 0 5px;font-size:9px;color:#b7c9d5; }
+.longevity-scale::before{ content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#243d59,#6387a5,#d3e7ec); }
+#japan-layer .longevity-map-note{ font-size:10px;color:#bdc9d4;margin:8px 0 0; }
+@media(min-width:901px) and (max-height:800px){
+#japan-layer .longevity-measure{ margin-top:8px; }
+.longevity-reading strong{ font-size:34px; }
+#japan-layer .longevity-change,#japan-layer .longevity-gap{ margin:6px 0; }
+.longevity-comparison{ margin-top:8px;padding-top:8px; }
+.longevity-chart-heading{ margin-top:8px; }
+[data-longevity-chart]{ height:80px;margin:5px 0; }
+.longevity-scale{ margin-top:9px; }
+}
+@media(max-width:900px){
+#japan-layer[data-climate-exhibit="longevity"] .gaia-climate-legend{ left:68px;width:auto;max-height:none;padding:7px 9px; }
+#japan-layer .longevity-heading h3{ font-size:13px; }
+.longevity-heading > span{ font-size:9px; }
+#japan-layer .longevity-measure{ font-size:9px;margin:4px 0 1px; }
+.longevity-reading strong{ font-size:29px; }
+.longevity-reading > span{ font-size:10px; }
+#japan-layer .longevity-change,#japan-layer .longevity-gap{ margin:3px 0;font-size:9px; }
+.longevity-comparison{ margin-top:5px;padding-top:5px;gap:5px; }
+.longevity-comparison label{ font-size:8px;gap:4px; }
+.longevity-comparison select{ padding:3px;font-size:9px; }
+.longevity-comparison strong{ font-size:13px; }
+.longevity-chart-heading{ margin-top:5px;font-size:8px; }
+.longevity-chart-heading small{ display:none; }
+[data-longevity-chart]{ height:59px;margin:3px 0; }
+.longevity-scale{ margin:6px 0 0;padding-top:7px;font-size:8px; }
+#japan-layer .longevity-map-note{ font-size:8px;margin:5px 0 0; }
+}
+@media(max-width:900px) and (max-height:650px){
+[data-longevity-panel]:not([hidden]){ display:grid;grid-template-columns:1fr auto;column-gap:8px; }
+.longevity-heading,.longevity-comparison,.longevity-gap,[data-longevity-chart],.longevity-scale,.longevity-map-note{ grid-column:1/-1; }
+#japan-layer .longevity-measure{ display:none; }
+#japan-layer .longevity-change{ flex-direction:column;justify-content:center;align-items:flex-end;gap:0;font-size:8px;margin:0; }
+.longevity-reading strong{ font-size:24px; }
+.longevity-chart-heading{ display:none; }
+[data-longevity-chart]{ height:40px; }
+.longevity-scale{ font-size:7px;padding-top:6px;margin-top:3px; }
+}
+[data-fertilizer-panel][hidden]{ display:none; }
+#japan-layer[data-climate-exhibit="fertilizer"] .gaia-climate-insight{ display:none; }
+#japan-layer[data-climate-exhibit="fertilizer"] .gaia-climate-key{ display:none; }
+#japan-layer .fertilizer-key-note{ font-size:9px;color:#9fbab2;margin:5px 0; }
+#japan-layer[data-climate-exhibit="fertilizer"] #gaia-map-theme-background{ visibility:hidden; }
+#japan-layer[data-climate-exhibit="fertilizer"] .gaia-climate-legend{ width:324px;max-height:calc(100% - var(--responsive-legend-top,125px) - 150px);background:#101f24ef; }
+.fertilizer-heading{ display:flex;align-items:baseline;justify-content:space-between;gap:8px; }
+#japan-layer .fertilizer-heading h3{ margin:0;font-size:21px;line-height:1.3;color:#e4e4c6; }
+.fertilizer-heading > span{ font-size:11px;color:#a8bcb9;white-space:nowrap; }
+#japan-layer .fertilizer-measure{ font-size:11px;color:#b4c6b6;margin:14px 0 2px; }
+.fertilizer-reading{ display:flex;align-items:baseline;gap:9px;color:#f0d6a2; }
+.fertilizer-reading strong{ font-size:42px;line-height:1.2;font-weight:400;font-variant-numeric:tabular-nums; }
+.fertilizer-reading > span{ font-size:13px; }
+#japan-layer .fertilizer-reference{ display:flex;justify-content:space-between;gap:4px;font-size:10px;color:#adc1b9;margin:14px 0 8px; }
+.fertilizer-reference b{ font-weight:400;color:#d7e5ca; }
+[data-fertilizer-distribution]{ display:block;width:100%;height:43px;margin:0 0 12px; }
+.fertilizer-chart-heading{ display:flex;justify-content:space-between;gap:6px;border-top:1px solid #b6c6a728;padding-top:12px;font-size:10px;color:#d2d7c2; }
+.fertilizer-chart-heading small{ color:#9bb5b2;font-size:9px; }
+[data-fertilizer-chart]{ display:block;width:100%;height:91px;margin:8px 0;cursor:crosshair; }
+[data-fertilizer-chart]:focus-visible,[data-fertilizer-panel] button:focus-visible{ outline:2px solid #efdeb1;outline-offset:2px; }
+.fertilizer-places{ display:flex;gap:5px;margin-top:10px; }
+[data-fertilizer-panel] button{ flex:1;min-width:0;min-height:32px;padding:3px;border:1px solid #a5baae42;border-radius:3px;background:transparent;color:#b9c9bd;font:10px var(--font-ja);cursor:pointer; }
+[data-fertilizer-panel] button[aria-pressed="true"]{ border-color:#ddc791;background:#ddc79112;color:#f3dfb0; }
+#japan-layer[data-climate-exhibit="fertilizer"] .gaia-climate-key{ margin-top:15px; }
+#japan-layer[data-climate-exhibit="fertilizer"] .gaia-climate-key h3{ font-size:10px; }
+@media(min-width:901px) and (max-height:800px){
+#japan-layer .fertilizer-measure{ margin-top:8px; }
+.fertilizer-reading strong{ font-size:34px; }
+#japan-layer .fertilizer-reference{ margin:7px 0 5px; }
+.fertilizer-chart-heading{ padding-top:7px; }
+[data-fertilizer-chart]{ height:65px;margin:5px 0; }
+.fertilizer-places{ margin-top:6px; }
+[data-fertilizer-distribution]{ height:35px;margin-bottom:6px; }
+#japan-layer[data-climate-exhibit="fertilizer"] .gaia-climate-key{ margin-top:8px; }
+}
+@media(max-width:900px){
+#japan-layer[data-climate-exhibit="fertilizer"] .gaia-climate-legend{ left:68px;width:auto;max-height:none;padding:7px 9px; }
+#japan-layer .fertilizer-heading h3{ font-size:13px; }
+.fertilizer-heading > span{ font-size:9px; }
+#japan-layer .fertilizer-measure{ font-size:9px;margin:4px 0 1px; }
+.fertilizer-reading strong{ font-size:29px; }
+.fertilizer-reading > span{ font-size:10px; }
+#japan-layer .fertilizer-reference{ margin:4px 0;font-size:8px; }
+[data-fertilizer-distribution]{ height:30px;margin-bottom:4px; }
+.fertilizer-chart-heading{ padding-top:5px;font-size:8px; }
+.fertilizer-chart-heading small{ display:none; }
+[data-fertilizer-chart]{ height:49px;margin:3px 0; }
+.fertilizer-places{ display:none; }
+#japan-layer[data-climate-exhibit="fertilizer"] .gaia-climate-key{ margin-top:5px; }
+#japan-layer[data-climate-exhibit="fertilizer"] .gaia-climate-key h3{ font-size:8px; }
+}
+@media(max-width:900px) and (max-height:650px){
+[data-fertilizer-chart]{ height:40px; }
+[data-fertilizer-distribution]{ height:25px; }
+.fertilizer-chart-heading,#japan-layer[data-climate-exhibit="fertilizer"] .gaia-climate-key h3{ display:none; }
+}
+[data-yield-panel][hidden]{ display:none; }
+#japan-layer[data-climate-exhibit="yield"] .gaia-climate-insight{ display:none; }
+#japan-layer[data-climate-exhibit="yield"] #gaia-map-theme-background{ visibility:hidden; }
+#japan-layer[data-climate-exhibit="yield"] .gaia-climate-legend{ width:324px;max-height:calc(100% - var(--responsive-legend-top,125px) - 150px);background:#101f24ef; }
+.yield-heading{ display:flex;align-items:baseline;justify-content:space-between;gap:8px; }
+#japan-layer .yield-heading h3{ margin:0;font-size:21px;line-height:1.3;color:#efdfb6; }
+.yield-heading > span{ font-size:11px;color:#a8bcb9;white-space:nowrap; }
+#japan-layer .yield-measure{ font-size:11px;color:#b4c6b6;margin:14px 0 2px; }
+.yield-reading{ display:flex;align-items:baseline;gap:9px;color:#f3d994; }
+.yield-reading strong{ font-size:42px;line-height:1.2;font-weight:400;font-variant-numeric:tabular-nums; }
+.yield-reading > span{ font-size:13px; }
+#japan-layer .yield-comparison{ display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px;font-size:10px;color:#adc1b9;margin:12px 0 16px; }
+.yield-comparison b{ font-weight:400;color:#eed497; }
+.yield-comparison b[data-sign="negative"]{ color:#9ed1dd; }
+.yield-chart-heading{ display:flex;justify-content:space-between;gap:6px;border-top:1px solid #b6c6a728;padding-top:12px;font-size:10px;color:#d2d7c2; }
+.yield-chart-heading small{ color:#9bb5b2;font-size:9px; }
+[data-yield-chart]{ display:block;width:100%;height:105px;margin:8px 0;cursor:crosshair; }
+[data-yield-chart]:focus-visible,[data-yield-panel] button:focus-visible{ outline:2px solid #efdeb1;outline-offset:2px; }
+.yield-places{ display:flex;gap:5px;margin-top:10px; }
+[data-yield-panel] button{ flex:1;min-width:0;min-height:32px;padding:3px;border:1px solid #a5baae42;border-radius:3px;background:transparent;color:#b9c9bd;font:10px var(--font-ja);cursor:pointer; }
+[data-yield-panel] button[aria-pressed="true"]{ border-color:#ddc791;background:#ddc79112;color:#f3dfb0; }
+#japan-layer[data-climate-exhibit="yield"] .gaia-climate-key{ margin-top:15px; }
+#japan-layer[data-climate-exhibit="yield"] .gaia-climate-key h3{ font-size:10px; }
+@media(min-width:901px) and (max-height:800px){
+#japan-layer .yield-measure{ margin-top:8px; }
+.yield-reading strong{ font-size:34px; }
+#japan-layer .yield-comparison{ margin:6px 0 10px; }
+.yield-chart-heading{ padding-top:8px; }
+[data-yield-chart]{ height:70px;margin:5px 0; }
+.yield-places{ margin-top:6px; }
+#japan-layer[data-climate-exhibit="yield"] .gaia-climate-key{ margin-top:8px; }
+}
+@media(max-width:900px){
+#japan-layer[data-climate-exhibit="yield"] .gaia-climate-legend{ left:68px;width:auto;max-height:none;padding:7px 9px; }
+#japan-layer .yield-heading h3{ font-size:13px; }
+.yield-heading > span{ font-size:9px; }
+#japan-layer .yield-measure{ font-size:9px;margin:4px 0 1px; }
+.yield-reading strong{ font-size:29px; }
+.yield-reading > span{ font-size:10px; }
+#japan-layer .yield-comparison{ margin:3px 0 5px;font-size:9px; }
+.yield-chart-heading{ padding-top:5px;font-size:8px; }
+.yield-chart-heading small{ display:none; }
+[data-yield-chart]{ height:55px;margin:3px 0; }
+.yield-places{ display:none; }
+#japan-layer[data-climate-exhibit="yield"] .gaia-climate-key{ margin-top:5px; }
+#japan-layer[data-climate-exhibit="yield"] .gaia-climate-key h3{ font-size:8px;margin-bottom:3px; }
+#japan-layer[data-climate-exhibit="yield"] [data-climate-labels]{ font-size:8px;margin:3px 0 0; }
+}
+@media(max-width:900px) and (max-height:650px){
+.yield-reading strong{ font-size:24px; }
+.yield-chart-heading{ display:none; }
+[data-yield-chart]{ height:44px;margin:2px 0; }
+#japan-layer[data-climate-exhibit="yield"] .gaia-climate-key h3{ display:none; }
+#japan-layer .yield-comparison{ margin:2px 0; }
+}
+[data-cropland-panel][hidden]{ display:none; }
+#japan-layer[data-climate-exhibit="cropland"] .gaia-climate-insight{ display:none; }
+#japan-layer[data-climate-exhibit="cropland"] #gaia-map-theme-background{ visibility:hidden; }
+#japan-layer[data-climate-exhibit="cropland"] .gaia-climate-legend{ width:324px;max-height:calc(100% - var(--responsive-legend-top,125px) - 150px);background:#102127ee; }
+.cropland-heading{ display:flex;align-items:baseline;justify-content:space-between;gap:8px; }
+#japan-layer .cropland-heading h3{ margin:0;font-size:21px;line-height:1.3;color:#efdfb6; }
+.cropland-heading > span{ font-size:11px;color:#a8bcb9;white-space:nowrap; }
+.cropland-reading{ display:flex;align-items:baseline;gap:8px;margin:12px 0 16px;color:var(--cropland-change); }
+.cropland-reading > span{ margin-right:auto;color:#b2c2bd;font-size:11px; }
+.cropland-reading strong{ font-size:34px;line-height:1.2;font-weight:400;font-variant-numeric:tabular-nums; }
+.cropland-reading small{ font-size:12px; }
+#japan-layer .cropland-composition p{ margin:0 0 8px;font-size:12px;color:#d5ddce; }
+.cropland-composition > div{ display:grid;grid-template-columns:34px minmax(0,1fr) 52px;gap:8px;align-items:center;margin:8px 0;font-size:10px; }
+.cropland-composition b{ text-align:right;font-size:12px;font-weight:400; }
+.cropland-track{ height:12px;background:#a7c4bb23;box-shadow:inset 0 0 0 1px #adc3b316; }
+.cropland-track i{ display:block;height:100%;background:#edcf90; }
+[data-cropland-bar="base"]{ opacity:.6; }
+.cropland-track[data-missing="true"]{ background:repeating-linear-gradient(135deg,#a3b7b755 0 1px,transparent 1px 5px); }
+.cropland-composition > small{ display:flex;align-items:center;gap:5px;font-size:9px;color:#9fb3af; }
+.cropland-composition > small i{ width:8px;height:6px;background:#edcf90; }
+.cropland-composition > small span{ margin-left:auto; }
+.cropland-history-heading{ display:flex;justify-content:space-between;gap:6px;margin-top:18px;padding-top:12px;border-top:1px solid #aec5b42b;font-size:10px;color:#d2d7c2; }
+.cropland-history-heading small{ color:#8fa9ad;font-size:9px; }
+[data-cropland-chart]{ display:block;width:100%;height:90px;margin:6px 0;cursor:crosshair; }
+[data-cropland-chart]:focus-visible,[data-cropland-panel] button:focus-visible{ outline:2px solid #efdeb1;outline-offset:2px; }
+.cropland-modes,.cropland-places{ display:flex;gap:5px;margin-top:12px; }
+[data-cropland-panel] button{ flex:1;min-width:0;min-height:32px;padding:3px;border:1px solid #a5baae42;border-radius:3px;background:transparent;color:#b9c9bd;font:10px var(--font-ja);cursor:pointer; }
+[data-cropland-panel] button[aria-pressed="true"]{ border-color:#ddc791;background:#ddc79112;color:#f3dfb0; }
+.cropland-places{ margin-top:7px; }
+#japan-layer[data-climate-exhibit="cropland"] .gaia-climate-key{ margin-top:14px; }
+#japan-layer[data-climate-exhibit="cropland"] .gaia-climate-key h3{ font-size:10px; }
+@media(min-width:901px) and (max-height:800px){
+.cropland-reading{ margin:6px 0 8px; }
+.cropland-reading strong{ font-size:29px; }
+.cropland-composition > div{ margin:5px 0; }
+.cropland-history-heading{ margin-top:8px;padding-top:7px; }
+[data-cropland-chart]{ height:56px; }
+.cropland-modes{ margin-top:6px; }
+.cropland-places,.cropland-composition > small{ display:none; }
+#japan-layer[data-climate-exhibit="cropland"] .gaia-climate-key h3{ display:none; }
+#japan-layer[data-climate-exhibit="cropland"] .gaia-climate-key{ margin-top:7px; }
+#japan-layer[data-climate-exhibit="cropland"] .gaia-climate-legend details{ margin-top:5px;padding-top:5px; }
+}
+@media(max-width:900px){
+#japan-layer[data-climate-exhibit="cropland"] .gaia-climate-legend{ left:68px;width:auto;max-height:none;padding:7px 9px; }
+#japan-layer .cropland-heading h3{ font-size:13px; }
+.cropland-heading > span{ font-size:9px; }
+.cropland-reading{ margin:2px 0 5px;gap:5px; }
+.cropland-reading strong{ font-size:25px; }
+.cropland-reading > span,.cropland-reading small{ font-size:9px; }
+#japan-layer .cropland-composition p{ font-size:9px;margin-bottom:3px; }
+.cropland-composition > div{ grid-template-columns:25px minmax(0,1fr) 40px;gap:5px;margin:4px 0;font-size:8px; }
+.cropland-composition b{ font-size:10px; }
+.cropland-track{ height:7px; }
+.cropland-composition > small{ display:none; }
+.cropland-history-heading{ margin-top:5px;padding-top:5px;font-size:8px; }
+.cropland-history-heading small{ display:none; }
+[data-cropland-chart]{ height:50px;margin:3px 0; }
+.cropland-modes{ margin-top:5px; }
+[data-cropland-panel] button{ min-height:28px;font-size:9px; }
+.cropland-places{ display:none; }
+#japan-layer[data-climate-exhibit="cropland"] .gaia-climate-key{ margin-top:5px; }
+#japan-layer[data-climate-exhibit="cropland"] .gaia-climate-key h3{ font-size:8px;margin-bottom:3px; }
+#japan-layer[data-climate-exhibit="cropland"] [data-climate-labels]{ font-size:8px;margin:3px 0 0; }
+}
+@media(max-width:900px) and (max-height:650px){
+.cropland-reading strong{ font-size:21px;line-height:1; }
+.cropland-reading{ margin:2px 0; }
+.cropland-composition > div{ margin:2px 0;line-height:1.3; }
+#japan-layer .cropland-composition p{ font-size:8px;line-height:1.3;margin-bottom:2px; }
+.cropland-history-heading{ display:none; }
+[data-cropland-chart]{ height:32px;margin:2px 0; }
+#japan-layer[data-climate-exhibit="cropland"] .gaia-climate-key h3{ display:none; }
+.cropland-modes{ margin-top:2px; }
+[data-cropland-panel] button{ min-height:26px;font-size:8px; }
+}
+[data-stress-panel][hidden]{ display:none; }
+#japan-layer[data-climate-exhibit="waterstress"] .gaia-climate-insight,
+#japan-layer[data-climate-exhibit="waterstress"] .gaia-climate-key{ display:none; }
+#japan-layer[data-climate-exhibit="waterstress"] #gaia-map-theme-background{ visibility:hidden; }
+#japan-layer[data-climate-exhibit="waterstress"] .gaia-climate-legend{ width:324px;max-height:calc(100% - var(--responsive-legend-top,125px) - 150px);background:#091c25ed; }
+.stress-heading{ display:flex;justify-content:space-between;align-items:baseline;gap:8px; }
+#japan-layer .stress-heading h3{ margin:0;font-size:21px;line-height:1.3;color:#d9ede8; }
+.stress-heading > span{ font-size:11px;color:#9eb8c0;white-space:nowrap; }
+.stress-reading{ display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin:12px 0 20px; }
+.stress-reading strong{ font-size:36px;line-height:1.2;font-weight:400;color:var(--stress-color);font-variant-numeric:tabular-nums;white-space:nowrap; }
+.stress-reading > span{ font-size:11px;color:#bfd2d3; }
+#japan-layer .stress-balance p{ margin:0 0 10px;font-size:12px;color:#d3e5e3; }
+.stress-meter > div{ display:grid;grid-template-columns:64px minmax(0,1fr) 57px;gap:8px;align-items:center;margin:8px 0;font-size:10px; }
+.stress-meter b{ font-size:13px;font-weight:400;text-align:right;font-variant-numeric:tabular-nums; }
+.stress-track{ position:relative;height:9px;background:#88b7c315; }
+.stress-track i{ display:block;height:100%;background:var(--stress-color); }
+.stress-track [data-stress-resource]{ background:#a7d5d6; }
+.stress-track::after{ content:"";position:absolute;top:-4px;bottom:-4px;left:var(--stress-reference);border-left:1px dashed #f0e2af95; }
+.stress-reference{ display:none; }
+.stress-track[data-missing="true"]{ background:repeating-linear-gradient(135deg,#81979c55 0 1px,transparent 1px 5px); }
+.stress-balance > small{ display:block;color:#8faab4;font-size:9px;margin:8px 0 20px; }
+.stress-history-heading{ display:flex;align-items:baseline;justify-content:space-between;gap:6px;border-top:1px solid #a2c5c32b;padding-top:12px;font-size:11px; }
+.stress-history-heading b{ font-size:10px;font-weight:400;color:#b9c8c5; }
+[data-stress-chart]{ display:block;width:100%;height:92px;cursor:crosshair;margin:8px 0 0; }
+[data-stress-chart]:focus-visible,[data-stress-panel] button:focus-visible{ outline:2px solid #e5ecc9;outline-offset:2px; }
+.stress-chart-key{ display:flex;justify-content:space-between;gap:8px;font-size:9px;color:#8da9b2; }
+.stress-places{ display:flex;gap:5px;margin:15px 0; }
+[data-stress-panel] button{ flex:1;min-width:0;min-height:32px;border:1px solid #9bc2c238;border-radius:3px;background:transparent;color:#a7c3c6;cursor:pointer;font:10px var(--font-ja); }
+[data-stress-panel] button[aria-pressed="true"]{ border-color:#dae3b4;background:#c0d2a511;color:#e3ecd2; }
+.stress-levels{ display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;margin-top:14px;font-size:9px;text-align:center;color:#c3d6d8; }
+.stress-levels i{ display:block;height:5px;background:var(--stress-band);margin-bottom:4px; }
+.stress-map-note{ display:block;font-size:9px;color:#99b5bd;margin-top:8px; }
+@media(min-width:901px) and (max-height:800px){
+.stress-reading{ margin:6px 0 8px; }
+.stress-reading strong{ font-size:29px; }
+#japan-layer .stress-balance p{ margin-bottom:5px; }
+.stress-meter > div{ margin:5px 0; }
+.stress-balance > small{ margin:5px 0 8px; }
+.stress-history-heading{ padding-top:7px; }
+.stress-places{ display:none; }
+[data-stress-chart]{ height:64px;margin-top:6px; }
+.stress-levels{ margin-top:4px; }
+.stress-map-note{ margin-top:5px; }
+#japan-layer[data-climate-exhibit="waterstress"] .gaia-climate-legend details{ margin-top:6px;padding-top:5px; }
+}
+@media(max-width:900px){
+#japan-layer[data-climate-exhibit="waterstress"] .gaia-climate-legend{ left:68px;width:auto;max-height:none;padding:7px 9px; }
+#japan-layer .stress-heading h3{ font-size:13px; }
+.stress-heading > span{ font-size:9px; }
+.stress-reading{ margin:1px 0 5px; }
+.stress-reading strong{ font-size:25px; }
+.stress-reading > span{ font-size:8px; }
+#japan-layer .stress-balance p{ font-size:9px;margin-bottom:3px; }
+.stress-meter > div{ grid-template-columns:50px minmax(0,1fr) 44px;gap:5px;margin:4px 0;font-size:8px; }
+.stress-meter b{ font-size:10px; }
+.stress-track{ height:5px; }
+.stress-track::after{ top:-2px;bottom:-2px; }
+.stress-balance > small,.stress-places{ display:none; }
+.stress-history-heading{ padding-top:5px;margin-top:6px;font-size:8px; }
+.stress-history-heading b{ font-size:8px; }
+[data-stress-chart]{ height:54px;margin-top:4px; }
+.stress-chart-key{ font-size:8px; }
+.stress-levels{ gap:2px;font-size:8px;margin-top:6px; }
+.stress-levels i{ height:4px;margin-bottom:2px; }
+.stress-map-note{ font-size:8px;margin-top:4px; }
+}
+@media(max-width:900px) and (max-height:650px){
+[data-stress-chart]{ height:35px; }
+.stress-chart-key,.stress-history-heading > span{ display:none; }
+.stress-reading strong{ font-size:21px;line-height:1; }
+#japan-layer .stress-balance p{ font-size:8px;line-height:1.3;margin-bottom:2px; }
+.stress-meter > div{ margin:2px 0;line-height:1.3; }
+.stress-history-heading{ margin-top:3px;padding-top:3px;line-height:1.3; }
+.stress-levels{ margin-top:4px;line-height:1.3; }
+.stress-map-note{ margin-top:3px;line-height:1.3; }
+}

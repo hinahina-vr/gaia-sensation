@@ -181,10 +181,11 @@
 
 #japan-layer[data-climate-exhibit="lakes"] .gaia-climate-key { margin-top:14px; }
 
-.gaia-map-text-layer { position:absolute; inset:0; z-index:5; width:100%; height:100%; pointer-events:none; overflow:hidden; }
-#japan-layer:is(.is-map-title-transitioning,.is-map-data-intro,.japan-data-open) .gaia-map-text-layer { visibility:hidden; }
-
 #gaia-climate-canvas { position:absolute; inset:0; z-index:5; width:100%; height:100%; pointer-events:none; }
+.gaia-electricity-labels,.gaia-map-text-layer { position:absolute; inset:0; z-index:5; width:100%; height:100%; pointer-events:none; overflow:hidden; }
+.gaia-electricity-labels text { font-family:serif; font-weight:400; letter-spacing:normal; }
+.gaia-electricity-label-country text { paint-order:stroke fill; stroke:#021019; stroke-width:2px; stroke-linejoin:round; }
+#japan-layer:is(.is-map-title-transitioning,.is-map-data-intro,.japan-data-open) :is(.gaia-electricity-labels,.gaia-map-text-layer) { visibility:hidden; }
 
 .experience.japan-open:has(#japan-layer.is-climate-history-exhibit) { overflow:clip; }
 
@@ -449,3 +450,301 @@ body:not(.novel-mode-detour) #japan-layer.has-map-stable-navigation.is-mobile-ma
 
 /* 86: population composition, a fixed 0–100% area chart. */
 .gaia-climate-key) { display:none; }
+
+[data-sea-panel][hidden] { display:none; }
+#japan-layer[data-climate-exhibit="sealevel"] #gaia-map-theme-background { visibility:hidden; }
+#japan-layer[data-climate-exhibit="sealevel"] .gaia-climate-insight { display:none; }
+#japan-layer[data-climate-exhibit="sealevel"] .gaia-climate-legend { width:310px; }
+#japan-layer[data-climate-exhibit="sealevel"] [data-sea-name] { font-size:19px;margin:3px 0;letter-spacing:.04em; }
+.sea-eyebrow,[data-sea-place] { color:#94b6bf;font-size:10px;display:block; }
+.sea-reading { display:flex;align-items:baseline;gap:12px;margin:12px 0 4px; }
+.sea-reading strong { font-size:30px;font-weight:400;color:#f2debb;white-space:nowrap; }
+.sea-reading span { font-size:11px;color:#9cbac5; }
+[data-sea-chart] { display:block;width:100%;height:100px; }
+[data-sea-note] { font-size:10px;color:#a4bcc5; }
+.sea-instruction { font-size:12px;color:#cededa; }
+[data-sea-link] { color:#9fc3d1;font-size:11px;text-underline-offset:3px; }
+[data-sea-link][hidden] { display:none; }
+#japan-layer[data-climate-exhibit="sealevel"] .gaia-climate-key { border-top:1px solid #a5d8c12b;padding-top:10px;margin-top:12px; }
+@media(max-width:900px) {
+  #japan-layer[data-climate-exhibit="sealevel"] .gaia-climate-legend { left:68px;width:auto;max-height:none; }
+  #japan-layer[data-climate-exhibit="sealevel"] [data-sea-panel] { display:grid;grid-template-columns:minmax(0,1fr) auto;gap:0 6px; }
+  #japan-layer[data-climate-exhibit="sealevel"] [data-sea-panel][hidden] { display:none; }
+  #japan-layer[data-climate-exhibit="sealevel"] [data-sea-name] { font-size:12px;margin:0; }
+  [data-sea-name],[data-sea-place] { grid-column:1; }
+  [data-sea-place] { font-size:8px; }
+  .sea-reading { grid-column:2;grid-row:1/3;display:block;text-align:right;margin:0; }
+  .sea-reading strong { font-size:22px; }
+  .sea-reading span { display:block;font-size:9px; }
+  [data-sea-chart],[data-sea-note] { grid-column:1/-1; }
+  [data-sea-chart] { height:66px; }
+  [data-sea-note] { font-size:9px; }
+  .sea-eyebrow,.sea-instruction,[data-sea-link] { display:none; }
+  #japan-layer[data-climate-exhibit="sealevel"] .gaia-climate-key { padding-top:6px;margin-top:6px; }
+}
+@media(max-width:900px) and (max-height:650px) {
+  [data-sea-chart],[data-sea-note] { display:none; }
+  .sea-reading strong { font-size:19px; }
+  #japan-layer[data-climate-exhibit="sealevel"] .gaia-climate-key h3 { font-size:9px; }
+}
+
+[data-electricity-panel][hidden] { display:none; }
+#japan-layer[data-climate-exhibit="electricity"] .gaia-climate-insight { display:none; }
+#japan-layer[data-climate-exhibit="electricity"] #gaia-map-theme-background { visibility:hidden; }
+#japan-layer[data-climate-exhibit="electricity"] .gaia-climate-legend { width:324px;max-height:calc(100% - var(--responsive-legend-top,125px) - 150px);background:#071a25f0; }
+.electricity-heading { display:flex;align-items:center;justify-content:space-between;gap:12px; }
+#japan-layer .electricity-heading h3 { font-size:20px;margin:0;letter-spacing:.06em; }
+.electricity-heading > span { display:flex;align-items:baseline;gap:8px;flex-shrink:0; }
+.electricity-heading b { font-size:28px;font-weight:400;color:#ffe4a3; }
+.electricity-heading small,.electricity-change > span { color:#9ab9c2;font-size:10px; }
+.electricity-change { display:flex;gap:12px;align-items:baseline;border-top:1px solid #9bc7cf22;padding-top:8px; }
+.electricity-change strong { color:#f6dfb7;font-size:18px;font-weight:400; }
+[data-electricity-chart] { display:block;width:100%;height:auto;cursor:crosshair; }
+[data-electricity-chart]:focus-visible { outline:1px solid #ffe4a3;outline-offset:2px; }
+.electricity-comparison { display:flex;flex-wrap:wrap;gap:2px 14px;font-size:10px;color:#aac4cd;line-height:1.5;margin:6px 0 12px; }
+.electricity-comparison i { display:inline-block;width:12px;border-top:2px solid #ffe4a3;margin-right:5px;vertical-align:middle; }
+.electricity-comparison > span+span i { border-color:#83b6c4;border-top-style:dashed; }
+.electricity-comparison b,.electricity-comparison em { font-weight:400;font-style:normal; }
+.electricity-modes { display:grid;grid-template-columns:1fr 1.35fr;gap:4px; }
+[data-electricity-panel] button { font:11px var(--font-ja);color:#b4cbd1;background:#12303b70;border:1px solid #86bac135;border-radius:5px;min-height:38px;cursor:pointer;padding:4px 6px; }
+[data-electricity-panel] button[aria-pressed="true"] { color:#ffe4a3;border-color:#e8ca8e99;background:#d0b57a15; }
+[data-electricity-panel] button:focus-visible { outline:2px solid #ffe4a3;outline-offset:2px; }
+.electricity-places { display:flex;gap:5px;margin:8px 0 10px; }
+.electricity-places button { flex:1;font-size:10px;background:transparent;min-height:32px; }
+#japan-layer[data-climate-exhibit="electricity"] .gaia-climate-key { border-top:1px solid #a5d8c12b;padding-top:8px; }
+@media(min-width:901px) and (max-height:800px) {
+  [data-electricity-chart] { height:86px; }
+  .electricity-places { display:none; }
+  .electricity-modes { margin-bottom:8px; }
+}
+@media(max-width:900px) {
+  #japan-layer[data-climate-exhibit="electricity"] .gaia-climate-legend { left:68px;width:auto;max-height:none;padding:7px 9px; }
+  #japan-layer .electricity-heading h3 { font-size:12px;letter-spacing:0; }
+  .electricity-heading { gap:6px; }
+  .electricity-heading > span { gap:5px; }
+  .electricity-heading b { font-size:18px; }
+  .electricity-heading small { font-size:8px; }
+  #japan-layer .electricity-change { margin:0;padding:0;border:0;gap:8px; }
+  .electricity-change strong { font-size:11px; }
+  .electricity-change > span { font-size:9px; }
+  [data-electricity-chart] { height:64px; }
+  .electricity-comparison { font-size:8px;margin:2px 0 5px;gap:2px 8px; }
+  .electricity-comparison > span:first-child { display:none; }
+  [data-electricity-panel] button { font-size:9px;min-height:34px;padding:3px; }
+  .electricity-places { display:none; }
+  #japan-layer[data-climate-exhibit="electricity"] .gaia-climate-key { border:0;padding:6px 0 0; }
+  #japan-layer[data-climate-exhibit="electricity"] .gaia-climate-key h3 { display:none; }
+  #japan-layer[data-climate-exhibit="electricity"] .gaia-climate-key p { margin:2px 0 0; }
+}
+@media(max-width:900px) and (max-height:800px) {
+  [data-electricity-chart] { height:44px; }
+  .electricity-comparison { display:none; }
+}
+
+[data-drinking-panel][hidden] { display:none; }
+[data-drinking-panel] [hidden] { display:none!important; }
+.drinking-national-reading { display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin:0 0 12px;color:#a8c9cb;font-size:12px; }
+.drinking-national-reading strong { font-size:34px;font-weight:400;color:#c7faf4; }
+#japan-layer .drinking-availability { margin:8px 0;color:#9bb8c1;font-size:10px;line-height:1.6; }
+[data-drinking-panel] button:disabled { opacity:.42;cursor:default; }
+@media(max-width:900px){
+ .drinking-national-reading { margin:0 0 4px;font-size:10px; }
+ .drinking-national-reading strong { font-size:23px; }
+ #japan-layer .drinking-availability { margin:4px 0;font-size:8px; }
+}
+#japan-layer[data-climate-exhibit="drinking"] .gaia-climate-insight { display:none; }
+#japan-layer[data-climate-exhibit="drinking"] #gaia-map-theme-background { visibility:hidden; }
+#japan-layer[data-climate-exhibit="drinking"] .gaia-climate-legend { width:324px;max-height:calc(100% - var(--responsive-legend-top,125px) - 150px);background:#071a25f0; }
+.drinking-heading { display:flex;align-items:baseline;justify-content:space-between;gap:10px;border-bottom:1px solid #b4dcd629;padding-bottom:10px;margin-bottom:14px; }
+#japan-layer .drinking-heading h3 { margin:0;font-size:21px;color:#d0f5ee; }
+.drinking-heading > span { flex-shrink:0;font-size:11px;color:#8eafb9; }
+.drinking-pair > div { display:grid;grid-template-columns:28px 1fr 66px;gap:8px;align-items:center;margin:9px 0; }
+.drinking-pair b { font-size:19px;font-weight:400;text-align:right; }
+.drinking-track { height:7px;background:#243c46;border-radius:1px;overflow:hidden; }
+.drinking-track i { display:block;height:100%;background:linear-gradient(90deg,#8e7452,#efc791); }
+.drinking-track [data-drinking-bar="rural"] { background:linear-gradient(90deg,#346e78,#82ddd6); }
+.drinking-pair > div:first-child { color:#efc791; }
+.drinking-pair > div:last-child { color:#82ddd6; }
+.drinking-track[data-missing="true"] { background:repeating-linear-gradient(135deg,#80939c55 0 1px,transparent 1px 5px); }
+#japan-layer .drinking-gap { font-size:16px;margin:15px 0 14px;color:#ddf0ee; }
+#japan-layer .drinking-chart-title { font-size:10px;color:#91b0ba;margin:0 0 2px; }
+[data-drinking-chart] { display:block;width:100%;height:auto;cursor:crosshair; }
+.drinking-chart { position:relative; }
+.drinking-chart-labels { position:absolute;inset:0;pointer-events:none;font:9px/1 var(--font-ja);color:#adc9d1; }
+.drinking-chart-labels span { position:absolute; }
+.drinking-axis-high { top:8%;left:0;transform:translateY(-50%); }
+.drinking-axis-zero { top:44.7%;left:0;transform:translateY(-50%); }
+.drinking-axis-low { top:81.3%;left:0;transform:translateY(-50%); }
+.drinking-year-first { bottom:0;left:5.3%; }
+.drinking-year-last { bottom:0;right:1.7%; }
+[data-drinking-chart]:focus-visible { outline:1px solid #b2ebe6;outline-offset:2px; }
+.drinking-modes { display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:12px; }
+.drinking-services { display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px; }
+[data-drinking-panel] button { font:11px var(--font-ja);color:#abc8cd;background:#12303b70;border:1px solid #86bac135;border-radius:4px;min-height:36px;cursor:pointer;padding:4px; }
+[data-drinking-panel] button[aria-pressed="true"] { color:#d0f5ee;background:#83dacf16;border-color:#9edcd4aa; }
+[data-drinking-panel] button:focus-visible { outline:2px solid #a6e2dc;outline-offset:2px; }
+.drinking-national { display:flex;align-items:baseline;gap:5px;font-size:11px;color:#b7d5db; }
+.drinking-national strong { font-size:16px;font-weight:400; }
+.drinking-national span { margin-left:auto;font-size:9px;color:#8cabb6; }
+.drinking-places { display:flex;gap:4px; }
+.drinking-places button { flex:1;font-size:10px;min-height:30px; }
+#japan-layer[data-climate-exhibit="drinking"] .gaia-climate-key { border-top:1px solid #b4dcd629;margin-top:12px;padding-top:8px; }
+@media(min-width:901px) and (max-height:800px) {
+  .drinking-places { display:none; }
+  .drinking-heading { margin-bottom:8px;padding-bottom:5px; }
+  #japan-layer .drinking-gap { margin:8px 0; }
+}
+@media(max-width:900px) {
+  #japan-layer[data-climate-exhibit="drinking"] .gaia-climate-legend { left:68px;width:auto;max-height:none;padding:7px 9px; }
+  .drinking-heading { border:0;padding:0;margin-bottom:3px; }
+  #japan-layer .drinking-heading h3 { font-size:13px; }
+  .drinking-heading > span { font-size:9px; }
+  .drinking-pair > div { grid-template-columns:24px 1fr 48px;gap:5px;margin:3px 0;font-size:10px; }
+  .drinking-pair b { font-size:14px; }
+  .drinking-track { height:5px; }
+  #japan-layer .drinking-gap { font-size:12px;margin:5px 0; }
+  [data-drinking-chart] { height:54px; }
+  .drinking-chart-title,.drinking-places { display:none; }
+  .drinking-modes { margin-top:3px;gap:4px; }
+  .drinking-services { margin-bottom:4px;gap:4px; }
+  [data-drinking-panel] button { min-height:32px;font-size:9px; }
+  #japan-layer .drinking-national { margin:4px 0;font-size:9px; }
+  .drinking-national strong { font-size:12px; }
+  .drinking-national span { display:none; }
+  #japan-layer[data-climate-exhibit="drinking"] .gaia-climate-key { border:0;padding:0;margin:0; }
+  #japan-layer[data-climate-exhibit="drinking"] .gaia-climate-key h3 { display:none; }
+  #japan-layer[data-climate-exhibit="drinking"] [data-climate-labels] { margin:2px 0;font-size:8px; }
+}
+@media(max-width:900px) and (max-height:650px) {
+  [data-drinking-chart] { height:38px; }
+  #japan-layer .drinking-national { display:none; }
+}
+
+[data-forest-panel][hidden] { display:none; }
+#japan-layer[data-climate-exhibit="foresthistory"] .gaia-climate-insight { display:none; }
+#japan-layer[data-climate-exhibit="foresthistory"] #gaia-map-theme-background { visibility:hidden; }
+#japan-layer[data-climate-exhibit="foresthistory"] .gaia-climate-legend { width:324px;max-height:calc(100% - var(--responsive-legend-top,125px) - 150px);background:#071b23f2; }
+.forest-heading { display:flex;align-items:baseline;justify-content:space-between;gap:8px; }
+#japan-layer .forest-heading h3 { margin:0;font-size:22px;color:#d9ebdc; }
+.forest-heading > span { font-size:11px;color:#9cb9b3;white-space:nowrap; }
+.forest-comparison { display:flex;align-items:baseline;gap:9px;margin:12px 0 15px; }
+.forest-comparison > span,.forest-comparison small { font-size:11px;color:#a9beb8; }
+.forest-comparison strong { font-weight:400;font-size:34px;line-height:1.3;color:var(--forest-change-color);font-variant-numeric:tabular-nums;white-space:nowrap; }
+.forest-rates { display:flex;align-items:center;gap:20px;border-bottom:1px solid #8bbaaa30;padding-bottom:12px; }
+.forest-rates > div { display:flex;gap:8px;align-items:baseline; }
+.forest-rates span { color:#a2bcb4;font-size:11px; }
+.forest-rates b { font-size:19px;font-weight:400;color:#cbded2;white-space:nowrap; }
+.forest-rates i { font-style:normal;color:#658b83; }
+#japan-layer .forest-chart-title { font-size:10px;color:#9cb9b3;margin:13px 0 2px; }
+[data-forest-chart] { display:block;width:100%;height:auto;cursor:crosshair; }
+.forest-chart-key { display:flex;justify-content:space-between;font-size:9px;color:#93afa9;margin:3px 0 13px; }
+.forest-modes { display:grid;grid-template-columns:1.3fr 1fr;gap:5px; }
+[data-forest-panel] button { font:11px var(--font-ja);color:#b8cec4;background:#24413935;border:1px solid #a3c9b63b;border-radius:3px;min-height:38px;cursor:pointer;padding:4px;white-space:nowrap; }
+[data-forest-panel] button[aria-pressed="true"] { border-color:#c5d9a7;color:#e0edd5;background:#b2d2a013; }
+[data-forest-panel] button:focus-visible,[data-forest-chart]:focus-visible { outline:2px solid #e0edd5;outline-offset:2px; }
+.forest-places { display:flex;gap:5px;margin:8px 0 12px; }
+.forest-places button { flex:1;min-width:0;min-height:30px;font-size:10px;background:transparent; }
+#japan-layer[data-climate-exhibit="foresthistory"] .gaia-climate-key { border-top:1px solid #8bbaaa30;padding-top:9px; }
+@media(min-width:901px) and (max-height:800px) {
+  #japan-layer .forest-heading h3 { font-size:19px; }
+  .forest-comparison { margin:6px 0 8px; }
+  .forest-comparison strong { font-size:27px; }
+  .forest-rates { padding-bottom:8px; }
+  #japan-layer .forest-chart-title { display:none; }
+  [data-forest-chart] { height:76px;margin-top:5px; }
+  .forest-chart-key { margin-bottom:5px; }
+  .forest-places { display:none; }
+  #japan-layer[data-climate-exhibit="foresthistory"] .gaia-climate-legend details { margin-top:6px;padding-top:5px; }
+}
+@media(max-width:900px) {
+  #japan-layer[data-climate-exhibit="foresthistory"] .gaia-climate-legend { left:68px;width:auto;max-height:none;padding:7px 9px; }
+  #japan-layer .forest-heading h3 { font-size:13px; }
+  .forest-heading > span { font-size:9px; }
+  .forest-comparison { margin:2px 0;gap:6px; }
+  .forest-comparison > span,.forest-comparison small { font-size:9px; }
+  .forest-comparison strong { font-size:23px; }
+  .forest-rates { padding-bottom:4px;gap:12px; }
+  .forest-rates > div { gap:5px; }
+  .forest-rates span { font-size:9px; }
+  .forest-rates b { font-size:13px; }
+  #japan-layer .forest-chart-title { display:none; }
+  [data-forest-chart] { height:65px;margin-top:4px; }
+  .forest-chart-key { font-size:8px;margin:0 0 5px; }
+  [data-forest-panel] button { min-height:34px;font-size:9px; }
+  .forest-places { display:none; }
+  #japan-layer[data-climate-exhibit="foresthistory"] .gaia-climate-key { border:0;padding-top:5px; }
+  #japan-layer[data-climate-exhibit="foresthistory"] .gaia-climate-key h3 { display:none; }
+  #japan-layer[data-climate-exhibit="foresthistory"] [data-climate-labels] { margin:2px 0;font-size:8px; }
+}
+@media(max-width:900px) and (max-height:650px) {
+  [data-forest-chart] { height:38px; }
+  .forest-chart-key { display:none; }
+  .forest-comparison strong { font-size:20px; }
+  .forest-modes { margin-top:4px; }
+}
+[data-sanitation-panel][hidden] { display:none; }
+#japan-layer[data-climate-exhibit="sanitation"] .gaia-climate-insight { display:none; }
+#japan-layer[data-climate-exhibit="sanitation"] #gaia-map-theme-background { visibility:hidden; }
+#japan-layer[data-climate-exhibit="sanitation"] .gaia-climate-legend { width:324px;max-height:calc(100% - var(--responsive-legend-top,125px) - 150px);background:#071a25f0; }
+.sanitation-heading { display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:16px; }
+#japan-layer .sanitation-heading h3 { margin:0;font-size:21px;color:#d2efe6; }
+.sanitation-heading > span { font-size:11px;color:#9ab6bf;white-space:nowrap; }
+.sanitation-stack { height:12px;display:flex;background:#263d47;overflow:hidden; }
+.sanitation-stack i { display:block;height:100%;background:var(--service-color); }
+.sanitation-stack[data-missing="true"] { background:repeating-linear-gradient(135deg,#80939c55 0 1px,transparent 1px 5px); }
+#japan-layer .sanitation-caption { font-size:10px;color:#9eb9c0;margin:7px 0 14px; }
+.sanitation-services { display:grid;gap:5px; }
+.sanitation-services button { display:flex;align-items:center;gap:8px;min-width:0;min-height:39px;padding:6px 9px;background:transparent;border:1px solid #93b9c025;border-radius:3px;color:#c8dadc;font:12px var(--font-ja);cursor:pointer; }
+.sanitation-services button[aria-pressed="true"] { background:#b8e3d60c;border-color:var(--service-color);color:#eef7f3; }
+.sanitation-services i { width:4px;height:16px;flex-shrink:0;background:var(--service-color); }
+.sanitation-services span { white-space:nowrap; }
+.sanitation-services b { margin-left:auto;font-size:18px;font-weight:400;white-space:nowrap;color:var(--service-color);font-variant-numeric:tabular-nums; }
+.sanitation-services button:focus-visible,[data-sanitation-chart]:focus-visible { outline:2px solid #d2eee1;outline-offset:2px; }
+.sanitation-history { margin-top:16px; }
+#japan-layer .sanitation-history p { font-size:11px;margin:0 0 4px;color:#a6bdc3; }
+[data-sanitation-chart] { display:block;width:100%;height:auto;cursor:crosshair; }
+.sanitation-chart-labels { display:flex;justify-content:space-between;font:10px/1.5 var(--font-ja);color:#9cb6bf; }
+#japan-layer[data-climate-exhibit="sanitation"] .gaia-climate-key { border-top:1px solid #b4dcd629;margin-top:14px;padding-top:10px; }
+@media(min-width:901px) and (max-height:800px) {
+  .sanitation-heading { margin-bottom:8px; }
+  #japan-layer .sanitation-heading h3 { font-size:18px;line-height:1.3; }
+  #japan-layer .sanitation-caption { margin:5px 0 8px; }
+  .sanitation-services { grid-template-columns:1fr 1fr; }
+  .sanitation-services button { min-height:36px;font-size:10px;padding:4px;gap:4px; }
+  .sanitation-services b { font-size:15px; }
+  .sanitation-history { margin-top:8px; }
+  [data-sanitation-chart] { height:58px; }
+  #japan-layer[data-climate-exhibit="sanitation"] .gaia-climate-key { margin-top:8px;padding-top:6px; }
+  #japan-layer[data-climate-exhibit="sanitation"] .gaia-climate-legend details { margin-top:6px;padding-top:5px; }
+}
+@media(max-width:900px) {
+  #japan-layer[data-climate-exhibit="sanitation"] .gaia-climate-legend { left:68px;width:auto;max-height:none;padding:7px 9px; }
+  .sanitation-heading { margin-bottom:5px; }
+  #japan-layer .sanitation-heading h3 { font-size:13px; }
+  .sanitation-heading > span { font-size:9px; }
+  .sanitation-stack { height:7px; }
+  #japan-layer .sanitation-caption { font-size:8px;margin:4px 0; }
+  .sanitation-services { grid-template-columns:1fr 1fr;gap:4px; }
+  .sanitation-services button { min-height:32px;gap:4px;font-size:9px;padding:3px; }
+  .sanitation-services i { width:2px;height:13px; }
+  .sanitation-services b { font-size:12px; }
+  .sanitation-history { margin-top:6px; }
+  #japan-layer .sanitation-history p { display:none; }
+  [data-sanitation-chart] { height:48px; }
+  .sanitation-chart-labels { font-size:9px; }
+  #japan-layer[data-climate-exhibit="sanitation"] .gaia-climate-key { border:0;margin:5px 0 0;padding:0; }
+  #japan-layer[data-climate-exhibit="sanitation"] .gaia-climate-key h3 { display:none; }
+  #japan-layer[data-climate-exhibit="sanitation"] [data-climate-labels] { margin:2px 0;font-size:8px; }
+}
+@media(max-width:350px) {
+  .sanitation-services button { font-size:8px;gap:3px; }
+  .sanitation-services b { font-size:11px; }
+  [data-sanitation-chart] { height:34px; }
+}
+@media(max-width:900px) and (max-height:650px) {
+  #japan-layer .sanitation-caption { display:none; }
+  .sanitation-services { margin-top:5px;gap:2px; }
+  .sanitation-history { margin-top:4px; }
+  [data-sanitation-chart] { height:24px; }
+  #japan-layer[data-climate-exhibit="sanitation"] .gaia-climate-key { margin-top:3px; }
+}

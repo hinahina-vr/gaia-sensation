@@ -38,7 +38,7 @@ const categorySandbox = { document: { querySelector: () => null, addEventListene
 vm.runInNewContext(categorySource, categorySandbox, { filename: "map-exhibit-categories.js" });
 const categories = JSON.parse(JSON.stringify(categorySandbox.GaiaMapCategories.definitions));
 assert.deepEqual(categories.map(category => category.label), ["惑星のいま", "気候と炭素", "空と天気", "大気と汚染", "水と森", "水質と汚濁", "化学物質の行方", "生きものの記録", "食卓と世界", "人口と暮らし", "資源とエネルギー", "大地の活動"]);
-assert.deepEqual(categories.flatMap(category => category.numbers).sort((a, b) => a - b), Array.from({ length: 75 }, (_, index) => index + 1), "Each exhibit has exactly one subject category");
+assert.deepEqual(categories.flatMap(category => category.numbers).sort((a, b) => a - b), Array.from({ length: 100 }, (_, index) => index + 1), "Each exhibit has exactly one subject category");
 assert.equal(categorySandbox.GaiaMapCategories.get("01").id, "planet");
 assert.equal(categorySandbox.GaiaMapCategories.get("17").id, "water");
 assert.equal(categorySandbox.GaiaMapCategories.get(0), null);

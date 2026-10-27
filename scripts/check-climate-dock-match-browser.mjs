@@ -27,7 +27,7 @@ try {
     page.setDefaultTimeout(30000);
     page.on('pageerror', e => report.errors.push(e.message));
     await page.goto(`${base}/world.html#world-71`, { waitUntil: 'domcontentloaded' });
-    await page.waitForFunction(() => globalThis.GaiaMapCategories?.buttons().length === 75, null, { timeout: 60000 });
+    await page.waitForFunction(() => globalThis.GaiaMapCategories?.buttons().length === 100, null, { timeout: 60000 });
     await page.evaluate(() => GaiaModeEntryGuide.close('map', { restoreFocus: false }));
     await page.waitForFunction(() => !document.querySelector('#map-data-intro')?.hidden, null, { timeout: 60000 });
     let reference;

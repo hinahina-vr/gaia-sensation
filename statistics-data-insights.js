@@ -1,5 +1,5 @@
 import { descriptive } from "./statistics-lab-core.js?v=whole-trends20-20261025";
-import { discoverData } from "./statistics-discovery.js?v=shared75-20261027";
+import { discoverData } from "./statistics-discovery.js?v=release100-c363-20261027";
 
 // Observation-level copy is separate from the statistical explanation. Only
 // the rows used by the current analysis are supplied; no network or AI needed.
