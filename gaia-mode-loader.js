@@ -54,7 +54,7 @@
         "./src/exploration/map-data-intro-catalog.js?v=release100-c363-20261027",
         "./ecologies-exhibit.js?v=whole-trends20-20261025",
         "./map-exhibit-categories.js?v=release100-c363-20261027",
-        "./app.js?v=release100-c363-20261027",
+        "./app.js?v=surface-release-2e596f2-20261028",
         "./map-ui-grid-polish.js?v=entry-bottom-menu-20260914-gaia-story-map-dock-1-map-polish-1-scope-groups-20260910-exhibit-navigation-20260912-i18n-20260913-picker-depth-focus-20260913-fixed-nav-dock15-20260913-polish-20261015",
         "./map-legend-drag.js?v=gaia-story-map-left-ui-1-perf-high-20260909-fao-food-1",
         "./map-mobile-shell.js?v=gaia-mobile-collection-1-marine-cod-1-cod-ui-20260909-japan-sensor-open-1-fao-food-1-scope-groups-20260910-periodic-tiles-20260912-unified-playback-20260912-exhibit-navigation-20260912-i18n-20260913-picker-cascade-20260913-responsive-audit-climate-20261013",
@@ -65,7 +65,7 @@
         "./map-responsive-layout.js?v=mobile-credit-disclosure-top-20260913-climate-20261013-ecology-launcher-20261020-quality-20261022",
       ],
       modules: [
-        "./src/exploration/index.js?v=release100-c363-20261027",
+        "./src/exploration/index.js?v=surface-release-2e596f2-20261028",
       ],
     },
     statistics: {

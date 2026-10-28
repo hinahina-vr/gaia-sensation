@@ -259,9 +259,9 @@ assert.match(appSource, /const frameDelta = clamp\(now - previousFrameAt, 0, 64\
 assert.match(appSource, /cancelEarthViewAnimation\("user-pointer"\)/u);
 assert.match(appSource, /cancelEarthViewAnimation\("user-wheel"\)/u);
 assert.match(appSource, /cancelEarthViewAnimation\("user-keyboard"\)/u);
-assert.match(appSource, /dataset\.japanScreenX/u);
+assert.match(appSource, /(?:dataset\.japanScreenX|publishMapDataset\(japanOverlay,\s*"japanScreenX")/u);
 assert.match(appSource, /BLUE_CIRCULATION_FOCUS = Object\.freeze\(\{[\s\S]*label: "tokyo"[\s\S]*lon: 139\.6503[\s\S]*lat: 35\.6762/u);
-assert.match(appSource, /dataset\.tokyoScreenX/u);
+assert.match(appSource, /(?:dataset\.tokyoScreenX|publishMapDataset\(japanOverlay,\s*"tokyoScreenX")/u);
 assert.match(appSource, /currentVisualLanguage = "continuous-interpolated-current-brush"/u);
 assert.match(appSource, /currentBrushLanguage = "continuous-interpolated-field-with-poi-anchors"/u);
 assert.match(appSource, /currentCoverageMode = "gapless-idw-vector-field"/u);

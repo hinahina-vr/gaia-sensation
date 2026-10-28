@@ -25,7 +25,7 @@ void main(){
  // Geographic, gently refracted light: water imagery within national data
  // polygons. These are not mapped pipes, rivers or local water measurements.
  vec2 world=(screen*resolution-map.xy)/map.zw;
- vec2 p=world*vec2(82.,41.);
+ vec2 p=world*vec2(64.,32.);
  float t=time;
  vec2 drift=vec2(sin(p.y*.22+t*.13),cos(p.x*.18-t*.11));
  vec2 q=p+drift*.8;
@@ -37,8 +37,8 @@ void main(){
  float glint=pow(max(0.,.5+.5*cos(a*1.7-b*1.3)),18.);
  float coverage=clamp(country.r,0.,1.);
  float continuity=smoothstep(0.,1.,coverage);
- float light=(ribbon*.20+crossed*.11+ribbon*crossed*.30+glint*.055);
- float alpha=(light+pool*.026)*(.32+continuity*.68)*country.a;
+ float light=(ribbon*.27+crossed*.17+ribbon*crossed*.33+glint*.075);
+ float alpha=(light+pool*.055)*(.32+continuity*.68)*country.a;
  vec3 ink=mix(vec3(.20,.65,.76),vec3(.64,.95,.91),.3+pool*.7);
  if(gapMode>.5)ink=mix(vec3(.40,.86,.83),vec3(.95,.78,.53),smoothstep(.48,.52,country.g));
  result=vec4(ink*alpha,alpha);

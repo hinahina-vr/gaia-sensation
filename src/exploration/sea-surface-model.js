@@ -96,7 +96,7 @@ export function seaSwellLight(x,y,time){
   const fold=a+Math.sin(b)*.65+Math.sin(c)*.18;
   const broad=Math.pow(clamp(.5+.5*Math.sin(fold)),8);
   const fine=Math.pow(clamp(.5+.5*Math.sin(fold*4+Math.sin(b))),24);
-  return [.76+wave*.12,broad*.12+fine*.07*(.5+.5*Math.sin(b))];
+  return [.80+wave*.16,broad*.20+fine*.12*(.5+.5*Math.sin(b))];
 }
 export function paintSeaSurfaceCPU(field,time,target){
   for(let y=0;y<field.height;y++)for(let x=0;x<field.width;x++){
@@ -114,6 +114,6 @@ export const seaSwellGLSL=[
  'float fold=a+sin(b)*.65+sin(c)*.18;',
  'float broad=pow(clamp(.5+.5*sin(fold),0.,1.),8.);',
  'float fine=pow(clamp(.5+.5*sin(fold*4.+sin(b)),0.,1.),24.);',
- 'return vec2(.76+wave*.12,broad*.12+fine*.07*(.5+.5*sin(b)));',
+ 'return vec2(.80+wave*.16,broad*.20+fine*.12*(.5+.5*sin(b)));',
  '}'
 ].join('\n');

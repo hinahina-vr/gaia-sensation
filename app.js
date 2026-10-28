@@ -1779,6 +1779,12 @@
   // Station-level coastal observations need kilometre-scale picking. Keep
   // the established limit for every other exhibit and all zoom entry paths.
   const getEarthZoomLimit = () => japanLayer.classList.contains("is-marine-cod-exhibit") || japanLayer.dataset.climateExhibit === "lakes" ? 512 : 8;
+  // Publishing identical attributes still wakes MutationObservers and can
+  // invalidate :disabled/:hidden styles. Keep the camera contract, but only
+  // notify its consumers when the displayed value actually changes.
+  const publishMapDataset = (element, name, value) => {
+    if (element.dataset[name] !== value) element.dataset[name] = value;
+  };
   const getEarthProjection = (rect) => {
     const baseScale = earthBaseScale(rect);
     const zoom = clamp(japanView.earthZoom, 1, getEarthZoomLimit());
@@ -1821,17 +1827,19 @@
       + earthLongitudeToMapX(BLUE_CIRCULATION_FOCUS.lon) * projection.scale;
     const tokyoY = projection.originY
       + (90 - BLUE_CIRCULATION_FOCUS.lat) * projection.scale;
-    japanOverlay.dataset.earthZoom = zoom.toFixed(4);
-    japanOverlay.dataset.earthCenterLongitude = String(EARTH_INITIAL_CENTER_LONGITUDE);
-    japanOverlay.dataset.earthOffsetX = japanView.earthOffsetX.toFixed(2);
-    japanOverlay.dataset.earthOffsetY = japanView.earthOffsetY.toFixed(2);
-    japanOverlay.dataset.japanScreenX = japanX.toFixed(2);
-    japanOverlay.dataset.japanScreenY = japanY.toFixed(2);
-    japanOverlay.dataset.tokyoScreenX = tokyoX.toFixed(2);
-    japanOverlay.dataset.tokyoScreenY = tokyoY.toFixed(2);
-    mapZoomControls.dataset.zoom = zoom.toFixed(2);
-    mapZoomIn.disabled = zoom >= getEarthZoomLimit() - .005;
-    mapZoomOut.disabled = zoom <= 1.005;
+    publishMapDataset(japanOverlay, "earthZoom", zoom.toFixed(4));
+    publishMapDataset(japanOverlay, "earthCenterLongitude", String(EARTH_INITIAL_CENTER_LONGITUDE));
+    publishMapDataset(japanOverlay, "earthOffsetX", japanView.earthOffsetX.toFixed(2));
+    publishMapDataset(japanOverlay, "earthOffsetY", japanView.earthOffsetY.toFixed(2));
+    publishMapDataset(japanOverlay, "japanScreenX", japanX.toFixed(2));
+    publishMapDataset(japanOverlay, "japanScreenY", japanY.toFixed(2));
+    publishMapDataset(japanOverlay, "tokyoScreenX", tokyoX.toFixed(2));
+    publishMapDataset(japanOverlay, "tokyoScreenY", tokyoY.toFixed(2));
+    publishMapDataset(mapZoomControls, "zoom", zoom.toFixed(2));
+    const zoomInDisabled = zoom >= getEarthZoomLimit() - .005;
+    const zoomOutDisabled = zoom <= 1.005;
+    if (mapZoomIn.disabled !== zoomInDisabled) mapZoomIn.disabled = zoomInDisabled;
+    if (mapZoomOut.disabled !== zoomOutDisabled) mapZoomOut.disabled = zoomOutDisabled;
     const japanOverview = Number(japanModeNumber.textContent) >= 15 && Number(japanModeNumber.textContent) <= 69;
     const overviewKind = japanOverview ? 'japan' : 'world';
     if (mapZoomReset.dataset.overview !== overviewKind) {
@@ -1845,12 +1853,13 @@
     const homeScale = earthBaseScale(rect) * homeView.zoom;
     const homeX = rect.width * (homeView.targetX - .5) - (earthLongitudeToMapX(homeView.lon) - 180) * homeScale;
     const homeY = rect.height * (homeView.targetY - .5) + homeView.lat * homeScale;
-    mapZoomReset.disabled = japanOverview ? Math.abs(zoom - homeView.zoom) < .005
+    const resetDisabled = japanOverview ? Math.abs(zoom - homeView.zoom) < .005
       && Math.abs(japanView.earthOffsetX - clamp(homeX, -maximumOffsetX, maximumOffsetX)) < .5
       && Math.abs(japanView.earthOffsetY - clamp(homeY, -maximumOffsetY, maximumOffsetY)) < .5 : zoom <= 1.005
       && Math.abs(japanView.earthOffsetX - clamp(getEarthOverviewTarget(rect).offsetX, -maximumOffsetX, maximumOffsetX)) < 0.5
       && Math.abs(japanView.earthOffsetY) < 0.5;
-    mapZoomReset.hidden = mapZoomReset.disabled;
+    if (mapZoomReset.disabled !== resetDisabled) mapZoomReset.disabled = resetDisabled;
+    if (mapZoomReset.hidden !== resetDisabled) mapZoomReset.hidden = resetDisabled;
     return projection;
   };
 
@@ -2903,9 +2912,9 @@
   };
 
   const renderCachedReferenceWorldModel = (ctx, rect, left, top) => {
-    japanOverlay.dataset.referenceLandSurface = currentMapHasOpaqueLand() ? "opaque-current-land" : "translucent";
+    publishMapDataset(japanOverlay, "referenceLandSurface", currentMapHasOpaqueLand() ? "opaque-current-land" : "translucent");
     if (!referenceWorldContext || referenceWorldContext.isContextLost?.()) {
-      japanOverlay.dataset.referenceWorldCache = "direct-fallback";
+      publishMapDataset(japanOverlay, "referenceWorldCache", "direct-fallback");
       renderReferenceWorldModel(ctx, rect, left, top);
       return;
     }
@@ -2958,10 +2967,10 @@
       referenceWorldCacheKey = cacheKey;
     }
 
-    japanOverlay.dataset.referenceWorldCache = "ready";
-    japanOverlay.dataset.referenceWorldPalette = japanLayer.classList.contains("is-estat-exhibit") ? "warm-sage" : "default";
-    japanOverlay.dataset.referenceWorldRenderScale = cacheScale.toFixed(4);
-    japanOverlay.dataset.referenceWorldBackingSize = `${width}x${height}`;
+    publishMapDataset(japanOverlay, "referenceWorldCache", "ready");
+    publishMapDataset(japanOverlay, "referenceWorldPalette", japanLayer.classList.contains("is-estat-exhibit") ? "warm-sage" : "default");
+    publishMapDataset(japanOverlay, "referenceWorldRenderScale", cacheScale.toFixed(4));
+    publishMapDataset(japanOverlay, "referenceWorldBackingSize", `${width}x${height}`);
     ctx.drawImage(referenceWorldCanvas, 0, 0, width, height, 0, 0, rect.width, rect.height);
   };
 
@@ -6342,11 +6351,6 @@
     ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
     ctx.clearRect(0, 0, rect.width, rect.height);
 
-    const nodePoints = getActiveMapNodes().map((node) => ({
-      ...node,
-      ...japanWorldToScreen(node.lon, node.lat, left, top),
-    }));
-
     ctx.save();
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
@@ -6358,19 +6362,25 @@
     const foodBackdropOnly = japanLayer.classList.contains("is-food-exhibit");
     const climateBackdropOnly = japanLayer.classList.contains("is-climate-history-exhibit");
     const referenceBackdropOnly = liveBackdropOnly || estatBackdropOnly || firmsBackdropOnly || marineCodBackdropOnly || foodBackdropOnly || climateBackdropOnly;
-    japanOverlay.dataset.liveBackdrop = liveBackdropOnly
+    const liveBackdrop = liveBackdropOnly
       ? "reference-map-only"
       : estatBackdropOnly
         ? "estat-reference-map-only"
         : firmsBackdropOnly
           ? "firms-reference-map-only"
           : marineCodBackdropOnly ? "marine-cod-reference-map-only" : foodBackdropOnly ? "food-reference-map-only" : climateBackdropOnly ? "climate-reference-map-only" : "standard-mode";
+    publishMapDataset(japanOverlay, "liveBackdrop", liveBackdrop);
     if (referenceBackdropOnly) {
       globalThis.GaiaMapLegendDrag?.beginFrame();
       globalThis.GaiaMapLegendDrag?.endFrame();
       ctx.restore();
       return;
     }
+
+    const nodePoints = getActiveMapNodes().map((node) => ({
+      ...node,
+      ...japanWorldToScreen(node.lon, node.lat, left, top),
+    }));
 
     if (mapScope === "japan" && isTheme(5)) {
       const plateCenter = { x: rect.width * 0.6, y: rect.height * 0.52 };
@@ -12216,7 +12226,7 @@ for (const country of countryValues) {
       animationFrame = requestAnimationFrame(render);
       return;
     }
-    japanOverlay.dataset.renderLoopMode = "dynamic";
+    publishMapDataset(japanOverlay, "renderLoopMode", "dynamic");
     if (!japanIsOpen && lodTarget < 60) {
       if (lodTarget !== lastShaderTargetFps) {
         lastShaderTargetFps = lodTarget;
@@ -12264,10 +12274,12 @@ for (const country of countryValues) {
       renderJapanOverlay(now);
     }
 
-    // These chapters own a bounded WebGL atmosphere. Do not also submit the
+    // These chapters render their own data layer. Do not also submit the
     // concealed base exhibit shader while their reference map stays active.
-    if (mapSurfaceIsVisible && japanLayer.classList.contains("is-planet-signals-exhibit")) {
-      canvas.dataset.renderSuppressed = "planet-atmosphere";
+    if (mapSurfaceIsVisible && japanLayer.matches(".is-planet-signals-exhibit, .is-climate-history-exhibit, .is-food-exhibit, .is-marine-cod-exhibit")) {
+      // These classes hide #gaia-canvas in their stylesheets. Their own
+      // renderers, reference map, camera and timelines continue above.
+      publishMapDataset(canvas, "renderSuppressed", japanLayer.classList.contains("is-planet-signals-exhibit") ? "planet-atmosphere" : "extension-map");
       animationFrame = requestAnimationFrame(render);
       return;
     }

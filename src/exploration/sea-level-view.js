@@ -1,7 +1,7 @@
 import {earthLongitudeToMapX} from './world-projection.js?v=gaia-japan-center-1';
 import {tideColor} from './sea-level-stations.js?v=release100-c363-20261027';
 import {seaArrival,seaSigned,seaStem,spacedSeaStations,seaCallout} from './sea-level-marks.js?v=release100-c363-20261027';
-import {createSeaSurfaceView} from './sea-surface-view.js?v=release100-c363-20261027';
+import {createSeaSurfaceView} from './sea-surface-view.js?v=surface-release-2e596f2-20261028';
 import {createMapTextLayer} from './map-text-layer.js?v=country-text-halo-20261027';
 
 // Coastline observations remain at the supplied coordinates. Stems encode a

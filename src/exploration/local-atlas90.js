@@ -1,11 +1,11 @@
-import {createGeographicAtlasView} from './geographic-atlas-view.js?v=release100-c363-20261027';
-import {createDrinkingMapView} from './drinking-map-view.js?v=release100-c363-20261027';
+import {createGeographicAtlasView} from './geographic-atlas-view.js?v=surface-release-2e596f2-20261028';
+import {createDrinkingMapView} from './drinking-map-view.js?v=surface-release-2e596f2-20261028';
 import {createMapTextLayer} from './map-text-layer.js?v=country-text-halo-20261027';
 import {createAtlasDataWebgl} from './atlas-data-webgl.js?v=release100-c363-20261027';
 import {layoutDrinkingReadings} from './drinking-water-reading.js';
 import {countrySourceId} from './country-source-ids.js';
 import {paintExtent} from './local-extent-view.js?v=release100-c363-20261027';
-import {sharedAtlas90Motion,atlas90Signal} from './atlas90-motion.js?v=release100-c363-20261027';
+import {sharedAtlas90Motion,atlas90Signal} from './atlas90-motion.js?v=surface-release-2e596f2-20261028';
 import {paintExtentMotionMask} from './extent-motion-mask.js?v=release100-c363-20261027';
 import {poiArrivalDuration} from './annual-poi-arrival.js';
 

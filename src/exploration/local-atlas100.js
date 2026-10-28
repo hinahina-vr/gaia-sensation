@@ -1,5 +1,5 @@
-import {createAtlas100Motion,atlas100Signal} from './atlas100-motion.js?v=release100-c363-20261027';
-import {createDrinkingMapView} from './drinking-map-view.js?v=release100-c363-20261027';
+import {createAtlas100Motion,atlas100Signal} from './atlas100-motion.js?v=surface-release-2e596f2-20261028';
+import {createDrinkingMapView} from './drinking-map-view.js?v=surface-release-2e596f2-20261028';
 import {layoutDrinkingReadings} from './drinking-water-reading.js';
 import {createAtlasDataWebgl,ATLAS_GLYPH_TYPES} from './atlas-data-webgl.js?v=release100-c363-20261027';
 import {atlasRow,atlasFormat} from './atlas-history-model.js?v=release100-c363-20261027';

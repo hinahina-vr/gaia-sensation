@@ -1,4 +1,4 @@
-import {COUNTRY_MOTION_PREFIX,createCountryThemeMotion} from './country-theme-motion.js?v=release100-c363-20261027';
+import {COUNTRY_MOTION_PREFIX,createCountryThemeMotion} from './country-theme-motion.js?v=surface-release-2e596f2-20261028';
 import {createMapTextLayer} from './map-text-layer.js?v=country-text-halo-20261027';
 import {earthLongitudeToMapX} from './world-projection.js';
 import {foodCountryCopies} from './food-country-fill.js';
@@ -10,11 +10,66 @@ vec2 worldPoint(vec2 s){return (s*resolution-map.xy)/map.zw;}
 void emit(vec3 c,float a){result=vec4(c*a,a);}
 float noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(hash(i),hash(i+vec2(1.,0.)),f.x),mix(hash(i+vec2(0.,1.)),hash(i+1.),f.x),f.y);}
 `;
-const seaice=base+`void main(){vec2 s=screenPoint();vec4 d=texture(countries,s);if(d.a<.01)discard;vec2 p=worldPoint(s)*vec2(90.,45.);vec2 drift=p+vec2(time*.045,sin(time*.12+p.x*.1)*.09);float ice=smoothstep(1.-d.r*.85,1.-d.r*.85+.18,noise(drift));float seams=pow(1.-abs(sin(p.x*.8+noise(p)*5.+time*.045)),18.);emit(mix(vec3(.27,.64,.77),vec3(.86,.98,1.),ice),(ice*.42+seams*.16)*d.a);}`;
-const snowcover=base+`void main(){vec2 s=screenPoint();vec4 d=texture(countries,s);if(d.a<.01)discard;vec2 world=worldPoint(s),p=world*vec2(240.,120.);float lat=90.-world.y*180.;float cover=smoothstep(28.,68.,lat)*(.20+.80*d.r);float sparkle=pow(.5+.5*sin(p.x*.73+p.y*.39-time*.23),40.)*pow(noise(p*2.),8.);float sheen=.5+.5*sin(p.x*.04+p.y*.07-time*.09);emit(mix(vec3(.54,.75,.84),vec3(.94,.98,1.),sheen),cover*(.22+sheen*.16)+sparkle*.15*d.a);}`;
-const oceanheat=base+`void main(){vec2 s=screenPoint();vec4 d=texture(countries,s);if(d.a<.01)discard;vec2 p=worldPoint(s)*vec2(36.,18.);float bend=noise(p*.75+vec2(time*.025,0.))*4.;float flow=pow(.5+.5*sin(p.y*3.5+bend+sin(p.x*.55)-time*.26),9.);float depth=.5+.5*sin(p.x*.36+p.y*.28-time*.075);vec3 cool=vec3(.20,.57,.78),warm=vec3(.99,.61,.33);vec3 color=mix(cool,warm,smoothstep(.35,.65,d.r));emit(mix(color,vec3(.96,.84,.65),flow*.22),(.055+flow*.24+depth*.025)*d.a);}`;
-const ozone=base+`void main(){vec2 s=screenPoint();vec4 d=texture(countries,s);if(d.a<.01)discard;vec2 p=worldPoint(s)*vec2(12.,6.);float drift=noise(p*.7+vec2(time*.014,-time*.009));float swirl=.5+.5*sin(p.x*1.7+sin(p.y*2.+time*.08)*.7-time*.1);float ribbon=pow(swirl,4.);emit(mix(vec3(.36,.43,.82),vec3(.83,.68,.96),drift),(.20+ribbon*.32+drift*.12)*d.r*d.a);}`;
-const glaciers=base+`void main(){vec2 s=screenPoint();vec4 d=texture(countries,s);if(d.a<.01)discard;vec2 p=worldPoint(s)*vec2(260.,130.);float vein=pow(1.-abs(sin(p.y*.9+noise(p*.3)*8.+p.x*.4)),18.);float sheen=.5+.5*sin(p.x*.24+p.y*.18-time*.22);emit(mix(mix(vec3(.81,.94,.99),vec3(.25,.66,.81),d.r),vec3(.91,.99,1.),sheen*.65),(.20+vein*.38+sheen*.18)*d.a);}`;
+const seaice=base+`
+
+void main(){
+ vec2 s=screenPoint();vec4 d=texture(countries,s);if(d.a<.01)discard;
+ vec2 p=worldPoint(s)*vec2(86.,43.);vec2 drift=p+vec2(.025*time,.07*sin(time*.13+p.x*.2));
+ float field=surfaceField(drift*.8),ice=smoothstep(1.-d.r*.88,1.-d.r*.88+.16,field);
+ float ridges=pow(1.-abs(sin(p.x*.7+surfaceNoise(p*.4)*6.+p.y*.34)),14.);
+ float sheen=.5+.5*sin(p.x*.34+p.y*.63-time*.32);
+ vec3 c=mix(vec3(.16,.44,.63),vec3(.83,.97,1.),ice*.75+sheen*.25);
+ emit(c,(ice*(.38+sheen*.18)+ridges*.18*ice)*d.a);
+}
+`;
+const snowcover=base+`
+
+void main(){
+ vec2 s=screenPoint();vec4 d=texture(countries,s);if(d.a<.01)discard;
+ vec2 w=worldPoint(s),p=w*vec2(150.,75.);float lat=90.-w.y*180.;
+ float cover=smoothstep(28.,68.,lat)*(.20+.80*d.r),terrain=surfaceField(p*.38);
+ float dunes=pow(.5+.5*sin(p.y*1.7+terrain*6.+p.x*.3),6.);
+ float sheen=.5+.5*sin(p.x*.10+p.y*.17-time*.19);
+ vec2 q=fract(p*1.7+vec2(time*.035,time*.09))-.5;
+ float flake=exp(-dot(q,q)*900.)*surfaceNoise(floor(p*1.7));
+ emit(mix(vec3(.47,.69,.80),vec3(.97,.99,1.),terrain*.6+sheen*.4),(cover*(.18+dunes*.20+sheen*.12)+flake*.12*cover)*d.a);
+}
+`;
+const oceanheat=base+`
+
+void main(){
+ vec2 s=screenPoint();vec4 d=texture(countries,s);if(d.a<.01)discard;
+ vec2 p=worldPoint(s)*vec2(32.,16.);float f=surfaceField(p*.42+vec2(time*.018,0.));
+ float course=p.y*2.6+f*5.+sin(p.x*.4-time*.08)*1.5;
+ float broad=pow(.5+.5*sin(course-time*.23),3.);
+ float filaments=pow(.5+.5*sin(course*3.+surfaceNoise(p)*2.-time*.35),18.);
+ vec3 c=mix(vec3(.15,.48,.72),vec3(.98,.49,.24),smoothstep(.25,.75,d.r));
+ emit(mix(c,vec3(.98,.84,.56),filaments*.4),(.13+broad*.23+filaments*.18)*d.a);
+}
+`;
+const ozone=base+`
+
+void main(){
+ vec2 s=screenPoint();vec4 d=texture(countries,s);if(d.a<.01)discard;
+ vec2 p=worldPoint(s)*vec2(18.,9.);float drift=surfaceField(p*.65+vec2(time*.015,-time*.01));
+ float fold=p.x*2.4+sin(p.y*1.8+time*.11)*1.5+drift*3.;
+ float veil=pow(.5+.5*sin(fold-time*.16),3.);
+ float fine=pow(.5+.5*sin(fold*3.1+p.y*1.4-time*.22),12.);
+ vec3 c=mix(vec3(.25,.35,.68),vec3(.72,.61,.95),drift*.55+veil*.45);
+ emit(mix(c,vec3(.64,.90,.96),fine*.45),(.16+veil*.34+fine*.15)*d.r*d.a);
+}
+`;
+const glaciers=base+`
+
+void main(){
+ vec2 s=screenPoint();vec4 d=texture(countries,s);if(d.a<.01)discard;
+ vec2 p=worldPoint(s)*vec2(260.,130.);float field=surfaceField(p*.3);
+ float crevasse=pow(1.-abs(sin(p.y*1.2+field*7.+p.x*.4)),16.);
+ float face=.5+.5*sin(p.x*.3+p.y*.22-time*.29);
+ vec3 ice=mix(vec3(.50,.80,.91),vec3(.23,.55,.73),d.r);
+ emit(mix(ice,vec3(.94,.99,1.),face*.7),(.26+crevasse*.36+face*.20)*d.a);
+}
+`;
 const sources={seaice,snowcover,oceanheat,ozone,glaciers},assets=new Map();
 function polygonPath(geometry){const path=new Path2D();for(const polygon of geometry.type==='Polygon'?[geometry.coordinates]:geometry.coordinates)for(const ring of polygon){ring.forEach(([lon,lat],i)=>i?path.lineTo(lon+180,90-lat):path.moveTo(lon+180,90-lat));path.closePath()}return path}
 function load(name){if(!assets.has(name)){const item={state:'loading',shapes:[]};assets.set(name,item);fetch(new URL('../../data/'+name+'.geojson',import.meta.url)).then(r=>{if(!r.ok)throw Error(r.status);return r.json()}).then(d=>{item.shapes=d.features.map(f=>({name:f.properties.name||'',path:polygonPath(f.geometry)}));item.state='ready';dispatchEvent(new Event('gaia:atlas-renderer-change'))}).catch(e=>{item.state='error';item.error=e.message;dispatchEvent(new Event('gaia:atlas-renderer-change'))})}return assets.get(name)}
@@ -22,7 +77,12 @@ export function createGeographicAtlasView(){
  const motion=createCountryThemeMotion({fragmentSources:sources}),text=createMapTextLayer('geographic-atlas');let id='',key='',mask,mc,baseCanvas,bc,fallbackCanvas,fallbackKey='',usingFallback=false,points=[],builds=0,time=0,maskShapes=0,viewRef,geographyState='idle';
  const copies=view=>foodCountryCopies({...view,originX:view.x,originY:view.y});
  function paths(ctx,view,shapes,color,alpha=1){ctx.save();ctx.beginPath();ctx.rect(view.x,view.y,360*view.scale,180*view.scale);ctx.clip();for(const copy of copies(view)){ctx.save();ctx.translate(copy.x,copy.y);ctx.scale(view.scale,view.scale);ctx.fillStyle=color;ctx.globalAlpha=alpha;for(const shape of shapes)ctx.fill(shape.path,'evenodd');ctx.restore()}ctx.restore()}
- function eraseLand(ctx,view,countries,adapter){ctx.save();ctx.globalCompositeOperation='destination-out';paths(ctx,view,countries.map(c=>({path:adapter.getCountryPath(c.iso3)})).filter(c=>c.path),'#000');ctx.restore()}
+ function eraseLand(ctx,view,countries,adapter){
+  // The statistical country list omits Antarctica (M49 010), but the ocean
+  // must still respect its coastline. Its Natural Earth path is available.
+  const ids=new Set([...countries.map(c=>c.iso3),'ATA']);
+  ctx.save();ctx.globalCompositeOperation='destination-out';paths(ctx,view,[...ids].map(id=>({path:adapter.getCountryPath(id)})).filter(c=>c.path),'#000');ctx.restore();
+ }
  function latitudeBand(ctx,view,lo,hi,color){ctx.fillStyle=color;ctx.fillRect(view.x,view.y+(90-hi)*view.scale,360*view.scale,(hi-lo)*view.scale)}
  function paint(ctx,options){
   const {definition:d,data,year,month,selectedId,view,ratio,labelHost,reduced,elapsed}=options;id=d.id;viewRef=view;time=reduced?0:Math.max(0,elapsed)/1000;

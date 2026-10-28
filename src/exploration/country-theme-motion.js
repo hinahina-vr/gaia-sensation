@@ -13,59 +13,53 @@ uniform float changeMode;
 uniform vec3 tint;
 out vec4 result;
 float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+// Stable geographic detail, with only the illumination moving. Two scales
+// keep large surfaces coherent without a repeating wallpaper or extra buffers.
+float surfaceNoise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(hash(i),hash(i+vec2(1.,0.)),f.x),mix(hash(i+vec2(0.,1.)),hash(i+1.),f.x),f.y);}
+float surfaceField(vec2 p){return .67*surfaceNoise(p)+.33*surfaceNoise(mat2(.8,-.6,.6,.8)*p*2.03+17.);}
+float softLine(float distance,float width){return 1.-smoothstep(width,width+max(fwidth(distance),.012),distance);}
 `;
 const sanitation=COUNTRY_MOTION_PREFIX+`
+
 void main(){
- vec2 screen=vec2(uv.x,1.-uv.y);vec4 data=texture(countries,screen);
- if(data.a<.02)discard;
- vec2 world=(screen*resolution-map.xy)/map.zw;
- vec2 p=world*vec2(66.,33.);
- // Braided, circulating threads with softly travelling packets. These are
- // illustrative treatment/circulation motifs, not mapped sewer networks.
- float bend=sin(p.x*.63+sin(p.x*.19)*1.5+time*.08)*.66;
- float course=p.y+bend+.16*sin(p.x*1.32-time*.10);
- float strand=fract(course)-.5;
- float aa=max(fwidth(course),.018);
- float line=1.-smoothstep(.015,.055+aa,abs(strand));
- float companion=1.-smoothstep(.015,.045+aa,abs(strand-.15));
- float row=floor(course);
- float packet=pow(.5+.5*cos((p.x*.43-time*.24+hash(vec2(row,7.)))*6.2831853),22.);
- float returning=pow(.5+.5*cos((p.x*.36+time*.17+hash(vec2(row,19.)))*6.2831853),26.);
- float halo=exp(-strand*strand*65.);
- float strength=.15+.85*sqrt(data.r);
- float alpha=(line*(.035+packet*.39)+companion*(.018+returning*.22)+halo*.012)*strength*data.a;
- vec3 ink=mix(tint,vec3(.87,.99,.95),packet*.52);
+ vec2 s=vec2(uv.x,1.-uv.y);vec4 d=texture(countries,s);if(d.a<.02)discard;
+ vec2 p=(s*resolution-map.xy)/map.zw*vec2(54.,27.);
+ float broad=surfaceField(p*.14),bend=sin(p.x*.33+broad*3.)*.85;
+ float course=p.y+bend+.13*sin(p.x*1.2-time*.13),row=floor(course);
+ float strand=abs(fract(course)-.5),width=.024+.045*d.r;
+ float line=softLine(strand,width),returnLine=softLine(abs(fract(course+.22)-.5),.018);
+ float packet=pow(.5+.5*cos(p.x*1.55-time*.72+hash(vec2(row,7.))*6.28),12.);
+ float returning=pow(.5+.5*cos(p.x*1.18+time*.46+row),15.);
+ float seam=exp(-strand*strand*32.);
+ float alpha=(line*(.06+packet*.43)+returnLine*(.025+returning*.22)+seam*.055)*(.18+.82*sqrt(d.r))*d.a;
+ vec3 ink=mix(tint,vec3(.76,.97,.94),packet*.65+returning*.2);
  result=vec4(ink*alpha,alpha);
-}`;
+}
+`;
 const forest=COUNTRY_MOTION_PREFIX+`
+
 void main(){
- vec2 screen=vec2(uv.x,1.-uv.y);vec4 data=texture(countries,screen);
- if(data.a<.02)discard;
- vec2 world=(screen*resolution-map.xy)/map.zw;
- vec2 p=world*vec2(164.,82.);
- vec2 cell=floor(p);
- float canopy=0.,veins=0.;
- // Overlapping, irregular leaf clusters sway together. Their national density
- // follows forest share; they do not locate individual trees or forest edges.
+ vec2 s=vec2(uv.x,1.-uv.y);vec4 d=texture(countries,s);if(d.a<.02)discard;
+ vec2 p=(s*resolution-map.xy)/map.zw*vec2(230.,115.);
+ float crowns=surfaceField(p*.46),gust=sin(p.x*.065+p.y*.095-time*.44+crowns*2.);
+ vec2 q=p+vec2(.14,.09)*gust,cell=floor(q);float leaves=0.,veins=0.;
  for(int y=-1;y<=1;y++)for(int x=-1;x<=1;x++){
-  vec2 id=cell+vec2(float(x),float(y));float seed=hash(id);
-  float present=step(seed,data.r*.98);
-  vec2 center=id+.5+(vec2(hash(id+17.),hash(id+39.))-.5)*.84;
-  float gust=sin(center.x*.17+center.y*.23-time*.40);
-  center+=vec2(.14*gust,.065*sin(time*.32+seed*6.));
-  float angle=seed*6.2831853+gust*.26;
-  vec2 d=p-center;vec2 q=mat2(cos(angle),-sin(angle),sin(angle),cos(angle))*d;
-  float leaf=exp(-dot(q/vec2(.48,.27),q/vec2(.48,.27))*2.4);
-  float vein=exp(-q.y*q.y*4300.)*exp(-q.x*q.x*15.);
-  canopy+=leaf*present*(.65+gust*.12);
-  veins+=vein*present*.4;
+  vec2 id=cell+vec2(x,y);float seed=hash(id),present=step(seed,d.r);
+  vec2 center=id+.5+(vec2(hash(id+17.),hash(id+39.))-.5)*.8;
+  float a=seed*6.28+gust*.23;vec2 v=mat2(cos(a),-sin(a),sin(a),cos(a))*(q-center);
+  float leaf=1.-smoothstep(.82,1.04,pow(abs(v.x)/.58,1.4)+pow(abs(v.y)/.27,1.3));
+  leaves+=leaf*present*(.78+.22*sin(a+gust));veins+=softLine(abs(v.y),.008)*exp(-v.x*v.x*14.)*present*leaf;
  }
- float wind=.5+.5*sin(p.x*.14+p.y*.19-time*.23);
- float alpha=(canopy*(.30+wind*.14)+veins*.14)*data.a;
- vec3 ink=mix(vec3(.11,.46,.28),vec3(.44,.80,.39),wind);
- if(changeMode>.5){float delta=(data.g-.5)*2.;vec3 direction=delta<0.?vec3(.33,.52,.40):vec3(.30,.86,.46);ink=mix(vec3(.14,.40,.25),direction,min(1.,abs(delta)*1.8+.18));}
+ float patches=smoothstep(1.-d.r,1.-d.r+.22,crowns);
+ vec2 slope=vec2(dFdx(crowns)/max(fwidth(p.x),.001),dFdy(crowns)/max(fwidth(p.y),.001));
+ float sun=clamp(.5+dot(slope,vec2(-1.8,-1.2)),0.,1.);
+ float light=smoothstep(-.7,.9,gust)*(.35+.65*sun);
+ vec3 ink=mix(vec3(.045,.18,.13),vec3(.43,.73,.31),clamp(sun*.48+light*.35+leaves*.17,0.,1.));
+ if(changeMode>.5)ink=mix(ink,mix(vec3(.30,.45,.37),vec3(.32,.78,.45),smoothstep(.35,.65,d.g)),.45);
+ float alpha=min(.72,patches*(.24+light*.14)+leaves*(.14+light*.15)+veins*.07)*d.a;
  result=vec4(ink*alpha,alpha);
-}`;
+}
+`;
 
 const clamp=value=>Math.max(0,Math.min(1,value));
 export function countryThemeSignal({definition,value,access,mode}){

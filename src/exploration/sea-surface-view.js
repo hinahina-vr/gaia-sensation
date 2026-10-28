@@ -1,4 +1,4 @@
-import {buildSeaCoastStencil,buildSeaSurfaceTexture,paintSeaSurfaceCPU,seaSwellGLSL} from './sea-surface-model.js?v=release100-c363-20261027';
+import {buildSeaCoastStencil,buildSeaSurfaceTexture,paintSeaSurfaceCPU,seaSwellGLSL} from './sea-surface-model.js?v=surface-release-2e596f2-20261028';
 const vertex=`#version 300 es
 precision highp float;
 out vec2 uv;
@@ -68,7 +68,7 @@ export function createSeaSurfaceView(){
       maskCtx.globalCompositeOperation='destination-out';maskCtx.fillStyle='#fff';
       for(const repeat of [0,360]){
         maskCtx.setTransform(ratio*scale,0,0,ratio*scale,ratio*(origin.x+(repeat-150)*scale),ratio*origin.y);
-        for(const country of geometry.countries){const path=adapter.getCountryPath(country.iso3);if(path)maskCtx.fill(path,'evenodd');}
+        for(const id of new Set([...geometry.countries.map(country=>country.iso3),'ATA'])){const path=adapter.getCountryPath(id);if(path)maskCtx.fill(path,'evenodd');}
       }
       maskCtx.globalCompositeOperation='source-over';maskKey=key;maskBuilds++;
     }

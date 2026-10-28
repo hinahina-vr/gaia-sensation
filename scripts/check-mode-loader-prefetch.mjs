@@ -19,8 +19,8 @@ const document = {
     queueMicrotask(() => { events.push(`execute:${node.src}`); executed.push(node.src); node.onload(); });
   } },
 };
-const window = { location: { hash: "", search: "", pathname: "/" }, addEventListener() {}, dispatchEvent() {}, setTimeout, clearTimeout };
-const context = vm.createContext({ document, window, URL, URLSearchParams, performance, console,
+const window = { location: new URL("https://gaia.test/"), addEventListener() {}, dispatchEvent() {}, setTimeout, clearTimeout };
+const context = vm.createContext({ document, window, location: window.location, URL, URLSearchParams, performance, console,
   HTMLTemplateElement: class {}, HTMLElement: class {}, CustomEvent: class {},
 });
 vm.runInContext(fs.readFileSync(new URL("../map-exhibit-route.js", import.meta.url), "utf8"), context);

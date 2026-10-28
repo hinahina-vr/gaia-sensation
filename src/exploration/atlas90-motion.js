@@ -1,4 +1,4 @@
-import {COUNTRY_MOTION_PREFIX,createCountryThemeMotion} from './country-theme-motion.js?v=release100-c363-20261027';
+import {COUNTRY_MOTION_PREFIX,createCountryThemeMotion} from './country-theme-motion.js?v=surface-release-2e596f2-20261028';
 // National textures are illustrative; they do not locate cities or people.
 // The polar textures are clipped to the measured-area diagrams, not coastlines.
 const base=COUNTRY_MOTION_PREFIX+`
@@ -8,54 +8,51 @@ vec2 worldPoint(vec2 s){return (s*resolution-map.xy)/map.zw;}
 void emit(vec3 ink,float a){result=vec4(ink*a,a);}
 `;
 const urban=base+`
+
 void main(){
- vec2 s=screenPoint();vec4 data=texture(countries,s);if(data.a<.02)discard;
- vec2 p=worldPoint(s)*vec2(105.,52.5),id=floor(p),q=fract(p)-.5;
- float seed=hash(id),district=.5+.5*sin(id.x*.39+sin(id.y*.21)*2.);
- float built=step(seed,sqrt(data.r)*(.35+.65*district));
- vec2 offset=(vec2(hash(id+7.),hash(id+23.))-.5)*.25;
- vec2 d=abs(q-offset)-vec2(.16+.12*hash(id+37.),.19+.10*seed);
- float edge=max(d.x,d.y),aa=max(fwidth(edge),.008);
- float facade=1.-smoothstep(0.,aa,edge);
- vec2 windows=fract((q-offset)*8.)-.5;
- float pane=exp(-dot(windows,windows)*65.);
- float glow=.65+.22*sin(time*.23+seed*TAU);
- float sweep=pow(.5+.5*cos(p.y*.19+p.x*.61-time*.5),12.);
- float street=exp(-pow((abs(q.x)-.47)*50.,2.))*(.025+sweep*.12)*data.r;
- emit(mix(vec3(.86,.68,.39),vec3(1.,.91,.66),sweep),(facade*(.03+pane*.29*glow+sweep*.08)*built+street)*data.a);
-}`;
+ vec2 s=screenPoint();vec4 d=texture(countries,s);if(d.a<.02)discard;
+ vec2 p=worldPoint(s)*vec2(128.,64.);float district=surfaceField(p*.17);
+ vec2 block=floor(p),q=fract(p)-.5;float seed=hash(block);
+ float built=step(seed,d.r*(.35+district));
+ vec2 size=vec2(.15+.17*hash(block+37.),.15+.25*seed);
+ float facade=softLine(max(abs(q.x)-size.x,abs(q.y)-size.y),0.);
+ vec2 w=fract((q+vec2(.03,.02))*9.)-.5;float window=exp(-dot(w,w)*42.);
+ float evening=.68+.20*sin(time*.23+district*6.+seed*3.);
+ float pulse=pow(.5+.5*cos(p.x*.27+p.y*.15-time*.42),15.);
+ float avenue=softLine(abs(q.x),.012)*(.02+pulse*.13)*d.r;
+ float glow=exp(-dot(q,q)*6.)*built*.06;
+ vec3 ink=mix(vec3(.34,.68,.86),vec3(1.,.85,.52),window*.85);
+ emit(ink,(facade*(.06+window*.55*evening)*built+avenue+glow)*d.a);
+}
+`;
 const generations=base+`
+
 void main(){
- vec2 s=screenPoint();vec4 data=texture(countries,s);if(data.a<.02)discard;
- vec2 p=worldPoint(s)*vec2(52.,26.);
- float bend=sin(p.x*.55+sin(p.x*.19))* .55;
- float course=p.y+bend,thread=abs(fract(course)-.5);
- float woven=abs(fract(p.y-bend+.31)-.5);
- float aa=max(fwidth(course),.012);
- float a=1.-smoothstep(.018,.018+aa*1.5,thread);
- float b=1.-smoothstep(.016,.016+aa*1.5,woven);
- float packet=pow(.5+.5*cos(p.x*.65-time*.42+floor(course)*.9),14.);
- float returnLight=pow(.5+.5*cos(p.x*.47+time*.27),18.);
- float strength=.2+.8*sqrt(data.r);
- vec3 ink=mix(vec3(.65,.64,.88),vec3(.98,.85,.73),packet);
- emit(ink,(a*(.035+packet*.34)+b*(.025+returnLight*.17))*strength*data.a);
-}`;
+ vec2 s=screenPoint();vec4 d=texture(countries,s);if(d.a<.02)discard;
+ vec2 p=worldPoint(s)*vec2(40.,20.);float fold=surfaceField(p*.22)*2.;
+ float warp=p.y+sin(p.x*.28+fold)*1.1,weft=p.x*.55-sin(p.y*.34)*.8;
+ float a=softLine(abs(fract(warp*2.)-.5),.028),b=softLine(abs(fract(weft)-.5),.022);
+ float light=.5+.5*sin(p.x*.4+p.y*.28-time*.26+fold);
+ float older=smoothstep(.2,.8,light),younger=1.-older;
+ vec3 c=mix(vec3(.43,.66,.82),vec3(.84,.74,.93),older);
+ emit(c,(a*(.07+older*.20*(.35+d.r))+b*(.06+younger*.20)+a*b*.13)*d.a);
+}
+`;
 const cradle=base+`
+
 void main(){
- vec2 s=screenPoint();vec4 data=texture(countries,s);if(data.a<.02)discard;
- vec2 p=worldPoint(s)*vec2(72.,36.),id=floor(p);
- vec2 q=fract(p)-.5-(vec2(hash(id+5.),hash(id+11.))-.5)*.18;
- float sway=sin(time*.22+hash(id)*TAU)*.08;
- q.x+=sway;
- vec2 oval=q/vec2(.45,.23);float distanceToBowl=abs(length(oval)-1.);
- float aa=max(fwidth(distanceToBowl),.035);
- float shell=(1.-smoothstep(.025,.025+aa,distanceToBowl))*smoothstep(-.08,.03,q.y);
- float angle=atan(oval.y,oval.x);
- float travelling=pow(.5+.5*cos(angle-time*.52+hash(id+17.)*TAU),14.);
- float halo=exp(-dot(oval,oval)*2.8)*.035;
- vec3 ink=mix(vec3(.60,.92,.86),vec3(.74,.64,.91),data.r);
- emit(mix(ink,vec3(.96,1.,.96),travelling*.5),(shell*(.11+travelling*.31)+halo)*data.a);
-}`;
+ vec2 s=screenPoint();vec4 d=texture(countries,s);if(d.a<.02)discard;
+ vec2 p=worldPoint(s)*vec2(50.,25.),id=floor(p);
+ vec2 q=fract(p)-.5-(vec2(hash(id+5.),hash(id+11.))-.5)*.34;
+ float r=length(q/vec2(.40,.28)),phase=hash(id)*TAU;
+ float breath=.65+.22*sin(time*.40+phase);
+ float arc=softLine(abs(r-.84),.06)*smoothstep(-.13,.13,q.y);
+ float seed=exp(-dot(q/vec2(.09,.12),q/vec2(.09,.12))*2.);
+ float aura=exp(-r*r*2.5),protect=.5+.5*cos(atan(q.y,q.x)-time*.25+phase);
+ vec3 c=mix(vec3(.47,.85,.80),vec3(.76,.68,.91),d.r);
+ emit(mix(c,vec3(.94,1.,.95),seed),(arc*(.12+protect*.19)+seed*.36+aura*.07)*breath*d.a);
+}
+`;
 const ice=base+`
 void main(){
  vec2 s=screenPoint();vec4 data=texture(countries,s);if(data.a<.02)discard;

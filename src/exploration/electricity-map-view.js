@@ -3,7 +3,7 @@ import {foodCountryCopies,pickFoodCountry} from './food-country-fill.js?v=whole-
 import {atlasColor,atlasRow} from './atlas-history-model.js?v=release100-c363-20261027';
 import {electricityArrival,paintElectricityLabels} from './electricity-country-marks.js?v=release100-c363-20261027';
 import {createElectricityLabelLayer} from './electricity-label-layer.js?v=release100-c363-20261027';
-import {createElectricityMotion} from './electricity-motion-webgl.js?v=release100-c363-20261027';
+import {createElectricityMotion} from './electricity-motion-webgl.js?v=surface-release-2e596f2-20261028';
 
 export function createElectricityMapView(){
  const motion=createElectricityMotion(),labelLayer=createElectricityLabelLayer();let labelAlpha=0;

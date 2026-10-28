@@ -1,4 +1,4 @@
-import {COUNTRY_MOTION_PREFIX,createCountryThemeMotion} from './country-theme-motion.js?v=release100-c363-20261027';
+import {COUNTRY_MOTION_PREFIX,createCountryThemeMotion} from './country-theme-motion.js?v=surface-release-2e596f2-20261028';
 // National textures express the selected measurement, not the locations of
 // farms, cables, fishing grounds, displaced people or migration routes.
 const base=COUNTRY_MOTION_PREFIX+`
@@ -8,72 +8,87 @@ vec2 worldPoint(vec2 s){return (s*resolution-map.xy)/map.zw;}
 void emit(vec3 ink,float a){result=vec4(ink*a,a);}
 `;
 const wateruse=base+`
+
 void main(){
  vec2 s=screenPoint();vec4 d=texture(countries,s);if(d.a<.02)discard;
- vec2 p=worldPoint(s)*vec2(46.,23.),cell=floor(p),q=fract(p)-.5;
- float fork=smoothstep(-.40,.35,q.y),light=0.;vec3 ink=vec3(0.);
+ vec2 p=worldPoint(s)*vec2(42.,21.);float bend=surfaceField(p*.24)*2.+sin(p.x*.27)*.7;
+ float light=0.;vec3 ink=vec3(0.);
  for(int i=0;i<3;i++){
-  float share=i==0?d.r:i==1?d.g:d.b,side=float(i)-1.;
-  float curve=side*.30*fork+sin(q.y*4.+hash(cell)*TAU)*.018;
-  float dist=abs(q.x-curve),aa=max(fwidth(dist),.008);
-  float ribbon=1.-smoothstep(.008+share*.055,.008+share*.055+aa,dist);
-  float packet=pow(.5+.5*cos(p.y*TAU*1.7-time*.95+side*1.8),12.);
-  float a=ribbon*(.06+packet*.37)*sqrt(share)*step(.0001,share);
-  ink+=(i==0?vec3(.62,.88,.64):i==1?vec3(.51,.73,.97):vec3(.96,.83,.57))*a;light+=a;
+  float share=i==0?d.r:i==1?d.g:d.b,side=float(i);
+  float course=p.y+bend+side*.31,dist=abs(fract(course)-.5);
+  float ribbon=softLine(dist,.012+share*.11),bed=exp(-dist*dist*42.);
+  float packet=pow(.5+.5*cos(p.x*1.6-time*.56+side*2.1),10.);
+  float a=(ribbon*(.06+packet*.36)+bed*.04)*sqrt(share)*step(.0001,share);
+  ink+=(i==0?vec3(.51,.84,.62):i==1?vec3(.44,.72,.97):vec3(.96,.82,.52))*a;light+=a;
  }
- emit(ink/max(light,.001),min(.52,light)*d.a);
-}`;
+ emit(ink/max(light,.001),min(.6,light)*d.a);
+}
+`;
 const hunger=base+`
+
 void main(){
  vec2 s=screenPoint();vec4 d=texture(countries,s);if(d.a<.02)discard;
- vec2 p=worldPoint(s)*vec2(63.,31.5),id=floor(p),q=fract(p)-.5;
+ vec2 p=worldPoint(s)*vec2(70.,35.),id=floor(p);
+ vec2 q=fract(p)-.5-(vec2(hash(id+4.),hash(id+13.))-.5)*.22;
  float seed=hash(id),r=length(q),angle=fract(atan(q.y,q.x)/TAU+.25);
- float aa=max(fwidth(r),.012),rim=1.-smoothstep(.012,.012+aa,abs(r-.32));
- float arc=step(d.r,angle),glint=.5+.5*cos(angle*TAU*2.-time*.45+seed*TAU);
- float grain=exp(-pow(q.x*7.,2.)-pow((q.y+.08*sin(time*.22+seed*TAU))*4.,2.));
- float hatch=step(.62,fract((p.x+p.y)*4.))*smoothstep(.12,.35,r)*(.035+.045*glint);
- float alpha=d.g>.5?hatch:rim*arc*(.055+pow(glint,7.)*.22)+grain*.025;
- emit(mix(vec3(.69,.77,.57),vec3(.98,.84,.58),glint*.65),alpha*d.a);
-}`;
+ float rim=softLine(abs(r-.30),.015),arc=step(d.r,angle);
+ float passing=.5+.5*sin(p.x*.25+p.y*.17-time*.30);
+ vec2 grain=q/vec2(.11,.20);float kernel=exp(-dot(grain,grain)*2.5);
+ float hatch=softLine(abs(fract((p.x+p.y)*3.)-.5),.04)*smoothstep(.10,.34,r)*.08;
+ float alpha=d.g>.5?hatch:rim*arc*(.06+passing*.19)+kernel*(.10+passing*.20)*(1.-d.r);
+ emit(mix(vec3(.55,.69,.37),vec3(.98,.84,.52),passing),alpha*d.a);
+}
+`;
 const fisheries=base+`
+
 void main(){
  vec2 s=screenPoint();vec4 d=texture(countries,s);if(d.a<.02)discard;
- vec2 p=worldPoint(s)*vec2(66.,33.),id=floor(p);
- float seed=hash(id),farm=step(d.r,seed),direction=mix(1.,-1.,farm);
- vec2 q=vec2(fract(p.x-time*.19*direction+seed)-.5,fract(p.y)-.5);
- q.y+=sin(p.x*.9+seed*TAU-time*.23)*.10;
- vec2 body=q/vec2(.22,.055);float fish=exp(-dot(body,body)*1.9);
- float tail=exp(-pow((q.x+.23*direction)*19.,2.)-pow((abs(q.y)-.055)*28.,2.));
- float current=pow(.5+.5*sin(p.y*TAU+sin(p.x*.45)-time*.35),22.);
- float sheen=.65+.25*sin(time*.25+seed*TAU);
- vec3 ink=mix(vec3(.42,.79,.94),vec3(.64,.92,.71),farm);
- emit(ink,((fish*.58+tail*.24)*sheen+current*.045)*(.18+.82*sqrt(d.b))*d.a);
-}`;
+ vec2 p=worldPoint(s)*vec2(84.,42.);float school=surfaceField(p*.16);
+ float farm=step(d.r,hash(floor(p/3.))),dir=mix(1.,-1.,farm);
+ vec2 q=vec2(fract(p.x-time*.22*dir+school)-.5,fract(p.y+school*.7)-.5);
+ q.y+=sin(p.x*.65+school*6.-time*.35)*.08;
+ vec2 body=q/vec2(.25,.065);float fish=exp(-dot(body,body)*1.8);
+ float tail=exp(-pow((q.x+.24*dir)*18.,2.)-pow((abs(q.y)-.06)*26.,2.));
+ float sheen=.5+.5*sin(p.x*.17+p.y*.25-time*.36);
+ float grouped=smoothstep(.18,.65,school),strength=.18+.82*sqrt(d.b);
+ emit(mix(vec3(.39,.77,.94),vec3(.57,.91,.69),farm),((fish*.60+tail*.22)*(.55+sheen*.45)*(.3+.7*grouped))*strength*d.a);
+}
+`;
 const internet=base+`
+
 void main(){
  vec2 s=screenPoint();vec4 d=texture(countries,s);if(d.a<.02||d.r<.0001)discard;
- vec2 p=worldPoint(s)*vec2(61.,30.5),id=floor(p),q=fract(p)-.5;
- float connected=step(hash(id),d.r),aa=max(fwidth(q.x),.012);
- float horizontal=1.-smoothstep(.013,.013+aa,abs(q.y));
- float vertical=1.-smoothstep(.013,.013+aa,abs(q.x));
- float diagonal=1.-smoothstep(.010,.010+aa,abs(q.x-q.y));
- float packet=pow(.5+.5*cos((p.x+p.y)*2.8-time*.9),16.);
- float node=exp(-dot(q,q)*950.)*(.55+.25*sin(time*.35+hash(id)*TAU));
- float wire=(horizontal+vertical+diagonal*.45)*(.018+packet*.27);
- emit(mix(vec3(.57,.69,.96),vec3(.87,.97,1.),packet),(wire+node*.23)*connected*d.a);
-}`;
+ vec2 p=worldPoint(s)*vec2(78.,39.),cell=floor(p);float wires=0.,nodes=0.;
+ // Jittered local connections avoid a repeated square lattice. They remain
+ // national-value textures, not the positions of users or cables.
+ for(int y=-1;y<=1;y++)for(int x=-1;x<=1;x++){
+  vec2 id=cell+vec2(x,y),a=id+.5+(vec2(hash(id+3.),hash(id+11.))-.5)*.65;
+  vec2 other=id+vec2(1.,0.),b=other+.5+(vec2(hash(other+3.),hash(other+11.))-.5)*.65;
+  float on=step(hash(id+31.),d.r),next=step(hash(other+31.),d.r);
+  vec2 ab=b-a;float t=clamp(dot(p-a,ab)/dot(ab,ab),0.,1.);
+  float dist=length(p-a-t*ab),pulse=pow(.5+.5*cos(t*4.-time*.95+hash(id)*TAU),14.);
+  wires+=softLine(dist,.009)*(.035+pulse*.35)*on*next;
+  nodes+=exp(-dot(p-a,p-a)*850.)*(.36+.13*sin(time*.33+hash(id)*TAU))*on;
+ }
+ float glow=surfaceField(p*.16)*.025*d.r;
+ emit(vec3(.65,.83,1.),min(.7,wires+nodes+glow)*d.a);
+}
+`;
 const refugees=base+`
+
 void main(){
  vec2 s=screenPoint();vec4 d=texture(countries,s);if(d.a<.02||d.r<=0.)discard;
- vec2 p=worldPoint(s)*vec2(47.,23.5),id=floor(p),q=fract(p)-.5;
- float seed=hash(id),width=.11+.18*sqrt(d.r),height=.29;
- float side=exp(-pow((abs(q.x)-width)*40.,2.))*(1.-smoothstep(height-.05,height+.05,abs(q.y)));
- float lintel=exp(-pow((q.y+height)*45.,2.))*(1.-smoothstep(width,width+.04,abs(q.x)));
- float light=.5+.5*sin(time*.28+seed*TAU+q.y*1.7);
- float inside=exp(-pow(q.x/max(width,.01),2.)*2.-pow(q.y/height,2.)*1.6);
- float alpha=(side+lintel)*(.045+pow(light,4.)*.20)+inside*(.015+light*.025);
- emit(mix(vec3(.70,.66,.74),vec3(1.,.85,.65),light),alpha*(.25+.75*sqrt(d.r))*d.a);
-}`;
+ vec2 p=worldPoint(s)*vec2(62.,31.),id=floor(p);
+ vec2 q=fract(p)-.5-(vec2(hash(id+5.),hash(id+19.))-.5)*.30;
+ float seed=hash(id),width=.12+.10*sqrt(d.r),height=.23+.09*seed;
+ float sides=softLine(abs(abs(q.x)-width),.012)*(1.-smoothstep(height-.03,height+.03,abs(q.y)));
+ float top=softLine(abs(q.y+height),.012)*(1.-smoothstep(width,width+.03,abs(q.x)));
+ float light=.65+.20*sin(time*.22+seed*TAU),inside=exp(-pow(q.x/width,2.)*2.-pow(q.y/height,2.));
+ float clustered=.4+.6*surfaceField(p*.24);
+ float alpha=((sides+top)*.17+inside*.14)*light*clustered*(.25+.75*sqrt(d.r))*d.a;
+ emit(mix(vec3(.63,.64,.75),vec3(1.,.84,.56),inside*.7),alpha);
+}
+`;
 export const ATLAS100_SHADERS=Object.freeze({wateruse,hunger,fisheries,internet,refugees});
 const clamp=v=>Math.max(0,Math.min(1,v));
 export function atlas100Signal({definition,row,fishMax=1}){

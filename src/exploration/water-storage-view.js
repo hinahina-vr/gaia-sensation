@@ -4,11 +4,11 @@ import {waterDisplayField,WATER_FIELD_SIGMA} from './water-storage-field.js?v=wa
 import {waterFieldArrival,waterPoiState} from './water-storage-poi.js?v=water-poi-20261023';
 import {createMapTextLayer} from './map-text-layer.js?v=country-text-halo-20261027';
 
-// Rasterise once per year, then reproject the small texture with the shared
-// camera. No particle motion pretending to be subsurface water transport.
+// Upload observations once per year. A slow, world-anchored relief light
+// reveals the continuous field without moving water values or implying flow.
 export function createWaterStorageView() {
   const textLayer=createMapTextLayer('water-storage');
-  let grid,texture,textureYear,textureCount=0,engine='idle',gl,program,uniform,vertices,valuesTexture,lost=false,markers=[];
+  let grid,texture,textureYear,textureCount=0,draws=0,lastTime=null,timeUniform,engine='idle',gl,program,uniform,vertices,valuesTexture,lost=false,markers=[];
   const gpu=document.createElement('canvas');gpu.width=720;gpu.height=360;
   gpu.addEventListener('webglcontextlost',event=>{event.preventDefault();lost=true;textureYear=null;dispatchEvent(new Event('gaia:atlas-renderer-change'));});
   gpu.addEventListener('webglcontextrestored',()=>{gl=null;program=null;lost=false;textureYear=null;dispatchEvent(new Event('gaia:atlas-renderer-change'));});
@@ -20,32 +20,42 @@ export function createWaterStorageView() {
       const shader=(type,source)=>{const s=gl.createShader(type);gl.shaderSource(s,source);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw Error('GRACE shader');return s;};
       const v=shader(gl.VERTEX_SHADER,'#version 300 es\nin vec2 p;void main(){gl_Position=vec4(p,0,1);}');
       const f=shader(gl.FRAGMENT_SHADER,`#version 300 es
-        precision highp float;uniform sampler2D field;out vec4 color;
+        precision highp float;uniform sampler2D field;uniform float time;out vec4 color;
         void main(){float v=texelFetch(field,ivec2(int(gl_FragCoord.x),359-int(gl_FragCoord.y)),0).r;
           if(v>90000.0){color=vec4(0);return;}
           if(v>80000.0){color=vec4(vec3(83.,101.,109.)/255.,70./255.);return;}
           float t=min(1.,abs(v)/30.);vec3 b=v<0.?vec3(217,157,100):vec3(111,225,213);
-          color=vec4(mix(vec3(39,67,76),b,t)/255.,(55.+150.*t)/255.);}`);
+          vec2 p=gl_FragCoord.xy/vec2(720.,360.);
+          float light=.5+.5*sin(p.x*18.84956+p.y*11.+sin(p.y*9.)*1.4-time*.22);
+          float band=pow(.5+.5*cos(v*.55),10.)*smoothstep(.7,4.,abs(v));
+          vec3 ink=mix(vec3(39,67,76),b,t)/255.;
+          color=vec4(ink*(.92+light*.12)+b/255.*band*.07*light,(55.+150.*t)/255.);}`);
       program=gl.createProgram();gl.attachShader(program,v);gl.attachShader(program,f);gl.linkProgram(program);gl.deleteShader(v);gl.deleteShader(f);
       if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error('GRACE shader link');
       gl.useProgram(program);vertices=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,vertices);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]),gl.STATIC_DRAW);
       const p=gl.getAttribLocation(program,'p');gl.enableVertexAttribArray(p);gl.vertexAttribPointer(p,2,gl.FLOAT,false,0,0);
       valuesTexture=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,valuesTexture);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.NEAREST);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.NEAREST);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
-      uniform=gl.getUniformLocation(program,'field');return true;
+      uniform=gl.getUniformLocation(program,'field');timeUniform=gl.getUniformLocation(program,'time');return true;
     }catch{gl=null;program=null;return false;}
   }
-  function raster(year){
-    if(textureYear===year)return texture;
-    const values=waterDisplayField(grid,year);
-    texture ||= document.createElement('canvas');texture.width=720;texture.height=360;const ctx=texture.getContext('2d');
+  function raster(year,time){
+    const changed=textureYear!==year;
+    if(!changed&&(engine!=='webgl2'||lastTime===time))return texture;
+    const values=changed?waterDisplayField(grid,year):null;
+    texture ||= document.createElement('canvas');
+    if(texture.width!==720)texture.width=720;if(texture.height!==360)texture.height=360;
+    const ctx=texture.getContext('2d');
     if(initGpu()){
-      gl.useProgram(program);gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,valuesTexture);gl.texImage2D(gl.TEXTURE_2D,0,gl.R32F,720,360,0,gl.RED,gl.FLOAT,values);gl.uniform1i(uniform,0);gl.viewport(0,0,720,360);gl.drawArrays(gl.TRIANGLES,0,6);ctx.drawImage(gpu,0,0);engine='webgl2';
-    }else{
+      gl.useProgram(program);gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,valuesTexture);
+      if(changed)gl.texImage2D(gl.TEXTURE_2D,0,gl.R32F,720,360,0,gl.RED,gl.FLOAT,values);
+      gl.uniform1i(uniform,0);gl.uniform1f(timeUniform,time);gl.viewport(0,0,720,360);gl.drawArrays(gl.TRIANGLES,0,6);
+      ctx.clearRect(0,0,720,360);ctx.drawImage(gpu,0,0);engine='webgl2';draws++;
+    }else if(changed){
       const image=ctx.createImageData(720,360);
       for(let i=0;i<values.length;i++){if(values[i]>90000)continue;image.data.set(waterRgba(values[i]>80000?null:values[i]),i*4);}
       ctx.putImageData(image,0,0);engine='canvas2d';
     }
-    textureCount++;textureYear=year;return texture;
+    if(changed)textureCount++;textureYear=year;lastTime=time;return texture;
   }
   function paint(ctx,options){
     const {view,year,cell,region,labelHost,ratio=1}=options;
@@ -53,7 +63,7 @@ export function createWaterStorageView() {
   }
   function paintContent(ctx,{data,year,view,elapsed,reduced,cell,region,regions}){
     if(grid!==data){grid=data;textureYear=null;}
-    const image=raster(year),alpha=waterFieldArrival(elapsed,reduced),world=360*view.scale;
+    const image=raster(year,reduced?0:Math.max(0,elapsed)/1000),alpha=waterFieldArrival(elapsed,reduced),world=360*view.scale;
     ctx.save();ctx.globalAlpha=alpha;ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high';
     // 30°W is the main map's cut. Keep the source rows north-up and wrap twice.
     for(let copy=-1;copy<=1;copy++){
@@ -101,6 +111,6 @@ export function createWaterStorageView() {
     const lon=(x-view.x)/view.scale-30,lat=90-(y-view.y)/view.scale;
     return {cell:waterCell(grid,lon,lat)};
   }
-  const reset=()=>{textLayer.reset();grid=texture=null;textureYear=null;engine='idle';markers=[];if(gl&&program){gl.deleteTexture(valuesTexture);gl.deleteBuffer(vertices);gl.deleteProgram(program);program=null;}};
-  return {paint,pick,reset,presentLabels:fade=>textLayer.present(1,fade),getState:()=>({engine,textureYear,textureCount,texturePixels:texture?720*360:0,style:'smooth',smoothingSigmaDegrees:WATER_FIELD_SIGMA*.5,markers,textLayer:textLayer.getState()})};
+  const reset=()=>{textLayer.reset();grid=texture=null;textureYear=null;lastTime=null;engine='idle';markers=[];if(gl&&program){gl.deleteTexture(valuesTexture);gl.deleteBuffer(vertices);gl.deleteProgram(program);program=null;}};
+  return {paint,pick,reset,presentLabels:fade=>textLayer.present(1,fade),getState:()=>({engine,textureYear,textureCount,draws,time:lastTime,texturePixels:texture?720*360:0,style:'smooth',smoothingSigmaDegrees:WATER_FIELD_SIGMA*.5,markers,textLayer:textLayer.getState()})};
 }

@@ -16,7 +16,8 @@ void main(){
  float access=signal.g;
  // An illustrative electric texture within national polygons, not mapped
  // infrastructure. Coordinates stay fixed as time moves the light packets.
- vec2 grid=world*vec2(112.,56.);
+ vec2 grid=world*vec2(88.,44.);
+ grid+=vec2(.18*sin(grid.y*.35),.14*sin(grid.x*.27));
  vec2 cell=floor(grid),f=fract(grid);
  vec2 aa=max(fwidth(grid),vec2(.018));
  float horizontal=1.-smoothstep(.018,.018+aa.y,abs(f.y-.5));
@@ -27,11 +28,11 @@ void main(){
  float packetY=pow(.5+.5*cos((grid.y*.27+time*.23+columnPhase)*6.2831853),32.);
  float connectedX=smoothstep(rowPhase,rowPhase+.12,access);
  float connectedY=smoothstep(columnPhase,columnPhase+.12,access);
- float trails=horizontal*(.08+packetX*1.9)*connectedX+vertical*(.04+packetY*1.1)*connectedY;
+ float trails=horizontal*(.12+packetX*2.1)*connectedX+vertical*(.06+packetY*1.3)*connectedY;
  float junction=exp(-dot((f-.5)/aa,(f-.5)/aa)*.55);
  float halo=exp(-dot((f-.5)*3.,(f-.5)*3.));
  float energy=smoothstep(0.,1.,access);
- float alpha=(trails*.47+junction*.10*connectedX*connectedY+halo*.012*energy)*(.20+energy*.80);
+ float alpha=(trails*.58+junction*.28*connectedX*connectedY+halo*.035*energy)*(.20+energy*.80);
  vec3 gold=vec3(1.,.84,.48),cyan=vec3(.46,.85,.91),lavender=vec3(.78,.65,.96);
  vec3 ink=mix(cyan,gold,.25+energy*.75);
  if(changeMode>.5)ink=mix(lavender,gold,smoothstep(.42,.58,signal.r));

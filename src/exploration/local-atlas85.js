@@ -1,4 +1,4 @@
-import {createDrinkingMapView} from './drinking-map-view.js?v=release100-c363-20261027';
+import {createDrinkingMapView} from './drinking-map-view.js?v=surface-release-2e596f2-20261028';
 import {createWaterStressPanel} from './water-stress.js?v=release100-c363-20261027';
 import {paintStressMarks,stressHatch} from './water-stress-marks.js?v=release100-c363-20261027';
 import {createCroplandPanel,croplandData,croplandDefinition,croplandStatistics} from './cropland-history.js';
@@ -10,10 +10,10 @@ import {paintFertilizerMarks} from './fertilizer-marks.js?v=release100-c363-2026
 import {createLongevityPanel,longevityData,longevitySourceId} from './longevity-comparison.js';
 import {paintLongevityMarks} from './longevity-marks.js?v=release100-c363-20261027';
 import {countrySourceId} from './country-source-ids.js';
-import {createLocalAtlasMotion,localAtlasSignal} from './local-atlas-motion.js?v=release100-c363-20261027';
+import {createLocalAtlasMotion,localAtlasSignal} from './local-atlas-motion.js?v=surface-release-2e596f2-20261028';
 import {createUrbanPanel,urbanData,urbanSourceId} from './urban-population.js?v=release100-c363-20261027';
 import {paintUrbanMarks} from './urban-marks.js?v=release100-c363-20261027';
-import {sharedAtlas90Motion,atlas90Signal} from './atlas90-motion.js?v=release100-c363-20261027';
+import {sharedAtlas90Motion,atlas90Signal} from './atlas90-motion.js?v=surface-release-2e596f2-20261028';
 
 const ids=['waterstress','cropland','yield','fertilizer','longevity','urban'];
 export function createLocalAtlas85({setYear,selectCountry,refresh}){

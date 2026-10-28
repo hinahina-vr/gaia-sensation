@@ -1,4 +1,4 @@
-import {COUNTRY_MOTION_PREFIX,createCountryThemeMotion} from './country-theme-motion.js?v=release100-c363-20261027';
+import {COUNTRY_MOTION_PREFIX,createCountryThemeMotion} from './country-theme-motion.js?v=surface-release-2e596f2-20261028';
 // Motion is an illustrative texture on the measured diagrams or event markers.
 // It is not a reconstruction of ocean velocity, eruption dynamics or tsunami travel.
 const base=COUNTRY_MOTION_PREFIX+`
@@ -47,24 +47,25 @@ void main(){
  float drift=sin(q.y*3.-t)*(.04+.09*(1.-d.b));
  float smoke=exp(-pow((q.x-drift)/plumeWidth,2.))*smoothstep(-.98,-.55,q.y)*(1.-smoothstep(.18,.40,q.y));
  float breath=.72+.14*sin(t+q.y*2.);
+ smoke*=.55+.65*surfaceField(vec2(q.x*7.,q.y*5.+time*.18));
  float mouth=exp(-pow(q.x*6.,2.)-pow((q.y-.32)*13.,2.));
  float lava=exp(-pow((abs(q.x)-(.34+q.y)*.26)*25.,2.))*smoothstep(.23,.38,q.y)*(1.-smoothstep(.78,.95,q.y));
  float sparks=0.;
  for(int i=0;i<4;i++){float k=float(i),phase=fract(time*.12+k*.27),yy=.26-phase*1.1,xx=sin(k*2.4+phase*3.)*.13;vec2 v=q-vec2(xx,yy);sparks+=exp(-dot(v,v)*1800.)*sin(phase*3.14159265);}
  vec3 ink=mix(vec3(.60,.55,.51),vec3(1.,.57,.19),clamp(mouth+lava+sparks,0.,1.));
- emit(ink,(smoke*.14*breath+mouth*.45+lava*.35+sparks*.6)*d.a);
+ emit(ink,(smoke*.24*breath+mouth*.62+lava*.48+sparks*.7)*d.a);
 }`;
 const tsunamis=base+`
 void main(){
  vec4 d=sampleMask();if(d.a<.02)discard;
  vec2 q=d.gb*2.-1.;float r=length(q),angle=atan(q.y,q.x);
- float phase=r*5.5-time*.44;
+ float phase=r*5.5-time*.44+.055*sin(angle*5.+time*.14)*r;
  float ridge=pow(.5+.5*cos(phase*TAU),19.);
  float shoulder=pow(.5+.5*cos(phase*TAU-.65),8.);
  float spread=smoothstep(.06,.18,r)*(1.-smoothstep(.66,.98,r));
  float arcs=.72+.28*sin(angle*3.+r*2.);
  vec3 ink=mix(vec3(.22,.65,.82),vec3(.77,.98,.94),ridge);
- emit(ink,(ridge*.34+shoulder*.055)*spread*arcs*d.a);
+ emit(ink,(ridge*.43+shoulder*.12)*spread*arcs*d.a);
 }`;
 export const ATLAS95_SHADERS=Object.freeze({oceanheat,ozone,glaciers,volcanoes,tsunamis});
 export const createAtlas95Motion=()=>createCountryThemeMotion({fragmentSources:ATLAS95_SHADERS});

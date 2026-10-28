@@ -4,7 +4,7 @@ import{foodCountryCopies,pickFoodCountry}from'./food-country-fill.js?v=whole-tre
 import{atlasColor,atlasRow}from'./atlas-history-model.js?v=release100-c363-20261027';
 import{drinkingArrival,paintDrinkingReadings}from'./drinking-water-reading.js?v=release100-c363-20261027';
 import{createMapTextLayer}from'./map-text-layer.js?v=country-text-halo-20261027';
-import{createDrinkingMotion}from'./drinking-motion-webgl.js?v=release100-c363-20261027';
+import{createDrinkingMotion}from'./drinking-motion-webgl.js?v=surface-release-2e596f2-20261028';
 import{SELECTABLE_COUNTRIES}from'./country-selection.js?v=release100-c363-20261027';
 
 export function createDrinkingMapView({sourceId=id=>id,sourceKey=()=>'',countryOverlay,uniquePoints=false,paintReadings=paintDrinkingReadings,waterMotion=false,selectable=false,motionFactory,encodeMotionValue}={}){
@@ -24,7 +24,7 @@ export function createDrinkingMapView({sourceId=id=>id,sourceKey=()=>'',countryO
    for(const s of shapes){
     const value=atlasRow(regions.get(s.id),year)?.value,access=atlasRow(originals.get(s.id),year)?.value;
     for(const copy of foodCountryCopies(view)){
-     c.save();c.translate(copy.x,copy.y);c.scale(view.scale,view.scale);c.globalAlpha=Number.isFinite(value)?.82:.14;c.fillStyle=atlasColor(definition,value);c.fill(s.path,'evenodd');countryOverlay?.(c,{shape:s,value,definition,view});c.globalAlpha=.48;c.strokeStyle='#a1d7d5';c.lineWidth=.65/view.scale;c.stroke(s.path);c.restore();
+     c.save();c.translate(copy.x,copy.y);c.scale(view.scale,view.scale);c.globalAlpha=Number.isFinite(value)?(motion?.68:.82):.14;c.fillStyle=atlasColor(definition,value);c.fill(s.path,'evenodd');countryOverlay?.(c,{shape:s,value,definition,view});c.globalAlpha=.48;c.strokeStyle='#a1d7d5';c.lineWidth=.65/view.scale;c.stroke(s.path);c.restore();
      const signal=motion?(encodeMotionValue?encodeMotionValue({definition,value,access,mode,row:atlasRow(regions.get(s.id),year)}):Number.isFinite(value)&&Number.isFinite(access)?[Math.max(0,Math.min(100,access))/100,Math.max(0,Math.min(1,(mode==='gap'||mode==='basic-gap')?(value+50)/100:value/100)),0]:null):null;
      if(signal){
       maskCtx.save();maskCtx.translate(copy.x,copy.y);maskCtx.scale(view.scale,view.scale);

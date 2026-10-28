@@ -1,10 +1,10 @@
-import {createLocalAtlas100} from './local-atlas100.js?v=release100-c363-20261027';
+import {createLocalAtlas100} from './local-atlas100.js?v=surface-release-2e596f2-20261028';
 import {centuryValue} from './atlas-century-model.js?v=release100-c363-20261027';
-import {createLocalAtlas95} from './local-atlas95.js?v=release100-c363-20261027';
+import {createLocalAtlas95} from './local-atlas95.js?v=surface-release-2e596f2-20261028';
 import {centuryDetail} from './atlas-century-model.js?v=release100-c363-20261027';
 import {selectableCountryData,selectionCountryId} from './country-selection.js?v=release100-c363-20261027';
-import {createLocalAtlas85} from './local-atlas85.js?v=release100-c363-20261027';
-import {createLocalAtlas90} from './local-atlas90.js?v=release100-c363-20261027';
+import {createLocalAtlas85} from './local-atlas85.js?v=surface-release-2e596f2-20261028';
+import {createLocalAtlas90} from './local-atlas90.js?v=surface-release-2e596f2-20261028';
 import { earthBaseScale, earthLongitudeToMapX } from "./world-projection.js?v=gaia-japan-center-1";
 import { decorateMapActions } from "./map-exhibit-actions.js?v=action-icons-ready-20260926";
 import { CLIMATE_EXHIBITS, BASINS, windMS, format, stormPeak, stormLabel, colorFor, coralInsight, cycloneInsight, statisticsFor, daysInYear } from "./climate-history-model.js?v=release100-c363-20261027";
@@ -15,21 +15,21 @@ import { createLakeView } from "./surface-water-view.js?v=sharp-map-text-2026102
 import { lakeFitCamera } from "./surface-water-spatial.js?v=lake-gis-20261022";
 import { poiArrival, poiArrivalDuration } from "./annual-poi-arrival.js?v=20260909";
 import { decodeWaterGrid, waterCellById, waterCellRegion, waterCellStatistics, waterCoordinates, waterRgba } from "./water-storage-grid.js?v=water-gis-20261022";
-import { createWaterStorageView } from "./water-storage-view.js?v=sharp-map-text-20261026";
+import { createWaterStorageView } from "./water-storage-view.js?v=surface-release-2e596f2-20261028";
 import { WATER_ARRIVAL_MS } from "./water-storage-poi.js?v=water-poi-20261023";
 import { createCoralHeatView, CORAL_ARRIVAL_MS } from "./coral-heat-view.js?v=coral-current-20261023";
 import {decodeTides,TIDE_GUIDE,tideReason,tideSource,tideStatistics} from './sea-level-stations.js?v=release100-c363-20261027';
-import {createSeaLevelView} from './sea-level-view.js?v=release100-c363-20261027';
+import {createSeaLevelView} from './sea-level-view.js?v=surface-release-2e596f2-20261028';
 import {SEA_ARRIVAL_MS} from './sea-level-marks.js?v=release100-c363-20261027';
 import {ELECTRICITY_MODES,electricityDefinition,electricityCountryNames,electricityData,electricityStatistics,createElectricityPanel} from './electricity-access.js?v=release100-c363-20261027';
-import {createElectricityMapView} from './electricity-map-view.js?v=release100-c363-20261027';
+import {createElectricityMapView} from './electricity-map-view.js?v=surface-release-2e596f2-20261028';
 import {ELECTRICITY_ARRIVAL_MS} from './electricity-country-marks.js?v=release100-c363-20261027';
 import {DRINKING_MODES,DRINKING_DEFAULT_MODE,drinkingIsBasic,drinkingIsGap,drinkingAvailableMode,drinkingDefinition,drinkingRow,drinkingData,drinkingStatistics,createDrinkingPanel} from './drinking-water.js?v=release100-c363-20261027';
-import {createDrinkingMapView} from './drinking-map-view.js?v=release100-c363-20261027';
+import {createDrinkingMapView} from './drinking-map-view.js?v=surface-release-2e596f2-20261028';
 import {DRINKING_ARRIVAL_MS} from './drinking-water-reading.js?v=release100-c363-20261027';
 import {createForestPanel,forestCountryNames,forestData,forestDefinition,forestStatistics,forestSigned,FOREST_MODES} from './forest-history.js?v=release100-c363-20261027';
 import {createSanitationPanel,sanitationData,sanitationDefinition,sanitationStatistics,SANITATION_MODES} from './sanitation-services.js?v=release100-c363-20261027';
-import {createCountryHistoryView} from './country-history-view.js?v=release100-c363-20261027';
+import {createCountryHistoryView} from './country-history-view.js?v=surface-release-2e596f2-20261028';
 import {createMapTextLayer} from './map-text-layer.js?v=country-text-halo-20261027';
 import {climatePlaybackInterval} from './climate-playback-timing.js?v=release100-c363-20261027';
 const local85=createLocalAtlas85({setYear:y=>{stopForInteraction();void setYear(y)},selectCountry:id=>{stopForInteraction();selectPoint(id)},refresh:()=>{stopForInteraction();sync();resume()}});
@@ -444,31 +444,31 @@ function paintScene(view, ratio, now,ctx) {
     hitPoints = coralView.paint(ctx, { regions: data.regions, year, selectedId, xy, scale, width: rect.width, height: rect.height, ratio, elapsed: coralArrival === null ? -1 : now - coralArrival, reduced: reduced.matches }), canvas.dataset.coralEngine = coralView.getState().engine;
   else if (isSea()) {
     const result=seaView.paint(ctx,{stations:tideData.regions,basins:data.regions,year,selectedId,view,ratio,labelHost:canvas,elapsed:atlasArrival===null?-1:now-atlasArrival,reduced:reduced.matches});
-    hitPoints=result.points;canvas.dataset.atlasGeometryState=result.state;canvas.dataset.atlasEngine=seaView.getState().engine;
+    hitPoints=result.points;publishCanvasState("atlasGeometryState", result.state);publishCanvasState("atlasEngine", seaView.getState().engine);
   } else if(isLocal100()){
     const result=local100.paint(ctx,{definition,data,year,month,selectedId,view,ratio,labelHost:canvas,elapsed:atlasArrival===null?-1:now-atlasArrival,reduced:reduced.matches});
-    hitPoints=result.points;canvas.dataset.atlasGeometryState=result.state;canvas.dataset.atlasEngine=local100.getState().engine;
+    hitPoints=result.points;publishCanvasState("atlasGeometryState", result.state);publishCanvasState("atlasEngine", local100.getState().engine);
   } else if(isLocal95()){
     const result=local95.paint(ctx,{definition,data,year,month,selectedId,view,ratio,labelHost:canvas,elapsed:atlasArrival===null?-1:now-atlasArrival,reduced:reduced.matches});
-    hitPoints=result.points;canvas.dataset.atlasGeometryState=result.state;canvas.dataset.atlasEngine=local95.getState().engine;
+    hitPoints=result.points;publishCanvasState("atlasGeometryState", result.state);publishCanvasState("atlasEngine", local95.getState().engine);
   } else if(isLocal90()){
     const result=local90.paint(ctx,{definition,data,year,month,selectedId,view,ratio,labelHost:canvas,elapsed:atlasArrival===null?-1:now-atlasArrival,reduced:reduced.matches});
-    hitPoints=result.points;canvas.dataset.atlasGeometryState=result.state;canvas.dataset.atlasEngine=local90.getState().engine;
+    hitPoints=result.points;publishCanvasState("atlasGeometryState", result.state);publishCanvasState("atlasEngine", local90.getState().engine);
   } else if(isLocal85()){
     const result=local85.paint(ctx,{definition:displayDefinition(),data:displayData(),original:data,year,selectedId,view,ratio,labelHost:canvas,elapsed:atlasArrival===null?-1:now-atlasArrival,reduced:reduced.matches});
-    hitPoints=result.points;canvas.dataset.atlasGeometryState=result.state;canvas.dataset.atlasEngine=local85.getState().engine;
+    hitPoints=result.points;publishCanvasState("atlasGeometryState", result.state);publishCanvasState("atlasEngine", local85.getState().engine);
   } else if(isForest()||isSanitation()){
     const result=countryHistoryView.paint(ctx,{definition:displayDefinition(),data:displayData(),original:selectionData(),services:sanitationServices,year,mode:isForest()?forestMode:sanitationMode,selectedId,view,ratio,labelHost:canvas,elapsed:atlasArrival===null?-1:now-atlasArrival,reduced:reduced.matches});
-    hitPoints=result.points;canvas.dataset.atlasGeometryState=result.state;canvas.dataset.atlasEngine=countryHistoryView.getState().engine;
+    hitPoints=result.points;publishCanvasState("atlasGeometryState", result.state);publishCanvasState("atlasEngine", countryHistoryView.getState().engine);
   } else if(isDrinking()){
     const result=drinkingView.paint(ctx,{definition:displayDefinition(),data:displayData(),original:selectionData(),comparison:drinkingComparisonFor(),year,mode:drinkingMode,selectedId,view,ratio,labelHost:canvas,elapsed:atlasArrival===null?-1:now-atlasArrival,reduced:reduced.matches});
-    hitPoints=result.points;canvas.dataset.atlasGeometryState=result.state;canvas.dataset.atlasEngine=drinkingView.getState().engine;
+    hitPoints=result.points;publishCanvasState("atlasGeometryState", result.state);publishCanvasState("atlasEngine", drinkingView.getState().engine);
   } else if(isElectricity()){
     const result=electricityView.paint(ctx,{definition:displayDefinition(),data:displayData(),original:data,year,mode:electricityMode,selectedId,view,ratio,labelHost:canvas,elapsed:atlasArrival===null?-1:now-atlasArrival,reduced:reduced.matches});
-    hitPoints=result.points;canvas.dataset.atlasGeometryState=result.state;canvas.dataset.atlasEngine=electricityView.getState().engine;
+    hitPoints=result.points;publishCanvasState("atlasGeometryState", result.state);publishCanvasState("atlasEngine", electricityView.getState().engine);
   } else if (isWater()) {
     const result = waterView.paint(ctx, { data: waterGrid, regions: data.regions, year, view,ratio,labelHost:canvas, elapsed: atlasArrival === null ? -1 : now - atlasArrival, reduced: reduced.matches, cell: waterSelection, region: selected() });
-    hitPoints = result.points, canvas.dataset.atlasGeometryState = result.state, canvas.dataset.atlasEngine = waterView.getState().engine;
+    hitPoints = result.points, publishCanvasState("atlasGeometryState", result.state), publishCanvasState("atlasEngine", waterView.getState().engine);
   } else if (isRegion())
     for (const [index, region] of data.regions.entries()) {
       const point = xy(region.lon, region.lat), row = region.years.find((y) => y.year === year);
@@ -493,11 +493,19 @@ function paintScene(view, ratio, now,ctx) {
       }
     }
   }
-  ctx.globalAlpha = 1, canvas.dataset.climateVisibleCount = String(new Set(hitPoints.map((p) => p.id)).size), canvas.dataset.climateRenderedYear = String(year), canvas.dataset.climatePaintCount = String(Number(canvas.dataset.climatePaintCount || 0) + 1);
+  ctx.globalAlpha = 1, publishCanvasState("climateVisibleCount", String(new Set(hitPoints.map((p) => p.id)).size)), publishCanvasState("climateRenderedYear", String(year)), canvas.dataset.climatePaintCount = String(Number(canvas.dataset.climatePaintCount || 0) + 1);
+}
+// Canvas state is also observed by controls; unchanged attributes do not
+// need to trigger those observers or style invalidation on every frame.
+function publishCanvasState(name, value) {
+  if (canvas.dataset[name] !== value) canvas.dataset[name] = value;
 }
 function draw(now) {
   if (frame = 0, !active || document.hidden || layer.hidden) return;
-  if (frame = requestAnimationFrame(draw), canvas.hidden = layer.matches(".is-map-title-transitioning, .is-map-data-intro"), canvas.hidden) {
+  frame = requestAnimationFrame(draw);
+  const introVisible = layer.matches(".is-map-title-transitioning, .is-map-data-intro");
+  if (canvas.hidden !== introVisible) canvas.hidden = introVisible;
+  if (introVisible) {
     countryEntryLayout = null, lastStep = now, isLake() && (lakeArrival = null, lakeView.setVisible(!1)), (isAtlas() || isCoral()) && (atlasArrival = coralArrival = null, atlasFade.reset());
     return;
   }
@@ -523,7 +531,7 @@ function draw(now) {
       lastStep = now;
       return;
     }
-    coralArrival ??= now, arriving = !reduced.matches && now - coralArrival < CORAL_ARRIVAL_MS, canvas.dataset.climateArrival = arriving ? "running" : "complete", arriving && (lastStep = now);
+    coralArrival ??= now, arriving = !reduced.matches && now - coralArrival < CORAL_ARRIVAL_MS, publishCanvasState("climateArrival", arriving ? "running" : "complete"), arriving && (lastStep = now);
   }
   if (isAtlas()) {
     if (document.querySelector("#japan-overlay").dataset.viewAnimation === "running" && atlasArrival === null) {
@@ -533,23 +541,23 @@ function draw(now) {
     const seaGeography = (isSea() || isCountryComparison()) ? globalThis.GaiaMapObservationAdapter?.getCountryGeometry?.()?.state : null;
     if((isSea() || isCountryComparison()) && seaGeography!=='ready' && seaGeography!=='error') geometryKey='';
     else atlasArrival ??= now;
-     arriving = atlasArrival === null || now - atlasArrival < (isWater() ? WATER_ARRIVAL_MS : isSea() ? SEA_ARRIVAL_MS : isForest()||isSanitation()||isLocal85() ? 1100 : isDrinking() ? DRINKING_ARRIVAL_MS : isElectricity() ? ELECTRICITY_ARRIVAL_MS : poiArrivalDuration(data.regions.length)), canvas.dataset.climateArrival = arriving ? "running" : "complete", arriving && (lastStep = now);
+     arriving = atlasArrival === null || now - atlasArrival < (isWater() ? WATER_ARRIVAL_MS : isSea() ? SEA_ARRIVAL_MS : isForest()||isSanitation()||isLocal85() ? 1100 : isDrinking() ? DRINKING_ARRIVAL_MS : isElectricity() ? ELECTRICITY_ARRIVAL_MS : poiArrivalDuration(data.regions.length)), publishCanvasState("climateArrival", arriving ? "running" : "complete"), arriving && (lastStep = now);
   }
   if (isLake()) {
     const moving = document.querySelector("#japan-overlay").dataset.viewAnimation === "running";
     if (moving && (lastStep = now), moving && lakeArrival === null) return;
-    lakeArrival ??= now, arriving = now - lakeArrival < poiArrivalDuration(data.regions.length), canvas.dataset.climateArrival = arriving ? "running" : "complete", arriving && (lastStep = now), !arriving && lakeAutoDetail && now - lakeArrival >= poiArrivalDuration(data.regions.length) + 700 && openLakeDetail(), lakeView.setVisible(!0), lakeView.paint(projection(), now), syncLakePanel();
+    lakeArrival ??= now, arriving = now - lakeArrival < poiArrivalDuration(data.regions.length), publishCanvasState("climateArrival", arriving ? "running" : "complete"), arriving && (lastStep = now), !arriving && lakeAutoDetail && now - lakeArrival >= poiArrivalDuration(data.regions.length) + 700 && openLakeDetail(), lakeView.setVisible(!0), lakeView.paint(projection(), now), syncLakePanel();
   }
   if (playing && now - lastStep >= climatePlaybackInterval(definition.id)) {
     const list = years();
     lastStep = now, setYear(list[(list.indexOf(year) + 1) % list.length]);
     return;
   }
-  const view = projection(), { rect } = view, ratio = Math.min(devicePixelRatio || 1, 1.5, Math.sqrt(18e5 / Math.max(1, rect.width * rect.height))), key = [definition.id, year, month, basin, selectedId, electricityMode, drinkingMode, forestMode, sanitationMode, isLocal85()?JSON.stringify(local85.getState().mode)+local85.getState().comparisonId:"", rect.width, rect.height, view.scale, view.x, view.y, ratio, (isCoral() || isSea() || isCountryComparison() || isLocal90() || isLocal95()) ? globalThis.GaiaMapObservationAdapter?.getCountryGeometry?.()?.state : ""].join("/"), flowing = ((isLocal100()&&local100.getState().engine==='webgl2') || (isLocal95()&&local95.getState().engine==='webgl2'&&local95.getState().maskShapes>0) || (isLocal90()&&local90.getState().engine==='webgl2') || (isLocal85()&&local85.getState().engine==='webgl2') || ((isForest()||isSanitation())&&countryHistoryView.getState().engine==='webgl2') || (isDrinking() && drinkingView.getState().engine==='webgl2') || (isElectricity() && electricityView.getState().engine==='webgl2') || isCoral() || (isSea() && globalThis.GaiaMapObservationAdapter?.getCountryGeometry?.()?.state === "ready")) && !reduced.matches;
+  const view = projection(), { rect } = view, ratio = Math.min(devicePixelRatio || 1, 1.5, Math.sqrt(18e5 / Math.max(1, rect.width * rect.height))), key = [definition.id, year, month, basin, selectedId, electricityMode, drinkingMode, forestMode, sanitationMode, isLocal85()?JSON.stringify(local85.getState().mode)+local85.getState().comparisonId:"", rect.width, rect.height, view.scale, view.x, view.y, ratio, (isCoral() || isSea() || isCountryComparison() || isLocal90() || isLocal95()) ? globalThis.GaiaMapObservationAdapter?.getCountryGeometry?.()?.state : ""].join("/"), flowing = ((isWater()&&waterView.getState().engine==='webgl2') || (isLocal100()&&local100.getState().engine==='webgl2') || (isLocal95()&&local95.getState().engine==='webgl2'&&local95.getState().maskShapes>0) || (isLocal90()&&local90.getState().engine==='webgl2') || (isLocal85()&&local85.getState().engine==='webgl2') || ((isForest()||isSanitation())&&countryHistoryView.getState().engine==='webgl2') || (isDrinking() && drinkingView.getState().engine==='webgl2') || (isElectricity() && electricityView.getState().engine==='webgl2') || isCoral() || (isSea() && globalThis.GaiaMapObservationAdapter?.getCountryGeometry?.()?.state === "ready")) && !reduced.matches;
   if (key === geometryKey && !arriving && !atlasFade.getState().active && !flowing) return;
   geometryKey = arriving ? "" : key;
   const width = Math.max(1, Math.round(rect.width * ratio)), height = Math.max(1, Math.round(rect.height * ratio));
-  canvas.width !== width && (canvas.width = width), canvas.height !== height && (canvas.height = height), paint(view, ratio, now), context.setTransform(1, 0, 0, 1, 0, 0), context.clearRect(0, 0, width, height), context.drawImage(buffer, 0, 0), atlasViewKey = [rect.width, rect.height, view.scale, view.x, view.y, ratio].join("/"), (isAtlas() || isCoral()) && atlasFade.paint(context, atlasViewKey, now, reduced.matches), canvas.dataset.yearFade = atlasFade.getState().active ? "running" : "complete";
+  canvas.width !== width && (canvas.width = width), canvas.height !== height && (canvas.height = height), paint(view, ratio, now), context.setTransform(1, 0, 0, 1, 0, 0), context.clearRect(0, 0, width, height), context.drawImage(buffer, 0, 0), atlasViewKey = [rect.width, rect.height, view.scale, view.x, view.y, ratio].join("/"), (isAtlas() || isCoral()) && atlasFade.paint(context, atlasViewKey, now, reduced.matches), publishCanvasState("yearFade", atlasFade.getState().active ? "running" : "complete");
   if(isElectricity())electricityView.presentLabels(atlasFade.getState());
   else if(isDrinking())drinkingView.presentLabels(atlasFade.getState());
   else if(isLocal100())local100.presentLabels(atlasFade.getState());

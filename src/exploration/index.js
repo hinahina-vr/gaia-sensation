@@ -10,7 +10,7 @@ import "./food-exhibits.js?v=whole-trends20-20261025";
 import "./map-theme-background.js?v=intro-fade-gate-20261022";
 import "./map-demo.js?v=intro-fade-gate-20261022";
 
-import "./climate-history-exhibits.js?v=release100-c363-20261027";
+import "./climate-history-exhibits.js?v=surface-release-2e596f2-20261028";
 
 globalThis.GaiaExploration = Object.freeze({ governor, live: globalThis.GaiaLiveData });
 void mount().catch((error) => console.error(error));
