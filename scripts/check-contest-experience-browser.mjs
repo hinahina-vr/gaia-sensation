@@ -451,6 +451,33 @@ try {
   assert.match(await guideEntryPage.evaluate(() => location.hash), /^#world(?:-01)?$/);
   await guideEntryPage.screenshot({ path: path.join(outputDir, "opening-data-entry-guide.png"), animations: "disabled" });
   await completeMapEntry(guideEntryPage);
+  // Sample the visible map during normal operation. The later lifecycle check
+  // deliberately loses WebGL, so its frames cannot represent normal rendering.
+  await guideEntryPage.waitForFunction(() => {
+    const layer = document.querySelector("#japan-layer");
+    return layer?.getAttribute("aria-hidden") === "false"
+      && !layer.matches(".is-map-title-transitioning, .is-map-data-intro")
+      && document.querySelector("#japan-overlay")?.dataset.renderLoopMode === "dynamic";
+  });
+  const frameTimes = await guideEntryPage.evaluate(() => new Promise((resolve) => {
+    const samples = [];
+    let previous;
+    const tick = (now) => {
+      if (previous !== undefined) samples.push(now - previous);
+      previous = now;
+      if (samples.length === 120) resolve(samples);
+      else requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }));
+  const sortedFrameTimes = [...frameTimes].sort((left, right) => left - right);
+  const medianFrameMs = sortedFrameTimes[Math.floor(sortedFrameTimes.length / 2)];
+  report.resilience.lod = {
+    route: new URL(guideEntryPage.url()).hash,
+    medianFps: 1000 / medianFrameMs,
+    minimumFrameRate,
+    activeLevel: await guideEntryPage.evaluate(() => document.documentElement.dataset.gaiaLod),
+  };
   report.entry.noBreathingEarthFlash = "passed";
   report.entry.guideCard = "passed";
   await guideEntryContext.close();
@@ -1243,20 +1270,7 @@ try {
     afterSustainedLow: "low",
     afterFatalFailure: "static",
   });
-  const frameTimes = await lifecyclePage.evaluate(() => new Promise((resolve) => {
-    const samples = [];
-    let previous = performance.now();
-    const tick = (now) => {
-      samples.push(now - previous);
-      previous = now;
-      if (samples.length >= 120) resolve(samples);
-      else requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
-  }));
-  const sortedFrameTimes = [...frameTimes].sort((left, right) => left - right);
-  const medianFrameMs = sortedFrameTimes[Math.floor(sortedFrameTimes.length / 2)];
-  report.resilience.lod = { deterministic: lodResult, medianFps: 1000 / medianFrameMs, minimumFrameRate, activeLevel: await lifecyclePage.evaluate(() => document.documentElement.dataset.gaiaLod) };
+  report.resilience.lod.deterministic = lodResult;
   assert(report.resilience.lod.medianFps >= minimumFrameRate, `median frame rate ${report.resilience.lod.medianFps.toFixed(1)}fps below ${minimumFrameRate}fps floor`);
   assert.notEqual(report.resilience.lod.activeLevel, "static", "normal Chrome must not fall back to static rendering");
   await lifecycleContext.close();
