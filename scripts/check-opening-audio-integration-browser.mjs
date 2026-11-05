@@ -15,6 +15,7 @@ fs.mkdirSync(outputDir, { recursive: true });
 
 const allViewports = [
   { name: "pc-1440", width: 1440, height: 900 },
+  { name: "pc-near-square", width: 1100, height: 1000 },
   { name: "pc-fullhd", width: 1920, height: 1080 },
   { name: "reference-1672", width: 1672, height: 941 },
   { name: "pc-4k", width: 3840, height: 2160 },
@@ -75,6 +76,14 @@ try {
     assert.equal(await page.locator("#gaia-opening-sound-gate").count(), 0, `${viewport.name}: separate sound screen remains`);
     await page.waitForFunction(() => __qaVisible(document.querySelector("#gaia-opening-sound-modal")));
     await page.waitForFunction(() => document.activeElement?.id === "gaia-opening-sound-on");
+    await page.evaluate(async () => {
+      const scene = document.querySelector(".gaia-opening-sound-scene > span");
+      const artUrl = getComputedStyle(scene).backgroundImage.match(/url\("([^"]+)"\)/u)?.[1];
+      if (!artUrl) throw new Error("Sound setup artwork is missing");
+      const artwork = new Image();
+      artwork.src = artUrl;
+      await Promise.all([artwork.decode(), document.fonts.ready]);
+    });
     await page.waitForTimeout(viewport.reduced ? 20 : 500);
 
     const initial = await page.evaluate(() => {
@@ -126,7 +135,9 @@ try {
         iconRects: Array.from(document.querySelectorAll(".gaia-opening-sound-option-button .gaia-opening-sound-icon-shell"), (icon) => icon.getBoundingClientRect().toJSON()),
         soundLabelRects: Array.from(document.querySelectorAll(".gaia-opening-sound-option-label"), (label) => label.getBoundingClientRect().toJSON()),
         scrimBackground: getComputedStyle(document.querySelector(".gaia-opening-sound-modal-scrim")).backgroundColor,
-        modalPlaceItems: getComputedStyle(document.querySelector("#gaia-opening-sound-modal")).placeItems,
+        modalPaddingBottom: Number.parseFloat(getComputedStyle(document.querySelector("#gaia-opening-sound-modal")).paddingBottom),
+        modalPaddingLeft: Number.parseFloat(getComputedStyle(document.querySelector("#gaia-opening-sound-modal")).paddingLeft),
+        modalPaddingRight: Number.parseFloat(getComputedStyle(document.querySelector("#gaia-opening-sound-modal")).paddingRight),
         choicesRect: readRect(".gaia-opening-sound-choices"),
         soundOnRect: readRect("#gaia-opening-sound-on"),
         soundOffRect: readRect("#gaia-opening-sound-off"),
@@ -166,18 +177,34 @@ try {
     assert(initial.modalRect.top >= -1 && initial.modalRect.bottom <= viewport.height + 1, `${viewport.name}: modal is outside the viewport vertically`);
     assert(initial.dialogRect.left >= -1 && initial.dialogRect.right <= viewport.width + 1, `${viewport.name}: sound dialog is outside the viewport`);
     assert(initial.dialogRect.top >= -1 && initial.dialogRect.bottom <= viewport.height + 1, `${viewport.name}: sound dialog is outside the viewport vertically`);
-    assert.equal(initial.scrimBackground, "rgba(3, 17, 27, 0.56)", `${viewport.name}: sound backdrop lost its blue-hour tint`);
+    const compactPortrait = viewport.width <= 720 && viewport.height >= viewport.width;
+    const splitDesktop = viewport.width >= 900 && viewport.height >= 521;
     const shortLandscape = viewport.width > viewport.height && viewport.width <= 960 && viewport.height <= 520;
-    assert.equal(initial.modalPlaceItems, "center", `${viewport.name}: sound dialog alignment is incorrect`);
-    assert(Math.abs((initial.dialogRect.left + initial.dialogRect.right) / 2 - viewport.width / 2) <= 1, `${viewport.name}: sound dialog is not horizontally centered`);
-    assert(Math.abs((initial.dialogRect.top + initial.dialogRect.bottom) / 2 - viewport.height / 2) <= 2, `${viewport.name}: sound setup must be vertically centered`);
+    const dialogCenter = (initial.dialogRect.left + initial.dialogRect.right) / 2;
+    if (splitDesktop) {
+      const innerWidth = initial.modalRect.width - initial.modalPaddingLeft - initial.modalPaddingRight;
+      const settingsColumnWidth = innerWidth * 0.382;
+      assert(Math.abs(dialogCenter - initial.modalPaddingLeft - settingsColumnWidth / 2) <= 2, `${viewport.name}: sound dialog is outside its left column`);
+      assert(initial.dialogRect.width <= settingsColumnWidth + 1, `${viewport.name}: sound dialog extends into the artwork area`);
+    } else {
+      assert(Math.abs(dialogCenter - viewport.width / 2) <= 1, `${viewport.name}: sound dialog is not horizontally centered`);
+    }
+    if (compactPortrait) {
+      const artBoundary = initial.modalRect.top + initial.modalRect.height * 0.618;
+      const lastFittingTop = initial.modalRect.bottom - initial.modalPaddingBottom - initial.dialogRect.height;
+      assert(Math.abs(initial.dialogRect.top - Math.min(artBoundary, lastFittingTop)) <= 2, `${viewport.name}: sound setup misses its artwork boundary`);
+      assert(initial.dialogRect.height <= 250 && initial.dialogRect.top >= viewport.height / 2, `${viewport.name}: sound setup covers too much of the character artwork`);
+    } else {
+      if (!splitDesktop) assert.equal(initial.scrimBackground, "rgba(3, 17, 27, 0.56)", `${viewport.name}: sound backdrop lost its blue-hour tint`);
+      assert(Math.abs((initial.dialogRect.top + initial.dialogRect.bottom) / 2 - viewport.height / 2) <= 2, `${viewport.name}: sound setup must be vertically centered`);
+    }
     assert.equal(initial.dialogBackground, "rgba(0, 0, 0, 0)", `${viewport.name}: a large opaque settings panel returned`);
     assert.equal(initial.dialogBorder, "0px");
     assert.equal(initial.dialogBackgroundImage, "none", `${viewport.name}: shared rectangular surface obscures the clipped terminal panel`);
     assert(initial.dialogRect.width <= 780, `${viewport.name}: sound setup is too wide`);
     assert.equal(initial.flourishCount, 0, "Retired ornamental flourishes returned");
     assert.equal(initial.soundKicker, "惑星の放課後");
-    if (shortLandscape) assert(initial.soundOnRect.right < initial.soundOffRect.left, `${viewport.name}: landscape choices must stay side by side`);
+    if (compactPortrait || shortLandscape) assert(initial.soundOnRect.right < initial.soundOffRect.left, `${viewport.name}: compact choices must stay side by side`);
     else assert(initial.soundOnRect.bottom < initial.soundOffRect.top, `${viewport.name}: sound choices must form two invitation rows`);
     assert(initial.volumeRect.bottom <= initial.choicesRect.top, `${viewport.name}: volume must precede the choices without overlap`);
     assert(initial.volumeRect.left >= initial.dialogRect.left && initial.volumeRect.right <= initial.dialogRect.right, `${viewport.name}: volume escapes the terminal`);
@@ -185,10 +212,10 @@ try {
       const card = [initial.soundOnRect, initial.soundOffRect][index];
       const icon = initial.iconRects[index];
       const label = initial.soundLabelRects[index];
-      assert(icon.width >= 28, `${viewport.name}: sound icon is too small`);
+      assert(icon.width >= (compactPortrait ? 22 : 28), `${viewport.name}: sound icon is too small`);
       assert(icon.right < label.left, `${viewport.name}: icon and label overlap`);
       assert(label.left >= card.left && label.right <= card.right, `${viewport.name}: choice text overflows`);
-      assert(icon.top >= card.top && icon.bottom + 12 <= card.bottom, `${viewport.name}: icon and ON/OFF caption escape the card`);
+      assert(icon.top >= card.top && icon.bottom + (compactPortrait ? 0 : 12) <= card.bottom, `${viewport.name}: sound icon escapes the card`);
     }
     for (const rect of [initial.soundOnRect, initial.soundOffRect]) {
       assert(rect.width >= 44 && rect.height >= 44, `${viewport.name}: sound action hit area is smaller than 44px`);
